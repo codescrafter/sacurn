@@ -20,13 +20,17 @@
   padding: 0;
   box-sizing: border-box;
 }
-.indicators {
-  position: absolute;
-  bottom: 20px;
-  left: 36px;
-  display: flex;
-  justify-content: center;
-}
+
 .indicator.active {
   background-color: transparent !important;
+}
+.horizontal-bullets .indicators {
+  position: absolute;
+  left: 36px;
+  bottom: 20px;
+}
+.vertical-bullets .indicators {
+  position: absolute;
+  left: 40%;
+  bottom: 14px;
 }
