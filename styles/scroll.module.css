@@ -1,0 +1,22 @@
+/* width */
+.latestNews::-webkit-scrollbar {
+  width: 5px;
+  position: absolute;
+}
+
+/* Track */
+.latestNews::-webkit-scrollbar-track {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle */
+.latestNews::-webkit-scrollbar-thumb {
+  background: #ffd600;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.latestNews::-webkit-scrollbar-thumb:hover {
+  background: #ffd600;
+}

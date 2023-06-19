@@ -37,25 +37,3 @@
 
 
  
-/* width */
-::-webkit-scrollbar {
-  width: 5px;
-  padding-left:10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #888;
-  border-radius: 5px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #FFD600;
-  border-radius: 5px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #FFD600;
-}
