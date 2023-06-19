@@ -22,7 +22,7 @@ module.exports = {
         "info-box":
           "linear-gradient(90deg, rgba(0, 84, 135, 0) 0%, rgba(0, 84, 135, 0.5418) 27.15%, rgba(0, 84, 135, 0.63) 52.73%, rgba(0, 84, 135, 0.5418) 76.22%, rgba(0, 84, 135, 0) 100.23%)",
         "news-box": "linear-gradient(90deg,#FFFFFF87,#E7E7E7,#FFFFFF87)",
-        "bottom-note": "linear-gradient(270deg,#005487,#959595,transparent)",
+        "bottom-note": "linear-gradient(270deg,#005487 0%,transparent 100%)",
       },
       blur: {
         xxs: "0.5px",
@@ -33,11 +33,13 @@ module.exports = {
         3.1: "12.5px",
         3.5: "14px",
         6.2: "25px",
+        7.5:"30px",
         7.7: "31px",
         8.2: "33px",
         8.5: "34px",
         9.5: "38px",
         10.5: "42px",
+        10.7:"43px",
         11.5: "46px",
         12.7: "51px",
         17: "68px",
