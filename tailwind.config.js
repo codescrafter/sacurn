@@ -44,6 +44,7 @@ module.exports = {
       white: "#FFFFFF",
       "slate-blue-grey": "#A2A3A9",
       black: "#000000",
+      "pale-yellow": "#FFD600",
     },
   },
   plugins: [],

@@ -19,18 +19,5 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-.indicator.active {
-  background-color: transparent !important;
-}
-.horizontal-bullets .indicators {
-  position: absolute;
-  left: 36px;
-  bottom: 20px;
-}
-.vertical-bullets .indicators {
-  position: absolute;
-  left: 40%;
-  bottom: 14px;
+  color: white;
 }
