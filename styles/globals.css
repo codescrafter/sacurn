@@ -34,3 +34,34 @@
   left: 40%;
   bottom: 14px;
 }
+
+
+/* width */
+.latestNews::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.latestNews::-webkit-scrollbar-track {
+  background: #1E1E1E;
+  border-radius: 5px;
+}
+
+/* Handle */
+.latestNews::-webkit-scrollbar-thumb {
+  background: #ffd600;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.latestNews::-webkit-scrollbar-thumb:hover {
+  background: #ffd600;
+}
+
+/*Fire Fox */
+
+.latestNews{
+  scrollbar-width:thin;
+  scrollbar-color: #ffd600 #1E1E1E;
+  scrollbar-gutter: stable;
+}
