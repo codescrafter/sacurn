@@ -9,6 +9,7 @@ const LandingPage = () => {
       <Navbar className="pt-4 mb-9.5" />
       <InfoBar />
       {/* h-[43%] */}
+      {/* <div className="bg-dark-green invisible"></div> */}
       <div className="relative w-[54%]  max-h-[418px] bg-black bg-opacity-[0.15] ml-19">
         <VerticalSlider />
       </div>
