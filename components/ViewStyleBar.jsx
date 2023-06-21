@@ -1,28 +1,45 @@
 import { useState } from "react";
 import Image from "next/image";
-import filter from '@/public/images/products-page/filter.svg'
+import filter from "@/public/images/products-page/filter.svg";
+import search from "@/public/images/products-page/search.svg";
 
 function ViewStyleBar(props) {
-  let [active, setActive] = useState("white");
+  
+
   return (
-    <div className="flex flex-row h-auto">
+    <div className="flex flex-row h-auto w-[98%]">
+        {console.log(props.activeColor)}
       {styles.map((style) => {
         return (
           <div
             className={`bg-${
               style["color"]
             } rounded-3xl text-center visible my-auto mr-5.7 h-[60%] hover:cursor-pointer ${
-              active === style["color"] ? `w-51 py-2.2 h-[100%]` : `w-22.5`
+              props.activeColor === style["color"] ? `w-51 py-2.2 h-[99%]` : `w-22.5`
             }`}
-            onClick={() => {
-              setActive(style["color"]);
-            }}
+            onClick={()=>props.setDisplay(style["color"])}
           >
-            <p className={`${active==='white' ? 'text-black':'text-white'} text-xs ${active === style["color"] ? 'visible':'invisible'}`}>{style["text"]}</p>
+            <p
+              className={`${
+                props.activeColor === "white" ? "text-black" : "text-white"
+              } text-xs ${props.activeColor === style["color"] ? "visible" : "invisible"}`}
+            >
+              {style["text"]}
+            </p>
           </div>
         );
       })}
-      {/* <div className="rounded-full  bg-light-grey"><Image className="h-[70%]" src={filter}/></div> */}
+      <div className="rounded-full  bg-light-grey ml-2.5 mr-5.7 py-1.9 px-2">
+        <Image className="h-auto" src={filter} />
+      </div>
+      <div className="rounded-3xl flex flex-row bg-light-grey w-auto pl-1.5 my-auto px-auto h-[85%]">
+        <input
+          type="text"
+          className="bg-transparent rounded-3xl pl-3 w-[75%] outline-none text-black"
+        />
+        <div className="my-auto ml-6 mr-3.7 h-[70%] w-[1px] bg-dark-grey" />
+        <Image className="h-auto hover:cursor-pointer" src={search} />
+      </div>
     </div>
   );
 }

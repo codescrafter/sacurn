@@ -9,7 +9,7 @@ const NewsPage = () => {
       <InfoBar />
       <div className="relative flex flex-row pl-19.7 pr-10.7 pt-12.7  h-[70%] w-full">
         <div
-          className={`latestNews pr-7.5 overflow-scroll overflow-x-hidden`}
+          className={`yellowScroll pr-7.5 overflow-scroll overflow-x-hidden`}
         >
           <div className="bg-news-box px-7.7">
             <News />
