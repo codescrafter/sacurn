@@ -23,6 +23,10 @@ module.exports = {
           "linear-gradient(90deg, rgba(0, 84, 135, 0) 0%, rgba(0, 84, 135, 0.5418) 27.15%, rgba(0, 84, 135, 0.63) 52.73%, rgba(0, 84, 135, 0.5418) 76.22%, rgba(0, 84, 135, 0) 100.23%)",
         "news-box": "linear-gradient(90deg,#FFFFFF87,#E7E7E7,#FFFFFF87)",
         "bottom-note": "linear-gradient(270deg,#005487 0%,transparent 100%)",
+        slider:
+          "linear-gradient(90deg, rgba(217, 217, 217, 0.1) 0%, rgba(217, 217, 217, 0.5) 48.44%, rgba(217, 217, 217, 0.1) 100%)",
+        "multi-slide":
+          "linear-gradient(89.71deg, #D9D9D9 69.19%, rgba(217, 217, 217, 0) 99.76%)",
       },
       blur: {
         xxs: "0.5px",
