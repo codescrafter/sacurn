@@ -5,7 +5,7 @@ import product3 from "@/public/images/products-page/product3.png"
 import downloadPic from "@/public/images/products-page/download.svg"
 import locationPic from "@/public/images/products-page/location.svg"
 
-function Products(props) {
+function ProductsListView(props) {
   return (
     <div className="bg-transparent flex flex-col">
       {products.map((product,index) => {
@@ -38,7 +38,7 @@ function Products(props) {
   );
 }
 
-export default Products;
+export default ProductsListView;
 
 const color_boundary = ["pale-yellow", "navy-blue", "dark-green"];
 

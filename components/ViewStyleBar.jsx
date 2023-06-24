@@ -7,7 +7,7 @@ function ViewStyleBar(props) {
   
 
   return (
-    <div className="flex flex-row h-auto w-[98%]">
+    <div className="flex justify-end flex-row h-auto w-[98%]">
         {console.log(props.activeColor)}
       {styles.map((style) => {
         return (
