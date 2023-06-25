@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontSize: {
         mdlg: ["17px", "26px"],
+        "1.5xl": ["22px", "30px"],
         "2.5xl": ["27px", "34px"],
         "3.5xl": ["33px", "38px"],
         "4.5xl": ["44px", "44px"],
@@ -80,6 +81,8 @@ module.exports = {
         37: "148px",
         47.2: "189px",
         51: "204px",
+        53: "212px",
+        53.5: "214px",
         59.2: "237px",
         74.7: "299px",
       },
