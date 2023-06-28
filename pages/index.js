@@ -9,6 +9,7 @@ import MultiSlideSlider from "@/components/MultiSlideSlider";
 const LandingPage = () => {
   return (
     <div className="w-screen min-h-screen bg-no-repeat bg-cover bg-[url('/images/landing-page/landing-page-bg.png')] h-screen">
+      <div className="bg-dark-green invisible"></div>
       <Navbar className="pt-4 mb-9.5" />
       <InfoBar />
       <div className="flex justify-between ml-[4.3%] mt-2.5 gap-[5.9%]">
