@@ -30,7 +30,7 @@ function ViewStyleBar(props) {
         );
       })}
       <div className="rounded-full  bg-light-grey ml-2.5 mr-5.7 py-1.9 px-2">
-        <Image className="h-auto" src={filter} />
+        <Image className="xl:w-auto xl:h-auto w-5 h-5" src={filter} />
       </div>
       <div className="rounded-3xl flex flex-row bg-light-grey w-auto pl-1.5 my-auto px-auto h-[85%]">
         <input
@@ -38,7 +38,7 @@ function ViewStyleBar(props) {
           className="bg-transparent rounded-3xl pl-3 w-[75%] outline-none text-black"
         />
         <div className="my-auto ml-6 mr-3.7 h-[70%] w-[1px] bg-dark-grey" />
-        <Image className="h-auto hover:cursor-pointer" src={search} />
+        <Image className="h-auto hover:cursor-pointer 2xl:-translate-x-0 -translate-x-2" src={search} />
       </div>
     </div>
   );
