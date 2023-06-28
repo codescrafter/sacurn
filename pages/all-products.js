@@ -33,7 +33,8 @@ function AllProducts(props) {
             {display=='list-view' && <div className="yellowScrollNoBg mr-1 pr-5.5 mt-10.7 mb-15.7 overflow-scroll overflow-x-hidden ">
             <ProductsListView/>
             </div>}
-            <ProductDeatilView/>
+            {display=='detail-view' && <ProductDeatilView/>}
+            
         </div>
       </div>
     </div>
