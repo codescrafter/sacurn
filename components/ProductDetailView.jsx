@@ -9,7 +9,7 @@ import standard2 from "@/public/images/products-page/standard2.svg";
 
 function ProductDeatilView(props) {
   return (
-    <div className="relative w-full flex flex-col 2xl:mt-37 xl:mt-24">
+    <div className="relative w-full flex flex-col 2xl:mt-37 xl:mt-24 mt-18">
       <div className="w-full flex flex-row justify-between">
         <div className="flex flex-col">
           <h1 className="2xl:text-4.5xl xl:text-2xl text-1.5xl">
@@ -28,9 +28,9 @@ function ProductDeatilView(props) {
           </div>
         </div>
       </div>
-        <div className="flex flex-row 2xl:mt-7.7 xl:mt-4 justify-end pb-2">
-          <div className="relative flex flex-col items-end 2xl:-translate-x-6 xl:-translate-x-2 -translate-x-2">
-            <div className="relative styledDiv 2xl:py-5.2 xl:py-2.2 2xl:px-17.7 xl:px-14  items-center 2xl:mb-4 xl:mb-2 py-2 mb-2 px-13">
+        <div className="flex flex-row 2xl:mt-7.7 xl:mt-4 mt-3 justify-end pb-2">
+          <div className="relative flex flex-col items-end 2xl:-translate-x-4 xl:-translate-x-2 -translate-x-2">
+            <div className="relative styledDiv 2xl:py-5.2 xl:py-2.2 2xl:px-17.7 xl:px-14  items-center 2xl:mb-4 xl:mb-2 py-2 mb-2 px-8">
               <h1 className="2xl:text-3.5xl xl:text-1.5xl mb-3.2 font-medium text-xl">
                 Profile
               </h1>
@@ -44,15 +44,15 @@ function ProductDeatilView(props) {
               </div>
             </div>
             <div className="flex flex-col items-center xl:py-4.7 2xl:pl-4 pl-0 2xl:pr-6.2 xl:pr-2.5 xl:h-full styledDiv py-3 pr-1.5">
-              <Image className="2xl:mb-2.7 xl:mb-1.5 2xl:h-auto 2xl:w-auto xl:h-8 xl:w-8 h-7 w-7" src={methodology} />
+              <Image className="2xl:mb-2.7 xl:mb-1.5 mb-1 2xl:h-auto 2xl:w-auto xl:h-8 xl:w-8 h-7 w-7" src={methodology} />
               <div className="text-right">
-                <h1 className="2xl:text-3.5xl xl:text-2.5xl font-medium mb-0.5 text-2.5xl">
+                <h1 className="2xl:text-3.5xl xl:text-2.5xl font-medium mb-0.5 text-1.5xl">
                   Methodology
                 </h1>
                 <h3 className="2xl:text-2xl xl:text-xl font-medium  mb-0.7 text-lg">
                   {product.methodology}
                 </h3>
-                <p className="2xl:w-59.2 xl:w-51 xl:text-xs text-xs 2xl:mb-2.5 xl:mb-4 font-thin w-51">
+                <p className="2xl:w-59.2 xl:w-51 xl:text-xs text-xs 2xl:mb-2.5 xl:mb-4 font-thin w-40">
                   {product.methodology_explaination}
                 </p>
               </div>
@@ -63,29 +63,29 @@ function ProductDeatilView(props) {
               <h1 className="2xl:text-3.5xl xl:text-2.5xl font-medium mt-6.2 ml-13 mb-3.5 text-2xl">
                 About
               </h1>
-              <div className="flex flex-row xl:mb-8.2 xl:mr-6.5">
+              <div className="flex flex-row xl:mb-8.2 xl:mr-6.5 mb-7.5 mr-6">
                 <div className="px-0.5 h-[60%] rounded-md bg-white ml-6.7 mr-4.2"></div>
-                <p className="2xl:max-w-[640px] 2xl:w-auto xl:min-w-[400px] xl:max-w-[630px] xl:w-auto min-w-[250px] max-w-[400px]  2xl:text-2xl xl:text-base text-sm lg:max-w-[500px] lg:w-auto">
+                <p className="2xl:max-w-[640px] 2xl:w-auto xl:min-w-[400px] xl:max-w-[630px] xl:w-auto min-w-[200px] max-w-[500px] w-auto  2xl:text-2xl xl:text-base text-sm ">
                   {product.about}
                 </p>
               </div>
             </div>
-            <div className="flex flex-row h-auto w-full">
-              <div className="flex flex-col border border-white mt-2.5">
+            <div className="flex flex-row justify-between h-auto w-full">
+              <div className="flex flex-col border border-white 2xl:mt-4 mt-2">
                 <Image
-                  className="2xl:mx-11.5 2xl:h-auto 2xl:w-auto xl:mx-4.5 xl:h-[50%] xl:w-[50%] lg:mx-4.5 mt-4.7 hover:cursor-pointer"
+                  className="2xl:mx-11.5 2xl:h-auto 2xl:w-auto xl:mx-4.5 xl:h-[50%] xl:w-[50%] h-[45%] w-[45%] mx-5 mt-4.7 hover:cursor-pointer"
                   src={playbutton}
                 />
-                <p className="mx-auto 2xl:text-auto xl:text-xs mb-1.2">
+                <p className="mx-auto 2xl:text-auto xl:text-xs text-xxs mb-1.2">
                   Watch Video
                 </p>
               </div>
               <Image
-                className="2xl:w-52 xl:w-52 lg:w-52 mx-auto"
+                className="2xl:w-52 xl:w-52 w-40 mx-auto"
                 src={standard1}
               />
               <Image
-                className="2xl:w-28 xl:w-28 lg:w-28 mx-auto"
+                className="2xl:w-28 xl:w-28 w-20 mx-auto"
                 src={standard2}
               />
             </div>
