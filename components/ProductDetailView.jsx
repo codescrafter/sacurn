@@ -9,68 +9,90 @@ import standard2 from "@/public/images/products-page/standard2.svg";
 
 function ProductDeatilView(props) {
   return (
-    <div className="relative w-full flex flex-col mt-37">
+    <div className="relative w-full flex flex-col 2xl:mt-37 xl:mt-24">
       <div className="w-full flex flex-row justify-between">
         <div className="flex flex-col">
-          <h1 className="2xl:text-4.5xl xl:text-3.5xl lg:text-3.5xl">{product.name}</h1>
-          <p className="2xl:text-2.5xl xl:text-1.5xl lg:text-1.5xl font-thin">{product.developer}</p>
+          <h1 className="2xl:text-4.5xl xl:text-2xl text-1.5xl">
+            {product.name}
+          </h1>
+          <p className="2xl:text-2.5xl xl:text-lg text-base font-thin">
+            {product.developer}
+          </p>
         </div>
         <div className="flex flex-col justify-end">
           <div className="flex flex-row ">
-            <div className="flex rounded-full bg-pale-yellow h-12.7 w-12.7 hover:cursor-pointer">
-              <Image className="mx-auto" src={plus} />
+            <div className="flex rounded-full bg-pale-yellow 2xl:h-12.7 xl:h-8  2xl:w-12.7 xl:w-8  hover:cursor-pointer w-6 h-6">
+              <Image className="mx-auto my-auto 2xl:h-auto 2xl:w-auto xl:w-4 xl:h-4 w-2 h-2" src={plus} />
             </div>
-            <p className="text-pale-yellow ml-2 my-auto">購買</p>
+            <p className="text-pale-yellow ml-2 my-auto text-sm">購買</p>
           </div>
         </div>
       </div>
-      <div className="flex flex-row mt-7.7 ">
-        <div className="relative flex flex-col items-end 2xl:-translate-x-6 xl:-translate-x-4 lg:-translate-x-4">
-          <div className="relative styledDiv py-5.2 2xl:px-17.7 xl:px-10 lg:px-10 items-center mb-4">
-            <h1 className="2xl:text-3.5xl xl:text-2.5xl lg:text-2.5xl mb-3.2 font-medium">Profile</h1>
-            <div className="flex flex-row mb-3">
-              <Image className="mr-2.5" src={location} />
-              <p className="text-base">{product.profile.country}</p>
+        <div className="flex flex-row 2xl:mt-7.7 xl:mt-4 justify-end pb-2">
+          <div className="relative flex flex-col items-end 2xl:-translate-x-6 xl:-translate-x-2 -translate-x-2">
+            <div className="relative styledDiv 2xl:py-5.2 xl:py-2.2 2xl:px-17.7 xl:px-14  items-center 2xl:mb-4 xl:mb-2 py-2 mb-2 px-13">
+              <h1 className="2xl:text-3.5xl xl:text-1.5xl mb-3.2 font-medium text-xl">
+                Profile
+              </h1>
+              <div className="flex flex-row mb-3">
+                <Image className="2xl:mr-2.5 xl:mr-1 2xl:w-auto 2xl:h-auto xl:w-3 xl:h-3.5 mr-1 w-3 h-3.5" src={location} />
+                <p className="2xl:text-base xl:text-xs text-xs">{product.profile.country}</p>
+              </div>
+              <div className="flex flex-row">
+                <Image className="2xl:mr-1.2 xl:mr-1  2xl:w-auto 2xl:h-auto xl:w-3 xl:h-3.5 mr-1 w-3 h-3.5" src={verified} />
+                <p className="2xl:text-base xl:text-xs text-xs">{product.profile.verification}</p>
+              </div>
             </div>
-            <div className="flex flex-row">
-              <Image className="mr-1.2" src={verified} />
-              <p className="text-base">{product.profile.verification}</p>
-            </div>
-          </div>
-          <div className="flex flex-col items-center py-4.7 2xl:pl-4 pl-0 2xl:pr-6.2 xl:pr-3.5 lg:pr-3.5 styledDiv">
-            <Image className="mb-2.7" src={methodology} />
-            <div className="text-right">
-              <h1 className="2xl:text-3.5xl xl:text-2.5xl lg:text-2.5xl font-medium mb-2">Methodology</h1>
-              <h3 className="2xl:text-2xl xl:text-1.5xl lg:text-1.5xl font-medium  mb-0.7">
-                {product.methodology}
-              </h3>
-              <p className="2xl:w-59.2 xl:w-51 lg:w-51 text-base mb-2.5 font-thin">
-                {product.methodology_explaination}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <div className="border border-white flex flex-col">
-            <h1 className="2xl:text-3.5xl xl:text-3xl lg:text-3xl font-medium mt-6.2 ml-13 mb-3.5">
-              About
-            </h1>
-            <div className="flex flex-row mb-8.2 mr-6.5">
-              <div className="px-0.5 h-[60%] rounded-md bg-white ml-6.7 mr-4.2"></div>
-              <p className="2xl:max-w-[640px] 2xl:w-auto xl:min-w-[400px] xl:max-w-[500px] xl:w-auto 2xl:text-2xl xl:text-xl lg:min-w-[400px] lg:max-w-[500px] lg:w-auto lg:text-xl">{product.about}</p>
+            <div className="flex flex-col items-center xl:py-4.7 2xl:pl-4 pl-0 2xl:pr-6.2 xl:pr-2.5 xl:h-full styledDiv py-3 pr-1.5">
+              <Image className="2xl:mb-2.7 xl:mb-1.5 2xl:h-auto 2xl:w-auto xl:h-8 xl:w-8 h-7 w-7" src={methodology} />
+              <div className="text-right">
+                <h1 className="2xl:text-3.5xl xl:text-2.5xl font-medium mb-0.5 text-2.5xl">
+                  Methodology
+                </h1>
+                <h3 className="2xl:text-2xl xl:text-xl font-medium  mb-0.7 text-lg">
+                  {product.methodology}
+                </h3>
+                <p className="2xl:w-59.2 xl:w-51 xl:text-xs text-xs 2xl:mb-2.5 xl:mb-4 font-thin w-51">
+                  {product.methodology_explaination}
+                </p>
+              </div>
             </div>
           </div>
-          <div className="flex flex-row h-full w-full">
-            <div className="flex flex-col border border-white mt-2.5">
-              <Image className="2xl:mx-11.5 xl:mx-4.5 lg:mx-4.5 mt-4.7 hover:cursor-pointer" src={playbutton} />
-              <p className="mx-auto 2xl:text-auto xl:text-sm mb-1.2">Watch Video</p>
+          <div className="flex flex-col">
+            <div className="border border-white flex flex-col">
+              <h1 className="2xl:text-3.5xl xl:text-2.5xl font-medium mt-6.2 ml-13 mb-3.5 text-2xl">
+                About
+              </h1>
+              <div className="flex flex-row xl:mb-8.2 xl:mr-6.5">
+                <div className="px-0.5 h-[60%] rounded-md bg-white ml-6.7 mr-4.2"></div>
+                <p className="2xl:max-w-[640px] 2xl:w-auto xl:min-w-[400px] xl:max-w-[630px] xl:w-auto min-w-[250px] max-w-[400px]  2xl:text-2xl xl:text-base text-sm lg:max-w-[500px] lg:w-auto">
+                  {product.about}
+                </p>
+              </div>
             </div>
-            <Image className="2xl:w-52 xl:w-52 lg:w-52 mx-auto" src={standard1} />
-            <Image className="2xl:w-28 xl:w-28 lg:w-28 mx-auto" src={standard2} />
+            <div className="flex flex-row h-auto w-full">
+              <div className="flex flex-col border border-white mt-2.5">
+                <Image
+                  className="2xl:mx-11.5 2xl:h-auto 2xl:w-auto xl:mx-4.5 xl:h-[50%] xl:w-[50%] lg:mx-4.5 mt-4.7 hover:cursor-pointer"
+                  src={playbutton}
+                />
+                <p className="mx-auto 2xl:text-auto xl:text-xs mb-1.2">
+                  Watch Video
+                </p>
+              </div>
+              <Image
+                className="2xl:w-52 xl:w-52 lg:w-52 mx-auto"
+                src={standard1}
+              />
+              <Image
+                className="2xl:w-28 xl:w-28 lg:w-28 mx-auto"
+                src={standard2}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    // </div>
   );
 }
 
