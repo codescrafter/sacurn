@@ -10,7 +10,7 @@ module.exports = {
       fontSize: {
         xxs: ["8px", "12px"],
         mdlg: ["17px", "26px"],
-        
+
         "1.5xl": ["22px", "30px"],
         "2.5xl": ["27px", "34px"],
         "3.5xl": ["33px", "38px"],
@@ -87,6 +87,7 @@ module.exports = {
         53.5: "214px",
         59.2: "237px",
         74.7: "299px",
+        100: "400px",
       },
     },
     colors: {

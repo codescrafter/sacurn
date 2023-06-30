@@ -25,8 +25,8 @@ const MultiSlideSlider = () => {
   //   when page loads, make
 
   return (
-    <div className="mix-blend-hard-light bg-slider relative pt-5 pb-[52px] pl-8">
-      <div className="absolute z-20 left-9 bottom-3 gap-3.5 flex">
+    <div className="mix-blend-hard-light bg-slider relative pt-5 2xl:pb-11 pb-9 pl-8">
+      <div className="absolute z-20 left-9 2xl:bottom-3 bottom-1 2xl:gap-3.5 gap-2.5 flex">
         {["01", "02", "03", "04", "05"].map((item, index) => (
           <div
             key={index}
@@ -34,68 +34,27 @@ const MultiSlideSlider = () => {
               setCurrentSlide(index);
               sliderRef.current.slickGoTo(index);
             }}
-            className={`w-[13px] h-[13px] border-2 border-white rounded-full mb-3.5 cursor-pointer ${
+            className={`2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer ${
               currentSlide === index ? "bg-transparent" : "bg-white"
             }`}
           ></div>
         ))}
       </div>
       <Slider centerMode={false} {...settings} ref={sliderRef}>
-        <div className="!w-[422px]">
-          <Image
-            src={"/images/landing-page/multislide.png"}
-            width={422}
-            height={324}
-            alt="multislide.png"
-          />
-          <p className="font-bold text-2xl leading-8">
-            2023年企業出口貿易產品-減碳診斷/減碳輔導 1
-          </p>
-        </div>
-        <div className="!w-[422px]">
-          <Image
-            src={"/images/landing-page/multislide.png"}
-            width={422}
-            height={324}
-            alt="multislide.png"
-          />
-          <p className="font-bold text-2xl leading-8">
-            2023年企業出口貿易產品-減碳診斷/減碳輔導 2
-          </p>
-        </div>
-        <div className="!w-[422px]">
-          <Image
-            src={"/images/landing-page/multislide.png"}
-            width={422}
-            height={324}
-            alt="multislide.png"
-          />
-          <p className="font-bold text-2xl leading-8">
-            2023年企業出口貿易產品-減碳診斷/減碳輔導 3
-          </p>
-        </div>
-        <div className="!w-[422px]">
-          <Image
-            src={"/images/landing-page/multislide.png"}
-            width={422}
-            height={324}
-            alt="multislide.png"
-          />
-          <p className="font-bold text-2xl leading-8">
-            2023年企業出口貿易產品-減碳診斷/減碳輔導 4
-          </p>
-        </div>
-        <div className="!w-[422px]">
-          <Image
-            src={"/images/landing-page/multislide.png"}
-            width={422}
-            height={324}
-            alt="multislide.png"
-          />
-          <p className="font-bold text-2xl leading-8">
-            2023年企業出口貿易產品-減碳診斷/減碳輔導 5
-          </p>
-        </div>
+        {[1, 2, 3, 4, 5].map(() => (
+          <div className="!w-[422px]">
+            <Image
+              src={"/images/landing-page/multislide.png"}
+              width={422}
+              height={324}
+              alt="multislide.png"
+              className="2xl:w-[422px] 2xl:h-[324px] w-100 h-72 object-cover"
+            />
+            <p className="font-bold 2xl:text-2xl text-xl 2xl:leading-8 2xl:mt-3.5 mt-2">
+              2023年企業出口貿易產品-減碳診斷/減碳輔導
+            </p>
+          </div>
+        ))}
       </Slider>
     </div>
   );
