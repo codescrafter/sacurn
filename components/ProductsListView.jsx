@@ -5,13 +5,14 @@ import product3 from "@/public/images/products-page/product3.png";
 import downloadPic from "@/public/images/products-page/download.svg";
 import locationPic from "@/public/images/products-page/location.svg";
 
-function ProductsListView(props) {
+function ProductsListView({ setSelectedProductId }) {
   return (
     <div className="bg-transparent flex flex-col gap-4.5 max-h-[75vh]">
       {products.map((product, index) => {
         return (
           <div
-            className={`bg-white rounded-3xl 2xl:px-4 2xl:py-5 px-3 py-3.5 flex flex-row`}
+            className={`bg-white rounded-3xl 2xl:px-4 2xl:py-5 px-3 py-3.5 flex flex-row cursor-pointer`}
+            onClick={() => setSelectedProductId(product.id)}
           >
             <div className={`p-1 rounded-2xl`}>
               <Image
@@ -57,6 +58,7 @@ const color_boundary = ["pale-yellow", "navy-blue", "dark-green"];
 
 const products = [
   {
+    id: 1,
     name: "CarbonCure Concrete Mineralization",
     projectby: "Project developed by CarbonCure Technologies",
     type: "carbon removal",
@@ -66,6 +68,7 @@ const products = [
     imagePath: product1,
   },
   {
+    id: 2,
     name: "Andes Inorganic Soil Carbon",
     projectby: "Project developed by CarbonCure Technologies",
     type: "carbon avoidance",
@@ -75,6 +78,7 @@ const products = [
     imagePath: product2,
   },
   {
+    id: 3,
     name: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
     projectby: "Project developed by CarbonCure Technologies",
     type: "carbon removal",
@@ -84,6 +88,7 @@ const products = [
     imagePath: product3,
   },
   {
+    id: 4,
     name: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
     projectby: "Project developed by CarbonCure Technologies",
     type: "carbon removal",

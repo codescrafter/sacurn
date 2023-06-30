@@ -5,7 +5,7 @@ import search from "@/public/images/products-page/search.svg";
 
 function ViewStyleBar(props) {
   return (
-    <div className="flex justify-end flex-row h-auto w-[98%]">
+    <div className="flex justify-end flex-row h-auto w-[98%] 2xl:mt-11 mt-9">
       {styles.map((style) => {
         return (
           <div

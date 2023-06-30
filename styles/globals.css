@@ -22,7 +22,6 @@
   color: white;
 }
 
-
 /* width */
 .yellowScroll::-webkit-scrollbar {
   width: 5px;
@@ -30,7 +29,7 @@
 
 /* Track */
 .yellowScroll::-webkit-scrollbar-track {
-  background: #1E1E1E;
+  background: #1e1e1e;
   border-radius: 5px;
 }
 
@@ -47,9 +46,9 @@
 
 /*Fire Fox */
 
-.yellowScroll{
-  scrollbar-width:thin;
-  scrollbar-color: #ffd600 #1E1E1E;
+.yellowScroll {
+  scrollbar-width: thin;
+  scrollbar-color: #ffd600 #1e1e1e;
   scrollbar-gutter: stable;
 }
 
@@ -77,29 +76,29 @@
 
 /*Fire Fox */
 
-.yellowScrollNoBg{
-  scrollbar-width:thin;
+.yellowScrollNoBg {
+  scrollbar-width: thin;
   scrollbar-color: #ffd600 transparent;
   scrollbar-gutter: stable;
 }
 
-.styledDiv{
+.styledDiv {
   background: transparent;
   position: relative;
-  border-right:1px solid white;
+  border-right: 1px solid white;
   border-bottom: 1px solid white;
 }
 
-.styledDiv::after{
+.styledDiv::after {
   border: 1px solid white;
-  border-right:0;
+  border-right: 0;
   position: absolute;
   content: "";
-  top:0;
-  right:0;
+  top: 0;
+  right: 0;
   transform: rotate(180deg);
   width: 100%;
   height: calc(100% + 1px);
   transform-origin: top right;
-  transform: skew(170deg,0deg);
+  transform: skew(170deg, 0deg);
 }
