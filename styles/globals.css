@@ -102,3 +102,9 @@
   transform-origin: top right;
   transform: skew(170deg, 0deg);
 }
+.scroll-left {
+  direction: rtl;
+}
+.direction-ltr {
+  direction: ltr;
+}

@@ -31,12 +31,14 @@ const Navbar = ({ className }) => {
           </ul>
         </nav>
         <div className="flex 2xl:gap-9 gap-5 2xl:ml-17 ml-12">
-          <Image
-            src={"/images/navbar/cart.svg"}
-            className="2xl:w-9 w-7 2xl:h-9 h-7 cursor-pointer"
-            width={35}
-            height={34}
-          />
+          <Link href="/cart">
+            <Image
+              src={"/images/navbar/cart.svg"}
+              className="2xl:w-9 w-7 2xl:h-9 h-7 cursor-pointer"
+              width={35}
+              height={34}
+            />
+          </Link>
           <Image
             src={"/images/navbar/member.svg"}
             className="2xl:w-10.5 2xl:h-10.5 w-8 h-8 cursor-pointer"

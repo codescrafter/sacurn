@@ -22,6 +22,8 @@ module.exports = {
         "input-box":
           "-3.42614px -3.42614px 63.9545px #FFFFFF, inset 1.73724px 1.73724px 5.21171px rgba(0, 0, 0, 0.19), inset 6.07568px 6.08033px 11.292px rgba(0, 0, 0, 0.13), inset -3.47447px -5.21171px 1.73724px rgba(255, 255, 255, 0.75), inset -5.21171px -7.81756px 4.34309px rgba(255, 255, 255, 0.93)",
         btn: "-3.47447px -1.73724px 3.47447px rgba(183, 215, 235, 0.6), 1.14205px 1.18773px 8.04px rgba(31, 54, 68, 0.9)",
+        "cart-item":
+          "0px 0.696072518825531px 9.745015144348145px 0px rgba(0, 0, 0, 0.15)",
       },
       backgroundImage: {
         "login-white":
@@ -103,6 +105,8 @@ module.exports = {
       "dark-grey": "#525252",
       "light-grey": "#D9D9D9",
       "soft-red": "#C24242",
+      "bright-blue": "#0091E9",
+      "slight-blue": "#EBF0FB",
     },
   },
   plugins: [],
