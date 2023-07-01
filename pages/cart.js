@@ -26,13 +26,58 @@ const Cart = () => {
           <Image src={"/images/cart/ic_delete.svg"} width={28} height={34} />
         </div>
       </div>
-      <div className="flex">
+      <div className="flex flex-row">
         <div className="w-[65%] max-h-[85vh] px-4 pb-4 ml-7 overflow-scroll flex flex-col gap-5.5 yellowScrollNoBg scroll-left">
           {itemsList.map((item, index) => (
             <CartItem key={index} {...item} />
           ))}
         </div>
-        <div className="h-[82vh] flex-1 mr-7 rounded-[10px] shadow-cart-item"></div>
+        <div className="h-[82vh] flex-1 mr-7 rounded-[10px] shadow-cart-item py-6">
+          <div className="flex flex-col">
+            <div className="flex flex-row justify-between pr-6.7">
+              <Heading>商品共計</Heading>
+              <p className="text-lg text-black font-medium">NT$ {120000}</p>
+            </div>
+            <div className="px-6.7 mt-2.5 ">
+              <p className="text-grey text-sm">3項(以下含稅金5%及手續費)</p>
+              <div className="mt-5.2">
+                {selectedItems.map((item) => {
+                  return (
+                    <div className="flex flex-row justify-between text-grey mb-5">
+                      <p className="w-[70%] text-grey text-lg">{item.name}</p>
+                      <p className="text-grey text-lg">{item.quantity} 噸</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="flex flex-row justify-between mb-5">
+                <p className="text-grey text-lg">手續費</p>
+                <p className="text-grey text-lg">${120000}</p>
+              </div>
+              <div className="flex flex-row justify-between mb-6.2">
+                <p className="text-grey text-lg">稅金5%</p>
+                <p className="text-grey text-lg">${619000}</p>
+              </div>
+              <div className="flex flex-row justify-between">
+                <p className="text-lg font-semibold text-black">總付款金額</p>
+                <p className="text-lg text-bright-red font-semibold">
+                  NT$ {12000000}
+                </p>
+              </div>
+            </div>
+            <hr className="border-silverstone mt-13.2 mb-6" />
+            <Heading>優惠折扣</Heading>
+            <button className="border-navy-blue ml-6.7 mt-5 flex flex-row rounded-md border-solid border px-5 py-3 max-w-max mb-8">
+              <Image src={"/images/cart/promocode.svg"} width={25} height={25}/>
+              <p className="text-navy-blue pl-3">使用優惠碼</p>
+            </button>
+            <Heading>服務條款</Heading>
+            <p className="ml-6.7 text-grey mt-6">我瞭解並同意Sacurn服務條款與隱私權政策</p>
+            <hr className="border-silverstone mt-8 mb-5" />
+            <p className="text-base text-black self-center mb-1">點擊「前往付款」，訂單及送出，請於下一步選擇付款方式</p>
+            <button className="bg-navy-blue w-[80%] py-2 self-center rounded-md text-white">前往付款</button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -89,6 +134,15 @@ const itemsList = [
     left: "剩下 888 噸可購",
     total: "$120,000",
   },
+];
+
+const selectedItems = [
+  {
+    name: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    quantity: "100",
+  },
+  { name: "Andes Inorganic Soil Carbon", quantity: "15" },
+  { name: "KOKO Networks Clean Ethanol Cooking Fuel", quantity: "5" },
 ];
 
 const CartItem = ({ img, memberCode, heading, price, left, total }) => {
@@ -156,6 +210,14 @@ const CartItem = ({ img, memberCode, heading, price, left, total }) => {
           />
         </div>
       </div>
+    </div>
+  );
+};
+
+const Heading = (props) => {
+  return (
+    <div className="border-l-8  border-l-pale-yellow pl-5 text-black text-lg font-semibold">
+      {props.children}
     </div>
   );
 };
