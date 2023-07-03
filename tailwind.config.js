@@ -9,8 +9,8 @@ module.exports = {
     extend: {
       fontSize: {
         xxs: ["8px", "12px"],
+        xms:["10px","14px"],
         mdlg: ["17px", "26px"],
-
         "1.5xl": ["22px", "30px"],
         "2.5xl": ["27px", "34px"],
         "3.5xl": ["33px", "38px"],
@@ -74,6 +74,7 @@ module.exports = {
         11.5: "46px",
         12.7: "51px",
         13: "52px",
+        13.2:"53px",
         15.7: "63px",
         16.7: "67px",
         17: "68px",
@@ -102,11 +103,14 @@ module.exports = {
       "medium-grey": "#8A8A8A",
       black: "#000000",
       "pale-yellow": "#FFD600",
+      grey: "#888888",
       "dark-grey": "#525252",
       "light-grey": "#D9D9D9",
       "soft-red": "#C24242",
       "bright-blue": "#0091E9",
       "slight-blue": "#EBF0FB",
+      "bright-red":"#FD1515",
+      "silverstone":"#B3B4B4",
     },
   },
   plugins: [],
