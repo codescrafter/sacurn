@@ -24,6 +24,20 @@
 body {
   background-color: #f6f6f6;
 }
+/* date picker */
+.react-datepicker {
+  font-size: 0.8rem;
+  color: #000;
+  border: none !important;
+  display: inline-block;
+  position: relative;
+}
+.react-datepicker__header {
+  background-color: transparent !important;
+  border-bottom: none !important;
+  padding: 8px 0;
+  position: relative;
+}
 /* tables */
 table {
   border-collapse: separate;

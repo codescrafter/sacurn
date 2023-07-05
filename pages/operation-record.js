@@ -1,78 +1,93 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
-
 import RecordTable from "@/components/RecordTable";
+import DatePickerModal from "@/components/DatePickerModal";
+import CustomSelect from "@/components/CustomSelect";
 
 function OperationRecord() {
+  const [open, setOpen] = useState(false);
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
+
   return (
     <div className="w-screen relative h-screen overflow-hidden">
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
       <section className="pt-[27.06px] pl-[34px] pr-14">
-        <h1 className="text-[28px] text-navy-blue font-normal leading-8">
+        <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">
           | 操作記錄
         </h1>
         {/* filters */}
         <div className="flex justify-end mt-[9px] mb-[47px]">
           <div className="flex items-center flex-wrap space-x-8 xl:space-x-[58px] lg:my-0 my-2">
             {/* period */}
-            <div className="flex items-center">
+            <div className="flex items-center relative">
+              {/* date picker modal */}
+              {open && (
+                <DatePickerModal
+                  startDate={startDate}
+                  endDate={endDate}
+                  setDateRange={setDateRange}
+                  setOpen={setOpen}
+                  open={open}
+                />
+              )}
+
               <label
                 htmlFor="period"
-                className="block text-lg font-medium leading-6 text-grey"
+                className="block text-base xl:text-lg font-medium leading-6 text-grey"
               >
                 期間:
               </label>
-              <div className="ml-[15px]">
-                <input
-                  type="date"
-                  name="period"
-                  id="period"
-                  className="block w-full bg-transparent border-0 text-dark-grey placeholder:text-dark-grey text-lg font-black"
+              <div
+                className="flex items-center cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpen(!open);
+                }}
+              >
+                <div className="ml-[15px] text-dark-grey text-base xl:text-lg font-black mr-2">
+                  {startDate && endDate ? (
+                    <>
+                      {startDate.toLocaleDateString().replaceAll("-", "/")} -{" "}
+                      {endDate.toLocaleDateString().replaceAll("-", "/")}
+                    </>
+                  ) : (
+                    "02/03/2020 - 02/03/2020"
+                  )}
+                </div>
+                <Image
+                  width={10}
+                  height={12}
+                  src={"/images/operation-record/icon_chervon_down.png"}
+                  alt="arrow"
                 />
               </div>
             </div>
+
             {/* state */}
-            <div className="flex items-center">
+            <div className="flex items-center relative">
               <label
                 htmlFor="state"
-                className="block text-lg font-medium leading-6 text-grey"
+                className="block text-base xl:text-lg font-medium leading-6 text-grey"
               >
                 期間:
               </label>
               <div className="ml-[15px]">
-                <select
-                  id="state"
-                  name="state"
-                  className="w-[100px] bg-transparent border-0 text-dark-grey placeholder:text-dark-grey text-lg font-black"
-                  defaultValue="Canada"
-                >
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
-                </select>
+                <CustomSelect />
               </div>
             </div>
             {/* operator */}
             <div className="flex items-center">
               <label
                 htmlFor="operator"
-                className="block text-lg font-medium leading-6 text-grey"
+                className="block text-base xl:text-lg font-medium leading-6 text-grey"
               >
                 操作者:
               </label>
               <div className="ml-[15px]">
-                <select
-                  id="operator"
-                  name="operator"
-                  className="w-[100px] bg-transparent border-0 text-dark-grey placeholder:text-dark-grey text-lg font-black"
-                  defaultValue="Canada"
-                >
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
-                </select>
+                <CustomSelect />
               </div>
             </div>
             {/* search */}
@@ -98,7 +113,6 @@ function OperationRecord() {
           </div>
         </div>
         {/* record table */}
-
         <div
           className={`yellowScroll pr-7.5 overflow-scroll overflow-x-hidden`}
         >
