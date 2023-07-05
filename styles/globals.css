@@ -21,6 +21,32 @@
   box-sizing: border-box;
   color: white;
 }
+body {
+  background-color: #f6f6f6;
+}
+/* tables */
+table {
+  border-collapse: separate;
+  border-spacing: 0 17px;
+}
+
+tr,
+td:first-child {
+  border-top-left-radius: 10px;
+}
+tr,
+td:last-child {
+  border-top-right-radius: 10px;
+}
+
+tr,
+td:first-child {
+  border-bottom-left-radius: 10px;
+}
+tr,
+td:last-child {
+  border-bottom-right-radius: 10px;
+}
 
 /* width */
 .yellowScroll::-webkit-scrollbar {
