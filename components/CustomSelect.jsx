@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Image from "next/image";
 import useOutsideClick from "@/hooks/useOutsideClick";
 
-const CustomSelect = ({ options, defaulValue }) => {
+const CustomSelect = ({ options, defaulValue, onSelect }) => {
   const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaulValue);
 
@@ -20,6 +20,7 @@ const CustomSelect = ({ options, defaulValue }) => {
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
     setOpen(false);
+    onSelect(option);
   };
 
   return (

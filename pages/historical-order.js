@@ -18,7 +18,7 @@ function HistoricalOrder() {
     <div className="w-screen relative h-screen overflow-hidden">
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
-      <section className="pt-[27px] pl-[34px] pr-14">
+      <section className="pt-[27px] pl-[34px] pr-[27px]">
         <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">
           | 歷史訂單
         </h1>
@@ -80,21 +80,10 @@ function HistoricalOrder() {
                 期間:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect options={options} />
+                <CustomSelect options={options} defaulValue="完成付款" />
               </div>
             </div>
-            {/* operator */}
-            <div className="flex items-center">
-              <label
-                htmlFor="operator"
-                className="block text-base xl:text-lg font-medium leading-6 text-grey"
-              >
-                操作者:
-              </label>
-              <div className="ml-[15px]">
-                <CustomSelect options={options} />
-              </div>
-            </div>
+
             {/* search */}
             <div className="flex">
               <div className="relative mt-2 rounded-md shadow-sm">
@@ -119,9 +108,13 @@ function HistoricalOrder() {
         </div>
         {/* order table */}
         <div
-          className={`yellowScroll h-[65vh] pr-7.5 overflow-scroll overflow-x-hidden`}
+          className={`yellowScroll h-[65vh] pr-[22px] overflow-scroll overflow-x-hidden`}
         >
-          <CustomTable theading={theading} tableBody={tableBody} />
+          <CustomTable
+            theading={theading}
+            tableBody={tableBody}
+            page="historical_order"
+          />
         </div>
       </section>
     </div>
@@ -131,81 +124,74 @@ function HistoricalOrder() {
 export default HistoricalOrder;
 
 const theading = [
-  "操作時間",
+  "訂單號碼",
   "商品名稱",
-  "操作者",
+  "買入/賣出",
   "單價",
   "數量(噸)",
   "總金額",
-  "動作",
-  "備註",
+  "訂單狀態",
 ];
 
 const tableBody = [
   {
     id: 1,
-    time: "2023/05/18 19:24:17",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Chen Rio",
-    unitPrice: "$120",
-    quant: "+100",
-    lumpsum: "$12,000",
-    action: "完成付款",
-    remark: "此單已取消",
+    orderNumber: "A123456789",
+    prodName: "Andes Inorganic Soil Carbon",
+    buysell: "賣出",
+    unitPrice: "$100",
+    quant: "10",
+    lumpsum: "$99,900",
+    orderStatus: "未完成",
   },
   {
     id: 2,
-    time: "2023/05/18 19:24:17",
+    orderNumber: "B123456789",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Chen Rio",
-    unitPrice: "$120",
-    quant: "$100",
-    lumpsum: "+100",
-    action: "$12,000",
-    remark: "完成付款",
+    buysell: "賣出",
+    unitPrice: "$13",
+    quant: "50",
+    lumpsum: "$12,000",
+    orderStatus: "已完成",
   },
   {
     id: 3,
-    time: "2023/05/18 19:24:17",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Chen Rio",
-    unitPrice: "$120",
-    quant: "$100",
-    lumpsum: "+100",
-    action: "$12,000",
-    remark: "完成付款",
+    orderNumber: "C123456789",
+    prodName: "CarbonCure Concrete Mineralization",
+    buysell: "買入",
+    unitPrice: "$1,327",
+    quant: "999",
+    lumpsum: "$23,132,700",
+    orderStatus: "未付款",
   },
   {
     id: 4,
-    time: "2023/05/18 19:24:17",
+    orderNumber: "D123456789",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Chen Rio",
-    unitPrice: "$120",
-    quant: "$100",
-    lumpsum: "+100",
-    action: "$12,000",
-    remark: "完成付款",
+    buysell: "買入",
+    unitPrice: "$345",
+    quant: "400",
+    lumpsum: "$12,700",
+    orderStatus: "待付款",
   },
   {
     id: 5,
-    time: "2023/05/18 19:24:17",
+    orderNumber: "E123456789",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Chen Rio",
-    unitPrice: "$120",
-    quant: "$100",
-    lumpsum: "+100",
-    action: "$12,000",
-    remark: "完成付款",
+    buysell: "賣出",
+    unitPrice: "$99",
+    quant: "43",
+    lumpsum: "$12,700",
+    orderStatus: "交易中",
   },
   {
     id: 6,
-    time: "2023/05/18 19:24:17",
+    orderNumber: "F123456789",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Chen Rio",
-    unitPrice: "$120",
-    quant: "$100",
-    lumpsum: "+100",
-    action: "$12,000",
-    remark: "完成付款",
+    buysell: "賣出",
+    unitPrice: "$234",
+    quant: "30",
+    lumpsum: "$12,700",
+    orderStatus: "交易中",
   },
 ];
