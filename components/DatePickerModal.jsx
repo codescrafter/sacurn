@@ -5,6 +5,7 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import formatDate from "@/helpers/formatDate";
 import HorizontalDivider from "./HorizontalDivider";
 import Button from "./Button";
+import { zhTW } from "date-fns/locale";
 
 const DatePickerModal = ({
   startDate,
@@ -34,21 +35,23 @@ const DatePickerModal = ({
         }}
         isClearable={true}
         inline
+        locale={zhTW} // Set the locale to Traditional Chinese
       />
+
       {/* divider */}
       <HorizontalDivider className={`!w-[85%]`} />
       {/* start & end date boxes */}
       <div className="flex items-center gap-1 my-3">
         <div className="flex flex-col">
-          <span className="text-sm text-dark-grey">Start</span>
-          <div className="rounded-full border border-[#F0F0F0] py-2 px-4 text-sm text-dark-grey">
+          <span className="text-sm text-dark-grey">從</span>
+          <div className="rounded-full border border-light-grey py-2 px-4 text-sm text-dark-grey">
             {startDate ? formatDate(startDate) : formatDate(new Date())}
           </div>
         </div>
         <span className="text-grey/50 mt-4">-</span>
         <div className="flex flex-col">
-          <span className="text-sm text-dark-grey">End</span>
-          <div className="rounded-full border border-[#F0F0F0] py-2 px-4 text-sm text-dark-grey">
+          <span className="text-sm text-dark-grey">到</span>
+          <div className="rounded-full border border-light-grey py-2 px-4 text-sm text-dark-grey">
             {endDate ? formatDate(endDate) : formatDate(new Date())}
           </div>
         </div>
@@ -60,9 +63,9 @@ const DatePickerModal = ({
         <Button
           className={`!bg-[#F6F6F6] !text-grey text-sm !rounded-xl !py-1 !px-3`}
         >
-          Cancel
+          取消
         </Button>
-        <Button className="!text-sm !rounded-xl !py-1 !px-3">Save</Button>
+        <Button className="!text-sm !rounded-xl !py-1 !px-3">查詢</Button>
       </div>
     </div>
   );

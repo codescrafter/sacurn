@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react";
 import Image from "next/image";
 import useOutsideClick from "@/hooks/useOutsideClick";
 
-const CustomSelect = () => {
+const CustomSelect = ({ options, defaulValue }) => {
   const [open, setOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Canada");
+  const [selectedOption, setSelectedOption] = useState(defaulValue);
 
   const ref = useRef();
 
@@ -19,10 +19,8 @@ const CustomSelect = () => {
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
-    setIsOpen(false);
+    setOpen(false);
   };
-
-  const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
 
   return (
     <div className="relative inline-block">

@@ -6,7 +6,7 @@ import CustomSelect from "@/components/CustomSelect";
 import formatDate from "@/helpers/formatDate";
 import CustomTable from "@/components/CustomTable";
 
-function OperationRecord() {
+function HistoricalOrder() {
   const [open, setOpen] = useState(false);
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
@@ -18,9 +18,9 @@ function OperationRecord() {
     <div className="w-screen relative h-screen overflow-hidden">
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
-      <section className="pt-[27px] pl-[34px] pr-[27px]">
+      <section className="pt-[27px] pl-[34px] pr-14">
         <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">
-          | 操作記錄
+          | 歷史訂單
         </h1>
         {/* filters */}
         <div className="flex justify-end mt-[9px] mb-[47px]">
@@ -80,7 +80,7 @@ function OperationRecord() {
                 期間:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect options={options} defaulValue="完成付款" />
+                <CustomSelect options={options} />
               </div>
             </div>
             {/* operator */}
@@ -92,7 +92,7 @@ function OperationRecord() {
                 操作者:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect options={options} defaulValue="Abcdefghijk" />
+                <CustomSelect options={options} />
               </div>
             </div>
             {/* search */}
@@ -117,9 +117,9 @@ function OperationRecord() {
             </div>
           </div>
         </div>
-        {/* record table */}
+        {/* order table */}
         <div
-          className={`yellowScroll h-[65vh] pr-[22px] overflow-scroll overflow-x-hidden`}
+          className={`yellowScroll h-[65vh] pr-7.5 overflow-scroll overflow-x-hidden`}
         >
           <CustomTable theading={theading} tableBody={tableBody} />
         </div>
@@ -128,7 +128,7 @@ function OperationRecord() {
   );
 }
 
-export default OperationRecord;
+export default HistoricalOrder;
 
 const theading = [
   "操作時間",
@@ -144,68 +144,68 @@ const theading = [
 const tableBody = [
   {
     id: 1,
-    time: "2023/05/18 19:24:19",
-    prodName: "Andes Inorganic Soil Carbon",
-    operator: "Abcdefghijk",
-    unitPrice: "$100",
-    quant: "+999",
-    lumpsum: "$99,900",
-    action: "下單結帳",
-    remark: "",
-  },
-  {
-    id: 2,
-    time: "2023/05/18 19:24:19",
+    time: "2023/05/18 19:24:17",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
     operator: "Chen Rio",
     unitPrice: "$120",
     quant: "+100",
     lumpsum: "$12,000",
     action: "完成付款",
-    remark: "",
-  },
-  {
-    id: 3,
-    time: "2023/05/18 19:24:19",
-    prodName: "CarbonCure Concrete Mineralization",
-    operator: "Abcdefghijk",
-    unitPrice: "$127",
-    quant: "+100",
-    lumpsum: "$12,700",
-    action: "加入購物車",
-    remark: "",
-  },
-  {
-    id: 4,
-    time: "2023/05/18 19:24:19",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Abcdefghijk",
-    unitPrice: "$127",
-    quant: "+100",
-    lumpsum: "$12,700",
-    action: "加入購物車",
-    remark: "",
-  },
-  {
-    id: 5,
-    time: "2023/05/18 19:24:19",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Abcdefghijk",
-    unitPrice: "$127",
-    quant: "-100",
-    lumpsum: "-$12,700",
-    action: "加入購物車",
     remark: "此單已取消",
   },
   {
-    id: 6,
-    time: "2023/05/18 19:24:19",
+    id: 2,
+    time: "2023/05/18 19:24:17",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Abcdefghijk",
-    unitPrice: "$127",
-    quant: "+100",
-    lumpsum: "$12,700",
-    action: "加入購物車",
-    remark: "",
+    operator: "Chen Rio",
+    unitPrice: "$120",
+    quant: "$100",
+    lumpsum: "+100",
+    action: "$12,000",
+    remark: "完成付款",
+  },
+  {
+    id: 3,
+    time: "2023/05/18 19:24:17",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    operator: "Chen Rio",
+    unitPrice: "$120",
+    quant: "$100",
+    lumpsum: "+100",
+    action: "$12,000",
+    remark: "完成付款",
+  },
+  {
+    id: 4,
+    time: "2023/05/18 19:24:17",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    operator: "Chen Rio",
+    unitPrice: "$120",
+    quant: "$100",
+    lumpsum: "+100",
+    action: "$12,000",
+    remark: "完成付款",
+  },
+  {
+    id: 5,
+    time: "2023/05/18 19:24:17",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    operator: "Chen Rio",
+    unitPrice: "$120",
+    quant: "$100",
+    lumpsum: "+100",
+    action: "$12,000",
+    remark: "完成付款",
+  },
+  {
+    id: 6,
+    time: "2023/05/18 19:24:17",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    operator: "Chen Rio",
+    unitPrice: "$120",
+    quant: "$100",
+    lumpsum: "+100",
+    action: "$12,000",
+    remark: "完成付款",
   },
 ];

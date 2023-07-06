@@ -19,12 +19,14 @@ export default function CustomTable({ theading, tableBody }) {
               </tr>
             </thead>
             <tbody>
-              {tableBody.map((item) => (
+              {tableBody.map((item, index) => (
                 <tr className="bg-white row" key={item.id}>
-                  <td className="py-6 pl-[33px] text-dark-grey text-base xl:text-xl">
+                  <td
+                    className={`py-6 pl-[33px] text-dark-grey text-base xl:text-xl w-40`}
+                  >
                     {item.time}
                   </td>
-                  <td className="py-6 px-4 xl:px-8 text-dark-grey text-base xl:text-xl ">
+                  <td className="py-6 px-4 xl:px-8 text-dark-grey text-base xl:text-xl w-96">
                     {item.prodName}
                   </td>
                   <td className="py-6 px-4 xl:px-8  text-dark-grey text-base xl:text-xl">
