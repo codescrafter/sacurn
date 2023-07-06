@@ -1,8 +1,10 @@
 import { useRef } from "react";
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import formatDate from "@/helpers/formatDate";
+import HorizontalDivider from "./HorizontalDivider";
+import Button from "./Button";
 
 const DatePickerModal = ({
   startDate,
@@ -16,6 +18,7 @@ const DatePickerModal = ({
   useOutsideClick(ref, () => {
     if (open) setOpen(false);
   });
+
   return (
     <div
       ref={ref}
@@ -33,37 +36,33 @@ const DatePickerModal = ({
         inline
       />
       {/* divider */}
-      <div className="bg-[#F0F0F0] h-[2px] w-[85%]" />
+      <HorizontalDivider className={`!w-[85%]`} />
       {/* start & end date boxes */}
       <div className="flex items-center gap-1 my-3">
         <div className="flex flex-col">
           <span className="text-sm text-dark-grey">Start</span>
           <div className="rounded-full border border-[#F0F0F0] py-2 px-4 text-sm text-dark-grey">
-            {startDate
-              ? startDate.toLocaleDateString().replaceAll("-", "/")
-              : "02/03/2020"}
+            {startDate ? formatDate(startDate) : formatDate(new Date())}
           </div>
         </div>
         <span className="text-grey/50 mt-4">-</span>
         <div className="flex flex-col">
           <span className="text-sm text-dark-grey">End</span>
           <div className="rounded-full border border-[#F0F0F0] py-2 px-4 text-sm text-dark-grey">
-            {endDate
-              ? endDate.toLocaleDateString().replaceAll("-", "/")
-              : "02/03/2020"}
+            {endDate ? formatDate(endDate) : formatDate(new Date())}
           </div>
         </div>
       </div>
       {/* divider */}
-      <div className="bg-[#F0F0F0] h-[2px] w-full" />
+      <HorizontalDivider />
       {/* action buttons */}
       <div className="flex items-center space-x-2 mt-2 self-end pr-4">
-        <button className="bg-[#F6F6F6] text-grey text-sm rounded-xl py-1 px-3">
+        <Button
+          className={`!bg-[#F6F6F6] !text-grey text-sm !rounded-xl !py-1 !px-3`}
+        >
           Cancel
-        </button>
-        <button className="bg-[#1B5487] text-white text-sm rounded-xl py-1 px-3">
-          Save
-        </button>
+        </Button>
+        <Button className="!text-sm !rounded-xl !py-1 !px-3">Save</Button>
       </div>
     </div>
   );

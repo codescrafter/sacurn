@@ -1,20 +1,24 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
-import RecordTable from "@/components/RecordTable";
 import DatePickerModal from "@/components/DatePickerModal";
 import CustomSelect from "@/components/CustomSelect";
+import formatDate from "@/helpers/formatDate";
+import CustomTable from "@/components/CustomTable";
 
 function OperationRecord() {
   const [open, setOpen] = useState(false);
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
 
+  // options for CustomSelect component to pass as props
+  const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
+
   return (
     <div className="w-screen relative h-screen overflow-hidden">
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
-      <section className="pt-[27.06px] pl-[34px] pr-14">
+      <section className="pt-[27px] pl-[34px] pr-14">
         <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">
           | 操作記錄
         </h1>
@@ -50,11 +54,12 @@ function OperationRecord() {
                 <div className="ml-[15px] text-dark-grey text-base xl:text-lg font-black mr-2">
                   {startDate && endDate ? (
                     <>
-                      {startDate.toLocaleDateString().replaceAll("-", "/")} -{" "}
-                      {endDate.toLocaleDateString().replaceAll("-", "/")}
+                      {formatDate(startDate)} - {formatDate(endDate)}
                     </>
                   ) : (
-                    "02/03/2020 - 02/03/2020"
+                    <>
+                      {formatDate(new Date())} - {formatDate(new Date())}
+                    </>
                   )}
                 </div>
                 <Image
@@ -75,7 +80,7 @@ function OperationRecord() {
                 期間:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect />
+                <CustomSelect options={options} />
               </div>
             </div>
             {/* operator */}
@@ -87,7 +92,7 @@ function OperationRecord() {
                 操作者:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect />
+                <CustomSelect options={options} />
               </div>
             </div>
             {/* search */}
@@ -95,12 +100,12 @@ function OperationRecord() {
               <div className="relative mt-2 rounded-md shadow-sm">
                 <input
                   type="text"
-                  name="account-number"
-                  id="account-number"
-                  className="block bg-white w-full xl:w-[347px] py-2 pl-3 rounded-[26.4px] border border-[#DFDFDF] pr-12 text-[#979797] text-sm"
+                  name="search"
+                  id="search"
+                  className="block bg-white w-full xl:w-[347px] py-2 pl-3 rounded-[26px] border border-light-grey pr-12 text-grey text-sm"
                   placeholder="輸入想要搜尋的碳權名稱,代號或是關鍵字"
                 />
-                <div className="pointer-events-none border-l-[#B3B4B4] py-2 absolute inset-y-1 right-0 flex items-center pl-2 pr-3">
+                <div className="pointer-events-none border border-r-0 border-t-0 border-b-0 border-l-light-grey py-2 absolute inset-y-1 right-0 flex items-center pl-2 pr-3">
                   <Image
                     src="/images/operation-record/search_icon.svg"
                     width={20}
@@ -114,9 +119,9 @@ function OperationRecord() {
         </div>
         {/* record table */}
         <div
-          className={`yellowScroll pr-7.5 overflow-scroll overflow-x-hidden`}
+          className={`yellowScroll h-[60vh] pr-7.5 overflow-scroll overflow-x-hidden`}
         >
-          <RecordTable />
+          <CustomTable theading={theading} tableBody={tableBody} />
         </div>
       </section>
     </div>
@@ -124,3 +129,61 @@ function OperationRecord() {
 }
 
 export default OperationRecord;
+
+const theading = [
+  "操作時間",
+  "商品名稱",
+  "操作者",
+  "單價",
+  "數量(噸)",
+  "總金額",
+  "動作",
+  "備註",
+];
+
+const tableBody = [
+  {
+    id: 1,
+    time: "2023/05/18 19:24:17",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    operator: "Chen Rio",
+    unitPrice: "$120",
+    quant: "+100",
+    lumpsum: "$12,000",
+    action: "完成付款",
+    remark: "此單已取消",
+  },
+  {
+    id: 2,
+    time: "2023/05/18 19:24:17",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    operator: "Chen Rio",
+    unitPrice: "$120",
+    quant: "$100",
+    lumpsum: "+100",
+    action: "$12,000",
+    remark: "完成付款",
+  },
+  {
+    id: 3,
+    time: "2023/05/18 19:24:17",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    operator: "Chen Rio",
+    unitPrice: "$120",
+    quant: "$100",
+    lumpsum: "+100",
+    action: "$12,000",
+    remark: "完成付款",
+  },
+  {
+    id: 4,
+    time: "2023/05/18 19:24:17",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    operator: "Chen Rio",
+    unitPrice: "$120",
+    quant: "$100",
+    lumpsum: "+100",
+    action: "$12,000",
+    remark: "完成付款",
+  },
+];
