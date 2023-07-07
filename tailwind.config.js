@@ -7,9 +7,19 @@ module.exports = {
   ],
   theme: {
     extend: {
+      borderWidth: {
+        3: "3px",
+        5: "5px",
+        6: "6px",
+        9: "9px",
+        10: "10px",
+      },
+      borderRadius: {
+        mdlg: "10px",
+      },
       fontSize: {
         xxs: ["8px", "12px"],
-        xms:["10px","14px"],
+        xms: ["10px", "14px"],
         mdlg: ["17px", "26px"],
         "1.5xl": ["22px", "30px"],
         "2.5xl": ["27px", "34px"],
@@ -24,8 +34,11 @@ module.exports = {
         btn: "-3.47447px -1.73724px 3.47447px rgba(183, 215, 235, 0.6), 1.14205px 1.18773px 8.04px rgba(31, 54, 68, 0.9)",
         "cart-item":
           "0px 0.696072518825531px 9.745015144348145px 0px rgba(0, 0, 0, 0.15)",
+        "online-dot":
+          "0px 1.099998116493225px 4.3999924659729px rgba(0, 0, 0, 0.22)",
       },
       backgroundImage: {
+        "membership-center": "url('/images/membership-center/background.png')",
         "login-white":
           "linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)",
         "blue-btn":
@@ -64,6 +77,7 @@ module.exports = {
         6.2: "25px",
         6.5: "26px",
         6.7: "27px",
+        7.3: "29px",
         7.5: "30px",
         7.7: "31px",
         8.2: "33px",
@@ -74,14 +88,18 @@ module.exports = {
         11.5: "46px",
         12.7: "51px",
         13: "52px",
-        13.2:"53px",
+        13.2: "53px",
+
         15.7: "63px",
         16.7: "67px",
         17: "68px",
+        17.5: "70px",
         17.7: "71px",
         18: "72px",
         19: "76px",
         19.7: "79px",
+        21: "84px",
+        21.2: "85px",
         22.5: "90px",
         37: "148px",
         47.2: "189px",
@@ -90,6 +108,8 @@ module.exports = {
         53.5: "214px",
         59.2: "237px",
         74.7: "299px",
+        76.2: "305px",
+        79: "316px",
         100: "400px",
       },
     },
@@ -109,8 +129,8 @@ module.exports = {
       "soft-red": "#C24242",
       "bright-blue": "#0091E9",
       "slight-blue": "#EBF0FB",
-      "bright-red":"#FD1515",
-      "silverstone":"#B3B4B4",
+      "bright-red": "#FD1515",
+      silverstone: "#B3B4B4",
     },
   },
   plugins: [],
