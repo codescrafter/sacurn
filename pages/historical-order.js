@@ -108,7 +108,7 @@ function HistoricalOrder() {
         </div>
         {/* order table */}
         <div
-          className={`yellowScroll h-[65vh] pr-[22px] overflow-scroll overflow-x-hidden`}
+          className={`yellowScroll h-[75vh] pr-[22px] overflow-auto overflow-x-hidden`}
         >
           <CustomTable
             theading={theading}
