@@ -15,7 +15,7 @@ function OperationRecord() {
   const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
 
   return (
-    <div className="w-screen relative h-screen overflow-hidden">
+    <div className="w-screen relative h-screen overflow-hidden bg-neutral-150">
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
       <section className="pt-[27px] pl-[34px] pr-[27px]">
@@ -121,7 +121,7 @@ function OperationRecord() {
         <div
           className={`yellowScroll h-[75vh] pr-[22px] overflow-auto overflow-x-hidden`}
         >
-          <CustomTable theading={theading} tableBody={tableBody} />
+          <CustomTable tableHeadings={tableHeadings} tableBody={tableBody} />
         </div>
       </section>
     </div>
@@ -130,7 +130,7 @@ function OperationRecord() {
 
 export default OperationRecord;
 
-const theading = [
+const tableHeadings = [
   "操作時間",
   "商品名稱",
   "操作者",

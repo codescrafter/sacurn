@@ -21,9 +21,6 @@
   box-sizing: border-box;
   color: white;
 }
-body {
-  background-color: #f6f6f6;
-}
 /* date picker */
 .react-datepicker {
   font-size: 0.8rem;

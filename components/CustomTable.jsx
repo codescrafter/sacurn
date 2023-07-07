@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Fragment, useState } from "react";
 
-export default function CustomTable({ theading, tableBody, page }) {
+export default function CustomTable({ tableHeadings, tableBody, page }) {
   const [expandedRowIndex, setExpandedRowIndex] = useState(null);
   const [staticRowsVisible, setStaticRowsVisible] = useState(false);
 
@@ -21,8 +21,8 @@ export default function CustomTable({ theading, tableBody, page }) {
             }
           >
             <thead className="sticky -top-2">
-              <tr className="!bg-[#F6F6F6]">
-                {theading.map((item, index) => (
+              <tr className="!bg-neutral-150">
+                {tableHeadings.map((item, index) => (
                   <th
                     scope="col"
                     className={`pb-3 text-left text-base xl:text-lg font-normal text-grey ${
@@ -97,7 +97,7 @@ export default function CustomTable({ theading, tableBody, page }) {
                   {expandedRowIndex === index ? (
                     ""
                   ) : (
-                    <tr className="bg-[#F6F6F6]">
+                    <tr className="bg-neutral-150">
                       <td colSpan={8} className="py-[9px]"></td>
                     </tr>
                   )}

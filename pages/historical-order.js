@@ -15,7 +15,7 @@ function HistoricalOrder() {
   const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
 
   return (
-    <div className="w-screen relative h-screen overflow-hidden">
+    <div className="w-screen relative h-screen overflow-hidden bg-neutral-150">
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
       <section className="pt-[27px] pl-[34px] pr-[27px]">
@@ -111,7 +111,7 @@ function HistoricalOrder() {
           className={`yellowScroll h-[75vh] pr-[22px] overflow-auto overflow-x-hidden`}
         >
           <CustomTable
-            theading={theading}
+            tableHeadings={tableHeadings}
             tableBody={tableBody}
             page="historical_order"
           />
@@ -123,7 +123,7 @@ function HistoricalOrder() {
 
 export default HistoricalOrder;
 
-const theading = [
+const tableHeadings = [
   "訂單號碼",
   "商品名稱",
   "買入/賣出",
