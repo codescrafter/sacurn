@@ -82,6 +82,38 @@
   scrollbar-gutter: stable;
 }
 
+
+/* width */
+.yellowScrollWhiteBg::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.yellowScrollWhiteBg::-webkit-scrollbar-track {
+  background: #B3B4B4;
+  border-radius: 5px;
+}
+
+/* Handle */
+.yellowScrollWhiteBg::-webkit-scrollbar-thumb {
+  background: #ffd600;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.yellowScrollWhiteBg::-webkit-scrollbar-thumb:hover {
+  background: #ffd600;
+}
+
+/*Fire Fox */
+
+.yellowScrollWhiteBg {
+  scrollbar-width: thin;
+  scrollbar-color: #ffd600 #B3B4B4;
+  scrollbar-gutter: stable;
+}
+
+
 .styledDiv {
   background: transparent;
   position: relative;
