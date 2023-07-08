@@ -58,7 +58,6 @@
 .dropdown-row {
   position: relative;
   top: -20px;
-  z-index: -1;
 }
 
 .custom-table .dropdown-row,

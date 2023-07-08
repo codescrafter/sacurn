@@ -112,6 +112,8 @@ module.exports = {
       "bright-red": "#FD1515",
       silverstone: "#B3B4B4",
       "neutral-150": "#F6f6F6",
+      "light-green": "#68A362",
+      "light-red": "#F27979",
     },
   },
   plugins: [],

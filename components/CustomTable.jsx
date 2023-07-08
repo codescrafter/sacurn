@@ -20,7 +20,7 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                 : {}
             }
           >
-            <thead className="sticky -top-2">
+            <thead className="sticky -top-2 z-10">
               <tr className="!bg-neutral-150">
                 {tableHeadings.map((item, index) => (
                   <th
@@ -56,7 +56,7 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                             alt="Cherven Icon"
                             className={`ml-2 w-3 h-3 cursor-pointer hidden group-hover:block ${
                               expandedRowIndex === index
-                                ? "transform rotate-90"
+                                ? "transform rotate-180"
                                 : ""
                             }`}
                             onClick={() => {
@@ -71,10 +71,19 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                         )}
                       </span>
                     </td>
-                    <td className="py-3 px-4 xl:px-8 text-dark-grey text-base xl:text-xl w-96 relative">
+                    <td
+                      className={`py-3 px-4 xl:px-8 text-dark-grey text-base xl:text-xl w-96 relative `}
+                    >
                       {item.prodName}
                     </td>
-                    <td className="py-3 px-4 xl:px-8  text-dark-grey text-base xl:text-xl">
+                    <td
+                      className={`py-3 px-4 xl:px-8 text-base xl:text-xl ${
+                        page === "historical_order" &&
+                        (index === 2 || index === 3)
+                          ? "text-light-red"
+                          : "text-light-green"
+                      }`}
+                    >
                       {item.operator || item.buysell}
                     </td>
                     <td className="py-3 px-4 xl:px-8 text-dark-grey text-base xl:text-xl">
@@ -86,7 +95,14 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                     <td className="py-3 px-4 xl:px-8 text-dark-grey text-base xl:text-xl">
                       {item.lumpsum}
                     </td>
-                    <td className="py-3 px-4 xl:px-8 text-dark-grey text-base xl:text-xl">
+                    <td
+                      className={`py-3 px-4 xl:px-8 text-dark-grey text-base xl:text-xl ${
+                        page === "historical_order" &&
+                        (index === 2 || index === 3)
+                          ? "text-light-red"
+                          : "text-light-green"
+                      }`}
+                    >
                       {item.action || item.orderStatus}
                     </td>
                     <td className="py-3 px-4 xl:px-8  text-dark-grey text-base xl:text-xl">
