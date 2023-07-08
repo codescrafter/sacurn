@@ -11,6 +11,7 @@ const LandingPage = () => {
   return (
     <div className="w-screen min-h-screen bg-no-repeat bg-cover bg-[url('/images/landing-page/landing-page-bg.png')] 2xl:h-screen">
       <div className="bg-dark-green invisible"></div>
+      <div className="bg-silverstone invisible"></div>
       <Navbar className="pt-4 2xl:mb-9.5 mb-5" />
       <InfoBar />
       <div className="flex justify-between ml-[4.3%] mt-2.5 2xl:gap-[5.9%] gap-[3%]">

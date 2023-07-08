@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import AccountOverview from "@/components/AccountOverview";
 import Image from "next/image";
 
 function membershipCenter() {
@@ -8,63 +9,57 @@ function membershipCenter() {
       <h1 className="relative text-white text-2.5xl translate-y-1.5 translate-x-7.5 w-max">
         | 會員中心
       </h1>
-      <div className="flex flex-row">
-        <div className="flex flex-col">
-          <UserCard name={"管理者"} active={true} />
+      <div className="flex flex-row 2xl:ml-15.7">
+        <div className="flex flex-col items-center 2xl:mt-7.3 bg-white 2xl:h-[78vh] 2xl:w-[500px] rounded-mdlg">
+          <h1 className="text-2xl font-semibold text-navy-blue 2xl:mt-31.5 2xl:mb-5">艾克斯厚定股份有限公司</h1>
+          <Image className="2xl:h-42.2 2xl:w-42.2" src={require('@/public/images/membership-center/noprofile.png')}/>
+          <h1 className="text-2xl text-black font-semibold 2xl:mt-8 2xl:mb-5.5">X Holdings</h1>
+          <h1 className="text-2xl font-semibold text-pale-yellow">VVIP</h1>
+          <div className="relative bg-pale-yellow 2xl:w-51 2xl:h-4.7 2xl:mt-2.5 p-0.7 rounded-3xl">
+            <div className={`bg-navy-blue h-full w-[${String(70)}%] rounded-3xl`}></div>
+          </div>
+          <h1 className="text-2xl 2xl:mt-2 text-dark-grey">{15000}/50,000</h1>
+          <h1 className="text-2xl 2xl:mt-2 font-semibold text-navy-blue">可買賣會員</h1>
+          <h1 className="text-2xl 2xl:mt-2 text-dark-grey">2023.12.31到期</h1>
         </div>
       </div>
+      {/* <AccountOverview users={currentUsers}/> */}
     </div>
   );
 }
 
 export default membershipCenter;
 
-const UserCard = (props) => {
-  return (
-    <div className={`rounded-mdlg bg-white flex flex-col 2xl:w-76.2 2xl:h-79 items-center`}>
-      <h1 className="2xl:mt-7.5 2xl:mb-6.2 2xl:mx-15 2xl:text-xl 2xl:font-bold  text-navy-blue">
-        {props.accType}
-      </h1>
-      <div className="flex flex-col relative w-max">
-        <Image
-          className={`2xl:border-6 rounded-full border-navy-blue 2xl:w-21.2 2xl:h-21.2`}
-          src={require("@/public/images/membership-center/profile.png")}
-        />
-        <div
-          className={`relative bg-${
-            props.active ? "dark-green" : "snowflake-grey"
-          } 2xl:border-5 2xl:w-6.5 2xl:h-6.5 self-end rounded-full 2xl:right-1 2xl:bottom-6 shadow-online-dot`}
-        ></div>
-      </div>
-      <h1 className="2xl:text-xl 2xl:font-semibold 2xl:mb-2.5 text-black ">{props.name}</h1>
-      <p className="2xl:text-sm 2xl:mb-7.7 text-dark-grey">{props.email}</p>
-      <ProfileButton />
-    </div>
-  );
-};
-
-const ProfileButton = (props) => {
-  return (
-    <button className="2xl:p-2.5 border border-grey  rounded-md">
-      <div className="flex flex-row">
-        <Image
-          src={"/images/membership-center/view-profile-icon.png"}
-          width={9}
-          height={10}
-        />
-        {props.children!=null ? <p className="text-grey text-sm">{props.children}</p> : <p className="text-grey text-sm">Profile</p>}
-      </div>
-    </button>
-  );
-};
-
-
-const currentUsers=[
-    {
-        'accType':'',
-        'name':'',
-        'email':'',
-        'active':'',
-    }
-
-]
+const currentUsers = [
+  {
+    accType: "管理者",
+    name: "Belinda",
+    email: "will.emmett@google.com",
+    picture: "",
+    active: true,
+  },
+  {
+    accType: "可挑選者",
+    name: "Grimes",
+    email: "grimes_musk@google.com",
+    active: true,
+  },
+  {
+    accType: "可挑選者",
+    name: "Christina",
+    email: "will.emmett@google.com",
+    active: false,
+  },
+  {
+    accType: "可付款者",
+    name: "Diana",
+    email: "will.emmett@google.com",
+    active: true,
+  },
+  {
+    accType: "可下單者",
+    name: "Eason",
+    email: "will.emmett@google.com",
+    active: false,
+  },
+];
