@@ -24,6 +24,7 @@ module.exports = {
         btn: "-3.47447px -1.73724px 3.47447px rgba(183, 215, 235, 0.6), 1.14205px 1.18773px 8.04px rgba(31, 54, 68, 0.9)",
         "cart-item":
           "0px 0.696072518825531px 9.745015144348145px 0px rgba(0, 0, 0, 0.15)",
+        "sales-box": "0px 0px 3px 0px rgba(0, 0, 0, 0.20)",
       },
       backgroundImage: {
         "login-white":
@@ -112,8 +113,11 @@ module.exports = {
       "bright-red": "#FD1515",
       silverstone: "#B3B4B4",
       "neutral-150": "#F6f6F6",
+      "neutral-250": "#F9FBFC",
       "light-green": "#68A362",
       "light-red": "#F27979",
+      "light-blue": "#1D70BD",
+      "light-purple": "#C4B0FD",
     },
   },
   plugins: [],

@@ -17,7 +17,7 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                     borderCollapse: "collapse",
                     borderSpacing: "0 17px",
                   }
-                : {}
+                : { borderCollapse: "separate", borderSpacing: "0 0" }
             }
           >
             <thead className="sticky -top-2 z-10">
