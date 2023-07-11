@@ -32,6 +32,7 @@ function Sales() {
                       <tr>
                         {tableHeadings.map((item, index) => (
                           <th
+                            key={item}
                             className={`text-left ${
                               index === 0
                                 ? "pl-[11px] sr-only"
