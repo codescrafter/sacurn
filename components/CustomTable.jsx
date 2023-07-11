@@ -78,6 +78,8 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                     </td>
                     <td
                       className={`py-3 px-4 xl:px-8 text-base xl:text-xl ${
+                        page === "sales_page" && "!text-dark-grey"
+                      } ${
                         page === "historical_order" &&
                         (index === 2 || index === 3)
                           ? "text-light-red"
@@ -97,6 +99,8 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                     </td>
                     <td
                       className={`py-3 px-4 xl:px-8 text-dark-grey text-base xl:text-xl ${
+                        page === "sales_page" && "!text-dark-grey"
+                      } ${
                         page === "historical_order" &&
                         (index === 2 || index === 3)
                           ? "text-light-red"

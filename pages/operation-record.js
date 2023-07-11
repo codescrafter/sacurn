@@ -121,7 +121,11 @@ function OperationRecord() {
         <div
           className={`yellowScroll h-[75vh] pr-[22px] overflow-auto overflow-x-hidden`}
         >
-          <CustomTable tableHeadings={tableHeadings} tableBody={tableBody} />
+          <CustomTable
+            tableHeadings={tableHeadings}
+            tableBody={tableBody}
+            page="sales_page"
+          />
         </div>
       </section>
     </div>
