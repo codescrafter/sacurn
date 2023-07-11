@@ -24,7 +24,7 @@ const CustomSelect = ({ options, defaulValue, onSelect }) => {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block z-40">
       <div
         className="rounded py-2 flex items-center cursor-pointer"
         onClick={toggleDropdown}
