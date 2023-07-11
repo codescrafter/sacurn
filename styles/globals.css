@@ -69,7 +69,7 @@ body {
 
 /* Track */
 .yellowScroll::-webkit-scrollbar-track {
-  background: #1e1e1e;
+  background: #b3b4b4;
   border-radius: 5px;
 }
 
