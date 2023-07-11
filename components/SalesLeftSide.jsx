@@ -2,14 +2,14 @@ import React from "react";
 import HorizontalDivider from "./HorizontalDivider";
 import Button from "./Button";
 
-const SalesLeftSide = () => {
+const SalesLeftSide = ({ setIsAlert }) => {
   return (
-    <div className="flex flex-col px-5 xl:pl-[35px] xl:pr-[23px] py-6 xl:pt-[33px] xl:pb-[26px] border-2 border-bright-blue rounded-[10px] shadow-sales-box">
+    <div className="flex flex-col px-3 xl:pl-[35px] xl:pr-[23px] py-5 xl:pt-[28px] xl:pb-[20px] border-2 border-bright-blue bg-white rounded-[10px] shadow-sales-box">
       <h5 className="font-bold text-xl xl:text-[32]px text-black">
         Andes Inorganic Soil ACR Emission Reduction Tonnes Spot ProductCarbon
       </h5>
       {/* vintage */}
-      <div className="flex items-center justify-between mt-6 xl:mt-[36px]">
+      <div className="flex items-center justify-between mt-6 xl:mt-[33px]">
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">
           Vintage製造年份
         </span>
@@ -27,50 +27,71 @@ const SalesLeftSide = () => {
       {/* divider */}
       <HorizontalDivider />
       {/* tradeable quantity */}
-      <div className="flex items-center justify-between mt-6 xl:mt-[33px]">
+      <div className="flex items-center justify-between mt-5 xl:mt-[30px]">
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">
           設定可交易數量
         </span>
-        <span className="text-lg xl:text-xl text-navy-blue font-bold">
-          99,999 噸
-        </span>
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value="99,999"
+            className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
+          />{" "}
+          <span className="text-black font-normal text-base xl:text-xl">
+            噸
+          </span>
+        </div>
       </div>
       {/* transaction price */}
       <div className="flex items-center justify-between mt-4 xl:mt-[22px]">
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">
           設定交易價格
         </span>
-        <span className="text-lg xl:text-xl text-navy-blue font-bold">
-          99,999 元
-        </span>
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value="999,999,999"
+            className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
+          />{" "}
+          <span className="text-black font-normal text-base xl:text-xl">
+            噸
+          </span>
+        </div>
       </div>
       {/* transaction unit */}
       <div className="flex items-center justify-between mt-4 xl:mt-[22px]">
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">
           設定交易最小單位
         </span>
-        <span className="text-lg xl:text-xl text-navy-blue font-bold">
-          99,999 噸
-        </span>
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value="99,999"
+            className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
+          />{" "}
+          <span className="text-black font-normal text-base xl:text-xl">
+            噸
+          </span>
+        </div>
       </div>
       {/* descritpion box */}
-      <div className="border space-y-5 border-light-grey px-4 xl:px-[24px] py-[18px] mt-6 xl:mt-[30px]">
-        <div className="space-y-2">
+      <div className="border space-y-3 border-light-grey px-4 xl:px-[24px] py-2 xl:py-[15px] mt-4 xl:mt-[24px]">
+        <div className="space-y-1">
           <h6 className="font-bold text-black text-sm xl:text-base">
             だけ行わ権一定いいし
           </h6>
           <ul>
-            <li className="text-xs xl:text-sm text-dark-grey font-normal">
+            <li className="text-xs text-dark-grey font-normal">
               さの米国をする15、、などにするの下さい削除文を著作の引用と指すで文章をいる生じる
               commons
             </li>
-            <li className="text-xs xl:text-sm text-dark-grey font-normal">
+            <li className="text-xs text-dark-grey font-normal">
               いる、たり項追加と
               Wiによって権が文色濃く権互換ますしあれですい改変本法書評にライセンスがない
             </li>
           </ul>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-1">
           <h6 className="font-bold text-black text-sm xl:base">
             採録なは物れ法
           </h6>
@@ -85,11 +106,14 @@ const SalesLeftSide = () => {
         <button className="text-navy-blue text-sm">Read More</button>
       </div>
       {/* action buttons */}
-      <div className="flex items-center justify-center gap-20 px-8 mt-5 xl:mt-[26px]">
-        <Button className="!p-[10px] rounded-[10px] min-w-[175px] text-lg xl:text-2xl">
+      <div className="flex items-center justify-center gap-4 xl:gap-20 px-8 mt-5 xl:mt-[26px]">
+        <Button
+          className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl"
+          onClick={() => setIsAlert(true)}
+        >
           上架交易
         </Button>
-        <Button className="!p-[10px] !bg-transparent rounded-[10px] min-w-[175px] border border-grey !text-grey text-lg xl:text-2xl">
+        <Button className="!p-[10px] !bg-transparent rounded-[10px] min-w-[175px] border border-grey !text-grey text-base xl:text-2xl">
           取消
         </Button>
       </div>

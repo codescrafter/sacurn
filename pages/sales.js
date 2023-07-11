@@ -2,21 +2,27 @@ import { Fragment, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import SalesLeftSide from "@/components/SalesLeftSide";
+import ConfirmationAlert from "@/components/ConfirmationAlert";
 
 function Sales() {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [isAlert, setIsAlert] = useState(false);
 
   return (
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-250">
+      {/* confirmation modal */}
+      {isAlert && <ConfirmationAlert setIsAlert={setIsAlert} />}
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
-      <main className="py-7 pl-[30px] pr-[25px]">
-        <div className="flex gap-[33px]">
+      <main className="py-7 px-3 xl:pl-[30px] xl:pr-[25px]">
+        <div className="flex gap-3 xl:gap-[33px]">
           {/* graph area */}
-          <div className="w-[618px]">{showSidebar && <SalesLeftSide />}</div>
+          <div className="xl:w-[618px] w-[410px]">
+            {showSidebar && <SalesLeftSide setIsAlert={setIsAlert} />}
+          </div>
           {/* sales table */}
           <div
-            className={`yellowScroll w-full h-[85vh] pr-[22px] overflow-auto overflow-x-hidden`}
+            className={`yellowScroll w-full h-[87vh] pr-4 xl:pr-[22px] overflow-auto overflow-x-hidden`}
           >
             <div className="flow-root">
               <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
@@ -26,7 +32,7 @@ function Sales() {
                       <tr>
                         {tableHeadings.map((item, index) => (
                           <th
-                            className={`pb-3 text-left ${
+                            className={`text-left ${
                               index === 0
                                 ? "pl-[11px] sr-only"
                                 : index === 1
@@ -57,10 +63,10 @@ function Sales() {
                           <tr
                             className={`bg-white sales-row group h-auto hover:shadow-sales-row`}
                           >
-                            <td className="pl-[11px] w-[0px] pr-4 text-center">
+                            <td className="xl:pl-[11px] pl-2 w-[0px] pr-4 text-center">
                               {/* badge */}
                               <span
-                                className={`text-center rounded-[10px] p-[10px] block w-[74px] ${
+                                className={`text-center rounded-[10px] p-1 xl:p-[10px] block xl:w-[74px] ${
                                   index === 2
                                     ? "bg-pale-yellow"
                                     : index === 3 || index === 4 || index === 5
@@ -73,7 +79,7 @@ function Sales() {
                                 {item.percent}
                               </span>
                             </td>
-                            <td className={`py-2 pr-4 w-[362px]`}>
+                            <td className={`py-2 pr-2 xl:pr-4 xl:w-[362px]`}>
                               {/* prod detail */}
                               <div className="flex flex-col space-y-4">
                                 {/* prod name */}
@@ -109,32 +115,35 @@ function Sales() {
                               </div>
                             </td>
                             <td
-                              className={`py-2 px-4 text-dark-grey text-base xl:text-lg`}
+                              className={`py-2 px-2 xl:px-4 text-dark-grey text-base xl:text-lg`}
                             >
                               {item.vintage}
                             </td>
                             <td
-                              className={`py-2 px-4 text-dark-grey text-base xl:text-lg`}
+                              className={`py-2 px-2 xl:px-4 text-dark-grey text-base xl:text-lg`}
                             >
                               {item.totalAmount}
                             </td>
                             <td
-                              className={`py-2 px-4 text-dark-grey text-base xl:text-lg w-[140px]`}
+                              className={`py-2 px-2 xl:px-4 text-dark-grey text-base xl:text-lg w-[140px]`}
                             >
                               <div className="w-full flex justify-center">
-                                <Image
-                                  src={item.carbonCertificate}
-                                  width={45}
-                                  height={46}
-                                  alt="file icon"
-                                />
+                                <div className="w-[45px] h-[45px]">
+                                  <Image
+                                    src={item.carbonCertificate}
+                                    width={45}
+                                    height={46}
+                                    alt="file icon"
+                                    className="w-[45px] h-auto"
+                                  />
+                                </div>
                               </div>
                             </td>
                             <td
-                              className={`py-2 px-4 text-dark-grey text-center text-base xl:text-lg w-[140px]`}
+                              className={`py-2 px-2 xl:px-4 text-dark-grey text-center text-base xl:text-lg w-[140px]`}
                             >
                               {index === 5 ? (
-                                <span className="p-2 rounded-lg text-base text-white bg-pale-yellow">
+                                <span className="p-2 whitespace-nowrap rounded-lg text-base text-white bg-pale-yellow">
                                   {item.transaction}
                                 </span>
                               ) : (
@@ -145,7 +154,7 @@ function Sales() {
                                       width={45}
                                       height={46}
                                       alt="settings icon"
-                                      className="group-hover:hidden cursor-pointer"
+                                      className="group-hover:hidden cursor-pointer w-[45px] h-auto"
                                     />
                                     <Image
                                       src="/images/sales/settings_icon_white.png"
