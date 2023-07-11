@@ -40,7 +40,6 @@
 .custom-table {
   border-collapse: separate;
   border-spacing: 0 11px;
-  box-sizing: content-box;
 }
 .sales-row:hover {
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1),
@@ -104,7 +103,7 @@
 
 /* Track */
 .yellowScroll::-webkit-scrollbar-track {
-  background: #1e1e1e;
+  background: #b3b4b4;
   border-radius: 5px;
 }
 
