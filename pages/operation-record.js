@@ -124,7 +124,7 @@ function OperationRecord() {
           <CustomTable
             tableHeadings={tableHeadings}
             tableBody={tableBody}
-            page="sales_page"
+            page="operation_page"
           />
         </div>
       </section>
@@ -203,6 +203,17 @@ const tableBody = [
   },
   {
     id: 6,
+    time: "2023/05/18 19:24:19",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    operator: "Abcdefghijk",
+    unitPrice: "$127",
+    quant: "+100",
+    lumpsum: "$12,700",
+    action: "加入購物車",
+    remark: "",
+  },
+  {
+    id: 7,
     time: "2023/05/18 19:24:19",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
     operator: "Abcdefghijk",
