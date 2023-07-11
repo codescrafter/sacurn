@@ -11,6 +11,7 @@ export default function CustomTable({ theading, tableBody, page }) {
                 {theading.map((item, index) => (
                   <th
                     scope="col"
+                    key={item}
                     className={`pb-3 text-left text-base xl:text-lg font-normal text-grey ${
                       index === 0 ? "pl-[33px]" : "px-8"
                     }`}
