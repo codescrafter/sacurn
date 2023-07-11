@@ -11,7 +11,7 @@ const Navbar = ({ className }) => {
       className={`bg-transparent flex items-center justify-between pl-8.5 pr-10.5 ${className}`}
     >
       <Image src={"/images/navbar/sacurn-logo.svg"} width={192} height={39} />
-      <div className="flex">
+      <div className="flex items-center">
         <nav>
           <ul className="flex items-center justify-between 2xl:space-x-18 space-x-9">
             {navArray.map((navItem) => (
@@ -30,7 +30,7 @@ const Navbar = ({ className }) => {
             ))}
           </ul>
         </nav>
-        <div className="flex 2xl:gap-9 gap-5 2xl:ml-17 ml-12">
+        <div className="flex items-center 2xl:gap-9 gap-5 2xl:ml-17 ml-12">
           <Link href="/cart">
             <Image
               src={"/images/navbar/cart.svg"}
