@@ -25,7 +25,7 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                 {tableHeadings.map((item, index) => (
                   <th
                     scope="col"
-                    className={`pb-3 text-left text-base xl:text-lg font-normal text-grey ${
+                    className={`pb-3 text-left whitespace-nowrap text-base xl:text-lg font-normal text-grey ${
                       index === 0 ? "pl-2 xl:pl-[33px]" : "px-2 xl:px-8"
                     }`}
                     key={item}
@@ -42,7 +42,7 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                     <td
                       className={`py-3 pl-2 xl:pl-[33px] pr-2 xl:pr-4 ${
                         page === "historical_order"
-                          ? "w-48"
+                          ? "xl:w-48 w-36"
                           : "xl:w-40 xl:pr-10"
                       }`}
                     >
@@ -109,9 +109,11 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                     >
                       {item.action || item.orderStatus}
                     </td>
-                    <td className="py-3 px-2 xl:px-8 whitespace-nowrap  text-dark-grey text-base xl:text-xl">
-                      {item.remark}
-                    </td>
+                    {page === "operation_page" && (
+                      <td className="py-3 px-2 xl:px-8 whitespace-nowrap  text-dark-grey text-base xl:text-xl">
+                        {item.remark}
+                      </td>
+                    )}
                   </tr>
 
                   {expandedRowIndex === index ? (
