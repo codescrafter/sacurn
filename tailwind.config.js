@@ -25,6 +25,7 @@ module.exports = {
         "cart-item":
           "0px 0.696072518825531px 9.745015144348145px 0px rgba(0, 0, 0, 0.15)",
         "sales-box": "0px 0px 3px 0px rgba(0, 0, 0, 0.20)",
+        "stoptrading-btn": "0px 1px 3px 0px rgba(0, 0, 0, 0.30);",
       },
       backgroundImage: {
         "login-white":
@@ -118,6 +119,7 @@ module.exports = {
       "light-red": "#F27979",
       "light-blue": "#1D70BD",
       "light-purple": "#C4B0FD",
+      "light-gray": "#F1F4F5",
     },
   },
   plugins: [],

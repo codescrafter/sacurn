@@ -2,9 +2,18 @@ import React from "react";
 import HorizontalDivider from "./HorizontalDivider";
 import Button from "./Button";
 
-const SalesLeftSide = ({ setIsAlert }) => {
+const SalesLeftSide = ({ setIsAlert, setIsStopAlert, stopTrade }) => {
+  const handleClick = () => {
+    if (stopTrade) {
+      setIsStopAlert(true);
+      setIsAlert(false);
+    } else {
+      setIsAlert(true);
+    }
+  };
+
   return (
-    <div className="flex flex-col px-3 xl:pl-[35px] xl:pr-[23px] py-5 xl:pt-[28px] xl:pb-[20px] border-2 border-bright-blue bg-white rounded-[10px] shadow-sales-box">
+    <div className="flex flex-col px-3 2xl:pl-[35px] 2xl:pr-[23px] py-5 2xl:pt-[33px] 2xl:pb-[26px] border-2 border-bright-blue bg-white rounded-[10px] shadow-sales-box">
       <h5 className="font-bold text-xl xl:text-[32]px text-black">
         Andes Inorganic Soil ACR Emission Reduction Tonnes Spot ProductCarbon
       </h5>
@@ -106,10 +115,12 @@ const SalesLeftSide = ({ setIsAlert }) => {
         <button className="text-navy-blue text-sm">Read More</button>
       </div>
       {/* action buttons */}
-      <div className="flex items-center justify-center gap-4 xl:gap-20 px-8 mt-5 xl:mt-[26px]">
+      <div className="flex items-center justify-center gap-4 2xl:gap-20 px-8 mt-5 xl:mt-[26px]">
         <Button
-          className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl"
-          onClick={() => setIsAlert(true)}
+          className={`!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl ${
+            stopTrade && "!bg-pale-yellow !text-navy-blue"
+          }`}
+          onClick={handleClick}
         >
           上架交易
         </Button>

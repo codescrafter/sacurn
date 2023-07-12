@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 import Button from "./Button";
 
-const ConfirmationAlert = ({ setIsAlert }) => {
+const ConfirmListingAlert = ({ setIsAlert }) => {
   return (
-    <div className="flex justify-center items-center absolute inset-0 bg-black/30">
+    <div className="flex justify-center items-center z-50 absolute inset-0 bg-black/30 backdrop-blur-[2px]">
       <div className="xl:min-w-[892px] min-w-[600px] min-h-[400px] xl:min-h-[598px] flex flex-col space-y-20  items-center justify-center rounded-[20px] bg-white relative">
         {/* close */}
         <Button
@@ -35,4 +35,4 @@ const ConfirmationAlert = ({ setIsAlert }) => {
   );
 };
 
-export default ConfirmationAlert;
+export default ConfirmListingAlert;
