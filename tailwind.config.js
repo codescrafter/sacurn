@@ -23,7 +23,7 @@ module.exports = {
       },
       fontSize: {
         xxs: ["8px", "12px"],
-        xms: ["10px", "14px"],
+        xms:  ["10px",  "14px"],
         mdlg: ["17px", "26px"],
         "1.5xl": ["22px", "30px"],
         "2.5xl": ["27px", "34px"],
@@ -150,6 +150,8 @@ module.exports = {
       "bright-red": "#FD1515",
       silverstone: "#B3B4B4",
       milky: "rgba(255,255,255,0.89)",
+      "neutral-150": "#F6f6F6",
+     
     },
   },
   plugins: [],

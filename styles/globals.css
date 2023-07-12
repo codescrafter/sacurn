@@ -21,6 +21,46 @@
   box-sizing: border-box;
   color: white;
 }
+body {
+  background-color: #f6f6f6;
+}
+/* date picker */
+.react-datepicker {
+  font-size: 0.8rem;
+  color: #000;
+  border: none !important;
+  display: inline-block;
+  position: relative;
+}
+.react-datepicker__header {
+  background-color: transparent !important;
+  border-bottom: none !important;
+  padding: 8px 0;
+  position: relative;
+}
+/* tables */
+.custom-table {
+  border-collapse: separate;
+  border-spacing: 0 17px;
+}
+
+.custom-table tr,
+.custom-table td:first-child {
+  border-top-left-radius: 10px;
+}
+.custom-table tr,
+.custom-table td:last-child {
+  border-top-right-radius: 10px;
+}
+
+.custom-table tr,
+.custom-table td:first-child {
+  border-bottom-left-radius: 10px;
+}
+.custom-table tr,
+.custom-table td:last-child {
+  border-bottom-right-radius: 10px;
+}
 
 /* width */
 .yellowScroll::-webkit-scrollbar {
@@ -29,7 +69,7 @@
 
 /* Track */
 .yellowScroll::-webkit-scrollbar-track {
-  background: #1e1e1e;
+  background: #b3b4b4;
   border-radius: 5px;
 }
 
