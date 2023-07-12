@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundSize: {
+        "100%": "100%",
+        "110%": "110%",
+      },
       borderWidth: {
         3: "3px",
         5: "5px",
@@ -39,6 +43,8 @@ module.exports = {
       },
       backgroundImage: {
         "membership-center": "url('/images/membership-center/background.png')",
+        "membership-card":
+          "url('/images/membership-center/membershipcard.png')",
         "login-white":
           "linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)",
         "blue-btn":
@@ -83,15 +89,20 @@ module.exports = {
         7.7: "31px",
         8.2: "33px",
         8.5: "34px",
+        9.3: "37px",
         9.5: "38px",
+        10.3: "41px",
         10.5: "42px",
         10.7: "43px",
         11.5: "46px",
-        11.7:"47px",
+        11.7: "47px",
+        12.2:"49px",
+        12.5: "50px",
         12.7: "51px",
         13: "52px",
         13.2: "53px",
-        15.5:"62px",
+        15: "60px",
+        15.5: "62px",
         15.7: "63px",
         16.7: "67px",
         17: "68px",
@@ -103,9 +114,11 @@ module.exports = {
         21: "84px",
         21.2: "85px",
         22.5: "90px",
-        31.5:"126px",
+        26.2: "105px",
+        31.5: "126px",
         37: "148px",
-        42.2:"169px",
+        38.5: "154px",
+        42.2: "169px",
         47.2: "189px",
         51: "204px",
         53: "212px",
@@ -136,6 +149,7 @@ module.exports = {
       "slight-blue": "#EBF0FB",
       "bright-red": "#FD1515",
       silverstone: "#B3B4B4",
+      milky: "rgba(255,255,255,0.89)",
     },
   },
   plugins: [],

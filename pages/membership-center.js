@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
-import AccountOverview from "@/components/AccountOverview";
+import AccountOverview from "@/components/AccountsOverview";
 import Image from "next/image";
+import MembershipCard from "@/components/MembershipCard";
 
 function membershipCenter() {
   const [active, setActive] = useState("會員卡");
@@ -12,7 +13,7 @@ function membershipCenter() {
         | 會員中心
       </h1>
       <div className="flex flex-row justify-between 2xl:ml-15.7">
-        <div className="flex flex-col items-center 2xl:mt-7.3 bg-white 2xl:h-[78vh] 2xl:min-w-[500px] rounded-mdlg">
+        <div className="flex flex-col items-center 2xl:mt-7.3 bg-white 2xl:h-[80vh] 2xl:min-w-[500px] rounded-mdlg">
           <h1 className="text-2xl font-semibold text-navy-blue 2xl:mt-31.5 2xl:mb-5">
             艾克斯厚定股份有限公司
           </h1>
@@ -52,6 +53,7 @@ function membershipCenter() {
               );
             })}
           </div>
+          {active=="會員卡" && <MembershipCard/>} 
           {active == "企業帳號總覽" && (
             <div className="yellowScrollWhiteBg flex flex-col ml-13.2 w-auto h-[75vh] overflow-scroll overflow-x-hidden 2xl:mt-11.7">
               <AccountOverview users={currentUsers} />
