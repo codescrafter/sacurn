@@ -61,9 +61,8 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                             height={8}
                             alt="Cherven Icon"
                             className={`ml-2 w-3 h-3 cursor-pointer hidden group-hover:block ${
-                              expandedRowIndex === index
-                                ? "transform rotate-180"
-                                : ""
+                              expandedRowIndex === index &&
+                              "transform -rotate-90 !block"
                             }`}
                             onClick={() => {
                               setExpandedRowIndex((prevIndex) =>
