@@ -20,12 +20,12 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                 : { borderCollapse: "separate", borderSpacing: "0 0" }
             }
           >
-            <thead className="sticky -top-2 z-10">
+            <thead className="sticky -top-1 z-10">
               <tr className="!bg-neutral-150">
                 {tableHeadings.map((item, index) => (
                   <th
                     scope="col"
-                    className={`pb-3 text-left whitespace-nowrap text-base xl:text-lg font-normal text-grey ${
+                    className={`pb-3 pt-1 text-left whitespace-nowrap text-base xl:text-lg font-normal text-grey ${
                       index === 0 ? "pl-2 2xl:pl-[33px]" : "px-2 2xl:px-8"
                     }`}
                     key={item}
