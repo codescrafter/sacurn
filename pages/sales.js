@@ -5,6 +5,7 @@ import SalesLeftSide from "@/components/SalesLeftSide";
 import ConfirmListingAlert from "@/components/ConfirmListingAlert";
 import Button from "@/components/Button";
 import StopTradeAlert from "@/components/StopTradeAlert";
+import SalesAreaGraph from "@/components/SalesAreaGraph";
 
 function Sales() {
   const [expandedRowIndex, setExpandedRowIndex] = useState(null);
@@ -25,14 +26,23 @@ function Sales() {
         <div className="flex gap-3 2xl:gap-[33px]">
           {/* graph area */}
           <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[450px] w-[390px]">
-            {showSidebar && (
+            {/* area graph */}
+            <div
+              className="h-[347px] overflow-hidden bg-white rounded-[10px] flex items-center justify-center"
+              style={{ boxShadow: "1px 1px 26px 0px rgba(0, 0, 0, 0.23)" }}
+            >
+              {" "}
+              <SalesAreaGraph />
+            </div>
+
+            {/* {showSidebar && (
               <SalesLeftSide
                 stopTrade={stopTrade}
                 isStopAlert={isStopAlert}
                 setIsStopAlert={setIsStopAlert}
                 setIsAlert={setIsAlert}
               />
-            )}
+            )} */}
           </div>
           {/* sales table */}
           <div className="flex flex-col items-end w-full">
