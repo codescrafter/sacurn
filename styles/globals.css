@@ -82,8 +82,8 @@
   border-bottom-right-radius: 10px;
 }
 .dropdown-row {
-  /* Add other necessary styles */
-  transition: all 2s ease-in-out; /* Transition the 'top' property with a duration of 0.2 seconds and an ease-in-out timing function */
+  position: relative;
+  top: -20px;
 }
 .custom-table .dropdown-row,
 .custom-table .dropdown-row td:first-child {

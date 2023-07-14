@@ -65,6 +65,7 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                               "transform -rotate-90 !block"
                             }`}
                             onClick={() => {
+                              setStaticRowsVisible(false);
                               setExpandedRowIndex((prevIndex) =>
                                 prevIndex === index ? null : index
                               );
