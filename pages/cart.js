@@ -4,7 +4,7 @@ import React from "react";
 
 const Cart = () => {
   return (
-    <div className="bg-[#F6F6F6] h-screen overflow-hidden">
+    <div className="bg-neutral-150 h-screen overflow-hidden">
       <Navbar className={`pt-7 pb-2.5 !bg-navy-blue`} />
       <div className="flex justify-between my-4 pl-13 pr-10">
         <div className="flex">
@@ -36,16 +36,24 @@ const Cart = () => {
           <div className="flex flex-col">
             <div className="flex flex-row justify-between pr-6.7">
               <Heading>商品共計</Heading>
-              <p className="2xl:text-lg text-base text-black font-medium">NT$ {120000}</p>
+              <p className="2xl:text-lg text-base text-black font-medium">
+                NT$ {120000}
+              </p>
             </div>
             <div className="px-6.7 mt-2.5 ">
-              <p className="text-grey 2xl:text-sm text-xs">3項(以下含稅金5%及手續費)</p>
+              <p className="text-grey 2xl:text-sm text-xs">
+                3項(以下含稅金5%及手續費)
+              </p>
               <div className="2xl:mt-5.2 mt-3">
                 {selectedItems.map((item) => {
                   return (
                     <div className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
-                      <p className="w-[70%] text-grey 2xl:text-lg text-sm">{item.name}</p>
-                      <p className="text-grey 2xl:text-lg text-sm">{item.quantity} 噸</p>
+                      <p className="w-[70%] text-grey 2xl:text-lg text-sm">
+                        {item.name}
+                      </p>
+                      <p className="text-grey 2xl:text-lg text-sm">
+                        {item.quantity} 噸
+                      </p>
                     </div>
                   );
                 })}
@@ -59,7 +67,9 @@ const Cart = () => {
                 <p className="text-grey 2xl:text-lg text-base">${619000}</p>
               </div>
               <div className="flex flex-row justify-between">
-                <p className="2xl:text-lg text-base font-semibold text-black">總付款金額</p>
+                <p className="2xl:text-lg text-base font-semibold text-black">
+                  總付款金額
+                </p>
                 <p className="2xl:text-lg text-base text-bright-red font-semibold">
                   NT$ {12000000}
                 </p>
@@ -68,14 +78,26 @@ const Cart = () => {
             <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
             <Heading>優惠折扣</Heading>
             <button className="border-navy-blue ml-6.7 2xl:mt-5 mt-3 flex flex-row rounded-lg border-solid border 2xl:px-5 px-4 2xl:py-3 py-2 max-w-max 2xl:mb-8 mb-5">
-              <Image src={"/images/cart/promocode.svg"} width={25} height={25}/>
-              <p className="text-navy-blue 2xl:text-base text-sm pl-3">使用優惠碼</p>
+              <Image
+                src={"/images/cart/promocode.svg"}
+                width={25}
+                height={25}
+              />
+              <p className="text-navy-blue 2xl:text-base text-sm pl-3">
+                使用優惠碼
+              </p>
             </button>
             <Heading>服務條款</Heading>
-            <p className="ml-6.7 text-grey 2xl:text-base text-sm 2xl:mt-6 mt-2">我瞭解並同意Sacurn服務條款與隱私權政策</p>
+            <p className="ml-6.7 text-grey 2xl:text-base text-sm 2xl:mt-6 mt-2">
+              我瞭解並同意Sacurn服務條款與隱私權政策
+            </p>
             <hr className="border-silverstone 2xl:mt-8 mt-4 2xl:mb-5 mb-3" />
-            <p className="2xl:text-base text-xms text-black self-center mb-1">點擊「前往付款」，訂單及送出，請於下一步選擇付款方式</p>
-            <button className="bg-navy-blue w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white">前往付款</button>
+            <p className="2xl:text-base text-xms text-black self-center mb-1">
+              點擊「前往付款」，訂單及送出，請於下一步選擇付款方式
+            </p>
+            <button className="bg-navy-blue w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white">
+              前往付款
+            </button>
           </div>
         </div>
       </div>
