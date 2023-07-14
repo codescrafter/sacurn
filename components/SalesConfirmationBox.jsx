@@ -2,7 +2,12 @@ import React from "react";
 import HorizontalDivider from "./HorizontalDivider";
 import Button from "./Button";
 
-const SalesLeftSide = ({ setIsAlert, setIsStopAlert, stopTrade }) => {
+const SalesConfirmationBox = ({
+  setIsAlert,
+  setIsStopAlert,
+  stopTrade,
+  setConfirmationBox,
+}) => {
   const handleClick = () => {
     if (stopTrade) {
       setIsStopAlert(true);
@@ -124,7 +129,10 @@ const SalesLeftSide = ({ setIsAlert, setIsStopAlert, stopTrade }) => {
         >
           上架交易
         </Button>
-        <Button className="!p-[10px] !bg-transparent rounded-[10px] min-w-[175px] border border-grey !text-grey text-base xl:text-2xl">
+        <Button
+          onClick={() => setConfirmationBox(false)}
+          className="!p-[10px] !bg-transparent rounded-[10px] min-w-[175px] border border-grey !text-grey text-base xl:text-2xl"
+        >
           取消
         </Button>
       </div>
@@ -132,4 +140,4 @@ const SalesLeftSide = ({ setIsAlert, setIsStopAlert, stopTrade }) => {
   );
 };
 
-export default SalesLeftSide;
+export default SalesConfirmationBox;

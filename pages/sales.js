@@ -1,16 +1,19 @@
 import { Fragment, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
-import SalesLeftSide from "@/components/SalesLeftSide";
+import SalesConfirmationBox from "@/components/SalesConfirmationBox";
 import ConfirmListingAlert from "@/components/ConfirmListingAlert";
 import Button from "@/components/Button";
 import StopTradeAlert from "@/components/StopTradeAlert";
 import SalesAreaGraph from "@/components/SalesAreaGraph";
+import GraphCard from "@/components/GraphCard";
+import SalesLineChart from "@/components/SalesLineChart.jsx";
+import ProgressBarChart from "@/components/ProgressBarChart";
 
 function Sales() {
   const [expandedRowIndex, setExpandedRowIndex] = useState(null);
   const [staticRowsVisible, setStaticRowsVisible] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [confirmationBox, setConfirmationBox] = useState(false);
   const [isAlert, setIsAlert] = useState(false);
   const [isStopAlert, setIsStopAlert] = useState(false);
   const [stopTrade, setStopTrade] = useState(false);
@@ -24,26 +27,64 @@ function Sales() {
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
       <main className="py-8 pl-2 xl:pl-4 2xl:pl-[30px] pr-2 xl:pr-4 2xl:pr-[25px]">
         <div className="flex gap-3 2xl:gap-[33px]">
-          {/* graph area */}
-          <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[450px] w-[390px]">
-            {/* area graph */}
-            <div
-              className="h-[347px] overflow-hidden bg-white rounded-[10px] flex items-center justify-center"
-              style={{ boxShadow: "1px 1px 26px 0px rgba(0, 0, 0, 0.23)" }}
-            >
-              {" "}
-              <SalesAreaGraph />
-            </div>
-
-            {/* {showSidebar && (
-              <SalesLeftSide
+          {/* sidebar */}
+          {confirmationBox ? (
+            <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[500px] w-[390px]">
+              {/* confirmation box */}
+              <SalesConfirmationBox
                 stopTrade={stopTrade}
                 isStopAlert={isStopAlert}
                 setIsStopAlert={setIsStopAlert}
                 setIsAlert={setIsAlert}
+                setConfirmationBox={setConfirmationBox}
               />
-            )} */}
-          </div>
+            </div>
+          ) : (
+            <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[500px] w-[500px] space-y-2">
+              {/* graphs */}
+              {/* area graph */}
+              <GraphCard className="h-[347px] flex items-center justify-center relative">
+                <SalesAreaGraph />
+                {/* action buttons */}
+                <div className="absolute -right-9 xl:-right-5 transform rotate-90">
+                  <Button className="font-medium text-xs xl:text-sm !text-grey !bg-transparent rounded-bl-[10px] rounded-tl-[10px] rounded-tr-[1px] rounded-br-[1px] !shadow-graph-btn !p-[10px] min-w-[77px]">
+                    碳權種類
+                  </Button>
+                  <Button className="font-medium text-[11px] xl:text-[13px] border border-light-grey  !text-grey !bg-neutral-150 rounded-bl-[0px] rounded-tl-[0px] rounded-tr-[10px] rounded-br-[10px] min-w-[52px]">
+                    地區
+                  </Button>
+                </div>
+              </GraphCard>
+              {/* line graph */}
+              <GraphCard className="h-[271px] flex flex-col items-center justify-center relative">
+                {/* action buttons */}
+                <div className="flex self-start justify-end w-full xl:pb-0 pt-4 pr-4 pb-2">
+                  <Button className="font-medium text-[13px] border border-light-grey  !text-grey !bg-transparent rounded-bl-[10px] rounded-tl-[10px] rounded-tr-[0px] rounded-br-[0px] shadow-graph-btn">
+                    銷售額
+                  </Button>
+                  <Button className="font-medium text-[13px] border border-light-grey  !text-grey !bg-neutral-150">
+                    訪客數
+                  </Button>
+                  <Button className="font-medium text-[13px] border border-light-grey  !text-grey !bg-neutral-150">
+                    瀏覽數
+                  </Button>
+                  <Button className="font-medium text-[13px] border border-light-grey  !text-grey !bg-neutral-150">
+                    訂單數
+                  </Button>
+                  <Button className="font-medium text-[13px] border border-light-grey  !text-grey !bg-neutral-150 rounded-bl-[0px] rounded-tl-[0px] rounded-tr-[10px] rounded-br-[10px]">
+                    平均客單價
+                  </Button>
+                </div>
+                {/* chart */}
+                <SalesLineChart />
+              </GraphCard>
+              {/* progressbar chart */}
+              <GraphCard className="h-[206px] p-4">
+                <ProgressBarChart />
+              </GraphCard>
+            </div>
+          )}
+
           {/* sales table */}
           <div className="flex flex-col items-end w-full">
             <div className="flex items-center mb-9 gap-3">
@@ -157,7 +198,7 @@ function Sales() {
                                 {/* prod detail */}
                                 <div className="flex flex-col space-y-1 xl:space-y-4">
                                   {/* prod name */}
-                                  <span className="text-sm 2xl:text-lg font-semibold text-dark-grey 2xl:!leading-5 !leading-[19px]">
+                                  <span className="text-sm 2xl:text-lg font-semibold text-dark-grey !leading-[19px]">
                                     {item.prodDetail.prodName}
                                   </span>
                                   {/* detail */}
@@ -250,7 +291,7 @@ function Sales() {
                                         alt="settings icon"
                                         className="hidden group-hover:block cursor-pointer"
                                         onClick={() => {
-                                          setShowSidebar(true);
+                                          setConfirmationBox(true);
                                           setStopTrade(false);
                                         }}
                                       />
@@ -300,10 +341,10 @@ function Sales() {
                                         </span>
                                       </div>
                                       <Button
-                                        className="rounded-[10px] min-w-[120px] 2xl:min-w-[183px] !bg-pale-yellow shadow-stoptrading-btn text-base !text-navy-blue font-medium !ml-20 2xl:!ml-14"
+                                        className="rounded-[10px] min-w-[120px] 2xl:min-w-[183px] !bg-pale-yellow shadow-stoptrading-btn text-base !text-navy-blue font-medium xl:!ml-20 2xl:!ml-14"
                                         onClick={() => {
                                           setStopTrade(true);
-                                          setShowSidebar(true);
+                                          setConfirmationBox(true);
                                         }}
                                       >
                                         停止交易

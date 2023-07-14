@@ -86,7 +86,10 @@ module.exports = {
         "cart-item":
           "0px 0.696072518825531px 9.745015144348145px 0px rgba(0, 0, 0, 0.15)",
         "sales-box": "0px 0px 3px 0px rgba(0, 0, 0, 0.20)",
-        "stoptrading-btn": "0px 1px 3px 0px rgba(0, 0, 0, 0.30);",
+        "stoptrading-btn": "0px 1px 3px 0px rgba(0, 0, 0, 0.30)",
+        "graph-card": "1px 1px 26px 0px rgba(0, 0, 0, 0.23)",
+        "graph-btn": "0px 1.5px 7.5px 0px rgba(0, 0, 0, 0.19)",
+        "progress-bar": "0px 3px 2px 0px rgba(0, 0, 0, 0.15)",
       },
       backgroundImage: {
         "login-white":
