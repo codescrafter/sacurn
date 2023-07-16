@@ -55,7 +55,7 @@ function membershipCenter() {
           </div>
           {active=="會員卡" && <MembershipCard/>} 
           {active == "企業帳號總覽" && (
-            <div className="yellowScrollWhiteBg min-[1452px]:ml-13 2xl:ml-13.2 xl:ml-10 ml-8 w-auto 2xl:h-[75vh] xl:h-[75vh] h-100 overflow-scroll overflow-x-hidden 2xl:pr-5 2xl:mt-11.7 xl:mt-8">
+            <div className="yellowScrollWhiteBg min-[1452px]:ml-13 2xl:ml-13.2 xl:ml-10 ml-8 w-auto 2xl:h-[75vh] xl:h-[75vh] h-112.5 overflow-scroll overflow-x-hidden 2xl:pr-5 2xl:mt-11.7 xl:mt-8 mt-7">
               <AccountsOverview users={currentUsers} />
             </div>
           )}
