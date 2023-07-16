@@ -10,7 +10,7 @@ const Navbar = ({ className }) => {
     <div
       className={`bg-transparent flex items-center justify-between pl-8.5 pr-10.5 ${className}`}
     >
-      <Image src={"/images/navbar/sacurn-logo.svg"} width={192} height={39} />
+      <Image src={"/images/navbar/sacurn-logo.svg"} className="2xl:w-48 xl:w-44 2xl:h-9.7 xl:h-9" width={192} height={39} />
       <div className="flex items-center">
         <nav>
           <ul className="flex items-center justify-between 2xl:space-x-18 space-x-9">

@@ -4,7 +4,7 @@ import RoundedButton from "./RoundedButton";
 function MembershipCard(props) {
   return (
     <div className="flex flex-col mt-10.3 2xl:ml-12.5 pr-9.3 w-auto">
-      <div className="relative flex flex-col bg-milky flex-wrap rounded-mdlg 2xl:text-xl 2xl:font-semibold 2xl:w-full text-navy-blue gap-y-6.2 2xl:h-[35vh] 2xl:pl-26.2 2xl:pt-12.5">
+      <div className="relative flex flex-col bg-milky flex-wrap rounded-mdlg 2xl:text-xl 2xl:font-semibold 2xl:w-full text-navy-blue gap-y-6.2 2xl:h-[35vh] min-[1650px]:pl-26.2 2xl:pl-22.5  2xl:pt-12.5">
         <h1 className="text-navy-blue">
           公司名稱：{companyRecord.companyName}
         </h1>
@@ -33,7 +33,7 @@ function MembershipCard(props) {
           className="2xl:mt-4.2 2xl:ml-4.5"
           src={require("@/public/images/membership-center/sacurn.png")}
         />
-        <div className="flex flex-col flex-wrap 2xl:gap-6 text-xl w-auto font-semibold 2xl:h-[18vh] 2xl:ml-26.2 2xl:mt-4.5 text-left">
+        <div className="flex flex-col flex-wrap min-[1650px]:gap-y-6 2xl:gap-y-5 text-xl w-auto font-semibold 2xl:h-[18vh] min-[1650px]:ml-26.2 2xl:ml-22.5 2xl:mt-4.5 text-left">
           <h1 className="text-navy-blue">
             會員卡卡號：{membershipCardData.cardNumber}
           </h1>
@@ -57,7 +57,7 @@ function MembershipCard(props) {
       <div className="flex flex-row justify-between 2xl:mt-15">
         {bottomNav.map((item) => {
           return (
-            <RoundedButton className={`2xl:w-38.5 2xl:py-2.5 bg-white`} childClassName={`text-dark-grey text-lg`}>{item}</RoundedButton>
+            <RoundedButton className={`2xl:w-[15%] 2xl:py-2.5 bg-white`} childClassName={`text-dark-grey text-lg`}>{item}</RoundedButton>
           );
         })}
       </div>
