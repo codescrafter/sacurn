@@ -3,8 +3,8 @@ import RoundedButton from "./RoundedButton";
 
 function MembershipCard(props) {
   return (
-    <div className="flex flex-col 2xl:mt-10.3 xl:mt-8 2xl:ml-12.5 xl:ml-10 pr-9.3 w-auto">
-      <div className="relative flex flex-col bg-milky flex-wrap rounded-mdlg 2xl:text-xl xl:text-sm font-semibold 2xl:w-full text-navy-blue 2xl:gap-y-6.2 xl:gap-y-4.5 2xl:h-[35vh] xl:h-59 min-[1650px]:pl-26.2 2xl:pl-22.5 xl:pl-18 2xl:pt-12.5 xl:pt-7">
+    <div className="flex flex-col 2xl:mt-10.3 xl:mt-8 mt-7 2xl:ml-12.5 xl:ml-10 ml-8 pr-9.3 w-auto">
+      <div className="relative flex flex-col bg-milky flex-wrap rounded-mdlg 2xl:text-xl xl:text-sm text-xs font-semibold 2xl:w-full text-navy-blue 2xl:gap-y-6.2 xl:gap-y-4.5 gap-y-4 2xl:h-[35vh] xl:h-59 h-48 min-[1650px]:pl-26.2 2xl:pl-22.5 xl:pl-18 pl-15 2xl:pt-12.5 xl:pt-7 pt-5">
         <h1 className="text-navy-blue">
           公司名稱：{companyRecord.companyName}
         </h1>
@@ -28,12 +28,12 @@ function MembershipCard(props) {
         <h1 className="text-navy-blue">Email：{companyRecord.email}</h1>
       </div>
 
-      <div className="bg-membership-card bg-110% bg-center  bg-no-repeat flex flex-col rounded-mdlg 2xl:mt-10.3 xl:mt-8">
+      <div className="bg-membership-card bg-110% bg-center  bg-no-repeat flex flex-col rounded-mdlg 2xl:mt-10.3 xl:mt-8 mt-7">
         <Image
-          className="2xl:mt-4.2 xl:mt-3.2 2xl:ml-4.5 xl:ml-3.5"
+          className="2xl:mt-4.2 xl:mt-3.2 mt-2.5 2xl:ml-4.5 xl:ml-3.5 ml-2.7"
           src={require("@/public/images/membership-center/sacurn.png")}
         />
-        <div className="flex flex-col flex-wrap min-[1650px]:gap-y-6 2xl:gap-y-5 xl:gap-y-3.7 2xl:text-xl xl:text-sm w-auto font-semibold 2xl:h-[18vh] xl:h-29.5 min-[1650px]:ml-26.2 2xl:ml-22.5 xl:ml-18 2xl:mt-4.5 xl:mt-3.5 text-left">
+        <div className="flex flex-col flex-wrap min-[1650px]:gap-y-6 2xl:gap-y-5 xl:gap-y-3.7 gap-y-3 2xl:text-xl xl:text-sm text-xs w-auto font-semibold 2xl:h-[18vh] xl:h-29.5 h-24 min-[1650px]:ml-26.2 2xl:ml-22.5 xl:ml-18 ml-16 2xl:mt-4.5 xl:mt-3.5 mt-3 text-left">
           <h1 className="text-navy-blue">
             會員卡卡號：{membershipCardData.cardNumber}
           </h1>
@@ -54,12 +54,12 @@ function MembershipCard(props) {
           </h1>
         </div>
       </div>
-      <div className="flex flex-row justify-between 2xl:mt-15 xl:mt-[4%]">
+      <div className="flex flex-row justify-between 2xl:mt-15 xl:mt-[4%] mt-[4%]">
         {bottomNav.map((item) => {
           return (
             <RoundedButton
-              className={`2xl:w-[15%] xl:w-[15%] 2xl:py-2.5 xl:py-1.5 bg-white`}
-              childClassName={`text-dark-grey 2xl:text-lg xl:text-sm`}
+              className={`2xl:w-[15%] w-[15%] 2xl:py-2.5 xl:py-1.5 py-1.5 bg-white`}
+              childClassName={`text-dark-grey 2xl:text-lg xl:text-sm text-xs`}
             >
               {item}
             </RoundedButton>
