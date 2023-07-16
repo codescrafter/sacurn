@@ -35,7 +35,7 @@ const DatePickerModal = ({
         }}
         isClearable={true}
         inline
-        locale={zhTW} // Set the locale to Traditional Chinese
+        locale={zhTW}
       />
 
       {/* divider */}
@@ -61,7 +61,7 @@ const DatePickerModal = ({
       {/* action buttons */}
       <div className="flex items-center space-x-2 mt-2 self-end pr-4">
         <Button
-          className={`!bg-[#F6F6F6] !text-grey text-sm !rounded-xl !py-1 !px-3`}
+          className={`!bg-neutral-150 !text-grey text-sm !rounded-xl !py-1 !px-3`}
         >
           取消
         </Button>
