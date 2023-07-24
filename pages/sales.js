@@ -4,7 +4,6 @@ import Image from "next/image";
 import SalesConfirmationBox from "@/components/SalesConfirmationBox";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
-import StopTradeAlert from "@/components/StopTradeAlert";
 import SalesAreaGraph from "@/components/SalesAreaGraph";
 import SalesLineChart from "@/components/SalesLineChart.jsx";
 import ProgressBarChart from "@/components/ProgressBarChart";
@@ -24,7 +23,7 @@ function Sales() {
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
       <main className="py-[30px] pl-2 xl:pl-4 2xl:pl-[30px] pr-2 xl:pr-4 2xl:pr-[25px]">
-        <div className="flex gap-3 2xl:gap-[33px]">
+        <div className="flex gap-2 2xl:gap-[33px]">
           {/* sidebar */}
           {confirmationBox ? (
             <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[500px] w-[390px]">
@@ -50,7 +49,7 @@ function Sales() {
 
           {/* table and search area */}
           <div className="flex flex-col items-end w-full">
-            <div className="flex items-center mb-8 gap-3">
+            <div className="flex items-center mb-8 gap-3 xl:mr-0 mr-7">
               {/* filters */}
               <div className="rounded-full border border-light-grey w-[34px] h-[34px] flex items-center justify-center cursor-pointer">
                 <Image
@@ -61,8 +60,8 @@ function Sales() {
                 />
               </div>
               {/* search */}
-              <div className="flex">
-                <div className="relative rounded-md shadow-sm">
+              <div className="flex w-full">
+                <div className="relative rounded-md shadow-sm w-full">
                   <input
                     type="text"
                     name="search"
@@ -113,7 +112,7 @@ function Sales() {
                               }`}
                             >
                               <span
-                                className={`text-sm flex items-center xl:text-lg font-normal text-grey cursor-pointer ${
+                                className={`text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer ${
                                   (index === 4 || index === 5) &&
                                   "justify-center"
                                 }`}
@@ -124,6 +123,7 @@ function Sales() {
                                   width={15}
                                   height={23}
                                   alt="filters arrows"
+                                  className="min-w-[15px] h-auto"
                                 />
                               </span>
                             </th>
@@ -140,7 +140,7 @@ function Sales() {
                                 "!bg-light-gray"
                               }`}
                             >
-                              <td className="xl:pl-[11px] pl-2 w-[0px] pr-4 text-center">
+                              <td className="2xl:pl-[11px] pl-2 w-[0px] pr-2 2xl:pr-4 text-center">
                                 {/* badge */}
                                 <span
                                   className={`text-center rounded-[10px] 2xl:text-lg text-sm p-1 xl:p-[10px] block xl:w-[74px] ${
@@ -207,26 +207,26 @@ function Sales() {
                                 </span>
                               </td>
                               <td
-                                className={`py-2 px-2 text-dark-grey text-sm 2xl:text-lg w-[140px]`}
+                                className={`py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]`}
                               >
                                 <div className="w-full flex justify-center">
-                                  <div className="w-[45px] h-[45px]">
+                                  <div className="w-[35px] 2xl:w-[45px] 2xl:h-[45px]">
                                     <Image
                                       src={item.carbonCertificate}
                                       width={45}
                                       height={46}
                                       alt="file icon"
-                                      className="w-[45px] h-auto cursor-pointer"
+                                      className="w-[35px] 2xl:w-[45px] h-auto cursor-pointer"
                                     />
                                   </div>
                                 </div>
                               </td>
                               <td
-                                className={`py-2 px-2 text-dark-grey text-center text-sm 2xl:text-lg w-[140px]`}
+                                className={`py-2 text-dark-grey text-center text-sm 2xl:text-lg 2xl:w-[140px]`}
                               >
                                 {index === 5 ? (
                                   <Button
-                                    className="whitespace-nowrap rounded-[7px] text-base !bg-pale-yellow hover:!bg-transparent hover:!border hover:!border-pale-yellow hover:!text-pale-yellow 2xl:min-w-[74px]"
+                                    className="whitespace-nowrap rounded-[7px] text-base !bg-pale-yellow hover:!bg-transparent hover:!border hover:!border-pale-yellow hover:!text-pale-yellow w-auto 2xl:min-w-[74px] !p-[5px]  2xl:!p-[7px]"
                                     onClick={() => {
                                       setExpandedRowIndex((prevIndex) =>
                                         prevIndex === index ? null : index
@@ -240,20 +240,20 @@ function Sales() {
                                   </Button>
                                 ) : (
                                   <div className="w-full flex justify-center">
-                                    <div className="w-[45px] h-[45px] group shadow flex items-center justify-center bg-white rounded-lg relative">
+                                    <div className="w-[35px] 2xl:w-[45px] 2xl:h-[45px] group shadow flex items-center justify-center bg-white rounded-lg relative">
                                       <Image
                                         src={item.transaction}
                                         width={45}
                                         height={46}
                                         alt="settings icon"
-                                        className="group-hover:hidden cursor-pointer w-[45px] h-auto"
+                                        className="group-hover:hidden cursor-pointer w-[35px] 2xl:w-[45px] h-auto"
                                       />
                                       <Image
                                         src="/images/sales/settings_icon_white.png"
                                         width={45}
                                         height={46}
                                         alt="settings icon"
-                                        className="hidden group-hover:block cursor-pointer"
+                                        className="hidden group-hover:block cursor-pointer w-[35px] 2xl:w-[45px] h-auto"
                                         onClick={() => {
                                           setConfirmationBox(true);
                                           setStopTrade(false);

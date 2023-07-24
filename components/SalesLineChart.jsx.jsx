@@ -38,14 +38,6 @@ const SalesLineChart = () => {
       colors: ["#1D70BD", "#FFD600"],
       dashArray: [0, 3],
     },
-    title: {
-      text: "數量",
-      align: "left",
-      style: {
-        color: "#B3B4B4",
-        fontSize: "10px",
-      },
-    },
     markers: {
       size: [6, 0],
       colors: ["#1D70BD"],
@@ -121,7 +113,7 @@ const SalesLineChart = () => {
         breakpoint: 1540,
         options: {
           chart: {
-            width: 370,
+            width: 330,
             height: 190,
           },
         },
@@ -136,7 +128,7 @@ const SalesLineChart = () => {
   return (
     <GraphCard className="h-[271px] flex flex-col items-center justify-center relative line-graph px-4 2xl:px-0 pb-4">
       {/* action buttons */}
-      <div className="flex self-start justify-end w-full xl:pb-0 pt-4 pr-4 pb-2">
+      <div className="flex self-start justify-end w-full 2xl:pb-0 pt-4 2xl:pr-4 pb-2">
         {buttonData.map((button, index) => (
           <Button
             key={button.value}
@@ -163,15 +155,19 @@ const SalesLineChart = () => {
           series={series}
           type="line"
           width={530}
-          height={200}
+          height={190}
         />
       </div>
       {/* x-axis title */}
-      <span className="text-silverstone text-[10px] font-semibold absolute bottom-2 2xl:right-10 right-2">
+      <span className="text-silverstone text-[10px] font-semibold absolute bottom-4 2xl:right-10 right-2">
         月份
       </span>
+      {/* y-axis title */}
+      <span className="text-silverstone text-[10px] font-semibold absolute top-14 2xl:top-10 left-8 2xl:left-16">
+        數量
+      </span>
       {/* average line title */}
-      <span className="text-pale-yellow text-[10px] font-semibold absolute right-[3px] 2xl:right-4 top-[8.5rem]">
+      <span className="text-pale-yellow text-[10px] font-semibold absolute right-[3px] 2xl:right-4 top-[8.2rem] 2xl:top-[7.8rem]">
         平均
       </span>
     </GraphCard>

@@ -19,7 +19,7 @@ const ProgressBarChart = () => {
         {/* bars */}
         <div className="flex items-center divide-x divide-silverstone w-full">
           {/* left progress bar */}
-          <div className="flex flex-col w-full pr-1 xl:pr-6">
+          <div className="flex flex-col w-full pr-1 2xl:pr-6">
             <div className="flex items-center justify-between w-full">
               <span className="text-silverstone text-xs 2xl:text-sm font-semibold">
                 本期累積訂單
@@ -72,11 +72,11 @@ const ProgressBarChart = () => {
           </div>
         </div>
         {/* disclaimer */}
-        <div className="flex items-center justify-between">
-          <span className="text-silverstone text-xs 2xl:text-sm font-semibold">
+        <div className="flex items-start 2xl:items-center justify-between">
+          <span className="text-silverstone text-xs 2xl:text-sm font-semibold w-64 2xl:w-auto">
             2023/06/30將重新計算，會籍依前6個月消費予對應等級
           </span>
-          <Button className="!bg-transparent flex items-center font-semibold text-xs 2xl:text-sm !text-silverstone">
+          <Button className="!bg-transparent whitespace-nowrap flex items-center font-semibold text-xs 2xl:text-sm !text-silverstone">
             看紀錄{" "}
             <Image
               width={6}

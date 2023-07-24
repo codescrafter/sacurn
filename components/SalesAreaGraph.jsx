@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import GraphCard from "./GraphCard";
 import Button from "./Button";
@@ -41,7 +41,7 @@ const SalesAreaGraph = () => {
         breakpoint: 1540,
         options: {
           chart: {
-            width: 370,
+            width: 340,
           },
         },
       },
@@ -49,9 +49,9 @@ const SalesAreaGraph = () => {
   };
 
   return (
-    <GraphCard className="h-[347px] flex items-center justify-center relative">
+    <GraphCard className="h-[347px] flex items-center justify-center relative z-[999]">
       {/* action buttons */}
-      <div className="absolute -right-9 2xl:-right-5 transform rotate-90">
+      <div className="absolute z-40 -right-9 2xl:-right-5 transform rotate-90">
         <Button
           className={`font-medium text-xs 2xl:text-sm !text-grey flex-shrink-0 ${
             activeButton === 1
