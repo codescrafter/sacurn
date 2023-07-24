@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Button from "./Button";
 
-const ConfirmListingAlert = ({ setIsAlert, type }) => {
+const Alert = ({ setIsAlert, type }) => {
   return (
     <div className="flex justify-center items-center z-50 absolute inset-0 bg-black/30 backdrop-blur-[2px]">
       {type == "listingAlert" ? (
@@ -78,4 +78,4 @@ const ConfirmListingAlert = ({ setIsAlert, type }) => {
   );
 };
 
-export default ConfirmListingAlert;
+export default Alert;

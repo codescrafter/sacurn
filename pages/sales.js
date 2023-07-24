@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import SalesConfirmationBox from "@/components/SalesConfirmationBox";
-import ConfirmListingAlert from "@/components/ConfirmListingAlert";
+import Alert from "@/components/Alert";
 import Button from "@/components/Button";
 import StopTradeAlert from "@/components/StopTradeAlert";
 import SalesAreaGraph from "@/components/SalesAreaGraph";
@@ -20,9 +20,7 @@ function Sales() {
   return (
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-250">
       {/* confirmation modals */}
-      {isAlert && (
-        <ConfirmListingAlert setIsAlert={setIsAlert} type={alertType} />
-      )}
+      {isAlert && <Alert setIsAlert={setIsAlert} type={alertType} />}
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
       <main className="py-[30px] pl-2 xl:pl-4 2xl:pl-[30px] pr-2 xl:pr-4 2xl:pr-[25px]">

@@ -6,7 +6,6 @@ import Button from "./Button";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const SalesAreaGraph = () => {
-  const [chartWidth, setChartWidth] = useState(440);
   const [series, setSeries] = useState([20, 30, 90, 7]);
   const [activeButton, setActiveButton] = useState(1);
 
@@ -14,36 +13,17 @@ const SalesAreaGraph = () => {
     setActiveButton(buttonIndex);
   };
 
-  useLayoutEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 1540) {
-        setChartWidth(370);
-      } else {
-        setChartWidth(440);
-      }
-    };
-
-    handleResize(); // Handle initial rendering
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   const options = {
     plotOptions: {
       pie: {
         customScale: 1,
-        dataLabels: {
-          offset: -5, // Adjust the label position
-        },
       },
     },
     labels: ["A", "B", "C", "D"],
     colors: ["#1D70BD", "#FFD600", "#68A362", "#C4B0FD"],
     chart: {
       type: "pie",
-      width: chartWidth,
+      width: 440,
       events: {
         animationEnd: function (ctx) {
           ctx.toggleDataPointSelection(2);
@@ -56,6 +36,16 @@ const SalesAreaGraph = () => {
     legend: {
       show: false,
     },
+    responsive: [
+      {
+        breakpoint: 1540,
+        options: {
+          chart: {
+            width: 370,
+          },
+        },
+      },
+    ],
   };
 
   return (
@@ -85,12 +75,7 @@ const SalesAreaGraph = () => {
       </div>
       {/* graph */}
       <div className="donut">
-        <Chart
-          options={options}
-          series={series}
-          type="pie"
-          width={chartWidth}
-        />
+        <Chart options={options} series={series} type="pie" width={440} />
       </div>
     </GraphCard>
   );
