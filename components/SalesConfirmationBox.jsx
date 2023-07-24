@@ -4,17 +4,15 @@ import Button from "./Button";
 
 const SalesConfirmationBox = ({
   setIsAlert,
-  setIsStopAlert,
   stopTrade,
   setConfirmationBox,
+  setAlertType,
 }) => {
   const handleClick = () => {
     if (stopTrade) {
-      setIsStopAlert(true);
-      setIsAlert(false);
-    } else {
-      setIsAlert(true);
-    }
+      setAlertType("");
+    } else setAlertType("listingAlert");
+    setIsAlert(true);
   };
 
   return (
@@ -121,14 +119,21 @@ const SalesConfirmationBox = ({
       </div>
       {/* action buttons */}
       <div className="flex items-center justify-center gap-4 2xl:gap-20 px-8 mt-5 xl:mt-[26px]">
-        <Button
-          className={`!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl ${
-            stopTrade && "!bg-pale-yellow !text-navy-blue"
-          }`}
-          onClick={handleClick}
-        >
-          上架交易
-        </Button>
+        {stopTrade ? (
+          <Button
+            className={`!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl !bg-pale-yellow !text-navy-blue `}
+            onClick={handleClick}
+          >
+            上架交易
+          </Button>
+        ) : (
+          <Button
+            className={`!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl`}
+            onClick={handleClick}
+          >
+            停止交易
+          </Button>
+        )}
         <Button
           onClick={() => setConfirmationBox(false)}
           className="!p-[10px] !bg-transparent rounded-[10px] min-w-[175px] border border-grey !text-grey text-base xl:text-2xl"

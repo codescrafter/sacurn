@@ -6,7 +6,6 @@ import ConfirmListingAlert from "@/components/ConfirmListingAlert";
 import Button from "@/components/Button";
 import StopTradeAlert from "@/components/StopTradeAlert";
 import SalesAreaGraph from "@/components/SalesAreaGraph";
-import GraphCard from "@/components/GraphCard";
 import SalesLineChart from "@/components/SalesLineChart.jsx";
 import ProgressBarChart from "@/components/ProgressBarChart";
 
@@ -15,79 +14,45 @@ function Sales() {
   const [staticRowsVisible, setStaticRowsVisible] = useState(false);
   const [confirmationBox, setConfirmationBox] = useState(false);
   const [isAlert, setIsAlert] = useState(false);
-  const [isStopAlert, setIsStopAlert] = useState(false);
   const [stopTrade, setStopTrade] = useState(false);
+  const [alertType, setAlertType] = useState(null);
 
   return (
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-250">
       {/* confirmation modals */}
-      {isAlert && <ConfirmListingAlert setIsAlert={setIsAlert} />}
-      {isStopAlert && <StopTradeAlert setIsStopAlert={setIsStopAlert} />}
+      {isAlert && (
+        <ConfirmListingAlert setIsAlert={setIsAlert} type={alertType} />
+      )}
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
-      <main className="py-8 pl-2 xl:pl-4 2xl:pl-[30px] pr-2 xl:pr-4 2xl:pr-[25px]">
+      <main className="py-[30px] pl-2 xl:pl-4 2xl:pl-[30px] pr-2 xl:pr-4 2xl:pr-[25px]">
         <div className="flex gap-3 2xl:gap-[33px]">
           {/* sidebar */}
           {confirmationBox ? (
             <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[500px] w-[390px]">
               {/* confirmation box */}
               <SalesConfirmationBox
+                setAlertType={setAlertType}
                 stopTrade={stopTrade}
-                isStopAlert={isStopAlert}
-                setIsStopAlert={setIsStopAlert}
                 setIsAlert={setIsAlert}
                 setConfirmationBox={setConfirmationBox}
               />
             </div>
           ) : (
-            <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[500px] w-[500px] space-y-2">
+            <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[500px] w-[500px] space-y-2 pt-2">
               {/* graphs */}
               {/* area graph */}
-              <GraphCard className="h-[347px] flex items-center justify-center relative">
-                <SalesAreaGraph />
-                {/* action buttons */}
-                <div className="absolute -right-9 xl:-right-5 transform rotate-90">
-                  <Button className="font-medium text-xs xl:text-sm !text-grey !bg-transparent rounded-bl-[10px] rounded-tl-[10px] rounded-tr-[1px] rounded-br-[1px] !shadow-graph-btn !p-[10px] min-w-[77px]">
-                    碳權種類
-                  </Button>
-                  <Button className="font-medium text-[11px] xl:text-[13px] border border-light-grey  !text-grey !bg-neutral-150 rounded-bl-[0px] rounded-tl-[0px] rounded-tr-[10px] rounded-br-[10px] min-w-[52px]">
-                    地區
-                  </Button>
-                </div>
-              </GraphCard>
+              <SalesAreaGraph />
               {/* line graph */}
-              <GraphCard className="h-[271px] flex flex-col items-center justify-center relative">
-                {/* action buttons */}
-                <div className="flex self-start justify-end w-full xl:pb-0 pt-4 pr-4 pb-2">
-                  <Button className="font-medium text-[13px] border border-light-grey  !text-grey !bg-transparent rounded-bl-[10px] rounded-tl-[10px] rounded-tr-[0px] rounded-br-[0px] shadow-graph-btn">
-                    銷售額
-                  </Button>
-                  <Button className="font-medium text-[13px] border border-light-grey  !text-grey !bg-neutral-150">
-                    訪客數
-                  </Button>
-                  <Button className="font-medium text-[13px] border border-light-grey  !text-grey !bg-neutral-150">
-                    瀏覽數
-                  </Button>
-                  <Button className="font-medium text-[13px] border border-light-grey  !text-grey !bg-neutral-150">
-                    訂單數
-                  </Button>
-                  <Button className="font-medium text-[13px] border border-light-grey  !text-grey !bg-neutral-150 rounded-bl-[0px] rounded-tl-[0px] rounded-tr-[10px] rounded-br-[10px]">
-                    平均客單價
-                  </Button>
-                </div>
-                {/* chart */}
-                <SalesLineChart />
-              </GraphCard>
-              {/* progressbar chart */}
-              <GraphCard className="h-[206px] p-4">
-                <ProgressBarChart />
-              </GraphCard>
+              <SalesLineChart />
+              {/* progressbar graph */}
+              <ProgressBarChart />
             </div>
           )}
 
-          {/* sales table */}
+          {/* table and search area */}
           <div className="flex flex-col items-end w-full">
-            <div className="flex items-center mb-9 gap-3">
+            <div className="flex items-center mb-8 gap-3">
               {/* filters */}
               <div className="rounded-full border border-light-grey w-[34px] h-[34px] flex items-center justify-center cursor-pointer">
                 <Image
@@ -118,6 +83,7 @@ function Sales() {
                 </div>
               </div>
             </div>
+            {/* sales table */}
             <div
               className={`yellowScroll w-full h-[81vh] pr-2 xl:pr-[22px] overflow-auto overflow-x-hidden`}
             >
@@ -140,7 +106,7 @@ function Sales() {
                           {tableHeadings.map((item, index) => (
                             <th
                               key={item}
-                              className={`text-left whitespace-nowrap pb-1 ${
+                              className={`text-left whitespace-nowrap pb-4 ${
                                 index === 0
                                   ? "pl-[11px] sr-only"
                                   : index === 1
@@ -238,7 +204,7 @@ function Sales() {
                                 className={`py-2 px-2 font-bold text-dark-grey text-sm 2xl:text-lg`}
                               >
                                 {item.totalAmount}{" "}
-                                <span className="font-medium text-dark-grey">
+                                <span className="!font-medium text-dark-grey">
                                   噸
                                 </span>
                               </td>
@@ -262,7 +228,7 @@ function Sales() {
                               >
                                 {index === 5 ? (
                                   <Button
-                                    className="whitespace-nowrap rounded-lg text-base !bg-pale-yellow hover:!bg-transparent hover:!border hover:!border-pale-yellow hover:!text-pale-yellow"
+                                    className="whitespace-nowrap rounded-[7px] text-base !bg-pale-yellow hover:!bg-transparent hover:!border hover:!border-pale-yellow hover:!text-pale-yellow 2xl:min-w-[74px]"
                                     onClick={() => {
                                       setExpandedRowIndex((prevIndex) =>
                                         prevIndex === index ? null : index

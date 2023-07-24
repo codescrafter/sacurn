@@ -186,3 +186,14 @@
 .direction-ltr {
   direction: ltr;
 }
+/* graphs */
+.line-graph .apexcharts-tooltip-title {
+  color: black;
+}
+
+.line-graph .apexcharts-tooltip-text-y-label {
+  color: black !important;
+}
+.line-graph .apexcharts-tooltip-text-y-value {
+  color: black !important;
+}
