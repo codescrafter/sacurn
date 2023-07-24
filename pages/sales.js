@@ -99,8 +99,8 @@ function Sales() {
                           : { borderCollapse: "separate", borderSpacing: "0 0" }
                       }
                     >
-                      <thead>
-                        <tr>
+                      <thead className="sticky -top-1 z-10">
+                        <tr className="!bg-neutral-250">
                           {tableHeadings.map((item, index) => (
                             <th
                               key={item}
