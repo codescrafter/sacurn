@@ -20,15 +20,15 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                 : { borderCollapse: "separate", borderSpacing: "0 0" }
             }
           >
-            <thead className="sticky -top-2 z-10">
+            <thead className="sticky -top-1 z-10">
               <tr className="!bg-neutral-150">
                 {tableHeadings.map((item, index) => (
                   <th
                     scope="col"
-                    className={`pb-3 text-left text-base xl:text-lg font-normal text-grey ${
-                      index === 0 ? "pl-4 xl:pl-[33px]" : "xl:px-8 px-2"
+                    className={`pb-3 pt-1 text-left whitespace-nowrap text-base xl:text-lg font-normal text-grey ${
+                      index === 0 ? "pl-2 2xl:pl-[33px]" : "px-2 2xl:px-8"
                     }`}
-                    key={index}
+                    key={item}
                   >
                     {item}
                   </th>
@@ -40,11 +40,19 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                 <Fragment key={item.id}>
                   <tr className={`bg-white row group h-[95px]`}>
                     <td
-                      className={`py-3 pl-4 xl:pl-[33px] pr-2 xl:pr-4 ${
-                        page === "historical_order" ? "w-48" : "xl:w-40"
-                      } `}
+                      className={`py-3 pl-2 2xl:pl-[33px] pr-2 2xl:pr-4 ${
+                        page === "historical_order"
+                          ? "xl:w-48 w-36"
+                          : "xl:w-40 xl:pr-10"
+                      }`}
                     >
-                      <span className="flex text-dark-grey text-base xl:text-xl items-center">
+                      <span
+                        className={`flex text-base 2xl:text-xl items-center w-24 ${
+                          page === "historical_order"
+                            ? "text-black font-medium"
+                            : "text-dark-grey"
+                        }`}
+                      >
                         {item.time || item.orderNumber}
                         {page === "historical_order" && (
                           <Image
@@ -53,11 +61,11 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                             height={8}
                             alt="Cherven Icon"
                             className={`ml-2 w-3 h-3 cursor-pointer hidden group-hover:block ${
-                              expandedRowIndex === index
-                                ? "transform rotate-180"
-                                : ""
+                              expandedRowIndex === index &&
+                              "transform -rotate-90 !block"
                             }`}
                             onClick={() => {
+                              setStaticRowsVisible(false);
                               setExpandedRowIndex((prevIndex) =>
                                 prevIndex === index ? null : index
                               );
@@ -70,13 +78,17 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                       </span>
                     </td>
                     <td
-                      className={`py-3 px-2 xl:px-8 text-dark-grey text-base xl:text-xl w-96 relative `}
+                      className={`py-3 px-2 2xl:px-8 text-base 2xl:text-xl w-72 2xl:w-96 relative ${
+                        page === "historical_order"
+                          ? "text-black font-medium"
+                          : "text-dark-grey"
+                      }`}
                     >
                       {item.prodName}
                     </td>
                     <td
-                      className={`py-3 px-2 xl:px-8 text-base xl:text-xl ${
-                        page === "sales_page" && "!text-dark-grey"
+                      className={`py-3 px-4 2xl:px-8 text-base 2xl:text-xl ${
+                        page === "operation_page" && "!text-dark-grey"
                       } ${
                         page === "historical_order" &&
                         (index === 2 || index === 3)
@@ -86,19 +98,36 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                     >
                       {item.operator || item.buysell}
                     </td>
-                    <td className="py-3 px-2 xl:px-8 text-dark-grey text-base xl:text-xl">
+                    <td
+                      className={`py-3 px-2 2xl:px-8 text-base 2xl:text-xl ${
+                        page === "historical_order"
+                          ? "text-black font-medium"
+                          : "text-dark-grey"
+                      }`}
+                    >
                       {item.unitPrice}
                     </td>
-                    <td className="py-3 px-2 xl:px-8 text-dark-grey text-base xl:text-xl">
+                    <td
+                      className={`py-3 px-2 2xl:px-8 text-base 2xl:text-xl ${
+                        page === "historical_order"
+                          ? "text-black font-medium"
+                          : "text-dark-grey"
+                      }`}
+                    >
                       {item.quant}
                     </td>
-                    <td className="py-3 px-2 xl:px-8 text-dark-grey text-base xl:text-xl">
+                    <td
+                      className={`py-3 px-2 2xl:px-8 text-base 2xl:text-xl ${
+                        page === "historical_order"
+                          ? "text-black font-medium"
+                          : "text-dark-grey"
+                      }`}
+                    >
                       {item.lumpsum}
                     </td>
                     <td
-                      className={`py-3 px-2 xl:px-8 text-dark-grey text-base xl:text-xl ${
-                        page === "sales_page" &&
-                        "!text-dark-grey whitespace-nowrap"
+                      className={`py-3 px-2 2xl:px-8 text-dark-grey whitespace-nowrap text-base 2xl:text-xl ${
+                        page === "operation_page" && "!text-dark-grey"
                       } ${
                         page === "historical_order" &&
                         (index === 2 || index === 3)
@@ -108,9 +137,17 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                     >
                       {item.action || item.orderStatus}
                     </td>
-                    <td className="py-3 px-2 xl:px-8 text-dark-grey text-base xl:text-xl whitespace-nowrap">
-                      {item.remark}
-                    </td>
+                    {page === "operation_page" && (
+                      <td
+                        className={`py-3 px-2 2xl:px-8 whitespace-nowrap text-base 2xl:text-xl ${
+                          page === "historical_order"
+                            ? "text-black font-medium"
+                            : "text-dark-grey"
+                        }`}
+                      >
+                        {item.remark}
+                      </td>
+                    )}
                   </tr>
 
                   {expandedRowIndex === index ? (
@@ -182,9 +219,6 @@ export default function CustomTable({ tableHeadings, tableBody, page }) {
                   )}
                 </Fragment>
               ))}
-              <tr className="h-[95px] bg-white">
-                <td colSpan={8} className="py-3"></td>
-              </tr>
             </tbody>
           </table>
         </div>

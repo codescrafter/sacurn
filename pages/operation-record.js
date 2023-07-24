@@ -18,7 +18,7 @@ function OperationRecord() {
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-150">
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
-      <section className="pt-[27px] pl-5 xl:pl-[34px] pr-4 xl:pr-[27px]">
+      <section className="pt-[27px] px-3 2xl:pl-[34px] 2xl:pr-[27px]">
         <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">
           | 操作記錄
         </h1>
@@ -119,12 +119,12 @@ function OperationRecord() {
         </div>
         {/* record table */}
         <div
-          className={`yellowScroll h-[75vh] pr-4 xl:pr-[22px] overflow-auto overflow-x-hidden`}
+          className={`yellowScroll h-[75vh] pr-3 2xl:pr-[22px] overflow-auto overflow-x-hidden`}
         >
           <CustomTable
             tableHeadings={tableHeadings}
             tableBody={tableBody}
-            page="sales_page"
+            page="operation_page"
           />
         </div>
       </section>
@@ -203,6 +203,17 @@ const tableBody = [
   },
   {
     id: 6,
+    time: "2023/05/18 19:24:19",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    operator: "Abcdefghijk",
+    unitPrice: "$127",
+    quant: "+100",
+    lumpsum: "$12,700",
+    action: "加入購物車",
+    remark: "",
+  },
+  {
+    id: 7,
     time: "2023/05/18 19:24:19",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
     operator: "Abcdefghijk",

@@ -23,7 +23,7 @@ const DatePickerModal = ({
   return (
     <div
       ref={ref}
-      className="absolute py-3 top-8 inset-x-0 bg-white rounded-lg flex flex-col justify-center items-center shadow-2xl z-40"
+      className="absolute py-3 z-40 top-8 inset-x-0 bg-white rounded-lg flex flex-col justify-center items-center shadow-2xl"
     >
       {/* data picker */}
       <DatePicker
@@ -35,7 +35,7 @@ const DatePickerModal = ({
         }}
         isClearable={true}
         inline
-        locale={zhTW} // Set the locale to Traditional Chinese
+        locale={zhTW}
       />
 
       {/* divider */}
@@ -59,7 +59,7 @@ const DatePickerModal = ({
       {/* divider */}
       <HorizontalDivider />
       {/* action buttons */}
-      <div className="flex items-center light space-x-2 mt-2 self-end pr-4">
+      <div className="flex items-center space-x-2 mt-2 self-end pr-4">
         <Button
           className={`!bg-neutral-150 !text-grey text-sm !rounded-xl !py-1 !px-3`}
         >

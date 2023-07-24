@@ -18,7 +18,7 @@ function HistoricalOrder() {
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-150">
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
-      <section className="pt-[27px] pl-[34px] pr-[27px]">
+      <section className="pt-[27px] px-3 2xl:pl-[34px] 2xl:pr-[27px]">
         <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">
           | 歷史訂單
         </h1>
@@ -108,7 +108,7 @@ function HistoricalOrder() {
         </div>
         {/* order table */}
         <div
-          className={`yellowScroll h-[75vh] pr-[22px] overflow-auto overflow-x-hidden`}
+          className={`yellowScroll h-[75vh] pr-3 2xl:pr-[22px] overflow-auto overflow-x-hidden`}
         >
           <CustomTable
             tableHeadings={tableHeadings}
@@ -186,6 +186,16 @@ const tableBody = [
   },
   {
     id: 6,
+    orderNumber: "F123456789",
+    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    buysell: "賣出",
+    unitPrice: "$234",
+    quant: "30",
+    lumpsum: "$12,700",
+    orderStatus: "交易中",
+  },
+  {
+    id: 7,
     orderNumber: "F123456789",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
     buysell: "賣出",
