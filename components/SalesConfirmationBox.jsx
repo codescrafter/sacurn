@@ -6,15 +6,9 @@ const SalesConfirmationBox = ({
   setIsAlert,
   stopTrade,
   setConfirmationBox,
-  setAlertType,
+  setStopTrade,
+  setConfirmListing,
 }) => {
-  const handleClick = () => {
-    if (stopTrade) {
-      setAlertType("");
-    } else setAlertType("listingAlert");
-    setIsAlert(true);
-  };
-
   return (
     <div className="flex flex-col px-3 2xl:pl-[35px] 2xl:pr-[23px] py-5 2xl:pt-[33px] 2xl:pb-[26px] border-2 border-bright-blue bg-white rounded-[10px] shadow-sales-box">
       <h5 className="font-bold text-xl xl:text-[32]px text-black">
@@ -122,20 +116,33 @@ const SalesConfirmationBox = ({
         {stopTrade ? (
           <Button
             className={`!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl !bg-pale-yellow !text-navy-blue `}
-            onClick={handleClick}
+            onClick={(e) => {
+              e.stopPropagation();
+              setStopTrade(true);
+              setIsAlert(true);
+            }}
           >
             上架交易
           </Button>
         ) : (
           <Button
             className={`!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl`}
-            onClick={handleClick}
+            onClick={(e) => {
+              e.stopPropagation();
+              setConfirmListing(true);
+              setIsAlert(true);
+            }}
           >
             停止交易
           </Button>
         )}
         <Button
-          onClick={() => setConfirmationBox(false)}
+          onClick={() => {
+            setIsAlert(false);
+            setConfirmationBox(false);
+            setStopTrade(false);
+            setConfirmListing(false);
+          }}
           className="!p-[10px] !bg-transparent rounded-[10px] min-w-[175px] border border-grey !text-grey text-base xl:text-2xl"
         >
           取消

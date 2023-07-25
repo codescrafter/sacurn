@@ -13,13 +13,68 @@ function Sales() {
   const [staticRowsVisible, setStaticRowsVisible] = useState(false);
   const [confirmationBox, setConfirmationBox] = useState(false);
   const [isAlert, setIsAlert] = useState(false);
+  const [confirmListing, setConfirmListing] = useState(false);
   const [stopTrade, setStopTrade] = useState(false);
-  const [alertType, setAlertType] = useState(null);
 
   return (
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-250">
-      {/* confirmation modals */}
-      {isAlert && <Alert setIsAlert={setIsAlert} type={alertType} />}
+      {/* listing confirmation modal */}
+      {isAlert && confirmListing && (
+        <Alert setIsAlert={setIsAlert} size="lg" className="space-y-20">
+          <h6 className="text-black text-xl xl:text-[32px] font-bold leading-[1px]">
+            恭喜！已開始交易。
+          </h6>
+          <span className="font-bold text-lg xl:text-[26px] text-navy-blue">
+            已完成上架作業
+          </span>
+          <Button
+            className="font-bold text-lg xl:text-xl !px-5 !py-[10px] !rounded-[60px] min-w-[180px]"
+            onClick={() => {
+              setIsAlert(false);
+              setConfirmListing(false);
+            }}
+          >
+            關閉
+          </Button>
+        </Alert>
+      )}
+      {/* stop trading modal */}
+      {isAlert && stopTrade && (
+        <Alert setIsAlert={setIsAlert} size="sm" className="space-y-10">
+          <Image
+            src="/images/sales/exclamation-mark.png"
+            width={109}
+            height={109}
+            alt="exclamation-mark"
+          />
+          <h6 className="text-black text-xl xl:text-[32px] font-bold tracking-[1px]">
+            再次提醒
+          </h6>
+          <span className="font-bold text-lg xl:text-[26px] text-bright-red">
+            確認停止交易後，資料將無法恢復
+          </span>
+          <div className="flex items-center gap-6">
+            <Button
+              className="font-bold text-lg xl:text-xl !py-[10px] !rounded-[60px] min-w-[180px]"
+              onClick={() => {
+                setIsAlert(false);
+                setStopTrade(false);
+              }}
+            >
+              取消送出
+            </Button>
+            <Button
+              className="font-bold !text-navy-blue text-lg border border-navy-blue !bg-transparent xl:text-xl !py-[10px] !rounded-[60px] min-w-[180px]"
+              onClick={() => {
+                setIsAlert(false);
+                setStopTrade(false);
+              }}
+            >
+              確認停止交易
+            </Button>
+          </div>
+        </Alert>
+      )}
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
       <main className="py-[30px] pl-2 xl:pl-4 2xl:pl-[30px] pr-2 xl:pr-4 2xl:pr-[25px]">
@@ -29,14 +84,16 @@ function Sales() {
             <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[500px] w-[390px]">
               {/* confirmation box */}
               <SalesConfirmationBox
-                setAlertType={setAlertType}
                 stopTrade={stopTrade}
                 setIsAlert={setIsAlert}
+                setStopTrade={setStopTrade}
+                confirmListing={confirmListing}
+                setConfirmListing={setConfirmListing}
                 setConfirmationBox={setConfirmationBox}
               />
             </div>
           ) : (
-            <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[500px] w-[500px] space-y-2 pt-2">
+            <div className="max-w-[618px] 2xl:min-w-[618px] xl:min-w-[500px] w-[500px] space-y-2 pt-2">
               {/* graphs */}
               {/* area graph */}
               <SalesAreaGraph />

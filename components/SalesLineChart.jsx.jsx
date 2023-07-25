@@ -113,7 +113,16 @@ const SalesLineChart = () => {
         breakpoint: 1540,
         options: {
           chart: {
-            width: 330,
+            width: 450,
+            height: 190,
+          },
+        },
+      },
+      {
+        breakpoint: 1280,
+        options: {
+          chart: {
+            width: 335,
             height: 190,
           },
         },
@@ -132,7 +141,7 @@ const SalesLineChart = () => {
         {buttonData.map((button, index) => (
           <Button
             key={button.value}
-            className={`font-medium text-[13px] !text-grey ${
+            className={`font-medium 2xl:text-[13px] xl:text-[11px] text-[10px] !text-grey ${
               activeButton === index
                 ? "!bg-transparent shadow-graph-btn"
                 : "!bg-neutral-150 border-t border-b border-l border-r border-light-grey"
@@ -159,15 +168,15 @@ const SalesLineChart = () => {
         />
       </div>
       {/* x-axis title */}
-      <span className="text-silverstone text-[10px] font-semibold absolute bottom-4 2xl:right-10 right-2">
+      <span className="text-silverstone text-[10px] font-semibold absolute bottom-4 2xl:right-10 xl:right-5 right-4">
         月份
       </span>
       {/* y-axis title */}
-      <span className="text-silverstone text-[10px] font-semibold absolute top-14 2xl:top-10 left-8 2xl:left-16">
+      <span className="text-silverstone text-[10px] font-semibold absolute top-14 2xl:top-10 2xl:left-16 left-10">
         數量
       </span>
       {/* average line title */}
-      <span className="text-pale-yellow text-[10px] font-semibold absolute right-[3px] 2xl:right-4 top-[8.2rem] 2xl:top-[7.8rem]">
+      <span className="text-pale-yellow text-[10px] font-semibold absolute right-1 xl:right-[5px] 2xl:right-4 top-[8.2rem] 2xl:top-[7.8rem]">
         平均
       </span>
     </GraphCard>

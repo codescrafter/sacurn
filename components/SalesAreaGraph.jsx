@@ -41,7 +41,15 @@ const SalesAreaGraph = () => {
         breakpoint: 1540,
         options: {
           chart: {
-            width: 340,
+            width: 400,
+          },
+        },
+      },
+      {
+        breakpoint: 1280,
+        options: {
+          chart: {
+            width: 350,
           },
         },
       },
