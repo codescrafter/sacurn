@@ -41,7 +41,7 @@
   border-collapse: separate;
   border-spacing: 0 11px;
 }
-.sales-row:hover {
+/* .sales-row:hover {
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1),
     0px 0.696072518825531px 5px 0px rgba(104, 135, 154, 0.5);
 }
@@ -62,7 +62,7 @@
 }
 .custom-table tr td:first-child {
   border-left-style: solid;
-}
+} */
 
 .custom-table tr,
 .custom-table td:first-child {
@@ -85,6 +85,11 @@
   position: relative;
   top: -20px;
 }
+.sales-table .dropdown-row {
+  position: relative;
+  top: -10px;
+}
+
 .custom-table .dropdown-row,
 .custom-table .dropdown-row td:first-child {
   border-top-left-radius: 0px;
@@ -179,4 +184,15 @@
 }
 .direction-ltr {
   direction: ltr;
+}
+/* graphs */
+.line-graph .apexcharts-tooltip-title {
+  color: black;
+}
+
+.line-graph .apexcharts-tooltip-text-y-label {
+  color: black !important;
+}
+.line-graph .apexcharts-tooltip-text-y-value {
+  color: black !important;
 }
