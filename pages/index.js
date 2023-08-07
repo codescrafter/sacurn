@@ -1,97 +1,88 @@
 import React from "react";
-import InfoBar from "@/components/InfoBar";
-import Navbar from "@/components/Navbar";
-import VerticalSlider from "@/components/VerticalSlider";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
-import HorizontalSlider from "@/components/HorizontalSlider";
-import MultiSlideSlider from "@/components/MultiSlideSlider";
-import CarbonCommodity from "@/components/CarbonCommodity";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const LandingPage = () => {
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["login"])),
+    },
+  };
+}
+
+const Login = () => {
+  const { t } = useTranslation("login");
+  const router = useRouter();
   return (
-    <div className="w-screen min-h-screen bg-no-repeat bg-cover bg-[url('/images/landing-page/landing-page-bg.png')] 2xl:h-screen">
-      <div className="bg-dark-green invisible"></div>
-      <Navbar className="pt-4 2xl:mb-9.5 mb-5" />
-      <InfoBar />
-      <div className="flex justify-between ml-[4.3%] mt-2.5 2xl:gap-[5.9%] gap-[3%]">
-        <div className="relative w-[54%] 2xl:max-h-[418px] max-h-[295px] bg-black bg-opacity-[0.15]">
-          <VerticalSlider />
-          <div className="flex 2xl:gap-6 gap-4 mt-2">
+    <div className="bg-[url('/images/login/login-bg.png')] bg-no-repeat bg-center bg-cover w-screen min-h-screen 2xl:pt-[136px] pt-24">
+      <div className="2xl:w-[402px] 2xl:h-[660px] w-80 h-[500px] bg-login-white shadow-login-box rounded-[28px] blur-xxs 2xl:ml-60 ml-20 2xl:pt-3">
+        <Image
+          className="2xl:w-[150px] 2xl:h-[150px] w-28 h-28 mx-auto mb-3"
+          src={"/images/login/login-logo.svg"}
+          width={150}
+          height={150}
+        />
+        <h3 className="font-semibold 2xl:text-[40px] text-[30px] 2xl:leading-[43px] leading-8 text-center text-navy-blue 2xl:mb-2.5 mb-1.5">
+          碳資產管理平台
+        </h3>
+        <p className="font-bold 2xl:text-[15px] text-xs leading-[10px] text-navy-blue text-center 2xl:mb-16 mb-8">
+          Carbon Offset Management Platform
+        </p>
+        <div className="flex flex-col items-center w-full mb-[22px]">
+          <div className="w-4/5 bg-snowflake-grey shadow-input-box blur-xxs rounded-[18px] flex items-center 2xl:h-[53px] h-10">
             <Image
-              src={"/images/landing-page/ic_co2.svg"}
-              width={72}
-              height={52}
-              alt="co2 icon"
-              className="2xl:w-18 2xl:h-13 w-14 h-10"
+              className="mr-3.5 ml-6 2xl:w-6 2xl:h-6 w-4 h-4"
+              src="/images/login/user.svg"
+              width={24}
+              height={24}
+              alt="user-icon"
             />
-            <h6 className="font-semibold 2xl:text-3xl text-2xl 2xl:leading-10 leading-7">
-              即時熱門碳權商品
-            </h6>
+            <input
+              className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base"
+              type="text"
+              placeholder={t("username")}
+            />
           </div>
-          <div className="2xl:mt-8.5 mt-5.5 flex flex-col 2xl:gap-2.5 gap-2">
-            {commodityData.map((item, index) => (
-              <CarbonCommodity key={index} {...item} />
-            ))}
+
+          <div className="w-4/5 bg-snowflake-grey shadow-input-box blur-xxs rounded-[18px] flex items-center 2xl:h-[53px] h-10 mt-5 mb-[22px]">
+            <Image
+              className="mr-3.5 ml-6 2xl:w-6 2xl:h-6 w-4 h-4"
+              src="/images/login/key.svg"
+              width={24}
+              height={24}
+              alt="key-icon"
+            />
+            <input
+              className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base"
+              type="text"
+              placeholder={t("password")}
+            />
           </div>
+
+          <button
+            onClick={() => router.push("/dashboard")}
+            className="w-4/5 2xl:h-[53px] h-10 bg-navy-blue rounded-[26px] 2xl:text-xl text-base font-bold bg-blue-btn shadow-btn text-white"
+          >
+            {t("login")}
+          </button>
         </div>
-        <div className="2xl:mt-7 mt-5 flex-1 overflow-hidden">
-          <p className="flex items-center">
-            <Image
-              src={"/images/landing-page/ic_volume.svg"}
-              width={32}
-              height={30}
-              className="2xl:w-8 2xl:h-7.5 w-6 h-5.2"
-            />
-            <span className="font-semibold 2xl:text-3xl text-2xl 2xl:leading-9 ml-3">
-              最新消息
-            </span>
-          </p>
-          <HorizontalSlider />
-          <p className="flex 2xl:mt-6 2xl:mb-3 mt-5 mb-2.5">
-            <Image
-              src={"/images/landing-page/ic_book.svg"}
-              width={29}
-              height={33}
-              className="2xl:w-8 2xl:h-7.5 w-6 h-5.2"
-            />
-            <span className="font-semibold 2xl:text-3xl text-2xl 2xl:leading-9 ml-3">
-              碳權趨勢
-            </span>
-          </p>
-          <MultiSlideSlider />
-          <div className="w-[227px] h-[23px] bg-[url('/images/landing-page/disclaimer.svg')] bg-no-repeat bg-cover ml-auto mt-4">
-            <p className="text-xs leading-4 ml-auto mr-10 text-right pt-1">
-              免責聲明
-            </p>
-          </div>
-        </div>
+        <p className="text-slate-blue-grey text-center font-bold text-sm leading-[22px]">
+          Forgot password? <span className="text-black">or</span> Sign Up
+        </p>
       </div>
+      <div className="bg-[url('/images/login/bg-bottom.png')] bg-cover bg-right absolute bottom-0 left-0 h-60 w-full"></div>
+      <Image
+        src="/images/login/sacurn-bottom.png"
+        className="absolute right-[90px] bottom-14"
+        width={262}
+        height={88}
+        alt="sacurn-logo"
+      />
     </div>
   );
 };
 
-export default LandingPage;
-
-const commodityData = [
-  {
-    image: "/images/landing-page/carbon-cure.png",
-    linkText: "carbon removal",
-    heading: "CarbonCure Concrete Mineralization",
-    subHeading: "Project developed by CarbonCure Technologies",
-    linkIcon: "/images/landing-page/upload.svg",
-  },
-  {
-    image: "/images/landing-page/soil-carbon.png",
-    linkText: "carbon avoidance",
-    heading: "Andes Inorganic Soil Carbon",
-    subHeading: "Project developed by CarbonCure Technologies",
-    linkIcon: "/images/landing-page/download.svg",
-  },
-  {
-    image: "/images/landing-page/carbon-avoid.png",
-    linkText: "carbon removal",
-    heading: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    subHeading: "Project developed by CarbonCure Technologies",
-    linkIcon: "/images/landing-page/upload.svg",
-  },
-];
+export default Login;

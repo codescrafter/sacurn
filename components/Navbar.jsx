@@ -40,6 +40,7 @@ const Navbar = ({ className }) => {
             />
           </Link>
           <Image
+            onClick={() => router.push("/sales")}
             src={"/images/navbar/member.svg"}
             className="2xl:w-10.5 2xl:h-10.5 w-8 h-8 cursor-pointer"
             width={42}
@@ -56,7 +57,7 @@ export default Navbar;
 const navArray = [
   {
     name: "首頁",
-    path: "/",
+    path: "/dashboard",
   },
   {
     name: "全部商品",
@@ -68,10 +69,10 @@ const navArray = [
   },
   {
     name: "碳權趨勢",
-    path: "/trend",
+    path: "/operation-record",
   },
   {
     name: "碳權庫存",
-    path: "/inventory",
+    path: "/historical-order",
   },
 ];
