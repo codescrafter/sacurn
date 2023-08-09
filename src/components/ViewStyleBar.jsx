@@ -1,22 +1,29 @@
-
-
 function ViewStyleBar(props) {
+  const tabSelectHandler = (style, index) => {
+    props.setDisplay(style["color"]);
+    // add index as query param named  tabIndex to the query params
+    window.history.pushState(null, null, `?tabIndex=${index}`);
+  };
   return (
     <div className="flex justify-end flex-row h-auto w-[98%] 2xl:mt-11 mt-9">
-      {styles.map((style) => {
+      {styles.map((style, index) => {
         return (
           <div
-            className={`bg-${style["color"]
-              } rounded-3xl text-center visible my-auto mr-5.7 h-[60%] hover:cursor-pointer ${props.activeColor === style["color"]
+            className={`bg-${
+              style["color"]
+            } rounded-3xl text-center visible my-auto mr-5.7 h-[60%] hover:cursor-pointer ${
+              props.activeColor === style["color"]
                 ? `w-51 py-2.2 h-[99%]`
                 : `w-22.5`
-              }`}
-            onClick={() => props.setDisplay(style["color"])}
+            }`}
+            onClick={() => tabSelectHandler(style, index)}
           >
             <p
-              className={`${props.activeColor === "white" ? "text-black" : "text-white"
-                } text-xs ${props.activeColor === style["color"] ? "visible" : "invisible"
-                }`}
+              className={`${
+                props.activeColor === "white" ? "text-black" : "text-white"
+              } text-xs ${
+                props.activeColor === style["color"] ? "visible" : "invisible"
+              }`}
             >
               {style["text"]}
             </p>
@@ -24,7 +31,10 @@ function ViewStyleBar(props) {
         );
       })}
       <div className="rounded-full  bg-light-grey ml-2.5 mr-5.7 py-1.9 px-2">
-        <img className="xl:w-auto xl:h-auto w-5 h-5" src={"/images/products-page/filter.svg"} />
+        <img
+          className="xl:w-auto xl:h-auto w-5 h-5"
+          src={"/images/products-page/filter.svg"}
+        />
       </div>
       <div className="rounded-3xl flex flex-row bg-light-grey w-auto pl-1.5 my-auto px-auto h-[85%]">
         <input

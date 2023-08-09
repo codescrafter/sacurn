@@ -1,7 +1,12 @@
 import React from "react";
 import AddedToCartModal from "./AddedToCartModal";
+import { useRef, useState } from "react";
+import Navbar from "../components/Navbar";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
-const ProductDetail = ({ productId }) => {
+const ProductDetailList = ({ productId }) => {
   const [openCartSuccessModal, setOpenCartSuccessModal] = React.useState(false);
   return (
     <div className="w-full mt-8 pl-4 relative">
@@ -132,7 +137,75 @@ const ProductDetail = ({ productId }) => {
   );
 };
 
+function ProductDetail(props) {
+  const [selectedProductId, setSelectedProductId] = useState(null);
+
+  return (
+    <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
+      <Navbar className={`pt-4 relative z-30`} />
+      <div className="h-full flex flex-row justify-start">
+        <div className={`${"2xl:w-[620px] w-[500px] h-auto"}`}>
+          <div className="2xl:w-[650px] w-[520px] absolute top-0 left-0 overflow-hidden">
+            <ImgSlider />
+          </div>
+        </div>
+        <div className="flex flex-col max-h-[973px] items-end mr-9.5 relative z-50 flex-1">
+          <ProductDetailList productId={selectedProductId} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default ProductDetail;
+
+const ImgSlider = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const sliderRef = useRef(null);
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    vertical: false,
+    verticalSwiping: false,
+    swipeToSlide: true,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 6000,
+    fade: true,
+    afterChange: (currSlide) => setCurrentSlide(currSlide),
+  };
+  return (
+    <div className="relative h-full">
+      <div className="absolute z-20 left-0 bottom-4 right-0 gap-1.5 flex pr-[30%] pl-6">
+        {["01", "02", "03"].map((item, index) => (
+          <div
+            key={index}
+            onClick={() => {
+              setCurrentSlide(index);
+              sliderRef.current.slickGoTo(index);
+            }}
+            className={`cursor-pointer flex-1 h-1 w-full rounded-[20px] ${
+              currentSlide === index ? "bg-light-grey" : "bg-white"
+            }`}
+          ></div>
+        ))}
+      </div>
+      <Slider {...settings} ref={sliderRef}>
+        <img
+          className="w-full h-screen"
+          src={"/images/products-page/ocean.png"}
+        />
+        <img
+          className="w-full h-screen"
+          src={"/images/products-page/forest.png"}
+        />
+        {/* <Image className="w-full h-screen" src={oceanImg} /> */}
+      </Slider>
+    </div>
+  );
+};
 
 const rowDetail = [
   {

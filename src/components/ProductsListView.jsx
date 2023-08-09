@@ -1,12 +1,10 @@
-
-function ProductsListView({ setSelectedProductId }) {
+function ProductsListView() {
   return (
     <div className="bg-transparent flex flex-col gap-4.5 max-h-[75vh]">
       {products.map((product, index) => {
         return (
           <div
             className={`bg-white rounded-3xl 2xl:px-4 2xl:py-5 px-3 py-3.5 flex flex-row cursor-pointer`}
-            onClick={() => setSelectedProductId(product.id)}
           >
             <div className={`p-1 rounded-2xl`}>
               <img
@@ -29,7 +27,10 @@ function ProductsListView({ setSelectedProductId }) {
                   <img src={"/images/products-page/download.svg"} />
                 </div>
                 <div className="flex flex-row ml-4.5">
-                  <img className="mr-1.2" src={"/images/products-page/location.svg"} />
+                  <img
+                    className="mr-1.2"
+                    src={"/images/products-page/location.svg"}
+                  />
                   <p className="text-soft-red font-semibold my-auto">
                     {product.location}
                   </p>

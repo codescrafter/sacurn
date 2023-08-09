@@ -2,24 +2,28 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = ({ className }) => {
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div
       className={`bg-transparent flex items-center justify-between pl-8.5 pr-10.5 ${className}`}
     >
-      <Link to="/"> <img src={"/images/navbar/sacurn-logo.svg"} width={192} height={39} /></Link>
+      <Link to="/">
+        {" "}
+        <img src={"/images/navbar/sacurn-logo.svg"} width={192} height={39} />
+      </Link>
       <div className="flex items-center">
         <nav>
           <ul className="flex items-center justify-between 2xl:space-x-18 space-x-9">
             {navArray.map((navItem) => (
               <li
                 key={navItem.name}
-                className={`${location.pathname === navItem.path
-                  ? "border-b border-white"
-                  : ""
-                  }`}
+                className={`${
+                  location.pathname === navItem.path
+                    ? "border-b border-white"
+                    : ""
+                }`}
               >
                 <Link to={navItem.path}>
                   <p className="text-white">{navItem.name}</p>
@@ -38,7 +42,7 @@ const Navbar = ({ className }) => {
             />
           </Link>
           <img
-            onClick={() => navigate("/sales")}
+            onClick={() => navigate("/")}
             src={"/images/navbar/member.svg"}
             className="2xl:w-10.5 2xl:h-10.5 w-8 h-8 cursor-pointer"
             width={42}
@@ -55,7 +59,7 @@ export default Navbar;
 const navArray = [
   {
     name: "首頁",
-    path: "/dashboard",
+    path: "/",
   },
   {
     name: "全部商品",

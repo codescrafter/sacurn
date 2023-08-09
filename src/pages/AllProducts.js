@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import ViewStyleBar from "../components/ViewStyleBar";
 import ProductsListView from "../components/ProductsListView";
@@ -6,7 +6,6 @@ import ProductDeatilView from "../components/ProductDetailView";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import ProductDetail from "../components/ProductDetail";
 
 function AllProducts(props) {
   const [active, setActive] = useState("white");
@@ -23,6 +22,28 @@ function AllProducts(props) {
       setDisplay("no-view");
     }
   };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabIndex = urlParams.get("tabIndex");
+    if (+tabIndex == 0) {
+      setActive("white");
+      setDisplay("list-view");
+    } else if (+tabIndex == 1) {
+      setActive("dark-green");
+      setDisplay("detail-view");
+    } else if (+tabIndex == 2) {
+      setActive("navy-blue");
+      setDisplay("no-view");
+    } else if (+tabIndex == 3) {
+      setActive("pale-yellow");
+      setDisplay("no-view");
+    } else {
+      setActive("white");
+      setDisplay("no-view");
+    }
+  }, []);
+
   return (
     <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
       <Navbar className={`pt-4 relative z-30`} />
@@ -33,22 +54,14 @@ function AllProducts(props) {
           </div>
         </div>
         <div className="flex flex-col max-h-[973px] items-end mr-9.5 relative z-50 flex-1">
-          {selectedProductId == null ? (
-            <>
-              <ViewStyleBar
-                activeColor={active}
-                setDisplay={setActiveDisplayHandler}
-              />
-              {display == "list-view" && (
-                <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 mb-15.7 overflow-scroll overflow-x-hidden ">
-                  <ProductsListView
-                    setSelectedProductId={setSelectedProductId}
-                  />
-                </div>
-              )}
-            </>
-          ) : (
-            <ProductDetail productId={selectedProductId} />
+          <ViewStyleBar
+            activeColor={active}
+            setDisplay={setActiveDisplayHandler}
+          />
+          {display == "list-view" && (
+            <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 mb-15.7 overflow-scroll overflow-x-hidden ">
+              <ProductsListView />
+            </div>
           )}
 
           {display == "detail-view" && <ProductDeatilView />}
@@ -87,14 +100,21 @@ const ImgSlider = () => {
               setCurrentSlide(index);
               sliderRef.current.slickGoTo(index);
             }}
-            className={`cursor-pointer flex-1 h-1 w-full rounded-[20px] ${currentSlide === index ? "bg-light-grey" : "bg-white"
-              }`}
+            className={`cursor-pointer flex-1 h-1 w-full rounded-[20px] ${
+              currentSlide === index ? "bg-light-grey" : "bg-white"
+            }`}
           ></div>
         ))}
       </div>
       <Slider {...settings} ref={sliderRef}>
-        <img className="w-full h-screen" src={"/images/products-page/ocean.png"} />
-        <img className="w-full h-screen" src={"/images/products-page/forest.png"} />
+        <img
+          className="w-full h-screen"
+          src={"/images/products-page/ocean.png"}
+        />
+        <img
+          className="w-full h-screen"
+          src={"/images/products-page/forest.png"}
+        />
         {/* <Image className="w-full h-screen" src={oceanImg} /> */}
       </Slider>
     </div>

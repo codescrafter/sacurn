@@ -1,49 +1,53 @@
-import './App.css';
+import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import AllProducts from './pages/AllProducts';
-import NewsPage from './pages/NewsPage';
-import OperationRecord from './pages/OperationRecord';
-import HistoricalOrder from './pages/HistoricalOrder';
-import Cart from './pages/Cart';
-import Sales from './pages/Sales';
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import AllProducts from "./pages/AllProducts";
+import NewsPage from "./pages/NewsPage";
+import OperationRecord from "./pages/OperationRecord";
+import HistoricalOrder from "./pages/HistoricalOrder";
+import Cart from "./pages/Cart";
+import Sales from "./pages/Sales";
+import ProductDetail from "./components/ProductDetail";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/login",
     element: <Login />,
   },
   {
-    path: "/dashboard",
+    path: "/",
     element: <Dashboard />,
   },
   {
     path: "/all-products",
-    element: <AllProducts />
+    element: <AllProducts />,
+  },
+  {
+    path: "/product-detail/id",
+    element: <ProductDetail />,
   },
   {
     path: "/latest-news",
-    element: <NewsPage />
+    element: <NewsPage />,
   },
   {
     path: "/operation-record",
-    element: <OperationRecord />
+    element: <OperationRecord />,
   },
   {
     path: "/historical-order",
-    element: <HistoricalOrder />
+    element: <HistoricalOrder />,
   },
   {
     path: "/cart",
-    element: <Cart />
+    element: <Cart />,
   },
   {
     path: "/sales",
-    element: <Sales />
-  }
+    element: <Sales />,
+  },
 ]);
-
 
 export default function App() {
   return (
@@ -52,4 +56,3 @@ export default function App() {
     </div>
   );
 }
-
