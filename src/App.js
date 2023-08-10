@@ -8,6 +8,7 @@ import OperationRecord from './pages/OperationRecord';
 import HistoricalOrder from './pages/HistoricalOrder';
 import Cart from './pages/Cart';
 import Sales from './pages/Sales';
+import CompanyRegistration from './pages/CompanyRegistration';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,9 @@ const router = createBrowserRouter([
   {
     path: "/sales",
     element: <Sales />
+  },{
+    path:"company-registration",
+    element:<CompanyRegistration/>
   }
 ]);
 
