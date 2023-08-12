@@ -1,11 +1,10 @@
 import React from "react";
 import VerticalSlider from "../components/VerticalSlider";
 import Navbar from "../components/Navbar";
-import InfoBar from "../components/InfoBar"
+import InfoBar from "../components/InfoBar";
 import HorizontalSlider from "../components/HorizontalSlider";
 import MultiSlideSlider from "../components/MultiSlideSlider";
 import CarbonCommodity from "../components/CarbonCommodity";
-
 
 const Dashboard = () => {
   return (
@@ -41,28 +40,24 @@ const Dashboard = () => {
               width={32}
               height={30}
               className="2xl:w-8 2xl:h-7.5 w-6 h-5.2"
+              alt="sacurn"
             />
-            <span className="font-semibold 2xl:text-3xl text-2xl 2xl:leading-9 ml-3">
-              最新消息
-            </span>
+            <span className="font-semibold 2xl:text-3xl text-2xl 2xl:leading-9 ml-3">最新消息</span>
           </p>
           <HorizontalSlider />
           <p className="flex 2xl:mt-6 2xl:mb-3 mt-5 mb-2.5">
             <img
               src={"/images/landing-page/ic_book.svg"}
+              alt="sacurn"
               width={29}
               height={33}
               className="2xl:w-8 2xl:h-7.5 w-6 h-5.2"
             />
-            <span className="font-semibold 2xl:text-3xl text-2xl 2xl:leading-9 ml-3">
-              碳權趨勢
-            </span>
+            <span className="font-semibold 2xl:text-3xl text-2xl 2xl:leading-9 ml-3">碳權趨勢</span>
           </p>
           <MultiSlideSlider />
           <div className="w-[227px] h-[23px] bg-[url('../public/images/landing-page/disclaimer.svg')] bg-no-repeat bg-cover ml-auto mt-4">
-            <p className="text-xs leading-4 ml-auto mr-10 text-right pt-1">
-              免責聲明
-            </p>
+            <p className="text-xs leading-4 ml-auto mr-10 text-right pt-1">免責聲明</p>
           </div>
         </div>
       </div>
@@ -78,20 +73,20 @@ const commodityData = [
     linkText: "carbon removal",
     heading: "CarbonCure Concrete Mineralization",
     subHeading: "Project developed by CarbonCure Technologies",
-    linkIcon: "/images/landing-page/upload.svg",
+    linkIcon: "/images/landing-page/upload.svg"
   },
   {
     image: "/images/landing-page/soil-carbon.png",
     linkText: "carbon avoidance",
     heading: "Andes Inorganic Soil Carbon",
     subHeading: "Project developed by CarbonCure Technologies",
-    linkIcon: "/images/landing-page/download.svg",
+    linkIcon: "/images/landing-page/download.svg"
   },
   {
     image: "/images/landing-page/carbon-avoid.png",
     linkText: "carbon removal",
     heading: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
     subHeading: "Project developed by CarbonCure Technologies",
-    linkIcon: "/images/landing-page/upload.svg",
-  },
+    linkIcon: "/images/landing-page/upload.svg"
+  }
 ];

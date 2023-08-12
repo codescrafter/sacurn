@@ -1,11 +1,9 @@
-import React from "react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-
 
 const Login = () => {
   const { t } = useTranslation("login");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className="bg-[url('../public/images/login/login-bg.png')] bg-no-repeat bg-center bg-cover w-screen min-h-screen 2xl:pt-[136px] pt-24">
@@ -15,6 +13,7 @@ const Login = () => {
           src={"/images/login/login-logo.svg"}
           width={150}
           height={150}
+          alt="login-sacurn"
         />
         <h3 className="font-semibold 2xl:text-[40px] text-[30px] 2xl:leading-[43px] leading-8 text-center text-navy-blue 2xl:mb-2.5 mb-1.5">
           碳資產管理平台
@@ -54,7 +53,10 @@ const Login = () => {
           </div>
 
           <button
-            onClick={() => { console.log("redirecting"); navigate("/dashboard") }}
+            onClick={() => {
+              console.log("redirecting");
+              navigate("/dashboard");
+            }}
             className="w-4/5 2xl:h-[53px] h-10 bg-navy-blue rounded-[26px] 2xl:text-xl text-base font-bold bg-blue-btn shadow-btn text-white"
           >
             {t("login")}

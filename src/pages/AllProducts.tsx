@@ -7,14 +7,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-function AllProducts(props) {
-  const [active, setActive] = useState("white");
-  const [display, setDisplay] = useState("list-view");
-  const [selectedProductId, setSelectedProductId] = useState(null);
+function AllProducts() {
+  const [active, setActive] = useState<string>("white");
+  const [display, setDisplay] = useState<string>("list-view");
 
-  const setActiveDisplayHandler = (selected_color) => {
+  const setActiveDisplayHandler = (selected_color: string) => {
     setActive(selected_color);
-    if (selected_color == "white") {
+    if (selected_color === "white") {
       setDisplay("list-view");
     } else if ((selected_color = "green")) {
       setDisplay("detail-view");
@@ -26,16 +25,16 @@ function AllProducts(props) {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const tabIndex = urlParams.get("tabIndex");
-    if (+tabIndex == 0) {
+    if (Number(tabIndex) === 0) {
       setActive("white");
       setDisplay("list-view");
-    } else if (+tabIndex == 1) {
+    } else if (Number(tabIndex) === 1) {
       setActive("dark-green");
       setDisplay("detail-view");
-    } else if (+tabIndex == 2) {
+    } else if (Number(tabIndex) === 2) {
       setActive("navy-blue");
       setDisplay("no-view");
-    } else if (+tabIndex == 3) {
+    } else if (Number(tabIndex) === 3) {
       setActive("pale-yellow");
       setDisplay("no-view");
     } else {
@@ -54,17 +53,14 @@ function AllProducts(props) {
           </div>
         </div>
         <div className="flex flex-col max-h-[973px] items-end mr-9.5 relative z-50 flex-1">
-          <ViewStyleBar
-            activeColor={active}
-            setDisplay={setActiveDisplayHandler}
-          />
-          {display == "list-view" && (
+          <ViewStyleBar activeColor={active} setDisplay={setActiveDisplayHandler} />
+          {display === "list-view" && (
             <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 mb-15.7 overflow-scroll overflow-x-hidden ">
               <ProductsListView />
             </div>
           )}
 
-          {display == "detail-view" && <ProductDeatilView />}
+          {display === "detail-view" && <ProductDeatilView />}
         </div>
       </div>
     </div>
@@ -74,8 +70,9 @@ function AllProducts(props) {
 export default AllProducts;
 
 const ImgSlider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const sliderRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  // define ref type
+  const sliderRef = useRef<Slider | null>(null);
   const settings = {
     dots: false,
     infinite: true,
@@ -88,7 +85,7 @@ const ImgSlider = () => {
     autoplay: true,
     autoplaySpeed: 6000,
     fade: true,
-    afterChange: (currSlide) => setCurrentSlide(currSlide),
+    afterChange: (currSlide: number) => setCurrentSlide(currSlide)
   };
   return (
     <div className="relative h-full">
@@ -98,7 +95,7 @@ const ImgSlider = () => {
             key={index}
             onClick={() => {
               setCurrentSlide(index);
-              sliderRef.current.slickGoTo(index);
+              sliderRef?.current?.slickGoTo(index);
             }}
             className={`cursor-pointer flex-1 h-1 w-full rounded-[20px] ${
               currentSlide === index ? "bg-light-grey" : "bg-white"
@@ -110,10 +107,12 @@ const ImgSlider = () => {
         <img
           className="w-full h-screen"
           src={"/images/products-page/ocean.png"}
+          alt="sacurn products"
         />
         <img
           className="w-full h-screen"
           src={"/images/products-page/forest.png"}
+          alt="sacurn products"
         />
         {/* <Image className="w-full h-screen" src={oceanImg} /> */}
       </Slider>
