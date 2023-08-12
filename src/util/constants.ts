@@ -169,3 +169,5 @@ export const LATEST_NEWS: NewsTypes[] = [
       "證交所董事會今通過成立碳權交易所，但對於近期碳權概念股飆漲，證交所董事特別示警，呼籲投資人購買碳權相關股票宜注意投資風險，並不是種樹、買地、用綠電就可以獲得碳權！證交所董事會強調，森林、土壤不會自動產..."
   }
 ];
+
+export const OPTIONS_LIST: string[] = ["Option 1", "Option 2", "Option 3", "Option 4"];

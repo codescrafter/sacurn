@@ -4,23 +4,19 @@ import DatePickerModal from "../components/DatePickerModal";
 import CustomSelect from "../components/CustomSelect";
 import formatDate from "../helpers/formatDate";
 import CustomTable from "../components/CustomTable";
+import { OPTIONS_LIST } from "../util/constants";
 
-function HistoricalOrder() {
-  const [open, setOpen] = useState(false);
+function OperationRecord() {
+  const [open, setOpen] = useState<boolean>(false);
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
-
-  // options for CustomSelect component to pass as props
-  const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
 
   return (
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-150">
       {/* navbar */}
       <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
       <section className="pt-[27px] px-3 2xl:pl-[34px] 2xl:pr-[27px]">
-        <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">
-          | 歷史訂單
-        </h1>
+        <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">| 操作記錄</h1>
         {/* filters */}
         <div className="flex justify-end mt-[9px] mb-[47px]">
           <div className="flex items-center flex-wrap space-x-8 xl:space-x-[58px] lg:my-0 my-2">
@@ -79,10 +75,21 @@ function HistoricalOrder() {
                 期間:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect options={options} defaulValue="完成付款" />
+                <CustomSelect options={OPTIONS_LIST} defaulValue="完成付款" />
               </div>
             </div>
-
+            {/* operator */}
+            <div className="flex items-center">
+              <label
+                htmlFor="operator"
+                className="block text-base xl:text-lg font-medium leading-6 text-grey"
+              >
+                操作者:
+              </label>
+              <div className="ml-[15px]">
+                <CustomSelect options={OPTIONS_LIST} defaulValue="Abcdefghijk" />
+              </div>
+            </div>
             {/* search */}
             <div className="flex">
               <div className="relative mt-2 rounded-md shadow-sm">
@@ -105,102 +112,104 @@ function HistoricalOrder() {
             </div>
           </div>
         </div>
-        {/* order table */}
-        <div
-          className={`yellowScroll h-[75vh] pr-3 2xl:pr-[22px] overflow-auto overflow-x-hidden`}
-        >
-          <CustomTable
-            tableHeadings={tableHeadings}
-            tableBody={tableBody}
-            page="historical_order"
-          />
+        {/* record table */}
+        <div className={`yellowScroll h-[75vh] pr-3 2xl:pr-[22px] overflow-auto overflow-x-hidden`}>
+          <CustomTable tableHeadings={tableHeadings} tableBody={tableBody} page="operation_page" />
         </div>
       </section>
     </div>
   );
 }
 
-export default HistoricalOrder;
+export default OperationRecord;
 
 const tableHeadings = [
-  "訂單號碼",
+  "操作時間",
   "商品名稱",
-  "買入/賣出",
+  "操作者",
   "單價",
   "數量(噸)",
   "總金額",
-  "訂單狀態",
+  "動作",
+  "備註"
 ];
 
 const tableBody = [
   {
     id: 1,
-    orderNumber: "A123456789",
+    time: "2023/05/18 19:24:19",
     prodName: "Andes Inorganic Soil Carbon",
-    buysell: "賣出",
+    operator: "Abcdefghijk",
     unitPrice: "$100",
-    quant: "10",
+    quant: "+999",
     lumpsum: "$99,900",
-    orderStatus: "未完成",
+    action: "下單結帳",
+    remark: ""
   },
   {
     id: 2,
-    orderNumber: "B123456789",
+    time: "2023/05/18 19:24:19",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    buysell: "賣出",
-    unitPrice: "$13",
-    quant: "50",
+    operator: "Chen Rio",
+    unitPrice: "$120",
+    quant: "+100",
     lumpsum: "$12,000",
-    orderStatus: "已完成",
+    action: "完成付款",
+    remark: ""
   },
   {
     id: 3,
-    orderNumber: "C123456789",
+    time: "2023/05/18 19:24:19",
     prodName: "CarbonCure Concrete Mineralization",
-    buysell: "買入",
-    unitPrice: "$1,327",
-    quant: "999",
-    lumpsum: "$23,132,700",
-    orderStatus: "未付款",
+    operator: "Abcdefghijk",
+    unitPrice: "$127",
+    quant: "+100",
+    lumpsum: "$12,700",
+    action: "加入購物車",
+    remark: ""
   },
   {
     id: 4,
-    orderNumber: "D123456789",
+    time: "2023/05/18 19:24:19",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    buysell: "買入",
-    unitPrice: "$345",
-    quant: "400",
+    operator: "Abcdefghijk",
+    unitPrice: "$127",
+    quant: "+100",
     lumpsum: "$12,700",
-    orderStatus: "待付款",
+    action: "加入購物車",
+    remark: ""
   },
   {
     id: 5,
-    orderNumber: "E123456789",
+    time: "2023/05/18 19:24:19",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    buysell: "賣出",
-    unitPrice: "$99",
-    quant: "43",
-    lumpsum: "$12,700",
-    orderStatus: "交易中",
+    operator: "Abcdefghijk",
+    unitPrice: "$127",
+    quant: "-100",
+    lumpsum: "-$12,700",
+    action: "加入購物車",
+    remark: "此單已取消"
   },
   {
     id: 6,
-    orderNumber: "F123456789",
+    time: "2023/05/18 19:24:19",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    buysell: "賣出",
-    unitPrice: "$234",
-    quant: "30",
+    operator: "Abcdefghijk",
+    unitPrice: "$127",
+    quant: "+100",
     lumpsum: "$12,700",
-    orderStatus: "交易中",
+    action: "加入購物車",
+    remark: ""
   },
   {
     id: 7,
-    orderNumber: "F123456789",
+    time: "2023/05/18 19:24:19",
     prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    buysell: "賣出",
-    unitPrice: "$234",
-    quant: "30",
+    operator: "Abcdefghijk",
+    unitPrice: "$127",
+    quant: "+100",
     lumpsum: "$12,700",
-    orderStatus: "交易中",
-  },
+    action: "加入購物車",
+    remark: ""
+  }
 ];

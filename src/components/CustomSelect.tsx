@@ -1,33 +1,36 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, FC, MouseEvent } from "react";
 import useOutsideClick from "../hooks/useOutsideClick";
 
-const CustomSelect = ({ options, defaulValue, onSelect }) => {
-  const [open, setOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(defaulValue);
+interface IProps {
+  options: string[];
+  defaulValue: string;
+  callback?: (option: string) => void;
+}
 
-  const ref = useRef();
+const CustomSelect: FC<IProps> = ({ options, defaulValue, callback }) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<string>(defaulValue);
+
+  const ref = useRef<any>();
 
   useOutsideClick(ref, () => {
     if (open) setOpen(false);
   });
 
-  const toggleDropdown = (e) => {
-    e.stopPropagation();
+  const toggleDropdown = (event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
+    event.stopPropagation();
     setOpen(!open);
   };
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
     setOpen(false);
-    onSelect(option);
+    callback && callback(option);
   };
 
   return (
     <div className="relative inline-block z-40">
-      <div
-        className="rounded py-2 flex items-center cursor-pointer"
-        onClick={toggleDropdown}
-      >
+      <div className="rounded py-2 flex items-center cursor-pointer" onClick={toggleDropdown}>
         <div className="text-dark-grey text-base xl:text-lg font-black flex items-center gap-2">
           {selectedOption || "Select an option"}{" "}
           <img
