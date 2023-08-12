@@ -114,7 +114,7 @@ function OperationRecord() {
         </div>
         {/* record table */}
         <div className={`yellowScroll h-[75vh] pr-3 2xl:pr-[22px] overflow-auto overflow-x-hidden`}>
-          <CustomTable tableHeadings={tableHeadings} tableBody={tableBody} page="operation_page" />
+          <CustomTable tableHeadings={TABLE_HEAD} tableBody={TABLE_BODY} name="operation_page" />
         </div>
       </section>
     </div>
@@ -123,18 +123,9 @@ function OperationRecord() {
 
 export default OperationRecord;
 
-const tableHeadings = [
-  "操作時間",
-  "商品名稱",
-  "操作者",
-  "單價",
-  "數量(噸)",
-  "總金額",
-  "動作",
-  "備註"
-];
+const TABLE_HEAD = ["操作時間", "商品名稱", "操作者", "單價", "數量(噸)", "總金額", "動作", "備註"];
 
-const tableBody = [
+const TABLE_BODY = [
   {
     id: 1,
     time: "2023/05/18 19:24:19",
