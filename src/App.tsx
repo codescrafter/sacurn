@@ -13,40 +13,40 @@ import ProductDetail from "./components/ProductDetail";
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Login />,
+    element: <Login />
   },
   {
     path: "/",
-    element: <Dashboard />,
+    element: <Dashboard />
   },
   {
     path: "/all-products",
-    element: <AllProducts />,
+    element: <AllProducts />
   },
   {
     path: "/product-detail/id",
-    element: <ProductDetail />,
+    element: <ProductDetail />
   },
   {
     path: "/latest-news",
-    element: <NewsPage />,
+    element: <NewsPage />
   },
   {
     path: "/operation-record",
-    element: <OperationRecord />,
+    element: <OperationRecord />
   },
   {
     path: "/historical-order",
-    element: <HistoricalOrder />,
+    element: <HistoricalOrder />
   },
   {
     path: "/cart",
-    element: <Cart />,
+    element: <Cart />
   },
   {
     path: "/sales",
-    element: <Sales />,
-  },
+    element: <Sales />
+  }
 ]);
 
 export default function App() {

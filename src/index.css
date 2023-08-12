@@ -3,47 +3,47 @@
 @tailwind utilities;
 
 :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 0, 0, 0;
-        --background-end-rgb: 0, 0, 0;
-    }
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: white;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
 }
 
 /* date picker */
 .react-datepicker {
-    font-size: 0.8rem;
-    color: #000;
-    border: none !important;
-    display: inline-block;
-    position: relative;
+  font-size: 0.8rem;
+  color: #000;
+  border: none !important;
+  display: inline-block;
+  position: relative;
 }
 
 .react-datepicker__header {
-    background-color: transparent !important;
-    border-bottom: none !important;
-    padding: 8px 0;
-    position: relative;
+  background-color: transparent !important;
+  border-bottom: none !important;
+  padding: 8px 0;
+  position: relative;
 }
 
 /* tables */
 
 .custom-table {
-    border-collapse: separate;
-    border-spacing: 0 11px;
+  border-collapse: separate;
+  border-spacing: 0 11px;
 }
 
 /* .sales-row:hover {
@@ -71,142 +71,142 @@
 
 .custom-table tr,
 .custom-table td:first-child {
-    border-top-left-radius: 10px;
+  border-top-left-radius: 10px;
 }
 
 .custom-table tr,
 .custom-table td:last-child {
-    border-top-right-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .custom-table tr,
 .custom-table td:first-child {
-    border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .custom-table tr,
 .custom-table td:last-child {
-    border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .dropdown-row {
-    position: relative;
-    top: -20px;
+  position: relative;
+  top: -20px;
 }
 
 .sales-table .dropdown-row {
-    position: relative;
-    top: -10px;
+  position: relative;
+  top: -10px;
 }
 
 .custom-table .dropdown-row,
 .custom-table .dropdown-row td:first-child {
-    border-top-left-radius: 0px;
+  border-top-left-radius: 0px;
 }
 
 .custom-table .dropdown-row,
 .custom-table .dropdown-row td:last-child {
-    border-top-right-radius: 0px;
+  border-top-right-radius: 0px;
 }
 
 /* width */
 .yellowScroll::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 /* Track */
 .yellowScroll::-webkit-scrollbar-track {
-    background: #b3b4b4;
-    border-radius: 5px;
+  background: #b3b4b4;
+  border-radius: 5px;
 }
 
 /* Handle */
 .yellowScroll::-webkit-scrollbar-thumb {
-    background: #ffd600;
-    border-radius: 5px;
+  background: #ffd600;
+  border-radius: 5px;
 }
 
 /* Handle on hover */
 .yellowScroll::-webkit-scrollbar-thumb:hover {
-    background: #ffd600;
+  background: #ffd600;
 }
 
 /*Fire Fox */
 
 .yellowScroll {
-    scrollbar-width: thin;
-    scrollbar-color: #ffd600 #1e1e1e;
-    scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #ffd600 #1e1e1e;
+  scrollbar-gutter: stable;
 }
 
 /* width */
 .yellowScrollNoBg::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 /* Track */
 .yellowScrollNoBg::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 5px;
+  background: transparent;
+  border-radius: 5px;
 }
 
 /* Handle */
 .yellowScrollNoBg::-webkit-scrollbar-thumb {
-    background: #ffd600;
-    border-radius: 5px;
+  background: #ffd600;
+  border-radius: 5px;
 }
 
 /* Handle on hover */
 .yellowScrollNoBg::-webkit-scrollbar-thumb:hover {
-    background: #ffd600;
+  background: #ffd600;
 }
 
 /*Fire Fox */
 
 .yellowScrollNoBg {
-    scrollbar-width: thin;
-    scrollbar-color: #ffd600 transparent;
-    scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #ffd600 transparent;
+  scrollbar-gutter: stable;
 }
 
 .styledDiv {
-    background: transparent;
-    position: relative;
-    border-right: 1px solid white;
-    border-bottom: 1px solid white;
+  background: transparent;
+  position: relative;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
 }
 
 .styledDiv::after {
-    border: 1px solid white;
-    border-right: 0;
-    position: absolute;
-    content: "";
-    top: 0;
-    right: 0;
-    transform: rotate(180deg);
-    width: 100%;
-    height: calc(100% + 1px);
-    transform-origin: top right;
-    transform: skew(170deg, 0deg);
+  border: 1px solid white;
+  border-right: 0;
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  transform: rotate(180deg);
+  width: 100%;
+  height: calc(100% + 1px);
+  transform-origin: top right;
+  transform: skew(170deg, 0deg);
 }
 
 .scroll-left {
-    direction: rtl;
+  direction: rtl;
 }
 
 .direction-ltr {
-    direction: ltr;
+  direction: ltr;
 }
 
 /* graphs */
 .line-graph .apexcharts-tooltip-title {
-    color: black;
+  color: black;
 }
 
 .line-graph .apexcharts-tooltip-text-y-label {
-    color: black !important;
+  color: black !important;
 }
 
 .line-graph .apexcharts-tooltip-text-y-value {
-    color: black !important;
+  color: black !important;
 }
