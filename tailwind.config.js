@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       // light mode
@@ -80,8 +78,7 @@ module.exports = {
         "input-box":
           "-3.42614px -3.42614px 63.9545px #FFFFFF, inset 1.73724px 1.73724px 5.21171px rgba(0, 0, 0, 0.19), inset 6.07568px 6.08033px 11.292px rgba(0, 0, 0, 0.13), inset -3.47447px -5.21171px 1.73724px rgba(255, 255, 255, 0.75), inset -5.21171px -7.81756px 4.34309px rgba(255, 255, 255, 0.93)",
         btn: "-3.47447px -1.73724px 3.47447px rgba(183, 215, 235, 0.6), 1.14205px 1.18773px 8.04px rgba(31, 54, 68, 0.9)",
-        "cart-item":
-          "0px 0.696072518825531px 9.745015144348145px 0px rgba(0, 0, 0, 0.15)",
+        "cart-item": "0px 0.696072518825531px 9.745015144348145px 0px rgba(0, 0, 0, 0.15)",
         "sales-box": "0px 0px 3px 0px rgba(0, 0, 0, 0.20)",
         "stoptrading-btn": "0px 1px 3px 0px rgba(0, 0, 0, 0.30)",
         "graph-card": "1px 1px 26px 0px rgba(0, 0, 0, 0.23)",
@@ -89,18 +86,15 @@ module.exports = {
         "progress-bar": "0px 3px 2px 0px rgba(0, 0, 0, 0.15)",
       },
       backgroundImage: {
-        "login-white":
-          "linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)",
-        "blue-btn":
-          "linear-gradient(136.26deg, #32769F 9.08%, #015588 115.58%)",
+        "login-white": "linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)",
+        "blue-btn": "linear-gradient(136.26deg, #32769F 9.08%, #015588 115.58%)",
         "info-box":
           "linear-gradient(90deg, rgba(0, 84, 135, 0) 0%, rgba(0, 84, 135, 0.5418) 27.15%, rgba(0, 84, 135, 0.63) 52.73%, rgba(0, 84, 135, 0.5418) 76.22%, rgba(0, 84, 135, 0) 100.23%)",
         "news-box": "linear-gradient(90deg,#FFFFFF87,#E7E7E7,#FFFFFF87)",
         "bottom-note": "linear-gradient(270deg,#005487 0%,transparent 100%)",
         slider:
           "linear-gradient(90deg, rgba(217, 217, 217, 0.1) 0%, rgba(217, 217, 217, 0.5) 48.44%, rgba(217, 217, 217, 0.1) 100%)",
-        "multi-slide":
-          "linear-gradient(89.71deg, #D9D9D9 69.19%, rgba(217, 217, 217, 0) 99.76%)",
+        "multi-slide": "linear-gradient(89.71deg, #D9D9D9 69.19%, rgba(217, 217, 217, 0) 99.76%)",
       },
       blur: {
         xxs: "0.5px",
@@ -184,4 +178,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};
