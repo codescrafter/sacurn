@@ -4,17 +4,16 @@ import SalesConfirmationBox from "../components/SalesConfirmationBox";
 import Alert from "../components/Alert";
 import Button from "../components/Button";
 import SalesAreaGraph from "../components/SalesAreaGraph";
-import SalesLineChart from "../components/SalesLineChart.jsx";
+import SalesLineChart from "../components/SalesLineChart.jsx.jsx";
 import ProgressBarChart from "../components/ProgressBarChart";
 
 function Sales() {
-  ;
-  const [expandedRowIndex, setExpandedRowIndex] = useState(null);
-  const [staticRowsVisible, setStaticRowsVisible] = useState(false);
-  const [confirmationBox, setConfirmationBox] = useState(false);
-  const [isAlert, setIsAlert] = useState(false);
-  const [confirmListing, setConfirmListing] = useState(false);
-  const [stopTrade, setStopTrade] = useState(false);
+  const [expandedRowIndex, setExpandedRowIndex] = useState<number | null>(null);
+  const [staticRowsVisible, setStaticRowsVisible] = useState<boolean>(false);
+  const [confirmationBox, setConfirmationBox] = useState<boolean>(false);
+  const [isAlert, setIsAlert] = useState<boolean>(false);
+  const [confirmListing, setConfirmListing] = useState<boolean>(false);
+  const [stopTrade, setStopTrade] = useState<boolean>(false);
 
   return (
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-250">
@@ -24,9 +23,7 @@ function Sales() {
           <h6 className="text-black text-xl xl:text-[32px] font-bold leading-[1px]">
             恭喜！已開始交易。
           </h6>
-          <span className="font-bold text-lg xl:text-[26px] text-navy-blue">
-            已完成上架作業
-          </span>
+          <span className="font-bold text-lg xl:text-[26px] text-navy-blue">已完成上架作業</span>
           <Button
             className="font-bold text-lg xl:text-xl !px-5 !py-[10px] !rounded-[60px] min-w-[180px]"
             onClick={() => {
@@ -47,9 +44,7 @@ function Sales() {
             height={109}
             alt="exclamation-mark"
           />
-          <h6 className="text-black text-xl xl:text-[32px] font-bold tracking-[1px]">
-            再次提醒
-          </h6>
+          <h6 className="text-black text-xl xl:text-[32px] font-bold tracking-[1px]">再次提醒</h6>
           <span className="font-bold text-lg xl:text-[26px] text-bright-red">
             確認停止交易後，資料將無法恢復
           </span>
@@ -87,19 +82,14 @@ function Sales() {
                 stopTrade={stopTrade}
                 setIsAlert={setIsAlert}
                 setStopTrade={setStopTrade}
-                confirmListing={confirmListing}
                 setConfirmListing={setConfirmListing}
                 setConfirmationBox={setConfirmationBox}
               />
             </div>
           ) : (
             <div className="max-w-[618px] 2xl:min-w-[618px] xl:min-w-[500px] w-[500px] space-y-2 pt-2">
-              {/* graphs */}
-              {/* area graph */}
               <SalesAreaGraph />
-              {/* line graph */}
               <SalesLineChart />
-              {/* progressbar graph */}
               <ProgressBarChart />
             </div>
           )}
@@ -109,12 +99,7 @@ function Sales() {
             <div className="flex items-center mb-8 gap-3 xl:mr-0 mr-7">
               {/* filters */}
               <div className="rounded-full border border-light-grey w-[34px] h-[34px] flex items-center justify-center cursor-pointer">
-                <img
-                  src="/images/sales/filters.png"
-                  width={19}
-                  height={19}
-                  alt="filters"
-                />
+                <img src="/images/sales/filters.png" width={19} height={19} alt="filters" />
               </div>
               {/* search */}
               <div className="flex w-full">
@@ -149,28 +134,25 @@ function Sales() {
                       style={
                         staticRowsVisible
                           ? {
-                            borderCollapse: "collapse",
-                            borderSpacing: "0 11px",
-                          }
+                              borderCollapse: "collapse",
+                              borderSpacing: "0 11px"
+                            }
                           : { borderCollapse: "separate", borderSpacing: "0 0" }
                       }
                     >
                       <thead className="sticky -top-1 z-10">
                         <tr className="!bg-neutral-250">
-                          {tableHeadings.map((item, index) => (
+                          {TABLE_HEAD?.map((item, index) => (
                             <th
                               key={item}
-                              className={`text-left whitespace-nowrap pb-4 ${index === 0
-                                ? "pl-[11px] sr-only"
-                                : index === 1
-                                  ? "pr-2"
-                                  : "px-2"
-                                }`}
+                              className={`text-left whitespace-nowrap pb-4 ${
+                                index === 0 ? "pl-[11px] sr-only" : index === 1 ? "pr-2" : "px-2"
+                              }`}
                             >
                               <span
-                                className={`text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer ${(index === 4 || index === 5) &&
-                                  "justify-center"
-                                  }`}
+                                className={`text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer ${
+                                  (index === 4 || index === 5) && "justify-center"
+                                }`}
                               >
                                 {item}{" "}
                                 <img
@@ -186,27 +168,25 @@ function Sales() {
                         </tr>
                       </thead>
                       <tbody>
-                        {tableBody.map((item, index) => (
+                        {TABLE_BODY?.map((item, index) => (
                           <Fragment key={item.id}>
                             <tr
-                              className={`bg-white sales-row h-auto hover:shadow-sales-row ${expandedRowIndex === index &&
-                                staticRowsVisible &&
-                                "!bg-light-gray"
-                                }`}
+                              className={`bg-white sales-row h-auto hover:shadow-sales-row ${
+                                expandedRowIndex === index && staticRowsVisible && "!bg-light-gray"
+                              }`}
                             >
                               <td className="2xl:pl-[11px] pl-2 w-[0px] pr-2 2xl:pr-4 text-center">
                                 {/* badge */}
                                 <span
-                                  className={`text-center rounded-[10px] 2xl:text-lg text-sm p-1 xl:p-[10px] block xl:w-[74px] ${index === 2
-                                    ? "bg-pale-yellow"
-                                    : index === 3 ||
-                                      index === 4 ||
-                                      index === 5
+                                  className={`text-center rounded-[10px] 2xl:text-lg text-sm p-1 xl:p-[10px] block xl:w-[74px] ${
+                                    index === 2
+                                      ? "bg-pale-yellow"
+                                      : index === 3 || index === 4 || index === 5
                                       ? "bg-light-blue"
                                       : index === 6
-                                        ? "bg-light-purple"
-                                        : "bg-light-green"
-                                    }`}
+                                      ? "bg-light-purple"
+                                      : "bg-light-green"
+                                  }`}
                                 >
                                   {item.percent}
                                 </span>
@@ -255,9 +235,7 @@ function Sales() {
                                 className={`py-2 px-2 font-bold text-dark-grey text-sm 2xl:text-lg`}
                               >
                                 {item.totalAmount}{" "}
-                                <span className="!font-medium text-dark-grey">
-                                  噸
-                                </span>
+                                <span className="!font-medium text-dark-grey">噸</span>
                               </td>
                               <td
                                 className={`py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]`}
@@ -284,9 +262,7 @@ function Sales() {
                                       setExpandedRowIndex((prevIndex) =>
                                         prevIndex === index ? null : index
                                       );
-                                      setStaticRowsVisible(
-                                        (prevVisible) => !prevVisible
-                                      );
+                                      setStaticRowsVisible((prevVisible) => !prevVisible);
                                     }}
                                   >
                                     {item.transaction}
@@ -325,51 +301,50 @@ function Sales() {
                               </tr>
                             )}
                             {/* shelf information */}
-                            {expandedRowIndex === index &&
-                              staticRowsVisible && (
-                                <tr className="bg-light-gray dropdown-row  h-[95px]">
-                                  <td colSpan={6} className="dropdown-td px-3">
-                                    <div className="flex items-center space-x-3 xl:space-x-5 2xl:space-x-8 w-full bg-white rounded-[10px] h-[73px] pr-3">
-                                      {/* date */}
-                                      <div className="flex items-center gap-1 2xl:gap-2 ml-16 xl:ml-[90px]">
-                                        <span className="font-medium text-sm xl:text-lg text-grey whitespace-nowrap">
-                                          單價/噸
-                                        </span>
-                                        <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                          $ 2,999
-                                        </span>
-                                      </div>
-                                      {/* member id */}
-                                      <div className="flex items-center gap-1 2xl:gap-2">
-                                        <span className="font-medium text-sm xl:text-lg text-grey leading-[1px] whitespace-nowrap">
-                                          最低單位
-                                        </span>
-                                        <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                          999噸
-                                        </span>
-                                      </div>
-                                      {/* transaction status */}
-                                      <div className="flex items-center gap-1 2xl:gap-2">
-                                        <span className="font-medium text-sm xl:text-lg text-grey leading-[1px] whitespace-nowrap">
-                                          數量
-                                        </span>
-                                        <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                          99,999噸
-                                        </span>
-                                      </div>
-                                      <Button
-                                        className="rounded-[10px] min-w-[120px] 2xl:min-w-[183px] !bg-pale-yellow shadow-stoptrading-btn text-base !text-navy-blue font-medium xl:!ml-20 2xl:!ml-14"
-                                        onClick={() => {
-                                          setStopTrade(true);
-                                          setConfirmationBox(true);
-                                        }}
-                                      >
-                                        停止交易
-                                      </Button>
+                            {expandedRowIndex === index && staticRowsVisible && (
+                              <tr className="bg-light-gray dropdown-row  h-[95px]">
+                                <td colSpan={6} className="dropdown-td px-3">
+                                  <div className="flex items-center space-x-3 xl:space-x-5 2xl:space-x-8 w-full bg-white rounded-[10px] h-[73px] pr-3">
+                                    {/* date */}
+                                    <div className="flex items-center gap-1 2xl:gap-2 ml-16 xl:ml-[90px]">
+                                      <span className="font-medium text-sm xl:text-lg text-grey whitespace-nowrap">
+                                        單價/噸
+                                      </span>
+                                      <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
+                                        $ 2,999
+                                      </span>
                                     </div>
-                                  </td>
-                                </tr>
-                              )}
+                                    {/* member id */}
+                                    <div className="flex items-center gap-1 2xl:gap-2">
+                                      <span className="font-medium text-sm xl:text-lg text-grey leading-[1px] whitespace-nowrap">
+                                        最低單位
+                                      </span>
+                                      <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
+                                        999噸
+                                      </span>
+                                    </div>
+                                    {/* transaction status */}
+                                    <div className="flex items-center gap-1 2xl:gap-2">
+                                      <span className="font-medium text-sm xl:text-lg text-grey leading-[1px] whitespace-nowrap">
+                                        數量
+                                      </span>
+                                      <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
+                                        99,999噸
+                                      </span>
+                                    </div>
+                                    <Button
+                                      className="rounded-[10px] min-w-[120px] 2xl:min-w-[183px] !bg-pale-yellow shadow-stoptrading-btn text-base !text-navy-blue font-medium xl:!ml-20 2xl:!ml-14"
+                                      onClick={() => {
+                                        setStopTrade(true);
+                                        setConfirmationBox(true);
+                                      }}
+                                    >
+                                      停止交易
+                                    </Button>
+                                  </div>
+                                </td>
+                              </tr>
+                            )}
                           </Fragment>
                         ))}
                       </tbody>
@@ -387,42 +362,34 @@ function Sales() {
 
 export default Sales;
 
-const tableHeadings = [
-  "",
-  "商品名稱",
-  "Vintage",
-  "總數量",
-  "碳權證書",
-  "設定交易",
-];
+const TABLE_HEAD = ["", "商品名稱", "Vintage", "總數量", "碳權證書", "設定交易"];
 
-const tableBody = [
+const TABLE_BODY = [
   {
     id: 1,
     percent: "50%",
     prodDetail: {
       prodName: "Australian Carbon Credit Units",
       seriolNo: "fjgmvixkermy",
-      location: "非洲",
+      location: "非洲"
     },
     vintage: "1991/10/30",
     totalAmount: "889",
     carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png",
+    transaction: "/images/sales/settings_icon.png"
   },
   {
     id: 2,
     percent: "11.2%",
     prodDetail: {
-      prodName:
-        "Andes Inorganic Soil ACR Emission Reduction Tonnes Spot ProductCarbon",
+      prodName: "Andes Inorganic Soil ACR Emission Reduction Tonnes Spot ProductCarbon",
       seriolNo: "irdfgwxbmjug",
-      location: "印度",
+      location: "印度"
     },
     vintage: "1991/06/06",
     totalAmount: "100",
     carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png",
+    transaction: "/images/sales/settings_icon.png"
   },
   {
     id: 3,
@@ -430,12 +397,12 @@ const tableBody = [
     prodDetail: {
       prodName: "Global Emissions Offset Standard Spot Product",
       seriolNo: "poudhrfxjufn",
-      location: "印度",
+      location: "印度"
     },
     vintage: "1991/06/06",
     totalAmount: "3",
     carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png",
+    transaction: "/images/sales/settings_icon.png"
   },
   {
     id: 4,
@@ -443,12 +410,12 @@ const tableBody = [
     prodDetail: {
       prodName: "Core Global Emissions Offset Trailing Spot Product",
       seriolNo: "owieudmakqlw",
-      location: "印度",
+      location: "印度"
     },
     vintage: "1991/10/30",
     totalAmount: "23",
     carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png",
+    transaction: "/images/sales/settings_icon.png"
   },
   {
     id: 5,
@@ -457,12 +424,12 @@ const tableBody = [
       prodName:
         "Nature-Based Global Emissions Offset Trailing Standard Spot Product Standard Spot Product",
       seriolNo: "lodismokeadw",
-      location: "非洲",
+      location: "非洲"
     },
     vintage: "1991/10/30",
     totalAmount: "89",
     carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png",
+    transaction: "/images/sales/settings_icon.png"
   },
   {
     id: 6,
@@ -470,12 +437,12 @@ const tableBody = [
     prodDetail: {
       prodName: "VCS Verified Carbon Units Spot Product",
       seriolNo: "lekgmazoeldq",
-      location: "俄羅斯",
+      location: "俄羅斯"
     },
     vintage: "1991/07/01",
     totalAmount: "800",
     carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "上架中",
+    transaction: "上架中"
   },
   {
     id: 7,
@@ -483,11 +450,11 @@ const tableBody = [
     prodDetail: {
       prodName: "ACR Emission Reduction Tonnes Spot Product",
       seriolNo: "irjgldemasil",
-      location: "台灣",
+      location: "台灣"
     },
     vintage: "1991/10/30",
     totalAmount: "12",
     carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png",
-  },
+    transaction: "/images/sales/settings_icon.png"
+  }
 ];

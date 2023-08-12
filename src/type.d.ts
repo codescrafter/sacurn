@@ -11,3 +11,19 @@ export type NewsTypes = {
   heading: string;
   description: string;
 };
+
+export type CartItemTypes = {
+  id: string;
+  img: string;
+  memberCode: string;
+  heading: string;
+  price: string;
+  left: string;
+  total: string;
+};
+
+export type SelectedCartItemTypes = {
+  id: string;
+  name: string;
+  quantity: string;
+};

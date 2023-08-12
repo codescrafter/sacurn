@@ -1,4 +1,4 @@
-import { NewsTypes, ProductDetailTypes } from "../type";
+import { CartItemTypes, NewsTypes, ProductDetailTypes, SelectedCartItemTypes } from "../type";
 
 export const PRODUCT_DETAILS: ProductDetailTypes[] = [
   {
@@ -171,3 +171,70 @@ export const LATEST_NEWS: NewsTypes[] = [
 ];
 
 export const OPTIONS_LIST: string[] = ["Option 1", "Option 2", "Option 3", "Option 4"];
+
+export const CART_ITEMS: CartItemTypes[] = [
+  {
+    id: "1",
+    img: "/images/cart/item1.png",
+    memberCode: "會員代號：we12345678",
+    heading: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    price: "$12,000/噸",
+    left: "剩下 888 噸可購",
+    total: "$120,000"
+  },
+  {
+    id: "2",
+    img: "/images/cart/item2.png",
+    memberCode: "會員代號：we12345678",
+    heading: "CarbonCure Concrete Mineralization",
+    price: "$12,000/噸",
+    left: "剩下 888 噸可購",
+    total: "$120,000"
+  },
+  {
+    id: "3",
+    img: "/images/cart/item3.png",
+    memberCode: "會員代號：we12345678",
+    heading: "Andes Inorganic Soil Carbon",
+    price: "$12,000/噸",
+    left: "剩下 888 噸可購",
+    total: "$120,000"
+  },
+  {
+    id: "4",
+    img: "/images/cart/item1.png",
+    memberCode: "會員代號：we12345678",
+    heading: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    price: "$12,000/噸",
+    left: "剩下 888 噸可購",
+    total: "$120,000"
+  },
+  {
+    id: "5",
+    img: "/images/cart/item2.png",
+    memberCode: "會員代號：we12345678",
+    heading: "CarbonCure Concrete Mineralization",
+    price: "$12,000/噸",
+    left: "剩下 888 噸可購",
+    total: "$120,000"
+  },
+  {
+    id: "6",
+    img: "/images/cart/item3.png",
+    memberCode: "會員代號：we12345678",
+    heading: "Andes Inorganic Soil Carbon",
+    price: "$12,000/噸",
+    left: "剩下 888 噸可購",
+    total: "$120,000"
+  }
+];
+
+export const SELECTED_CART_ITEMS: SelectedCartItemTypes[] = [
+  {
+    id: "1",
+    name: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    quantity: "100"
+  },
+  { id: "2", name: "Andes Inorganic Soil Carbon", quantity: "15" },
+  { id: "3", name: "KOKO Networks Clean Ethanol Cooking Fuel", quantity: "5" }
+];

@@ -1,7 +1,14 @@
-import React from "react";
+import { FC } from "react";
 import Button from "./Button";
 
-const Alert = ({ children, setIsAlert, size, className, alertImg }) => {
+interface IProps {
+  children: React.ReactNode;
+  setIsAlert: React.Dispatch<React.SetStateAction<boolean>>;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+}
+
+const Alert: FC<IProps> = ({ children, setIsAlert, size = "md", className }) => {
   // Define the default size classes for the alert box
   const defaultSizeClasses = "min-h-[500px] min-w-[700px]";
 
@@ -9,11 +16,11 @@ const Alert = ({ children, setIsAlert, size, className, alertImg }) => {
   const sizeClasses = {
     sm: "min-w-[477px] min-h-[461px]",
     md: "md:min-h-[500px] md:min-w-[700px]",
-    lg: "xl:min-w-[892px] min-w-[600px] min-h-[400px] xl:min-h-[598px]",
+    lg: "xl:min-w-[892px] min-w-[600px] min-h-[400px] xl:min-h-[598px]"
   };
 
   // Combine the default size classes with the specific size classes if available
-  const alertBoxClass = `${defaultSizeClasses} ${sizeClasses[size] || ""}`;
+  const alertBoxClass = `${defaultSizeClasses} ${sizeClasses[size]}`;
 
   return (
     <div className="flex justify-center items-center z-50 absolute inset-0 bg-black/30 backdrop-blur-[2px]">
@@ -24,12 +31,7 @@ const Alert = ({ children, setIsAlert, size, className, alertImg }) => {
           className="!bg-transparent absolute right-0 top-0"
           onClick={() => setIsAlert(false)}
         >
-          <img
-            src="/images/sales/cross_icon.png"
-            width={32}
-            height={32}
-            alt="cross icon"
-          />
+          <img src="/images/sales/cross_icon.png" width={32} height={32} alt="cross icon" />
         </Button>
 
         {children}
