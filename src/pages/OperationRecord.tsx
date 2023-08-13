@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { TableBodyItem } from '@/types';
+
 import CustomSelect from '../components/CustomSelect';
 import CustomTable from '../components/CustomTable';
 import DatePickerModal from '../components/DatePickerModal';
@@ -64,7 +66,7 @@ function OperationRecord() {
                 期間:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect options={OPTIONS_LIST} defaulValue="完成付款" />
+                <CustomSelect options={OPTIONS_LIST} defaultValue="完成付款" />
               </div>
             </div>
             {/* operator */}
@@ -73,7 +75,7 @@ function OperationRecord() {
                 操作者:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect options={OPTIONS_LIST} defaulValue="Abcdefghijk" />
+                <CustomSelect options={OPTIONS_LIST} defaultValue="Abcdefghijk" />
               </div>
             </div>
             {/* search */}
@@ -106,7 +108,7 @@ export default OperationRecord;
 
 const TABLE_HEAD = ['操作時間', '商品名稱', '操作者', '單價', '數量(噸)', '總金額', '動作', '備註'];
 
-const TABLE_BODY = [
+const TABLE_BODY: TableBodyItem[] = [
   {
     id: 1,
     time: '2023/05/18 19:24:19',

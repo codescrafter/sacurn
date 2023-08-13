@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-const ProductDeatilView: FC = () => {
+const ProductDetailView: FC = () => {
   return (
     <div className="relative w-full flex flex-col 2xl:mt-37 xl:mt-24 mt-18">
       <div className="w-full flex flex-row justify-between">
@@ -85,7 +85,7 @@ const ProductDeatilView: FC = () => {
   );
 };
 
-export default ProductDeatilView;
+export default ProductDetailView;
 
 const product = {
   name: 'CarbonCure Concrete Mineralization',

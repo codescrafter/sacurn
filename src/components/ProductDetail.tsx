@@ -123,7 +123,7 @@ export default ProductDetail;
 
 const ImgSlider = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const sliderRef = useRef<any>(null);
+  const sliderRef = useRef<Slider>(null);
   const settings = {
     dots: false,
     infinite: true,

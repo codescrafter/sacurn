@@ -1,10 +1,12 @@
 import classNames from 'classnames';
 import { FC, Fragment, useState } from 'react';
 
+import { TableBodyItem } from '@/types';
+
 interface IProps {
   name: string;
   tableHeadings: string[];
-  tableBody: any[];
+  tableBody: TableBodyItem[];
 }
 
 const CustomTable: FC<IProps> = ({ tableHeadings, tableBody, name }) => {
@@ -61,7 +63,7 @@ const CustomTable: FC<IProps> = ({ tableHeadings, tableBody, name }) => {
                           'text-dark-grey': name !== 'historical_order'
                         })}
                       >
-                        {item.time || item.orderNumber}
+                        {('time' in item && item.time) || ('orderNumber' in item && item.orderNumber)}
                         {name === 'historical_order' && (
                           <img
                             src="/images/historical-order/yellow-chervon.png"
@@ -95,7 +97,7 @@ const CustomTable: FC<IProps> = ({ tableHeadings, tableBody, name }) => {
                         'text-light-green': name === 'historical_order' && index !== 2 && index !== 3
                       })}
                     >
-                      {item.operator || item.buysell}
+                      {('operator' in item && item.operator) || ('buysell' in item && item.buysell)}
                     </td>
                     <td
                       className={classNames('py-3 px-2 2xl:px-8 text-base 2xl:text-xl', {
@@ -131,11 +133,11 @@ const CustomTable: FC<IProps> = ({ tableHeadings, tableBody, name }) => {
                         }
                       )}
                     >
-                      {item.action || item.orderStatus}
+                      {('action' in item && item.action) || ('orderStatus' in item && item.orderStatus)}
                     </td>
                     {name === 'operation_page' && (
                       <td className="py-3 px-2 2xl:px-8 whitespace-nowrap text-base 2xl:text-xl text-dark-grey">
-                        {item.remark}
+                        {'remark' in item && item.remark}
                       </td>
                     )}
                   </tr>

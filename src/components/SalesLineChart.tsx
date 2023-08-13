@@ -1,3 +1,4 @@
+import { ApexOptions } from 'apexcharts';
 import classNames from 'classnames';
 import { FC, useState } from 'react';
 import Chart from 'react-apexcharts';
@@ -19,7 +20,7 @@ const SalesLineChart: FC = () => {
     }
   ];
 
-  const options: any = {
+  const options: ApexOptions = {
     chart: {
       type: 'line',
       zoom: {
@@ -78,7 +79,7 @@ const SalesLineChart: FC = () => {
             } else if (value >= 1000) {
               return (value / 1000).toFixed(1) + 'k';
             }
-            return value;
+            return value.toString();
           },
           style: {
             colors: '#005487'
@@ -89,7 +90,7 @@ const SalesLineChart: FC = () => {
     ],
     tooltip: {
       style: {
-        colors: '#000000'
+        // colors: '#000000'
       }
     },
     legend: {

@@ -1,3 +1,4 @@
+import { ApexOptions } from 'apexcharts';
 import classNames from 'classnames';
 import { FC, useState } from 'react';
 import Chart from 'react-apexcharts';
@@ -13,7 +14,7 @@ const SalesAreaGraph: FC = () => {
     setActiveButton(buttonIndex);
   };
 
-  const options: any = {
+  const options: ApexOptions = {
     plotOptions: {
       pie: {
         customScale: 1

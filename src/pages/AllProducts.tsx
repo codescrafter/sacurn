@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 
 import Navbar from '../components/Navbar';
-import ProductDeatilView from '../components/ProductDetailView';
+import ProductDetailView from '../components/ProductDetailView';
 import ProductsListView from '../components/ProductsListView';
 import ViewStyleBar from '../components/ViewStyleBar';
 
@@ -18,7 +18,7 @@ function AllProducts() {
     setActive(selected_color);
     if (selected_color === 'white') {
       setDisplay('list-view');
-    } else if ((selected_color = 'green')) {
+    } else if (selected_color === 'green') {
       setDisplay('detail-view');
     } else {
       setDisplay('no-view');
@@ -62,7 +62,7 @@ function AllProducts() {
               <ProductsListView />
             </div>
           )}
-          {display === 'detail-view' && <ProductDeatilView />}
+          {display === 'detail-view' && <ProductDetailView />}
         </div>
       </div>
     </div>

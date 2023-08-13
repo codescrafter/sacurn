@@ -4,15 +4,15 @@ import useOutsideClick from '../hooks/useOutsideClick';
 
 interface IProps {
   options: string[];
-  defaulValue: string;
+  defaultValue: string;
   callback?: (option: string) => void;
 }
 
-const CustomSelect: FC<IProps> = ({ options, defaulValue, callback }) => {
+const CustomSelect: FC<IProps> = ({ options, defaultValue, callback }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<string>(defaulValue);
+  const [selectedOption, setSelectedOption] = useState<string>(defaultValue);
 
-  const ref = useRef<any>();
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick(ref, () => {
     if (open) setOpen(false);

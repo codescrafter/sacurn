@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const DatePickerModal: FC<IProps> = ({ startDate, endDate, setDateRange, setOpen, open }) => {
-  const ref = useRef<any>();
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick(ref, () => {
     if (open) setOpen(false);

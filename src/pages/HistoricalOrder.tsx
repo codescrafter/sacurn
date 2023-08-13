@@ -64,7 +64,7 @@ function HistoricalOrder() {
                 期間:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect options={OPTIONS_LIST} defaulValue="完成付款" />
+                <CustomSelect options={OPTIONS_LIST} defaultValue="完成付款" />
               </div>
             </div>
             {/* search */}
