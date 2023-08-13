@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import React, { FC } from "react";
 import { CART_ITEMS, SELECTED_CART_ITEMS } from "../util/constants";
 import { CartItemTypes, SelectedCartItemTypes } from "../type";
-
+import classNames from "classnames";
 
 interface HeadingIProps {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ interface HeadingIProps {
 const Cart = () => {
   return (
     <div className="bg-neutral-150 h-screen overflow-hidden">
-      <Navbar className={`pt-7 pb-2.5 !bg-navy-blue`} />
+      <Navbar className="pt-7 pb-2.5 !bg-navy-blue" />
       <div className="flex justify-between my-4 pl-13 pr-10">
         <div className="flex">
           <button className="w-[202px] h-[46px] rounded-[3px] py-1 flex items-center justify-center border border-navy-blue text-navy-blue text-xl">
@@ -102,9 +102,13 @@ const CartItem: FC<CartItemTypes> = ({ img, memberCode, heading, price, left, to
   const [rowSelected, setRowSelected] = React.useState(false);
   return (
     <div
-      className={`flex items-center py-4.5 border-2 rounded-[10px] direction-ltr shadow-cart-item ${
-        rowSelected ? "border-bright-blue bg-slight-blue" : "border-white bg-white"
-      }`}
+      className={classNames(
+        "flex items-center py-4.5 border-2 rounded-[10px] direction-ltr shadow-cart-item",
+        {
+          "border-bright-blue bg-slight-blue": rowSelected,
+          "border-white bg-white": !rowSelected
+        }
+      )}
       onClick={() => setRowSelected((s) => !s)}
     >
       <div className="flex items-center">
@@ -115,14 +119,14 @@ const CartItem: FC<CartItemTypes> = ({ img, memberCode, heading, price, left, to
             <img src={"/images/cart/ic_uncheck.svg"} width={29} height={29} alt="sacurn" />
           )}
         </div>
-
         <img src={img} width={114} height={114} className="object-cover" alt="sacurn" />
         <div className="ml-6 flex flex-col justify-between h-full">
           <p className="text-[10.6px] font-medium text-black">{memberCode}</p>
           <p
-            className={`font-bold text-xl leading-[18px] w-[316px] mr-3 mt-3 mb-3 ${
-              rowSelected ? "text-bright-blue" : "text-black"
-            }`}
+            className={classNames("font-bold text-xl leading-[18px] w-[316px] mr-3 mt-3 mb-3", {
+              "text-bright-blue": rowSelected,
+              "text-black": !rowSelected
+            })}
           >
             {heading}
           </p>
@@ -140,12 +144,10 @@ const CartItem: FC<CartItemTypes> = ({ img, memberCode, heading, price, left, to
             type="text"
             value="1"
           />
-
           <button className="w-6 h-6 rounded-full border border-[#B3B4B4] text-black text-xl flex items-center justify-center">
             +
           </button>
         </div>
-
         <div className="">
           <p className="text-xl font-bold text-black">{total}</p>
         </div>
@@ -162,8 +164,6 @@ const CartItem: FC<CartItemTypes> = ({ img, memberCode, heading, price, left, to
     </div>
   );
 };
-
-
 
 const Heading: FC<HeadingIProps> = ({ children }) => {
   return (

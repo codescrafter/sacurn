@@ -66,7 +66,7 @@ const Login = () => {
           Forgot password? <span className="text-black">or</span> Sign Up
         </p>
       </div>
-      <div className="bg-[url('../public/images/login/bg-bottom.png')] bg-cover bg-right absolute bottom-0 left-0 h-60 w-full"></div>
+      <div className="bg-[url('../public/images/login/bg-bottom.png')] bg-cover bg-right absolute bottom-0 left-0 h-60 w-full" />
       <img
         src="/images/login/sacurn-bottom.png"
         className="absolute right-[90px] bottom-14"

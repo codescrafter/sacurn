@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import SalesAreaGraph from "../components/SalesAreaGraph";
 import SalesLineChart from "../components/SalesLineChart";
 import ProgressBarChart from "../components/ProgressBarChart";
+import classNames from "classnames";
 
 function Sales() {
   const [expandedRowIndex, setExpandedRowIndex] = useState<number | null>(null);
@@ -71,7 +72,7 @@ function Sales() {
         </Alert>
       )}
       {/* navbar */}
-      <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
+      <Navbar className="relative z-30 !bg-navy-blue h-[70px]" />
       <main className="py-[30px] pl-2 xl:pl-4 2xl:pl-[30px] pr-2 xl:pr-4 2xl:pr-[25px]">
         <div className="flex gap-2 2xl:gap-[33px]">
           {/* sidebar */}
@@ -123,9 +124,7 @@ function Sales() {
               </div>
             </div>
             {/* sales table */}
-            <div
-              className={`yellowScroll w-full h-[81vh] pr-2 xl:pr-[22px] overflow-auto overflow-x-hidden`}
-            >
+            <div className="yellowScroll w-full h-[81vh] pr-2 xl:pr-[22px] overflow-auto overflow-x-hidden">
               <div className="flow-root">
                 <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
                   <div className="inline-block min-w-full align-middle sm:px-6 lg:px-8">
@@ -145,16 +144,21 @@ function Sales() {
                           {TABLE_HEAD?.map((item, index) => (
                             <th
                               key={item}
-                              className={`text-left whitespace-nowrap pb-4 ${
-                                index === 0 ? "pl-[11px] sr-only" : index === 1 ? "pr-2" : "px-2"
-                              }`}
+                              className={classNames("text-left whitespace-nowrap pb-4", {
+                                "pl-[11px] sr-only": index === 0,
+                                "pr-2": index === 1,
+                                "px-2": index !== 0 && index !== 1
+                              })}
                             >
                               <span
-                                className={`text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer ${
-                                  (index === 4 || index === 5) && "justify-center"
-                                }`}
+                                className={classNames(
+                                  "text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer",
+                                  {
+                                    "justify-center": index === 4 || index === 5
+                                  }
+                                )}
                               >
-                                {item}{" "}
+                                {item}
                                 <img
                                   src="/images/sales/filter_arrows.png"
                                   width={15}
@@ -171,22 +175,30 @@ function Sales() {
                         {TABLE_BODY?.map((item, index) => (
                           <Fragment key={item.id}>
                             <tr
-                              className={`bg-white sales-row h-auto hover:shadow-sales-row ${
-                                expandedRowIndex === index && staticRowsVisible && "!bg-light-gray"
-                              }`}
+                              className={classNames(
+                                "bg-white sales-row h-auto hover:shadow-sales-row",
+                                {
+                                  "!bg-light-gray": expandedRowIndex === index && staticRowsVisible
+                                }
+                              )}
                             >
                               <td className="2xl:pl-[11px] pl-2 w-[0px] pr-2 2xl:pr-4 text-center">
                                 {/* badge */}
                                 <span
-                                  className={`text-center rounded-[10px] 2xl:text-lg text-sm p-1 xl:p-[10px] block xl:w-[74px] ${
-                                    index === 2
-                                      ? "bg-pale-yellow"
-                                      : index === 3 || index === 4 || index === 5
-                                      ? "bg-light-blue"
-                                      : index === 6
-                                      ? "bg-light-purple"
-                                      : "bg-light-green"
-                                  }`}
+                                  className={classNames(
+                                    "text-center rounded-[10px] 2xl:text-lg text-sm p-1 xl:p-[10px] block xl:w-[74px]",
+                                    {
+                                      "bg-pale-yellow": index === 2,
+                                      "bg-light-blue": index === 3 || index === 4 || index === 5,
+                                      "bg-light-purple": index === 6,
+                                      "bg-light-green":
+                                        index !== 2 &&
+                                        index !== 3 &&
+                                        index !== 4 &&
+                                        index !== 5 &&
+                                        index !== 6
+                                    }
+                                  )}
                                 >
                                   {item.percent}
                                 </span>
@@ -226,20 +238,14 @@ function Sales() {
                                   </div>
                                 </div>
                               </td>
-                              <td
-                                className={`py-2 px-2 text-dark-grey font-medium text-sm 2xl:text-lg`}
-                              >
+                              <td className="py-2 px-2 text-dark-grey font-medium text-sm 2xl:text-lg">
                                 {item.vintage}
                               </td>
-                              <td
-                                className={`py-2 px-2 font-bold text-dark-grey text-sm 2xl:text-lg`}
-                              >
+                              <td className="py-2 px-2 font-bold text-dark-grey text-sm 2xl:text-lg">
                                 {item.totalAmount}{" "}
                                 <span className="!font-medium text-dark-grey">噸</span>
                               </td>
-                              <td
-                                className={`py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]`}
-                              >
+                              <td className="py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]">
                                 <div className="w-full flex justify-center">
                                   <div className="w-[35px] 2xl:w-[45px] 2xl:h-[45px]">
                                     <img
@@ -252,9 +258,7 @@ function Sales() {
                                   </div>
                                 </div>
                               </td>
-                              <td
-                                className={`py-2 text-dark-grey text-center text-sm 2xl:text-lg 2xl:w-[140px]`}
-                              >
+                              <td className="py-2 text-dark-grey text-center text-sm 2xl:text-lg 2xl:w-[140px]">
                                 {index === 5 ? (
                                   <Button
                                     className="whitespace-nowrap rounded-[7px] text-base !bg-pale-yellow hover:!bg-transparent hover:!border hover:!border-pale-yellow hover:!text-pale-yellow w-auto 2xl:min-w-[74px] !p-[5px]  2xl:!p-[7px]"

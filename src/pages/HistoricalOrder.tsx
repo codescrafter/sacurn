@@ -14,7 +14,7 @@ function HistoricalOrder() {
   return (
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-150">
       {/* navbar */}
-      <Navbar className={`relative z-30 !bg-navy-blue h-[70px]`} />
+      <Navbar className="relative z-30 !bg-navy-blue h-[70px]" />
       <section className="pt-[27px] px-3 2xl:pl-[34px] 2xl:pr-[27px]">
         <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">| 歷史訂單</h1>
         {/* filters */}
@@ -65,7 +65,6 @@ function HistoricalOrder() {
                 />
               </div>
             </div>
-
             {/* state */}
             <div className="flex items-center relative">
               <label
@@ -78,7 +77,6 @@ function HistoricalOrder() {
                 <CustomSelect options={OPTIONS_LIST} defaulValue="完成付款" />
               </div>
             </div>
-
             {/* search */}
             <div className="flex">
               <div className="relative mt-2 rounded-md shadow-sm">
@@ -102,7 +100,7 @@ function HistoricalOrder() {
           </div>
         </div>
         {/* order table */}
-        <div className={`yellowScroll h-[75vh] pr-3 2xl:pr-[22px] overflow-auto overflow-x-hidden`}>
+        <div className="yellowScroll h-[75vh] pr-3 2xl:pr-[22px] overflow-auto overflow-x-hidden">
           <CustomTable tableHeadings={TABLE_HEAD} tableBody={TABLE_BODY} name="historical_order" />
         </div>
       </section>

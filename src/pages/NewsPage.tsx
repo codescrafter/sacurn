@@ -6,10 +6,10 @@ import { LATEST_NEWS } from "../util/constants";
 const NewsPage = () => {
   return (
     <div className="w-screen relative min-h-screen bg-no-repeat bg-cover bg-[url('../public/images/landing-page/landing-page-bg.png')] h-screen">
-      <Navbar className={`pt-4 mb-9.5`} />
+      <Navbar className={"pt-4 mb-9.5"} />
       <InfoBar />
-      <div className="relative flex flex-row pl-19.7 pr-10.7 pt-12.7  h-[70%] w-full">
-        <div className={`yellowScroll pr-7.5 overflow-scroll overflow-x-hidden`}>
+      <div className="relative flex flex-row pl-19.7 pr-10.7 pt-12.7 h-[70%] w-full">
+        <div className="yellowScroll pr-7.5 overflow-scroll overflow-x-hidden">
           <div className="bg-news-box px-7.7">
             <News data={LATEST_NEWS} />
           </div>

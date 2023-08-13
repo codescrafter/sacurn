@@ -6,6 +6,7 @@ import ProductDeatilView from "../components/ProductDetailView";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import classNames from "classnames";
 
 function AllProducts() {
   const [active, setActive] = useState<string>("white");
@@ -95,10 +96,11 @@ const ImgSlider = () => {
               setCurrentSlide(index);
               sliderRef?.current?.slickGoTo(index);
             }}
-            className={`cursor-pointer flex-1 h-1 w-full rounded-[20px] ${
-              currentSlide === index ? "bg-light-grey" : "bg-white"
-            }`}
-          ></div>
+            className={classNames("cursor-pointer flex-1 h-1 w-full rounded-[20px]", {
+              "bg-light-grey": currentSlide === index,
+              "bg-white": currentSlide !== index
+            })}
+          />
         ))}
       </div>
       <Slider {...settings} ref={sliderRef}>
