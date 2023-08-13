@@ -1,8 +1,9 @@
-import React, { FC, useRef, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import classNames from "classnames";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+import classNames from 'classnames';
+import React, { FC, useRef, useState } from 'react';
+import Slider from 'react-slick';
 
 interface IProps {}
 
@@ -25,7 +26,7 @@ const HorizontalSlider: FC<IProps> = () => {
   return (
     <div className="mix-blend-hard-light bg-slider 2xl:pb-12 pb-9 relative mt-4">
       <div className="absolute z-20 2xl:left-9 left-5.5 2xl:bottom-2 bottom-0 2xl:gap-3.5 gap-2.5 flex">
-        {["01", "02", "03", "04", "05"].map((item, index) => (
+        {['01', '02', '03', '04', '05'].map((item, index) => (
           <div
             key={index}
             onClick={() => {
@@ -33,10 +34,10 @@ const HorizontalSlider: FC<IProps> = () => {
               sliderRef?.current?.slickGoTo(index);
             }}
             className={classNames(
-              "2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer",
+              '2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer',
               {
-                "bg-transparent": currentSlide === index,
-                "bg-white": currentSlide !== index
+                'bg-transparent': currentSlide === index,
+                'bg-white': currentSlide !== index
               }
             )}
           ></div>
@@ -45,9 +46,7 @@ const HorizontalSlider: FC<IProps> = () => {
       <Slider {...settings} ref={sliderRef}>
         {[1, 2, 3, 4, 5].map(() => (
           <div className="2xl:pt-6 pt-4 2xl:pl-8 pl-5 2xl:pr-6 pr-4">
-            <p className="font-bold 2xl:text-2xl text-lg">
-              證交所董事會通過設碳權交易所示警買碳權相關股注意風險
-            </p>
+            <p className="font-bold 2xl:text-2xl text-lg">證交所董事會通過設碳權交易所示警買碳權相關股注意風險</p>
           </div>
         ))}
       </Slider>

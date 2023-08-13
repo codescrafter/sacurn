@@ -1,50 +1,52 @@
-import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import AllProducts from "./pages/AllProducts";
-import NewsPage from "./pages/NewsPage";
-import OperationRecord from "./pages/OperationRecord";
-import HistoricalOrder from "./pages/HistoricalOrder";
-import Cart from "./pages/Cart";
-import Sales from "./pages/Sales";
-import ProductDetail from "./components/ProductDetail";
+import './App.css';
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import ProductDetail from './components/ProductDetail';
+import AllProducts from './pages/AllProducts';
+import Cart from './pages/Cart';
+import Dashboard from './pages/Dashboard';
+import HistoricalOrder from './pages/HistoricalOrder';
+import Login from './pages/Login';
+import NewsPage from './pages/NewsPage';
+import OperationRecord from './pages/OperationRecord';
+import Sales from './pages/Sales';
 
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: '/login',
     element: <Login />
   },
   {
-    path: "/",
+    path: '/',
     element: <Dashboard />
   },
   {
-    path: "/all-products",
+    path: '/all-products',
     element: <AllProducts />
   },
   {
-    path: "/product-detail/id",
+    path: '/product-detail/id',
     element: <ProductDetail />
   },
   {
-    path: "/latest-news",
+    path: '/latest-news',
     element: <NewsPage />
   },
   {
-    path: "/operation-record",
+    path: '/operation-record',
     element: <OperationRecord />
   },
   {
-    path: "/historical-order",
+    path: '/historical-order',
     element: <HistoricalOrder />
   },
   {
-    path: "/cart",
+    path: '/cart',
     element: <Cart />
   },
   {
-    path: "/sales",
+    path: '/sales',
     element: <Sales />
   }
 ]);

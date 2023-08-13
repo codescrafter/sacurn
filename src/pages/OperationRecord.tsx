@@ -1,10 +1,11 @@
-import { useState } from "react";
-import Navbar from "../components/Navbar";
-import DatePickerModal from "../components/DatePickerModal";
-import CustomSelect from "../components/CustomSelect";
-import formatDate from "../helpers/formatDate";
-import CustomTable from "../components/CustomTable";
-import { OPTIONS_LIST } from "../util/constants";
+import { useState } from 'react';
+
+import CustomSelect from '../components/CustomSelect';
+import CustomTable from '../components/CustomTable';
+import DatePickerModal from '../components/DatePickerModal';
+import Navbar from '../components/Navbar';
+import formatDate from '../helpers/formatDate';
+import { OPTIONS_LIST } from '../util/constants';
 
 function OperationRecord() {
   const [open, setOpen] = useState<boolean>(false);
@@ -14,7 +15,7 @@ function OperationRecord() {
   return (
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-150">
       {/* navbar */}
-      <Navbar className={"relative z-30 !bg-navy-blue h-[70px]"} />
+      <Navbar className={'relative z-30 !bg-navy-blue h-[70px]'} />
       <section className="pt-[27px] px-3 2xl:pl-[34px] 2xl:pr-[27px]">
         <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">| 操作記錄</h1>
         {/* filters */}
@@ -32,10 +33,7 @@ function OperationRecord() {
                   open={open}
                 />
               )}
-              <label
-                htmlFor="period"
-                className="block text-base xl:text-lg font-medium leading-6 text-grey"
-              >
+              <label htmlFor="period" className="block text-base xl:text-lg font-medium leading-6 text-grey">
                 期間:
               </label>
               <div
@@ -56,21 +54,13 @@ function OperationRecord() {
                     </>
                   )}
                 </div>
-                <img
-                  width={10}
-                  height={12}
-                  src={"/images/operation-record/icon_chervon_down.png"}
-                  alt="arrow"
-                />
+                <img width={10} height={12} src={'/images/operation-record/icon_chervon_down.png'} alt="arrow" />
               </div>
             </div>
 
             {/* state */}
             <div className="flex items-center relative">
-              <label
-                htmlFor="state"
-                className="block text-base xl:text-lg font-medium leading-6 text-grey"
-              >
+              <label htmlFor="state" className="block text-base xl:text-lg font-medium leading-6 text-grey">
                 期間:
               </label>
               <div className="ml-[15px]">
@@ -79,10 +69,7 @@ function OperationRecord() {
             </div>
             {/* operator */}
             <div className="flex items-center">
-              <label
-                htmlFor="operator"
-                className="block text-base xl:text-lg font-medium leading-6 text-grey"
-              >
+              <label htmlFor="operator" className="block text-base xl:text-lg font-medium leading-6 text-grey">
                 操作者:
               </label>
               <div className="ml-[15px]">
@@ -100,12 +87,7 @@ function OperationRecord() {
                   placeholder="輸入想要搜尋的碳權名稱,代號或是關鍵字"
                 />
                 <div className="pointer-events-none border border-r-0 border-t-0 border-b-0 border-l-light-grey py-2 absolute inset-y-1 right-0 flex items-center pl-2 pr-3">
-                  <img
-                    src="/images/operation-record/search_icon.svg"
-                    width={20}
-                    height={20}
-                    alt="search"
-                  />
+                  <img src="/images/operation-record/search_icon.svg" width={20} height={20} alt="search" />
                 </div>
               </div>
             </div>
@@ -122,84 +104,84 @@ function OperationRecord() {
 
 export default OperationRecord;
 
-const TABLE_HEAD = ["操作時間", "商品名稱", "操作者", "單價", "數量(噸)", "總金額", "動作", "備註"];
+const TABLE_HEAD = ['操作時間', '商品名稱', '操作者', '單價', '數量(噸)', '總金額', '動作', '備註'];
 
 const TABLE_BODY = [
   {
     id: 1,
-    time: "2023/05/18 19:24:19",
-    prodName: "Andes Inorganic Soil Carbon",
-    operator: "Abcdefghijk",
-    unitPrice: "$100",
-    quant: "+999",
-    lumpsum: "$99,900",
-    action: "下單結帳",
-    remark: ""
+    time: '2023/05/18 19:24:19',
+    prodName: 'Andes Inorganic Soil Carbon',
+    operator: 'Abcdefghijk',
+    unitPrice: '$100',
+    quant: '+999',
+    lumpsum: '$99,900',
+    action: '下單結帳',
+    remark: ''
   },
   {
     id: 2,
-    time: "2023/05/18 19:24:19",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Chen Rio",
-    unitPrice: "$120",
-    quant: "+100",
-    lumpsum: "$12,000",
-    action: "完成付款",
-    remark: ""
+    time: '2023/05/18 19:24:19',
+    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    operator: 'Chen Rio',
+    unitPrice: '$120',
+    quant: '+100',
+    lumpsum: '$12,000',
+    action: '完成付款',
+    remark: ''
   },
   {
     id: 3,
-    time: "2023/05/18 19:24:19",
-    prodName: "CarbonCure Concrete Mineralization",
-    operator: "Abcdefghijk",
-    unitPrice: "$127",
-    quant: "+100",
-    lumpsum: "$12,700",
-    action: "加入購物車",
-    remark: ""
+    time: '2023/05/18 19:24:19',
+    prodName: 'CarbonCure Concrete Mineralization',
+    operator: 'Abcdefghijk',
+    unitPrice: '$127',
+    quant: '+100',
+    lumpsum: '$12,700',
+    action: '加入購物車',
+    remark: ''
   },
   {
     id: 4,
-    time: "2023/05/18 19:24:19",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Abcdefghijk",
-    unitPrice: "$127",
-    quant: "+100",
-    lumpsum: "$12,700",
-    action: "加入購物車",
-    remark: ""
+    time: '2023/05/18 19:24:19',
+    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    operator: 'Abcdefghijk',
+    unitPrice: '$127',
+    quant: '+100',
+    lumpsum: '$12,700',
+    action: '加入購物車',
+    remark: ''
   },
   {
     id: 5,
-    time: "2023/05/18 19:24:19",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Abcdefghijk",
-    unitPrice: "$127",
-    quant: "-100",
-    lumpsum: "-$12,700",
-    action: "加入購物車",
-    remark: "此單已取消"
+    time: '2023/05/18 19:24:19',
+    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    operator: 'Abcdefghijk',
+    unitPrice: '$127',
+    quant: '-100',
+    lumpsum: '-$12,700',
+    action: '加入購物車',
+    remark: '此單已取消'
   },
   {
     id: 6,
-    time: "2023/05/18 19:24:19",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Abcdefghijk",
-    unitPrice: "$127",
-    quant: "+100",
-    lumpsum: "$12,700",
-    action: "加入購物車",
-    remark: ""
+    time: '2023/05/18 19:24:19',
+    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    operator: 'Abcdefghijk',
+    unitPrice: '$127',
+    quant: '+100',
+    lumpsum: '$12,700',
+    action: '加入購物車',
+    remark: ''
   },
   {
     id: 7,
-    time: "2023/05/18 19:24:19",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    operator: "Abcdefghijk",
-    unitPrice: "$127",
-    quant: "+100",
-    lumpsum: "$12,700",
-    action: "加入購物車",
-    remark: ""
+    time: '2023/05/18 19:24:19',
+    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    operator: 'Abcdefghijk',
+    unitPrice: '$127',
+    quant: '+100',
+    lumpsum: '$12,700',
+    action: '加入購物車',
+    remark: ''
   }
 ];

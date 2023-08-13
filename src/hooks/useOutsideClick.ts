@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 const useOutsideClick = (refs: any, callback: () => void) => {
   const refsArray = Array.isArray(refs) ? refs : [refs];
@@ -18,10 +18,10 @@ const useOutsideClick = (refs: any, callback: () => void) => {
   };
 
   useEffect(() => {
-    document.addEventListener("click", handleClick);
+    document.addEventListener('click', handleClick);
 
     return () => {
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener('click', handleClick);
     };
   }, [refsArray, callback]);
 };

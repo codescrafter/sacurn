@@ -1,12 +1,14 @@
-import { FC, useRef, useState } from "react";
-import AddedToCartModal from "./AddedToCartModal";
-import Navbar from "../components/Navbar";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import { ProductDetailTypes } from "../type";
-import { PRODUCT_DETAILS } from "../util/constants";
-import classNames from "classnames";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+import classNames from 'classnames';
+import { FC, useRef, useState } from 'react';
+import Slider from 'react-slick';
+
+import Navbar from '../components/Navbar';
+import { ProductDetailTypes } from '../type';
+import { PRODUCT_DETAILS } from '../util/constants';
+import AddedToCartModal from './AddedToCartModal';
 
 const ProductDetailList: FC = () => {
   const [openCartSuccessModal, setOpenCartSuccessModal] = useState<boolean>(false);
@@ -18,7 +20,7 @@ const ProductDetailList: FC = () => {
         <p className="text-xl font-light">
           價格由低至高排列
           <img
-            src={"/images/products-page/ic_arrow_down.svg"}
+            src={'/images/products-page/ic_arrow_down.svg'}
             alt="arrow-down"
             width={30}
             height={30}
@@ -46,21 +48,17 @@ const ProductDetailList: FC = () => {
               <p className="text-2xl leading-9 font-medium text-left ml-3 w-1/6">${item.price}</p>
               <p className="text-2xl leading-9 font-normal text-left w-1/6">{item.memberCode}</p>
               <div className="w-1/6 flex justify-center">
-                <p className="text-2xl leading-9 font-normal text-right">
-                  {item.availableQuantity} 噸
-                </p>
+                <p className="text-2xl leading-9 font-normal text-right">{item.availableQuantity} 噸</p>
               </div>
               <div className="w-1/6 flex justify-end">
-                <p className="text-2xl leading-9 font-normal text-right mr-10">
-                  {item.minimumUnit} 噸
-                </p>
+                <p className="text-2xl leading-9 font-normal text-right mr-10">{item.minimumUnit} 噸</p>
               </div>
               {/* + input - */}
               <div className="w-1/6 flex justify-end ml-5">
                 <div className="flex justify-center gap-1.2 items-center">
                   <button className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white">
                     <img
-                      src={"/images/products-page/ic_minus.svg"}
+                      src={'/images/products-page/ic_minus.svg'}
                       className="mx-auto"
                       alt="arrow-down"
                       width={13}
@@ -74,7 +72,7 @@ const ProductDetailList: FC = () => {
                   />
                   <button className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white">
                     <img
-                      src={"/images/products-page/ic_plus.svg"}
+                      src={'/images/products-page/ic_plus.svg'}
                       className="mx-auto"
                       alt="arrow-down"
                       width={13}
@@ -85,7 +83,7 @@ const ProductDetailList: FC = () => {
               </div>
               <div className="w-1/6 flex justify-end mr-7">
                 <img
-                  src={"/images/products-page/ic_add_to_cart.svg"}
+                  src={'/images/products-page/ic_add_to_cart.svg'}
                   alt="arrow-down"
                   width={50}
                   height={42}
@@ -106,7 +104,7 @@ const ProductDetailList: FC = () => {
 function ProductDetail() {
   return (
     <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
-      <Navbar className={"pt-4 relative z-30"} />
+      <Navbar className={'pt-4 relative z-30'} />
       <div className="h-full flex flex-row justify-start">
         <div className="2xl:w-[620px] w-[500px] h-auto">
           <div className="2xl:w-[650px] w-[520px] absolute top-0 left-0 overflow-hidden">
@@ -143,23 +141,23 @@ const ImgSlider = () => {
   return (
     <div className="relative h-full">
       <div className="absolute z-20 left-0 bottom-4 right-0 gap-1.5 flex pr-[30%] pl-6">
-        {["01", "02", "03"].map((item, index) => (
+        {['01', '02', '03'].map((item, index) => (
           <div
             key={index}
             onClick={() => {
               setCurrentSlide(index);
               sliderRef?.current?.slickGoTo(index);
             }}
-            className={classNames("cursor-pointer flex-1 h-1 w-full rounded-[20px]", {
-              "bg-light-grey": currentSlide === index,
-              "bg-white": currentSlide !== index
+            className={classNames('cursor-pointer flex-1 h-1 w-full rounded-[20px]', {
+              'bg-light-grey': currentSlide === index,
+              'bg-white': currentSlide !== index
             })}
           />
         ))}
       </div>
       <Slider {...settings} ref={sliderRef}>
-        <img className="w-full h-screen" src={"/images/products-page/ocean.png"} alt="sacurn" />
-        <img className="w-full h-screen" src={"/images/products-page/forest.png"} alt="sacurn" />
+        <img className="w-full h-screen" src={'/images/products-page/ocean.png'} alt="sacurn" />
+        <img className="w-full h-screen" src={'/images/products-page/forest.png'} alt="sacurn" />
         {/* <Image className="w-full h-screen" src={oceanImg} /> */}
       </Slider>
     </div>

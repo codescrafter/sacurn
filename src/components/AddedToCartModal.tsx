@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
 interface IProps {
   open: boolean;
@@ -12,7 +12,7 @@ const AddedToCartModal: FC<IProps> = ({ open, setOpen }) => {
         <div className="fixed top-0 left-0 z-50 w-full h-full bg-[#3D3D3D99] ">
           <div className="w-[657px] h-[310px] bg-white rounded-[10px] absolute top-[40%] right-[16%]">
             <img
-              src={"/images/products-page/ic_circle_close.svg"}
+              src={'/images/products-page/ic_circle_close.svg'}
               alt="close"
               width={32}
               height={32}

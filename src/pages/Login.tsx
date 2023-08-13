@@ -1,8 +1,8 @@
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const { t } = useTranslation("login");
+  const { t } = useTranslation('login');
   const navigate = useNavigate();
 
   return (
@@ -10,7 +10,7 @@ const Login = () => {
       <div className="2xl:w-[402px] 2xl:h-[660px] w-80 h-[500px] bg-login-white shadow-login-box rounded-[28px] blur-xxs 2xl:ml-60 ml-20 2xl:pt-3">
         <img
           className="2xl:w-[150px] 2xl:h-[150px] w-28 h-28 mx-auto mb-3"
-          src={"/images/login/login-logo.svg"}
+          src={'/images/login/login-logo.svg'}
           width={150}
           height={150}
           alt="login-sacurn"
@@ -33,7 +33,7 @@ const Login = () => {
             <input
               className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base"
               type="text"
-              placeholder={t("username")}
+              placeholder={t('username')}
             />
           </div>
 
@@ -48,18 +48,18 @@ const Login = () => {
             <input
               className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base"
               type="text"
-              placeholder={t("password")}
+              placeholder={t('password')}
             />
           </div>
 
           <button
             onClick={() => {
-              console.log("redirecting");
-              navigate("/dashboard");
+              console.log('redirecting');
+              navigate('/dashboard');
             }}
             className="w-4/5 2xl:h-[53px] h-10 bg-navy-blue rounded-[26px] 2xl:text-xl text-base font-bold bg-blue-btn shadow-btn text-white"
           >
-            {t("login")}
+            {t('login')}
           </button>
         </div>
         <p className="text-slate-blue-grey text-center font-bold text-sm leading-[22px]">
