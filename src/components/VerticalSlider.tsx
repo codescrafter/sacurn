@@ -1,11 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import classNames from "classnames";
 
 const VerticalSlider = () => {
-  const [currentSlide, setCurrentSlide] = React.useState(0);
-  const sliderRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const sliderRef = useRef<Slider | null>(null);
   const settings = {
     dots: false,
     infinite: true,
@@ -16,9 +17,8 @@ const VerticalSlider = () => {
     swipeToSlide: true,
     arrows: false,
 
-    afterChange: (currSlide) => setCurrentSlide(currSlide),
+    afterChange: (currSlide: number) => setCurrentSlide(currSlide)
   };
-  console.log(currentSlide);
   return (
     <div className="relative">
       <div className="absolute z-20 left-3.5 top-[40%] flex flex-col">
@@ -27,11 +27,15 @@ const VerticalSlider = () => {
             key={index}
             onClick={() => {
               setCurrentSlide(index);
-              sliderRef.current.slickGoTo(index);
+              sliderRef?.current?.slickGoTo(index);
             }}
-            className={`2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer ${
-              currentSlide === index ? "bg-transparent" : "bg-white"
-            }`}
+            className={classNames(
+              "2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer",
+              {
+                "bg-transparent": currentSlide === index,
+                "bg-white": currentSlide !== index
+              }
+            )}
           ></div>
         ))}
       </div>
@@ -40,9 +44,8 @@ const VerticalSlider = () => {
         autoplay={true}
         autoplaySpeed={6000}
         initialSlide={0}
-        slickGoTo={currentSlide}
-        lazyLoad="progressive"
         {...settings}
+        lazyLoad="progressive"
         className="relative text-white max-h-[418px] overflow-hidden"
       >
         {[1, 2, 3, 4].map(() => (

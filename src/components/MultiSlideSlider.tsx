@@ -1,12 +1,12 @@
-import React, { Component, useEffect, useRef } from "react";
+import React, { useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const MultiSlideSlider = () => {
-  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
-  const sliderRef = useRef(null);
+  const sliderRef = useRef<Slider | null>(null);
   const settings = {
     dots: false,
     infinite: false,
@@ -19,9 +19,8 @@ const MultiSlideSlider = () => {
     slickGoTo: currentSlide,
     autoplay: true,
     autoplaySpeed: 6000,
-    afterChange: (currSlide) => setCurrentSlide(currSlide),
+    afterChange: (currSlide: number) => setCurrentSlide(currSlide)
   };
-  //   when page loads, make
 
   return (
     <div className="mix-blend-hard-light bg-slider relative pt-5 2xl:pb-11 pb-9 pl-8">
@@ -31,10 +30,11 @@ const MultiSlideSlider = () => {
             key={index}
             onClick={() => {
               setCurrentSlide(index);
-              sliderRef.current.slickGoTo(index);
+              sliderRef?.current?.slickGoTo(index);
             }}
-            className={`2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer ${currentSlide === index ? "bg-transparent" : "bg-white"
-              }`}
+            className={`2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer ${
+              currentSlide === index ? "bg-transparent" : "bg-white"
+            }`}
           ></div>
         ))}
       </div>

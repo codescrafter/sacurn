@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 
-const useOutsideClick = (refs, callback) => {
+const useOutsideClick = (refs: any, callback: () => void) => {
   const refsArray = Array.isArray(refs) ? refs : [refs];
 
-  const handleClick = (event) => {
+  const handleClick = (event: MouseEvent) => {
     let clickedOutside = true;
 
     refsArray.forEach((ref) => {

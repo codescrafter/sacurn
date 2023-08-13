@@ -1,62 +1,62 @@
 import React, { useState } from "react";
 import GraphCard from "./GraphCard";
 import Button from "./Button";
-import Chart from "react-apexcharts"
+import Chart from "react-apexcharts";
 
 const SalesLineChart = () => {
-  const [activeButton, setActiveButton] = useState(0);
+  const [activeButton, setActiveButton] = useState<number>(0);
 
   const series = [
     {
       name: "Amount",
-      data: [1500, 9000, 1000, 12000, 0, 0, 10500, 12000],
+      data: [1500, 9000, 1000, 12000, 0, 0, 10500, 12000]
     },
     {
       name: "平均",
-      data: [7000, 7000, 7000, 7000, 7000, 7000, 7000, 7000],
-    },
+      data: [7000, 7000, 7000, 7000, 7000, 7000, 7000, 7000]
+    }
   ];
 
-  const options = {
+  const options: any = {
     chart: {
       type: "line",
       zoom: {
-        enabled: false,
+        enabled: false
       },
       toolbar: {
-        show: false,
-      },
+        show: false
+      }
     },
     dataLabels: {
-      enabled: false,
+      enabled: false
     },
     stroke: {
       curve: "straight",
       width: [5, 2],
       colors: ["#1D70BD", "#FFD600"],
-      dashArray: [0, 3],
+      dashArray: [0, 3]
     },
     markers: {
       size: [6, 0],
-      colors: ["#1D70BD"],
+      colors: ["#1D70BD"]
     },
     grid: {
       xaxis: {
         lines: {
-          show: true,
-        },
+          show: true
+        }
       },
       yaxis: {
         lines: {
-          show: true,
-        },
-      },
+          show: true
+        }
+      }
     },
     xaxis: {
       labels: {
         style: {
-          colors: "#005487",
-        },
+          colors: "#005487"
+        }
       },
 
       categories: [
@@ -71,19 +71,19 @@ const SalesLineChart = () => {
         "9月",
         "10月",
         "11月",
-        "12月",
+        "12月"
       ],
       axisTicks: {
-        show: false,
-      },
+        show: false
+      }
     },
     yaxis: [
       {
         axisTicks: {
-          show: true,
+          show: true
         },
         labels: {
-          formatter: function (value) {
+          formatter: function (value: number) {
             if (typeof value === "string") {
               return value;
             } else if (value >= 1000) {
@@ -92,19 +92,19 @@ const SalesLineChart = () => {
             return value;
           },
           style: {
-            colors: "#005487",
-          },
-        },
-      },
+            colors: "#005487"
+          }
+        }
+      }
       //
     ],
     tooltip: {
       style: {
-        colors: "#000000",
-      },
+        colors: "#000000"
+      }
     },
     legend: {
-      show: false,
+      show: false
     },
     responsive: [
       {
@@ -112,23 +112,23 @@ const SalesLineChart = () => {
         options: {
           chart: {
             width: 450,
-            height: 190,
-          },
-        },
+            height: 190
+          }
+        }
       },
       {
         breakpoint: 1280,
         options: {
           chart: {
             width: 335,
-            height: 190,
-          },
-        },
-      },
-    ],
+            height: 190
+          }
+        }
+      }
+    ]
   };
 
-  const handleButtonClick = (index) => {
+  const handleButtonClick = (index: number) => {
     setActiveButton(index);
   };
 
@@ -139,13 +139,13 @@ const SalesLineChart = () => {
         {buttonData.map((button, index) => (
           <Button
             key={button.value}
-            className={`font-medium 2xl:text-[13px] xl:text-[11px] text-[10px] !text-grey ${activeButton === index
-              ? "!bg-transparent shadow-graph-btn"
-              : "!bg-neutral-150 border-t border-b border-l border-r border-light-grey"
-              } ${index === 0 ? "rounded-bl-[10px] rounded-tl-[10px]" : ""} ${index === buttonData.length - 1
-                ? "rounded-br-[10px] rounded-tr-[10px]"
-                : ""
-              } 
+            className={`font-medium 2xl:text-[13px] xl:text-[11px] text-[10px] !text-grey ${
+              activeButton === index
+                ? "!bg-transparent shadow-graph-btn"
+                : "!bg-neutral-150 border-t border-b border-l border-r border-light-grey"
+            } ${index === 0 ? "rounded-bl-[10px] rounded-tl-[10px]" : ""} ${
+              index === buttonData.length - 1 ? "rounded-br-[10px] rounded-tr-[10px]" : ""
+            } 
              `}
             onClick={() => handleButtonClick(index)}
           >
@@ -155,13 +155,7 @@ const SalesLineChart = () => {
       </div>
       {/* graph */}
       <div id="chart">
-        <Chart
-          options={options}
-          series={series}
-          type="line"
-          width={530}
-          height={190}
-        />
+        <Chart options={options} series={series} type="line" width={530} height={190} />
       </div>
       {/* x-axis title */}
       <span className="text-silverstone text-[10px] font-semibold absolute bottom-4 2xl:right-10 xl:right-5 right-4">
@@ -186,5 +180,5 @@ const buttonData = [
   { label: "訪客數", value: "visitors" },
   { label: "瀏覽數", value: "views" },
   { label: "訂單數", value: "orders" },
-  { label: "平均客單價", value: "averagePrice" },
+  { label: "平均客單價", value: "averagePrice" }
 ];

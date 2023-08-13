@@ -8,7 +8,7 @@ import { OPTIONS_LIST } from "../util/constants";
 
 function HistoricalOrder() {
   const [open, setOpen] = useState<boolean>(false);
-  const [dateRange, setDateRange] = useState([null, null]);
+  const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
   const [startDate, endDate] = dateRange;
 
   return (

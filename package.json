@@ -9,6 +9,7 @@
     "@types/jest": "^29.5.3",
     "@types/node": "^20.4.10",
     "@types/react": "^18.2.20",
+    "@types/react-datepicker": "^4.15.0",
     "@types/react-dom": "^18.2.7",
     "@types/react-slick": "^0.23.10",
     "apexcharts": "^3.41.1",

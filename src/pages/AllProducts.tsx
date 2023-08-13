@@ -59,7 +59,6 @@ function AllProducts() {
               <ProductsListView />
             </div>
           )}
-
           {display === "detail-view" && <ProductDeatilView />}
         </div>
       </div>
@@ -71,7 +70,6 @@ export default AllProducts;
 
 const ImgSlider = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  // define ref type
   const sliderRef = useRef<Slider | null>(null);
   const settings = {
     dots: false,

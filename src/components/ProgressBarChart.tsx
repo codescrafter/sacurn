@@ -34,9 +34,7 @@ const ProgressBarChart = () => {
             {/* numbers */}
             <h6 className="text-navy-blue font-bold text-xl 2xl:text-3xl">
               19
-              <span className="text-silverstone text-xs 2xl:text-lg font-semibold">
-                /20
-              </span>
+              <span className="text-silverstone text-xs 2xl:text-lg font-semibold">/20</span>
             </h6>
             {/* profressbar */}
             <div className="w-full bg-pale-yellow rounded-[5px] h-2.5 shadow-progress-bar">
@@ -60,9 +58,7 @@ const ProgressBarChart = () => {
             {/* numbers */}
             <h6 className="text-navy-blue font-bold text-xl 2xl:text-3xl">
               $99,000
-              <span className="text-silverstone text-xs 2xl:text-lg font-semibold">
-                /100,000
-              </span>
+              <span className="text-silverstone text-xs 2xl:text-lg font-semibold">/100,000</span>
             </h6>
             {/* profressbar */}
             <div className="w-full bg-pale-yellow rounded-[5px] h-2.5 shadow-progress-bar">

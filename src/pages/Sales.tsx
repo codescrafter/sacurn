@@ -4,7 +4,7 @@ import SalesConfirmationBox from "../components/SalesConfirmationBox";
 import Alert from "../components/Alert";
 import Button from "../components/Button";
 import SalesAreaGraph from "../components/SalesAreaGraph";
-import SalesLineChart from "../components/SalesLineChart.jsx.jsx";
+import SalesLineChart from "../components/SalesLineChart";
 import ProgressBarChart from "../components/ProgressBarChart";
 
 function Sales() {

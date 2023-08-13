@@ -1,29 +1,45 @@
-function ViewStyleBar(props) {
-  const tabSelectHandler = (style, index) => {
-    props.setDisplay(style["color"]);
-    // add index as query param named  tabIndex to the query params
-    window.history.pushState(null, null, `?tabIndex=${index}`);
+import { FC } from "react";
+import classNames from "classnames";
+
+interface IProps {
+  activeColor: string;
+  setDisplay: (color: string) => void;
+}
+
+const ViewStyleBar: FC<IProps> = ({ activeColor, setDisplay }) => {
+  const tabSelectHandler = (
+    style: {
+      color: string;
+      text: string;
+    },
+
+    index: number
+  ) => {
+    setDisplay(style["color"]);
+    window.history.pushState(null, "", `?tabIndex=${index}`);
   };
   return (
     <div className="flex justify-end flex-row h-auto w-[98%] 2xl:mt-11 mt-9">
       {styles.map((style, index) => {
         return (
           <div
-            className={`bg-${
-              style["color"]
-            } rounded-3xl text-center visible my-auto mr-5.7 h-[60%] hover:cursor-pointer ${
-              props.activeColor === style["color"]
-                ? `w-51 py-2.2 h-[99%]`
-                : `w-22.5`
-            }`}
+            className={classNames(
+              "rounded-3xl text-center visible my-auto mr-5.7 h-[60%] hover:cursor-pointer",
+              {
+                [`bg-${style["color"]}`]: true,
+                "w-51 py-2.2 h-[99%]": activeColor === style["color"],
+                "w-22.5": activeColor !== style["color"]
+              }
+            )}
             onClick={() => tabSelectHandler(style, index)}
           >
             <p
-              className={`${
-                props.activeColor === "white" ? "text-black" : "text-white"
-              } text-xs ${
-                props.activeColor === style["color"] ? "visible" : "invisible"
-              }`}
+              className={classNames("text-xs", {
+                "text-black": activeColor === "white",
+                "text-white": activeColor !== "white",
+                visible: activeColor === style["color"],
+                invisible: activeColor !== style["color"]
+              })}
             >
               {style["text"]}
             </p>
@@ -34,6 +50,7 @@ function ViewStyleBar(props) {
         <img
           className="xl:w-auto xl:h-auto w-5 h-5"
           src={"/images/products-page/filter.svg"}
+          alt="sacurn"
         />
       </div>
       <div className="rounded-3xl flex flex-row bg-light-grey w-auto pl-1.5 my-auto px-auto h-[85%]">
@@ -46,11 +63,12 @@ function ViewStyleBar(props) {
         <img
           className="h-auto hover:cursor-pointer -translate-x-2"
           src={"/images/products-page/search.svg"}
+          alt="sacurn"
         />
       </div>
     </div>
   );
-}
+};
 
 export default ViewStyleBar;
 
@@ -58,5 +76,5 @@ const styles = [
   { color: "white", text: "碳權總覽" },
   { color: "dark-green", text: "綠碳．森林碳匯" },
   { color: "navy-blue", text: " " },
-  { color: "pale-yellow", text: " " },
+  { color: "pale-yellow", text: " " }
 ];

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { FC, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useOutsideClick from "../hooks/useOutsideClick";
@@ -7,14 +7,16 @@ import HorizontalDivider from "./HorizontalDivider";
 import Button from "./Button";
 import { zhTW } from "date-fns/locale";
 
-const DatePickerModal = ({
-  startDate,
-  endDate,
-  setDateRange,
-  setOpen,
-  open,
-}) => {
-  const ref = useRef();
+interface IProps {
+  startDate: Date | null;
+  endDate: Date | null;
+  setDateRange: (update: [Date | null, Date | null]) => void;
+  setOpen: (open: boolean) => void;
+  open: boolean;
+}
+
+const DatePickerModal: FC<IProps> = ({ startDate, endDate, setDateRange, setOpen, open }) => {
+  const ref = useRef<any>();
 
   useOutsideClick(ref, () => {
     if (open) setOpen(false);
@@ -30,15 +32,13 @@ const DatePickerModal = ({
         selectsRange={true}
         startDate={startDate}
         endDate={endDate}
-        onChange={(update) => {
+        onChange={(update: [Date | null, Date | null]) => {
           setDateRange(update);
         }}
         isClearable={true}
         inline
         locale={zhTW}
       />
-
-      {/* divider */}
       <HorizontalDivider className={`!w-[85%]`} />
       {/* start & end date boxes */}
       <div className="flex items-center gap-1 my-3">
@@ -56,13 +56,10 @@ const DatePickerModal = ({
           </div>
         </div>
       </div>
-      {/* divider */}
       <HorizontalDivider />
       {/* action buttons */}
       <div className="flex items-center space-x-2 mt-2 self-end pr-4">
-        <Button
-          className={`!bg-neutral-150 !text-grey text-sm !rounded-xl !py-1 !px-3`}
-        >
+        <Button className={`!bg-neutral-150 !text-grey text-sm !rounded-xl !py-1 !px-3`}>
           取消
         </Button>
         <Button className="!text-sm !rounded-xl !py-1 !px-3">查詢</Button>

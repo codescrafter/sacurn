@@ -1,32 +1,38 @@
-import React from "react";
+import classNames from "classnames";
+import React, { FC } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavbarItemTypes } from "../type";
+import { NAVBAR_ITEMS } from "../util/constants";
 
-const Navbar = ({ className }) => {
+interface IProps {
+  className?: string;
+}
+
+const Navbar: FC<IProps> = ({ className }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
   return (
     <div
-      className={`bg-transparent flex items-center justify-between pl-8.5 pr-10.5 ${className}`}
+      className={classNames("bg-transparent flex items-center justify-between pl-8.5 pr-10.5", {
+        [`${className}`]: className
+      })}
     >
       <Link to="/">
-        {" "}
-        <img src={"/images/navbar/sacurn-logo.svg"} width={192} height={39} />
+        <img src={"/images/navbar/sacurn-logo.svg"} width={192} height={39} alt="sacurn" />
       </Link>
       <div className="flex items-center">
         <nav>
           <ul className="flex items-center justify-between 2xl:space-x-18 space-x-9">
-            {navArray.map((navItem) => (
+            {NAVBAR_ITEMS?.map((item: NavbarItemTypes) => (
               <li
-                key={navItem.name}
-                className={`${
-                  location.pathname === navItem.path
-                    ? "border-b border-white"
-                    : ""
-                }`}
+                key={item.name}
+                className={classNames("", {
+                  "border-b border-white": location.pathname === item.path
+                })}
               >
-                <Link to={navItem.path}>
-                  <p className="text-white">{navItem.name}</p>
+                <Link to={item.path}>
+                  <p className="text-white">{item.name}</p>
                 </Link>
               </li>
             ))}
@@ -36,6 +42,7 @@ const Navbar = ({ className }) => {
           <Link to="/cart">
             <img
               src={"/images/navbar/cart.svg"}
+              alt="sacurn"
               className="2xl:w-9 w-7 2xl:h-9 h-7 cursor-pointer"
               width={35}
               height={34}
@@ -43,6 +50,7 @@ const Navbar = ({ className }) => {
           </Link>
           <img
             onClick={() => navigate("/")}
+            alt="sacurn"
             src={"/images/navbar/member.svg"}
             className="2xl:w-10.5 2xl:h-10.5 w-8 h-8 cursor-pointer"
             width={42}
@@ -55,26 +63,3 @@ const Navbar = ({ className }) => {
 };
 
 export default Navbar;
-
-const navArray = [
-  {
-    name: "首頁",
-    path: "/",
-  },
-  {
-    name: "全部商品",
-    path: "/all-products",
-  },
-  {
-    name: "最新消息",
-    path: "/latest-news",
-  },
-  {
-    name: "碳權趨勢",
-    path: "/operation-record",
-  },
-  {
-    name: "碳權庫存",
-    path: "/historical-order",
-  },
-];

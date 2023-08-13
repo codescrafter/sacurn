@@ -1,4 +1,34 @@
-import { CartItemTypes, NewsTypes, ProductDetailTypes, SelectedCartItemTypes } from "../type";
+import {
+  CartItemTypes,
+  NavbarItemTypes,
+  NewsTypes,
+  ProductDetailTypes,
+  SelectedCartItemTypes,
+  ProductItemTypes
+} from "../type";
+
+export const NAVBAR_ITEMS: NavbarItemTypes[] = [
+  {
+    name: "首頁",
+    path: "/"
+  },
+  {
+    name: "全部商品",
+    path: "/all-products"
+  },
+  {
+    name: "最新消息",
+    path: "/latest-news"
+  },
+  {
+    name: "碳權趨勢",
+    path: "/operation-record"
+  },
+  {
+    name: "碳權庫存",
+    path: "/historical-order"
+  }
+];
 
 export const PRODUCT_DETAILS: ProductDetailTypes[] = [
   {
@@ -237,4 +267,47 @@ export const SELECTED_CART_ITEMS: SelectedCartItemTypes[] = [
   },
   { id: "2", name: "Andes Inorganic Soil Carbon", quantity: "15" },
   { id: "3", name: "KOKO Networks Clean Ethanol Cooking Fuel", quantity: "5" }
+];
+
+export const PRODUCT_ITEMS: ProductItemTypes[] = [
+  {
+    id: "1",
+    name: "CarbonCure Concrete Mineralization",
+    projectby: "Project developed by CarbonCure Technologies",
+    type: "carbon removal",
+    location: "Indonisia",
+    description:
+      "Soil carbon sequestration is the process of increasing organic and inorganic soil carbon through capturing and storing of carbon from plants.",
+    imagePath: "/images/products-page/product1.png"
+  },
+  {
+    id: "2",
+    name: "Andes Inorganic Soil Carbon",
+    projectby: "Project developed by CarbonCure Technologies",
+    type: "carbon avoidance",
+    location: "Indonisia",
+    description:
+      "Soil carbon sequestration is the process of increasing organic and inorganic soil carbon through capturing and storing of carbon from plants.",
+    imagePath: "/images/products-page/product2.png"
+  },
+  {
+    id: "3",
+    name: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    projectby: "Project developed by CarbonCure Technologies",
+    type: "carbon removal",
+    location: "Indonisia",
+    description:
+      "Soil carbon sequestration is the process of increasing organic and inorganic soil carbon through capturing and storing of carbon from plants.",
+    imagePath: "/images/products-page/product3.png"
+  },
+  {
+    id: "4",
+    name: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+    projectby: "Project developed by CarbonCure Technologies",
+    type: "carbon removal",
+    location: "Indonisia",
+    description:
+      "Soil carbon sequestration is the process of increasing organic and inorganic soil carbon through capturing and storing of carbon from plants.",
+    imagePath: "/images/products-page/product3.png"
+  }
 ];

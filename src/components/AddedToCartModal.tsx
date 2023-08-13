@@ -1,6 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 
-const AddedToCartModal = ({ open, setOpen }) => {
+interface IProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+const AddedToCartModal: FC<IProps> = ({ open, setOpen }) => {
   return (
     <>
       {open && (

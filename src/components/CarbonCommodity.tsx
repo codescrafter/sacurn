@@ -1,12 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 
-const CarbonCommodity = ({
-  image,
-  linkText,
-  linkIcon,
-  heading,
-  subHeading,
-}) => {
+interface IProps {
+  image: string;
+  linkText: string;
+  linkIcon: string;
+  heading: string;
+  subHeading: string;
+}
+
+const CarbonCommodity: FC<IProps> = ({ image, linkText, linkIcon, heading, subHeading }) => {
   return (
     <div className="flex">
       <img
@@ -19,18 +21,10 @@ const CarbonCommodity = ({
       <div>
         <p className="h-6 max-w-fit flex 2xl:px-5 px-4 rounded-[20px] bg-light-grey text-medium-grey font-semibold">
           {linkText}
-          <img
-            src={linkIcon}
-            alt={linkText}
-            width={16}
-            height={13}
-            className="ml-2.5"
-          />
+          <img src={linkIcon} alt={linkText} width={16} height={13} className="ml-2.5" />
         </p>
         <h3 className="2xl:text-2xl text-xl font-medium ">{heading}</h3>
-        <p className="text-[#ffffff99] 2xl:text-lg text-base font-semibold ">
-          {subHeading}
-        </p>
+        <p className="text-[#ffffff99] 2xl:text-lg text-base font-semibold ">{subHeading}</p>
       </div>
     </div>
   );
