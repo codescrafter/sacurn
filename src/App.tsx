@@ -2,15 +2,15 @@ import './App.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import ProductDetail from './components/ProductDetail';
-import AllProducts from './pages/AllProducts';
-import Cart from './pages/Cart';
-import Dashboard from './pages/Dashboard';
-import HistoricalOrder from './pages/HistoricalOrder';
-import Login from './pages/Login';
-import NewsPage from './pages/NewsPage';
-import OperationRecord from './pages/OperationRecord';
-import Sales from './pages/Sales';
+import ProductDetail from '@/components/ProductDetail';
+import AllProducts from '@/pages/AllProducts';
+import Cart from '@/pages/Cart';
+import Dashboard from '@/pages/Dashboard';
+import HistoricalOrder from '@/pages/HistoricalOrder';
+import Login from '@/pages/Login';
+import NewsPage from '@/pages/NewsPage';
+import OperationRecord from '@/pages/OperationRecord';
+import Sales from '@/pages/Sales';
 
 const router = createBrowserRouter([
   {
