@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { FC } from "react";
 
 interface IProps {
@@ -5,7 +6,7 @@ interface IProps {
 }
 
 const HorizontalDivider: FC<IProps> = ({ className }) => {
-  return <div className={`bg-[#F0F0F0] h-[2px] w-full ${className}`} />;
+  return <div className={classNames("bg-[#F0F0F0] h-[2px] w-full", className)} />;
 };
 
 export default HorizontalDivider;

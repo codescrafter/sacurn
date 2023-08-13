@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import classNames from "classnames";
 
-const MultiSlideSlider = () => {
+const MultiSlideSlider: FC = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const sliderRef = useRef<Slider | null>(null);
@@ -32,9 +33,13 @@ const MultiSlideSlider = () => {
               setCurrentSlide(index);
               sliderRef?.current?.slickGoTo(index);
             }}
-            className={`2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer ${
-              currentSlide === index ? "bg-transparent" : "bg-white"
-            }`}
+            className={classNames(
+              "2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer",
+              {
+                "bg-transparent": currentSlide === index,
+                "bg-white": currentSlide !== index
+              }
+            )}
           ></div>
         ))}
       </div>

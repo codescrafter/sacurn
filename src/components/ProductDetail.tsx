@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import AddedToCartModal from "./AddedToCartModal";
 import Navbar from "../components/Navbar";
 import "slick-carousel/slick/slick.css";
@@ -6,8 +6,9 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { ProductDetailTypes } from "../type";
 import { PRODUCT_DETAILS } from "../util/constants";
+import classNames from "classnames";
 
-const ProductDetailList = () => {
+const ProductDetailList: FC = () => {
   const [openCartSuccessModal, setOpenCartSuccessModal] = useState<boolean>(false);
   return (
     <div className="w-full mt-8 pl-4 relative">
@@ -28,12 +29,12 @@ const ProductDetailList = () => {
       {/* table */}
       <div className="w-full">
         <div className="flex justify-between w-full py-2.5 border-b-2 border-white">
-          <p className={`text-[18px] leading-9 font-normal text-left ml-3 w-1/6`}>價格</p>
-          <p className={`text-[18px] leading-9 font-normal text-left w-1/6`}>會員編號</p>
-          <p className={`text-[18px] leading-9 font-normal text-center w-1/6`}>可用數量</p>
-          <p className={`text-[18px] leading-9 font-normal text-center w-1/6`}>最小單位</p>
-          <p className={`text-[18px] leading-9 font-normal text-center w-1/6`}>訂購數量</p>
-          <p className={`text-[18px] leading-9 font-normal text-right mr-3 w-1/6`}>加入購物車</p>
+          <p className="text-[18px] leading-9 font-normal text-left ml-3 w-1/6">價格</p>
+          <p className="text-[18px] leading-9 font-normal text-left w-1/6">會員編號</p>
+          <p className="text-[18px] leading-9 font-normal text-center w-1/6">可用數量</p>
+          <p className="text-[18px] leading-9 font-normal text-center w-1/6">最小單位</p>
+          <p className="text-[18px] leading-9 font-normal text-center w-1/6">訂購數量</p>
+          <p className="text-[18px] leading-9 font-normal text-right mr-3 w-1/6">加入購物車</p>
         </div>
         {/* table body  */}
         <div className="max-h-[65vh] overflow-scroll yellowScrollNoBg">
@@ -42,15 +43,15 @@ const ProductDetailList = () => {
               key={item.memberCode}
               className="flex justify-between w-full py-6.2 border-b-2 border-opacity-30 border-white"
             >
-              <p className={`text-2xl leading-9 font-medium text-left ml-3 w-1/6`}>${item.price}</p>
-              <p className={`text-2xl leading-9 font-normal text-left w-1/6`}>{item.memberCode}</p>
+              <p className="text-2xl leading-9 font-medium text-left ml-3 w-1/6">${item.price}</p>
+              <p className="text-2xl leading-9 font-normal text-left w-1/6">{item.memberCode}</p>
               <div className="w-1/6 flex justify-center">
-                <p className={`text-2xl leading-9 font-normal text-right`}>
+                <p className="text-2xl leading-9 font-normal text-right">
                   {item.availableQuantity} 噸
                 </p>
               </div>
               <div className="w-1/6 flex justify-end">
-                <p className={`text-2xl leading-9 font-normal text-right mr-10`}>
+                <p className="text-2xl leading-9 font-normal text-right mr-10">
                   {item.minimumUnit} 噸
                 </p>
               </div>
@@ -82,7 +83,7 @@ const ProductDetailList = () => {
                   </button>
                 </div>
               </div>
-              <div className={`w-1/6 flex justify-end mr-7`}>
+              <div className="w-1/6 flex justify-end mr-7">
                 <img
                   src={"/images/products-page/ic_add_to_cart.svg"}
                   alt="arrow-down"
@@ -105,9 +106,9 @@ const ProductDetailList = () => {
 function ProductDetail() {
   return (
     <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
-      <Navbar className={`pt-4 relative z-30`} />
+      <Navbar className={"pt-4 relative z-30"} />
       <div className="h-full flex flex-row justify-start">
-        <div className={`${"2xl:w-[620px] w-[500px] h-auto"}`}>
+        <div className="2xl:w-[620px] w-[500px] h-auto">
           <div className="2xl:w-[650px] w-[520px] absolute top-0 left-0 overflow-hidden">
             <ImgSlider />
           </div>
@@ -149,10 +150,11 @@ const ImgSlider = () => {
               setCurrentSlide(index);
               sliderRef?.current?.slickGoTo(index);
             }}
-            className={`cursor-pointer flex-1 h-1 w-full rounded-[20px] ${
-              currentSlide === index ? "bg-light-grey" : "bg-white"
-            }`}
-          ></div>
+            className={classNames("cursor-pointer flex-1 h-1 w-full rounded-[20px]", {
+              "bg-light-grey": currentSlide === index,
+              "bg-white": currentSlide !== index
+            })}
+          />
         ))}
       </div>
       <Slider {...settings} ref={sliderRef}>

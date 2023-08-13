@@ -2,6 +2,7 @@ import React, { FC, useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import classNames from "classnames";
 
 interface IProps {}
 
@@ -31,9 +32,13 @@ const HorizontalSlider: FC<IProps> = () => {
               setCurrentSlide(index);
               sliderRef?.current?.slickGoTo(index);
             }}
-            className={`2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer ${
-              currentSlide === index ? "bg-transparent" : "bg-white"
-            }`}
+            className={classNames(
+              "2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer",
+              {
+                "bg-transparent": currentSlide === index,
+                "bg-white": currentSlide !== index
+              }
+            )}
           ></div>
         ))}
       </div>

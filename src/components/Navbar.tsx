@@ -1,5 +1,5 @@
+import { FC } from "react";
 import classNames from "classnames";
-import React, { FC } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { NavbarItemTypes } from "../type";
 import { NAVBAR_ITEMS } from "../util/constants";

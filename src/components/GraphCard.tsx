@@ -8,11 +8,7 @@ interface IProps {
 
 const GraphCard: FC<IProps> = ({ className, children }) => {
   return (
-    <div
-      className={classNames("bg-white rounded-[10px] shadow-graph-card", {
-        [`${className}`]: className
-      })}
-    >
+    <div className={classNames("bg-white rounded-[10px] shadow-graph-card", className)}>
       {children}
     </div>
   );

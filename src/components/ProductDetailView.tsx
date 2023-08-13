@@ -1,6 +1,6 @@
-import React from "react";
+import { FC } from "react";
 
-function ProductDeatilView() {
+const ProductDeatilView: FC = () => {
   return (
     <div className="relative w-full flex flex-col 2xl:mt-37 xl:mt-24 mt-18">
       <div className="w-full flex flex-row justify-between">
@@ -97,7 +97,7 @@ function ProductDeatilView() {
       </div>
     </div>
   );
-}
+};
 
 export default ProductDeatilView;
 

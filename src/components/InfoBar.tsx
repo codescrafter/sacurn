@@ -1,11 +1,11 @@
-import React from "react";
+import { FC } from "react";
 
-const InfoBar = () => {
+const InfoBar: FC = () => {
   return (
     <div
       className="w-full h-11.5 blur-[15px] bg-info-box flex items-center justify-center text-white"
       style={{
-        filter: " drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.45))"
+        filter: "drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.45))"
       }}
     >
       <p className="font-normal text-xl leading-6 tracking-[0.1em]">

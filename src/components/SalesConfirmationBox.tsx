@@ -100,7 +100,7 @@ const SalesConfirmationBox: FC<IProps> = ({
       <div className="flex items-center justify-center gap-4 2xl:gap-20 px-8 mt-5 xl:mt-[26px]">
         {stopTrade ? (
           <Button
-            className={`!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl !bg-pale-yellow !text-navy-blue `}
+            className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl !bg-pale-yellow !text-navy-blue"
             onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
               event.stopPropagation();
               setStopTrade(true);
@@ -111,7 +111,7 @@ const SalesConfirmationBox: FC<IProps> = ({
           </Button>
         ) : (
           <Button
-            className={`!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl`}
+            className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl"
             onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
               event.stopPropagation();
               setConfirmListing(true);

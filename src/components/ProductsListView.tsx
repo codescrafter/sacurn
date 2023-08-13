@@ -1,15 +1,14 @@
+import { FC } from "react";
 import { ProductItemTypes } from "../type";
 import { PRODUCT_ITEMS } from "../util/constants";
 
-function ProductsListView() {
+const ProductsListView: FC = () => {
   return (
     <div className="bg-transparent flex flex-col gap-4.5 max-h-[75vh]">
       {PRODUCT_ITEMS?.map((product: ProductItemTypes) => {
         return (
-          <div
-            className={`bg-white rounded-3xl 2xl:px-4 2xl:py-5 px-3 py-3.5 flex flex-row cursor-pointer`}
-          >
-            <div className={`p-1 rounded-2xl`}>
+          <div className="bg-white rounded-3xl 2xl:px-4 2xl:py-5 px-3 py-3.5 flex flex-row cursor-pointer">
+            <div className="p-1 rounded-2xl">
               <img
                 className="2xl:h-47.2 2xl:w-74.7 h-40 w-64 rounded-2xl object-cover"
                 src={product.imagePath}
@@ -40,6 +39,6 @@ function ProductsListView() {
       })}
     </div>
   );
-}
+};
 
 export default ProductsListView;

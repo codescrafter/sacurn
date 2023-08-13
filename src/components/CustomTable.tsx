@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { FC, Fragment, useState } from "react";
 
 interface IProps {
@@ -30,9 +31,13 @@ const CustomTable: FC<IProps> = ({ tableHeadings, tableBody, name }) => {
                 {tableHeadings.map((item, index) => (
                   <th
                     scope="col"
-                    className={`pb-3 pt-1 text-left whitespace-nowrap text-base xl:text-lg font-normal text-grey ${
-                      index === 0 ? "pl-2 2xl:pl-[33px]" : "px-2 2xl:px-8"
-                    }`}
+                    className={classNames(
+                      "pb-3 pt-1 text-left whitespace-nowrap text-base xl:text-lg font-normal text-grey",
+                      {
+                        "pl-2 2xl:pl-[33px]": index === 0,
+                        "px-2 2xl:px-8": index !== 0
+                      }
+                    )}
                     key={item}
                   >
                     {item}
@@ -43,16 +48,18 @@ const CustomTable: FC<IProps> = ({ tableHeadings, tableBody, name }) => {
             <tbody>
               {tableBody.map((item, index) => (
                 <Fragment key={item.id}>
-                  <tr className={`bg-white row group h-[95px]`}>
+                  <tr className="bg-white row group h-[95px]">
                     <td
-                      className={`py-3 pl-2 2xl:pl-[33px] pr-2 2xl:pr-4 ${
-                        name === "historical_order" ? "xl:w-48 w-36" : "xl:w-40 xl:pr-10"
-                      }`}
+                      className={classNames("py-3 pl-2 2xl:pl-[33px] pr-2 2xl:pr-4", {
+                        "xl:w-48 w-36": name === "historical_order",
+                        "xl:w-40 xl:pr-10": name !== "historical_order"
+                      })}
                     >
                       <span
-                        className={`flex text-base 2xl:text-xl items-center w-24 ${
-                          name === "historical_order" ? "text-black font-medium" : "text-dark-grey"
-                        }`}
+                        className={classNames("flex text-base 2xl:text-xl items-center w-24", {
+                          "text-black font-medium": name === "historical_order",
+                          "text-dark-grey": name !== "historical_order"
+                        })}
                       >
                         {item.time || item.orderNumber}
                         {name === "historical_order" && (
@@ -61,9 +68,12 @@ const CustomTable: FC<IProps> = ({ tableHeadings, tableBody, name }) => {
                             width={20}
                             height={8}
                             alt="Cherven Icon"
-                            className={`ml-2 w-3 h-3 cursor-pointer hidden group-hover:block ${
-                              expandedRowIndex === index && "transform -rotate-90 !block"
-                            }`}
+                            className={classNames(
+                              "ml-2 w-3 h-3 cursor-pointer hidden group-hover:block",
+                              {
+                                "transform -rotate-90 !block": expandedRowIndex === index
+                              }
+                            )}
                             onClick={() => {
                               setStaticRowsVisible(false);
                               setExpandedRowIndex((prevIndex: number | null) =>
@@ -76,59 +86,67 @@ const CustomTable: FC<IProps> = ({ tableHeadings, tableBody, name }) => {
                       </span>
                     </td>
                     <td
-                      className={`py-3 px-2 2xl:px-8 text-base 2xl:text-xl w-72 2xl:w-96 relative ${
-                        name === "historical_order" ? "text-black font-medium" : "text-dark-grey"
-                      }`}
+                      className={classNames(
+                        "py-3 px-2 2xl:px-8 text-base 2xl:text-xl w-72 2xl:w-96 relative",
+                        {
+                          "text-black font-medium": name === "historical_order",
+                          "text-dark-grey": name !== "historical_order"
+                        }
+                      )}
                     >
                       {item.prodName}
                     </td>
                     <td
-                      className={`py-3 px-4 2xl:px-8 text-base 2xl:text-xl ${
-                        name === "operation_page" && "!text-dark-grey"
-                      } ${
-                        name === "historical_order" && (index === 2 || index === 3)
-                          ? "text-light-red"
-                          : "text-light-green"
-                      }`}
+                      className={classNames("py-3 px-2 2xl:px-8 text-base 2xl:text-xl", {
+                        "!text-dark-grey": name === "operation_page",
+                        "text-light-red":
+                          name === "historical_order" && (index === 2 || index === 3),
+                        "text-light-green":
+                          name === "historical_order" && index !== 2 && index !== 3
+                      })}
                     >
                       {item.operator || item.buysell}
                     </td>
                     <td
-                      className={`py-3 px-2 2xl:px-8 text-base 2xl:text-xl ${
-                        name === "historical_order" ? "text-black font-medium" : "text-dark-grey"
-                      }`}
+                      className={classNames("py-3 px-2 2xl:px-8 text-base 2xl:text-xl", {
+                        "text-black font-medium": name === "historical_order",
+                        "text-dark-grey": name !== "historical_order"
+                      })}
                     >
                       {item.unitPrice}
                     </td>
                     <td
-                      className={`py-3 px-2 2xl:px-8 text-base 2xl:text-xl ${
-                        name === "historical_order" ? "text-black font-medium" : "text-dark-grey"
-                      }`}
+                      className={classNames("py-3 px-2 2xl:px-8 text-base 2xl:text-xl", {
+                        "text-black font-medium": name === "historical_order",
+                        "text-dark-grey": name !== "historical_order"
+                      })}
                     >
                       {item.quant}
                     </td>
                     <td
-                      className={`py-3 px-2 2xl:px-8 text-base 2xl:text-xl ${
-                        name === "historical_order" ? "text-black font-medium" : "text-dark-grey"
-                      }`}
+                      className={classNames("py-3 px-2 2xl:px-8 text-base 2xl:text-xl", {
+                        "text-black font-medium": name === "historical_order",
+                        "": name !== "historical_order"
+                      })}
                     >
                       {item.lumpsum}
                     </td>
                     <td
-                      className={`py-3 px-2 2xl:px-8 text-dark-grey whitespace-nowrap text-base 2xl:text-xl ${
-                        name === "operation_page" && "!text-dark-grey"
-                      } ${
-                        name === "historical_order" && (index === 2 || index === 3)
-                          ? "text-light-red"
-                          : "text-light-green"
-                      }`}
+                      className={classNames(
+                        "py-3 px-2 2xl:px-8 text-dark-grey whitespace-nowrap text-base 2xl:text-xl",
+                        {
+                          "!text-dark-grey": name === "operation_page",
+                          "text-light-red":
+                            name === "historical_order" && (index === 2 || index === 3),
+                          "text-light-green":
+                            name === "historical_order" && index !== 2 && index !== 3
+                        }
+                      )}
                     >
                       {item.action || item.orderStatus}
                     </td>
                     {name === "operation_page" && (
-                      <td
-                        className={`py-3 px-2 2xl:px-8 whitespace-nowrap text-base 2xl:text-xl text-dark-grey`}
-                      >
+                      <td className="py-3 px-2 2xl:px-8 whitespace-nowrap text-base 2xl:text-xl text-dark-grey">
                         {item.remark}
                       </td>
                     )}

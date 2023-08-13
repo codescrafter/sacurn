@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { FC } from "react";
 import Button from "./Button";
 
@@ -25,7 +26,11 @@ const Alert: FC<IProps> = ({ children, setIsAlert, size = "md", className }) => 
   return (
     <div className="flex justify-center items-center z-50 absolute inset-0 bg-black/30 backdrop-blur-[2px]">
       <div
-        className={`flex flex-col items-center justify-center rounded-[20px] bg-white relative ${alertBoxClass} ${className}`}
+        className={classNames(
+          "flex flex-col items-center justify-center rounded-[20px] bg-white relative",
+          alertBoxClass,
+          className
+        )}
       >
         <Button
           className="!bg-transparent absolute right-0 top-0"

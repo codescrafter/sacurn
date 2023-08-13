@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import GraphCard from "./GraphCard";
 import Button from "./Button";
 import Chart from "react-apexcharts";
+import classNames from "classnames";
 
-const SalesLineChart = () => {
+const SalesLineChart: FC = () => {
   const [activeButton, setActiveButton] = useState<number>(0);
 
   const series = [
@@ -139,14 +140,16 @@ const SalesLineChart = () => {
         {buttonData.map((button, index) => (
           <Button
             key={button.value}
-            className={`font-medium 2xl:text-[13px] xl:text-[11px] text-[10px] !text-grey ${
-              activeButton === index
-                ? "!bg-transparent shadow-graph-btn"
-                : "!bg-neutral-150 border-t border-b border-l border-r border-light-grey"
-            } ${index === 0 ? "rounded-bl-[10px] rounded-tl-[10px]" : ""} ${
-              index === buttonData.length - 1 ? "rounded-br-[10px] rounded-tr-[10px]" : ""
-            } 
-             `}
+            className={classNames(
+              "font-medium 2xl:text-[13px] xl:text-[11px] text-[10px] !text-grey",
+              {
+                "!bg-transparent shadow-graph-btn": activeButton === index,
+                "!bg-neutral-150 border-t border-b border-l border-r border-light-grey":
+                  activeButton !== index,
+                "rounded-bl-[10px] rounded-tl-[10px]": index === 0,
+                "rounded-br-[10px] rounded-tr-[10px]": index === buttonData.length - 1
+              }
+            )}
             onClick={() => handleButtonClick(index)}
           >
             {button.label}

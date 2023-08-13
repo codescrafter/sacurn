@@ -1,8 +1,8 @@
-import React from "react";
+import { FC } from "react";
 import Button from "./Button";
 import GraphCard from "./GraphCard";
 
-const ProgressBarChart = () => {
+const ProgressBarChart: FC = () => {
   return (
     <GraphCard className="h-[206px] p-4">
       <div className="flex flex-col space-y-5">
