@@ -1,4 +1,4 @@
-export default function formatDate(date) {
+export default function formatDate(date: string | number | Date) {
   const currentDate = new Date(date);
   const year = currentDate.getFullYear();
   const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
