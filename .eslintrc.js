@@ -24,5 +24,6 @@ module.exports = {
     'json/trailing-comma': prettierrc.trailingComma === 'none' ? 'off' : 'error',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error'
-  }
+  },
+  ignorePatterns: ['node_modules/**/**.*', 'build/**/**.*']
 };
