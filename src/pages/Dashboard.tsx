@@ -1,10 +1,11 @@
-import React from "react";
-import VerticalSlider from "../components/VerticalSlider";
-import Navbar from "../components/Navbar";
-import InfoBar from "../components/InfoBar";
-import HorizontalSlider from "../components/HorizontalSlider";
-import MultiSlideSlider from "../components/MultiSlideSlider";
-import CarbonCommodity from "../components/CarbonCommodity";
+import React from 'react';
+
+import CarbonCommodity from '../components/CarbonCommodity';
+import HorizontalSlider from '../components/HorizontalSlider';
+import InfoBar from '../components/InfoBar';
+import MultiSlideSlider from '../components/MultiSlideSlider';
+import Navbar from '../components/Navbar';
+import VerticalSlider from '../components/VerticalSlider';
 
 const Dashboard = () => {
   return (
@@ -17,15 +18,13 @@ const Dashboard = () => {
           <VerticalSlider />
           <div className="flex 2xl:gap-6 gap-4 mt-2">
             <img
-              src={"/images/landing-page/ic_co2.svg"}
+              src={'/images/landing-page/ic_co2.svg'}
               width={72}
               height={52}
               alt="co2 icon"
               className="2xl:w-18 2xl:h-13 w-14 h-10"
             />
-            <h6 className="font-semibold 2xl:text-3xl text-2xl 2xl:leading-10 leading-7">
-              即時熱門碳權商品
-            </h6>
+            <h6 className="font-semibold 2xl:text-3xl text-2xl 2xl:leading-10 leading-7">即時熱門碳權商品</h6>
           </div>
           <div className="2xl:mt-8.5 mt-5.5 flex flex-col 2xl:gap-2.5 gap-2">
             {commodityData.map((item, index) => (
@@ -36,7 +35,7 @@ const Dashboard = () => {
         <div className="2xl:mt-7 mt-5 flex-1 overflow-hidden">
           <p className="flex items-center">
             <img
-              src={"/images/landing-page/ic_volume.svg"}
+              src={'/images/landing-page/ic_volume.svg'}
               width={32}
               height={30}
               className="2xl:w-8 2xl:h-7.5 w-6 h-5.2"
@@ -47,7 +46,7 @@ const Dashboard = () => {
           <HorizontalSlider />
           <p className="flex 2xl:mt-6 2xl:mb-3 mt-5 mb-2.5">
             <img
-              src={"/images/landing-page/ic_book.svg"}
+              src={'/images/landing-page/ic_book.svg'}
               alt="sacurn"
               width={29}
               height={33}
@@ -69,24 +68,24 @@ export default Dashboard;
 
 const commodityData = [
   {
-    image: "/images/landing-page/carbon-cure.png",
-    linkText: "carbon removal",
-    heading: "CarbonCure Concrete Mineralization",
-    subHeading: "Project developed by CarbonCure Technologies",
-    linkIcon: "/images/landing-page/upload.svg"
+    image: '/images/landing-page/carbon-cure.png',
+    linkText: 'carbon removal',
+    heading: 'CarbonCure Concrete Mineralization',
+    subHeading: 'Project developed by CarbonCure Technologies',
+    linkIcon: '/images/landing-page/upload.svg'
   },
   {
-    image: "/images/landing-page/soil-carbon.png",
-    linkText: "carbon avoidance",
-    heading: "Andes Inorganic Soil Carbon",
-    subHeading: "Project developed by CarbonCure Technologies",
-    linkIcon: "/images/landing-page/download.svg"
+    image: '/images/landing-page/soil-carbon.png',
+    linkText: 'carbon avoidance',
+    heading: 'Andes Inorganic Soil Carbon',
+    subHeading: 'Project developed by CarbonCure Technologies',
+    linkIcon: '/images/landing-page/download.svg'
   },
   {
-    image: "/images/landing-page/carbon-avoid.png",
-    linkText: "carbon removal",
-    heading: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    subHeading: "Project developed by CarbonCure Technologies",
-    linkIcon: "/images/landing-page/upload.svg"
+    image: '/images/landing-page/carbon-avoid.png',
+    linkText: 'carbon removal',
+    heading: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    subHeading: 'Project developed by CarbonCure Technologies',
+    linkIcon: '/images/landing-page/upload.svg'
   }
 ];

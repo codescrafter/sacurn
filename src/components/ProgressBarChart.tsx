@@ -1,6 +1,7 @@
-import { FC } from "react";
-import Button from "./Button";
-import GraphCard from "./GraphCard";
+import { FC } from 'react';
+
+import Button from './Button';
+import GraphCard from './GraphCard';
 
 const ProgressBarChart: FC = () => {
   return (
@@ -8,7 +9,7 @@ const ProgressBarChart: FC = () => {
       <div className="flex flex-col space-y-5">
         {/* header */}
         <h5 className="text-grey text-sm 2xl:text-xl font-semibold">
-          您目前是VVIP銀卡等級{" "}
+          您目前是VVIP銀卡等級{' '}
           <sup>
             <Button className="border border-light-grey rounded !py-[8px] !px-2 !bg-transparent !text-silverstone font-semibold 2xl:text-[9px]">
               查看升等方式
@@ -20,9 +21,7 @@ const ProgressBarChart: FC = () => {
           {/* left progress bar */}
           <div className="flex flex-col w-full pr-1 2xl:pr-6">
             <div className="flex items-center justify-between w-full">
-              <span className="text-silverstone text-xs 2xl:text-sm font-semibold">
-                本期累積訂單
-              </span>
+              <span className="text-silverstone text-xs 2xl:text-sm font-semibold">本期累積訂單</span>
               <img
                 src="/images/sales/report_icon.png"
                 width={33}
@@ -44,9 +43,7 @@ const ProgressBarChart: FC = () => {
           {/* right progressbar */}
           <div className="flex flex-col w-full pl-1 2xl:pl-6">
             <div className="flex items-center justify-between w-full">
-              <span className="text-silverstone text-xs 2xl:text-sm font-semibold">
-                本期累積消費
-              </span>
+              <span className="text-silverstone text-xs 2xl:text-sm font-semibold">本期累積消費</span>
               <img
                 src="/images/sales/dollar_icon.png"
                 width={33}
@@ -72,14 +69,7 @@ const ProgressBarChart: FC = () => {
             2023/06/30將重新計算，會籍依前6個月消費予對應等級
           </span>
           <Button className="!bg-transparent whitespace-nowrap flex items-center font-semibold text-xs 2xl:text-sm !text-silverstone">
-            看紀錄{" "}
-            <img
-              width={6}
-              height={12}
-              src={"/images/sales/chervon_right.png"}
-              alt="arrow"
-              className="ml-1"
-            />
+            看紀錄 <img width={6} height={12} src={'/images/sales/chervon_right.png'} alt="arrow" className="ml-1" />
           </Button>
         </div>
       </div>

@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "arjun.swagger-viewer",
+    "42crunch.vscode-openapi",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}

@@ -1,8 +1,9 @@
-import { FC, useRef, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import classNames from "classnames";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+import classNames from 'classnames';
+import { FC, useRef, useState } from 'react';
+import Slider from 'react-slick';
 
 const MultiSlideSlider: FC = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
@@ -26,7 +27,7 @@ const MultiSlideSlider: FC = () => {
   return (
     <div className="mix-blend-hard-light bg-slider relative pt-5 2xl:pb-11 pb-9 pl-8">
       <div className="absolute z-20 left-9 2xl:bottom-3 bottom-1 2xl:gap-3.5 gap-2.5 flex">
-        {["01", "02", "03", "04", "05"].map((item, index) => (
+        {['01', '02', '03', '04', '05'].map((item, index) => (
           <div
             key={index}
             onClick={() => {
@@ -34,10 +35,10 @@ const MultiSlideSlider: FC = () => {
               sliderRef?.current?.slickGoTo(index);
             }}
             className={classNames(
-              "2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer",
+              '2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer',
               {
-                "bg-transparent": currentSlide === index,
-                "bg-white": currentSlide !== index
+                'bg-transparent': currentSlide === index,
+                'bg-white': currentSlide !== index
               }
             )}
           ></div>
@@ -47,7 +48,7 @@ const MultiSlideSlider: FC = () => {
         {[1, 2, 3, 4, 5].map(() => (
           <div className="!w-[422px]">
             <img
-              src={"/images/landing-page/multislide.png"}
+              src={'/images/landing-page/multislide.png'}
               width={422}
               height={324}
               alt="multislide.png"

@@ -1,10 +1,11 @@
-import { useState } from "react";
-import Navbar from "../components/Navbar";
-import DatePickerModal from "../components/DatePickerModal";
-import CustomSelect from "../components/CustomSelect";
-import formatDate from "../helpers/formatDate";
-import CustomTable from "../components/CustomTable";
-import { OPTIONS_LIST } from "../util/constants";
+import { useState } from 'react';
+
+import CustomSelect from '../components/CustomSelect';
+import CustomTable from '../components/CustomTable';
+import DatePickerModal from '../components/DatePickerModal';
+import Navbar from '../components/Navbar';
+import formatDate from '../helpers/formatDate';
+import { OPTIONS_LIST } from '../util/constants';
 
 function HistoricalOrder() {
   const [open, setOpen] = useState<boolean>(false);
@@ -33,10 +34,7 @@ function HistoricalOrder() {
                 />
               )}
 
-              <label
-                htmlFor="period"
-                className="block text-base xl:text-lg font-medium leading-6 text-grey"
-              >
+              <label htmlFor="period" className="block text-base xl:text-lg font-medium leading-6 text-grey">
                 期間:
               </label>
               <div
@@ -57,24 +55,16 @@ function HistoricalOrder() {
                     </>
                   )}
                 </div>
-                <img
-                  width={10}
-                  height={12}
-                  src={"/images/operation-record/icon_chervon_down.png"}
-                  alt="arrow"
-                />
+                <img width={10} height={12} src={'/images/operation-record/icon_chervon_down.png'} alt="arrow" />
               </div>
             </div>
             {/* state */}
             <div className="flex items-center relative">
-              <label
-                htmlFor="state"
-                className="block text-base xl:text-lg font-medium leading-6 text-grey"
-              >
+              <label htmlFor="state" className="block text-base xl:text-lg font-medium leading-6 text-grey">
                 期間:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect options={OPTIONS_LIST} defaulValue="完成付款" />
+                <CustomSelect options={OPTIONS_LIST} defaultValue="完成付款" />
               </div>
             </div>
             {/* search */}
@@ -88,12 +78,7 @@ function HistoricalOrder() {
                   placeholder="輸入想要搜尋的碳權名稱,代號或是關鍵字"
                 />
                 <div className="pointer-events-none border border-r-0 border-t-0 border-b-0 border-l-light-grey py-2 absolute inset-y-1 right-0 flex items-center pl-2 pr-3">
-                  <img
-                    src="/images/operation-record/search_icon.svg"
-                    width={20}
-                    height={20}
-                    alt="search"
-                  />
+                  <img src="/images/operation-record/search_icon.svg" width={20} height={20} alt="search" />
                 </div>
               </div>
             </div>
@@ -110,77 +95,77 @@ function HistoricalOrder() {
 
 export default HistoricalOrder;
 
-const TABLE_HEAD = ["訂單號碼", "商品名稱", "買入/賣出", "單價", "數量(噸)", "總金額", "訂單狀態"];
+const TABLE_HEAD = ['訂單號碼', '商品名稱', '買入/賣出', '單價', '數量(噸)', '總金額', '訂單狀態'];
 
 const TABLE_BODY = [
   {
     id: 1,
-    orderNumber: "A123456789",
-    prodName: "Andes Inorganic Soil Carbon",
-    buysell: "賣出",
-    unitPrice: "$100",
-    quant: "10",
-    lumpsum: "$99,900",
-    orderStatus: "未完成"
+    orderNumber: 'A123456789',
+    prodName: 'Andes Inorganic Soil Carbon',
+    buysell: '賣出',
+    unitPrice: '$100',
+    quant: '10',
+    lumpsum: '$99,900',
+    orderStatus: '未完成'
   },
   {
     id: 2,
-    orderNumber: "B123456789",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    buysell: "賣出",
-    unitPrice: "$13",
-    quant: "50",
-    lumpsum: "$12,000",
-    orderStatus: "已完成"
+    orderNumber: 'B123456789',
+    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    buysell: '賣出',
+    unitPrice: '$13',
+    quant: '50',
+    lumpsum: '$12,000',
+    orderStatus: '已完成'
   },
   {
     id: 3,
-    orderNumber: "C123456789",
-    prodName: "CarbonCure Concrete Mineralization",
-    buysell: "買入",
-    unitPrice: "$1,327",
-    quant: "999",
-    lumpsum: "$23,132,700",
-    orderStatus: "未付款"
+    orderNumber: 'C123456789',
+    prodName: 'CarbonCure Concrete Mineralization',
+    buysell: '買入',
+    unitPrice: '$1,327',
+    quant: '999',
+    lumpsum: '$23,132,700',
+    orderStatus: '未付款'
   },
   {
     id: 4,
-    orderNumber: "D123456789",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    buysell: "買入",
-    unitPrice: "$345",
-    quant: "400",
-    lumpsum: "$12,700",
-    orderStatus: "待付款"
+    orderNumber: 'D123456789',
+    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    buysell: '買入',
+    unitPrice: '$345',
+    quant: '400',
+    lumpsum: '$12,700',
+    orderStatus: '待付款'
   },
   {
     id: 5,
-    orderNumber: "E123456789",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    buysell: "賣出",
-    unitPrice: "$99",
-    quant: "43",
-    lumpsum: "$12,700",
-    orderStatus: "交易中"
+    orderNumber: 'E123456789',
+    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    buysell: '賣出',
+    unitPrice: '$99',
+    quant: '43',
+    lumpsum: '$12,700',
+    orderStatus: '交易中'
   },
   {
     id: 6,
-    orderNumber: "F123456789",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    buysell: "賣出",
-    unitPrice: "$234",
-    quant: "30",
-    lumpsum: "$12,700",
-    orderStatus: "交易中"
+    orderNumber: 'F123456789',
+    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    buysell: '賣出',
+    unitPrice: '$234',
+    quant: '30',
+    lumpsum: '$12,700',
+    orderStatus: '交易中'
   },
   {
     id: 7,
-    orderNumber: "F123456789",
-    prodName: "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
-    buysell: "賣出",
-    unitPrice: "$234",
-    quant: "30",
-    lumpsum: "$12,700",
-    orderStatus: "交易中"
+    orderNumber: 'F123456789',
+    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
+    buysell: '賣出',
+    unitPrice: '$234',
+    quant: '30',
+    lumpsum: '$12,700',
+    orderStatus: '交易中'
   }
 ];
