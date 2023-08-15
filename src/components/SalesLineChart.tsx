@@ -1,26 +1,28 @@
-import { FC, useState } from "react";
-import GraphCard from "./GraphCard";
-import Button from "./Button";
-import Chart from "react-apexcharts";
-import classNames from "classnames";
+import { ApexOptions } from 'apexcharts';
+import classNames from 'classnames';
+import { FC, useState } from 'react';
+import Chart from 'react-apexcharts';
+
+import Button from './Button';
+import GraphCard from './GraphCard';
 
 const SalesLineChart: FC = () => {
   const [activeButton, setActiveButton] = useState<number>(0);
 
   const series = [
     {
-      name: "Amount",
+      name: 'Amount',
       data: [1500, 9000, 1000, 12000, 0, 0, 10500, 12000]
     },
     {
-      name: "平均",
+      name: '平均',
       data: [7000, 7000, 7000, 7000, 7000, 7000, 7000, 7000]
     }
   ];
 
-  const options: any = {
+  const options: ApexOptions = {
     chart: {
-      type: "line",
+      type: 'line',
       zoom: {
         enabled: false
       },
@@ -32,14 +34,14 @@ const SalesLineChart: FC = () => {
       enabled: false
     },
     stroke: {
-      curve: "straight",
+      curve: 'straight',
       width: [5, 2],
-      colors: ["#1D70BD", "#FFD600"],
+      colors: ['#1D70BD', '#FFD600'],
       dashArray: [0, 3]
     },
     markers: {
       size: [6, 0],
-      colors: ["#1D70BD"]
+      colors: ['#1D70BD']
     },
     grid: {
       xaxis: {
@@ -56,24 +58,11 @@ const SalesLineChart: FC = () => {
     xaxis: {
       labels: {
         style: {
-          colors: "#005487"
+          colors: '#005487'
         }
       },
 
-      categories: [
-        "1月",
-        "2月",
-        "3月",
-        "4月",
-        "5月",
-        "6月",
-        "7月",
-        "8月",
-        "9月",
-        "10月",
-        "11月",
-        "12月"
-      ],
+      categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
       axisTicks: {
         show: false
       }
@@ -85,15 +74,15 @@ const SalesLineChart: FC = () => {
         },
         labels: {
           formatter: function (value: number) {
-            if (typeof value === "string") {
+            if (typeof value === 'string') {
               return value;
             } else if (value >= 1000) {
-              return (value / 1000).toFixed(1) + "k";
+              return (value / 1000).toFixed(1) + 'k';
             }
-            return value;
+            return value.toString();
           },
           style: {
-            colors: "#005487"
+            colors: '#005487'
           }
         }
       }
@@ -101,7 +90,7 @@ const SalesLineChart: FC = () => {
     ],
     tooltip: {
       style: {
-        colors: "#000000"
+        // colors: '#000000'
       }
     },
     legend: {
@@ -140,16 +129,12 @@ const SalesLineChart: FC = () => {
         {buttonData.map((button, index) => (
           <Button
             key={button.value}
-            className={classNames(
-              "font-medium 2xl:text-[13px] xl:text-[11px] text-[10px] !text-grey",
-              {
-                "!bg-transparent shadow-graph-btn": activeButton === index,
-                "!bg-neutral-150 border-t border-b border-l border-r border-light-grey":
-                  activeButton !== index,
-                "rounded-bl-[10px] rounded-tl-[10px]": index === 0,
-                "rounded-br-[10px] rounded-tr-[10px]": index === buttonData.length - 1
-              }
-            )}
+            className={classNames('font-medium 2xl:text-[13px] xl:text-[11px] text-[10px] !text-grey', {
+              '!bg-transparent shadow-graph-btn': activeButton === index,
+              '!bg-neutral-150 border-t border-b border-l border-r border-light-grey': activeButton !== index,
+              'rounded-bl-[10px] rounded-tl-[10px]': index === 0,
+              'rounded-br-[10px] rounded-tr-[10px]': index === buttonData.length - 1
+            })}
             onClick={() => handleButtonClick(index)}
           >
             {button.label}
@@ -179,9 +164,9 @@ const SalesLineChart: FC = () => {
 export default SalesLineChart;
 
 const buttonData = [
-  { label: "銷售額", value: "sales" },
-  { label: "訪客數", value: "visitors" },
-  { label: "瀏覽數", value: "views" },
-  { label: "訂單數", value: "orders" },
-  { label: "平均客單價", value: "averagePrice" }
+  { label: '銷售額', value: 'sales' },
+  { label: '訪客數', value: 'visitors' },
+  { label: '瀏覽數', value: 'views' },
+  { label: '訂單數', value: 'orders' },
+  { label: '平均客單價', value: 'averagePrice' }
 ];

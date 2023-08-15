@@ -1,8 +1,9 @@
-import { FC, useRef, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import classNames from "classnames";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+import classNames from 'classnames';
+import { FC, useRef, useState } from 'react';
+import Slider from 'react-slick';
 
 const VerticalSlider: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,7 +23,7 @@ const VerticalSlider: FC = () => {
   return (
     <div className="relative">
       <div className="absolute z-20 left-3.5 top-[40%] flex flex-col">
-        {["01", "02", "03", "04"].map((item, index) => (
+        {['01', '02', '03', '04'].map((item, index) => (
           <div
             key={index}
             onClick={() => {
@@ -30,10 +31,10 @@ const VerticalSlider: FC = () => {
               sliderRef?.current?.slickGoTo(index);
             }}
             className={classNames(
-              "2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer",
+              '2xl:w-[13px] 2xl:h-[13px] w-2.5 h-2.5 border-2 border-white rounded-full mb-3.5 cursor-pointer',
               {
-                "bg-transparent": currentSlide === index,
-                "bg-white": currentSlide !== index
+                'bg-transparent': currentSlide === index,
+                'bg-white': currentSlide !== index
               }
             )}
           ></div>

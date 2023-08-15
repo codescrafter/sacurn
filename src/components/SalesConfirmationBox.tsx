@@ -1,6 +1,7 @@
-import React, { FC } from "react";
-import HorizontalDivider from "./HorizontalDivider";
-import Button from "./Button";
+import React, { FC } from 'react';
+
+import Button from './Button';
+import HorizontalDivider from './HorizontalDivider';
 
 interface IProps {
   setIsAlert: React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,7 +43,7 @@ const SalesConfirmationBox: FC<IProps> = ({
             type="text"
             value="99,999"
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
-          />{" "}
+          />{' '}
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
       </div>
@@ -54,7 +55,7 @@ const SalesConfirmationBox: FC<IProps> = ({
             type="text"
             value="999,999,999"
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
-          />{" "}
+          />{' '}
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
       </div>
@@ -66,7 +67,7 @@ const SalesConfirmationBox: FC<IProps> = ({
             type="text"
             value="99,999"
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
-          />{" "}
+          />{' '}
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
       </div>
@@ -76,12 +77,10 @@ const SalesConfirmationBox: FC<IProps> = ({
           <h6 className="font-bold text-black text-sm xl:text-base">だけ行わ権一定いいし</h6>
           <ul>
             <li className="text-xs text-dark-grey font-normal">
-              さの米国をする15、、などにするの下さい削除文を著作の引用と指すで文章をいる生じる
-              commons
+              さの米国をする15、、などにするの下さい削除文を著作の引用と指すで文章をいる生じる commons
             </li>
             <li className="text-xs text-dark-grey font-normal">
-              いる、たり項追加と
-              Wiによって権が文色濃く権互換ますしあれですい改変本法書評にライセンスがない
+              いる、たり項追加と Wiによって権が文色濃く権互換ますしあれですい改変本法書評にライセンスがない
             </li>
           </ul>
         </div>

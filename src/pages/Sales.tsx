@@ -1,12 +1,13 @@
-import { Fragment, useState } from "react";
-import Navbar from "../components/Navbar";
-import SalesConfirmationBox from "../components/SalesConfirmationBox";
-import Alert from "../components/Alert";
-import Button from "../components/Button";
-import SalesAreaGraph from "../components/SalesAreaGraph";
-import SalesLineChart from "../components/SalesLineChart";
-import ProgressBarChart from "../components/ProgressBarChart";
-import classNames from "classnames";
+import classNames from 'classnames';
+import { Fragment, useState } from 'react';
+
+import Alert from '../components/Alert';
+import Button from '../components/Button';
+import Navbar from '../components/Navbar';
+import ProgressBarChart from '../components/ProgressBarChart';
+import SalesAreaGraph from '../components/SalesAreaGraph';
+import SalesConfirmationBox from '../components/SalesConfirmationBox';
+import SalesLineChart from '../components/SalesLineChart';
 
 function Sales() {
   const [expandedRowIndex, setExpandedRowIndex] = useState<number | null>(null);
@@ -21,9 +22,7 @@ function Sales() {
       {/* listing confirmation modal */}
       {isAlert && confirmListing && (
         <Alert setIsAlert={setIsAlert} size="lg" className="space-y-20">
-          <h6 className="text-black text-xl xl:text-[32px] font-bold leading-[1px]">
-            恭喜！已開始交易。
-          </h6>
+          <h6 className="text-black text-xl xl:text-[32px] font-bold leading-[1px]">恭喜！已開始交易。</h6>
           <span className="font-bold text-lg xl:text-[26px] text-navy-blue">已完成上架作業</span>
           <Button
             className="font-bold text-lg xl:text-xl !px-5 !py-[10px] !rounded-[60px] min-w-[180px]"
@@ -39,16 +38,9 @@ function Sales() {
       {/* stop trading modal */}
       {isAlert && stopTrade && (
         <Alert setIsAlert={setIsAlert} size="sm" className="space-y-10">
-          <img
-            src="/images/sales/exclamation-mark.png"
-            width={109}
-            height={109}
-            alt="exclamation-mark"
-          />
+          <img src="/images/sales/exclamation-mark.png" width={109} height={109} alt="exclamation-mark" />
           <h6 className="text-black text-xl xl:text-[32px] font-bold tracking-[1px]">再次提醒</h6>
-          <span className="font-bold text-lg xl:text-[26px] text-bright-red">
-            確認停止交易後，資料將無法恢復
-          </span>
+          <span className="font-bold text-lg xl:text-[26px] text-bright-red">確認停止交易後，資料將無法恢復</span>
           <div className="flex items-center gap-6">
             <Button
               className="font-bold text-lg xl:text-xl !py-[10px] !rounded-[60px] min-w-[180px]"
@@ -113,12 +105,7 @@ function Sales() {
                     placeholder="輸入想要搜尋的碳權名稱,代號或是關鍵字"
                   />
                   <div className="pointer-events-none border border-r-0 border-t-0 border-b-0 border-l-light-grey py-2 absolute inset-y-1 right-0 flex items-center pl-2 pr-3">
-                    <img
-                      src="/images/operation-record/search_icon.svg"
-                      width={20}
-                      height={20}
-                      alt="search"
-                    />
+                    <img src="/images/operation-record/search_icon.svg" width={20} height={20} alt="search" />
                   </div>
                 </div>
               </div>
@@ -133,10 +120,10 @@ function Sales() {
                       style={
                         staticRowsVisible
                           ? {
-                              borderCollapse: "collapse",
-                              borderSpacing: "0 11px"
+                              borderCollapse: 'collapse',
+                              borderSpacing: '0 11px'
                             }
-                          : { borderCollapse: "separate", borderSpacing: "0 0" }
+                          : { borderCollapse: 'separate', borderSpacing: '0 0' }
                       }
                     >
                       <thead className="sticky -top-1 z-10">
@@ -144,17 +131,17 @@ function Sales() {
                           {TABLE_HEAD?.map((item, index) => (
                             <th
                               key={item}
-                              className={classNames("text-left whitespace-nowrap pb-4", {
-                                "pl-[11px] sr-only": index === 0,
-                                "pr-2": index === 1,
-                                "px-2": index !== 0 && index !== 1
+                              className={classNames('text-left whitespace-nowrap pb-4', {
+                                'pl-[11px] sr-only': index === 0,
+                                'pr-2': index === 1,
+                                'px-2': index !== 0 && index !== 1
                               })}
                             >
                               <span
                                 className={classNames(
-                                  "text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer",
+                                  'text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer',
                                   {
-                                    "justify-center": index === 4 || index === 5
+                                    'justify-center': index === 4 || index === 5
                                   }
                                 )}
                               >
@@ -175,28 +162,21 @@ function Sales() {
                         {TABLE_BODY?.map((item, index) => (
                           <Fragment key={item.id}>
                             <tr
-                              className={classNames(
-                                "bg-white sales-row h-auto hover:shadow-sales-row",
-                                {
-                                  "!bg-light-gray": expandedRowIndex === index && staticRowsVisible
-                                }
-                              )}
+                              className={classNames('bg-white sales-row h-auto hover:shadow-sales-row', {
+                                '!bg-light-gray': expandedRowIndex === index && staticRowsVisible
+                              })}
                             >
                               <td className="2xl:pl-[11px] pl-2 w-[0px] pr-2 2xl:pr-4 text-center">
                                 {/* badge */}
                                 <span
                                   className={classNames(
-                                    "text-center rounded-[10px] 2xl:text-lg text-sm p-1 xl:p-[10px] block xl:w-[74px]",
+                                    'text-center rounded-[10px] 2xl:text-lg text-sm p-1 xl:p-[10px] block xl:w-[74px]',
                                     {
-                                      "bg-pale-yellow": index === 2,
-                                      "bg-light-blue": index === 3 || index === 4 || index === 5,
-                                      "bg-light-purple": index === 6,
-                                      "bg-light-green":
-                                        index !== 2 &&
-                                        index !== 3 &&
-                                        index !== 4 &&
-                                        index !== 5 &&
-                                        index !== 6
+                                      'bg-pale-yellow': index === 2,
+                                      'bg-light-blue': index === 3 || index === 4 || index === 5,
+                                      'bg-light-purple': index === 6,
+                                      'bg-light-green':
+                                        index !== 2 && index !== 3 && index !== 4 && index !== 5 && index !== 6
                                     }
                                   )}
                                 >
@@ -214,12 +194,8 @@ function Sales() {
                                   <div className="flex items-center gap-[23px]">
                                     {/* seriol no */}
                                     <div className="flex items-center gap-1">
-                                      <span className="text-xs whitespace-nowrap font-medium text-grey">
-                                        序號:
-                                      </span>
-                                      <span className="text-sm font-medium text-grey">
-                                        {item.prodDetail.seriolNo}
-                                      </span>
+                                      <span className="text-xs whitespace-nowrap font-medium text-grey">序號:</span>
+                                      <span className="text-sm font-medium text-grey">{item.prodDetail.seriolNo}</span>
                                     </div>
                                     {/* location */}
                                     <div className="flex items-center gap-1">
@@ -242,8 +218,7 @@ function Sales() {
                                 {item.vintage}
                               </td>
                               <td className="py-2 px-2 font-bold text-dark-grey text-sm 2xl:text-lg">
-                                {item.totalAmount}{" "}
-                                <span className="!font-medium text-dark-grey">噸</span>
+                                {item.totalAmount} <span className="!font-medium text-dark-grey">噸</span>
                               </td>
                               <td className="py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]">
                                 <div className="w-full flex justify-center">
@@ -263,9 +238,7 @@ function Sales() {
                                   <Button
                                     className="whitespace-nowrap rounded-[7px] text-base !bg-pale-yellow hover:!bg-transparent hover:!border hover:!border-pale-yellow hover:!text-pale-yellow w-auto 2xl:min-w-[74px] !p-[5px]  2xl:!p-[7px]"
                                     onClick={() => {
-                                      setExpandedRowIndex((prevIndex) =>
-                                        prevIndex === index ? null : index
-                                      );
+                                      setExpandedRowIndex((prevIndex) => (prevIndex === index ? null : index));
                                       setStaticRowsVisible((prevVisible) => !prevVisible);
                                     }}
                                   >
@@ -298,7 +271,7 @@ function Sales() {
                               </td>
                             </tr>
                             {expandedRowIndex === index ? (
-                              ""
+                              ''
                             ) : (
                               <tr className="bg-neutral-150">
                                 <td colSpan={8} className="py-[6px]"></td>
@@ -366,99 +339,98 @@ function Sales() {
 
 export default Sales;
 
-const TABLE_HEAD = ["", "商品名稱", "Vintage", "總數量", "碳權證書", "設定交易"];
+const TABLE_HEAD = ['', '商品名稱', 'Vintage', '總數量', '碳權證書', '設定交易'];
 
 const TABLE_BODY = [
   {
     id: 1,
-    percent: "50%",
+    percent: '50%',
     prodDetail: {
-      prodName: "Australian Carbon Credit Units",
-      seriolNo: "fjgmvixkermy",
-      location: "非洲"
+      prodName: 'Australian Carbon Credit Units',
+      seriolNo: 'fjgmvixkermy',
+      location: '非洲'
     },
-    vintage: "1991/10/30",
-    totalAmount: "889",
-    carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png"
+    vintage: '1991/10/30',
+    totalAmount: '889',
+    carbonCertificate: '/images/sales/file_icon.png',
+    transaction: '/images/sales/settings_icon.png'
   },
   {
     id: 2,
-    percent: "11.2%",
+    percent: '11.2%',
     prodDetail: {
-      prodName: "Andes Inorganic Soil ACR Emission Reduction Tonnes Spot ProductCarbon",
-      seriolNo: "irdfgwxbmjug",
-      location: "印度"
+      prodName: 'Andes Inorganic Soil ACR Emission Reduction Tonnes Spot ProductCarbon',
+      seriolNo: 'irdfgwxbmjug',
+      location: '印度'
     },
-    vintage: "1991/06/06",
-    totalAmount: "100",
-    carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png"
+    vintage: '1991/06/06',
+    totalAmount: '100',
+    carbonCertificate: '/images/sales/file_icon.png',
+    transaction: '/images/sales/settings_icon.png'
   },
   {
     id: 3,
-    percent: "20.4%",
+    percent: '20.4%',
     prodDetail: {
-      prodName: "Global Emissions Offset Standard Spot Product",
-      seriolNo: "poudhrfxjufn",
-      location: "印度"
+      prodName: 'Global Emissions Offset Standard Spot Product',
+      seriolNo: 'poudhrfxjufn',
+      location: '印度'
     },
-    vintage: "1991/06/06",
-    totalAmount: "3",
-    carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png"
+    vintage: '1991/06/06',
+    totalAmount: '3',
+    carbonCertificate: '/images/sales/file_icon.png',
+    transaction: '/images/sales/settings_icon.png'
   },
   {
     id: 4,
-    percent: "9%",
+    percent: '9%',
     prodDetail: {
-      prodName: "Core Global Emissions Offset Trailing Spot Product",
-      seriolNo: "owieudmakqlw",
-      location: "印度"
+      prodName: 'Core Global Emissions Offset Trailing Spot Product',
+      seriolNo: 'owieudmakqlw',
+      location: '印度'
     },
-    vintage: "1991/10/30",
-    totalAmount: "23",
-    carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png"
+    vintage: '1991/10/30',
+    totalAmount: '23',
+    carbonCertificate: '/images/sales/file_icon.png',
+    transaction: '/images/sales/settings_icon.png'
   },
   {
     id: 5,
-    percent: "5%",
+    percent: '5%',
     prodDetail: {
-      prodName:
-        "Nature-Based Global Emissions Offset Trailing Standard Spot Product Standard Spot Product",
-      seriolNo: "lodismokeadw",
-      location: "非洲"
+      prodName: 'Nature-Based Global Emissions Offset Trailing Standard Spot Product Standard Spot Product',
+      seriolNo: 'lodismokeadw',
+      location: '非洲'
     },
-    vintage: "1991/10/30",
-    totalAmount: "89",
-    carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png"
+    vintage: '1991/10/30',
+    totalAmount: '89',
+    carbonCertificate: '/images/sales/file_icon.png',
+    transaction: '/images/sales/settings_icon.png'
   },
   {
     id: 6,
-    percent: "1.3%",
+    percent: '1.3%',
     prodDetail: {
-      prodName: "VCS Verified Carbon Units Spot Product",
-      seriolNo: "lekgmazoeldq",
-      location: "俄羅斯"
+      prodName: 'VCS Verified Carbon Units Spot Product',
+      seriolNo: 'lekgmazoeldq',
+      location: '俄羅斯'
     },
-    vintage: "1991/07/01",
-    totalAmount: "800",
-    carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "上架中"
+    vintage: '1991/07/01',
+    totalAmount: '800',
+    carbonCertificate: '/images/sales/file_icon.png',
+    transaction: '上架中'
   },
   {
     id: 7,
-    percent: "3.1%",
+    percent: '3.1%',
     prodDetail: {
-      prodName: "ACR Emission Reduction Tonnes Spot Product",
-      seriolNo: "irjgldemasil",
-      location: "台灣"
+      prodName: 'ACR Emission Reduction Tonnes Spot Product',
+      seriolNo: 'irjgldemasil',
+      location: '台灣'
     },
-    vintage: "1991/10/30",
-    totalAmount: "12",
-    carbonCertificate: "/images/sales/file_icon.png",
-    transaction: "/images/sales/settings_icon.png"
+    vintage: '1991/10/30',
+    totalAmount: '12',
+    carbonCertificate: '/images/sales/file_icon.png',
+    transaction: '/images/sales/settings_icon.png'
   }
 ];

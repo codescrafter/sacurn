@@ -1,11 +1,13 @@
-import { FC, useRef } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import useOutsideClick from "../hooks/useOutsideClick";
-import formatDate from "../helpers/formatDate";
-import HorizontalDivider from "./HorizontalDivider";
-import Button from "./Button";
-import { zhTW } from "date-fns/locale";
+import 'react-datepicker/dist/react-datepicker.css';
+
+import { zhTW } from 'date-fns/locale';
+import { FC, useRef } from 'react';
+import DatePicker from 'react-datepicker';
+
+import formatDate from '../helpers/formatDate';
+import useOutsideClick from '../hooks/useOutsideClick';
+import Button from './Button';
+import HorizontalDivider from './HorizontalDivider';
 
 interface IProps {
   startDate: Date | null;
@@ -16,7 +18,7 @@ interface IProps {
 }
 
 const DatePickerModal: FC<IProps> = ({ startDate, endDate, setDateRange, setOpen, open }) => {
-  const ref = useRef<any>();
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick(ref, () => {
     if (open) setOpen(false);
@@ -39,7 +41,7 @@ const DatePickerModal: FC<IProps> = ({ startDate, endDate, setDateRange, setOpen
         inline
         locale={zhTW}
       />
-      <HorizontalDivider className={"!w-[85%]"} />
+      <HorizontalDivider className={'!w-[85%]'} />
       {/* start & end date boxes */}
       <div className="flex items-center gap-1 my-3">
         <div className="flex flex-col">
@@ -59,9 +61,7 @@ const DatePickerModal: FC<IProps> = ({ startDate, endDate, setDateRange, setOpen
       <HorizontalDivider />
       {/* action buttons */}
       <div className="flex items-center space-x-2 mt-2 self-end pr-4">
-        <Button className={"!bg-neutral-150 !text-grey text-sm !rounded-xl !py-1 !px-3"}>
-          取消
-        </Button>
+        <Button className={'!bg-neutral-150 !text-grey text-sm !rounded-xl !py-1 !px-3'}>取消</Button>
         <Button className="!text-sm !rounded-xl !py-1 !px-3">查詢</Button>
       </div>
     </div>

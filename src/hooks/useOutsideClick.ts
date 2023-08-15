@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { MutableRefObject, useEffect } from 'react';
 
-const useOutsideClick = (refs: any, callback: () => void) => {
+const useOutsideClick = <T>(refs: MutableRefObject<T>, callback: () => void) => {
   const refsArray = Array.isArray(refs) ? refs : [refs];
 
   const handleClick = (event: MouseEvent) => {
@@ -18,10 +18,10 @@ const useOutsideClick = (refs: any, callback: () => void) => {
   };
 
   useEffect(() => {
-    document.addEventListener("click", handleClick);
+    document.addEventListener('click', handleClick);
 
     return () => {
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener('click', handleClick);
     };
   }, [refsArray, callback]);
 };
