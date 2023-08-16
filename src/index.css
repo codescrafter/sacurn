@@ -23,6 +23,12 @@
   color: white;
 }
 
+/* button transition */
+.btn-transition {
+  /* light animation effect */
+  transition: all 0.2s ease-in-out;
+}
+
 /* date picker */
 .react-datepicker {
   font-size: 0.8rem;
@@ -180,7 +186,7 @@
   border: 1px solid white;
   border-right: 0;
   position: absolute;
-  content: "";
+  content: '';
   top: 0;
   right: 0;
   transform: rotate(180deg);
