@@ -1,4 +1,6 @@
 import './index.css';
+import '@/libs/idPaas/idpaas.verify.js';
+import '@/libs/idPaas/tcw.api.js';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';

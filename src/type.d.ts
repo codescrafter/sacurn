@@ -42,3 +42,8 @@ export type ProductItemTypes = {
   description: string;
   imagePath: string;
 };
+
+export enum CardType {
+  GovernmentCard = '2',
+  MemberCard = '4'
+}
