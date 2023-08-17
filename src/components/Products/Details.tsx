@@ -10,6 +10,22 @@ const Details = () => {
       {/* First Col */}
       <div className="w-[38%]">
         <ImgSlider images={['/images/products/green/detail1.png', '/images/products/green/bird.png']} />
+        <div>
+          <h5 className="text-lg font-bold text-white ">Price</h5>
+          <div className="bg-transparent-grey rounded p-4 flex justify-center items-center">
+            <div className="flex justify-evenly items-start">
+              <div className="flex items-baseline text-white">
+                <span className="text-2xl">USD</span>
+                <b className="text-[50px] font-semibold">5.00~5.00</b>
+                <span>/Tonne</span>
+              </div>
+              <div>
+                <img src="/images/products/green/dollar-2.svg" alt="sacurn" />
+              </div>
+            </div>
+            <p className="text-sm">Ranges from vintage 2017</p>
+          </div>
+        </div>
       </div>
       {/* Second Col */}
       <div className="w-[62%]">

@@ -178,7 +178,8 @@ module.exports = {
       yellow: '#FAC91C',
       blue: '#1076B4',
       'card-bg': '#ffffffcc',
-      'silk-blue': '#5195B2'
+      'silk-blue': '#5195B2',
+      'transparent-grey': '#c6c6c640'
     }
   },
   plugins: []
