@@ -177,7 +177,8 @@ module.exports = {
       'light-gray': '#F1F4F5',
       yellow: '#FAC91C',
       blue: '#1076B4',
-      'card-bg': '#ffffffcc'
+      'card-bg': '#ffffffcc',
+      'silk-blue': '#5195B2'
     }
   },
   plugins: []

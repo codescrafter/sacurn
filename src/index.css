@@ -22,6 +22,20 @@
   box-sizing: border-box;
 }
 
+/* product-clip-path */
+.product-clip-path {
+  clip-path: polygon(100% 0, 91% 100%, 0 100%, 0 0);
+}
+/* product list slider */
+.product-list-slider {
+  fill: rgba(217, 217, 217, 0.3);
+  mix-blend-mode: color-dodge;
+  box-shadow: 0px 0px 3.857973337173462px 0px #ffee93 inset;
+  filter: drop-shadow(0px 0px 3.857973337173462px rgba(255, 255, 255, 0.35));
+}
+.slick-button-before:before {
+  display: none !important;
+}
 /* button transition */
 .btn-transition {
   /* light animation effect */
