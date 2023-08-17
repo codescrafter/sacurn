@@ -13,6 +13,7 @@ import OperationRecord from '@/pages/OperationRecord';
 import Sales from '@/pages/Sales';
 
 import CompanyRegistration from './pages/CompanyRegistration';
+import OperatorSignUp from './pages/OperatorSignup';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: '/sales',
     element: <Sales />
+  },
+  {
+    path: '/sign-up',
+    element: <OperatorSignUp />
   },
   {
     path: '/company-registration',
