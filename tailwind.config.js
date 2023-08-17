@@ -66,6 +66,7 @@ module.exports = {
       fontSize: {
         xxs: ['8px', '12px'],
         xms: ['10px', '14px'],
+        mdbase: ['15px', '23px'],
         mdlg: ['17px', '26px'],
         '1.5xl': ['22px', '30px'],
         '2.5xl': ['27px', '34px'],
@@ -83,7 +84,9 @@ module.exports = {
         'stoptrading-btn': '0px 1px 3px 0px rgba(0, 0, 0, 0.30)',
         'graph-card': '1px 1px 26px 0px rgba(0, 0, 0, 0.23)',
         'graph-btn': '0px 1.5px 7.5px 0px rgba(0, 0, 0, 0.19)',
-        'progress-bar': '0px 3px 2px 0px rgba(0, 0, 0, 0.15)'
+        'progress-bar': '0px 3px 2px 0px rgba(0, 0, 0, 0.15)',
+        'company-registration-input':
+          '0px 21.893245697021484px 63.4149169921875px 0px #F0F0F0, 0px 6.039515972137451px 23.40312385559082px 0px rgba(0, 0, 0, 0.05)'
       },
       backgroundImage: {
         'login-white': 'linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)',
@@ -140,6 +143,8 @@ module.exports = {
         19: '76px',
         19.7: '79px',
         22.5: '90px',
+        23.2: '93px',
+        26.7: '107px',
         37: '148px',
         47.2: '189px',
         51: '204px',
@@ -174,7 +179,9 @@ module.exports = {
       'light-red': '#F27979',
       'light-blue': '#1D70BD',
       'light-purple': '#C4B0FD',
-      'light-gray': '#F1F4F5'
+      'light-gray': '#F1F4F5',
+      'light-trans-grey': 'rgba(179, 180, 180, 0.30)',
+      smoke: '#F6F6F6'
     }
   },
   plugins: []
