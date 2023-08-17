@@ -5,49 +5,52 @@ import CustomRating from '../Rating';
 
 const Tile = () => {
   return (
-    <div className={classNames('bg-card-bg p-4 rounded-2xl flex justify-between items-center')}>
+    <div className={classNames('bg-card-bg p-2 px-4 rounded-2xl flex justify-between items-center')}>
       <div className="flex gap-5">
         {/* first col */}
-        <div className="w-[300px] h-[190px]">
-          <img src="/images/products/green/frog.png" alt="sacurn" />
+        <div className="w-[340px] h-[240px]">
+          <img src="/images/products/green/frog.png" alt="sacurn" className="h-full w-full object-contain" />
         </div>
         {/* second col */}
-        <div>
+        <div className="py-2">
           <h3 className="text-lg font-bold text-black">(VCS-985)Cordillera Azul REDD+ Product</h3>
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-.5 items-center mb-1">
             <img src="/images/products/green/location.svg" alt="location" className="inline-block mr-2" />
             <p className="text-sm text-grey">Peru</p>
           </div>
-          <div className="inline-block bg-white rounded-full px-5 py-2 text-blue text-sm font-bold">Rating A</div>
-          <div className="flex items-center gap-3 bg-red-200 rounded-full px-5 py-2 text-blue text-sm font-bold">
+          <div className="inline-block bg-white rounded-full px-5 py-1 text-blue text-sm font-bold mb-2">Rating A</div>
+          <br />
+          <div className="inline-flex items-center bg-white gap-1 bg-red-200 rounded-full px-5 py-1 text-blue text-sm font-bold">
             Co-Benefit
             <CustomRating />
           </div>
-          <div>
-            <div className="flex gap-10 items-center mb-2">
-              <p className="font-xs text-grey">Standard</p>
-              <p className="text-xs text-black">Verified Carbon Standard</p>
+          <div className="mt-7">
+            <div className="flex gap-10 items-center">
+              <p className="font-xs text-grey w-[25%]">Standard</p>
+              <p className="text-xs text-black w-[75%]">Verified Carbon Standard</p>
             </div>
-            <div className="flex gap-10 items-center mb-2">
-              <p className="font-xs text-grey">Type</p>
-              <p className="text-xs text-black">REDD+</p>
+            <div className="flex gap-10 items-center">
+              <p className="font-xs text-grey w-[25%]">Type</p>
+              <p className="text-xs text-black w-[75%]">REDD+</p>
             </div>
-            <div className="flex gap-10 items-center mb-2">
-              <p className="font-xs text-grey">Vintage</p>
-              <p className="text-xs text-black">2017</p>
+            <div className="flex gap-10 items-center">
+              <p className="font-xs text-grey w-[25%]">Vintage</p>
+              <p className="text-xs text-black w-[75%]">2017</p>
             </div>
           </div>
         </div>
       </div>
       {/* third col */}
-      <div className="flex flex-col justify-around gap-7 items-end">
+      <div className="flex flex-col justify-between items-end h-full py-2">
         <div className="flex items-center gap-1">
           <p className="text-sm text-black">USD</p>
           <p className="text-xl font-bold text-black">5.00~10.00</p>
-          <p className="text-[10px] text-black">/ tonne</p>
+          <p className="text-[10px] text-black">/Tonne</p>
         </div>
-        <img src="/images/products/green/dollar.svg" alt="sacurn" />
-        <img src="/images/products/green/start-plus.svg" alt="sacurn" />
+        <div className="h-full flex flex-col items-start justify-evenly">
+          <img src="/images/products/green/dollar.svg" alt="sacurn" />
+          <img src="/images/products/green/start-plus.svg" alt="sacurn" />
+        </div>
         <CustomButton variant="primary" className="w-full flex items-center gap-2 justify-center">
           details
           <img src="/images/products/green/arrow.svg" alt="arrow-right" className="ml-2" />

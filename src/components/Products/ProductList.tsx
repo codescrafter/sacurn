@@ -6,7 +6,7 @@ import Tile from './Tile';
 
 const ProductList = () => {
   return (
-    <div className={classNames('flex px-10')}>
+    <div className={classNames('flex pr-10')}>
       {/* first col */}
       <div className="w-[42%]">
         <div className="absolute top-0 h-screen">
@@ -39,16 +39,18 @@ const ProductList = () => {
               }}
             />
           </div>
-          <div>
+          <div className="text-white">
             Sort: Low to High <KeyboardArrowDownIcon />
           </div>
         </div>
-        <div className="flex flex-col gap-2 py-5 overflow-y-auto h-[78vh]">
-          <Tile />
-          <Tile />
-          <Tile />
-          <Tile />
-          <Tile />
+        <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 overflow-scroll overflow-x-hidden">
+          <div className="flex flex-col gap-5 h-[70vh] overflow-hidden">
+            <Tile />
+            <Tile />
+            <Tile />
+            <Tile />
+            <Tile />
+          </div>
         </div>
       </div>
     </div>
