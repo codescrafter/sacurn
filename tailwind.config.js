@@ -63,6 +63,9 @@ module.exports = {
           inverted: '#000000' // black
         }
       },
+      borderRadius: {
+        mdlg: '8px'
+      },
       fontSize: {
         xxs: ['8px', '12px'],
         xms: ['10px', '14px'],
@@ -86,7 +89,10 @@ module.exports = {
         'graph-btn': '0px 1.5px 7.5px 0px rgba(0, 0, 0, 0.19)',
         'progress-bar': '0px 3px 2px 0px rgba(0, 0, 0, 0.15)',
         'company-registration-input':
-          '0px 21.893245697021484px 63.4149169921875px 0px #F0F0F0, 0px 6.039515972137451px 23.40312385559082px 0px rgba(0, 0, 0, 0.05)'
+          '0px 21.893245697021484px 63.4149169921875px 0px #F0F0F0, 0px 6.039515972137451px 23.40312385559082px 0px rgba(0, 0, 0, 0.05)',
+        'operator-signup-input': '0px 8px 31px 0px rgba(0, 0, 0, 0.08)',
+        'operator-signup-button':
+          '1.1420453786849976px 1.1877270936965942px 8.039999008178711px 0px rgba(31, 54, 68, 0.90), -3.4744720458984375px -1.7372360229492188px 3.4744720458984375px 0px rgba(183, 215, 235, 0.60)'
       },
       backgroundImage: {
         'login-white': 'linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)',
@@ -97,12 +103,14 @@ module.exports = {
         'bottom-note': 'linear-gradient(270deg,#005487 0%,transparent 100%)',
         slider:
           'linear-gradient(90deg, rgba(217, 217, 217, 0.1) 0%, rgba(217, 217, 217, 0.5) 48.44%, rgba(217, 217, 217, 0.1) 100%)',
-        'multi-slide': 'linear-gradient(89.71deg, #D9D9D9 69.19%, rgba(217, 217, 217, 0) 99.76%)'
+        'multi-slide': 'linear-gradient(89.71deg, #D9D9D9 69.19%, rgba(217, 217, 217, 0) 99.76%)',
+        'operator-signup': 'linear-gradient(179deg, #32769F 0%, #015588 100%)'
       },
       blur: {
         xxs: '0.5px'
       },
       spacing: {
+        0.3: '1px',
         0.5: '2px',
         0.7: '3px',
         1.2: '5px',
@@ -124,6 +132,7 @@ module.exports = {
         6.2: '25px',
         6.5: '26px',
         6.7: '27px',
+        7.2: '29px',
         7.5: '30px',
         7.7: '31px',
         8.2: '33px',
@@ -135,9 +144,11 @@ module.exports = {
         12.7: '51px',
         13: '52px',
         13.2: '53px',
+        15: '60px',
         15.7: '63px',
         16.7: '67px',
         17: '68px',
+        17.5: '70px',
         17.7: '71px',
         18: '72px',
         19: '76px',
@@ -146,11 +157,13 @@ module.exports = {
         23.2: '93px',
         26.7: '107px',
         37: '148px',
+        45: '180px',
         47.2: '189px',
         51: '204px',
         53: '212px',
         53.5: '214px',
         59.2: '237px',
+        64: '256px',
         74.7: '299px',
         100: '400px'
       }
@@ -181,6 +194,7 @@ module.exports = {
       'light-purple': '#C4B0FD',
       'light-gray': '#F1F4F5',
       'light-trans-grey': 'rgba(179, 180, 180, 0.30)',
+      milky: 'rgba(255, 255, 255, 0.80)',
       smoke: '#F6F6F6'
     }
   },
