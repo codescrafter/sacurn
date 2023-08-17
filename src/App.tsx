@@ -53,7 +53,7 @@ const router = createBrowserRouter([
     element: <Sales />
   },
   {
-    path: '/operator-signup',
+    path: '/sign-up',
     element: <OperatorSignUp />
   },
   {
