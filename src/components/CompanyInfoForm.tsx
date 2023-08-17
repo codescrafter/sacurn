@@ -130,5 +130,5 @@ export default CompanyInfoForm;
 
 const Style =
   'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6 px-2 py-2.5 text-black min-[1550px]:text-mdsm min-[1200px]:text-xms text-xxs outline-none';
-const address_row_1 = ['鄰', '巷', '弄', '街'];
-const address_row_2=['','','','']
+// const address_row_1 = ['鄰', '巷', '弄', '街'];
+// const address_row_2=['','','','']
