@@ -44,7 +44,7 @@ const ProductList = () => {
           </div>
         </div>
         <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 overflow-scroll overflow-x-hidden">
-          <div className="flex flex-col gap-5 h-[70vh] overflow-hidden">
+          <div className="flex flex-col gap-5 h-[60vh] 2xl:h-[70vh]">
             <Tile />
             <Tile />
             <Tile />

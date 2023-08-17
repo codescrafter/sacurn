@@ -27,15 +27,15 @@ const Tile = () => {
           <div className="mt-7">
             <div className="flex gap-10 items-center">
               <p className="font-xs text-grey w-[25%]">Standard</p>
-              <p className="text-xs text-black w-[75%]">Verified Carbon Standard</p>
+              <p className="text-sm text-black w-[75%]">Verified Carbon Standard</p>
             </div>
             <div className="flex gap-10 items-center">
               <p className="font-xs text-grey w-[25%]">Type</p>
-              <p className="text-xs text-black w-[75%]">REDD+</p>
+              <p className="text-sm text-black w-[75%]">REDD+</p>
             </div>
             <div className="flex gap-10 items-center">
               <p className="font-xs text-grey w-[25%]">Vintage</p>
-              <p className="text-xs text-black w-[75%]">2017</p>
+              <p className="text-sm text-black w-[75%]">2017</p>
             </div>
           </div>
         </div>
