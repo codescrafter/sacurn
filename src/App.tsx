@@ -14,6 +14,7 @@ import Sales from '@/pages/Sales';
 
 import CompanyRegistration from './pages/CompanyRegistration';
 import OperatorSignUp from './pages/OperatorSignup';
+import WishList from './pages/Wishlist';
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   {
     path: '/company-registration',
     element: <CompanyRegistration />
+  },
+  {
+    path: '/wishlist',
+    element: <WishList />
   }
 ]);
 

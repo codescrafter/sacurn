@@ -74,7 +74,8 @@ module.exports = {
         '1.5xl': ['22px', '30px'],
         '2.5xl': ['27px', '34px'],
         '3.5xl': ['33px', '38px'],
-        '4.5xl': ['44px', '44px']
+        '4.5xl': ['44px', '44px'],
+        '5.2xl': ['50px', '50px']
       },
       boxShadow: {
         'login-box':
@@ -104,7 +105,8 @@ module.exports = {
         slider:
           'linear-gradient(90deg, rgba(217, 217, 217, 0.1) 0%, rgba(217, 217, 217, 0.5) 48.44%, rgba(217, 217, 217, 0.1) 100%)',
         'multi-slide': 'linear-gradient(89.71deg, #D9D9D9 69.19%, rgba(217, 217, 217, 0) 99.76%)',
-        'operator-signup': 'linear-gradient(179deg, #32769F 0%, #015588 100%)'
+        'operator-signup': 'linear-gradient(179deg, #32769F 0%, #015588 100%)',
+        'drop-down': "url('/public/images/wishlist/dropDown.png')"
       },
       blur: {
         xxs: '0.5px'
@@ -195,7 +197,8 @@ module.exports = {
       'light-gray': '#F1F4F5',
       'light-trans-grey': 'rgba(179, 180, 180, 0.30)',
       milky: 'rgba(255, 255, 255, 0.80)',
-      smoke: '#F6F6F6'
+      smoke: '#F6F6F6',
+      'trans-grey': 'rgba(255, 255, 255, 0.30)'
     }
   },
   plugins: []
