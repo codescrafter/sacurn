@@ -73,8 +73,6 @@
   },
   "engines": {
     "node": "^18.16.0",
-    // "yarn": "^1.22.19"
-    // downgrading for vercel deployment
     "yarn": "^1.22.17"
   }
 }
