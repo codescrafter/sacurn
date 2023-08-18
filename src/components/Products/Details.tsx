@@ -55,6 +55,14 @@ const Details = () => {
       <div className="w-[62%]">
         <div>
           <ProductSlider />
+          <div className="">
+            <div className="flex items-start gap-2 pr-8 mt-5">
+              <h1 className="text-[32px] font-semibold text-white">
+                (VCS-985)Cordillera Azul REDD+ ProductCordillera Azul REDD+ Product
+              </h1>
+              <img src="/images/products/green/start-gold.svg" alt="sacurn" />
+            </div>
+          </div>
         </div>
       </div>
     </div>

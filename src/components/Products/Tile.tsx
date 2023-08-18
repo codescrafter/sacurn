@@ -1,9 +1,11 @@
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 import CustomButton from '../CustomButton';
 import CustomRating from '../Rating';
 
 const Tile = () => {
+  const navigate = useNavigate();
   return (
     <div className={classNames('bg-card-bg p-2 px-4 rounded-2xl flex justify-between items-center')}>
       <div className="flex gap-5">
@@ -51,7 +53,13 @@ const Tile = () => {
           <img src="/images/products/green/dollar.svg" alt="sacurn" />
           <img src="/images/products/green/start-plus.svg" alt="sacurn" />
         </div>
-        <CustomButton variant="primary" className="w-full flex items-center gap-2 justify-center">
+        <CustomButton
+          variant="primary"
+          className="w-full flex items-center gap-2 justify-center"
+          onClick={() => {
+            navigate('/product-detail/1');
+          }}
+        >
           details
           <img src="/images/products/green/arrow.svg" alt="arrow-right" className="ml-2" />
         </CustomButton>
