@@ -15,7 +15,9 @@ const Details = () => {
     <div className="flex mt-4">
       {/* First Col */}
       <div className="w-[38%]">
-        <ImgSlider images={['/images/products/green/detail1.png', '/images/products/green/bird.png']} />
+        <div className="relative z-[2]">
+          <ImgSlider images={['/images/products/green/detail1.png', '/images/products/green/bird.png']} />
+        </div>
         <div className="pl-5 pt-7">
           {/* Price */}
           <h5 className="text-lg font-bold text-white mb-2 pl-3">Price</h5>
@@ -89,7 +91,9 @@ const Details = () => {
           </CustomButton>
         </div>
         <div>
-          <ProductSlider />
+          <div className="relative z-[1] w-[103%] left-[-32px]">
+            <ProductSlider />
+          </div>
           <div className="">
             <div className="flex items-start gap-2 pr-8 mt-5">
               <h1 className="text-[32px] font-semibold text-white">

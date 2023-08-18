@@ -42,19 +42,42 @@ const ProductSlider = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
     initialSlide: 0,
     slidesToShow: 5,
     slidesToScroll: 1,
+    // className: 'center',
+    // centerMode: true,
+    // centerPadding: '30px',
+    // autoplay: true,
+    // speed: 3000,
+    // autoplaySpeed: 3000,
+    // cssEase: 'linear',
+    pauseOnHover: true,
     nextArrow: <SampleNextArrow style={{ display: 'none' }} />,
-    prevArrow: <SamplePrevArrow />
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1700,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 1380,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
   return (
-    <Slider {...settings} className="product-list-slider">
+    <Slider {...settings} className="product-list-slider pl-1.5">
       {[1, 2, 3, 4, 5, 6, 7].map((item, index) => (
         <div key={index} className="m-4">
-          <div className="border-2 border-white max-w-[200px] rounded-xl p-2  flex justify-center items-center bg-white relative z-10">
-            <h3 className="text-black">{'(VCS-985)Cordillera Azul REDD+ Prodct'}</h3>
+          <div className="border-2 border-white max-w-[200px] rounded-xl p-2  flex justify-center items-center bg-white">
+            <h3 className="text-silk-blue font-semibold">{'(VCS-985)Cordillera Azul REDD+ Prodct'}</h3>
           </div>
         </div>
       ))}
