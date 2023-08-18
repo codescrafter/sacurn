@@ -43,15 +43,14 @@ const ProductSlider = () => {
     dots: false,
     infinite: true,
     speed: 500,
+    initialSlide: 0,
     slidesToShow: 5,
     slidesToScroll: 1,
-    innerWidth: 100,
     nextArrow: <SampleNextArrow style={{ display: 'none' }} />,
-    // hide prevArrow on the slider
     prevArrow: <SamplePrevArrow />
   };
   return (
-    <Slider {...settings} className="product-list-slider border-2 w-auto rounded-lg flex gap-3">
+    <Slider {...settings} className="product-list-slider">
       {[1, 2, 3, 4, 5, 6, 7].map((item, index) => (
         <div key={index} className="m-4">
           <div className="border-2 border-white max-w-[200px] rounded-xl p-2  flex justify-center items-center bg-white relative z-10">

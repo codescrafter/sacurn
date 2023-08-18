@@ -13,14 +13,14 @@ const ProductDetail = () => {
         </div>
         <div className="border border-white rounded grid grid-cols-3">
           <div className="border-r border-white col-span-2">
-            <div className="grid grid-cols-3 gap-7 pb-7 p-4">
+            <div className="grid grid-cols-3 gap-4 p-4">
               {BASIC_DETAILS.map((item) => (
                 <Item key={item.title} title={item.title} value={item.value} />
               ))}
             </div>
             <Divider />
-            <div className="pt-7">
-              <div className="grid grid-cols-2 gap-7 p-4">
+            <div className="">
+              <div className="grid grid-cols-2 gap-4 p-4">
                 {STANDARD_DETAILS.map((item) => (
                   <Item key={item.title} title={item.title} value={item.value} description={item.description} />
                 ))}
@@ -30,12 +30,12 @@ const ProductDetail = () => {
 
           <div className="">
             <div className="pt-4 px-6">
-              <Item title={'Volume Issued(2016+)'} value={'12,285,949'} className="pb-7" />
-              <Item title={'Avg. Annual Emission Reduction'} value={'1,575,268'} className="pb-7" />
+              <Item title={'Volume Issued(2016+)'} value={'12,285,949'} className="pb-4" />
+              <Item title={'Avg. Annual Emission Reduction'} value={'1,575,268'} className="pb-4" />
               <Item
                 title={'% of Issued credits Retired (2016+)'}
                 value={'2016 - 52%  2017 - 04%  2018 - 68%  2019 - 25%  2020 - 75%'}
-                className="pb-7"
+                className="pb-4"
               />
             </div>
             <Divider />

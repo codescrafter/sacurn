@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
+import CustomButton from '../CustomButton';
 import BenefitImpact from './BenefitImpact';
 import CartonImpact from './CartonImpact';
 import ProductDetail from './ProductDetail';
@@ -58,6 +59,35 @@ const Details = () => {
       </div>
       {/* Second Col */}
       <div className="w-[62%]">
+        <div className="px-10 pb-4 flex gap-6 items-center justify-end">
+          <CustomButton
+            variant="rounded-full"
+            className={classNames('bg-dark-green', {
+              ['text-white w-[205px] h-7 flex justify-center items-center']: true,
+              ['hidden w-90 h-4']: false
+            })}
+          >
+            綠碳
+          </CustomButton>
+          <CustomButton
+            variant="rounded-full"
+            className={classNames('bg-yellow', {
+              ['text-white w-[205px] h-7 flex justify-center items-center']: true,
+              ['hidden w-90 h-4']: false
+            })}
+          >
+            黃碳
+          </CustomButton>
+          <CustomButton
+            variant="rounded-full"
+            className={classNames('bg-blue', {
+              ['text-white w-[205px] h-7 flex justify-center items-center']: true,
+              ['hidden w-90 h-4']: false
+            })}
+          >
+            藍碳
+          </CustomButton>
+        </div>
         <div>
           <ProductSlider />
           <div className="">
@@ -206,8 +236,8 @@ const ImgSlider = ({ images }: SliderIProps) => {
     afterChange: (currSlide: number) => setCurrentSlide(currSlide)
   };
   return (
-    <div className="relative h-[312px]">
-      <div className="absolute z-20 left-0 bottom-12 right-0 gap-1.5 flex pr-[30%] pl-6">
+    <div className="relative h-[285px]">
+      <div className="absolute z-20 left-0 bottom-4 right-0 gap-1.5 flex pr-[30%] pl-6">
         {['01', '02', '03'].map((item, index) => (
           <div
             key={index}
