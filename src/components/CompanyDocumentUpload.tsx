@@ -3,12 +3,12 @@ import { FieldValues, UseFormRegister } from 'react-hook-form';
 function CompanyDocumentUpload({ register }: { register: UseFormRegister<FieldValues> }) {
   const [documentQuantity, setDocumentQuantity] = useState(1);
   return (
-    <div className="flex flex-col flex-wrap w-full ml-3">
+    <div className="flex flex-col w-full ml-3 max">
       <p className="text-black min-[1500px]:text-base text-sm">
         影業登記文件檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
       </p>
       <p className="text-navy-blue underline">了解營業登記文件上傳...</p>
-      <div className="flex flex-row gap-4 mt-2">
+      <div className="flex flex-row flex-wrap max-w-[360px] gap-4 mt-2">
         {Array.from({ length: documentQuantity }, (value, index) => index + 1).map((item) => {
           return (
             <div className="flex flex-col rounded-xl border items-center border-silverstone h-23.2 w-26.7">

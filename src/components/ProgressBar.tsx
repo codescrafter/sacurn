@@ -15,7 +15,7 @@ function ProgressBar({ steps, stepNumber, stepName }: ProgressBarProps) {
           return (
             <div className="flex flex-col relative items-center">
               {stepNumber === index + 1 && (
-                <p className="text-navy-blue text-2.5xl absolute w-max -mt-10">{stepName}</p>
+                <p className="text-navy-blue text-2.5xl absolute w-max font-bold -mt-10">{stepName}</p>
               )}
               <div className="h-10 w-10 flex items-center justify-center rounded-full bg-navy-blue">
                 {stepNumber >= index + 1 && <div className="bg-white rounded-full h-6 w-6"></div>}

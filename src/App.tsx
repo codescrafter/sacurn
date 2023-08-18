@@ -5,16 +5,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProductDetail from '@/components/ProductDetail';
 import AllProducts from '@/pages/AllProducts';
 import Cart from '@/pages/Cart';
+import CompanyRegistration from '@/pages/CompanyRegistration';
 import Dashboard from '@/pages/Dashboard';
 import HistoricalOrder from '@/pages/HistoricalOrder';
 import Login from '@/pages/Login';
 import NewsPage from '@/pages/NewsPage';
 import OperationRecord from '@/pages/OperationRecord';
+import OperatorSignUp from '@/pages/OperatorSignup';
 import Sales from '@/pages/Sales';
-
-import CompanyRegistration from './pages/CompanyRegistration';
-import OperatorSignUp from './pages/OperatorSignup';
-import WishList from './pages/Wishlist';
+import WishList from '@/pages/Wishlist';
 
 const router = createBrowserRouter([
   {
