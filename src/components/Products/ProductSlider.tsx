@@ -40,10 +40,10 @@ const ProductSlider = () => {
   }
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     innerWidth: 100,
     nextArrow: <SampleNextArrow style={{ display: 'none' }} />,
@@ -51,13 +51,12 @@ const ProductSlider = () => {
     prevArrow: <SamplePrevArrow />
   };
   return (
-    <Slider {...settings} className="product-list-slider border-2 w-auto py-3 rounded-lg">
-      {[1, 2, 3, 4, 5, 6].map((item, index) => (
-        <div
-          key={index}
-          className="border-2 border-white max-w-[200px] rounded-xl p-2  flex justify-center items-center bg-white relative z-10"
-        >
-          <h3 className="text-black">{'(VCS-985)Cordillera Azul REDD+ Prodct'}</h3>
+    <Slider {...settings} className="product-list-slider border-2 w-auto rounded-lg flex gap-3">
+      {[1, 2, 3, 4, 5, 6, 7].map((item, index) => (
+        <div key={index} className="m-4">
+          <div className="border-2 border-white max-w-[200px] rounded-xl p-2  flex justify-center items-center bg-white relative z-10">
+            <h3 className="text-black">{'(VCS-985)Cordillera Azul REDD+ Prodct'}</h3>
+          </div>
         </div>
       ))}
     </Slider>

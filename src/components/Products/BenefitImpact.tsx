@@ -95,5 +95,17 @@ const IMPACT_DATA = [
     description: 'Achieve gender equality and empower all women and girls.',
     link: '/',
     image: '/images/products/green/impact1.png'
+  },
+  {
+    title: 'SDG 6 Gender Equality',
+    description: 'Achieve gender equality and empower all women and girls.',
+    link: '/',
+    image: '/images/products/green/impact1.png'
+  },
+  {
+    title: 'SDG 7 Gender Equality',
+    description: 'Achieve gender equality and empower all women and girls.',
+    link: '/',
+    image: '/images/products/green/impact1.png'
   }
 ];
