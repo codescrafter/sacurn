@@ -206,6 +206,7 @@ module.exports = {
       'transparent-black': '#1b1b1b4d',
       'card-bg-light': '#c6c6c626',
       cyan: '#7EF1F1',
+      'text-light': '#DCDCDC',
       'trans-grey': 'rgba(255, 255, 255, 0.30)'
     }
   },

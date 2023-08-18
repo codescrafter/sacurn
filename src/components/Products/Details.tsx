@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
+import BenefitImpact from './BenefitImpact';
 import CartonImpact from './CartonImpact';
 import ProductDetail from './ProductDetail';
 import ProductSlider from './ProductSlider';
@@ -162,7 +163,15 @@ const Details = () => {
                       <CartonImpact />
                     </div>
                   )}
-                  {openTab === 3 && <div className={openTab === 3 ? 'block' : 'hidden'}>Tab 3</div>}
+                  {openTab === 3 && (
+                    <div
+                      className={classNames('block', {
+                        hidden: openTab !== 3
+                      })}
+                    >
+                      <BenefitImpact />
+                    </div>
+                  )}
                 </div>
               </div>
               {/* Body */}
