@@ -165,6 +165,7 @@
 /* width */
 .yellowScrollNoBg::-webkit-scrollbar {
   width: 5px;
+  background: #c6c6c659;
 }
 
 /* Track */
@@ -236,4 +237,28 @@
 
 .formGrid {
   grid-template-columns: max-content 1fr;
+}
+
+/* scroll right */
+.scroll-right {
+  direction: rtl;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffd600 transparent;
+  scrollbar-gutter: stable;
+}
+.scroll-right::-webkit-scrollbar {
+  width: 5px;
+  background: #c6c6c640;
+}
+.scroll-right::-webkit-scrollbar-track {
+  /* background: transparent; */
+  border-radius: 5px;
+}
+.scroll-right::-webkit-scrollbar-thumb {
+  background: #ffd600;
+  border-radius: 5px;
+}
+.direction-ltr {
+  direction: ltr;
 }
