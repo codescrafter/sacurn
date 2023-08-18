@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom';
+
 const CartonImpact = () => {
   return (
     <div className="grid grid-cols-2 gap-6">
       {/* First col */}
-      <div className="bg-[url('../public/images/products/green/map.png')] h-[400px] w-full">
+      <div className="bg-[url('../public/images/products/green/map.png')] h-full w-full">
         <div className="rounded bg-light-grey h-8 w-[190px] my-3 mx-4"></div>
       </div>
       {/* Second col */}
@@ -18,7 +20,7 @@ const CartonImpact = () => {
           </p>
         </div>
         <div className="p-2 bg-[#c6c6c659] rounded  mt-3">
-          <div className="scroll-right  p-2 h-[233px] ">
+          <div className="scroll-right  p-2 h-[213px] ">
             <p className="direction-ltr text-lg text-white text-justify px-2">
               The risk of the ‘net-zero’ commitment accelerating runaway climate change is aggravated when companies
               rely on carbon credits from so-called ‘nature-based solutions’ projects – storage of carbon in soils,
@@ -30,6 +32,16 @@ const CartonImpact = () => {
               trees.
             </p>
           </div>
+        </div>
+        <div className="mt-3 border-l-[3px] border-[#c6c6c659] p-2">
+          <p className="text-white text-justify pl-4 pb-2">
+            An article recently published in the academic journal Science shows that in “some dryland regions, the
+            albedo warming effect of afforestation may strongly outweigh the cooling effect of carbon sequestration
+            owing to the change from bright desert land to darker dense forest cover.”
+          </p>
+          <Link to="/" className="text-pale-yellow text-sm pl-4">
+            {'Learn More About Project Risk Rating >'}
+          </Link>
         </div>
       </div>
     </div>

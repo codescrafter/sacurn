@@ -248,7 +248,7 @@
   scrollbar-gutter: stable;
 }
 .scroll-right::-webkit-scrollbar {
-  width: 5px;
+  width: 7px;
   background: #c6c6c640;
 }
 .scroll-right::-webkit-scrollbar-track {
@@ -257,7 +257,7 @@
 }
 .scroll-right::-webkit-scrollbar-thumb {
   background: #ffd600;
-  border-radius: 5px;
+  border-radius: 7px;
 }
 .direction-ltr {
   direction: ltr;
