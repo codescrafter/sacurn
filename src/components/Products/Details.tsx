@@ -2,9 +2,12 @@ import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
+import ProductDetail from './ProductDetail';
 import ProductSlider from './ProductSlider';
 
 const Details = () => {
+  const [openTab, setOpenTab] = useState(1);
+
   return (
     <div className="flex mt-4">
       {/* First Col */}
@@ -61,6 +64,95 @@ const Details = () => {
                 (VCS-985)Cordillera Azul REDD+ ProductCordillera Azul REDD+ Product
               </h1>
               <img src="/images/products/green/start-gold.svg" alt="sacurn" />
+            </div>
+            {/* Product Details Tabs */}
+            <div className="px-5">
+              <div className="">
+                <ul role="tablist" className="mb-4 rounded-full inline-flex h-10 bg-yellow-500 w-full">
+                  <li
+                    className={classNames('inline-block w-1/2 h-full text-center rounded-full', {
+                      'bg-white': openTab === 1
+                    })}
+                  >
+                    <a
+                      className={classNames(
+                        'flex justify-center items-center rounded-full h-full py-2 text-xl font-medium',
+                        {
+                          'text-dark-grey': openTab === 1,
+                          'text-white underline': openTab !== 1
+                        }
+                      )}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenTab(1);
+                      }}
+                      data-toggle="tab"
+                      href="#current campaigns"
+                      role="tablist"
+                    >
+                      Product Details
+                    </a>
+                  </li>
+                  <li
+                    className={classNames('inline-block w-1/2 h-full text-center rounded-full', {
+                      'bg-white': openTab === 2
+                    })}
+                  >
+                    <a
+                      className={classNames(
+                        'flex justify-center items-center rounded-full h-full py-2 text-xl font-medium',
+                        {
+                          'text-dark-grey': openTab === 2,
+                          'text-white underline': openTab !== 2
+                        }
+                      )}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenTab(2);
+                      }}
+                      data-toggle="tab"
+                      href="past campaigns"
+                      role="tablist"
+                    >
+                      Carton Impact & Performance
+                    </a>
+                  </li>
+                  <li
+                    className={classNames('inline-block w-1/2 h-full text-center rounded-full', {
+                      'bg-white': openTab === 3
+                    })}
+                  >
+                    <a
+                      className={classNames(
+                        'flex justify-center items-center rounded-full h-full py-2 text-xl font-medium',
+                        {
+                          'text-dark-grey': openTab === 3,
+                          'text-white underline': openTab !== 3
+                        }
+                      )}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenTab(3);
+                      }}
+                      data-toggle="tab"
+                      href="past campaigns"
+                      role="tablist"
+                    >
+                      Co-benefit Impact
+                    </a>
+                  </li>
+                </ul>
+                <div className="bg-transparent-black p-4">
+                  {openTab === 1 && (
+                    <div className={openTab === 1 ? 'block' : 'hidden'}>
+                      <ProductDetail />{' '}
+                    </div>
+                  )}
+                  {openTab === 2 && <div className={openTab === 2 ? 'block' : 'hidden'}>Tab 2</div>}
+                  {openTab === 3 && <div className={openTab === 3 ? 'block' : 'hidden'}>Tab 3</div>}
+                </div>
+              </div>
+              {/* Body */}
             </div>
           </div>
         </div>

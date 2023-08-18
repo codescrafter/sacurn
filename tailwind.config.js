@@ -203,6 +203,8 @@ module.exports = {
       'light-trans-grey': 'rgba(179, 180, 180, 0.30)',
       milky: 'rgba(255, 255, 255, 0.80)',
       smoke: '#F6F6F6',
+      'transparent-black': '#1b1b1b4d',
+      'card-bg-light': '#c6c6c626',
       'trans-grey': 'rgba(255, 255, 255, 0.30)'
     }
   },

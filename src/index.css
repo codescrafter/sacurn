@@ -230,6 +230,6 @@
   color: black !important;
 }
 
-.formGrid{
+.formGrid {
   grid-template-columns: max-content 1fr;
 }
