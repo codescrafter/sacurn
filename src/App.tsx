@@ -12,6 +12,10 @@ import ProductDetails from '@/pages/ProductDetails';
 import Products from '@/pages/Products';
 import Sales from '@/pages/Sales';
 
+import CompanyRegistration from './pages/CompanyRegistration';
+import OperatorSignUp from './pages/OperatorSignup';
+import WishList from './pages/Wishlist';
+
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -48,6 +52,18 @@ const router = createBrowserRouter([
   {
     path: '/sales',
     element: <Sales />
+  },
+  {
+    path: '/sign-up',
+    element: <OperatorSignUp />
+  },
+  {
+    path: '/company-registration',
+    element: <CompanyRegistration />
+  },
+  {
+    path: '/wishlist',
+    element: <WishList />
   }
 ]);
 
