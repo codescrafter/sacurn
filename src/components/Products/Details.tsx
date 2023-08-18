@@ -144,8 +144,12 @@ const Details = () => {
                 </ul>
                 <div className="bg-transparent-black p-4">
                   {openTab === 1 && (
-                    <div className={openTab === 1 ? 'block' : 'hidden'}>
-                      <ProductDetail />{' '}
+                    <div
+                      className={classNames('block', {
+                        hidden: openTab !== 1
+                      })}
+                    >
+                      <ProductDetail />
                     </div>
                   )}
                   {openTab === 2 && <div className={openTab === 2 ? 'block' : 'hidden'}>Tab 2</div>}

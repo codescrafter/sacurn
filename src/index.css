@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Akaya+Telivigala&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -20,6 +21,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.font-akaya {
+  font-family: 'Akaya Telivigala', cursive;
 }
 
 /* product-clip-path */
