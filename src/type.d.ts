@@ -42,3 +42,5 @@ export type ProductItemTypes = {
   description: string;
   imagePath: string;
 };
+
+export type LayoutSwitchTypes = 'green' | 'blue' | 'yellow';
