@@ -2,6 +2,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowUp';
 import classNames from 'classnames';
 
 import SelectField from '../SelectInput';
+import LayoutSwitch from './LayoutSwitch';
 import Tile from './Tile';
 
 const ProductList = () => {
@@ -15,7 +16,8 @@ const ProductList = () => {
       </div>
       {/* second col */}
       <div className="w-[58%]">
-        <div className="mt-5 flex justify-between items-center">
+        <LayoutSwitch />
+        <div className="mt-3 flex justify-between items-center">
           <div className=" flex justify-end items-center gap-5">
             <SelectField
               label="Location"

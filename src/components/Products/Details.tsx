@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
-import CustomButton from '../CustomButton';
 import BenefitImpact from './BenefitImpact';
 import CartonImpact from './CartonImpact';
+import LayoutSwitch from './LayoutSwitch';
 import ProductDetail from './ProductDetail';
 import ProductSlider from './ProductSlider';
 
@@ -61,35 +61,7 @@ const Details = () => {
       </div>
       {/* Second Col */}
       <div className="w-[62%]">
-        <div className="px-10 pb-4 flex gap-6 items-center justify-end">
-          <CustomButton
-            variant="rounded-full"
-            className={classNames('bg-dark-green', {
-              ['text-white w-[205px] h-7 flex justify-center items-center']: true,
-              ['hidden w-90 h-4']: false
-            })}
-          >
-            綠碳
-          </CustomButton>
-          <CustomButton
-            variant="rounded-full"
-            className={classNames('bg-yellow', {
-              ['text-white w-[205px] h-7 flex justify-center items-center']: true,
-              ['hidden w-90 h-4']: false
-            })}
-          >
-            黃碳
-          </CustomButton>
-          <CustomButton
-            variant="rounded-full"
-            className={classNames('bg-blue', {
-              ['text-white w-[205px] h-7 flex justify-center items-center']: true,
-              ['hidden w-90 h-4']: false
-            })}
-          >
-            藍碳
-          </CustomButton>
-        </div>
+        <LayoutSwitch />
         <div>
           <div className="relative z-[1] w-[103%] left-[-32px]">
             <ProductSlider />
@@ -178,7 +150,7 @@ const Details = () => {
                     </a>
                   </li>
                 </ul>
-                <div className="bg-transparent-black p-4">
+                <div className="bg-transparent-black p-4 h-[55vh] overflow-hidden">
                   {openTab === 1 && (
                     <div
                       className={classNames('block', {
