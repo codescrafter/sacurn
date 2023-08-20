@@ -28,7 +28,7 @@ const WishListProdCard = ({ product }: IProps) => {
               <img src={'/images/wishlist/dollar.svg'} className="min-[1500px]:w-3.2 w-2.5 min-[1500px]:h-5.5 h-4" />
             </button>
             <button className="border border-grey rounded-mdlg mx-auto min-[1500px]:px-4 px-2 min-[1500px]:py-0.7 py-0.5">
-              <img src={'/images/wishlist/delete.svg'} />
+              <img src="/images/wishlist/delete.svg" />
             </button>
           </div>
         </div>

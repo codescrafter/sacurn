@@ -4,7 +4,7 @@ import CompanyInfoForm from '@/components/CompanyInfoForm';
 import ProgressBar from '@/components/ProgressBar';
 import SimpleNav from '@/components/SimpleNav';
 
-function CompanyRegistration() {
+const CompanyRegistration = () => {
   const [stepNumber, setStepNumber] = useState(1);
   const stepNumberHandler = (val: number) => {
     setStepNumber(val);
@@ -17,6 +17,6 @@ function CompanyRegistration() {
       {stepNumber == 1 && <CompanyInfoForm nextStep={stepNumberHandler} />}
     </div>
   );
-}
+};
 
 export default CompanyRegistration;
