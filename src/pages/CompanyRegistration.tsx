@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import CompanyInfoForm from '@/components/CompanyInfoForm';
 import ProgressBar from '@/components/ProgressBar';
-import { SimpleNav } from '@/components/SimpleNav';
+import SimpleNav from '@/components/SimpleNav';
 
 function CompanyRegistration() {
   const [stepNumber, setStepNumber] = useState(1);

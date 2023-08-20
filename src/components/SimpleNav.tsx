@@ -1,4 +1,8 @@
-export function SimpleNav({ className }: { className: string }) {
+interface IProps {
+  className: string;
+}
+
+const SimpleNav = ({ className }: IProps) => {
   return (
     <div className={`bg-navy-blue flex flex-col h-16 justify-center ${className}`}>
       <div className="flex flex-row ml-10">
@@ -8,4 +12,6 @@ export function SimpleNav({ className }: { className: string }) {
       </div>
     </div>
   );
-}
+};
+
+export default SimpleNav;

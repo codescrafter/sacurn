@@ -1,6 +1,4 @@
-import { FC } from 'react';
-
-const ProductDetailView: FC = () => {
+const ProductDetailView = () => {
   return (
     <div className="relative w-full flex flex-col 2xl:mt-37 xl:mt-24 mt-18">
       <div className="w-full flex flex-row justify-between">

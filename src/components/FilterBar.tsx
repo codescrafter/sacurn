@@ -1,5 +1,4 @@
-// import SortCustomSelect from './SortCustomSelect';
-function FilterBar() {
+const FilterBar = () => {
   return (
     <div className="flex flex-row items-center justify-end mb-7">
       <div className="flex flex-row">
@@ -39,12 +38,9 @@ function FilterBar() {
         >
           <option>High to Low</option>
         </select>
-        {/* <SortCustomSelect /> */}
       </span>
     </div>
   );
-}
+};
 
 export default FilterBar;
-
-// const filter = ['location', 'vintages', 'price'];

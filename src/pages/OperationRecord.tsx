@@ -9,7 +9,7 @@ import Navbar from '../components/Navbar';
 import formatDate from '../helpers/formatDate';
 import { OPTIONS_LIST } from '../util/constants';
 
-function OperationRecord() {
+const OperationRecord = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
   const [startDate, endDate] = dateRange;
@@ -102,7 +102,7 @@ function OperationRecord() {
       </section>
     </div>
   );
-}
+};
 
 export default OperationRecord;
 

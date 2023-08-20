@@ -1,18 +1,18 @@
 import { FieldValues, useForm } from 'react-hook-form';
 
 import CompanyDocumentUpload from './CompanyDocumentUpload';
-import { SubmitButton } from './SubmitButton';
+import SubmitButton from './SubmitButton';
 
-type CompanyInfoFormProps = { nextStep: (val: number) => void };
+interface IProps {
+  nextStep: (val: number) => void;
+}
 
-function CompanyInfoForm({ nextStep }: CompanyInfoFormProps) {
+const CompanyInfoForm = ({ nextStep }: IProps) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors }
   } = useForm();
-  console.log('Here : ' + watch('company_name'));
   return (
     <form
       onSubmit={handleSubmit((data: FieldValues) => {
@@ -144,7 +144,7 @@ function CompanyInfoForm({ nextStep }: CompanyInfoFormProps) {
       <SubmitButton text={undefined} className={undefined} />
     </form>
   );
-}
+};
 
 export default CompanyInfoForm;
 
