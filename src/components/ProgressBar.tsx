@@ -1,10 +1,10 @@
-type ProgressBarProps = {
+interface ProgressBarProps {
   steps: number;
   stepNumber: number;
   stepName: string;
-};
+}
 
-function ProgressBar({ steps, stepNumber, stepName }: ProgressBarProps) {
+const ProgressBar = ({ steps, stepNumber, stepName }: ProgressBarProps) => {
   const noOfSteps = Array.from({ length: steps }, (value, index) => index);
   return (
     <div className="relative flex flex-col items-center w-full">
@@ -26,6 +26,6 @@ function ProgressBar({ steps, stepNumber, stepName }: ProgressBarProps) {
       </div>
     </div>
   );
-}
+};
 
 export default ProgressBar;

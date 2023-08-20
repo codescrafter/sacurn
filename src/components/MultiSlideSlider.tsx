@@ -2,10 +2,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import classNames from 'classnames';
-import { FC, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
-const MultiSlideSlider: FC = () => {
+const MultiSlideSlider = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const sliderRef = useRef<Slider | null>(null);

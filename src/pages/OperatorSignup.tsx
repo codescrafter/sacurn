@@ -1,4 +1,4 @@
-function OperatorSignUp() {
+const OperatorSignUp = () => {
   return (
     <div className="flex flex-row h-screen">
       <div className="flex flex-col items-center justify-center min-[1550px]:ml-23.5 min-[1200px]:ml-19 ml-14">
@@ -55,7 +55,7 @@ function OperatorSignUp() {
       </div>
     </div>
   );
-}
+};
 
 export default OperatorSignUp;
 

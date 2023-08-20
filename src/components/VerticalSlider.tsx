@@ -2,10 +2,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import classNames from 'classnames';
-import { FC, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
-const VerticalSlider: FC = () => {
+const VerticalSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef<Slider | null>(null);
   const settings = {

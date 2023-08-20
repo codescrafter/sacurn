@@ -1,12 +1,11 @@
 import classNames from 'classnames';
-import { FC } from 'react';
 
 interface IProps {
   activeColor: string;
   setDisplay: (color: string) => void;
 }
 
-const ViewStyleBar: FC<IProps> = ({ activeColor, setDisplay }) => {
+const ViewStyleBar = ({ activeColor, setDisplay }: IProps) => {
   const tabSelectHandler = (
     style: {
       color: string;

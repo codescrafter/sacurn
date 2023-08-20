@@ -1,7 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { zhTW } from 'date-fns/locale';
-import { FC, useRef } from 'react';
+import { useRef } from 'react';
 import DatePicker from 'react-datepicker';
 
 import formatDate from '../helpers/formatDate';
@@ -17,7 +17,7 @@ interface IProps {
   open: boolean;
 }
 
-const DatePickerModal: FC<IProps> = ({ startDate, endDate, setDateRange, setOpen, open }) => {
+const DatePickerModal = ({ startDate, endDate, setDateRange, setOpen, open }: IProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick(ref, () => {

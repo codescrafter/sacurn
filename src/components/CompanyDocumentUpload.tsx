@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
-function CompanyDocumentUpload({ register }: { register: UseFormRegister<FieldValues> }) {
+
+const CompanyDocumentUpload = ({ register }: { register: UseFormRegister<FieldValues> }) => {
   const [documentQuantity, setDocumentQuantity] = useState(1);
   return (
     <div className="flex flex-col w-full ml-3 max">
@@ -30,7 +31,7 @@ function CompanyDocumentUpload({ register }: { register: UseFormRegister<FieldVa
       </div>
     </div>
   );
-}
+};
 
 export default CompanyDocumentUpload;
 

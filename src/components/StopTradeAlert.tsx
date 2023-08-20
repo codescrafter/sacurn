@@ -1,12 +1,10 @@
-import { FC } from 'react';
-
 import Button from './Button';
 
 interface IProps {
   setIsStopAlert: (value: boolean) => void;
 }
 
-const StopTradeAlert: FC<IProps> = ({ setIsStopAlert }) => {
+const StopTradeAlert = ({ setIsStopAlert }: IProps) => {
   return (
     <div className="flex justify-center items-center absolute inset-0 bg-black/30 z-50 backdrop-blur-[2px]">
       <div className="min-w-[477px] min-h-[461px] flex flex-col space-y-10  items-center justify-center rounded-[20px] bg-white relative">

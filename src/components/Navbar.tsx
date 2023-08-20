@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { FC } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { NavbarItemTypes } from '../type';
@@ -9,7 +8,7 @@ interface IProps {
   className?: string;
 }
 
-const Navbar: FC<IProps> = ({ className }) => {
+const Navbar = ({ className }: IProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
