@@ -2,12 +2,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import classNames from 'classnames';
-import React, { FC, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
-interface IProps {}
-
-const HorizontalSlider: FC<IProps> = () => {
+const HorizontalSlider = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const sliderRef = useRef<Slider | null>(null);
   const settings = {

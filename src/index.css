@@ -210,3 +210,7 @@
 .line-graph .apexcharts-tooltip-text-y-value {
   color: black !important;
 }
+
+.formGrid{
+  grid-template-columns: max-content 1fr;
+}

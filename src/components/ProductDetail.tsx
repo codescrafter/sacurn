@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import classNames from 'classnames';
-import { FC, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
 import Navbar from '../components/Navbar';
@@ -10,7 +10,7 @@ import { ProductDetailTypes } from '../type';
 import { PRODUCT_DETAILS } from '../util/constants';
 import AddedToCartModal from './AddedToCartModal';
 
-const ProductDetailList: FC = () => {
+const ProductDetailList = () => {
   const [openCartSuccessModal, setOpenCartSuccessModal] = useState<boolean>(false);
   return (
     <div className="w-full mt-8 pl-4 relative">

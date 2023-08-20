@@ -42,3 +42,9 @@ export type ProductItemTypes = {
   description: string;
   imagePath: string;
 };
+
+export type WishlistTypes = {
+  id: number;
+  name: string;
+  imagePath: string;
+};

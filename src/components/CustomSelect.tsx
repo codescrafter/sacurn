@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, useRef, useState } from 'react';
+import React, { MouseEvent, useRef, useState } from 'react';
 
 import useOutsideClick from '../hooks/useOutsideClick';
 
@@ -8,7 +8,7 @@ interface IProps {
   callback?: (option: string) => void;
 }
 
-const CustomSelect: FC<IProps> = ({ options, defaultValue, callback }) => {
+const CustomSelect = ({ options, defaultValue, callback }: IProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>(defaultValue);
 
