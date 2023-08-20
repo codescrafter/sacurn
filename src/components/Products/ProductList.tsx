@@ -48,7 +48,16 @@ const ProductList = () => {
         <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 overflow-scroll overflow-x-hidden">
           <div className="flex flex-col gap-5 h-[60vh] 2xl:h-[74vh]">
             {DATA.map((item) => (
-              <Tile key={item.id} image={item.image} />
+              <Tile
+                key={item.id}
+                image={item.image}
+                name={item.name}
+                rating={item.rating}
+                standard={item.standard}
+                type={item.type}
+                vintage={item.vintage}
+                price={item.price}
+              />
             ))}
           </div>
         </div>
@@ -62,22 +71,52 @@ export default ProductList;
 const DATA = [
   {
     id: '1',
+    name: '(VCS-985)Cordillera Azul REDD+ Product',
+    rating: 'A',
+    standard: 'Verified Carbon Standard',
+    type: 'REDD+',
+    vintage: '2017',
+    price: '5.00~10.00',
     image: '/images/products/green/frog.png'
   },
   {
     id: '2',
+    name: '(VCS-985)Cordillera Azul REDD+ Product',
+    rating: 'A',
+    standard: 'Verified Carbon Standard',
+    type: 'REDD+',
+    vintage: '2017',
+    price: '5.00~10.00',
     image: '/images/products/green/gorilla.png'
   },
   {
     id: '3',
+    name: '(VCS-985)Cordillera Azul REDD+ Product',
+    rating: 'A',
+    standard: 'Verified Carbon Standard',
+    type: 'REDD+',
+    vintage: '2017',
+    price: '5.00~10.00',
     image: '/images/products/green/bird.png'
   },
   {
     id: '4',
+    name: '(VCS-985)Cordillera Azul REDD+ Product',
+    rating: 'A',
+    standard: 'Verified Carbon Standard',
+    type: 'REDD+',
+    vintage: '2017',
+    price: '5.00~10.00',
     image: '/images/products/green/frog.png'
   },
   {
     id: '5',
+    name: '(VCS-985)Cordillera Azul REDD+ Product',
+    rating: 'A',
+    standard: 'Verified Carbon Standard',
+    type: 'REDD+',
+    vintage: '2017',
+    price: '5.00~10.00',
     image: '/images/products/green/gorilla.png'
   }
 ];
