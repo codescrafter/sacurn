@@ -9,7 +9,7 @@ import SalesAreaGraph from '../components/SalesAreaGraph';
 import SalesConfirmationBox from '../components/SalesConfirmationBox';
 import SalesLineChart from '../components/SalesLineChart';
 
-function Sales() {
+const Sales = () => {
   const [expandedRowIndex, setExpandedRowIndex] = useState<number | null>(null);
   const [staticRowsVisible, setStaticRowsVisible] = useState<boolean>(false);
   const [confirmationBox, setConfirmationBox] = useState<boolean>(false);
@@ -335,7 +335,7 @@ function Sales() {
       </main>
     </div>
   );
-}
+};
 
 export default Sales;
 

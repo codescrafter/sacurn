@@ -1,9 +1,7 @@
-import { FC } from 'react';
-
 import { ProductItemTypes } from '../type';
 import { PRODUCT_ITEMS } from '../util/constants';
 
-const ProductsListView: FC = () => {
+const ProductsListView = () => {
   return (
     <div className="bg-transparent flex flex-col gap-4.5 max-h-[75vh]">
       {PRODUCT_ITEMS?.map((product: ProductItemTypes) => {

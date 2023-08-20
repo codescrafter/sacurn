@@ -1,12 +1,11 @@
 import classNames from 'classnames';
-import { FC } from 'react';
 
 interface IProps {
   activeColor: string;
   setDisplay: (color: string) => void;
 }
 
-const ViewStyleBar: FC<IProps> = ({ activeColor, setDisplay }) => {
+const ViewStyleBar = ({ activeColor, setDisplay }: IProps) => {
   const tabSelectHandler = (
     style: {
       color: string;
@@ -43,7 +42,7 @@ const ViewStyleBar: FC<IProps> = ({ activeColor, setDisplay }) => {
           </div>
         );
       })}
-      <div className="rounded-full  bg-light-grey ml-2.5 mr-5.7 py-1.9 px-2">
+      {/* <div className="rounded-full  bg-light-grey ml-2.5 mr-5.7 py-1.9 px-2">
         <img className="xl:w-auto xl:h-auto w-5 h-5" src={'/images/products-page/filter.svg'} alt="sacurn" />
       </div>
       <div className="rounded-3xl flex flex-row bg-light-grey w-auto pl-1.5 my-auto px-auto h-[85%]">
@@ -58,7 +57,7 @@ const ViewStyleBar: FC<IProps> = ({ activeColor, setDisplay }) => {
           src={'/images/products-page/search.svg'}
           alt="sacurn"
         />
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -66,7 +65,6 @@ const ViewStyleBar: FC<IProps> = ({ activeColor, setDisplay }) => {
 export default ViewStyleBar;
 
 const styles = [
-  { color: 'white', text: '碳權總覽' },
   { color: 'dark-green', text: '綠碳．森林碳匯' },
   { color: 'navy-blue', text: ' ' },
   { color: 'pale-yellow', text: ' ' }

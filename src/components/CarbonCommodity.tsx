@@ -1,5 +1,3 @@
-import React, { FC } from 'react';
-
 interface IProps {
   image: string;
   linkText: string;
@@ -8,7 +6,7 @@ interface IProps {
   subHeading: string;
 }
 
-const CarbonCommodity: FC<IProps> = ({ image, linkText, linkIcon, heading, subHeading }) => {
+const CarbonCommodity = ({ image, linkText, linkIcon, heading, subHeading }: IProps) => {
   return (
     <div className="flex">
       <img
