@@ -48,3 +48,7 @@ export type WishlistTypes = {
   name: string;
   imagePath: string;
 };
+export enum CardType {
+  GovernmentCard = '2',
+  MemberCard = '4'
+}

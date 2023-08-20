@@ -25,5 +25,5 @@ module.exports = {
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error'
   },
-  ignorePatterns: ['node_modules/**/**.*', 'build/**/**.*']
+  ignorePatterns: ['node_modules/**/**.*', 'build/**/**.*', 'src/libs/idPaas/**/**.js']
 };
