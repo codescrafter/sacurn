@@ -1,6 +1,4 @@
-import { FC } from 'react';
-
-const InfoBar: FC = () => {
+const InfoBar = () => {
   return (
     <div
       className="w-full h-11.5 blur-[15px] bg-info-box flex items-center justify-center text-white"

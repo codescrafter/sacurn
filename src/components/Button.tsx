@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FC } from 'react';
+import React from 'react';
 
 interface IProps {
   className?: string;
@@ -7,7 +7,7 @@ interface IProps {
   children: React.ReactNode;
 }
 
-const Button: FC<IProps> = ({ className, onClick, children }) => {
+const Button = ({ className, onClick, children }: IProps) => {
   return (
     <button className={classNames('bg-navy-blue text-white p-2', className)} onClick={onClick}>
       {children}

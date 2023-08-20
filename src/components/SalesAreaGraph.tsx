@@ -1,12 +1,12 @@
 import { ApexOptions } from 'apexcharts';
 import classNames from 'classnames';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import Chart from 'react-apexcharts';
 
 import Button from './Button';
 import GraphCard from './GraphCard';
 
-const SalesAreaGraph: FC = () => {
+const SalesAreaGraph = () => {
   const [series] = useState<number[]>([20, 30, 90, 7]);
   const [activeButton, setActiveButton] = useState<number>(1);
 
