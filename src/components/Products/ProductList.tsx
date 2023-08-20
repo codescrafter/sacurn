@@ -46,12 +46,10 @@ const ProductList = () => {
           </div>
         </div>
         <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 overflow-scroll overflow-x-hidden">
-          <div className="flex flex-col gap-5 h-[60vh] 2xl:h-[70vh]">
-            <Tile />
-            <Tile />
-            <Tile />
-            <Tile />
-            <Tile />
+          <div className="flex flex-col gap-5 h-[60vh] 2xl:h-[74vh]">
+            {DATA.map((item) => (
+              <Tile key={item.id} image={item.image} />
+            ))}
           </div>
         </div>
       </div>
@@ -60,3 +58,26 @@ const ProductList = () => {
 };
 
 export default ProductList;
+
+const DATA = [
+  {
+    id: '1',
+    image: '/images/products/green/frog.png'
+  },
+  {
+    id: '2',
+    image: '/images/products/green/gorilla.png'
+  },
+  {
+    id: '3',
+    image: '/images/products/green/bird.png'
+  },
+  {
+    id: '4',
+    image: '/images/products/green/frog.png'
+  },
+  {
+    id: '5',
+    image: '/images/products/green/gorilla.png'
+  }
+];

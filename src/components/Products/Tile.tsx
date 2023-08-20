@@ -4,14 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import CustomButton from '../CustomButton';
 import CustomRating from '../Rating';
 
-const Tile = () => {
+interface IProps {
+  image: string;
+}
+
+const Tile = ({ image }: IProps) => {
   const navigate = useNavigate();
   return (
     <div className={classNames('bg-card-bg p-2 px-4 rounded-2xl flex justify-between items-center')}>
       <div className="flex gap-5">
         {/* first col */}
         <div className="w-[340px] h-[240px]">
-          <img src="/images/products/green/frog.png" alt="sacurn" className="h-full w-full object-contain" />
+          <img src={image} alt="sacurn" className="h-full w-full object-contain" />
         </div>
         {/* second col */}
         <div className="py-2">
