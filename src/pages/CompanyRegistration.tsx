@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import CompanyInfoForm from '@/components/CompanyInfoForm';
+import Navbar from '@/components/Navbar';
 import ProgressBar from '@/components/ProgressBar';
-import SimpleNav from '@/components/SimpleNav';
 
 function CompanyRegistration() {
   const [stepNumber, setStepNumber] = useState(1);
@@ -12,9 +12,11 @@ function CompanyRegistration() {
 
   return (
     <div className=" bg-smoke h-screen">
-      <SimpleNav className="mb-20" />
-      <ProgressBar steps={5} stepNumber={stepNumber} stepName={'填寫寫金融機構帳戶資料'} />
-      {stepNumber == 1 && <CompanyInfoForm nextStep={stepNumberHandler} />}
+      <Navbar className="relative z-30 !bg-navy-blue h-[70px]" />
+      <div className="mt-20">
+        <ProgressBar steps={5} stepNumber={stepNumber} stepName="填寫寫金融機構帳戶資料" />
+        {stepNumber == 1 && <CompanyInfoForm nextStep={stepNumberHandler} />}
+      </div>
     </div>
   );
 }
