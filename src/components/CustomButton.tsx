@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 
 interface IProps {
-  variant:
+  variant?:
     | 'primary'
     | 'secondary'
     | 'rounded'
@@ -17,17 +17,17 @@ interface IProps {
   onClick?: () => void;
 }
 
-const CustomButton = ({ variant, children, className, onClick }: IProps) => {
+const CustomButton = ({ variant = 'primary', children, className, onClick }: IProps) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   return (
     <button
-      className={classNames('text-base text-white', className, {
-        'bg-navy-blue': variant === 'primary',
-        'bg-transparent': variant === 'secondary',
-        'rounded-xl': variant === 'rounded',
-        'rounded-full': variant === 'rounded-full',
-        'bg-transparent border border-navy-blue': variant === 'outline',
-        'bg-transparent border border-navy-blue rounded-xl': variant === 'rounded-outline',
+      className={classNames('text-base', className, {
+        'bg-navy-blue text-white': variant === 'primary',
+        'bg-transparent text-navy-blue': variant === 'secondary',
+        'rounded-xl text-white': variant === 'rounded',
+        'rounded-full text-white': variant === 'rounded-full',
+        'bg-transparent border border-navy-blue text-navy-blue': variant === 'outline',
+        'bg-transparent border border-navy-blue rounded-xl text-white': variant === 'rounded-outline',
         'btn-transition': isClicked
       })}
       onClick={() => {
