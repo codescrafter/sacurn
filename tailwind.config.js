@@ -195,9 +195,18 @@ module.exports = {
       'light-blue': '#1D70BD',
       'light-purple': '#C4B0FD',
       'light-gray': '#F1F4F5',
+      yellow: '#FAC91C',
+      blue: '#1076B4',
+      'card-bg': '#ffffffcc',
+      'silk-blue': '#5195B2',
+      'transparent-grey': '#c6c6c640',
       'light-trans-grey': 'rgba(179, 180, 180, 0.30)',
       milky: 'rgba(255, 255, 255, 0.80)',
       smoke: '#F6F6F6',
+      'transparent-black': '#1b1b1b4d',
+      'card-bg-light': '#c6c6c626',
+      cyan: '#7EF1F1',
+      'text-light': '#DCDCDC',
       'trans-grey': 'rgba(255, 255, 255, 0.30)'
     }
   },

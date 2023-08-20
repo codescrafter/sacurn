@@ -4,8 +4,7 @@ import {
   NewsTypes,
   ProductDetailTypes,
   ProductItemTypes,
-  SelectedCartItemTypes,
-  WishlistTypes
+  SelectedCartItemTypes
 } from '../type';
 
 export const NAVBAR_ITEMS: NavbarItemTypes[] = [
@@ -310,49 +309,5 @@ export const PRODUCT_ITEMS: ProductItemTypes[] = [
     description:
       'Soil carbon sequestration is the process of increasing organic and inorganic soil carbon through capturing and storing of carbon from plants.',
     imagePath: '/images/products-page/product3.png'
-  }
-];
-
-export const WISHLIST_DATA: WishlistTypes[] = [
-  {
-    id: 1,
-    name: '(VCS-985)Cordillera Azul REDD+ Product',
-    imagePath: 'product1'
-  },
-  {
-    id: 2,
-    name: '(VCS-985)Cordillera Azul REDD+ Product',
-    imagePath: 'product2'
-  },
-
-  {
-    id: 3,
-    name: '(VCS-985)Cordillera Azul REDD+ Product',
-    imagePath: 'product3'
-  },
-  {
-    id: 4,
-    name: '(VCS-985)Cordillera Azul REDD+ Product Cordillera Azul REDD+ Product',
-    imagePath: 'product1'
-  },
-  {
-    id: 5,
-    name: '(VCS-985)Cordillera Azul REDD+ Product Cordillera Azul REDD+ Product',
-    imagePath: 'product2'
-  },
-  {
-    id: 6,
-    name: '(VCS-985)Cordillera Azul REDD+ Product Cordillera Azul REDD+ Product',
-    imagePath: 'product3'
-  },
-  {
-    id: 7,
-    name: '(VCS-985)Cordillera Azul REDD+ Product',
-    imagePath: 'product1'
-  },
-  {
-    id: 8,
-    name: '(VCS-985)Cordillera Azul REDD+ Product',
-    imagePath: 'product2'
   }
 ];

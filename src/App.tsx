@@ -2,8 +2,6 @@ import './App.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import ProductDetail from '@/components/ProductDetail';
-import AllProducts from '@/pages/AllProducts';
 import Cart from '@/pages/Cart';
 import CompanyRegistration from '@/pages/CompanyRegistration';
 import Dashboard from '@/pages/Dashboard';
@@ -12,6 +10,8 @@ import Login from '@/pages/Login';
 import NewsPage from '@/pages/NewsPage';
 import OperationRecord from '@/pages/OperationRecord';
 import OperatorSignUp from '@/pages/OperatorSignup';
+import ProductDetails from '@/pages/ProductDetails';
+import Products from '@/pages/Products';
 import Sales from '@/pages/Sales';
 import WishList from '@/pages/Wishlist';
 
@@ -26,11 +26,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/all-products',
-    element: <AllProducts />
+    element: <Products />
   },
   {
-    path: '/product-detail/id',
-    element: <ProductDetail />
+    path: '/product-detail/:id',
+    element: <ProductDetails />
   },
   {
     path: '/latest-news',

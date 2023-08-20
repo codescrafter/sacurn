@@ -43,6 +43,8 @@ export type ProductItemTypes = {
   imagePath: string;
 };
 
+export type LayoutSwitchTypes = 'green' | 'blue' | 'yellow';
+
 export type WishlistTypes = {
   id: number;
   name: string;
