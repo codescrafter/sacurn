@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 const BenefitImpact = () => {
   return (
-    <div className="grid grid-cols-5 gap-3">
+    <div className="grid grid-cols-5 gap-3 h-[650px]">
       {/* First col */}
       <div className="col-span-2">
         <img src="/images/products/green/co-benefit.png" alt="sacurn" className="w-full h-[310px] object-cover" />
-        <div className="overflow-auto h-[220px]">
+        <div className="">
           {DATA.map((item) => (
             <div key={item.title} className={classNames('bg-card-bg-light p-3 mt-3')}>
               <div className="flex gap-4 items-center">
@@ -21,7 +21,7 @@ const BenefitImpact = () => {
         </div>
       </div>
       {/* Second col */}
-      <div className="col-span-3 yellowScrollNoBg mr-1 pr-5.5  overflow-scroll overflow-x-hidden h-[50vh]">
+      <div className="col-span-3 yellowScrollNoBg mr-1 pr-5.5  overflow-scroll overflow-x-hidden h-full">
         <h1 className="border-l px-3 py-1 border-white text-xl font-bold text-white w-[90%]">
           Project contributes to 13 sustainable development goals.
         </h1>

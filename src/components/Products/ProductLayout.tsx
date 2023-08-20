@@ -10,7 +10,7 @@ interface IProps {
 const ProductLayout = ({ children }: IProps) => {
   return (
     <div
-      className={classNames('w-full h-screen bg-no-repeat bg-center bg-cover', {
+      className={classNames('w-full min-h-screen bg-no-repeat bg-center bg-cover', {
         "bg-[url('../public/images/products/bg-green.png')]": true
       })}
     >

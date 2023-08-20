@@ -4,8 +4,8 @@ import Card from './Card';
 
 const ProductDetail = () => {
   return (
-    <div className="yellowScrollNoBg mr-1 pr-5.5  overflow-scroll overflow-x-hidden">
-      <div className="h-[40vh] xl:h-[45vh] 2xl:h-[52vh]">
+    <div className="yellowScrollNoBg mr-1 pr-5.5  overflow-auto overflow-x-hidden">
+      <div className="h-[550px]">
         <div className="flex gap-5 mb-5">
           {['1', '2', '3'].map((x) => (
             <Card key={x} />

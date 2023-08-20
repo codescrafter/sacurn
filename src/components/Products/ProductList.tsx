@@ -9,13 +9,13 @@ const ProductList = () => {
   return (
     <div className={classNames('flex pr-10')}>
       {/* first col */}
-      <div className="w-[42%]">
+      <div className="w-[40%] 2xl:w-[42%]">
         <div className="absolute top-0 h-screen">
           <img src={'/images/products/green/side-image.png'} alt="sacurn" className="h-full object-cover" />
         </div>
       </div>
       {/* second col */}
-      <div className="w-[58%]">
+      <div className="w-[60%] 2xl:w-[58%]">
         <LayoutSwitch />
         <div className="mt-3 flex justify-between items-center">
           <div className=" flex justify-end items-center gap-5">

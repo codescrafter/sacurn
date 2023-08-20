@@ -12,15 +12,15 @@ const Details = () => {
   const [openTab, setOpenTab] = useState(1);
 
   return (
-    <div className="flex mt-4">
+    <div className="flex mt-4 pb-4">
       {/* First Col */}
       <div className="w-[38%]">
         <div className="relative z-[2]">
           <ImgSlider images={['/images/products/green/detail1.png', '/images/products/green/bird.png']} />
         </div>
-        <div className="pl-5 pt-7">
+        <div className="pl-5 pt-12">
           {/* Price */}
-          <h5 className="text-lg font-bold text-white mb-2 pl-3">Price</h5>
+          <h5 className="text-lg font-bold text-white mb-4 pl-3">Price</h5>
           <div className="bg-transparent-grey rounded p-5 flex justify-center items-center">
             <div className="flex justify-between items-center gap-4">
               <div>
@@ -37,8 +37,8 @@ const Details = () => {
             </div>
           </div>
           {/* Ratings Breakdown */}
-          <div className="mt-4">
-            <h5 className="text-lg font-bold text-white mb-2 pl-3">Ratings Breakdown</h5>
+          <div className="mt-7">
+            <h5 className="text-lg font-bold text-white mb-4 pl-3">Ratings Breakdown</h5>
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-transparent-grey rounded flex flex-col justify-center items-center p-4">
                 <p className="text-xl font-bold text-white">Carbon Rating</p>
@@ -51,8 +51,8 @@ const Details = () => {
             </div>
           </div>
           {/* Certification From */}
-          <div className="mt-4">
-            <h5 className="text-lg font-bold text-white mb-2 pl-3">Certification From</h5>
+          <div className="mt-7">
+            <h5 className="text-lg font-bold text-white mb-4 pl-3">Certification From</h5>
             <div className="bg-transparent-grey rounded p-8 flex justify-center items-center">
               <img src="/images/products/green/verra-standard.svg" alt="sacurn" />
             </div>
@@ -150,7 +150,7 @@ const Details = () => {
                     </a>
                   </li>
                 </ul>
-                <div className="bg-transparent-black p-4 h-[55vh] overflow-hidden">
+                <div className="bg-transparent-black p-4 overflow-hidden">
                   {openTab === 1 && (
                     <div
                       className={classNames('block', {
