@@ -14,7 +14,7 @@ const CompanyDocumentUpload = ({ register }: { register: UseFormRegister<FieldVa
           return (
             <div className="flex flex-col rounded-xl border items-center border-silverstone h-23.2 w-26.7">
               <p className="text-[36px] text-black mt-2">{item}</p>
-              <label className="rounded-full bg-navy-blue p-0.5 px-5 text-xms text-white" htmlFor={'get-file'}>
+              <label className="rounded-full bg-navy-blue p-0.5 px-5 text-xms text-white" htmlFor="get-file">
                 選擇
               </label>
               <input id="get-file" {...register('get-file')} type="file" className="invisible" />

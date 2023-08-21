@@ -48,7 +48,7 @@ const MultiSlideSlider = () => {
         {[1, 2, 3, 4, 5].map(() => (
           <div className="!w-[422px]">
             <img
-              src={'/images/landing-page/multislide.png'}
+              src="/images/landing-page/multislide.png"
               width={422}
               height={324}
               alt="multislide.png"

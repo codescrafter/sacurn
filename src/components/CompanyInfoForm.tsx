@@ -1,6 +1,7 @@
 import { FieldValues, useForm } from 'react-hook-form';
 
 import CompanyDocumentUpload from './CompanyDocumentUpload';
+import InputWithLabel from './InputWithLabel';
 import SubmitButton from './SubmitButton';
 
 interface IProps {
@@ -13,83 +14,91 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     handleSubmit,
     formState: { errors }
   } = useForm();
+
   return (
     <form
+      className="max-w-[1020px] px-5 mx-auto"
       onSubmit={handleSubmit((data: FieldValues) => {
         console.log(data);
         nextStep(1);
       })}
     >
       <div className="flex flex-col items-start">
-        <div className="flex flex-row ml-[22%] mb-7">
+        <div className="flex flex-row mb-7">
           <h1 className="text-navy-blue text-2.5xl flex flex-row">
             <div className="bg-navy-blue px-0.5 h-full" />
             &nbsp;請填寫企業資料
           </h1>
         </div>
-        <div className="flex flex-row gap-28 justify-center w-full">
-          <div className="grid grid-cols-2 h-max formGrid">
-            <>
-              <label className="text-black text-right font-semibold col-span-1 mb-5.2">企業名稱 :</label>
-              <div className="ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]">
-                <input className={`${Style} w-full`} {...register('company_name', { required: true })} type="text" />
-                {errors.company_name && (
-                  <p className="text-xs mt-1 ml-2 text-bright-red">會員名稱即為提領的金融帳號戶名，請正確填寫</p>
-                )}
-              </div>
-            </>
-            <>
-              <label className="text-black text-right font-semibold col-span-1 mb-5.2">統一編號 :</label>
-              <input
-                placeholder="請輸入統一編號"
-                className={`${Style} ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]`}
-                {...register('uniform_numbers')}
-                type="text"
-              />
-            </>
-            <>
-              <label className="text-black text-right font-semibold col-span-1 mb-5.2">代表人中文姓名 :</label>
-              <input
-                className={`${Style} ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]`}
-                {...register('representative_chinese_name')}
-                type="text"
-              />
-            </>
-            <>
-              <label className="text-black text-right font-semibold col-span-1 mb-5.2">實收資本額 :</label>
-              <input
-                className={`${Style} ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]`}
-                {...register('paid_in_capital')}
-                type="text"
-              />
-            </>
-            <>
-              <label className="text-black text-right font-semibold col-span-1 mb-5.2">核准設立日期 :</label>
-              <input
-                placeholder="YYYY-MM-DD"
-                className={`${Style} ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]`}
-                {...register('approved_establishment_date')}
-                type="text"
-              />
-            </>
-            <label className="text-black text-right font-semibold mb-5.2">會員聯絡地址 :</label>
-            <div className="flex flex-col">
-              <div className="absolute flex flex-col translate-x-3 -translate-y-1.5">
-                <div className="flex flex-row my-1">
-                  <select className={`${Style} w-23.2`}>
+
+        <div className="flex gap-5 justify-between">
+          <div className="left-col">
+            <InputWithLabel
+              id="company_name"
+              isRequired={true}
+              label="會員名稱 :"
+              register={register}
+              type="text"
+              errors={errors}
+              errorText="會員名稱即為提領的金融帳號戶名，請正確填寫"
+            />
+            <InputWithLabel
+              id="uniform_numbers"
+              isRequired={false}
+              label="統一編號 :"
+              register={register}
+              type="text"
+              placeholder="請輸入統一編號"
+            />
+            <InputWithLabel
+              id="representative_chinese_name"
+              isRequired={false}
+              label="代表人中文姓名 :"
+              register={register}
+              type="text"
+            />
+            <InputWithLabel
+              id="paid_in_capital"
+              isRequired={false}
+              label="實收資本額 :"
+              register={register}
+              type="text"
+            />
+            <InputWithLabel
+              id="approved_establishment_date"
+              isRequired={false}
+              label="核准設立日期 :"
+              register={register}
+              type="date"
+            />
+            <div>
+              <div className="flex gap-4 mb-1.5">
+                <label className="text-black text-right font-normal w-[122px]">會員登記地址 :</label>
+                <div className="flex items-center">
+                  <select className="w-23.2 rounded-full text-black py-2 px-3.5 text-xs font-bold outline-none">
                     <option className="text-black">縣市</option>
                     <option className="text-black">縣市</option>
                     <option className="text-black">縣市</option>
                   </select>
-                  <select className={`${Style} w-23.2`}>
+                  <select className="w-23.2 rounded-full text-black py-2 px-3.5 text-xs font-bold outline-none">
                     <option className="text-black">鄉鎮市區</option>
                     <option className="text-black">鄉鎮市區</option>
                     <option className="text-black">鄉鎮市區</option>
                   </select>
-                  <input type="text" className={`${Style} w-16 mr-2 px-5`} />
-                  <input type="text" placeholder="路、街、村、段" className={`${Style} px-5 w-36`} />
+                  <input
+                    type="text"
+                    className="w-14 mr-3 px-3.5 py-2 text-xs font-bold rounded-full outline-none text-black"
+                  />
+                  <input
+                    type="text"
+                    placeholder="路、街、村、段"
+                    className="lg:w-36 w-24 px-3.5 py-2 text-xs font-bold rounded-full text-center outline-none text-black"
+                  />
                 </div>
-                <div className="flex flex-row my-1 items-center">
+              </div>
+              <div className="flex mb-1.5 gap-4">
+                <div className="w-[122px] h-5"></div>
+                <div>
                   {address_row_1.map((item) => {
                     return (
                       <>
@@ -99,7 +108,10 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     );
                   })}
                 </div>
-                <div className="flex flex-row my-1 items-center">
+              </div>
+              <div className="flex mb-1.5 gap-4">
+                <div className="w-[122px] h-5"></div>
+                <div>
                   {address_row_2.map((item) => {
                     return (
                       <>
@@ -112,31 +124,33 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               </div>
             </div>
           </div>
-          <div>
-            <div className="grid grid-cols-2 formGrid">
-              <>
-                <label className="text-black text-right font-semibold col-span-1 mb-5.2">會員電話 :</label>
-                <div className="ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]">
-                  <input className={`${Style} w-full`} {...register('member_phone', { required: true })} type="text" />
-                  {errors.member_phone && (
-                    <p className="text-xs mt-1 ml-2 text-bright-red">例: 0x-000111或09xx-000111</p>
-                  )}
-                </div>
-              </>
-              <>
-                <label className="text-black text-right font-semibold col-span-1 mb-7 self-end">會員聯絡地址 :</label>
-                <div className=" ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]">
-                  <div className="flex flex-row items-center mb-1 ml-3 font-bold">
-                    <input type="checkbox" />
-                    <label className="text-black ml-2 text-xs">同公司登記地址</label>
-                  </div>
-                  <input className={`${Style} w-full`} {...register('member_contact_address')} type="text" />
-                </div>
-              </>
-              <>
-                <label className="text-black text-right font-semibold col-span-1 mb-5.2">營業登記文件 :</label>
-                <CompanyDocumentUpload register={register} />
-              </>
+          <div className="right-col">
+            <InputWithLabel
+              id="member_phone"
+              isRequired={true}
+              label="會員電話 :"
+              register={register}
+              type="text"
+              errors={errors}
+              errorText="例: 0x-000111或09xx-000111"
+            />
+            <div className="flex flex-row items-center mb-1 font-bold gap-4">
+              <div className="w-[122px] h-5"></div>
+              <div>
+                <input type="checkbox" />
+                <label className="text-black ml-2 text-xs">同公司登記地址</label>
+              </div>
+            </div>
+            <InputWithLabel
+              id="member_contact_address"
+              isRequired={false}
+              label="會員聯絡地址 :"
+              register={register}
+              type="text"
+            />
+            <div className="flex">
+              <label className="text-black text-right font-normal mb-5.2 min-w-[122px]">營業登記文件 :</label>
+              <CompanyDocumentUpload register={register} />
             </div>
           </div>
         </div>

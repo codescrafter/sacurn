@@ -15,7 +15,7 @@ const OperatorSignUp = () => {
       <div className="flex flex-col items-center justify-center min-[1550px]:ml-23.5 min-[1200px]:ml-19 ml-14">
         <img
           className="min-[1550px]:h-[485px] min-[1550px]:w-[515px] min-[1200px]h-[420px]  h-[320px] w-[390px]"
-          src={'/images/operator-signup/background.png'}
+          src="/images/operator-signup/background.png"
         />
         <p className="text-silverstone min-[1550px]:text-xl min-[1200px]:text-lg text-base text-center font-bold min-[1500px]:w-[70%] w-[80%]">
           Adventure Comes with you! Join With Us!

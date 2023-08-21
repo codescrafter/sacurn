@@ -14,7 +14,6 @@ const FilterBar = () => {
           name="vintages"
           className="bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdsm font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2"
         >
-          {' '}
           <option>vintages</option>
           <option>vintages</option> <option>vintages</option>
           <option>vintages</option>
@@ -24,7 +23,6 @@ const FilterBar = () => {
           name="prices"
           className="wishSelect bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdsm font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2"
         >
-          {' '}
           <option>Prices</option>
         </select>
       </div>

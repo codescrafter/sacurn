@@ -11,7 +11,7 @@ const ProductDetailView = () => {
             <div className="flex rounded-full bg-pale-yellow 2xl:h-12.7 xl:h-8  2xl:w-12.7 xl:w-8  hover:cursor-pointer w-6 h-6">
               <img
                 className="mx-auto my-auto 2xl:h-auto 2xl:w-auto xl:w-4 xl:h-4 w-2 h-2"
-                src={'/images/products-page/plus.svg'}
+                src="/images/products-page/plus.svg"
                 alt="sacurn"
               />
             </div>
@@ -26,7 +26,7 @@ const ProductDetailView = () => {
             <div className="flex flex-row mb-3">
               <img
                 className="2xl:mr-2.5 xl:mr-1 2xl:w-auto 2xl:h-auto xl:w-3 xl:h-3.5 mr-1 w-3 h-3.5"
-                src={'/images/products-page/locationsmall.svg'}
+                src="/images/products-page/locationsmall.svg"
                 alt="sacurn"
               />
               <p className="2xl:text-base xl:text-xs text-xs">{product.profile.country}</p>
@@ -34,7 +34,7 @@ const ProductDetailView = () => {
             <div className="flex flex-row">
               <img
                 className="2xl:mr-1.2 xl:mr-1  2xl:w-auto 2xl:h-auto xl:w-3 xl:h-3.5 mr-1 w-3 h-3.5"
-                src={'/images/products-page/verified.svg'}
+                src="/images/products-page/verified.svg"
                 alt="sacurn"
               />
               <p className="2xl:text-base xl:text-xs text-xs">{product.profile.verification}</p>
@@ -43,7 +43,7 @@ const ProductDetailView = () => {
           <div className="flex flex-col items-center xl:py-4.7 2xl:pl-4 pl-0 2xl:pr-6.2 xl:pr-2.5 xl:h-full styledDiv py-3 pr-1.5">
             <img
               className="2xl:mb-2.7 xl:mb-1.5 mb-1 2xl:h-auto 2xl:w-auto xl:h-8 xl:w-8 h-7 w-7"
-              src={'/images/products-page/methodology.svg'}
+              src="/images/products-page/methodology.svg"
               alt="sacurn"
             />
             <div className="text-right">
@@ -69,13 +69,13 @@ const ProductDetailView = () => {
             <div className="flex flex-col border border-white 2xl:mt-4 mt-2">
               <img
                 className="2xl:mx-11.5 2xl:h-auto 2xl:w-auto xl:mx-4.5 xl:h-[50%] xl:w-[50%] h-[45%] w-[45%] mx-5 mt-4.7 hover:cursor-pointer"
-                src={'/images/products-page/playbutton.svg'}
+                src="/images/products-page/playbutton.svg"
                 alt="sacurn"
               />
               <p className="mx-auto 2xl:text-auto xl:text-xs text-xxs mb-1.2">Watch Video</p>
             </div>
-            <img className="2xl:w-52 xl:w-52 w-40 mx-auto" src={'/images/products-page/standard1.svg'} alt="sacurn" />
-            <img className="2xl:w-28 xl:w-28 w-20 mx-auto" src={'/images/products-page/standard2.svg'} alt="sacurn" />
+            <img className="2xl:w-52 xl:w-52 w-40 mx-auto" src="/images/products-page/standard1.svg" alt="sacurn" />
+            <img className="2xl:w-28 xl:w-28 w-20 mx-auto" src="/images/products-page/standard2.svg" alt="sacurn" />
           </div>
         </div>
       </div>
