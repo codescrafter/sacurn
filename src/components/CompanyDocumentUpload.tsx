@@ -4,7 +4,7 @@ import { FieldValues, UseFormRegister } from 'react-hook-form';
 const CompanyDocumentUpload = ({ register }: { register: UseFormRegister<FieldValues> }) => {
   const [documentQuantity, setDocumentQuantity] = useState(1);
   return (
-    <div className="flex flex-col w-full ml-3 max">
+    <div className="flex flex-col max-w-[372px] max">
       <p className="text-black min-[1500px]:text-base text-sm">
         影業登記文件檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
       </p>
