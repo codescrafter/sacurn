@@ -43,6 +43,11 @@ export type ProductItemTypes = {
   imagePath: string;
 };
 
+export type WishlistTypes = {
+  id: number;
+  name: string;
+  imagePath: string;
+};
 export enum CardType {
   GovernmentCard = '2',
   MemberCard = '4'

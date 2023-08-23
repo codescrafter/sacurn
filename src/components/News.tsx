@@ -1,12 +1,10 @@
-import { FC } from 'react';
-
 import { NewsTypes } from '../type';
 
 interface IProps {
   data: NewsTypes[];
 }
 
-const News: FC<IProps> = ({ data }) => {
+const News = ({ data }: IProps) => {
   return (
     <div className="flex flex-col">
       <ul>

@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import classNames from 'classnames';
-import { FC, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
 import Navbar from '../components/Navbar';
@@ -10,7 +10,7 @@ import { ProductDetailTypes } from '../type';
 import { PRODUCT_DETAILS } from '../util/constants';
 import AddedToCartModal from './AddedToCartModal';
 
-const ProductDetailList: FC = () => {
+const ProductDetailList = () => {
   const [openCartSuccessModal, setOpenCartSuccessModal] = useState<boolean>(false);
   return (
     <div className="w-full mt-8 pl-4 relative">
@@ -20,7 +20,7 @@ const ProductDetailList: FC = () => {
         <p className="text-xl font-light">
           價格由低至高排列
           <img
-            src={'/images/products-page/ic_arrow_down.svg'}
+            src="/images/products-page/ic_arrow_down.svg"
             alt="arrow-down"
             width={30}
             height={30}
@@ -58,7 +58,7 @@ const ProductDetailList: FC = () => {
                 <div className="flex justify-center gap-1.2 items-center">
                   <button className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white">
                     <img
-                      src={'/images/products-page/ic_minus.svg'}
+                      src="/images/products-page/ic_minus.svg"
                       className="mx-auto"
                       alt="arrow-down"
                       width={13}
@@ -72,7 +72,7 @@ const ProductDetailList: FC = () => {
                   />
                   <button className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white">
                     <img
-                      src={'/images/products-page/ic_plus.svg'}
+                      src="/images/products-page/ic_plus.svg"
                       className="mx-auto"
                       alt="arrow-down"
                       width={13}
@@ -83,7 +83,7 @@ const ProductDetailList: FC = () => {
               </div>
               <div className="w-1/6 flex justify-end mr-7">
                 <img
-                  src={'/images/products-page/ic_add_to_cart.svg'}
+                  src="/images/products-page/ic_add_to_cart.svg"
                   alt="arrow-down"
                   width={50}
                   height={42}
@@ -104,7 +104,7 @@ const ProductDetailList: FC = () => {
 function ProductDetail() {
   return (
     <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
-      <Navbar className={'pt-4 relative z-30'} />
+      <Navbar className="pt-4 relative z-30" />
       <div className="h-full flex flex-row justify-start">
         <div className="2xl:w-[620px] w-[500px] h-auto">
           <div className="2xl:w-[650px] w-[520px] absolute top-0 left-0 overflow-hidden">
@@ -156,8 +156,8 @@ const ImgSlider = () => {
         ))}
       </div>
       <Slider {...settings} ref={sliderRef}>
-        <img className="w-full h-screen" src={'/images/products-page/ocean.png'} alt="sacurn" />
-        <img className="w-full h-screen" src={'/images/products-page/forest.png'} alt="sacurn" />
+        <img className="w-full h-screen" src="/images/products-page/ocean.png" alt="sacurn" />
+        <img className="w-full h-screen" src="/images/products-page/forest.png" alt="sacurn" />
         {/* <Image className="w-full h-screen" src={oceanImg} /> */}
       </Slider>
     </div>

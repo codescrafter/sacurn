@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FC, Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import { TableBodyItem } from '@/types';
 
@@ -9,7 +9,7 @@ interface IProps {
   tableBody: TableBodyItem[];
 }
 
-const CustomTable: FC<IProps> = ({ tableHeadings, tableBody, name }) => {
+const CustomTable = ({ tableHeadings, tableBody, name }: IProps) => {
   const [expandedRowIndex, setExpandedRowIndex] = useState<number | null>(null);
   const [staticRowsVisible, setStaticRowsVisible] = useState<boolean>(false);
 
@@ -142,9 +142,7 @@ const CustomTable: FC<IProps> = ({ tableHeadings, tableBody, name }) => {
                     )}
                   </tr>
 
-                  {expandedRowIndex === index ? (
-                    ''
-                  ) : (
+                  {expandedRowIndex !== index && (
                     <tr className="bg-neutral-150">
                       <td colSpan={8} className="py-[9px]"></td>
                     </tr>

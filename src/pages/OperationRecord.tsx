@@ -9,7 +9,7 @@ import Navbar from '../components/Navbar';
 import formatDate from '../helpers/formatDate';
 import { OPTIONS_LIST } from '../util/constants';
 
-function OperationRecord() {
+const OperationRecord = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
   const [startDate, endDate] = dateRange;
@@ -17,7 +17,7 @@ function OperationRecord() {
   return (
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-150">
       {/* navbar */}
-      <Navbar className={'relative z-30 !bg-navy-blue h-[70px]'} />
+      <Navbar className="relative z-30 !bg-navy-blue h-[70px]" />
       <section className="pt-[27px] px-3 2xl:pl-[34px] 2xl:pr-[27px]">
         <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">| 操作記錄</h1>
         {/* filters */}
@@ -56,7 +56,7 @@ function OperationRecord() {
                     </>
                   )}
                 </div>
-                <img width={10} height={12} src={'/images/operation-record/icon_chervon_down.png'} alt="arrow" />
+                <img width={10} height={12} src="/images/operation-record/icon_chervon_down.png" alt="arrow" />
               </div>
             </div>
 
@@ -102,7 +102,7 @@ function OperationRecord() {
       </section>
     </div>
   );
-}
+};
 
 export default OperationRecord;
 

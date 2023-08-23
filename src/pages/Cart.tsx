@@ -16,7 +16,7 @@ const Cart = () => {
       <div className="flex justify-between my-4 pl-13 pr-10">
         <div className="flex">
           <button className="w-[202px] h-[46px] rounded-[3px] py-1 flex items-center justify-center border border-navy-blue text-navy-blue text-xl">
-            <img src={'/images/cart/ic_back.svg'} width={16} height={14} className="mr-2.5" alt="sacurn" />
+            <img src="/images/cart/ic_back.svg" width={16} height={14} className="mr-2.5" alt="sacurn" />
             繼續購物
           </button>
           <div className="ml-4">
@@ -25,7 +25,7 @@ const Cart = () => {
         </div>
         <div className="flex items-center">
           <p className="text-2xl font-normal text-black mr-3">全部刪除</p>
-          <img src={'/images/cart/ic_delete.svg'} width={28} height={34} alt="sacurn" />
+          <img src="/images/cart/ic_delete.svg" width={28} height={34} alt="sacurn" />
         </div>
       </div>
       <div className="flex flex-row">
@@ -66,7 +66,7 @@ const Cart = () => {
             <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
             <Heading>優惠折扣</Heading>
             <button className="border-navy-blue ml-6.7 2xl:mt-5 mt-3 flex flex-row rounded-lg border-solid border 2xl:px-5 px-4 2xl:py-3 py-2 max-w-max 2xl:mb-8 mb-5">
-              <img src={'/images/cart/promocode.svg'} width={25} height={25} alt="sacurn" />
+              <img src="/images/cart/promocode.svg" width={25} height={25} alt="sacurn" />
               <p className="text-navy-blue 2xl:text-base text-sm pl-3">使用優惠碼</p>
             </button>
             <Heading>服務條款</Heading>
@@ -102,9 +102,9 @@ const CartItem: FC<CartItemTypes> = ({ img, memberCode, heading, price, left, to
       <div className="flex items-center">
         <div className="ml-7.5 mr-4">
           {rowSelected ? (
-            <img src={'/images/cart/ic_check.svg'} width={29} height={29} alt="sacurn" />
+            <img src="/images/cart/ic_check.svg" width={29} height={29} alt="sacurn" />
           ) : (
-            <img src={'/images/cart/ic_uncheck.svg'} width={29} height={29} alt="sacurn" />
+            <img src="/images/cart/ic_uncheck.svg" width={29} height={29} alt="sacurn" />
           )}
         </div>
         <img src={img} width={114} height={114} className="object-cover" alt="sacurn" />
@@ -140,7 +140,7 @@ const CartItem: FC<CartItemTypes> = ({ img, memberCode, heading, price, left, to
           <p className="text-xl font-bold text-black">{total}</p>
         </div>
         <div className="">
-          <img src={'/images/cart/ic_delete.svg'} className="mr-7" width={23} height={27} alt="sacurn" />
+          <img src="/images/cart/ic_delete.svg" className="mr-7" width={23} height={27} alt="sacurn" />
         </div>
       </div>
     </div>

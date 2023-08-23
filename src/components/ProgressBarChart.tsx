@@ -1,15 +1,13 @@
-import { FC } from 'react';
-
 import Button from './Button';
 import GraphCard from './GraphCard';
 
-const ProgressBarChart: FC = () => {
+const ProgressBarChart = () => {
   return (
     <GraphCard className="h-[206px] p-4">
       <div className="flex flex-col space-y-5">
         {/* header */}
         <h5 className="text-grey text-sm 2xl:text-xl font-semibold">
-          您目前是VVIP銀卡等級{' '}
+          您目前是VVIP銀卡等級
           <sup>
             <Button className="border border-light-grey rounded !py-[8px] !px-2 !bg-transparent !text-silverstone font-semibold 2xl:text-[9px]">
               查看升等方式
@@ -69,7 +67,7 @@ const ProgressBarChart: FC = () => {
             2023/06/30將重新計算，會籍依前6個月消費予對應等級
           </span>
           <Button className="!bg-transparent whitespace-nowrap flex items-center font-semibold text-xs 2xl:text-sm !text-silverstone">
-            看紀錄 <img width={6} height={12} src={'/images/sales/chervon_right.png'} alt="arrow" className="ml-1" />
+            看紀錄 <img width={6} height={12} src="/images/sales/chervon_right.png" alt="arrow" className="ml-1" />
           </Button>
         </div>
       </div>

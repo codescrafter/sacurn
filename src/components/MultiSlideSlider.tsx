@@ -2,10 +2,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import classNames from 'classnames';
-import { FC, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
-const MultiSlideSlider: FC = () => {
+const MultiSlideSlider = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const sliderRef = useRef<Slider | null>(null);
@@ -48,7 +48,7 @@ const MultiSlideSlider: FC = () => {
         {[1, 2, 3, 4, 5].map(() => (
           <div className="!w-[422px]">
             <img
-              src={'/images/landing-page/multislide.png'}
+              src="/images/landing-page/multislide.png"
               width={422}
               height={324}
               alt="multislide.png"

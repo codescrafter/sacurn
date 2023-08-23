@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import Button from './Button';
 import HorizontalDivider from './HorizontalDivider';
@@ -11,13 +11,13 @@ interface IProps {
   setConfirmListing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SalesConfirmationBox: FC<IProps> = ({
+const SalesConfirmationBox = ({
   setIsAlert,
   stopTrade,
   setConfirmationBox,
   setStopTrade,
   setConfirmListing
-}) => {
+}: IProps) => {
   return (
     <div className="flex flex-col px-3 2xl:pl-[35px] 2xl:pr-[23px] py-5 2xl:pt-[33px] 2xl:pb-[26px] border-2 border-bright-blue bg-white rounded-[10px] shadow-sales-box">
       <h5 className="font-bold text-xl xl:text-[32]px text-black">
@@ -43,7 +43,7 @@ const SalesConfirmationBox: FC<IProps> = ({
             type="text"
             value="99,999"
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
-          />{' '}
+          />
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
       </div>
@@ -55,7 +55,7 @@ const SalesConfirmationBox: FC<IProps> = ({
             type="text"
             value="999,999,999"
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
-          />{' '}
+          />
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
       </div>
@@ -67,7 +67,7 @@ const SalesConfirmationBox: FC<IProps> = ({
             type="text"
             value="99,999"
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
-          />{' '}
+          />
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
       </div>
