@@ -200,13 +200,13 @@ module.exports = {
       'card-bg': '#ffffffcc',
       'silk-blue': '#5195B2',
       'transparent-grey': '#c6c6c640',
-      'light-trans-grey': 'rgba(179, 180, 180, 0.30)',
       milky: 'rgba(255, 255, 255, 0.80)',
       smoke: '#F6F6F6',
       'transparent-black': '#1b1b1b4d',
       'card-bg-light': '#c6c6c626',
       cyan: '#7EF1F1',
       'text-light': '#DCDCDC',
+      'light-trans-grey': 'rgba(179, 180, 180, 0.30)',
       'trans-grey': 'rgba(255, 255, 255, 0.30)'
     }
   },

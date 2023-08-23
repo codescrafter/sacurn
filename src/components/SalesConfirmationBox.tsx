@@ -43,7 +43,7 @@ const SalesConfirmationBox = ({
             type="text"
             value="99,999"
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
-          />{' '}
+          />
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
       </div>
@@ -55,7 +55,7 @@ const SalesConfirmationBox = ({
             type="text"
             value="999,999,999"
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
-          />{' '}
+          />
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
       </div>
@@ -67,7 +67,7 @@ const SalesConfirmationBox = ({
             type="text"
             value="99,999"
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
-          />{' '}
+          />
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
       </div>

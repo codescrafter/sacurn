@@ -55,4 +55,3 @@ export enum CardType {
 }
 
 export type LayoutSwitchTypes = 'green' | 'blue' | 'yellow';
-

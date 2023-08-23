@@ -33,8 +33,8 @@ const CustomSelect = ({ options, defaultValue, callback }: IProps) => {
     <div className="relative inline-block z-40">
       <div className="rounded py-2 flex items-center cursor-pointer" onClick={toggleDropdown}>
         <div className="text-dark-grey text-base xl:text-lg font-black flex items-center gap-2">
-          {selectedOption || 'Select an option'}{' '}
-          <img width={10} height={12} src={'/images/operation-record/icon_chervon_down.png'} alt="arrow" />
+          {selectedOption || 'Select an option'}
+          <img width={10} height={12} src="/images/operation-record/icon_chervon_down.png" alt="arrow" />
         </div>
       </div>
       {open && (
