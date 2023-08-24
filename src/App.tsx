@@ -3,6 +3,7 @@ import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Cart from '@/pages/Cart';
+import Certificate from '@/pages/Certificate';
 import CompanyRegistration from '@/pages/CompanyRegistration';
 import Dashboard from '@/pages/Dashboard';
 import HistoricalOrder from '@/pages/HistoricalOrder';
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
   {
     path: '/wishlist',
     element: <WishList />
+  },
+  {
+    path: '/certificate',
+    element: <Certificate />
   }
 ]);
 
