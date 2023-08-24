@@ -1,4 +1,4 @@
-import { FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 
 interface IProps {
   id: string;
@@ -6,12 +6,12 @@ interface IProps {
   type: string;
   placeholder?: string;
   register: UseFormRegister<FieldValues>;
-  error?: FieldError;
+  errors?: FieldErrors<FieldValues>;
   heading: string;
   errorMessage?: string;
 }
 
-const LabelInput = ({ id, type, placeholder, register, error, heading, isRequired, errorMessage }: IProps) => {
+const LabelInput = ({ id, type, placeholder, register, errors, heading, isRequired, errorMessage }: IProps) => {
   return (
     <div className="mb-5.5">
       <div className="flex gap-2.7 items-center ">
@@ -23,7 +23,10 @@ const LabelInput = ({ id, type, placeholder, register, error, heading, isRequire
           type={type}
         />
       </div>
-      {error && <p className="text-xs mt-1 ml-2 text-bright-red">{errorMessage}</p>}
+      <div className="flex">
+        <div className="w-[160px]" />
+        {errors && errors[id] && <p className="text-xs mt-1 ml-2 text-bright-red">{errorMessage}</p>}
+      </div>
     </div>
   );
 };
