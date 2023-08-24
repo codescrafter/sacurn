@@ -1,3 +1,4 @@
+import CustomButton from '@/components/CustomButton';
 import LightLayout from '@/components/LightLayout';
 
 const PaymentInformation = () => {
@@ -47,6 +48,23 @@ const PaymentInformation = () => {
             </div>
           </div>
           {/* Second col */}
+          <div className="box-shadow mt-5 h-[712px] flex flex-col justify-between py-5">
+            <h4 className="text-xl font-bold text-navy-blue text-center">購買須知</h4>
+            <div className="yellowScrollNoBg mr-2 overflow-scroll overflow-x-hidden mt-4">
+              <div className="bg-neutral-150 m-4 rounded pt-4">
+                {PURCHASE_NOTES.map((note, index) => (
+                  <div key={index} className="px-7 mb-7 text-black">
+                    <p className="text-sm mb-3">{note.title}:</p>
+                    <p className="text-sm indent-8">{note.content}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex justify-center mt-6">
+              <CustomButton variant="rounded">確認付款</CustomButton>
+            </div>
+          </div>
+          {/* Third col */}
           <div className="box-shadow mt-5 h-[712px] flex flex-col justify-between py-5"></div>
         </div>
       </div>
@@ -55,3 +73,61 @@ const PaymentInformation = () => {
 };
 
 export default PaymentInformation;
+
+const PURCHASE_NOTES = [
+  {
+    title: '購買須知1',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  },
+  {
+    title: '購買須知2',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  },
+  {
+    title: '購買須知3',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  },
+  {
+    title: '購買須知4',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  },
+  {
+    title: '購買須知5',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  },
+  {
+    title: '購買須知6',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  },
+  {
+    title: '購買須知7',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  },
+  {
+    title: '購買須知8',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  },
+  {
+    title: '購買須知9',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  },
+  {
+    title: '購買須知10',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  },
+  {
+    title: '購買須知11',
+    content:
+      '內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容.....'
+  }
+];
