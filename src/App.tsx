@@ -16,6 +16,8 @@ import Products from '@/pages/Products';
 import Sales from '@/pages/Sales';
 import WishList from '@/pages/Wishlist';
 
+import PaymentInformation from './pages/PaymentInformation';
+
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -68,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: '/certificate',
     element: <Certificate />
+  },
+  {
+    path: '/payment-information',
+    element: <PaymentInformation />
   }
 ]);
 
