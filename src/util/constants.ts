@@ -8,26 +8,26 @@ import {
 } from '../type';
 
 export const NAVBAR_ITEMS: NavbarItemTypes[] = [
+  // {
+  //   name: '首頁',
+  //   path: '/'
+  // },
   {
-    name: '首頁',
-    path: '/'
-  },
-  {
-    name: '全部商品',
+    name: 'Product List',
     path: '/all-products'
   },
   {
-    name: '最新消息',
-    path: '/latest-news'
+    name: 'Wish List',
+    path: '/wishlist'
   },
   {
-    name: '碳權趨勢',
+    name: 'My Stock',
     path: '/operation-record'
-  },
-  {
-    name: '碳權庫存',
-    path: '/historical-order'
   }
+  // {
+  //   name: '碳權庫存',
+  //   path: '/historical-order'
+  // }
 ];
 
 export const PRODUCT_DETAILS: ProductDetailTypes[] = [
