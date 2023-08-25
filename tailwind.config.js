@@ -64,7 +64,8 @@ module.exports = {
         }
       },
       borderRadius: {
-        mdlg: '8px'
+        mdlg: '8px',
+        '2.5xl': '20px'
       },
       fontSize: {
         xxs: ['8px', '12px'],
@@ -93,7 +94,8 @@ module.exports = {
           '0px 21.893245697021484px 63.4149169921875px 0px #F0F0F0, 0px 6.039515972137451px 23.40312385559082px 0px rgba(0, 0, 0, 0.05)',
         'operator-signup-input': '0px 8px 31px 0px rgba(0, 0, 0, 0.08)',
         'operator-signup-button':
-          '1.1420453786849976px 1.1877270936965942px 8.039999008178711px 0px rgba(31, 54, 68, 0.90), -3.4744720458984375px -1.7372360229492188px 3.4744720458984375px 0px rgba(183, 215, 235, 0.60)'
+          '1.1420453786849976px 1.1877270936965942px 8.039999008178711px 0px rgba(31, 54, 68, 0.90), -3.4744720458984375px -1.7372360229492188px 3.4744720458984375px 0px rgba(183, 215, 235, 0.60)',
+        'download-btn': '0px 1.809303879737854px 4.809999942779541px 0px rgba(0, 0, 0, 0.25)'
       },
       backgroundImage: {
         'login-white': 'linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)',
