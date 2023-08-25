@@ -16,31 +16,14 @@ const PaymentInformation = () => {
               </div>
               <div className="px-7">
                 <p className="text-grey text-sm font-bold mb-5">3項(以下含稅金5%及手續費)</p>
-                <div className="flex gap-4 justify-between mb-5">
-                  <p className="text-lg font-bold text-grey">
-                    Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance
-                  </p>
-                  <p className="text-lg font-bold text-grey">$ 12,000,000</p>
-                </div>
-                <div className="flex gap-4 justify-between mb-5">
-                  <p className="text-lg font-bold text-grey">Andes Inorganic Soil Carbon</p>
-                  <p className="text-lg font-bold text-grey">$ 5,625,000</p>
-                </div>
-                <div className="flex gap-4 justify-between mb-5">
-                  <p className="text-lg font-bold text-grey">KOKO Networks Clean Ethanol Cooking Fuel</p>
-                  <p className="text-lg font-bold text-grey">$ 25,000</p>
-                </div>
+                <TextRow title="Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance" value="$ 12,000,000" />
+                <TextRow title="Andes Inorganic Soil Carbon" value="$ 5,625,000" />
+                <TextRow title="KOKO Networks Clean Ethanol Cooking Fuel" value="$ 25,000" />
               </div>
             </div>
             <div className="px-7">
-              <div className="flex gap-4 justify-between mb-5">
-                <p className="text-lg font-bold text-grey">手續費</p>
-                <p className="text-lg font-bold text-grey">$ 120,000</p>
-              </div>
-              <div className="flex gap-4 justify-between mb-5">
-                <p className="text-lg font-bold text-grey">稅金5%</p>
-                <p className="text-lg font-bold text-grey">$ 619,000</p>
-              </div>
+              <TextRow title="手續費" value="$ 120,000" />
+              <TextRow title="稅金5%" value="$ 619,000" />
               <div className="flex gap-4 justify-between">
                 <p className="text-lg font-bold text-black">總付款金額</p>
                 <p className="text-lg font-bold text-bright-red">NT$ 619,000</p>
@@ -73,6 +56,20 @@ const PaymentInformation = () => {
 };
 
 export default PaymentInformation;
+
+interface TextRowProps {
+  title: string;
+  value: string;
+}
+
+const TextRow = ({ title, value }: TextRowProps) => {
+  return (
+    <div className="flex gap-4 justify-between mb-5">
+      <p className="text-lg font-bold text-grey w-[72%]">{title}</p>
+      <p className="text-lg font-bold text-grey  w-[28%] whitespace-nowrap text-end">{value}</p>
+    </div>
+  );
+};
 
 const PURCHASE_NOTES = [
   {
