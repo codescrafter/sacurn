@@ -77,9 +77,18 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
           </div>
         </div>
       </div>
-      <CustomButton className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md absolute bottom-7 right-5">
-        '储存 | 下一步'
-      </CustomButton>
+      <div className="absolute bottom-7 right-5 flex gap-2">
+        <CustomButton
+          className="px-4.5 py-0.7 font-bold  rounded-md border border-navy-blue"
+          variant="secondary"
+          type="button"
+        >
+          修改 | 上一步
+        </CustomButton>
+        <CustomButton className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md " type="submit">
+          储存 | 下一步
+        </CustomButton>
+      </div>
     </form>
   );
 };
