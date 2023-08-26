@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 
 import CompanyDocumentUpload from './CompanyDocumentUpload';
+import CustomButton from './CustomButton';
 import LabelInput from './LabelInput';
-import SubmitButton from './SubmitButton';
 interface IProps {
   nextStep: (val: number) => void;
 }
@@ -12,8 +12,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const { register, handleSubmit } = useForm();
   return (
     <form
-      onSubmit={handleSubmit((data: FieldValues) => {
-        console.log(data);
+      onSubmit={handleSubmit(() => {
         nextStep(2);
       })}
     >
@@ -78,7 +77,9 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
           </div>
         </div>
       </div>
-      <SubmitButton text={undefined} className={undefined} />
+      <CustomButton className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md absolute bottom-7 right-5">
+        '储存 | 下一步'
+      </CustomButton>
     </form>
   );
 };

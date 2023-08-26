@@ -15,9 +15,10 @@ interface IProps {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 }
 
-const CustomButton = ({ variant = 'primary', children, className, onClick }: IProps) => {
+const CustomButton = ({ variant = 'primary', children, className, type, onClick }: IProps) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   return (
     <button
@@ -30,6 +31,7 @@ const CustomButton = ({ variant = 'primary', children, className, onClick }: IPr
         'bg-transparent border border-navy-blue rounded-xl text-white': variant === 'rounded-outline',
         'btn-transition': isClicked
       })}
+      type={type}
       onClick={() => {
         setIsClicked(true);
         onClick && onClick();
