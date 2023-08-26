@@ -24,8 +24,8 @@ const CustomButton = ({ variant = 'primary', children, className, onClick }: IPr
       className={classNames('text-base', className, {
         'bg-navy-blue text-white': variant === 'primary',
         'bg-transparent text-navy-blue': variant === 'secondary',
-        'rounded-xl text-white': variant === 'rounded',
-        'rounded-full text-white': variant === 'rounded-full',
+        'rounded-lg text-white bg-navy-blue py-2.5 px-8': variant === 'rounded',
+        'rounded-full text-white bg-navy-blue': variant === 'rounded-full',
         'bg-transparent border border-navy-blue text-navy-blue': variant === 'outline',
         'bg-transparent border border-navy-blue rounded-xl text-white': variant === 'rounded-outline',
         'btn-transition': isClicked
