@@ -1,7 +1,7 @@
 import { FieldValues, useForm } from 'react-hook-form';
 
 import CompanyDocumentUpload from './CompanyDocumentUpload';
-import SubmitButton from './SubmitButton';
+import CustomButton from './CustomButton';
 
 interface IProps {
   nextStep: (val: number) => void;
@@ -141,7 +141,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
           </div>
         </div>
       </div>
-      <SubmitButton text={undefined} className={undefined} />
+      <CustomButton className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md absolute bottom-7 right-5">
+        储存 | 下一步
+      </CustomButton>
     </form>
   );
 };
