@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 
-import { LayoutSwitchTypes } from '@/type';
-
 import CustomButton from '../CustomButton';
 
 enum SWITCH {
@@ -12,7 +10,7 @@ enum SWITCH {
 }
 
 const LayoutSwitch = () => {
-  const [active, setActive] = useState<LayoutSwitchTypes>(SWITCH.GREEN);
+  const [active, setActive] = useState<SWITCH>(SWITCH.GREEN);
 
   return (
     <div className="px-10 pb-4 flex gap-6 items-center justify-end h-[46px]">

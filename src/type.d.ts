@@ -53,5 +53,3 @@ export enum CardType {
   GovernmentCard = '2',
   MemberCard = '4'
 }
-
-export type LayoutSwitchTypes = 'green' | 'blue' | 'yellow';
