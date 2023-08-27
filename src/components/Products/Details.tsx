@@ -11,6 +11,12 @@ import ProductSlider from './ProductSlider';
 const Details = () => {
   const [openTab, setOpenTab] = useState(1);
 
+  enum Tabs {
+    Product_Details = 1,
+    Carton_Impact_Performance = 2,
+    Cobenefit_Impact = 3
+  }
+
   return (
     <div className="flex mt-4 pb-4">
       {/* First Col */}
@@ -79,15 +85,15 @@ const Details = () => {
                 <ul role="tablist" className="mb-4 rounded-full inline-flex h-10 bg-yellow-500 w-full">
                   <li
                     className={classNames('inline-block w-1/2 h-full text-center rounded-full', {
-                      'bg-white': openTab === 1
+                      'bg-white': openTab === Tabs.Product_Details
                     })}
                   >
                     <a
                       className={classNames(
                         'flex justify-center items-center rounded-full h-full py-2 text-xl font-medium',
                         {
-                          'text-dark-grey': openTab === 1,
-                          'text-white underline': openTab !== 1
+                          'text-dark-grey': openTab === Tabs.Product_Details,
+                          'text-white underline': openTab !== Tabs.Product_Details
                         }
                       )}
                       onClick={(e) => {
@@ -103,15 +109,15 @@ const Details = () => {
                   </li>
                   <li
                     className={classNames('inline-block w-1/2 h-full text-center rounded-full', {
-                      'bg-white': openTab === 2
+                      'bg-white': openTab === Tabs.Carton_Impact_Performance
                     })}
                   >
                     <a
                       className={classNames(
                         'flex justify-center items-center rounded-full h-full py-2 text-xl font-medium',
                         {
-                          'text-dark-grey': openTab === 2,
-                          'text-white underline': openTab !== 2
+                          'text-dark-grey': openTab === Tabs.Carton_Impact_Performance,
+                          'text-white underline': openTab !== Tabs.Carton_Impact_Performance
                         }
                       )}
                       onClick={(e) => {
@@ -127,15 +133,15 @@ const Details = () => {
                   </li>
                   <li
                     className={classNames('inline-block w-1/2 h-full text-center rounded-full', {
-                      'bg-white': openTab === 3
+                      'bg-white': openTab === Tabs.Cobenefit_Impact
                     })}
                   >
                     <a
                       className={classNames(
                         'flex justify-center items-center rounded-full h-full py-2 text-xl font-medium',
                         {
-                          'text-dark-grey': openTab === 3,
-                          'text-white underline': openTab !== 3
+                          'text-dark-grey': openTab === Tabs.Cobenefit_Impact,
+                          'text-white underline': openTab !== Tabs.Cobenefit_Impact
                         }
                       )}
                       onClick={(e) => {
@@ -151,28 +157,28 @@ const Details = () => {
                   </li>
                 </ul>
                 <div className="bg-transparent-black p-4 overflow-hidden">
-                  {openTab === 1 && (
+                  {openTab === Tabs.Product_Details && (
                     <div
                       className={classNames('block', {
-                        hidden: openTab !== 1
+                        hidden: openTab !== Tabs.Product_Details
                       })}
                     >
                       <ProductDetail />
                     </div>
                   )}
-                  {openTab === 2 && (
+                  {openTab === Tabs.Carton_Impact_Performance && (
                     <div
                       className={classNames('block', {
-                        hidden: openTab !== 2
+                        hidden: openTab !== Tabs.Carton_Impact_Performance
                       })}
                     >
                       <CartonImpact />
                     </div>
                   )}
-                  {openTab === 3 && (
+                  {openTab === Tabs.Cobenefit_Impact && (
                     <div
                       className={classNames('block', {
-                        hidden: openTab !== 3
+                        hidden: openTab !== Tabs.Cobenefit_Impact
                       })}
                     >
                       <BenefitImpact />

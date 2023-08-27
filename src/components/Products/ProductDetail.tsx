@@ -30,16 +30,16 @@ const ProductDetail = () => {
 
           <div className="">
             <div className="pt-4 px-6">
-              <Item title={'Volume Issued(2016+)'} value={'12,285,949'} className="pb-4" />
-              <Item title={'Avg. Annual Emission Reduction'} value={'1,575,268'} className="pb-4" />
+              <Item title="Volume Issued(2016+)" value="12,285,949" className="pb-4" />
+              <Item title="Avg. Annual Emission Reduction" value="1,575,268" className="pb-4" />
               <Item
-                title={'% of Issued credits Retired (2016+)'}
-                value={'2016 - 52%  2017 - 04%  2018 - 68%  2019 - 25%  2020 - 75%'}
+                title="% of Issued credits Retired (2016+)"
+                value="2016 - 52%  2017 - 04%  2018 - 68%  2019 - 25%  2020 - 75%"
                 className="pb-4"
               />
             </div>
             <Divider />
-            <div className={classNames('px-7 py-4')}>
+            <div className="px-7 py-4">
               <h6 className="font-akaya text-cyan">Project Documents</h6>
               <div className="inline-flex gap-1">
                 <p className="text-lg font-semibold text-white">PDD</p>

@@ -16,7 +16,7 @@ const SelectField = ({ value, label, handleChange }: IProps) => {
         value={value}
         IconComponent={KeyboardArrowDownIcon}
         onChange={(event: SelectChangeEvent) => {
-          handleChange && handleChange(event.target.value);
+          handleChange(event.target.value);
         }}
         sx={{
           backgroundColor: '#FFFFFF4D',
@@ -33,8 +33,7 @@ const SelectField = ({ value, label, handleChange }: IProps) => {
           },
           '& legend': { display: 'none' },
           '& fieldset': { top: 0 },
-          // ignore eslint
-          // eslint-disable-next-line
+          // eslint-disable-next-line no-constant-condition
           '& .MuiSelect-select .notranslate::after': 'Select'
             ? {
                 content: `"${label || 'Location'}"`,
