@@ -13,7 +13,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   return (
     <form
       onSubmit={handleSubmit(() => {
-        nextStep(2);
+        nextStep(3);
       })}
     >
       <div className="mx-auto px-5 w-[570px]">
@@ -44,7 +44,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             register={register}
             type="text"
             id="id_number"
-            isRequired={false}
+            isRequired={true}
             heading="代表人身分證字號"
             placeholder="請輸入代表人身分證字號"
           />
@@ -67,7 +67,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             register={register}
             type="text"
             id="date_of_birth"
-            isRequired={false}
+            isRequired={true}
             heading="出生年月日"
             placeholder="YYYY-MM-DD"
           />
@@ -106,7 +106,7 @@ const RadioOption = ({ register, id, label }: RadioOptionProps) => {
     <div className="flex gap-0.5 items-center">
       <input
         type="radio"
-        {...register(id)}
+        {...(register(id), { required: true })}
         name="nationality"
         className="border-navy-blue w-3.2 checked:bg-navy-blue"
       />
@@ -125,7 +125,7 @@ interface SimpleSelectProps {
 const SimpleSelect = ({ register, className, id, options }: SimpleSelectProps) => {
   return (
     <select
-      {...register(id)}
+      {...register(id, { required: true })}
       className={classNames(
         'rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none',
         className

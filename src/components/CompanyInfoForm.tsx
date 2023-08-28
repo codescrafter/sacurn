@@ -1,4 +1,4 @@
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import CompanyDocumentUpload from './CompanyDocumentUpload';
 import CustomButton from './CustomButton';
@@ -15,9 +15,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   } = useForm();
   return (
     <form
-      onSubmit={handleSubmit((data: FieldValues) => {
-        console.log(data);
-        nextStep(1);
+      onSubmit={handleSubmit(() => {
+        nextStep(2);
       })}
     >
       <div className="flex flex-col items-start">
@@ -43,7 +42,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               <input
                 placeholder="請輸入統一編號"
                 className={`${Style} ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]`}
-                {...register('uniform_numbers')}
+                {...register('uniform_numbers', { required: true })}
                 type="text"
               />
             </>
@@ -51,7 +50,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               <label className="text-black text-right font-semibold col-span-1 mb-5.2">代表人中文姓名 :</label>
               <input
                 className={`${Style} ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]`}
-                {...register('representative_chinese_name')}
+                {...register('representative_chinese_name', { required: true })}
                 type="text"
               />
             </>
@@ -59,7 +58,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               <label className="text-black text-right font-semibold col-span-1 mb-5.2">實收資本額 :</label>
               <input
                 className={`${Style} ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]`}
-                {...register('paid_in_capital')}
+                {...register('paid_in_capital', { required: true })}
                 type="text"
               />
             </>
@@ -68,7 +67,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               <input
                 placeholder="YYYY-MM-DD"
                 className={`${Style} ml-4 mb-5.2 min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px]`}
-                {...register('approved_establishment_date')}
+                {...register('approved_establishment_date', { required: true })}
                 type="text"
               />
             </>
@@ -130,7 +129,11 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     <input type="checkbox" />
                     <label className="text-black ml-2 text-xs">同公司登記地址</label>
                   </div>
-                  <input className={`${Style} w-full`} {...register('member_contact_address')} type="text" />
+                  <input
+                    className={`${Style} w-full`}
+                    {...register('member_contact_address', { required: true })}
+                    type="text"
+                  />
                 </div>
               </>
               <>

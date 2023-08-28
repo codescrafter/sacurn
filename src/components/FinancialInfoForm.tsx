@@ -16,7 +16,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
   return (
     <form
       onSubmit={handleSubmit(() => {
-        nextStep(3);
+        nextStep(4);
       })}
     >
       <div className="mx-auto px-5 w-[570px]">
@@ -45,7 +45,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
             heading="選擇分行或支局"
             options={['分行或支局名稱', '分行或支局名稱']}
           />
-          <LabelInput type="text" register={register} id="account_name" isRequired={false} heading="戶名" />
+          <LabelInput type="text" register={register} id="account_name" isRequired={true} heading="戶名" />
           <LabelInput
             type="text"
             register={register}
