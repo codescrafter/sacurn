@@ -6,7 +6,7 @@ const OperatorSignUp = () => {
       <div className="flex flex-col items-center justify-center min-[1550px]:ml-23.5 min-[1200px]:ml-19 ml-14">
         <img
           className="min-[1550px]:h-[485px] min-[1550px]:w-[515px] min-[1200px]h-[420px]  h-[320px] w-[390px]"
-          src={'/images/operator-signup/background.png'}
+          src="/images/operator-signup/background.png"
         />
         <p className="text-silverstone min-[1550px]:text-xl min-[1200px]:text-lg text-base text-center font-bold min-[1500px]:w-[70%] w-[80%]">
           Adventure Comes with you! Join With Us!
@@ -16,12 +16,12 @@ const OperatorSignUp = () => {
         <h1 className="min-[1550px]:text-5.2xl min-[1200px]:text-4xl text-3xl text-center text-navy-blue font-semibold  min-[1550px]:mb-8.2 min-[1200px]:mb-6 mb-5">
           Account sign up
         </h1>
-        <Heading heading={'公司名稱'} />
+        <Heading heading="公司名稱" />
         <input
           id="co-name"
           type="text"
           placeholder="艾克斯厚定股份有限公司"
-          className={`${Style} w-full min-[1550px]:mb-10.7 min-[1200px]:mb-8 mb-6`}
+          className={classNames(Style, 'w-full min-[1550px]:mb-10.7 min-[1200px]:mb-8 mb-6')}
         />
         <div className="flex flex-row justify-between w-full min-[1550px]:mb-6 min-[1200px]:mb-8 mb-6">
           <Field heading="管理者姓名" type="text" className="self-start" />
@@ -43,14 +43,14 @@ const OperatorSignUp = () => {
         </div>
         <div className="flex flex-row justify-between w-full min-[1550px]:mb-7.2 min-[1200px]:mb-6 mb-5">
           <div className="flex flex-col self-start w-[45%]">
-            <Heading heading={'再次輸入密碼'} />
+            <Heading heading="再次輸入密碼" />
             <PasswordInput />
             <p className="text-grey ml-5.5 mt-2 w-[100%] min-[1500px]:text-base min-[1200px]:text-sm text-[12px]">
               提示：密碼需至少有12字元，請混和使用大小寫字母、數字，使密碼更加安全。
             </p>
           </div>
           <div className="flex flex-col self-start w-[45%]">
-            <Heading heading={'再次輸入密碼'} />
+            <Heading heading="再次輸入密碼" />
             <PasswordInput />
             <div className="flex ml-5.5 mt-2 w-[100%] justify-start gap-1">
               <input className="mt-1 self-start min-[1500px]:w-3.5 w-3 min-[1500px]:h-4 h-3.5" type="checkbox" />
@@ -111,11 +111,7 @@ const Field = ({ heading, type, className, downText }: FieldProps) => {
 const PasswordInput = () => {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div
-      className={classNames(
-        'rounded-full shadow-operator-signup-input bg-white min-[1550px]:h-17.5 min-[1200px]:h-13.2 h-11.5 px-5 py-3 text-black min-[1550px]:text-xl min-[1200px]:text-lg text-base outline-none flex justify-between w-[100%]'
-      )}
-    >
+    <div className="rounded-full shadow-operator-signup-input bg-white min-[1550px]:h-17.5 min-[1200px]:h-13.2 h-11.5 px-5 py-3 text-black min-[1550px]:text-xl min-[1200px]:text-lg text-base outline-none flex justify-between w-[100%]">
       <input className="outline-none w-[85%]" type={showPassword ? 'text' : 'password'} />
       <img
         src={showPassword ? '/images/operator-signup/visible.svg' : '/images/operator-signup/invisible.svg'}
