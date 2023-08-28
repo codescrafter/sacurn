@@ -2,28 +2,14 @@ import classNames from 'classnames';
 import Slider from 'react-slick';
 
 const ProductSlider = () => {
-  function SampleNextArrow(props: {
-    className?: string;
-    style?: Omit<React.CSSProperties, 'display' | 'background' | 'right'>;
-    onClick?: () => void;
-  }) {
-    const { className, style, onClick } = props;
+  function SampleNextArrow(props: { className?: string; onClick?: () => void }) {
+    const { className, onClick } = props;
     return (
       <div
         className={classNames(
           className,
-          "slick-button-before !bg-black !bg-[url('../public/images/products/green/right-arrow.svg')] !bg-no-repeat !bg-center"
+          "slick-button-before !bg-black !bg-[url('../public/images/products/green/right-arrow.svg')] !bg-no-repeat !bg-center rounded !right-2"
         )}
-        style={{
-          ...style,
-          display: 'flex',
-          background: 'red',
-          right: '8px',
-          backgroundColor: '#525252',
-          borderRadius: '5px',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
         onClick={onClick}
       />
     );
