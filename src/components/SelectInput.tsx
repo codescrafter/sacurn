@@ -33,16 +33,13 @@ const SelectField = ({ value, label, handleChange }: IProps) => {
           },
           '& legend': { display: 'none' },
           '& fieldset': { top: 0 },
-          // eslint-disable-next-line no-constant-condition
-          '& .MuiSelect-select .notranslate::after': 'Select'
-            ? {
-                content: `"${label || 'Location'}"`,
-                opacity: 1,
-                color: '#fff',
-                fontWeight: 600,
-                fontSize: '14px'
-              }
-            : {}
+          '& .MuiSelect-select .notranslate::after': {
+            content: `"${label || 'Location'}"`,
+            opacity: 1,
+            color: '#fff',
+            fontWeight: 600,
+            fontSize: '14px'
+          }
         }}
         // changed menu item color
         MenuProps={{
