@@ -9,7 +9,11 @@ interface IProps {
 }
 
 const RepresentativeInfoForm = ({ nextStep }: IProps) => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
   return (
     <form
       onSubmit={handleSubmit(() => {
@@ -47,6 +51,8 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             isRequired={true}
             heading="代表人身分證字號"
             placeholder="請輸入代表人身分證字號"
+            errors={errors}
+            errorMessage="必填字段"
           />
           <div className="flex gap-2.7 mb-5.5 items-center">
             <p className="text-base text-black w-[144px] text-right">身分證發證日期: </p>
@@ -70,6 +76,8 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             isRequired={true}
             heading="出生年月日"
             placeholder="YYYY-MM-DD"
+            errors={errors}
+            errorMessage="必填字段"
           />
           <div className="flex gap-2.7">
             <p className="text-black text-base min-w-[144px] text-right">身分證文件:</p>

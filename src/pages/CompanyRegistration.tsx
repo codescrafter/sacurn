@@ -9,7 +9,7 @@ import SimpleNav from '@/components/SimpleNav';
 import TermsConfirmation from '@/components/TermsConfirmation';
 
 function CompanyRegistration() {
-  const [stepNumber, setStepNumber] = useState(4);
+  const [stepNumber, setStepNumber] = useState(1);
   const stepNumberHandler = (val: number) => {
     setStepNumber(val);
   };

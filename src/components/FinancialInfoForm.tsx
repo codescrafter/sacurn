@@ -45,7 +45,15 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
             heading="選擇分行或支局"
             options={['分行或支局名稱', '分行或支局名稱']}
           />
-          <LabelInput type="text" register={register} id="account_name" isRequired={true} heading="戶名" />
+          <LabelInput
+            type="text"
+            register={register}
+            id="account_name"
+            isRequired={true}
+            heading="戶名"
+            errors={errors}
+            errorMessage="必填字段"
+          />
           <LabelInput
             type="text"
             register={register}
