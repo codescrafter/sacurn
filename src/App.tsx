@@ -15,10 +15,11 @@ import ProductDetails from '@/pages/ProductDetails';
 import Products from '@/pages/Products';
 import Sales from '@/pages/Sales';
 import WishList from '@/pages/Wishlist';
-import { useMemberStore } from '@/store/memberCard';
-import { ModalType, useModalStore } from '@/store/modal';
 
+// import { useMemberStore } from '@/store/memberCard';
+// import { ModalType, useModalStore } from '@/store/modal';
 import Modal from './components/Modal/UniversalModal';
+import { useUserStore } from './store/user';
 
 const router = createBrowserRouter([
   {
@@ -72,14 +73,20 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  const { open } = useModalStore();
-  const { start } = useMemberStore();
+  // const { open } = useModalStore();
+  const { login } = useUserStore();
+  // const { start } = useMemberStore();
 
   useEffect(() => {
     console.log('Starting');
-    start();
+    // start();
 
-    open(ModalType.Loading);
+    login({
+      username: 'admin',
+      password: 'password'
+    });
+
+    // open(ModalType.Loading);
   }, []);
   return (
     <div>

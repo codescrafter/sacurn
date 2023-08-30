@@ -2,11 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { useModalStore } from '@/store/modal';
-
-export enum UniversalModalStatus {
-  Loading = 'loading',
-  Info = 'info'
-}
+import { UniversalModalStatus } from '@/types';
 
 export type UniversalModalProps = {
   status: UniversalModalStatus;

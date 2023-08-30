@@ -20,3 +20,8 @@ export type TableBodyItem =
       lumpsum: string;
       orderStatus: string;
     };
+
+export enum UniversalModalStatus {
+  Loading = 'loading',
+  Info = 'info'
+}

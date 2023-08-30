@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
-import { UniversalModalProps, UniversalModalStatus } from '@/components/Modal/UniversalModal';
+import { UniversalModalProps } from '@/components/Modal/UniversalModal';
+import { UniversalModalStatus } from '@/types';
 
 type ModalState = {
   isOpen: boolean;
@@ -12,7 +13,8 @@ type ModalState = {
 
 export enum ModalType {
   AddToCart = 'AddToCart',
-  Loading = 'Loading'
+  Loading = 'Loading',
+  Error = 'Error'
 }
 
 const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
@@ -21,6 +23,14 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
     icon: 'https://www.benmvp.com/f3b3c5fd2893249d60a9cadfc077b96d/loading-spinner-final.svg',
     title: 'Loading...',
     description: '',
+    buttons: []
+  },
+  [ModalType.Error]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '出了一點錯',
+    description: '',
+    errorText: '',
     buttons: []
   },
   [ModalType.AddToCart]: {
