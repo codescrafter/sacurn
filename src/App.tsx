@@ -1,5 +1,6 @@
 import './App.css';
 
+import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Cart from '@/pages/Cart';
@@ -14,6 +15,8 @@ import ProductDetails from '@/pages/ProductDetails';
 import Products from '@/pages/Products';
 import Sales from '@/pages/Sales';
 import WishList from '@/pages/Wishlist';
+
+import apiClient from './libs/api/client';
 
 const router = createBrowserRouter([
   {
@@ -67,6 +70,9 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
+  useEffect(() => {
+    apiClient.trade.tradeCartDestroy(123);
+  }, []);
   return (
     <div>
       <RouterProvider router={router} />
