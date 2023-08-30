@@ -1,5 +1,7 @@
 import { FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 
+import { CompanyRegistrationSteps } from '@/util/constants';
+
 import CompanyDocumentUpload from './CompanyDocumentUpload';
 import CustomButton from './CustomButton';
 import LabelInput from './LabelInput';
@@ -16,7 +18,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
   return (
     <form
       onSubmit={handleSubmit(() => {
-        nextStep(3);
+        nextStep(CompanyRegistrationSteps.TERMS_CONFIRMATION);
       })}
     >
       <div className="mx-auto px-5 w-[570px]">
@@ -45,7 +47,15 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
             heading="選擇分行或支局"
             options={['分行或支局名稱', '分行或支局名稱']}
           />
-          <LabelInput type="text" register={register} id="account_name" isRequired={false} heading="戶名" />
+          <LabelInput
+            type="text"
+            register={register}
+            id="account_name"
+            isRequired={true}
+            heading="戶名"
+            errors={errors}
+            errorMessage="必填字段"
+          />
           <LabelInput
             type="text"
             register={register}
