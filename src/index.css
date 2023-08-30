@@ -262,3 +262,9 @@
 .direction-ltr {
   direction: ltr;
 }
+
+.box-shadow {
+  border-radius: 10px;
+  background: var(--ffffff, #fff);
+  box-shadow: 0px 0.696072518825531px 9.745015144348145px 0px rgba(0, 0, 0, 0.15);
+}

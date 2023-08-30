@@ -117,11 +117,12 @@ const Item = ({ title, value, description, className }: ItemTypes) => {
   );
 };
 
-const Divider = ({ color }: { color?: 'white' | 'cyan' }) => {
+const Divider = ({ color = 'white' }: { color?: 'white' | 'cyan' }) => {
   return (
     <div
-      className={classNames('h-[1px] w-full bg-white', {
-        'bg-cyan': color
+      className={classNames('h-[1px] w-full ', {
+        'bg-cyan': color === 'cyan',
+        'bg-white': color === 'white'
       })}
     />
   );
