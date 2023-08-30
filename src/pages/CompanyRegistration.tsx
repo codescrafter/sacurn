@@ -7,6 +7,7 @@ import RegistrationCompleted from '@/components/RegistrationCompleted';
 import RepresentativeInfoForm from '@/components/RepresentativeInfoForm';
 import SimpleNav from '@/components/SimpleNav';
 import TermsConfirmation from '@/components/TermsConfirmation';
+import { ProgressBarItems } from '@/util/constants';
 
 function CompanyRegistration() {
   const [stepNumber, setStepNumber] = useState(1);
@@ -17,7 +18,7 @@ function CompanyRegistration() {
   return (
     <div className=" bg-smoke h-screen">
       <SimpleNav className="mb-20" />
-      <ProgressBar steps={5} stepNumber={stepNumber} stepName="填寫寫金融機構帳戶資料" />
+      <ProgressBar steps={5} stepNumber={stepNumber} stepName={ProgressBarItems[stepNumber]} />
       {stepNumber === 1 && <CompanyInfoForm nextStep={stepNumberHandler} />}
       {stepNumber === 2 && <RepresentativeInfoForm nextStep={stepNumberHandler} />}
       {stepNumber === 3 && <FinancialInfoForm nextStep={stepNumberHandler} />}
