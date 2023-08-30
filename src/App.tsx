@@ -15,8 +15,10 @@ import ProductDetails from '@/pages/ProductDetails';
 import Products from '@/pages/Products';
 import Sales from '@/pages/Sales';
 import WishList from '@/pages/Wishlist';
+import { useMemberStore } from '@/store/memberCard';
+import { ModalType, useModalStore } from '@/store/modal';
 
-import apiClient from './libs/api/client';
+import Modal from './components/Modal/UniversalModal';
 
 const router = createBrowserRouter([
   {
@@ -70,12 +72,19 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
+  const { open } = useModalStore();
+  const { start } = useMemberStore();
+
   useEffect(() => {
-    apiClient.trade.tradeCartDestroy(123);
+    console.log('Starting');
+    start();
+
+    open(ModalType.Loading);
   }, []);
   return (
     <div>
       <RouterProvider router={router} />
+      <Modal />
     </div>
   );
 }
