@@ -8,14 +8,14 @@ import RepresentativeInfoForm from '@/components/RepresentativeInfoForm';
 import SimpleNav from '@/components/SimpleNav';
 import TermsConfirmation from '@/components/TermsConfirmation';
 import { CompanyRegistrationSteps, ProgressBarItems } from '@/util/constants';
-function CompanyRegistration() {
+const CompanyRegistration = () => {
   const [stepNumber, setStepNumber] = useState(CompanyRegistrationSteps.COMPANY_INFO_FORM);
   const stepNumberHandler = (val: number) => {
     setStepNumber(val);
   };
 
   return (
-    <div className=" bg-smoke h-screen">
+    <div className=" bg-smoke min-h-screen">
       <SimpleNav className="mb-20" />
       <ProgressBar steps={5} stepNumber={stepNumber} stepName={ProgressBarItems[stepNumber]} />
       {stepNumber === 1 && <CompanyInfoForm nextStep={stepNumberHandler} />}
@@ -25,6 +25,6 @@ function CompanyRegistration() {
       {stepNumber === 5 && <RegistrationCompleted />}
     </div>
   );
-}
+};
 
 export default CompanyRegistration;

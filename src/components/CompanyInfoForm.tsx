@@ -40,7 +40,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               heading="企業名稱"
               errors={errors}
               errorMessage="會員名稱即為提領的金融帳號戶名，請正確填寫"
-              varient="small"
+              size="small"
             />
 
             <LabelInput
@@ -52,7 +52,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               placeholder="請輸入統一編號"
               errors={errors}
               errorMessage="必填字段"
-              varient="small"
+              size="small"
             />
 
             <LabelInput
@@ -63,7 +63,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               heading="代表人中文姓名"
               errors={errors}
               errorMessage="必填字段"
-              varient="small"
+              size="small"
             />
 
             <LabelInput
@@ -74,7 +74,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               heading="實收資本額"
               errors={errors}
               errorMessage="必填字段"
-              varient="small"
+              size="small"
             />
 
             <LabelInput
@@ -86,7 +86,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               heading="核准設立日期"
               errors={errors}
               errorMessage="必填字段"
-              varient="small"
+              size="small"
             />
             <div className="flex gap-2.7">
               <label className="text-black text-right font-semibold w-[128px] mb-5.2">會員聯絡地址 :</label>
@@ -123,7 +123,10 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     <input
                       type="text"
                       placeholder="路、街、村、段"
-                      className={classNames('px-5 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style)}
+                      {...register('local_address')}
+                      className={classNames('px-5 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style, {
+                        'border-bright-red border': errors.local_address
+                      })}
                     />
                   </div>
                   <div className="flex flex-row my-1 items-center">
@@ -180,7 +183,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 heading="會員電話"
                 errors={errors}
                 errorMessage="例: 0x-000111或09xx-000111"
-                varient="small"
+                size="small"
               />
               <div>
                 <div className="flex flex-row items-center mb-1 ml-[155px] font-bold">
@@ -193,7 +196,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                   type="text"
                   register={register}
                   heading="會員聯絡地址"
-                  varient="small"
+                  size="small"
                 />
               </div>
               <div className="flex gap-2.7">
