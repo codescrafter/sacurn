@@ -7,10 +7,9 @@ import RegistrationCompleted from '@/components/RegistrationCompleted';
 import RepresentativeInfoForm from '@/components/RepresentativeInfoForm';
 import SimpleNav from '@/components/SimpleNav';
 import TermsConfirmation from '@/components/TermsConfirmation';
-import { ProgressBarItems } from '@/util/constants';
-
+import { CompanyRegistrationSteps, ProgressBarItems } from '@/util/constants';
 function CompanyRegistration() {
-  const [stepNumber, setStepNumber] = useState(1);
+  const [stepNumber, setStepNumber] = useState(CompanyRegistrationSteps.COMPANY_INFO_FORM);
   const stepNumberHandler = (val: number) => {
     setStepNumber(val);
   };

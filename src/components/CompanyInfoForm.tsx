@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 
+import { CompanyRegistrationSteps } from '@/util/constants';
+
 import CompanyDocumentUpload from './CompanyDocumentUpload';
 import CustomButton from './CustomButton';
 import LabelInput from './LabelInput';
@@ -18,7 +20,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   return (
     <form
       onSubmit={handleSubmit(() => {
-        nextStep(2);
+        nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
       })}
     >
       <div className="w-max mx-auto">
@@ -29,7 +31,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
           </h1>
         </div>
         <div className="flex flex-row gap-28 justify-center w-full">
-          <div className="left-col">
+          <div>
             <LabelInput
               id="company_name"
               isRequired={true}
@@ -38,7 +40,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               heading="企業名稱"
               errors={errors}
               errorMessage="會員名稱即為提領的金融帳號戶名，請正確填寫"
-              style="style-2"
+              varient="small"
             />
 
             <LabelInput
@@ -50,7 +52,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               placeholder="請輸入統一編號"
               errors={errors}
               errorMessage="必填字段"
-              style="style-2"
+              varient="small"
             />
 
             <LabelInput
@@ -61,7 +63,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               heading="代表人中文姓名"
               errors={errors}
               errorMessage="必填字段"
-              style="style-2"
+              varient="small"
             />
 
             <LabelInput
@@ -72,7 +74,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               heading="實收資本額"
               errors={errors}
               errorMessage="必填字段"
-              style="style-2"
+              varient="small"
             />
 
             <LabelInput
@@ -84,7 +86,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               heading="核准設立日期"
               errors={errors}
               errorMessage="必填字段"
-              style="style-2"
+              varient="small"
             />
             <div className="flex gap-2.7">
               <label className="text-black text-right font-semibold w-[128px] mb-5.2">會員聯絡地址 :</label>
@@ -169,7 +171,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
             </div>
           </div>
           <div>
-            <div className="">
+            <div>
               <LabelInput
                 id="member_phone"
                 isRequired={true}
@@ -178,7 +180,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 heading="會員電話"
                 errors={errors}
                 errorMessage="例: 0x-000111或09xx-000111"
-                style="style-2"
+                varient="small"
               />
               <div>
                 <div className="flex flex-row items-center mb-1 ml-[155px] font-bold">
@@ -191,7 +193,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                   type="text"
                   register={register}
                   heading="會員聯絡地址"
-                  style="style-2"
+                  varient="small"
                 />
               </div>
               <div className="flex gap-2.7">

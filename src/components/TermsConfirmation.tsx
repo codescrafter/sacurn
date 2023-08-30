@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 
-import { Policy } from '@/util/constants';
+import { CompanyRegistrationSteps, Policy } from '@/util/constants';
 
 import CustomButton from './CustomButton';
 
@@ -12,7 +12,7 @@ const TermsConfirmation = ({ nextStep }: IProps) => {
   return (
     <form
       onSubmit={handleSubmit(() => {
-        nextStep(5);
+        nextStep(CompanyRegistrationSteps.REGISTRATION_COMPLETED);
       })}
     >
       <div className="flex flex-col items-center">

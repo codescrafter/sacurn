@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 
+import { CompanyRegistrationSteps } from '@/util/constants';
+
 import CompanyDocumentUpload from './CompanyDocumentUpload';
 import CustomButton from './CustomButton';
 import LabelInput from './LabelInput';
@@ -17,7 +19,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   return (
     <form
       onSubmit={handleSubmit(() => {
-        nextStep(3);
+        nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
       })}
     >
       <div className="mx-auto px-5 w-[570px]">
