@@ -40,7 +40,12 @@ const LabelInput = ({ id, type, placeholder, register, errors, heading, isRequir
         />
       </div>
       <div className="flex">
-        <div className={classNames({ 'w-[160px]': style === 'style-1', 'w-[145px]': style === 'style-2' })} />
+        <div
+          className={classNames({
+            'w-[160px]': style === 'style-1' || style === undefined,
+            'w-[145px]': style === 'style-2'
+          })}
+        />
         {errors && errors[id] && <p className="text-xs mt-1 ml-2 text-bright-red">{errorMessage}</p>}
       </div>
     </div>
