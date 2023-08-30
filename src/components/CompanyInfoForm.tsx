@@ -92,14 +92,20 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 <div className="absolute flex flex-col -translate-y-1.5">
                   <div className="flex flex-row my-1">
                     <select
-                      className={`${Style} min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdsm min-[1200px]:text-xms text-xxs`}
+                      className={classNames(
+                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdsm min-[1200px]:text-xms text-xxs',
+                        Style
+                      )}
                     >
                       <option className="text-black">縣市</option>
                       <option className="text-black">縣市</option>
                       <option className="text-black">縣市</option>
                     </select>
                     <select
-                      className={`${Style} min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdsm min-[1200px]:text-xms text-xxs`}
+                      className={classNames(
+                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdsm min-[1200px]:text-xms text-xxs',
+                        Style
+                      )}
                     >
                       <option className="text-black">鄉鎮市區</option>
                       <option className="text-black">鄉鎮市區</option>
@@ -107,12 +113,15 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     </select>
                     <input
                       type="text"
-                      className={`${Style} min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-13 w-12 mr-2 px-5`}
+                      className={classNames(
+                        'min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-13 w-12 mr-2 px-5',
+                        Style
+                      )}
                     />
                     <input
                       type="text"
                       placeholder="路、街、村、段"
-                      className={`${Style} px-5 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29`}
+                      className={classNames('px-5 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style)}
                     />
                   </div>
                   <div className="flex flex-row my-1 items-center">
