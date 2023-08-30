@@ -4,7 +4,7 @@ const FilterBar = () => {
       <div className="flex flex-row">
         <select
           name="location"
-          className="bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdsm font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2"
+          className="bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdbase font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2"
         >
           <option className="bg-grey hover:bg-black cursor-pointer">Location</option>
           <option className="bg-grey">Location</option>
@@ -12,7 +12,7 @@ const FilterBar = () => {
         </select>
         <select
           name="vintages"
-          className="bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdsm font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2"
+          className="bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdbase font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2"
         >
           <option>vintages</option>
           <option>vintages</option> <option>vintages</option>
@@ -21,7 +21,7 @@ const FilterBar = () => {
         </select>
         <select
           name="prices"
-          className="wishSelect bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdsm font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2"
+          className="wishSelect bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdbase font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2"
         >
           <option>Prices</option>
         </select>

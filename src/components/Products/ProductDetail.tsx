@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 
+import { ItemColor } from '@/type';
+
 import Card from './Card';
 
 const ProductDetail = () => {
@@ -59,9 +61,9 @@ const ProductDetail = () => {
         {/* Information */}
         <div>
           <div className="flex items-center gap-7 pt-5 pb-4">
-            <Divider color="cyan" />
+            <Divider color={ItemColor.CYAN} />
             <h6 className="font-akaya text-cyan">Information</h6>
-            <Divider color="cyan" />
+            <Divider color={ItemColor.CYAN} />
           </div>
           <p className="font-medium text-white">
             The Delta Blue Carbon –1 Project (DBC-1)is a mangroves and wetlands afforestation andrestoration project,
@@ -107,6 +109,7 @@ interface ItemTypes {
   description?: string;
   className?: string;
 }
+
 const Item = ({ title, value, description, className }: ItemTypes) => {
   return (
     <div className={classNames(className)}>
@@ -117,11 +120,12 @@ const Item = ({ title, value, description, className }: ItemTypes) => {
   );
 };
 
-const Divider = ({ color }: { color?: 'white' | 'cyan' }) => {
+const Divider = ({ color = ItemColor.WHITE }: { color?: ItemColor }) => {
   return (
     <div
-      className={classNames('h-[1px] w-full bg-white', {
-        'bg-cyan': color
+      className={classNames('h-[1px] w-full ', {
+        'bg-cyan': color === ItemColor.CYAN,
+        'bg-white': color === ItemColor.WHITE
       })}
     />
   );

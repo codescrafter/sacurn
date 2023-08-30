@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Cart from '@/pages/Cart';
+import Certificate from '@/pages/Certificate';
 import CompanyRegistration from '@/pages/CompanyRegistration';
 import Dashboard from '@/pages/Dashboard';
 import HistoricalOrder from '@/pages/HistoricalOrder';
@@ -19,6 +20,7 @@ import WishList from '@/pages/Wishlist';
 // import { useMemberStore } from '@/store/memberCard';
 // import { ModalType, useModalStore } from '@/store/modal';
 import Modal from './components/Modal/UniversalModal';
+import PaymentInformation from './pages/PaymentInformation';
 import { useUserStore } from './store/user';
 
 const router = createBrowserRouter([
@@ -69,6 +71,14 @@ const router = createBrowserRouter([
   {
     path: '/wishlist',
     element: <WishList />
+  },
+  {
+    path: '/certificate',
+    element: <Certificate />
+  },
+  {
+    path: '/payment-information',
+    element: <PaymentInformation />
   }
 ]);
 
