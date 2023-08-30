@@ -3,6 +3,7 @@ import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Cart from '@/pages/Cart';
+import Certificate from '@/pages/Certificate';
 import CompanyRegistration from '@/pages/CompanyRegistration';
 import Dashboard from '@/pages/Dashboard';
 import HistoricalOrder from '@/pages/HistoricalOrder';
@@ -14,6 +15,8 @@ import ProductDetails from '@/pages/ProductDetails';
 import Products from '@/pages/Products';
 import Sales from '@/pages/Sales';
 import WishList from '@/pages/Wishlist';
+
+import PaymentInformation from './pages/PaymentInformation';
 
 const router = createBrowserRouter([
   {
@@ -63,6 +66,14 @@ const router = createBrowserRouter([
   {
     path: '/wishlist',
     element: <WishList />
+  },
+  {
+    path: '/certificate',
+    element: <Certificate />
+  },
+  {
+    path: '/payment-information',
+    element: <PaymentInformation />
   }
 ]);
 
