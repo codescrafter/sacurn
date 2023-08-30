@@ -95,7 +95,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                   <div className="flex flex-row my-1">
                     <select
                       className={classNames(
-                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdsm min-[1200px]:text-xms text-xxs',
+                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
                         Style
                       )}
                     >
@@ -105,7 +105,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     </select>
                     <select
                       className={classNames(
-                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdsm min-[1200px]:text-xms text-xxs',
+                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
                         Style
                       )}
                     >
@@ -219,6 +219,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
 export default CompanyInfoForm;
 
 const Style =
-  'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6 min-[1550px]:px-2 min-[1200px]:px-1.5 px-1 py-2.5 text-black min-[1550px]:text-mdsm min-[1200px]:text-xms text-xxs outline-none';
+  'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6 min-[1550px]:px-2 min-[1200px]:px-1.5 px-1 py-2.5 text-black min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none';
 const address_row_1 = ['鄰', '巷', '弄', '街'];
 const address_row_2 = ['號之', ',', '號之', '室'];
