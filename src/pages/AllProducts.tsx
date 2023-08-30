@@ -58,7 +58,7 @@ function AllProducts() {
         <div className="flex flex-col max-h-[973px] items-end mr-9.5 relative z-50 flex-1">
           <ViewStyleBar activeColor={active} setDisplay={setActiveDisplayHandler} />
           {display === 'list-view' && (
-            <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 mb-15.7 overflow-scroll overflow-x-hidden ">
+            <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 mb-15.7 overflow-scroll overflow-x-hidden">
               <ProductsListView />
             </div>
           )}

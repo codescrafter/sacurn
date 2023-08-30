@@ -11,7 +11,6 @@ const ProgressBar = ({ steps, stepNumber, stepName }: ProgressBarProps) => {
       <div className="bg-navy-blue py-1 rounded-full w-[90%]"></div>
       <div className="flex flex-row relative -translate-y-5.5 justify-between w-[75%]">
         {noOfSteps.map((step, index) => {
-          console.log('here');
           return (
             <div className="flex flex-col relative items-center">
               {stepNumber === index + 1 && (
