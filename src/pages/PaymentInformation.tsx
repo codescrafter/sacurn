@@ -9,7 +9,7 @@ const PaymentInformation = () => {
         <h2 className="text-[28px] border-l-4 pl-2 text-navy-blue">付款資訊</h2>
         <div className="grid grid-cols-3 gap-6">
           {/* First col */}
-          <div className="box-shadow mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
+          <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
             <div>
               <div className="flex justify-between mb-2.5">
                 <p className="border-l-[7px] border-pale-yellow pl-[20px] text-lg font-bold">商品共計</p>
@@ -32,7 +32,7 @@ const PaymentInformation = () => {
             </div>
           </div>
           {/* Second col */}
-          <div className="box-shadow mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
+          <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
             <h4 className="text-xl font-bold text-navy-blue text-center">購買須知</h4>
             <div className="yellowScrollNoBg mr-2 overflow-scroll overflow-x-hidden mt-4">
               <div className="bg-neutral-150 m-4 rounded pt-4">
@@ -49,7 +49,7 @@ const PaymentInformation = () => {
             </div>
           </div>
           {/* Third col */}
-          <div className="box-shadow mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
+          <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
             <TotalPayment />
           </div>
         </div>

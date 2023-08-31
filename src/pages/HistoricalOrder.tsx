@@ -55,7 +55,7 @@ function HistoricalOrder() {
                     </>
                   )}
                 </div>
-                <img width={10} height={12} src={'/images/operation-record/icon_chervon_down.png'} alt="arrow" />
+                <img width={10} height={12} src="/images/operation-record/icon_chervon_down.png" alt="arrow" />
               </div>
             </div>
             {/* state */}

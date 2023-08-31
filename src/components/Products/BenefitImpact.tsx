@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 const BenefitImpact = () => {
@@ -7,9 +6,9 @@ const BenefitImpact = () => {
       {/* First col */}
       <div className="col-span-2">
         <img src="/images/products/green/co-benefit.png" alt="sacurn" className="w-full h-[310px] object-cover" />
-        <div className="">
+        <div>
           {DATA.map((item) => (
-            <div key={item.title} className={classNames('bg-card-bg-light p-3 mt-3')}>
+            <div key={item.title} className="bg-card-bg-light p-3 mt-3">
               <div className="flex gap-4 items-center">
                 <img src="/images/products/green/tree.svg" />
                 <h5 className="text-xl font-semibold text-white">{item.value}</h5>

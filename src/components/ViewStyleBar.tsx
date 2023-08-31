@@ -43,7 +43,7 @@ const ViewStyleBar = ({ activeColor, setDisplay }: IProps) => {
         );
       })}
       {/* <div className="rounded-full  bg-light-grey ml-2.5 mr-5.7 py-1.9 px-2">
-        <img className="xl:w-auto xl:h-auto w-5 h-5" src={'/images/products-page/filter.svg'} alt="sacurn" />
+        <img className="xl:w-auto xl:h-auto w-5 h-5" src="/images/products-page/filter.svg" alt="sacurn" />
       </div>
       <div className="rounded-3xl flex flex-row bg-light-grey w-auto pl-1.5 my-auto px-auto h-[85%]">
         <input
@@ -54,7 +54,7 @@ const ViewStyleBar = ({ activeColor, setDisplay }: IProps) => {
         <div className="my-auto ml-6 mr-3.7 h-[70%] w-[1px] bg-dark-grey" />
         <img
           className="h-auto hover:cursor-pointer -translate-x-2"
-          src={'/images/products-page/search.svg'}
+          src="/images/products-page/search.svg"
           alt="sacurn"
         />
       </div> */}

@@ -1,8 +1,6 @@
-import classNames from 'classnames';
-
 const Card = () => {
   return (
-    <div className={classNames('bg-card-bg-light rounded p-5')}>
+    <div className="bg-card-bg-light rounded p-5">
       <div className="flex gap-4 items-center">
         <img src="/images/products/green/tree.svg" />
         <h5 className="text-xl font-semibold text-white">Over 3,550,000</h5>

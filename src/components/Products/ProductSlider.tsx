@@ -2,41 +2,17 @@ import classNames from 'classnames';
 import Slider from 'react-slick';
 
 const ProductSlider = () => {
-  function SampleNextArrow(props: {
-    className?: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    style?: any;
-    onClick?: () => void;
-  }) {
-    const { className, style, onClick } = props;
+  function SampleNextArrow(props: { className?: string; onClick?: () => void }) {
+    const { className, onClick } = props;
     return (
       <div
         className={classNames(
           className,
-          "slick-button-before !bg-black !bg-[url('../public/images/products/green/right-arrow.svg')] !bg-no-repeat !bg-center"
+          "slick-button-before !bg-black !bg-[url('../public/images/products/green/right-arrow.svg')] !bg-no-repeat !bg-center rounded !right-2"
         )}
-        style={{
-          ...style,
-          display: 'flex',
-          background: 'red',
-          right: '8px',
-          backgroundColor: '#525252',
-          borderRadius: '5px',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
         onClick={onClick}
       />
     );
-  }
-  function SamplePrevArrow(props: {
-    className?: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    style?: any;
-    onClick?: () => void;
-  }) {
-    const { className, style, onClick } = props;
-    return <div className={className} style={{ ...style, display: 'none', background: 'green' }} onClick={onClick} />;
   }
 
   const settings = {
@@ -45,16 +21,8 @@ const ProductSlider = () => {
     initialSlide: 0,
     slidesToShow: 5,
     slidesToScroll: 1,
-    // className: 'center',
-    // centerMode: true,
-    // centerPadding: '30px',
-    // autoplay: true,
-    // speed: 3000,
-    // autoplaySpeed: 3000,
-    // cssEase: 'linear',
     pauseOnHover: true,
-    nextArrow: <SampleNextArrow style={{ display: 'none' }} />,
-    prevArrow: <SamplePrevArrow />,
+    nextArrow: <SampleNextArrow />,
     responsive: [
       {
         breakpoint: 1700,
@@ -74,10 +42,10 @@ const ProductSlider = () => {
   };
   return (
     <Slider {...settings} className="product-list-slider pl-1.5">
-      {[1, 2, 3, 4, 5, 6, 7].map((item, index) => (
-        <div key={index} className="m-4">
+      {[1, 2, 3, 4, 5, 6, 7].map((item) => (
+        <div key={item} className="m-4">
           <div className="border-2 border-white max-w-[200px] rounded-xl p-2  flex justify-center items-center bg-white">
-            <h3 className="text-silk-blue font-semibold">{'(VCS-985)Cordillera Azul REDD+ Prodct'}</h3>
+            <h3 className="text-silk-blue font-semibold">(VCS-985)Cordillera Azul REDD+ Prodct</h3>
           </div>
         </div>
       ))}

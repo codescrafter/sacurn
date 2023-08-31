@@ -40,7 +40,7 @@ const CartonImpact = () => {
             owing to the change from bright desert land to darker dense forest cover.”
           </p>
           <Link to="/" className="text-pale-yellow text-sm pl-4">
-            {'Learn More About Project Risk Rating >'}
+            Learn More About Project Risk Rating &gt;
           </Link>
         </div>
       </div>

@@ -142,9 +142,7 @@ const CustomTable = ({ tableHeadings, tableBody, name }: IProps) => {
                     )}
                   </tr>
 
-                  {expandedRowIndex === index ? (
-                    ''
-                  ) : (
+                  {expandedRowIndex !== index && (
                     <tr className="bg-neutral-150">
                       <td colSpan={8} className="py-[9px]"></td>
                     </tr>

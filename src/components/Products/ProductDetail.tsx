@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 
+import { ItemColor } from '@/type';
+
 import Card from './Card';
 
 const ProductDetail = () => {
@@ -30,16 +32,16 @@ const ProductDetail = () => {
 
           <div className="">
             <div className="pt-4 px-6">
-              <Item title={'Volume Issued(2016+)'} value={'12,285,949'} className="pb-4" />
-              <Item title={'Avg. Annual Emission Reduction'} value={'1,575,268'} className="pb-4" />
+              <Item title="Volume Issued(2016+)" value="12,285,949" className="pb-4" />
+              <Item title="Avg. Annual Emission Reduction" value="1,575,268" className="pb-4" />
               <Item
-                title={'% of Issued credits Retired (2016+)'}
-                value={'2016 - 52%  2017 - 04%  2018 - 68%  2019 - 25%  2020 - 75%'}
+                title="% of Issued credits Retired (2016+)"
+                value="2016 - 52%  2017 - 04%  2018 - 68%  2019 - 25%  2020 - 75%"
                 className="pb-4"
               />
             </div>
             <Divider />
-            <div className={classNames('px-7 py-4')}>
+            <div className="px-7 py-4">
               <h6 className="font-akaya text-cyan">Project Documents</h6>
               <div className="inline-flex gap-1">
                 <p className="text-lg font-semibold text-white">PDD</p>
@@ -59,9 +61,9 @@ const ProductDetail = () => {
         {/* Information */}
         <div>
           <div className="flex items-center gap-7 pt-5 pb-4">
-            <Divider color="cyan" />
+            <Divider color={ItemColor.CYAN} />
             <h6 className="font-akaya text-cyan">Information</h6>
-            <Divider color="cyan" />
+            <Divider color={ItemColor.CYAN} />
           </div>
           <p className="font-medium text-white">
             The Delta Blue Carbon –1 Project (DBC-1)is a mangroves and wetlands afforestation andrestoration project,
@@ -107,6 +109,7 @@ interface ItemTypes {
   description?: string;
   className?: string;
 }
+
 const Item = ({ title, value, description, className }: ItemTypes) => {
   return (
     <div className={classNames(className)}>
@@ -117,12 +120,12 @@ const Item = ({ title, value, description, className }: ItemTypes) => {
   );
 };
 
-const Divider = ({ color = 'white' }: { color?: 'white' | 'cyan' }) => {
+const Divider = ({ color = ItemColor.WHITE }: { color?: ItemColor }) => {
   return (
     <div
       className={classNames('h-[1px] w-full ', {
-        'bg-cyan': color === 'cyan',
-        'bg-white': color === 'white'
+        'bg-cyan': color === ItemColor.CYAN,
+        'bg-white': color === ItemColor.WHITE
       })}
     />
   );

@@ -50,7 +50,7 @@ function AllProducts() {
     <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
       <Navbar className={`pt-4 relative z-30`} />
       <div className="h-full flex flex-row justify-start">
-        <div className={`${'2xl:w-[620px] w-[500px] h-auto'}`}>
+        <div className="2xl:w-[620px] w-[500px] h-auto">
           <div className="2xl:w-[650px] w-[520px] absolute top-0 left-0 overflow-hidden">
             <ImgSlider />
           </div>
@@ -106,8 +106,8 @@ const ImgSlider = () => {
         ))}
       </div>
       <Slider {...settings} ref={sliderRef}>
-        <img className="w-full h-screen" src={'/images/products-page/ocean.png'} alt="sacurn products" />
-        <img className="w-full h-screen" src={'/images/products-page/forest.png'} alt="sacurn products" />
+        <img className="w-full h-screen" src="/images/products-page/ocean.png" alt="sacurn products" />
+        <img className="w-full h-screen" src="/images/products-page/forest.png" alt="sacurn products" />
         {/* <Image className="w-full h-screen" src={oceanImg} /> */}
       </Slider>
     </div>

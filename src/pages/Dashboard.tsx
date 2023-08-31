@@ -18,7 +18,7 @@ const Dashboard = () => {
           <VerticalSlider />
           <div className="flex 2xl:gap-6 gap-4 mt-2">
             <img
-              src={'/images/landing-page/ic_co2.svg'}
+              src="/images/landing-page/ic_co2.svg"
               width={72}
               height={52}
               alt="co2 icon"
@@ -35,7 +35,7 @@ const Dashboard = () => {
         <div className="2xl:mt-7 mt-5 flex-1 overflow-hidden">
           <p className="flex items-center">
             <img
-              src={'/images/landing-page/ic_volume.svg'}
+              src="/images/landing-page/ic_volume.svg"
               width={32}
               height={30}
               className="2xl:w-8 2xl:h-7.5 w-6 h-5.2"
@@ -46,7 +46,7 @@ const Dashboard = () => {
           <HorizontalSlider />
           <p className="flex 2xl:mt-6 2xl:mb-3 mt-5 mb-2.5">
             <img
-              src={'/images/landing-page/ic_book.svg'}
+              src="/images/landing-page/ic_book.svg"
               alt="sacurn"
               width={29}
               height={33}

@@ -20,10 +20,10 @@ const ProductsListView = () => {
               <div className="flex flex-row mt-1">
                 <div className="bg-light-grey rounded-3xl 2xl:pl-3.7 pl-2.5 2xl:pr-5.7 pr-4.5 py-0.5 flex flex-row">
                   <p className="text-medium-grey 2xl:mr-2.5 mr-1.5">{product.type}</p>
-                  <img src={'/images/products-page/download.svg'} alt="sacurn" />
+                  <img src="/images/products-page/download.svg" alt="sacurn" />
                 </div>
                 <div className="flex flex-row ml-4.5">
-                  <img className="mr-1.2" src={'/images/products-page/location.svg'} alt="sacurn" />
+                  <img className="mr-1.2" src="/images/products-page/location.svg" alt="sacurn" />
                   <p className="text-soft-red font-semibold my-auto">{product.location}</p>
                 </div>
               </div>

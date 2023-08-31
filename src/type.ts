@@ -43,10 +43,23 @@ export type ProductItemTypes = {
   imagePath: string;
 };
 
-export type LayoutSwitchTypes = 'green' | 'blue' | 'yellow';
-
 export type WishlistTypes = {
   id: number;
   name: string;
   imagePath: string;
 };
+
+export enum CardType {
+  GovernmentCard = '2',
+  MemberCard = '4'
+}
+
+export enum InputSize {
+  MEDIUM = 'medium',
+  SMALL = 'small'
+}
+
+export enum ItemColor {
+  CYAN = 'cyan',
+  WHITE = 'white'
+}
