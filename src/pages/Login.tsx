@@ -6,15 +6,15 @@ import * as yup from 'yup';
 
 import { useUserStore } from '@/store/user';
 
-type LoginValues = {
+type LoginFormType = {
   username: string;
   password: string;
 };
 
 const schema = yup
   .object({
-    username: yup.string().required(),
-    password: yup.string().required()
+    username: yup.string().required('username required'),
+    password: yup.string().required('password required')
   })
   .required();
 
@@ -23,13 +23,9 @@ const Login = () => {
   const navigate = useNavigate();
   const login = useUserStore((state) => state.login);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<LoginValues>({ resolver: yupResolver(schema) });
+  const { register, handleSubmit, formState } = useForm<LoginFormType>({ resolver: yupResolver(schema) });
 
-  console.log(errors);
+  console.log(formState);
 
   const onSubmit = handleSubmit(async (data) => {
     const isSuccess = await login(data);
@@ -53,7 +49,7 @@ const Login = () => {
           Carbon Offset Management Platform
         </p>
         <form onSubmit={onSubmit} className="flex flex-col items-center w-full mb-[22px]">
-          <div className="w-4/5 bg-snowflake-grey shadow-input-box blur-xxs rounded-[18px] flex items-center 2xl:h-[53px] h-10">
+          <div className="w-4/5 bg-snowflake-grey shadow-input-box rounded-[18px] flex items-center 2xl:h-[53px] h-10">
             <img
               className="mr-3.5 ml-6 2xl:w-6 2xl:h-6 w-4 h-4"
               src="/images/login/user.svg"
@@ -67,9 +63,10 @@ const Login = () => {
               type="text"
               placeholder={t('username')}
             />
+            {/* <div>{formState.errors?.username?.message}</div> */}
           </div>
 
-          <div className="w-4/5 bg-snowflake-grey shadow-input-box blur-xxs rounded-[18px] flex items-center 2xl:h-[53px] h-10 mt-5 mb-[22px]">
+          <div className="w-4/5 bg-snowflake-grey shadow-input-box rounded-[18px] flex items-center 2xl:h-[53px] h-10 mt-5 mb-[22px]">
             <img
               className="mr-3.5 ml-6 2xl:w-6 2xl:h-6 w-4 h-4"
               src="/images/login/key.svg"
@@ -83,6 +80,7 @@ const Login = () => {
               type="password"
               placeholder={t('password')}
             />
+            {/* <div>{formState.errors?.password?.message}</div> */}
           </div>
 
           <button
