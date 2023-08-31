@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <div className="bg-[url('../public/images/login/login-bg.png')] bg-no-repeat bg-center bg-cover w-screen min-h-screen 2xl:pt-[136px] pt-24">
-      <div className="2xl:w-[402px] 2xl:h-[660px] w-80 h-[500px] bg-login-white shadow-login-box rounded-[28px] blur-xxs 2xl:ml-60 ml-20 2xl:pt-3">
+      <div className="2xl:w-[402px] 2xl:h-[660px] w-80 h-[500px] bg-login-white shadow-login-box rounded-[28px] 2xl:ml-60 ml-20 2xl:pt-3">
         <img
           className="2xl:w-[150px] 2xl:h-[150px] w-28 h-28 mx-auto mb-3"
           src="/images/login/login-logo.svg"
