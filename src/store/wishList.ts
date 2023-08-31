@@ -8,6 +8,7 @@ import { ModalType, useModalStore } from './modal';
 type WishListState = {
   wishList: WatchList[];
   getWishList: (page?: number) => void;
+  addToWhishList: (arg: WatchList) => void;
   deleteWishList: (id: number) => void;
 };
 
@@ -21,6 +22,19 @@ export const useWishListStore = create<WishListState>((set) => ({
       useModalStore.getState().close();
     } catch (error) {
       set({ wishList: [] });
+      const err = error as Error;
+      console.error(err);
+      useModalStore.getState().open(ModalType.Error, {
+        errorText: `[${err.name}] ${err.message}`
+      });
+    }
+  },
+  addToWhishList: async (arg: WatchList) => {
+    try {
+      useModalStore.getState().open(ModalType.Loading);
+      await apiClient.carbonCredit.carbonCreditWatchListCreate(arg);
+      useModalStore.getState().close();
+    } catch (error) {
       const err = error as Error;
       console.error(err);
       useModalStore.getState().open(ModalType.Error, {

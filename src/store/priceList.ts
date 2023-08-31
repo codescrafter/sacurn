@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { Cart, Order } from '@/libs/api';
+import { Order } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
@@ -8,7 +8,6 @@ import { ModalType, useModalStore } from './modal';
 type PriceListState = {
   priceList: Order[];
   getPriceList: (arg: { carbonCreditId?: string; desc?: string; page?: number; sortby?: string }) => void;
-  addToCart: (arg: Cart) => void;
 };
 
 export const usePriceListStore = create<PriceListState>((set) => ({
@@ -23,19 +22,6 @@ export const usePriceListStore = create<PriceListState>((set) => ({
       useModalStore.getState().close();
     } catch (error) {
       set({ priceList: [] });
-      const err = error as Error;
-      console.error(err);
-      useModalStore.getState().open(ModalType.Error, {
-        errorText: `[${err.name}] ${err.message}`
-      });
-    }
-  },
-  addToCart: async (arg: Cart) => {
-    try {
-      useModalStore.getState().open(ModalType.Loading);
-      await apiClient.trade.tradeCartCreate(arg);
-      useModalStore.getState().close();
-    } catch (error) {
       const err = error as Error;
       console.error(err);
       useModalStore.getState().open(ModalType.Error, {
