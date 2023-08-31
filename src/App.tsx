@@ -21,7 +21,6 @@ import WishList from '@/pages/Wishlist';
 // import { ModalType, useModalStore } from '@/store/modal';
 import Modal from './components/Modal/UniversalModal';
 import PaymentInformation from './pages/PaymentInformation';
-import { useUserStore } from './store/user';
 
 const router = createBrowserRouter([
   {
@@ -84,18 +83,11 @@ const router = createBrowserRouter([
 
 export default function App() {
   // const { open } = useModalStore();
-  const { login } = useUserStore();
   // const { start } = useMemberStore();
 
   useEffect(() => {
     console.log('Starting');
     // start();
-
-    login({
-      username: 'admin',
-      password: 'password'
-    });
-
     // open(ModalType.Loading);
   }, []);
   return (
