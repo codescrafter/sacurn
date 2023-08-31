@@ -9,18 +9,20 @@ import { ModalType, useModalStore } from './modal';
 
 type UserState = {
   user: UserDetails | null;
-  login: (arg: Login) => void;
+  login: (arg: Login) => Promise<boolean>;
   signup: (arg: Register) => void;
 };
 
 export const useUserStore = create<UserState>((set) => ({
   user: null,
   login: async (arg: Login) => {
+    let isSuccess = false;
     try {
       useModalStore.getState().open(ModalType.Loading);
       const response = await apiClient.djRestAuth.djRestAuthLoginCreate(arg);
       set({ user: response.user });
       useModalStore.getState().close();
+      isSuccess = true;
     } catch (error) {
       set({ user: null });
       const err = error as Error;
@@ -29,6 +31,7 @@ export const useUserStore = create<UserState>((set) => ({
         errorText: `[${err.name}] ${err.message}`
       });
     }
+    return isSuccess;
   },
   signup: async (arg: Register) => {
     try {
