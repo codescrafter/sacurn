@@ -1,5 +1,6 @@
 import './App.css';
 
+import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Cart from '@/pages/Cart';
@@ -16,6 +17,9 @@ import Products from '@/pages/Products';
 import Sales from '@/pages/Sales';
 import WishList from '@/pages/Wishlist';
 
+// import { useMemberStore } from '@/store/memberCard';
+// import { ModalType, useModalStore } from '@/store/modal';
+import Modal from './components/Modal/UniversalModal';
 import PaymentInformation from './pages/PaymentInformation';
 
 const router = createBrowserRouter([
@@ -78,9 +82,18 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
+  // const { open } = useModalStore();
+  // const { start } = useMemberStore();
+
+  useEffect(() => {
+    console.log('Starting');
+    // start();
+    // open(ModalType.Loading);
+  }, []);
   return (
     <div>
       <RouterProvider router={router} />
+      <Modal />
     </div>
   );
 }
