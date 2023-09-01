@@ -33,7 +33,7 @@ const Login = () => {
   });
 
   return (
-    <div className="bg-[url('../public/images/login/login-bg.png')] bg-no-repeat bg-center bg-cover w-screen min-h-screen 2xl:pt-[136px] pt-24">
+    <div className="bg-[url('../public/images/login/login-bg.png')] bg-no-repeat bg-center bg-cover w-screen min-h-screen 2xl:pt-[136px] pt-24 relative lg:pb-32 pb-20">
       <div className="2xl:w-[402px] 2xl:h-[660px] w-80 h-[500px] bg-login-white shadow-login-box rounded-[28px] 2xl:ml-60 ml-20 2xl:pt-3">
         <img
           className="2xl:w-[150px] 2xl:h-[150px] w-28 h-28 mx-auto mb-3"
@@ -94,10 +94,10 @@ const Login = () => {
           Forgot password? <span className="text-black">or</span> Sign Up
         </p>
       </div>
-      <div className="bg-[url('../public/images/login/bg-bottom.png')] bg-cover bg-right absolute bottom-0 left-0 h-60 w-full" />
+      <div className="bg-[url('../public/images/login/bg-bottom.png')] bg-cover bg-right absolute bottom-0 left-0 lg:h-60 h-40 w-full" />
       <img
         src="/images/login/sacurn-bottom.png"
-        className="absolute right-[90px] bottom-14"
+        className="absolute lg:right-[90px] right-15 lg:bottom-14 bottom-10 lg:w-[262px] lg:h-22.5 w-40 h-13"
         width={262}
         height={88}
         alt="sacurn-logo"
