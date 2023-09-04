@@ -9,6 +9,31 @@ export const $Cart = {
             isReadOnly: true,
             isRequired: true,
         },
+        name: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        carbon_tag: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        image: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        company_code: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        remaining_quantity: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         price: {
             type: 'number',
             isNullable: true,

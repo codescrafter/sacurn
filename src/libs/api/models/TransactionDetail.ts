@@ -8,6 +8,7 @@ export type TransactionDetail = {
     readonly created_at: string | null;
     readonly updated_at: string | null;
     deleted?: boolean;
+    deleted_at?: string | null;
     total_money?: number | null;
     status?: number;
     pay_at?: string | null;

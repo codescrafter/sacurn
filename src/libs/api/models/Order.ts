@@ -5,6 +5,8 @@
 
 export type Order = {
     readonly id: number;
+    readonly remaining_quantity: string;
+    readonly company_code: string;
     quantity?: number | null;
     min_order_quantity?: number | null;
     buy?: number | null;
@@ -13,7 +15,7 @@ export type Order = {
     readonly created_at: string;
     deleted?: number;
     deleted_at?: string | null;
-    transaction_volume?: number;
+    traded_quantity?: number;
     status?: number;
     trader?: number | null;
     cart?: number | null;

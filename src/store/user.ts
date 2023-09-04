@@ -19,7 +19,7 @@ export const useUserStore = create<UserState>((set) => ({
     let isSuccess = false;
     try {
       useModalStore.getState().open(ModalType.Loading);
-      const response = await apiClient.djRestAuth.djRestAuthLoginCreate(arg);
+      const response = await apiClient.login.loginCreate(arg);
       set({ user: response.user });
       useModalStore.getState().close();
       isSuccess = true;

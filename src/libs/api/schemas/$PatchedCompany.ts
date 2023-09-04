@@ -27,9 +27,18 @@ export const $PatchedCompany = {
         deleted: {
             type: 'boolean',
         },
+        deleted_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
         name: {
             type: 'string',
             maxLength: 45,
+        },
+        code: {
+            type: 'string',
+            maxLength: 50,
         },
         registration_number: {
             type: 'string',
@@ -42,19 +51,23 @@ export const $PatchedCompany = {
             maxLength: 45,
         },
         capital: {
-            type: 'string',
+            type: 'number',
             isNullable: true,
-            maxLength: 45,
+            maximum: 2147483647,
+            minimum: -2147483648,
         },
         founding_date: {
             type: 'string',
             isNullable: true,
-            format: 'date-time',
+            format: 'date',
         },
         address: {
-            type: 'string',
+            type: 'dictionary',
+            contains: {
+                properties: {
+                },
+            },
             isNullable: true,
-            maxLength: 256,
         },
         phone: {
             type: 'string',
@@ -85,6 +98,16 @@ export const $PatchedCompany = {
             type: 'string',
             isNullable: true,
             format: 'date-time',
+        },
+        representative_id_card_issue_location: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        representative_id_card_issue_times: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
         },
         representative_birthday: {
             type: 'string',
@@ -130,6 +153,19 @@ export const $PatchedCompany = {
             type: 'string',
             isNullable: true,
             format: 'uri',
+        },
+        terms_of_service_confirm: {
+            type: 'boolean',
+        },
+        terms_of_service_confirm_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
+        status: {
+            type: 'number',
+            maximum: 2147483647,
+            minimum: -2147483648,
         },
     },
 } as const;

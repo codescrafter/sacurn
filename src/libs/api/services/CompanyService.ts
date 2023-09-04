@@ -291,6 +291,17 @@ export class CompanyService {
      * @returns any No response body
      * @throws ApiError
      */
+    public companySetCompanyStatusRetrieve(): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/company/set_company_status/',
+        });
+    }
+
+    /**
+     * @returns any No response body
+     * @throws ApiError
+     */
     public companyUserRetrieve(): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'GET',

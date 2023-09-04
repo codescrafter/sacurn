@@ -9,15 +9,28 @@ export const $PlanRecord = {
             isReadOnly: true,
             isRequired: true,
         },
-        deadline: {
-            type: 'string',
-            isNullable: true,
-            format: 'date-time',
-        },
         created_at: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,
+            isNullable: true,
+            format: 'date-time',
+        },
+        updated_at: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+            isNullable: true,
+            format: 'date-time',
+        },
+        status: {
+            type: 'number',
+            maximum: 2147483647,
+            minimum: -2147483648,
+        },
+        deadline: {
+            type: 'string',
+            isNullable: true,
             format: 'date-time',
         },
         company: {

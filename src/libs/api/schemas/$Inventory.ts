@@ -14,11 +14,41 @@ export const $Inventory = {
             isReadOnly: true,
             isRequired: true,
         },
+        name: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        carbon_tag: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        vintage: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        serial_number: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        location: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         quantity: {
             type: 'number',
             isNullable: true,
             maximum: 2147483647,
             minimum: -2147483648,
+        },
+        price: {
+            type: 'number',
+            isNullable: true,
+            format: 'double',
         },
         carbon_credit: {
             type: 'number',
