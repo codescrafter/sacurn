@@ -2,8 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Login } from '../models/Login';
-import type { LoginResponse } from '../models/LoginResponse';
 import type { PasswordResetConfirm } from '../models/PasswordResetConfirm';
 import type { RestAuthDetail } from '../models/RestAuthDetail';
 
@@ -13,29 +11,6 @@ import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 export class DjRestAuthService {
 
     constructor(public readonly httpRequest: BaseHttpRequest) {}
-
-    /**
-     * Check the credentials and return the REST Token
-     * if the credentials are valid and authenticated.
-     * Calls Django Auth login method to register User ID
-     * in Django session framework
-     *
-     * Accept the following POST parameters: username, password
-     * Return the REST Framework Token Object's key.
-     * @param requestBody
-     * @returns LoginResponse
-     * @throws ApiError
-     */
-    public djRestAuthLoginCreate(
-        requestBody: Login,
-    ): CancelablePromise<LoginResponse> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/dj-rest-auth/login/',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
 
     /**
      * Password reset e-mail link is confirmed, therefore

@@ -5,8 +5,10 @@
 
 export type PlanRecord = {
     readonly id: number;
+    readonly created_at: string | null;
+    readonly updated_at: string | null;
+    status?: number;
     deadline?: string | null;
-    readonly created_at: string;
     company: number;
     plan: number;
 };

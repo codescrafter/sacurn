@@ -9,6 +9,16 @@ export const $Order = {
             isReadOnly: true,
             isRequired: true,
         },
+        remaining_quantity: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        company_code: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         quantity: {
             type: 'number',
             isNullable: true,
@@ -54,7 +64,7 @@ export const $Order = {
             isNullable: true,
             format: 'date-time',
         },
-        transaction_volume: {
+        traded_quantity: {
             type: 'number',
             maximum: 2147483647,
             minimum: -2147483648,
