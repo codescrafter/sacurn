@@ -27,6 +27,11 @@ export const $TransactionDetail = {
         deleted: {
             type: 'boolean',
         },
+        deleted_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
         total_money: {
             type: 'number',
             isNullable: true,

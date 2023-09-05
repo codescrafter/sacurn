@@ -12,6 +12,7 @@ import { CarbonCreditService } from './services/CarbonCreditService';
 import { CompanyService } from './services/CompanyService';
 import { DjRestAuthService } from './services/DjRestAuthService';
 import { InventoryService } from './services/InventoryService';
+import { LoginService } from './services/LoginService';
 import { RegistrationService } from './services/RegistrationService';
 import { TradeService } from './services/TradeService';
 
@@ -25,6 +26,7 @@ export class ApiClient {
     public readonly company: CompanyService;
     public readonly djRestAuth: DjRestAuthService;
     public readonly inventory: InventoryService;
+    public readonly login: LoginService;
     public readonly registration: RegistrationService;
     public readonly trade: TradeService;
 
@@ -49,6 +51,7 @@ export class ApiClient {
         this.company = new CompanyService(this.request);
         this.djRestAuth = new DjRestAuthService(this.request);
         this.inventory = new InventoryService(this.request);
+        this.login = new LoginService(this.request);
         this.registration = new RegistrationService(this.request);
         this.trade = new TradeService(this.request);
     }

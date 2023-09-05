@@ -19,6 +19,23 @@ export const $Employee = {
             isReadOnly: true,
             isRequired: true,
         },
+        created_at: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+            isNullable: true,
+            format: 'date-time',
+        },
+        updated_at: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+            isNullable: true,
+            format: 'date-time',
+        },
+        deleted: {
+            type: 'boolean',
+        },
         phone: {
             type: 'string',
             isNullable: true,

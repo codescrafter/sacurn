@@ -19,6 +19,11 @@ export const $CarbonCredit = {
             isReadOnly: true,
             isRequired: true,
         },
+        location: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         name: {
             type: 'string',
             isNullable: true,
@@ -37,7 +42,7 @@ export const $CarbonCredit = {
         image: {
             type: 'string',
             isNullable: true,
-            maxLength: 45,
+            format: 'uri',
         },
         price: {
             type: 'number',
@@ -54,6 +59,10 @@ export const $CarbonCredit = {
             type: 'string',
             isNullable: true,
             format: 'date',
+        },
+        serial_number: {
+            type: 'string',
+            maxLength: 50,
         },
         created_at: {
             type: 'string',

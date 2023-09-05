@@ -209,6 +209,23 @@ export class TradeService {
     }
 
     /**
+     * @param id
+     * @returns void
+     * @throws ApiError
+     */
+    public tradeOrderSellDestroy(
+        id: number,
+    ): CancelablePromise<void> {
+        return this.httpRequest.request({
+            method: 'DELETE',
+            url: '/trade/order_sell/{id}/',
+            path: {
+                'id': id,
+            },
+        });
+    }
+
+    /**
      * @param requestBody
      * @returns any No response body
      * @throws ApiError
