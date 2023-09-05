@@ -2,14 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $PatchedCompany = {
+export const $PatchedExtendedCompany = {
     properties: {
         id: {
             type: 'number',
-            isReadOnly: true,
-        },
-        registration_document: {
-            type: 'string',
             isReadOnly: true,
         },
         created_at: {
@@ -166,6 +162,10 @@ export const $PatchedCompany = {
             type: 'number',
             maximum: 2147483647,
             minimum: -2147483648,
+        },
+        registration_document: {
+            type: 'string',
+            format: 'uri',
         },
     },
 } as const;
