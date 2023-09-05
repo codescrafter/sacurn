@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { Company, ExtendedCompany, PatchedCompany } from '@/libs/api';
+import { Company, ExtendedCompany, PatchedExtendedCompany } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
@@ -8,7 +8,7 @@ import { ModalType, useModalStore } from './modal';
 type CompanyState = {
   company: Partial<Company>;
   createCompany: (arg: ExtendedCompany) => void;
-  updateCompany: (id: number, companyData?: PatchedCompany) => void;
+  updateCompany: (id: number, companyData?: PatchedExtendedCompany) => void;
 };
 
 export const useCompanyStore = create<CompanyState>((set) => ({
@@ -28,7 +28,7 @@ export const useCompanyStore = create<CompanyState>((set) => ({
       });
     }
   },
-  updateCompany: async (id: number, companyData?: PatchedCompany) => {
+  updateCompany: async (id: number, companyData?: PatchedExtendedCompany) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
       const company = await apiClient.company.companyPartialUpdate(id, companyData);
