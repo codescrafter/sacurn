@@ -15,5 +15,11 @@ export const $LoginResponse = {
             type: 'User',
             isRequired: true,
         },
+        company_id: {
+            type: 'number',
+        },
+        company_status: {
+            type: 'number',
+        },
     },
 } as const;

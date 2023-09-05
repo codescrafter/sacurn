@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type PatchedCompany = {
+export type PatchedExtendedCompany = {
     readonly id?: number;
-    readonly registration_document?: string;
     readonly created_at?: string | null;
     readonly updated_at?: string | null;
     deleted?: boolean;
@@ -37,5 +36,6 @@ export type PatchedCompany = {
     terms_of_service_confirm?: boolean;
     terms_of_service_confirm_at?: string | null;
     status?: number;
+    registration_document?: string;
 };
 

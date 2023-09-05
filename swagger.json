@@ -817,6 +817,7 @@
         "/company/": {
             "get": {
                 "operationId": "company_list",
+                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(尚未完成公司註冊), 1(已完成公司註冊)\n\naddress 存放json dict",
                 "parameters": [
                     {
                         "name": "page",
@@ -857,7 +858,7 @@
             },
             "post": {
                 "operationId": "company_create",
-                "description": "files: registration_document, \n\nimage: representative_id_card_front, representative_id_card_back, account_image",
+                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(尚未完成公司註冊), 1(已完成公司註冊)\n\naddress 存放json dict",
                 "tags": [
                     "company"
                 ],
@@ -909,6 +910,7 @@
         "/company/{id}/": {
             "get": {
                 "operationId": "company_retrieve",
+                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(尚未完成公司註冊), 1(已完成公司註冊)\n\naddress 存放json dict",
                 "parameters": [
                     {
                         "in": "path",
@@ -948,6 +950,7 @@
             },
             "patch": {
                 "operationId": "company_partial_update",
+                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(尚未完成公司註冊), 1(已完成公司註冊)\n\naddress 存放json dict",
                 "parameters": [
                     {
                         "in": "path",
@@ -965,17 +968,17 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/PatchedCompany"
+                                "$ref": "#/components/schemas/PatchedExtendedCompany"
                             }
                         },
                         "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/PatchedCompany"
+                                "$ref": "#/components/schemas/PatchedExtendedCompany"
                             }
                         },
                         "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/PatchedCompany"
+                                "$ref": "#/components/schemas/PatchedExtendedCompany"
                             }
                         }
                     }
@@ -1723,7 +1726,7 @@
         "/login/": {
             "post": {
                 "operationId": "login_create",
-                "description": "Check the credentials and return the REST Token\nif the credentials are valid and authenticated.\nCalls Django Auth login method to register User ID\nin Django session framework\n\nAccept the following POST parameters: username, password\nReturn the REST Framework Token Object's key.",
+                "description": "company_status: 0(尚未完成公司註冊), 1(已完成公司註冊）",
                 "tags": [
                     "login"
                 ],
@@ -1931,6 +1934,7 @@
         "/trade/cart/": {
             "get": {
                 "operationId": "trade_cart_list",
+                "description": "status_code\n\n409: 庫存數量小於下單數量",
                 "parameters": [
                     {
                         "name": "page",
@@ -1972,6 +1976,7 @@
             },
             "post": {
                 "operationId": "trade_cart_create",
+                "description": "status_code\n\n409: 庫存數量小於下單數量",
                 "tags": [
                     "trade"
                 ],
@@ -2022,8 +2027,69 @@
             }
         },
         "/trade/cart/{id}/": {
+            "patch": {
+                "operationId": "trade_cart_partial_update",
+                "description": "status_code\n\n409: 庫存數量小於下單數量",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "trade"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedCart"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedCart"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedCart"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwtAuth": []
+                    },
+                    {
+                        "jwtHeaderAuth": []
+                    },
+                    {
+                        "jwtCookieAuth": []
+                    },
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Cart"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
             "delete": {
                 "operationId": "trade_cart_destroy",
+                "description": "status_code\n\n409: 庫存數量小於下單數量",
                 "parameters": [
                     {
                         "in": "path",
@@ -2051,6 +2117,49 @@
                 ],
                 "responses": {
                     "204": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/trade/cart_detail/": {
+            "post": {
+                "operationId": "trade_cart_detail_create",
+                "tags": [
+                    "trade"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CartDetail"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CartDetail"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CartDetail"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwtAuth": []
+                    },
+                    {
+                        "jwtHeaderAuth": []
+                    },
+                    {
+                        "jwtCookieAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
                         "description": "No response body"
                     }
                 }
@@ -2812,6 +2921,19 @@
                     "remaining_quantity"
                 ]
             },
+            "CartDetail": {
+                "type": "object",
+                "properties": {
+                    "cart_id_lsit": {
+                        "type": "array",
+                        "items": {},
+                        "default": [
+                            1,
+                            2
+                        ]
+                    }
+                }
+            },
             "Certificate": {
                 "type": "object",
                 "properties": {
@@ -3343,6 +3465,14 @@
                     },
                     "user": {
                         "$ref": "#/components/schemas/User"
+                    },
+                    "company_id": {
+                        "type": "integer",
+                        "default": 1
+                    },
+                    "company_status": {
+                        "type": "integer",
+                        "default": 1
                     }
                 },
                 "required": [
@@ -3927,15 +4057,73 @@
                     "uid"
                 ]
             },
-            "PatchedCompany": {
+            "PatchedCart": {
                 "type": "object",
                 "properties": {
                     "id": {
                         "type": "integer",
                         "readOnly": true
                     },
-                    "registration_document": {
+                    "name": {
                         "type": "string",
+                        "readOnly": true
+                    },
+                    "carbon_tag": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "image": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "company_code": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "remaining_quantity": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": -2147483648,
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": -2147483648
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "trader": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "order": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "PatchedExtendedCompany": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
                         "readOnly": true
                     },
                     "created_at": {
@@ -4089,6 +4277,10 @@
                         "type": "integer",
                         "maximum": 2147483647,
                         "minimum": -2147483648
+                    },
+                    "registration_document": {
+                        "type": "string",
+                        "format": "uri"
                     }
                 }
             },

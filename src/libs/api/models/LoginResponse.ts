@@ -9,5 +9,7 @@ export type LoginResponse = {
     access?: string;
     refresh: string;
     user: User;
+    company_id?: number;
+    company_status?: number;
 };
 

@@ -10,7 +10,7 @@ import type { PaginatedEmployeeList } from '../models/PaginatedEmployeeList';
 import type { PaginatedPaymentList } from '../models/PaginatedPaymentList';
 import type { PaginatedPlanList } from '../models/PaginatedPlanList';
 import type { PaginatedPlanRecordList } from '../models/PaginatedPlanRecordList';
-import type { PatchedCompany } from '../models/PatchedCompany';
+import type { PatchedExtendedCompany } from '../models/PatchedExtendedCompany';
 import type { Payment } from '../models/Payment';
 import type { Plan } from '../models/Plan';
 import type { PlanRecord } from '../models/PlanRecord';
@@ -23,6 +23,11 @@ export class CompanyService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
 
     /**
+     * image: registration_document, representative_id_card_front, representative_id_card_back, account_image
+     *
+     * status: 0(尚未完成公司註冊), 1(已完成公司註冊)
+     *
+     * address 存放json dict
      * @param page A page number within the paginated result set.
      * @returns PaginatedCompanyList
      * @throws ApiError
@@ -40,9 +45,11 @@ export class CompanyService {
     }
 
     /**
-     * files: registration_document,
+     * image: registration_document, representative_id_card_front, representative_id_card_back, account_image
      *
-     * image: representative_id_card_front, representative_id_card_back, account_image
+     * status: 0(尚未完成公司註冊), 1(已完成公司註冊)
+     *
+     * address 存放json dict
      * @param requestBody
      * @returns Company
      * @throws ApiError
@@ -59,6 +66,11 @@ export class CompanyService {
     }
 
     /**
+     * image: registration_document, representative_id_card_front, representative_id_card_back, account_image
+     *
+     * status: 0(尚未完成公司註冊), 1(已完成公司註冊)
+     *
+     * address 存放json dict
      * @param id
      * @returns Company
      * @throws ApiError
@@ -76,6 +88,11 @@ export class CompanyService {
     }
 
     /**
+     * image: registration_document, representative_id_card_front, representative_id_card_back, account_image
+     *
+     * status: 0(尚未完成公司註冊), 1(已完成公司註冊)
+     *
+     * address 存放json dict
      * @param id
      * @param requestBody
      * @returns Company
@@ -83,7 +100,7 @@ export class CompanyService {
      */
     public companyPartialUpdate(
         id: number,
-        requestBody?: PatchedCompany,
+        requestBody?: PatchedExtendedCompany,
     ): CancelablePromise<Company> {
         return this.httpRequest.request({
             method: 'PATCH',
