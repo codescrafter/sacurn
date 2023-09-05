@@ -16,13 +16,13 @@ const OperatorSignUp = () => {
         <h1 className="min-[1550px]:text-5.2xl min-[1200px]:text-4xl text-3xl text-center text-navy-blue font-semibold  min-[1550px]:mb-8.2 min-[1200px]:mb-6 mb-5">
           Account sign up
         </h1>
-        <Heading heading="公司名稱" />
+        {/* <Heading heading="公司名稱" />
         <input
           id="co-name"
           type="text"
           placeholder="艾克斯厚定股份有限公司"
           className={classNames(Style, 'w-full min-[1550px]:mb-10.7 min-[1200px]:mb-8 mb-6')}
-        />
+        /> */}
         <div className="flex flex-row justify-between w-full min-[1550px]:mb-6 min-[1200px]:mb-8 mb-6">
           <Field heading="管理者姓名" type="text" className="self-start" />
           <Field
@@ -43,7 +43,7 @@ const OperatorSignUp = () => {
         </div>
         <div className="flex flex-row justify-between w-full min-[1550px]:mb-7.2 min-[1200px]:mb-6 mb-5">
           <div className="flex flex-col self-start w-[45%]">
-            <Heading heading="再次輸入密碼" />
+            <Heading heading="設定密碼" />
             <PasswordInput />
             <p className="text-grey ml-5.5 mt-2 w-[100%] min-[1500px]:text-base min-[1200px]:text-sm text-[12px]">
               提示：密碼需至少有12字元，請混和使用大小寫字母、數字，使密碼更加安全。
