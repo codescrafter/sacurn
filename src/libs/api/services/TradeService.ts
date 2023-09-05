@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Cart } from '../models/Cart';
+import type { CartDetail } from '../models/CartDetail';
 import type { Order } from '../models/Order';
 import type { OrderBuy } from '../models/OrderBuy';
 import type { OrderSell } from '../models/OrderSell';
@@ -10,6 +11,7 @@ import type { PaginatedCartList } from '../models/PaginatedCartList';
 import type { PaginatedOperationRecordList } from '../models/PaginatedOperationRecordList';
 import type { PaginatedOrderList } from '../models/PaginatedOrderList';
 import type { PaginatedTransactionRecordList } from '../models/PaginatedTransactionRecordList';
+import type { PatchedCart } from '../models/PatchedCart';
 import type { PayCallback } from '../models/PayCallback';
 import type { TransactionDetail } from '../models/TransactionDetail';
 import type { TransactionRecord } from '../models/TransactionRecord';
@@ -22,6 +24,9 @@ export class TradeService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
 
     /**
+     * status_code
+     *
+     * 409: 庫存數量小於下單數量
      * @param page A page number within the paginated result set.
      * @returns PaginatedCartList
      * @throws ApiError
@@ -39,6 +44,9 @@ export class TradeService {
     }
 
     /**
+     * status_code
+     *
+     * 409: 庫存數量小於下單數量
      * @param requestBody
      * @returns Cart
      * @throws ApiError
@@ -55,6 +63,33 @@ export class TradeService {
     }
 
     /**
+     * status_code
+     *
+     * 409: 庫存數量小於下單數量
+     * @param id
+     * @param requestBody
+     * @returns Cart
+     * @throws ApiError
+     */
+    public tradeCartPartialUpdate(
+        id: number,
+        requestBody?: PatchedCart,
+    ): CancelablePromise<Cart> {
+        return this.httpRequest.request({
+            method: 'PATCH',
+            url: '/trade/cart/{id}/',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * status_code
+     *
+     * 409: 庫存數量小於下單數量
      * @param id
      * @returns void
      * @throws ApiError
@@ -68,6 +103,22 @@ export class TradeService {
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns any No response body
+     * @throws ApiError
+     */
+    public tradeCartDetailCreate(
+        requestBody?: CartDetail,
+    ): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/trade/cart_detail/',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

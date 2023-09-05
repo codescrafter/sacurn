@@ -9,18 +9,22 @@ import { ModalType, useModalStore } from './modal';
 
 type UserState = {
   user: UserDetails | null;
+  companyId: number | null;
+  companyStatus: number | null;
   login: (arg: Login) => Promise<boolean>;
   signup: (arg: Register) => void;
 };
 
 export const useUserStore = create<UserState>((set) => ({
   user: null,
+  companyId: null,
+  companyStatus: null,
   login: async (arg: Login) => {
     let isSuccess = false;
     try {
       useModalStore.getState().open(ModalType.Loading);
       const response = await apiClient.login.loginCreate(arg);
-      set({ user: response.user });
+      set({ user: response.user, companyId: response.company_id, companyStatus: response.company_status });
       useModalStore.getState().close();
       isSuccess = true;
     } catch (error) {
