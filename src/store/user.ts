@@ -12,7 +12,7 @@ type UserState = {
   companyId: number | null;
   companyStatus: number | null;
   login: (arg: Login) => Promise<boolean>;
-  signup: (arg: Register) => void;
+  signup: (arg: Register) => Promise<boolean>;
 };
 
 export const useUserStore = create<UserState>((set) => ({
@@ -38,10 +38,13 @@ export const useUserStore = create<UserState>((set) => ({
     return isSuccess;
   },
   signup: async (arg: Register) => {
+    let isSuccess = false;
     try {
       useModalStore.getState().open(ModalType.Loading);
       const response = await apiClient.registration.registrationCreate(arg);
       set({ user: response.user });
+      useModalStore.getState().close();
+      isSuccess = true;
     } catch (error) {
       set({ user: null });
       const err = error as Error;
@@ -50,5 +53,6 @@ export const useUserStore = create<UserState>((set) => ({
         errorText: `[${err.name}] ${err.message}`
       });
     }
+    return isSuccess;
   }
 }));
