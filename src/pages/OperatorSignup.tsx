@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { useForm, UseFormRegister } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
@@ -13,7 +12,11 @@ type SignupFormType = {
   email: string;
   password1: string;
   password2: string;
+  phone: string;
+  lastname: string;
 };
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const schema = yup
   .object({
@@ -24,19 +27,22 @@ const schema = yup
     password2: yup
       .string()
       .oneOf([yup.ref('password1')], 'Passwords must match')
-      .required('password required')
+      .required('password required'),
+    phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required('phoneNumber required'),
+    lastname: yup.string().required('lastname required')
   })
   .required();
 
 const OperatorSignUp = () => {
   const { register, handleSubmit, formState } = useForm<SignupFormType>({ resolver: yupResolver(schema) });
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const signup = useUserStore((state) => state.signup);
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log('data being sent', data);
-    const isSuccess = await signup(data);
-    if (isSuccess) navigate('/login');
+    // console.log('data being sent', data);
+    await signup(data);
+
+    // if (isSuccess) navigate('/login');
   });
 
   console.log('formState.errors', formState.errors);
@@ -66,12 +72,14 @@ const OperatorSignUp = () => {
           className={classNames(Style, 'w-full min-[1550px]:mb-10.7 min-[1200px]:mb-8 mb-6')}
         /> */}
         <div className="flex flex-row justify-between w-full min-[1550px]:mb-6 min-[1200px]:mb-8 mb-6">
-          <Field heading="管理者姓名" type="text" className="self-start" register={register} id="username" />
+          <Field heading="管理者姓名" type="text" className="self-start" register={register} id="lastname" />
 
           <Field
             heading="管理者手機"
             type="text"
             className="self-end"
+            register={register}
+            id="phone"
             downText="此欄位再多項服務提供時將進行驗證，請正確填寫"
           />
         </div>
@@ -80,6 +88,8 @@ const OperatorSignUp = () => {
             heading="帳號"
             type="text"
             className="self-start"
+            register={register}
+            id="username"
             downText="英數混合，最常請勿超過20個字元，可接受 ”_” “.” “@” 三種符號"
           />
           <Field heading="Email" type="email" className="self-start" register={register} id="email" />
@@ -141,7 +151,7 @@ interface FieldProps {
   className: string;
   downText?: string;
   register?: UseFormRegister<SignupFormType>;
-  id?: 'username' | 'email' | 'password1' | 'password2';
+  id?: 'username' | 'email' | 'password1' | 'password2' | 'lastname' | 'phone';
 }
 interface PasswordInputProps {
   className?: string;
