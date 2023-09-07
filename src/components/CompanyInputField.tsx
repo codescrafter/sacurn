@@ -55,7 +55,7 @@ const CompanyInputField = ({
             id as
               | 'registration_document'
               | 'name'
-              | 'code'
+              | 'registration_number'
               | 'representative'
               | 'capital'
               | 'founding_date'

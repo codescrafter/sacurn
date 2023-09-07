@@ -20,15 +20,24 @@ interface IProps {
 
 export type FormValues = {
   name: string;
-  code: string;
+  registration_number: string;
   capital: number;
   phone: string;
   founding_date: string;
   representative: string;
-  address?: {
-    additionalProp1?: string;
-    additionalProp2?: string;
-    additionalProp3?: string;
+  address: {
+    additionalProp1: string;
+    additionalProp2: string;
+    additionalProp3: string;
+    additionalProp4: string;
+    additionalProp5: string;
+    additionalProp6: string;
+    additionalProp7: string;
+    additionalProp8: string;
+    additionalProp9: string;
+    additionalProp10: string;
+    additionalProp11: string;
+    additionalProp12: string;
   };
   contact_address: string;
   registration_document: string;
@@ -37,18 +46,31 @@ export type FormValues = {
 const schema = yup
   .object({
     name: yup.string().required('Name is required'),
-    code: yup.string().required('Code is required'),
+    registration_number: yup.string().required('registration_number is required'),
     capital: yup.number().required('Capital is required'),
     phone: yup.string().required('Phone is required'),
     founding_date: yup.string().required('Founding date is required'),
     representative: yup.string().required('Representative is required'),
     contact_address: yup.string().required('Contact address is required'),
     //  address type
-    // address: yup.object({
-    //   additionalProp1: yup.string().required('Address is required'),
-    //   additionalProp2: yup.string().required('Address is required'),
-    //   additionalProp3: yup.string().required('Address is required')
-    // }),
+
+    address: yup
+      .object()
+      .shape({
+        additionalProp1: yup.string().required('Address is required'),
+        additionalProp2: yup.string().required('Address is required'),
+        additionalProp3: yup.string().required('Address is required'),
+        additionalProp4: yup.string().required('Address is required'),
+        additionalProp5: yup.string().required('Address is required'),
+        additionalProp6: yup.string().required('Address is required'),
+        additionalProp7: yup.string().required('Address is required'),
+        additionalProp8: yup.string().required('Address is required'),
+        additionalProp9: yup.string().required('Address is required'),
+        additionalProp10: yup.string().required('Address is required'),
+        additionalProp11: yup.string().required('Address is required'),
+        additionalProp12: yup.string().required('Address is required')
+      })
+      .required(),
     registration_document: yup.string().required('Registration document is required')
   })
   .required();
@@ -73,7 +95,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     debugger;
     const resonse = await createCompany({
       name: data.name,
-      code: data.code,
+      registration_number: data.registration_number,
       phone: data.phone,
       representative: data.representative,
       capital: Number(data.capital),
@@ -116,7 +138,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
             />
 
             <CompanyInputField
-              id="code"
+              id="registration_number"
               isRequired={true}
               type="text"
               register={register}
@@ -166,6 +188,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 <div className="absolute flex flex-col -translate-y-1.5">
                   <div className="flex flex-row my-1">
                     <select
+                      id="address.additionalProp1"
+                      {...register(`address.additionalProp1`, { required: true })}
                       className={classNames(
                         'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
                         Style
@@ -185,6 +209,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       </option>
                     </select>
                     <select
+                      id="address.additionalProp2"
+                      {...register(`address.additionalProp2`, { required: true })}
                       className={classNames(
                         'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
                         Style
@@ -203,38 +229,57 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       </option>
                     </select>
                     <input
+                      id="address.additionalProp3"
+                      {...register(`address.additionalProp3`, { required: true })}
                       type="text"
                       className={classNames(
                         'min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-13 w-12 mr-2 px-5',
-                        Style
+                        Style,
+                        {
+                          'border-bright-red border': errors.address?.additionalProp3
+                        }
                       )}
                       value={street}
                       onChange={(e) => setStreet(e.target.value)}
                     />
                     <input
+                      id="address.additionalProp4"
+                      {...register(`address.additionalProp4`, { required: true })}
                       type="text"
                       placeholder="路、街、村、段"
-                      {...register('address.additionalProp1', { required: true })}
                       className={classNames('px-5 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style, {
-                        'border-bright-red border': errors.address?.additionalProp1
+                        'border-bright-red border': errors.address?.additionalProp4
                       })}
                     />
                   </div>
                   <div className="flex flex-row my-1 items-center">
-                    {address_row_1.map((item: string) => {
+                    {address_row_1.map((item: string, idx: number) => {
+                      let id = '' as
+                        | 'address.additionalProp5'
+                        | 'address.additionalProp6'
+                        | 'address.additionalProp7'
+                        | 'address.additionalProp8';
+
+                      if (idx === 0) id = 'address.additionalProp5';
+                      else if (idx === 1) id = 'address.additionalProp6';
+                      else if (idx === 2) id = 'address.additionalProp7';
+                      else id = 'address.additionalProp8';
+
                       return (
                         <>
                           <input
-                            id="address.additionalProp2"
+                            id={id}
+                            {...register(id, { required: false })}
                             type="text"
                             className={classNames(
                               'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
                               Style,
                               {
-                                'border-bright-red border': errors.address?.additionalProp2
+                                'border-bright-red border':
+                                  errors.address &&
+                                  Object.prototype.hasOwnProperty.call(errors.address, id.replace('address.', ''))
                               }
                             )}
-                            {...register('address.additionalProp2', { required: true })}
                           />
                           <label className="text-black font-bold mr-1.5 text-[12px]">{item}</label>
                         </>
@@ -242,26 +287,40 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     })}
                   </div>
                   <div className="flex flex-row my-1 items-center">
-                    {address_row_2.map((item) => {
+                    {address_row_2.map((item, idx) => {
+                      let id = '' as
+                        | 'address.additionalProp9'
+                        | 'address.additionalProp10'
+                        | 'address.additionalProp11'
+                        | 'address.additionalProp12';
+
+                      if (idx === 0) id = 'address.additionalProp9';
+                      else if (idx === 1) id = 'address.additionalProp10';
+                      else if (idx === 2) id = 'address.additionalProp11';
+                      else id = 'address.additionalProp12';
+
                       return (
                         <>
                           <input
-                            id="address.additionalProp3"
+                            id={id}
                             type="text"
                             className={classNames(
                               'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
                               Style,
                               {
-                                'border-bright-red border': errors.address?.additionalProp3
+                                'border-bright-red border':
+                                  errors.address &&
+                                  Object.prototype.hasOwnProperty.call(errors.address, id.replace('address.', ''))
                               }
                             )}
-                            {...register('address.additionalProp3', { required: true })}
+                            {...register(id, { required: true })}
                           />
                           <label className="text-black font-bold mr-1.5 text-[12px]">{item}</label>
                         </>
                       );
                     })}
                   </div>
+                  {errors.address && <p className="text-[#FF0000] text-xs font-normal">( 紅色框格請務必填寫 )</p>}
                 </div>
               </div>
             </div>
