@@ -2,8 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $JWT = {
-    description: `Serializer for JWT authentication.`,
+export const $RegistrationResponse = {
     properties: {
         access: {
             type: 'string',
@@ -14,7 +13,7 @@ export const $JWT = {
             isRequired: true,
         },
         user: {
-            type: 'UserDetails',
+            type: 'User',
             isRequired: true,
         },
     },
