@@ -15,6 +15,7 @@ import { InventoryService } from './services/InventoryService';
 import { LoginService } from './services/LoginService';
 import { MemberService } from './services/MemberService';
 import { RegistrationService } from './services/RegistrationService';
+import { ShopService } from './services/ShopService';
 import { TradeService } from './services/TradeService';
 
 type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest;
@@ -30,6 +31,7 @@ export class ApiClient {
     public readonly login: LoginService;
     public readonly member: MemberService;
     public readonly registration: RegistrationService;
+    public readonly shop: ShopService;
     public readonly trade: TradeService;
 
     public readonly request: BaseHttpRequest;
@@ -56,6 +58,7 @@ export class ApiClient {
         this.login = new LoginService(this.request);
         this.member = new MemberService(this.request);
         this.registration = new RegistrationService(this.request);
+        this.shop = new ShopService(this.request);
         this.trade = new TradeService(this.request);
     }
 }

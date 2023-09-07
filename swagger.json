@@ -421,6 +421,63 @@
                 }
             }
         },
+        "/carbon_credit/{id}/": {
+            "patch": {
+                "operationId": "carbon_credit_partial_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "carbon_credit"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedCarbonCredit"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedCarbonCredit"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedCarbonCredit"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwtHeaderAuth": []
+                    },
+                    {
+                        "jwtCookieAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CarbonCredit"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/carbon_credit/carbon_location/": {
             "get": {
                 "operationId": "carbon_credit_carbon_location_retrieve",
@@ -503,30 +560,31 @@
             }
         },
         "/carbon_credit/create/": {
-            "get": {
-                "operationId": "carbon_credit_create_retrieve",
-                "tags": [
-                    "carbon_credit"
-                ],
-                "security": [
-                    {
-                        "jwtHeaderAuth": []
-                    },
-                    {
-                        "jwtCookieAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "No response body"
-                    }
-                }
-            },
             "post": {
                 "operationId": "carbon_credit_create_create",
                 "tags": [
                     "carbon_credit"
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CarbonCredit"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CarbonCredit"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CarbonCredit"
+                            }
+                        }
+                    },
+                    "required": true
+                },
                 "security": [
                     {
                         "jwtHeaderAuth": []
@@ -537,7 +595,14 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "No response body"
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CarbonCredit"
+                                }
+                            }
+                        },
+                        "description": ""
                     }
                 }
             }
@@ -737,21 +802,20 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/WatchList"
+                                "$ref": "#/components/schemas/WatchListRequestSerialzer"
                             }
                         },
                         "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/WatchList"
+                                "$ref": "#/components/schemas/WatchListRequestSerialzer"
                             }
                         },
                         "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/WatchList"
+                                "$ref": "#/components/schemas/WatchListRequestSerialzer"
                             }
                         }
-                    },
-                    "required": true
+                    }
                 },
                 "security": [
                     {
@@ -1941,6 +2005,99 @@
                 }
             }
         },
+        "/shop/cart/": {
+            "get": {
+                "operationId": "shop_cart_list",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "description": "A page number within the paginated result set.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "tags": [
+                    "shop"
+                ],
+                "security": [
+                    {
+                        "jwtAuth": []
+                    },
+                    {
+                        "jwtHeaderAuth": []
+                    },
+                    {
+                        "jwtCookieAuth": []
+                    },
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedShopCartList"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "shop_cart_create",
+                "tags": [
+                    "shop"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ShopCart"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ShopCart"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ShopCart"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "jwtAuth": []
+                    },
+                    {
+                        "jwtHeaderAuth": []
+                    },
+                    {
+                        "jwtCookieAuth": []
+                    },
+                    {}
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ShopCart"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/trade/cart/": {
             "get": {
                 "operationId": "trade_cart_list",
@@ -2941,7 +3098,7 @@
             "CartDetail": {
                 "type": "object",
                 "properties": {
-                    "cart_id_lsit": {
+                    "cart_id_list": {
                         "type": "array",
                         "items": {
                             "type": "integer"
@@ -4093,6 +4250,33 @@
                     }
                 }
             },
+            "PaginatedShopCartList": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "type": "integer",
+                        "example": 123
+                    },
+                    "next": {
+                        "type": "string",
+                        "nullable": true,
+                        "format": "uri",
+                        "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                        "type": "string",
+                        "nullable": true,
+                        "format": "uri",
+                        "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ShopCart"
+                        }
+                    }
+                }
+            },
             "PaginatedTransactionRecordList": {
                 "type": "object",
                 "properties": {
@@ -4172,6 +4356,87 @@
                     "token",
                     "uid"
                 ]
+            },
+            "PatchedCarbonCredit": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "max_price": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "min_price": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "location": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true,
+                        "title": "名稱",
+                        "maxLength": 45
+                    },
+                    "about": {
+                        "type": "string",
+                        "nullable": true,
+                        "title": "描述",
+                        "maxLength": 45
+                    },
+                    "video": {
+                        "type": "string",
+                        "nullable": true,
+                        "maxLength": 45
+                    },
+                    "image": {
+                        "type": "string",
+                        "format": "uri",
+                        "nullable": true
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true,
+                        "title": "價位"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": -2147483648,
+                        "nullable": true,
+                        "title": "數量"
+                    },
+                    "vintage": {
+                        "type": "string",
+                        "format": "date",
+                        "nullable": true,
+                        "title": "製造年份"
+                    },
+                    "serial_number": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "title": "建立時間"
+                    },
+                    "carbon_credit_location": {
+                        "type": "integer",
+                        "nullable": true,
+                        "title": "地點"
+                    },
+                    "company": {
+                        "type": "integer",
+                        "title": "公司名稱"
+                    }
+                }
             },
             "PatchedCart": {
                 "type": "object",
@@ -4591,6 +4856,59 @@
                 "type": "integer",
                 "description": "* `1` - 1"
             },
+            "ShopCart": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "deleted": {
+                        "type": "boolean"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": -2147483648
+                    },
+                    "status": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": -2147483648
+                    },
+                    "trader": {
+                        "type": "integer"
+                    },
+                    "shop_product": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "created_at",
+                    "id",
+                    "quantity",
+                    "shop_product",
+                    "trader",
+                    "updated_at"
+                ]
+            },
             "TokenObtainPair": {
                 "type": "object",
                 "properties": {
@@ -4814,6 +5132,15 @@
                     "min_price",
                     "name"
                 ]
+            },
+            "WatchListRequestSerialzer": {
+                "type": "object",
+                "properties": {
+                    "carbon_credit": {
+                        "type": "integer",
+                        "default": 1
+                    }
+                }
             }
         },
         "securitySchemes": {
