@@ -19,7 +19,6 @@ interface IProps {
 }
 
 export type FormValues = {
-  id: number;
   name: string;
   code: string;
   capital: number;
@@ -33,13 +32,10 @@ export type FormValues = {
   };
   contact_address: string;
   registration_document: string;
-  created_at: string;
-  updated_at: string;
 };
 
 const schema = yup
   .object({
-    id: yup.number().required('ID is required'),
     name: yup.string().required('Name is required'),
     code: yup.string().required('Code is required'),
     capital: yup.number().required('Capital is required'),
@@ -48,14 +44,12 @@ const schema = yup
     representative: yup.string().required('Representative is required'),
     contact_address: yup.string().required('Contact address is required'),
     //  address type
-    address: yup.object({
-      additionalProp1: yup.string().required('Address is required'),
-      additionalProp2: yup.string().required('Address is required'),
-      additionalProp3: yup.string().required('Address is required')
-    }),
-    registration_document: yup.string().required('Registration document is required'),
-    created_at: yup.string().required('Created at is required'),
-    updated_at: yup.string().required('Updated at is required')
+    // address: yup.object({
+    //   additionalProp1: yup.string().required('Address is required'),
+    //   additionalProp2: yup.string().required('Address is required'),
+    //   additionalProp3: yup.string().required('Address is required')
+    // }),
+    registration_document: yup.string().required('Registration document is required')
   })
   .required();
 
@@ -73,6 +67,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   const createCompany = useCompanyStore((state) => state.createCompany);
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log('data', data);
+    console.log('errors', errors);
     // eslint-disable-next-line no-debugger
     debugger;
     const resonse = await createCompany({
@@ -87,8 +83,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
         additionalProp1: `${county}, ${town}, ${street}`
       },
       id: 0,
-      created_at: data.created_at || null,
-      updated_at: data.updated_at || null,
+      created_at: null,
+      updated_at: null,
       registration_document:
         'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
     });
@@ -312,7 +308,11 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
           </div>
         </div>
       </div>
-      <CustomButton className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md absolute bottom-7 right-5">
+      <CustomButton
+        type="submit"
+        onClick={() => console.log('errors', errors)}
+        className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md absolute bottom-7 right-5"
+      >
         储存 | 下一步
       </CustomButton>
     </form>
