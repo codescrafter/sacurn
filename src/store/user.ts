@@ -37,10 +37,13 @@ export const useUserStore = create<UserState>((set) => ({
     return isSuccess;
   },
   signup: async (arg: Registration) => {
+    let isSuccess = false;
     try {
       useModalStore.getState().open(ModalType.Loading);
       const response = await apiClient.registration.registrationCreate(arg);
       set({ user: response.user });
+      useModalStore.getState().close();
+      isSuccess = true;
     } catch (error) {
       set({ user: null });
       const err = error as Error;
@@ -49,5 +52,6 @@ export const useUserStore = create<UserState>((set) => ({
         errorText: `[${err.name}] ${err.message}`
       });
     }
+    return isSuccess;
   }
 }));
