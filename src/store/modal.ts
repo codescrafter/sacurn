@@ -14,6 +14,8 @@ type ModalState = {
 export enum ModalType {
   AddToCart = 'AddToCart',
   Loading = 'Loading',
+  StartApplyCertificate = 'StartApplyCertificate',
+  FinishedApplyCertificate = 'FinishedApplyCertificate',
   Error = 'Error'
 }
 
@@ -32,6 +34,30 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
     description: '',
     errorText: '',
     buttons: []
+  },
+  [ModalType.StartApplyCertificate]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/certificate/ic_certificate.svg',
+    title: '證書申請付款資訊',
+    description: '點擊確認申請後，將新增證書申請費用於購物車內。待付款成功後，系統將寄發證書給您。',
+    errorText: '',
+    buttons: [
+      {
+        text: '確認申請'
+      }
+    ]
+  },
+  [ModalType.FinishedApplyCertificate]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_success.svg',
+    title: '申請成功',
+    description: '待付款成功後，系統將寄發證書將會到您登記的信箱',
+    errorText: '',
+    buttons: [
+      {
+        text: '確定'
+      }
+    ]
   },
   [ModalType.AddToCart]: {
     status: UniversalModalStatus.Info,

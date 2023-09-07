@@ -72,7 +72,7 @@ const router = createBrowserRouter([
     element: <WishList />
   },
   {
-    path: '/certificate',
+    path: '/certificate/:carbonId',
     element: <Certificate />
   },
   {

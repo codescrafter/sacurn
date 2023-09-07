@@ -30,12 +30,10 @@ export const $PatchedCart = {
         },
         price: {
             type: 'number',
-            isNullable: true,
             format: 'double',
         },
         quantity: {
             type: 'number',
-            isNullable: true,
             maximum: 2147483647,
             minimum: -2147483648,
         },

@@ -1,18 +1,17 @@
 import { create } from 'zustand';
 
+import { Registration, User } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 import { Login } from '@/libs/api/models/Login';
-import { Register } from '@/libs/api/models/Register';
-import { UserDetails } from '@/libs/api/models/UserDetails';
 
 import { ModalType, useModalStore } from './modal';
 
 type UserState = {
-  user: UserDetails | null;
+  user: User | null;
   companyId: number | null;
   companyStatus: number | null;
   login: (arg: Login) => Promise<boolean>;
-  signup: (arg: Register) => Promise<boolean>;
+  signup: (arg: Registration) => void;
 };
 
 export const useUserStore = create<UserState>((set) => ({
@@ -37,7 +36,7 @@ export const useUserStore = create<UserState>((set) => ({
     }
     return isSuccess;
   },
-  signup: async (arg: Register) => {
+  signup: async (arg: Registration) => {
     let isSuccess = false;
     try {
       useModalStore.getState().open(ModalType.Loading);

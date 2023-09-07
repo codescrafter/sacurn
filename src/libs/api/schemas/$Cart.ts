@@ -36,12 +36,12 @@ export const $Cart = {
         },
         price: {
             type: 'number',
-            isNullable: true,
+            isRequired: true,
             format: 'double',
         },
         quantity: {
             type: 'number',
-            isNullable: true,
+            isRequired: true,
             maximum: 2147483647,
             minimum: -2147483648,
         },

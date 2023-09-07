@@ -2,11 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { JWT } from '../models/JWT';
-import type { Register } from '../models/Register';
-import type { ResendEmailVerification } from '../models/ResendEmailVerification';
-import type { RestAuthDetail } from '../models/RestAuthDetail';
-import type { VerifyEmail } from '../models/VerifyEmail';
+import type { Registration } from '../models/Registration';
+import type { RegistrationResponse } from '../models/RegistrationResponse';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -17,47 +14,15 @@ export class RegistrationService {
 
     /**
      * @param requestBody
-     * @returns JWT
+     * @returns RegistrationResponse
      * @throws ApiError
      */
     public registrationCreate(
-        requestBody: Register,
-    ): CancelablePromise<JWT> {
+        requestBody: Registration,
+    ): CancelablePromise<RegistrationResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/registration/',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-
-    /**
-     * @param requestBody
-     * @returns RestAuthDetail
-     * @throws ApiError
-     */
-    public registrationResendEmailCreate(
-        requestBody?: ResendEmailVerification,
-    ): CancelablePromise<RestAuthDetail> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/registration/resend-email/',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-
-    /**
-     * @param requestBody
-     * @returns RestAuthDetail
-     * @throws ApiError
-     */
-    public registrationVerifyEmailCreate(
-        requestBody: VerifyEmail,
-    ): CancelablePromise<RestAuthDetail> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/registration/verify-email/',
             body: requestBody,
             mediaType: 'application/json',
         });

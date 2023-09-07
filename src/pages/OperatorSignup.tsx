@@ -13,7 +13,7 @@ type SignupFormType = {
   password1: string;
   password2: string;
   phone: string;
-  lastname: string;
+  last_name: string;
 };
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -29,7 +29,7 @@ const schema = yup
       .oneOf([yup.ref('password1')], 'Passwords must match')
       .required('password required'),
     phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required('phoneNumber required'),
-    lastname: yup.string().required('lastname required')
+    last_name: yup.string().required('lastname required')
   })
   .required();
 
@@ -72,7 +72,7 @@ const OperatorSignUp = () => {
           className={classNames(Style, 'w-full min-[1550px]:mb-10.7 min-[1200px]:mb-8 mb-6')}
         /> */}
         <div className="flex flex-row justify-between w-full min-[1550px]:mb-6 min-[1200px]:mb-8 mb-6">
-          <Field heading="管理者姓名" type="text" className="self-start" register={register} id="lastname" />
+          <Field heading="管理者姓名" type="text" className="self-start" register={register} id="last_name" />
 
           <Field
             heading="管理者手機"
@@ -151,7 +151,7 @@ interface FieldProps {
   className: string;
   downText?: string;
   register?: UseFormRegister<SignupFormType>;
-  id?: 'username' | 'email' | 'password1' | 'password2' | 'lastname' | 'phone';
+  id?: 'username' | 'email' | 'password1' | 'password2' | 'last_name' | 'phone';
 }
 interface PasswordInputProps {
   className?: string;

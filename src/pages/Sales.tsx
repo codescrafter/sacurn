@@ -1,5 +1,8 @@
 import classNames from 'classnames';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import { useStockListStore } from '@/store/stockList';
 
 import Alert from '../components/Alert';
 import Button from '../components/Button';
@@ -16,6 +19,13 @@ const Sales = () => {
   const [isAlert, setIsAlert] = useState<boolean>(false);
   const [confirmListing, setConfirmListing] = useState<boolean>(false);
   const [stopTrade, setStopTrade] = useState<boolean>(false);
+
+  const stockList = useStockListStore((store) => store.stockList);
+  const getStockList = useStockListStore((store) => store.getStockList);
+
+  useEffect(() => {
+    if (stockList.length === 0) getStockList();
+  }, []);
 
   return (
     <div className="w-screen relative h-screen overflow-hidden bg-neutral-250">
@@ -117,14 +127,10 @@ const Sales = () => {
                   <div className="inline-block min-w-full align-middle sm:px-6 lg:px-8">
                     <table
                       className="min-w-full custom-table sales-table"
-                      style={
-                        staticRowsVisible
-                          ? {
-                              borderCollapse: 'collapse',
-                              borderSpacing: '0 11px'
-                            }
-                          : { borderCollapse: 'separate', borderSpacing: '0 0' }
-                      }
+                      style={{
+                        borderCollapse: staticRowsVisible ? 'collapse' : 'separate',
+                        borderSpacing: staticRowsVisible ? '0 11px' : '0 0'
+                      }}
                     >
                       <thead className="sticky -top-1 z-10">
                         <tr className="!bg-neutral-250">
@@ -159,7 +165,7 @@ const Sales = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {TABLE_BODY?.map((item, index) => (
+                        {stockList?.map((item, index) => (
                           <Fragment key={item.id}>
                             <tr
                               className={classNames('bg-white sales-row h-auto hover:shadow-sales-row', {
@@ -180,7 +186,7 @@ const Sales = () => {
                                     }
                                   )}
                                 >
-                                  {item.percent}
+                                  {item.ratio}%
                                 </span>
                               </td>
                               <td className={`py-3 pr-2 xl:w-[362px]`}>
@@ -188,14 +194,14 @@ const Sales = () => {
                                 <div className="flex flex-col space-y-1 xl:space-y-4">
                                   {/* prod name */}
                                   <span className="text-sm 2xl:text-lg font-semibold text-dark-grey !leading-[19px]">
-                                    {item.prodDetail.prodName}
+                                    {item.name}
                                   </span>
                                   {/* detail */}
                                   <div className="flex items-center gap-[23px]">
                                     {/* seriol no */}
                                     <div className="flex items-center gap-1">
                                       <span className="text-xs whitespace-nowrap font-medium text-grey">序號:</span>
-                                      <span className="text-sm font-medium text-grey">{item.prodDetail.seriolNo}</span>
+                                      <span className="text-sm font-medium text-grey">{item.serial_number}</span>
                                     </div>
                                     {/* location */}
                                     <div className="flex items-center gap-1">
@@ -208,7 +214,7 @@ const Sales = () => {
                                         />
                                       </span>
                                       <span className="text-sm whitespace-nowrap font-medium text-grey">
-                                        {item.prodDetail.location}
+                                        {item.location}
                                       </span>
                                     </div>
                                   </div>
@@ -218,18 +224,20 @@ const Sales = () => {
                                 {item.vintage}
                               </td>
                               <td className="py-2 px-2 font-bold text-dark-grey text-sm 2xl:text-lg">
-                                {item.totalAmount} <span className="!font-medium text-dark-grey">噸</span>
+                                {item.quantity} <span className="!font-medium text-dark-grey">噸</span>
                               </td>
                               <td className="py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]">
                                 <div className="w-full flex justify-center">
                                   <div className="w-[35px] 2xl:w-[45px] 2xl:h-[45px]">
-                                    <img
-                                      src={item.carbonCertificate}
-                                      width={45}
-                                      height={46}
-                                      alt="file icon"
-                                      className="w-[35px] 2xl:w-[45px] h-auto cursor-pointer"
-                                    />
+                                    <Link to={`/certificate/${item.id}`}>
+                                      <img
+                                        src="/images/sales/file_icon.png"
+                                        width={45}
+                                        height={46}
+                                        alt="file icon"
+                                        className="w-[35px] 2xl:w-[45px] h-auto cursor-pointer"
+                                      />
+                                    </Link>
                                   </div>
                                 </div>
                               </td>
@@ -242,13 +250,13 @@ const Sales = () => {
                                       setStaticRowsVisible((prevVisible) => !prevVisible);
                                     }}
                                   >
-                                    {item.transaction}
+                                    {item.status}
                                   </Button>
                                 ) : (
                                   <div className="w-full flex justify-center">
                                     <div className="w-[35px] 2xl:w-[45px] 2xl:h-[45px] group shadow flex items-center justify-center bg-white rounded-lg relative">
                                       <img
-                                        src={item.transaction}
+                                        src="/images/sales/settings_icon.png"
                                         width={45}
                                         height={46}
                                         alt="settings icon"
@@ -340,97 +348,3 @@ const Sales = () => {
 export default Sales;
 
 const TABLE_HEAD = ['', '商品名稱', 'Vintage', '總數量', '碳權證書', '設定交易'];
-
-const TABLE_BODY = [
-  {
-    id: 1,
-    percent: '50%',
-    prodDetail: {
-      prodName: 'Australian Carbon Credit Units',
-      seriolNo: 'fjgmvixkermy',
-      location: '非洲'
-    },
-    vintage: '1991/10/30',
-    totalAmount: '889',
-    carbonCertificate: '/images/sales/file_icon.png',
-    transaction: '/images/sales/settings_icon.png'
-  },
-  {
-    id: 2,
-    percent: '11.2%',
-    prodDetail: {
-      prodName: 'Andes Inorganic Soil ACR Emission Reduction Tonnes Spot ProductCarbon',
-      seriolNo: 'irdfgwxbmjug',
-      location: '印度'
-    },
-    vintage: '1991/06/06',
-    totalAmount: '100',
-    carbonCertificate: '/images/sales/file_icon.png',
-    transaction: '/images/sales/settings_icon.png'
-  },
-  {
-    id: 3,
-    percent: '20.4%',
-    prodDetail: {
-      prodName: 'Global Emissions Offset Standard Spot Product',
-      seriolNo: 'poudhrfxjufn',
-      location: '印度'
-    },
-    vintage: '1991/06/06',
-    totalAmount: '3',
-    carbonCertificate: '/images/sales/file_icon.png',
-    transaction: '/images/sales/settings_icon.png'
-  },
-  {
-    id: 4,
-    percent: '9%',
-    prodDetail: {
-      prodName: 'Core Global Emissions Offset Trailing Spot Product',
-      seriolNo: 'owieudmakqlw',
-      location: '印度'
-    },
-    vintage: '1991/10/30',
-    totalAmount: '23',
-    carbonCertificate: '/images/sales/file_icon.png',
-    transaction: '/images/sales/settings_icon.png'
-  },
-  {
-    id: 5,
-    percent: '5%',
-    prodDetail: {
-      prodName: 'Nature-Based Global Emissions Offset Trailing Standard Spot Product Standard Spot Product',
-      seriolNo: 'lodismokeadw',
-      location: '非洲'
-    },
-    vintage: '1991/10/30',
-    totalAmount: '89',
-    carbonCertificate: '/images/sales/file_icon.png',
-    transaction: '/images/sales/settings_icon.png'
-  },
-  {
-    id: 6,
-    percent: '1.3%',
-    prodDetail: {
-      prodName: 'VCS Verified Carbon Units Spot Product',
-      seriolNo: 'lekgmazoeldq',
-      location: '俄羅斯'
-    },
-    vintage: '1991/07/01',
-    totalAmount: '800',
-    carbonCertificate: '/images/sales/file_icon.png',
-    transaction: '上架中'
-  },
-  {
-    id: 7,
-    percent: '3.1%',
-    prodDetail: {
-      prodName: 'ACR Emission Reduction Tonnes Spot Product',
-      seriolNo: 'irjgldemasil',
-      location: '台灣'
-    },
-    vintage: '1991/10/30',
-    totalAmount: '12',
-    carbonCertificate: '/images/sales/file_icon.png',
-    transaction: '/images/sales/settings_icon.png'
-  }
-];

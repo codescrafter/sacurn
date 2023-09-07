@@ -3,16 +3,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Employee = {
+export type MemberRecord = {
     readonly id: number;
-    readonly username: string;
-    readonly email: string;
     readonly created_at: string | null;
     readonly updated_at: string | null;
     deleted?: boolean;
-    phone?: string | null;
     deleted_at?: string | null;
-    user: number;
-    company?: number | null;
+    status?: number;
+    company: number;
+    member: number;
 };
 
