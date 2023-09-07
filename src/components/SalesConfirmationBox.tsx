@@ -1,37 +1,41 @@
 import React from 'react';
 
+import { ModalType, useModalStore } from '@/store/modal';
+import { StockItem, useStockListStore } from '@/store/stockList';
+
 import Button from './Button';
 import HorizontalDivider from './HorizontalDivider';
 
-interface IProps {
-  setIsAlert: React.Dispatch<React.SetStateAction<boolean>>;
-  stopTrade: boolean;
-  setConfirmationBox: React.Dispatch<React.SetStateAction<boolean>>;
-  setStopTrade: React.Dispatch<React.SetStateAction<boolean>>;
-  setConfirmListing: React.Dispatch<React.SetStateAction<boolean>>;
+export enum ActionType {
+  MakeOffShelve = 'MakeOffShelve',
+  MakeOnSale = 'MakeOnSale'
 }
 
-const SalesConfirmationBox = ({
-  setIsAlert,
-  stopTrade,
-  setConfirmationBox,
-  setStopTrade,
-  setConfirmListing
-}: IProps) => {
+interface IProps {
+  onClose: () => void;
+  actionType: ActionType;
+  stockItem: StockItem;
+}
+
+const SalesConfirmationBox = (props: IProps) => {
+  const { actionType, onClose, stockItem } = props;
+
+  const open = useModalStore((state) => state.open);
+  // const updateStockOnSale = useStockListStore((state) => state.updateStockOnSale);
+  const updateStockOffShelve = useStockListStore((state) => state.updateStockOffShelve);
+
   return (
     <div className="flex flex-col px-3 2xl:pl-[35px] 2xl:pr-[23px] py-5 2xl:pt-[33px] 2xl:pb-[26px] border-2 border-bright-blue bg-white rounded-[10px] shadow-sales-box">
-      <h5 className="font-bold text-xl xl:text-[32]px text-black">
-        Andes Inorganic Soil ACR Emission Reduction Tonnes Spot ProductCarbon
-      </h5>
+      <h5 className="font-bold text-xl xl:text-[32]px text-black">{stockItem.name}</h5>
       {/* vintage */}
       <div className="flex items-center justify-between mt-6 xl:mt-[33px]">
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">Vintage製造年份</span>
-        <span className="text-lg xl:text-xl text-black font-bold">1991/10/30</span>
+        <span className="text-lg xl:text-xl text-black font-bold">{stockItem.vintage}</span>
       </div>
       {/* no of goods */}
       <div className="flex items-center justify-between my-5 xl:my-[30px]">
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">商品擁有數量</span>
-        <span className="text-lg xl:text-xl text-black font-bold">99,999</span>
+        <span className="text-lg xl:text-xl text-black font-bold">{stockItem.quantity}</span>
       </div>
       {/* divider */}
       <HorizontalDivider />
@@ -97,36 +101,40 @@ const SalesConfirmationBox = ({
       </div>
       {/* action buttons */}
       <div className="flex items-center justify-center gap-4 2xl:gap-20 px-8 mt-5 xl:mt-[26px]">
-        {stopTrade ? (
+        {actionType === ActionType.MakeOnSale && (
           <Button
             className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl !bg-pale-yellow !text-navy-blue"
-            onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-              event.stopPropagation();
-              setStopTrade(true);
-              setIsAlert(true);
+            onClick={() => {
+              // updateStockOnSale();
             }}
           >
             上架交易
           </Button>
-        ) : (
+        )}
+
+        {actionType === ActionType.MakeOffShelve && (
           <Button
             className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl"
-            onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-              event.stopPropagation();
-              setConfirmListing(true);
-              setIsAlert(true);
+            onClick={() => {
+              open(ModalType.MakeStockOffShelve, {
+                buttons: [
+                  {
+                    text: '取消送出',
+                    isOutline: true
+                  },
+                  {
+                    text: '確認停止交易',
+                    onClick: () => updateStockOffShelve(stockItem.id)
+                  }
+                ]
+              });
             }}
           >
             停止交易
           </Button>
         )}
         <Button
-          onClick={() => {
-            setIsAlert(false);
-            setConfirmationBox(false);
-            setStopTrade(false);
-            setConfirmListing(false);
-          }}
+          onClick={onClose}
           className="!p-[10px] !bg-transparent rounded-[10px] min-w-[175px] border border-grey !text-grey text-base xl:text-2xl"
         >
           取消

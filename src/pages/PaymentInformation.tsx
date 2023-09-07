@@ -1,8 +1,14 @@
+import { Link } from 'react-router-dom';
+
 import CustomButton from '@/components/CustomButton';
 import LightLayout from '@/components/LightLayout';
 import TotalPayment from '@/components/TotalPayment';
+import { useCartStore } from '@/store/cart';
 
 const PaymentInformation = () => {
+  const cartDetail = useCartStore((store) => store.cartDetail);
+  // const checkOutCart = useCartStore((store) => store.checkOutCart);
+
   return (
     <LightLayout>
       <div className="pt-7">
@@ -13,21 +19,21 @@ const PaymentInformation = () => {
             <div>
               <div className="flex justify-between mb-2.5">
                 <p className="border-l-[7px] border-pale-yellow pl-[20px] text-lg font-bold">商品共計</p>
-                <p className="text-lg font-bold pr-7">NT$ 12,380,000</p>
+                <p className="text-lg font-bold pr-7">NT$ {cartDetail?.total_amount}</p>
               </div>
               <div className="px-7">
                 <p className="text-grey text-sm font-bold mb-5">3項(以下含稅金5%及手續費)</p>
-                <TextRow title="Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance" value="$ 12,000,000" />
-                <TextRow title="Andes Inorganic Soil Carbon" value="$ 5,625,000" />
-                <TextRow title="KOKO Networks Clean Ethanol Cooking Fuel" value="$ 25,000" />
+                {cartDetail?.product_list?.map((product) => (
+                  <TextRow title={product.name} value={`$ ${product.amount}`} />
+                ))}
               </div>
             </div>
             <div className="px-7">
-              <TextRow title="手續費" value="$ 120,000" />
-              <TextRow title="稅金5%" value="$ 619,000" />
+              <TextRow title="手續費" value={`$ ${cartDetail?.cost}`} />
+              <TextRow title="稅金5%" value={`$ ${cartDetail?.tax}`} />
               <div className="flex gap-4 justify-between">
                 <p className="text-lg font-bold text-black">總付款金額</p>
-                <p className="text-lg font-bold text-bright-red">NT$ 619,000</p>
+                <p className="text-lg font-bold text-bright-red">NT$ {cartDetail?.total_amount}</p>
               </div>
             </div>
           </div>
@@ -54,10 +60,12 @@ const PaymentInformation = () => {
           </div>
         </div>
         <div className="flex justify-end pt-5">
-          <CustomButton variant="outline" className="rounded-[10px] py-2 px-12 flex items-center text-xl gap-3">
-            <img src="/images/certificate/left-arrow.svg" alt="download" />
-            回上一頁
-          </CustomButton>
+          <Link to="/cart">
+            <CustomButton variant="outline" className="rounded-[10px] py-2 px-12 flex items-center text-xl gap-3">
+              <img src="/images/certificate/left-arrow.svg" alt="download" />
+              回上一頁
+            </CustomButton>
+          </Link>
         </div>
       </div>
     </LightLayout>

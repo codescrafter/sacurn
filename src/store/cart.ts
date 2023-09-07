@@ -20,7 +20,7 @@ type CartState = {
   updateCartItemSelected: (id: Cart['id'], index: number, isSelected: boolean) => void;
   updateCartItemQty: (...args: Parameters<typeof apiClient.trade.tradeCartPartialUpdate>) => void;
   deleteCartItem: (id: number) => void;
-  checkOutCart: () => void;
+  checkOutCart: () => Promise<boolean>;
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -47,9 +47,12 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
   getCartDetail: async () => {
-    console.log('aaa');
-    const cartDetail = await apiClient.trade.tradeCartDetailCreate({ cart_id_lsit: get().getSelectedCartIdList() });
-    set({ cartDetail });
+    if (get().getSelectedCartIdList().length > 0) {
+      const cartDetail = await apiClient.trade.tradeCartDetailCreate({ cart_id_list: get().getSelectedCartIdList() });
+      set({ cartDetail });
+    } else {
+      set({ cartDetail: null });
+    }
   },
   addToCart: async (arg: Cart) => {
     try {
@@ -106,12 +109,14 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
   checkOutCart: async () => {
+    let isSuccess = false;
     try {
       useModalStore.getState().open(ModalType.Loading);
       const checkoutDetail = await apiClient.trade.tradeOrderBuyCreate({
         cart_id_list: get().getSelectedCartIdList()
       });
-      set({ checkoutDetail });
+      set({ checkoutDetail, cartList: [], cartDetail: null });
+      isSuccess = true;
       useModalStore.getState().close();
     } catch (error) {
       const err = error as Error;
@@ -120,5 +125,6 @@ export const useCartStore = create<CartState>((set, get) => ({
         errorText: `[${err.name}] ${err.message}`
       });
     }
+    return isSuccess;
   }
 }));

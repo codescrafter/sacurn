@@ -5,7 +5,7 @@ import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
 
-type StockItem = {
+export type StockItem = {
   action: string | null;
   orderData: Order | null;
 } & Inventory;
@@ -60,7 +60,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     try {
       useModalStore.getState().open(ModalType.Loading);
       await apiClient.trade.tradeOrderSellCreate(arg);
-      useModalStore.getState().close();
+      useModalStore.getState().open(ModalType.MakeStockOnSale);
     } catch (error) {
       const err = error as Error;
       console.error(err);

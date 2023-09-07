@@ -63,3 +63,9 @@ export enum ItemColor {
   CYAN = 'cyan',
   WHITE = 'white'
 }
+
+export enum CarbonTag {
+  Green = '綠碳',
+  Yellow = '黃碳',
+  Blue = '藍碳'
+}
