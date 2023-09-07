@@ -50,8 +50,6 @@ const schema = yup
     founding_date: yup.string().required('Founding date is required'),
     representative: yup.string().required('Representative is required'),
     contact_address: yup.string().required('Contact address is required'),
-    //  address type
-
     address: yup
       .object()
       .shape({
@@ -75,14 +73,56 @@ const schema = yup
 
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
-
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    getValues,
+    setValue
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
 
   const createCompany = useCompanyStore((state) => state.createCompany);
+
+  const handleGetValue = (value: boolean) => {
+    setIsChecked(!isChecked);
+    const address = getValues('address');
+    if (!value) {
+      setValue('contact_address', '');
+      return;
+    }
+    if (!address) return;
+    const {
+      additionalProp1,
+      additionalProp2,
+      additionalProp3,
+      additionalProp4,
+      additionalProp5,
+      additionalProp6,
+      additionalProp7,
+      additionalProp8,
+      additionalProp9,
+      additionalProp10,
+      additionalProp11,
+      additionalProp12
+    } = address;
+    setValue(
+      'contact_address',
+      `${additionalProp1} 
+      ${additionalProp2} 
+      ${additionalProp3} 
+      ${additionalProp4} 
+      ${additionalProp5} 
+      ${additionalProp6} 
+      ${additionalProp7} 
+      ${additionalProp8} 
+      ${additionalProp9} 
+      ${additionalProp10} 
+      ${additionalProp11} 
+      ${additionalProp12}`,
+
+      { shouldValidate: true }
+    );
+  };
 
   const onSubmit = handleSubmit(async (data) => {
     const concatenatedAddresss = `${data.address.additionalProp1}, ${data.address.additionalProp2}, ${data.address.additionalProp3}, ${data.address.additionalProp4}, ${data.address.additionalProp5}, ${data.address.additionalProp6}, ${data.address.additionalProp7}, ${data.address.additionalProp8} ${data.address.additionalProp9}, ${data.address.additionalProp10}, ${data.address.additionalProp11}, ${data.address.additionalProp12}`;
@@ -105,7 +145,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       registration_document:
         'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
     });
-
     nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
   });
 
@@ -330,7 +369,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                   <input
                     type="checkbox"
                     checked={isChecked}
-                    onChange={() => setIsChecked(!isChecked)}
+                    onChange={(e) => handleGetValue(e.target.checked)}
                     className="w-4 h-4"
                   />
                   <label className="text-black ml-2 text-xs">同公司登記地址</label>
