@@ -1,27 +1,81 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
-import { FieldValues, useForm, UseFormRegister } from 'react-hook-form';
+import { useState } from 'react';
+import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-form';
+import * as yup from 'yup';
 
+import { useCompanyStore } from '@/store/company';
+import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 
-import CompanyDocumentUpload from './CompanyDocumentUpload';
 import CustomButton from './CustomButton';
-import LabelInput from './LabelInput';
 interface IProps {
   nextStep: (val: number) => void;
 }
+
+export type RepresentativeFormTypes = {
+  representative_country: string;
+  representative_id_card_number: string;
+  representative_id_card_issue_date: string;
+  representative_id_card_issue_location: string;
+  representative_id_card_front: string;
+  representative_id_card_back: string;
+  representative_birthday: string;
+};
+
+const schema = yup
+  .object({
+    representative_country: yup.string().required('representative country is required'),
+    representative_id_card_number: yup.string().required('representative id card number is required'),
+    representative_id_card_issue_date: yup.string().required('representative id card issue date is required'),
+    representative_id_card_issue_location: yup.string().required('representative id card issue location is required'),
+    representative_id_card_front: yup.string().required('representative id card front is required'),
+    representative_id_card_back: yup.string().required('representative id card back is required'),
+    representative_birthday: yup.string().required('representative birthday is required')
+  })
+  .required();
 
 const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
-  } = useForm();
+    formState: { errors },
+    getValues
+  } = useForm<RepresentativeFormTypes>({ resolver: yupResolver(schema) });
+
+  const updateCompany = useCompanyStore((state) => state.updateCompany);
+
+  const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
+
+    // eslint-disable-next-line no-debugger
+    debugger;
+    updateCompany(1, {
+      representative_country: data.representative_country,
+      representative_id_card_number: data.representative_id_card_number,
+      representative_id_card_issue_date: data.representative_id_card_issue_date,
+      representative_id_card_issue_location: data.representative_id_card_issue_location,
+      representative_id_card_front:
+        'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg',
+      representative_id_card_back:
+        'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
+    });
+    nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+  });
+
+  const handleButtonClic = () => {
+    // eslint-disable-next-line no-debugger
+    debugger;
+    const a = getValues('representative_birthday');
+    const c = getValues('representative_id_card_number');
+    const b = getValues('representative_country');
+    const d = getValues('representative_id_card_issue_location');
+    console.log(a, b, c, d);
+  };
+
+  console.log('errors---', errors);
   return (
-    <form
-      onSubmit={handleSubmit(() => {
-        nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
-      })}
-    >
+    <form onSubmit={onSubmit}>
       <div className="mx-auto px-5 w-[570px]">
         <div className="flex flex-row mb-7">
           <h1 className="text-navy-blue text-2.5xl flex flex-row">
@@ -49,7 +103,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
           <LabelInput
             register={register}
             type="text"
-            id="id_number"
+            id="representative_id_card_number"
             isRequired={true}
             heading="代表人身分證字號"
             placeholder="請輸入代表人身分證字號"
@@ -68,13 +122,23 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
           </div>
           <div className="flex gap-2.7 mb-5.5 items-center">
             <p className="text-base text-black w-[144px] text-right">身分證發證地點: </p>
-            <SimpleSelect register={register} id="where_id_issued_1" className="w-[87px]" options={['選擇', '選擇']} />
-            <SimpleSelect register={register} id="where_id_issued_2" className="w-[81px]" options={['初發', '初發']} />
+            <SimpleSelect
+              register={register}
+              id="representative_id_card_issue_location"
+              className="w-[87px]"
+              options={['選擇', '選擇']}
+            />
+            <SimpleSelect
+              register={register}
+              id="representative_id_card_issue_location"
+              className="w-[81px]"
+              options={['初發', '初發']}
+            />
           </div>
           <LabelInput
             register={register}
             type="text"
-            id="date_of_birth"
+            id="representative_birthday"
             isRequired={true}
             heading="出生年月日"
             placeholder="YYYY-MM-DD"
@@ -83,7 +147,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
           />
           <div className="flex gap-2.7">
             <p className="text-black text-base min-w-[144px] text-right">身分證文件:</p>
-            <CompanyDocumentUpload register={register} />
+            <UploadDocuments register={register} />
           </div>
         </div>
       </div>
@@ -95,7 +159,13 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
         >
           修改 | 上一步
         </CustomButton>
-        <CustomButton className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md " type="submit">
+        <CustomButton
+          className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md "
+          type="submit"
+          onClick={() => {
+            handleButtonClic();
+          }}
+        >
           儲存
         </CustomButton>
       </div>
@@ -106,17 +176,25 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
 export default RepresentativeInfoForm;
 
 interface RadioOptionProps {
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<RepresentativeFormTypes>;
   id: string;
   label: string;
 }
 
-const RadioOption = ({ register, id, label }: RadioOptionProps) => {
+const RadioOption = ({ register, label, id }: RadioOptionProps) => {
   return (
     <div className="flex gap-0.5 items-center">
       <input
         type="radio"
-        {...(register(id), { required: true })}
+        {...(register(
+          id as unknown as
+            | 'representative_country'
+            | 'representative_id_card_number'
+            | 'representative_id_card_issue_date'
+            | 'representative_id_card_issue_location'
+            | 'representative_birthday'
+        ),
+        { required: true })}
         name="nationality"
         className="border-navy-blue w-3.2 checked:bg-navy-blue"
       />
@@ -127,7 +205,7 @@ const RadioOption = ({ register, id, label }: RadioOptionProps) => {
 
 interface SimpleSelectProps {
   options: string[];
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<RepresentativeFormTypes>;
   id: string;
   className: string;
 }
@@ -135,15 +213,136 @@ interface SimpleSelectProps {
 const SimpleSelect = ({ register, className, id, options }: SimpleSelectProps) => {
   return (
     <select
-      {...register(id, { required: true })}
+      {...register(
+        id as
+          | 'representative_country'
+          | 'representative_id_card_number'
+          | 'representative_id_card_issue_date'
+          | 'representative_id_card_issue_location'
+          | 'representative_birthday',
+        { required: true }
+      )}
       className={classNames(
         'rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none',
         className
       )}
     >
       {options.map((option) => {
-        return <option className="text-black">{option}</option>;
+        return (
+          <option value={option} className="text-black">
+            {option}
+          </option>
+        );
       })}
     </select>
+  );
+};
+
+const UploadDocuments = ({ register }: { register: UseFormRegister<RepresentativeFormTypes> }) => {
+  const [documentQuantity, setDocumentQuantity] = useState(1);
+  return (
+    <div className="flex flex-col max-w-[372px] max">
+      <p className="text-black min-[1500px]:text-base text-sm">
+        影業登記文件檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
+      </p>
+      <p className="text-navy-blue underline">了解營業登記文件上傳...</p>
+      <div className="flex flex-row flex-wrap max-w-[360px] gap-4 mt-2">
+        {Array.from({ length: documentQuantity }, (value, index) => index + 1).map((item) => {
+          return (
+            <div className="flex flex-col rounded-xl border items-center border-silverstone h-23.2 w-26.7">
+              <p className="text-[36px] text-black mt-2">{item}</p>
+              <label className="rounded-full bg-navy-blue p-0.5 px-5 text-xms text-white" htmlFor="get-file">
+                選擇
+              </label>
+              <input
+                id="get-file"
+                {...register(
+                  `representative_id_card_front${item}` as
+                    | 'representative_id_card_front'
+                    | 'representative_id_card_back'
+                )}
+                type="file"
+                className="invisible"
+              />
+            </div>
+          );
+        })}
+        <div
+          className="flex flex-col rounded-xl border border-silverstone bg-light-trans-grey items-center justify-center h-23.2 w-26.7"
+          onClick={() => setDocumentQuantity((prev) => prev + 1)}
+        >
+          <img src="/images/operation-record/plus-icon.svg" alt="add new doc" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+interface LabelInputProps {
+  id: string;
+  isRequired: boolean;
+  type: string;
+  placeholder?: string;
+  register: UseFormRegister<RepresentativeFormTypes>;
+  errors?: FieldErrors<FieldValues>;
+  heading: string;
+  errorMessage?: string;
+  size?: InputSize;
+}
+
+const LabelInput = ({
+  id,
+  type,
+  placeholder,
+  register,
+  errors,
+  heading,
+  isRequired,
+  errorMessage,
+  size
+}: LabelInputProps) => {
+  return (
+    <div className="mb-5.5">
+      <div className="flex gap-2.7 items-center ">
+        <label
+          className={classNames('text-base text-black leading-5 text-right', {
+            'w-[144px]': size === undefined || size === InputSize.MEDIUM,
+            'w-[128px] font-bold': size === InputSize.SMALL
+          })}
+        >
+          {heading} :
+        </label>
+        <input
+          className={classNames(
+            'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none ',
+            {
+              'w-[286px] h-9 px-2 py-3.5': size === undefined || size === InputSize.MEDIUM,
+              'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5':
+                size === InputSize.SMALL
+            }
+          )}
+          {...register(
+            id as
+              | 'representative_country'
+              | 'representative_id_card_number'
+              | 'representative_id_card_issue_date'
+              | 'representative_id_card_issue_location'
+              | 'representative_birthday',
+            { required: isRequired }
+          )}
+          placeholder={placeholder}
+          type={type}
+        />
+      </div>
+      <div className="flex">
+        <div
+          className={classNames({
+            'w-[160px]': size === InputSize.MEDIUM || size === undefined,
+            'w-[145px]': size === InputSize.SMALL
+          })}
+        />
+        {errors && errors[id] && <p className="text-xs mt-1 ml-2 text-bright-red">{errorMessage}</p>}
+      </div>
+    </div>
   );
 };
