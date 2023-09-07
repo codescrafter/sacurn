@@ -18,8 +18,8 @@ export type RepresentativeFormTypes = {
   representative_id_card_number: string;
   representative_id_card_issue_date: string;
   representative_id_card_issue_location: string;
-  representative_id_card_front: string;
-  representative_id_card_back: string;
+  // representative_id_card_front: string;
+  // representative_id_card_back: string;
   representative_birthday: string;
 };
 
@@ -29,8 +29,8 @@ const schema = yup
     representative_id_card_number: yup.string().required('representative id card number is required'),
     representative_id_card_issue_date: yup.string().required('representative id card issue date is required'),
     representative_id_card_issue_location: yup.string().required('representative id card issue location is required'),
-    representative_id_card_front: yup.string().required('representative id card front is required'),
-    representative_id_card_back: yup.string().required('representative id card back is required'),
+    // representative_id_card_front: yup.string().required('representative id card front is required'),
+    // representative_id_card_back: yup.string().required('representative id card back is required'),
     representative_birthday: yup.string().required('representative birthday is required')
   })
   .required();
@@ -39,17 +39,12 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    getValues
+    formState: { errors }
   } = useForm<RepresentativeFormTypes>({ resolver: yupResolver(schema) });
 
   const updateCompany = useCompanyStore((state) => state.updateCompany);
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-
-    // eslint-disable-next-line no-debugger
-    debugger;
     updateCompany(1, {
       representative_country: data.representative_country,
       representative_id_card_number: data.representative_id_card_number,
@@ -63,17 +58,6 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
     nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
   });
 
-  const handleButtonClic = () => {
-    // eslint-disable-next-line no-debugger
-    debugger;
-    const a = getValues('representative_birthday');
-    const c = getValues('representative_id_card_number');
-    const b = getValues('representative_country');
-    const d = getValues('representative_id_card_issue_location');
-    console.log(a, b, c, d);
-  };
-
-  console.log('errors---', errors);
   return (
     <form onSubmit={onSubmit}>
       <div className="mx-auto px-5 w-[570px]">
@@ -88,13 +72,37 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             <p className="text-base text-black w-[144px] text-right">代表人國籍: </p>
             <div>
               <div className="flex gap-2.7 my-1">
-                <RadioOption label="本國籍" id="nationality" register={register} />
-                <RadioOption label="外國籍" id="foreign_nationality" register={register} />
-                <RadioOption label="法人" id="legal_person" register={register} />
+                <div className="flex gap-0.5 items-center">
+                  <input
+                    type="radio"
+                    {...register('representative_country')}
+                    value="本國籍"
+                    className="border-navy-blue w-3.2 checked:bg-navy-blue"
+                  />
+                  <label className="text-xs font-bold">本國籍</label>
+                </div>
+                <div className="flex gap-0.5 items-center">
+                  <input
+                    type="radio"
+                    {...register('representative_country')}
+                    value="外國籍"
+                    className="border-navy-blue w-3.2 checked:bg-navy-blue"
+                  />
+                  <label className="text-xs font-bold">外國籍</label>
+                </div>
+                <div className="flex gap-0.5 items-center">
+                  <input
+                    type="radio"
+                    {...register('representative_country')}
+                    value="法人"
+                    className="border-navy-blue w-3.2 checked:bg-navy-blue"
+                  />
+                  <label className="text-xs font-bold">法人</label>
+                </div>
               </div>
               <SimpleSelect
                 register={register}
-                id="national-card"
+                id="representative_id_card_number"
                 className="w-[286px]"
                 options={['國民身分證', '國民身分證', '國民身分證']}
               />
@@ -113,11 +121,26 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
           <div className="flex gap-2.7 mb-5.5 items-center">
             <p className="text-base text-black w-[144px] text-right">身分證發證日期: </p>
             <div className="flex justify-between w-[286px] items-center">
-              <SimpleSelect register={register} id="year" className="w-21.7" options={['年']} />
+              <SimpleSelect
+                register={register}
+                id="representative_id_card_issue_date"
+                className="w-21.7"
+                options={['年']}
+              />
               /
-              <SimpleSelect register={register} id="month" className="w-21.7" options={['年']} />
+              <SimpleSelect
+                register={register}
+                id="representative_id_card_issue_date"
+                className="w-21.7"
+                options={['年']}
+              />
               /
-              <SimpleSelect register={register} id="day" className="w-21.7" options={['年']} />
+              <SimpleSelect
+                register={register}
+                id="representative_id_card_issue_date"
+                className="w-21.7"
+                options={['年']}
+              />
             </div>
           </div>
           <div className="flex gap-2.7 mb-5.5 items-center">
@@ -159,13 +182,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
         >
           修改 | 上一步
         </CustomButton>
-        <CustomButton
-          className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md "
-          type="submit"
-          onClick={() => {
-            handleButtonClic();
-          }}
-        >
+        <CustomButton className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md " type="submit">
           儲存
         </CustomButton>
       </div>
@@ -174,34 +191,6 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
 };
 
 export default RepresentativeInfoForm;
-
-interface RadioOptionProps {
-  register: UseFormRegister<RepresentativeFormTypes>;
-  id: string;
-  label: string;
-}
-
-const RadioOption = ({ register, label, id }: RadioOptionProps) => {
-  return (
-    <div className="flex gap-0.5 items-center">
-      <input
-        type="radio"
-        {...(register(
-          id as unknown as
-            | 'representative_country'
-            | 'representative_id_card_number'
-            | 'representative_id_card_issue_date'
-            | 'representative_id_card_issue_location'
-            | 'representative_birthday'
-        ),
-        { required: true })}
-        name="nationality"
-        className="border-navy-blue w-3.2 checked:bg-navy-blue"
-      />
-      <label className="text-xs font-bold">{label}</label>
-    </div>
-  );
-};
 
 interface SimpleSelectProps {
   options: string[];
@@ -256,11 +245,12 @@ const UploadDocuments = ({ register }: { register: UseFormRegister<Representativ
               </label>
               <input
                 id="get-file"
-                {...register(
-                  `representative_id_card_front${item}` as
-                    | 'representative_id_card_front'
-                    | 'representative_id_card_back'
-                )}
+                {...register}
+                // {...register(
+                //   `representative_id_card_front${item}` as
+                //     | 'representative_id_card_front'
+                //     | 'representative_id_card_back'
+                // )}
                 type="file"
                 className="invisible"
               />
