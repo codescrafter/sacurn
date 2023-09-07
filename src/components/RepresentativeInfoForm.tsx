@@ -45,7 +45,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const updateCompany = useCompanyStore((state) => state.updateCompany);
 
   const onSubmit = handleSubmit(async (data) => {
-    updateCompany(1, {
+    await updateCompany(1, {
       representative_country: data.representative_country,
       representative_id_card_number: data.representative_id_card_number,
       representative_id_card_issue_date: data.representative_id_card_issue_date,
