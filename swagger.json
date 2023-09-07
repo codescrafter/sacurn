@@ -464,6 +464,16 @@
         "/carbon_credit/certificate/": {
             "get": {
                 "operationId": "carbon_credit_certificate_retrieve",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "carbon_credit_id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "碳權pk"
+                    }
+                ],
                 "tags": [
                     "carbon_credit"
                 ],
@@ -646,6 +656,16 @@
         "/carbon_credit/mail_certificate/": {
             "get": {
                 "operationId": "carbon_credit_mail_certificate_retrieve",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "carbon_credit_id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "碳權pk"
+                    }
+                ],
                 "tags": [
                     "carbon_credit"
                 ],
@@ -1776,135 +1796,23 @@
                 }
             }
         },
-        "/registration/": {
-            "post": {
-                "operationId": "registration_create",
-                "tags": [
-                    "registration"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Register"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Register"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Register"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
+        "/member/record/": {
+            "get": {
+                "operationId": "member_record_list",
+                "parameters": [
                     {
-                        "jwtAuth": []
-                    },
-                    {
-                        "jwtHeaderAuth": []
-                    },
-                    {
-                        "jwtCookieAuth": []
-                    },
-                    {}
-                ],
-                "responses": {
-                    "201": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/JWT"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/registration/resend-email/": {
-            "post": {
-                "operationId": "registration_resend_email_create",
-                "tags": [
-                    "registration"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResendEmailVerification"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResendEmailVerification"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResendEmailVerification"
-                            }
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "description": "A page number within the paginated result set.",
+                        "schema": {
+                            "type": "integer"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {
-                        "jwtHeaderAuth": []
-                    },
-                    {
-                        "jwtCookieAuth": []
-                    },
-                    {}
                 ],
-                "responses": {
-                    "201": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RestAuthDetail"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/registration/verify-email/": {
-            "post": {
-                "operationId": "registration_verify_email_create",
                 "tags": [
-                    "registration"
+                    "member"
                 ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/VerifyEmail"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/VerifyEmail"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/VerifyEmail"
-                            }
-                        }
-                    },
-                    "required": true
-                },
                 "security": [
                     {
                         "jwtAuth": []
@@ -1922,7 +1830,109 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/RestAuthDetail"
+                                    "$ref": "#/components/schemas/PaginatedMemberRecordList"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "member_record_create",
+                "tags": [
+                    "member"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MemberRecord"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MemberRecord"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MemberRecord"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "jwtAuth": []
+                    },
+                    {
+                        "jwtHeaderAuth": []
+                    },
+                    {
+                        "jwtCookieAuth": []
+                    },
+                    {}
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MemberRecord"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/registration/": {
+            "post": {
+                "operationId": "registration_create",
+                "tags": [
+                    "registration"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Registration"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Registration"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Registration"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "jwtAuth": []
+                    },
+                    {
+                        "jwtHeaderAuth": []
+                    },
+                    {
+                        "jwtCookieAuth": []
+                    },
+                    {}
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegistrationResponse"
                                 }
                             }
                         },
@@ -2160,7 +2170,14 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "No response body"
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CartDetailResonse"
+                                }
+                            }
+                        },
+                        "description": ""
                     }
                 }
             }
@@ -2878,14 +2895,12 @@
                     },
                     "price": {
                         "type": "number",
-                        "format": "double",
-                        "nullable": true
+                        "format": "double"
                     },
                     "quantity": {
                         "type": "integer",
                         "maximum": 2147483647,
-                        "minimum": -2147483648,
-                        "nullable": true
+                        "minimum": -2147483648
                     },
                     "status": {
                         "type": "integer",
@@ -2918,6 +2933,8 @@
                     "image",
                     "name",
                     "order",
+                    "price",
+                    "quantity",
                     "remaining_quantity"
                 ]
             },
@@ -2926,11 +2943,51 @@
                 "properties": {
                     "cart_id_lsit": {
                         "type": "array",
-                        "items": {},
+                        "items": {
+                            "type": "integer"
+                        },
                         "default": [
                             1,
                             2
                         ]
+                    }
+                }
+            },
+            "CartDetailResonse": {
+                "type": "object",
+                "properties": {
+                    "product_list": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Product"
+                        },
+                        "default": [
+                            {
+                                "name": "Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance",
+                                "amount": 12000000
+                            }
+                        ]
+                    },
+                    "product_amount": {
+                        "type": "integer",
+                        "default": 12000000
+                    },
+                    "cost": {
+                        "type": "integer",
+                        "default": 25000
+                    },
+                    "tax": {
+                        "type": "integer",
+                        "default": 619000
+                    },
+                    "tax_ratio": {
+                        "type": "number",
+                        "format": "double",
+                        "default": 0.05
+                    },
+                    "total_amount": {
+                        "type": "integer",
+                        "default": 12644000
                     }
                 }
             },
@@ -3159,11 +3216,11 @@
                         "type": "integer"
                     },
                     "company": {
-                        "type": "integer"
+                        "type": "integer",
+                        "nullable": true
                     }
                 },
                 "required": [
-                    "company",
                     "created_at",
                     "email",
                     "id",
@@ -3390,6 +3447,10 @@
                         "type": "string",
                         "readOnly": true
                     },
+                    "ratio": {
+                        "type": "string",
+                        "readOnly": true
+                    },
                     "quantity": {
                         "type": "integer",
                         "maximum": 2147483647,
@@ -3415,29 +3476,10 @@
                     "id",
                     "location",
                     "name",
+                    "ratio",
                     "serial_number",
                     "status",
                     "vintage"
-                ]
-            },
-            "JWT": {
-                "type": "object",
-                "description": "Serializer for JWT authentication.",
-                "properties": {
-                    "access": {
-                        "type": "string"
-                    },
-                    "refresh": {
-                        "type": "string"
-                    },
-                    "user": {
-                        "$ref": "#/components/schemas/UserDetails"
-                    }
-                },
-                "required": [
-                    "access",
-                    "refresh",
-                    "user"
                 ]
             },
             "Login": {
@@ -3478,6 +3520,53 @@
                 "required": [
                     "refresh",
                     "user"
+                ]
+            },
+            "MemberRecord": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "deleted": {
+                        "type": "boolean"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": -2147483648
+                    },
+                    "company": {
+                        "type": "integer"
+                    },
+                    "member": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "company",
+                    "created_at",
+                    "id",
+                    "member",
+                    "updated_at"
                 ]
             },
             "OperationRecord": {
@@ -3842,6 +3931,33 @@
                     }
                 }
             },
+            "PaginatedMemberRecordList": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "type": "integer",
+                        "example": 123
+                    },
+                    "next": {
+                        "type": "string",
+                        "nullable": true,
+                        "format": "uri",
+                        "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                        "type": "string",
+                        "nullable": true,
+                        "format": "uri",
+                        "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MemberRecord"
+                        }
+                    }
+                }
+            },
             "PaginatedOperationRecordList": {
                 "type": "object",
                 "properties": {
@@ -4086,14 +4202,12 @@
                     },
                     "price": {
                         "type": "number",
-                        "format": "double",
-                        "nullable": true
+                        "format": "double"
                     },
                     "quantity": {
                         "type": "integer",
                         "maximum": 2147483647,
-                        "minimum": -2147483648,
-                        "nullable": true
+                        "minimum": -2147483648
                     },
                     "status": {
                         "type": "integer",
@@ -4393,40 +4507,70 @@
                     "updated_at"
                 ]
             },
-            "Register": {
+            "Product": {
                 "type": "object",
                 "properties": {
-                    "username": {
-                        "type": "string",
-                        "maxLength": 150,
-                        "minLength": 1
+                    "name": {
+                        "type": "string"
                     },
-                    "email": {
-                        "type": "string",
-                        "format": "email"
-                    },
-                    "password1": {
-                        "type": "string",
-                        "writeOnly": true
-                    },
-                    "password2": {
-                        "type": "string",
-                        "writeOnly": true
+                    "amount": {
+                        "type": "integer"
                     }
                 },
                 "required": [
-                    "password1",
-                    "password2"
+                    "amount",
+                    "name"
                 ]
             },
-            "ResendEmailVerification": {
+            "Registration": {
                 "type": "object",
                 "properties": {
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
                     "email": {
-                        "type": "string",
-                        "format": "email"
+                        "type": "string"
+                    },
+                    "password1": {
+                        "type": "string"
+                    },
+                    "password2": {
+                        "type": "string"
                     }
-                }
+                },
+                "required": [
+                    "email",
+                    "last_name",
+                    "password1",
+                    "password2",
+                    "phone",
+                    "username"
+                ]
+            },
+            "RegistrationResponse": {
+                "type": "object",
+                "properties": {
+                    "access": {
+                        "type": "string"
+                    },
+                    "refresh": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "required": [
+                    "access",
+                    "refresh",
+                    "user"
+                ]
             },
             "RestAuthDetail": {
                 "type": "object",
@@ -4618,54 +4762,6 @@
                     "last_name",
                     "pk",
                     "username"
-                ]
-            },
-            "UserDetails": {
-                "type": "object",
-                "description": "User model w/o password",
-                "properties": {
-                    "pk": {
-                        "type": "integer",
-                        "readOnly": true,
-                        "title": "ID"
-                    },
-                    "username": {
-                        "type": "string",
-                        "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
-                        "pattern": "^[\\w.@+-]+$",
-                        "maxLength": 150
-                    },
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "readOnly": true,
-                        "title": "Email address"
-                    },
-                    "first_name": {
-                        "type": "string",
-                        "maxLength": 150
-                    },
-                    "last_name": {
-                        "type": "string",
-                        "maxLength": 150
-                    }
-                },
-                "required": [
-                    "email",
-                    "pk",
-                    "username"
-                ]
-            },
-            "VerifyEmail": {
-                "type": "object",
-                "properties": {
-                    "key": {
-                        "type": "string",
-                        "writeOnly": true
-                    }
-                },
-                "required": [
-                    "key"
                 ]
             },
             "WatchList": {

@@ -70,13 +70,19 @@ export class CarbonCreditService {
     }
 
     /**
+     * @param carbonCreditId 碳權pk
      * @returns Certificate
      * @throws ApiError
      */
-    public carbonCreditCertificateRetrieve(): CancelablePromise<Certificate> {
+    public carbonCreditCertificateRetrieve(
+        carbonCreditId?: string,
+    ): CancelablePromise<Certificate> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/certificate/',
+            query: {
+                'carbon_credit_id': carbonCreditId,
+            },
         });
     }
 
@@ -158,13 +164,19 @@ export class CarbonCreditService {
     }
 
     /**
+     * @param carbonCreditId 碳權pk
      * @returns any No response body
      * @throws ApiError
      */
-    public carbonCreditMailCertificateRetrieve(): CancelablePromise<any> {
+    public carbonCreditMailCertificateRetrieve(
+        carbonCreditId?: string,
+    ): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/mail_certificate/',
+            query: {
+                'carbon_credit_id': carbonCreditId,
+            },
         });
     }
 

@@ -7,8 +7,7 @@ export const $CartDetail = {
         cart_id_lsit: {
             type: 'array',
             contains: {
-                properties: {
-                },
+                type: 'number',
             },
         },
     },

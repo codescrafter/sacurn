@@ -2,11 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $ResendEmailVerification = {
+export const $Product = {
     properties: {
-        email: {
+        name: {
             type: 'string',
-            format: 'email',
+            isRequired: true,
+        },
+        amount: {
+            type: 'number',
+            isRequired: true,
         },
     },
 } as const;
