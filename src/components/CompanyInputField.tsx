@@ -1,21 +1,35 @@
 import classNames from 'classnames';
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 
+// import { ExtendedCompany } from '@/libs/api';
 import { InputSize } from '@/type';
+
+import { FormValues } from './CompanyInfoForm';
 
 interface IProps {
   id: string;
   isRequired: boolean;
   type: string;
   placeholder?: string;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<FormValues>;
   errors?: FieldErrors<FieldValues>;
   heading: string;
   errorMessage?: string;
   size?: InputSize;
+  value?: string;
 }
 
-const LabelInput = ({ id, type, placeholder, register, errors, heading, isRequired, errorMessage, size }: IProps) => {
+const CompanyInputField = ({
+  id,
+  type,
+  placeholder,
+  register,
+  errors,
+  heading,
+  isRequired,
+  errorMessage,
+  size
+}: IProps) => {
   return (
     <div className="mb-5.5">
       <div className="flex gap-2.7 items-center ">
@@ -36,7 +50,23 @@ const LabelInput = ({ id, type, placeholder, register, errors, heading, isRequir
                 size === InputSize.SMALL
             }
           )}
-          {...register(id, { required: isRequired })}
+          disabled={!id}
+          {...register(
+            id as
+              | 'id'
+              | 'registration_document'
+              | 'created_at'
+              | 'updated_at'
+              | 'name'
+              | 'code'
+              | 'representative'
+              | 'capital'
+              | 'founding_date'
+              | 'phone'
+              | 'contact_address',
+            { required: isRequired }
+          )}
+          // value={value && value}
           placeholder={placeholder}
           type={type}
         />
@@ -54,4 +84,4 @@ const LabelInput = ({ id, type, placeholder, register, errors, heading, isRequir
   );
 };
 
-export default LabelInput;
+export default CompanyInputField;

@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 
-const CompanyDocumentUpload = ({ register }: { register: UseFormRegister<FieldValues> }) => {
+import { FormValues } from './CompanyInfoForm';
+
+const UploadDocuments = ({ register }: { register: UseFormRegister<FormValues> }) => {
   const [documentQuantity, setDocumentQuantity] = useState(1);
   return (
     <div className="flex flex-col max-w-[372px] max">
@@ -17,7 +19,7 @@ const CompanyDocumentUpload = ({ register }: { register: UseFormRegister<FieldVa
               <label className="rounded-full bg-navy-blue p-0.5 px-5 text-xms text-white" htmlFor="get-file">
                 選擇
               </label>
-              <input id="get-file" {...register('get-file')} type="file" className="invisible" />
+              <input id="get-file" {...register('registration_document')} type="file" className="invisible" />
             </div>
           );
         })}
@@ -32,4 +34,4 @@ const CompanyDocumentUpload = ({ register }: { register: UseFormRegister<FieldVa
   );
 };
 
-export default CompanyDocumentUpload;
+export default UploadDocuments;

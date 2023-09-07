@@ -14,6 +14,8 @@ type CompanyState = {
 export const useCompanyStore = create<CompanyState>((set) => ({
   company: {},
   createCompany: async (arg: ExtendedCompany) => {
+    // eslint-disable-next-line no-debugger
+    debugger;
     try {
       useModalStore.getState().open(ModalType.Loading);
       const company = await apiClient.company.companyCreate(arg);

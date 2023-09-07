@@ -9,13 +9,34 @@ import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 
+import CompanyInputField from './CompanyInputField';
 // import CompanyDocumentUpload from './CompanyDocumentUpload';
 import CustomButton from './CustomButton';
-import LabelInput from './LabelInput';
+import UploadDocuments from './UploadDocuments';
 
 interface IProps {
   nextStep: (val: number) => void;
 }
+
+export type FormValues = {
+  id: number;
+  name: string;
+  code: string;
+  capital: number;
+  phone: string;
+  founding_date: string;
+  representative: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  address?: {
+    additionalProp1?: string;
+    additionalProp2?: string;
+    additionalProp3?: string;
+  };
+  contact_address: string;
+  registration_document: string;
+  created_at: string;
+  updated_at: string;
+};
 
 const schema = yup
   .object({
@@ -27,8 +48,13 @@ const schema = yup
     founding_date: yup.string().required('Founding date is required'),
     representative: yup.string().required('Representative is required'),
     contact_address: yup.string().required('Contact address is required'),
-    //    address?: Record<string, any> | null; write schema for address
-    address: yup.object().required('Address is required'),
+    //  address type
+    address: yup.object({
+      additionalProp1: yup.string().required('Address is required'),
+      additionalProp2: yup.string().required('Address is required'),
+      additionalProp3: yup.string().required('Address is required')
+    }),
+
     registration_document: yup.string().required('Registration document is required'),
     created_at: yup.string().required('Created at is required'),
     updated_at: yup.string().required('Updated at is required')
@@ -36,25 +62,19 @@ const schema = yup
   .required();
 
 const CompanyInfoForm = ({ nextStep }: IProps) => {
-  // const [value, setValue] = useState('');
   const [isChecked, setIsChecked] = useState(false);
-  // const [companyAddress, setCompanyAddress] = useState('');
   const [county, setCounty] = useState('');
   const [town, setTown] = useState('');
   const [street, setStreet] = useState('');
-  const [localAddress] = useState('');
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm({ resolver: yupResolver(schema) });
-  // const { register, handleSubmit, formState } = useForm<ExtendedCompany>({ resolver: yupResolver(schema) });
-  // const navigate = useNavigate();
+  } = useForm<FormValues>({ resolver: yupResolver(schema) });
+
   const createCompany = useCompanyStore((state) => state.createCompany);
 
   const onSubmit = handleSubmit(async (data) => {
-    // console.log('data being sent', data);
-    // ignore this line
     // eslint-disable-next-line no-debugger
     debugger;
     const resonse = await createCompany({
@@ -64,11 +84,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       representative: data.representative,
       capital: Number(data.capital),
       founding_date: data.founding_date,
-      contact_address: isChecked ? `${county}, ${town}, ${street}, ${localAddress}` : data.contact_address,
+      contact_address: isChecked ? `${county}, ${town}, ${street}` : data.contact_address,
       address: {
-        additionalProp1: `${county}, ${town}, ${street}, ${localAddress}`
-        // additionalProp2: data.address_row_1,
-        // additionalProp3: data.address_row_2
+        additionalProp1: `${county}, ${town}, ${street}`
       },
       id: 0,
       created_at: data.created_at || null,
@@ -82,40 +100,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
   });
   return (
-    <form
-      onSubmit={
-        () => {
-          // eslint-disable-next-line no-debugger
-          debugger;
-          onSubmit();
-        }
-        //   handleSubmit(async (data) => {
-        //   // ignore this line
-        //   // eslint-disable-next-line no-debugger
-        //   debugger;
-        //   const response = await useCompanyStore().createCompany({
-        //     name: data.company_name,
-        //     code: data.unified_number,
-        //     phone: data.member_phone,
-        //     representative: data.representative_chinese_name,
-        //     capital: Number(data.paid_in_capital),
-        //     founding_date: data.approved_establishment_date,
-        //     contact_address: isChecked ? `${county}, ${town}, ${street}, ${localAddress}` : data.member_contact_address,
-        //     address: {
-        //       additionalProp1: `${county}, ${town}, ${street}, ${localAddress}`,
-        //       additionalProp2: data.address_row_1,
-        //       additionalProp3: data.address_row_2
-        //     },
-        //     id: 0,
-        //     created_at: null,
-        //     updated_at: null,
-        //     registration_document: ''
-        //   });
-        //   console.log(response);
-        //   nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
-        // })
-      }
-    >
+    <form onSubmit={onSubmit}>
       <div className="w-max mx-auto">
         <div className="flex flex-row mb-7">
           <h1 className="text-navy-blue text-2.5xl flex flex-row">
@@ -125,7 +110,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
         </div>
         <div className="flex flex-row gap-28 justify-center w-full">
           <div>
-            <LabelInput
+            <CompanyInputField
               id="name"
               isRequired={true}
               type="text"
@@ -136,7 +121,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               size={InputSize.SMALL}
             />
 
-            <LabelInput
+            <CompanyInputField
               id="code"
               isRequired={true}
               type="text"
@@ -148,7 +133,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               size={InputSize.SMALL}
             />
 
-            <LabelInput
+            <CompanyInputField
               id="representative"
               isRequired={true}
               type="text"
@@ -159,7 +144,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               size={InputSize.SMALL}
             />
 
-            <LabelInput
+            <CompanyInputField
               id="capital"
               isRequired={true}
               type="text"
@@ -170,7 +155,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               size={InputSize.SMALL}
             />
 
-            <LabelInput
+            <CompanyInputField
               id="founding_date"
               isRequired={true}
               type="date"
@@ -232,18 +217,16 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       value={street}
                       onChange={(e) => setStreet(e.target.value)}
                     />
-                    {/* <input
+                    <input
                       type="text"
                       placeholder="路、街、村、段"
-                      {...register('local_address')}
+                      {...register('address', { required: true })}
                       className={classNames('px-5 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style, {
-                        'border-bright-red border': errors.lo
+                        'border-bright-red border': errors.address
                       })}
-                      value={localAddress}
-                      onChange={(e) => setLocalAddress(e.target.value)}
-                    /> */}
+                    />
                   </div>
-                  {/* <div className="flex flex-row my-1 items-center">
+                  <div className="flex flex-row my-1 items-center">
                     {address_row_1.map((item) => {
                       return (
                         <>
@@ -257,14 +240,14 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                                 'border-bright-red border': errors[item]
                               }
                             )}
-                            {...register(item, { required: true })}
+                            {...register(item as '', { required: true })}
                           />
                           <label className="text-black font-bold mr-1.5 text-[12px]">{item}</label>
                         </>
                       );
                     })}
-                  </div> */}
-                  {/* <div className="flex flex-row my-1 items-center">
+                  </div>
+                  <div className="flex flex-row my-1 items-center">
                     {address_row_2.map((item) => {
                       return (
                         <>
@@ -284,14 +267,14 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         </>
                       );
                     })}
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div>
             <div>
-              <LabelInput
+              <CompanyInputField
                 id="phone"
                 isRequired={true}
                 type="text"
@@ -311,21 +294,21 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                   />
                   <label className="text-black ml-2 text-xs">同公司登記地址</label>
                 </div>
-                <LabelInput
+                <CompanyInputField
                   id="contact_address"
                   isRequired={false}
                   type="text"
                   register={register}
                   heading="會員聯絡地址"
                   size={InputSize.SMALL}
-                  value={isChecked ? `${county}, ${town}, ${street}, ${localAddress}` : ''}
+                  value={isChecked ? `${county}, ${town}, ${street}` : ''}
                 />
               </div>
               <div className="flex gap-2.7">
                 <label className="text-black text-right font-semibold col-span-1 mb-5.2 w-[128px]">
                   營業登記文件 :
                 </label>
-                {/* <CompanyDocumentUpload register={register} /> */}
+                <UploadDocuments register={register} />
               </div>
             </div>
           </div>
@@ -342,5 +325,5 @@ export default CompanyInfoForm;
 
 const Style =
   'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6 min-[1550px]:px-2 min-[1200px]:px-1.5 px-1 py-2.5 text-black min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none';
-// const address_row_1 = ['鄰', '巷', '弄', '街'];
-// const address_row_2 = ['號之', ',', '樓之', '室'];
+const address_row_1 = ['鄰', '巷', '弄', '街'];
+const address_row_2 = ['號之', ',', '樓之', '室'];
