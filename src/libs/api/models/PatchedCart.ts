@@ -10,8 +10,8 @@ export type PatchedCart = {
     readonly image?: string;
     readonly company_code?: string;
     readonly remaining_quantity?: string;
-    price?: number | null;
-    quantity?: number | null;
+    price?: number;
+    quantity?: number;
     status?: number;
     readonly created_at?: string;
     deleted_at?: string | null;

@@ -39,6 +39,11 @@ export const $Inventory = {
             isReadOnly: true,
             isRequired: true,
         },
+        ratio: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         quantity: {
             type: 'number',
             isNullable: true,

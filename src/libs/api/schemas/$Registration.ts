@@ -2,16 +2,23 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $Register = {
+export const $Registration = {
     properties: {
+        last_name: {
+            type: 'string',
+            isRequired: true,
+        },
+        phone: {
+            type: 'string',
+            isRequired: true,
+        },
         username: {
             type: 'string',
-            maxLength: 150,
-            minLength: 1,
+            isRequired: true,
         },
         email: {
             type: 'string',
-            format: 'email',
+            isRequired: true,
         },
         password1: {
             type: 'string',

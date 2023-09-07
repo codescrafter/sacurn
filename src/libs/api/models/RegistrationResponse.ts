@@ -3,7 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ResendEmailVerification = {
-    email?: string;
+import type { User } from './User';
+
+export type RegistrationResponse = {
+    access: string;
+    refresh: string;
+    user: User;
 };
 

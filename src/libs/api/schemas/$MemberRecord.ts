@@ -2,20 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $Employee = {
+export const $MemberRecord = {
     properties: {
         id: {
             type: 'number',
-            isReadOnly: true,
-            isRequired: true,
-        },
-        username: {
-            type: 'string',
-            isReadOnly: true,
-            isRequired: true,
-        },
-        email: {
-            type: 'string',
             isReadOnly: true,
             isRequired: true,
         },
@@ -36,23 +26,23 @@ export const $Employee = {
         deleted: {
             type: 'boolean',
         },
-        phone: {
-            type: 'string',
-            isNullable: true,
-            maxLength: 45,
-        },
         deleted_at: {
             type: 'string',
             isNullable: true,
             format: 'date-time',
         },
-        user: {
+        status: {
             type: 'number',
-            isRequired: true,
+            maximum: 2147483647,
+            minimum: -2147483648,
         },
         company: {
             type: 'number',
-            isNullable: true,
+            isRequired: true,
+        },
+        member: {
+            type: 'number',
+            isRequired: true,
         },
     },
 } as const;

@@ -3,7 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type VerifyEmail = {
-    key: string;
+export type Product = {
+    name: string;
+    amount: number;
 };
 
