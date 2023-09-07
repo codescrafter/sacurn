@@ -20,6 +20,8 @@ import WishList from '@/pages/Wishlist';
 // import { useMemberStore } from '@/store/memberCard';
 // import { ModalType, useModalStore } from '@/store/modal';
 import Modal from './components/Modal/UniversalModal';
+import ProductDetail from './components/ProductDetail';
+import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
 
 const router = createBrowserRouter([
@@ -34,6 +36,14 @@ const router = createBrowserRouter([
   {
     path: '/all-products',
     element: <Products />
+  },
+  {
+    path: '/product-list',
+    element: <AllProducts />
+  },
+  {
+    path: '/carbon-product-cart',
+    element: <ProductDetail />
   },
   {
     path: '/product-detail/:id',
