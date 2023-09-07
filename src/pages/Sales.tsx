@@ -26,6 +26,7 @@ const Sales = () => {
 
   const stockList = useStockListStore((store) => store.stockList);
   const getStockList = useStockListStore((store) => store.getStockList);
+  const getStockInfo = useStockListStore((store) => store.getStockInfo);
 
   useEffect(() => {
     if (stockList.length === 0) getStockList();
@@ -205,7 +206,11 @@ const Sales = () => {
                                 {stockItem.status === SaleItemStatus.OnSale ? (
                                   <Button
                                     className="whitespace-nowrap rounded-[7px] text-base !bg-pale-yellow hover:!bg-transparent hover:!border hover:!border-pale-yellow hover:!text-pale-yellow w-auto 2xl:min-w-[74px] !p-[5px]  2xl:!p-[7px]"
-                                    onClick={() => {
+                                    onClick={async () => {
+                                      if (!stockItem.orderData) {
+                                        const isSuccess = await getStockInfo(stockItem.carbon_credit);
+                                        if (!isSuccess) return;
+                                      }
                                       setStockItemDetailId((id) => (id === stockItem.id ? null : stockItem.id));
                                     }}
                                   >
@@ -248,6 +253,7 @@ const Sales = () => {
                                 <td colSpan={8} className="py-[6px]"></td>
                               </tr>
                             )}
+
                             {/* shelf information */}
                             {stockItem.id === stockItemDetailId && (
                               <tr className="bg-light-gray dropdown-row  h-[95px]">
@@ -259,7 +265,7 @@ const Sales = () => {
                                         單價/噸
                                       </span>
                                       <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                        {stockItem.price}
+                                        {stockItem.orderData?.price || '-'}
                                       </span>
                                     </div>
                                     {/* member id */}
@@ -268,7 +274,7 @@ const Sales = () => {
                                         最低單位
                                       </span>
                                       <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                        None
+                                        {stockItem.orderData?.min_order_quantity || '-'}
                                       </span>
                                     </div>
                                     {/* transaction status */}
@@ -277,7 +283,7 @@ const Sales = () => {
                                         數量
                                       </span>
                                       <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                        {stockItem.quantity}
+                                        {stockItem.orderData?.quantity || '-'}
                                       </span>
                                     </div>
                                     <Button

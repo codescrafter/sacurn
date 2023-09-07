@@ -124,7 +124,7 @@ const SalesConfirmationBox = (props: IProps) => {
                   },
                   {
                     text: '確認停止交易',
-                    onClick: () => updateStockOffShelve(stockItem.id)
+                    onClick: () => updateStockOffShelve(stockItem.carbon_credit)
                   }
                 ]
               });
