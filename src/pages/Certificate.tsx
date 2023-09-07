@@ -11,12 +11,15 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.j
 
 const Certificate = () => {
   const { carbonId } = useParams();
-  const action = useCertificateStore((state) => state);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const action = useCertificateStore((state: any) => state);
   const openModal = useModalStore((state) => state.open);
   const [pdfUrl, setPdfUrl] = useState<string>();
 
   useEffect(() => {
-    action.getCertificatePdf(carbonId).then((certificate) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    action.getCertificatePdf(carbonId).then((certificate: any) => {
       if (certificate) setPdfUrl(certificate?.url);
     });
   }, []);
