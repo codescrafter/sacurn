@@ -26,7 +26,6 @@ export type FormValues = {
   phone: string;
   founding_date: string;
   representative: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   address?: {
     additionalProp1?: string;
     additionalProp2?: string;
@@ -54,7 +53,6 @@ const schema = yup
       additionalProp2: yup.string().required('Address is required'),
       additionalProp3: yup.string().required('Address is required')
     }),
-
     registration_document: yup.string().required('Registration document is required'),
     created_at: yup.string().required('Created at is required'),
     updated_at: yup.string().required('Updated at is required')
@@ -220,27 +218,27 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     <input
                       type="text"
                       placeholder="路、街、村、段"
-                      {...register('address', { required: true })}
+                      {...register('address.additionalProp1', { required: true })}
                       className={classNames('px-5 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style, {
-                        'border-bright-red border': errors.address
+                        'border-bright-red border': errors.address?.additionalProp1
                       })}
                     />
                   </div>
                   <div className="flex flex-row my-1 items-center">
-                    {address_row_1.map((item) => {
+                    {address_row_1.map((item: string) => {
                       return (
                         <>
                           <input
-                            id="address_row_1"
+                            id="address.additionalProp2"
                             type="text"
                             className={classNames(
                               'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
                               Style,
                               {
-                                'border-bright-red border': errors[item]
+                                'border-bright-red border': errors.address?.additionalProp2
                               }
                             )}
-                            {...register(item as '', { required: true })}
+                            {...register('address.additionalProp2', { required: true })}
                           />
                           <label className="text-black font-bold mr-1.5 text-[12px]">{item}</label>
                         </>
@@ -252,16 +250,16 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       return (
                         <>
                           <input
-                            id="address_row_2"
+                            id="address.additionalProp3"
                             type="text"
                             className={classNames(
                               'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
                               Style,
                               {
-                                'border-bright-red border': errors[item]
+                                'border-bright-red border': errors.address?.additionalProp3
                               }
                             )}
-                            {...register(item, { required: true })}
+                            {...register('address.additionalProp3', { required: true })}
                           />
                           <label className="text-black font-bold mr-1.5 text-[12px]">{item}</label>
                         </>
