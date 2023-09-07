@@ -8,14 +8,27 @@ interface IProps {
   isRequired: boolean;
   type: string;
   placeholder?: string;
-  register: UseFormRegister<FieldValues>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  register: UseFormRegister<FieldValues | any>;
   errors?: FieldErrors<FieldValues>;
   heading: string;
   errorMessage?: string;
   size?: InputSize;
+  value?: string;
 }
 
-const LabelInput = ({ id, type, placeholder, register, errors, heading, isRequired, errorMessage, size }: IProps) => {
+const LabelInput = ({
+  id,
+  type,
+  placeholder,
+  register,
+  errors,
+  heading,
+  isRequired,
+  errorMessage,
+  size,
+  value
+}: IProps) => {
   return (
     <div className="mb-5.5">
       <div className="flex gap-2.7 items-center ">
@@ -37,6 +50,7 @@ const LabelInput = ({ id, type, placeholder, register, errors, heading, isRequir
             }
           )}
           {...register(id, { required: isRequired })}
+          value={value && value}
           placeholder={placeholder}
           type={type}
         />

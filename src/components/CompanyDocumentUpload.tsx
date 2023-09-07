@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 
-const CompanyDocumentUpload = ({ register }: { register: UseFormRegister<FieldValues> }) => {
+const CompanyDocumentUpload = ({
+  register
+}: {
+  register: UseFormRegister<FieldValues | { 'get-file': FileList | null }>;
+}) => {
   const [documentQuantity, setDocumentQuantity] = useState(1);
   return (
     <div className="flex flex-col max-w-[372px] max">

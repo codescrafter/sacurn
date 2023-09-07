@@ -1,10 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
+// import { ExtendedCompany } from '@/libs/api';
+import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 
-import CompanyDocumentUpload from './CompanyDocumentUpload';
+// import CompanyDocumentUpload from './CompanyDocumentUpload';
 import CustomButton from './CustomButton';
 import LabelInput from './LabelInput';
 
@@ -12,17 +17,104 @@ interface IProps {
   nextStep: (val: number) => void;
 }
 
+const schema = yup
+  .object({
+    id: yup.number().required('ID is required'),
+    name: yup.string().required('Name is required'),
+    code: yup.string().required('Code is required'),
+    capital: yup.number().required('Capital is required'),
+    phone: yup.string().required('Phone is required'),
+    founding_date: yup.string().required('Founding date is required'),
+    representative: yup.string().required('Representative is required'),
+    contact_address: yup.string().required('Contact address is required'),
+    //    address?: Record<string, any> | null; write schema for address
+    address: yup.object().required('Address is required'),
+    registration_document: yup.string().required('Registration document is required'),
+    created_at: yup.string().required('Created at is required'),
+    updated_at: yup.string().required('Updated at is required')
+  })
+  .required();
+
 const CompanyInfoForm = ({ nextStep }: IProps) => {
+  // const [value, setValue] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
+  // const [companyAddress, setCompanyAddress] = useState('');
+  const [county, setCounty] = useState('');
+  const [town, setTown] = useState('');
+  const [street, setStreet] = useState('');
+  const [localAddress] = useState('');
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
+  // const { register, handleSubmit, formState } = useForm<ExtendedCompany>({ resolver: yupResolver(schema) });
+  // const navigate = useNavigate();
+  const createCompany = useCompanyStore((state) => state.createCompany);
+
+  const onSubmit = handleSubmit(async (data) => {
+    // console.log('data being sent', data);
+    // ignore this line
+    // eslint-disable-next-line no-debugger
+    debugger;
+    const resonse = await createCompany({
+      name: data.name,
+      code: data.code,
+      phone: data.phone,
+      representative: data.representative,
+      capital: Number(data.capital),
+      founding_date: data.founding_date,
+      contact_address: isChecked ? `${county}, ${town}, ${street}, ${localAddress}` : data.contact_address,
+      address: {
+        additionalProp1: `${county}, ${town}, ${street}, ${localAddress}`
+        // additionalProp2: data.address_row_1,
+        // additionalProp3: data.address_row_2
+      },
+      id: 0,
+      created_at: data.created_at || null,
+      updated_at: data.updated_at || null,
+      registration_document:
+        'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
+    });
+    // eslint-disable-next-line no-debugger
+    debugger;
+    console.log('response', resonse);
+    nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
+  });
   return (
     <form
-      onSubmit={handleSubmit(() => {
-        nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
-      })}
+      onSubmit={
+        () => {
+          // eslint-disable-next-line no-debugger
+          debugger;
+          onSubmit();
+        }
+        //   handleSubmit(async (data) => {
+        //   // ignore this line
+        //   // eslint-disable-next-line no-debugger
+        //   debugger;
+        //   const response = await useCompanyStore().createCompany({
+        //     name: data.company_name,
+        //     code: data.unified_number,
+        //     phone: data.member_phone,
+        //     representative: data.representative_chinese_name,
+        //     capital: Number(data.paid_in_capital),
+        //     founding_date: data.approved_establishment_date,
+        //     contact_address: isChecked ? `${county}, ${town}, ${street}, ${localAddress}` : data.member_contact_address,
+        //     address: {
+        //       additionalProp1: `${county}, ${town}, ${street}, ${localAddress}`,
+        //       additionalProp2: data.address_row_1,
+        //       additionalProp3: data.address_row_2
+        //     },
+        //     id: 0,
+        //     created_at: null,
+        //     updated_at: null,
+        //     registration_document: ''
+        //   });
+        //   console.log(response);
+        //   nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
+        // })
+      }
     >
       <div className="w-max mx-auto">
         <div className="flex flex-row mb-7">
@@ -34,7 +126,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
         <div className="flex flex-row gap-28 justify-center w-full">
           <div>
             <LabelInput
-              id="company_name"
+              id="name"
               isRequired={true}
               type="text"
               register={register}
@@ -45,7 +137,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
             />
 
             <LabelInput
-              id="member_phone"
+              id="code"
               isRequired={true}
               type="text"
               register={register}
@@ -57,7 +149,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
             />
 
             <LabelInput
-              id="representative_chinese_name"
+              id="representative"
               isRequired={true}
               type="text"
               register={register}
@@ -68,7 +160,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
             />
 
             <LabelInput
-              id="paid_in_capital"
+              id="capital"
               isRequired={true}
               type="text"
               register={register}
@@ -79,7 +171,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
             />
 
             <LabelInput
-              id="approved_establishment_date"
+              id="founding_date"
               isRequired={true}
               type="date"
               placeholder='"YYYY-MM-DD"'
@@ -90,7 +182,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               size={InputSize.SMALL}
             />
             <div className="flex gap-2.7">
-              <label className="text-black text-right font-semibold w-[128px] mb-5.2">會員聯絡地址 :</label>
+              <label className="text-black text-right font-semibold w-[128px] mb-5.2">公司登記地址 :</label>
               <div className="flex flex-col">
                 <div className="absolute flex flex-col -translate-y-1.5">
                   <div className="flex flex-row my-1">
@@ -99,20 +191,37 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
                         Style
                       )}
+                      value={county}
+                      defaultValue="縣市"
+                      onChange={(e) => setCounty(e.target.value)}
                     >
-                      <option className="text-black">縣市</option>
-                      <option className="text-black">縣市</option>
-                      <option className="text-black">縣市</option>
+                      <option value="縣市" className="text-black">
+                        縣市
+                      </option>
+                      <option value="縣市" className="text-black">
+                        縣市
+                      </option>
+                      <option value="縣市" className="text-black">
+                        縣市
+                      </option>
                     </select>
                     <select
                       className={classNames(
                         'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
                         Style
                       )}
+                      value={town}
+                      onChange={(e) => setTown(e.target.value)}
                     >
-                      <option className="text-black">鄉鎮市區</option>
-                      <option className="text-black">鄉鎮市區</option>
-                      <option className="text-black">鄉鎮市區</option>
+                      <option value="鄉鎮市區" className="text-black">
+                        鄉鎮市區
+                      </option>
+                      <option value="鄉鎮市區" className="text-black">
+                        鄉鎮市區
+                      </option>
+                      <option value="鄉鎮市區" className="text-black">
+                        鄉鎮市區
+                      </option>
                     </select>
                     <input
                       type="text"
@@ -120,21 +229,26 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-13 w-12 mr-2 px-5',
                         Style
                       )}
+                      value={street}
+                      onChange={(e) => setStreet(e.target.value)}
                     />
-                    <input
+                    {/* <input
                       type="text"
                       placeholder="路、街、村、段"
                       {...register('local_address')}
                       className={classNames('px-5 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style, {
-                        'border-bright-red border': errors.local_address
+                        'border-bright-red border': errors.lo
                       })}
-                    />
+                      value={localAddress}
+                      onChange={(e) => setLocalAddress(e.target.value)}
+                    /> */}
                   </div>
-                  <div className="flex flex-row my-1 items-center">
+                  {/* <div className="flex flex-row my-1 items-center">
                     {address_row_1.map((item) => {
                       return (
                         <>
                           <input
+                            id="address_row_1"
                             type="text"
                             className={classNames(
                               'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
@@ -149,12 +263,13 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         </>
                       );
                     })}
-                  </div>
-                  <div className="flex flex-row my-1 items-center">
+                  </div> */}
+                  {/* <div className="flex flex-row my-1 items-center">
                     {address_row_2.map((item) => {
                       return (
                         <>
                           <input
+                            id="address_row_2"
                             type="text"
                             className={classNames(
                               'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
@@ -169,7 +284,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         </>
                       );
                     })}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -177,7 +292,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
           <div>
             <div>
               <LabelInput
-                id="member_phone"
+                id="phone"
                 isRequired={true}
                 type="text"
                 register={register}
@@ -188,23 +303,29 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               />
               <div>
                 <div className="flex flex-row items-center mb-1 ml-[155px] font-bold">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() => setIsChecked(!isChecked)}
+                    className="w-4 h-4"
+                  />
                   <label className="text-black ml-2 text-xs">同公司登記地址</label>
                 </div>
                 <LabelInput
-                  id="member_contact_address"
+                  id="contact_address"
                   isRequired={false}
                   type="text"
                   register={register}
                   heading="會員聯絡地址"
                   size={InputSize.SMALL}
+                  value={isChecked ? `${county}, ${town}, ${street}, ${localAddress}` : ''}
                 />
               </div>
               <div className="flex gap-2.7">
                 <label className="text-black text-right font-semibold col-span-1 mb-5.2 w-[128px]">
                   營業登記文件 :
                 </label>
-                <CompanyDocumentUpload register={register} />
+                {/* <CompanyDocumentUpload register={register} /> */}
               </div>
             </div>
           </div>
@@ -221,5 +342,5 @@ export default CompanyInfoForm;
 
 const Style =
   'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6 min-[1550px]:px-2 min-[1200px]:px-1.5 px-1 py-2.5 text-black min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none';
-const address_row_1 = ['鄰', '巷', '弄', '街'];
-const address_row_2 = ['號之', ',', '號之', '室'];
+// const address_row_1 = ['鄰', '巷', '弄', '街'];
+// const address_row_2 = ['號之', ',', '樓之', '室'];
