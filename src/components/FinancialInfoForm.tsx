@@ -5,6 +5,7 @@ import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-f
 import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
+import { useUserStore } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 
@@ -33,6 +34,8 @@ const schema = yup.object({
 });
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
+  const companyId = useUserStore.getState().companyId;
+
   const {
     register,
     handleSubmit,
@@ -42,16 +45,21 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
   const updateCompany = useCompanyStore((state) => state.updateCompany);
 
   const onSubmit = handleSubmit(async (data) => {
-    await updateCompany(1, {
-      financial_institution_type: data.financial_institution_type,
-      financial_institution_name: data.financial_institution_name,
-      financial_institution_branch_name: data.financial_institution_branch_name,
-      account_name: data.account_name,
-      account_number: data.account_number,
-      account_image:
-        'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
-    });
-    nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+    try {
+      if (!companyId) return;
+      await updateCompany(companyId, {
+        financial_institution_type: data.financial_institution_type,
+        financial_institution_name: data.financial_institution_name,
+        financial_institution_branch_name: data.financial_institution_branch_name,
+        account_name: data.account_name,
+        account_number: data.account_number,
+        account_image:
+          'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
+      });
+      nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+    } catch (error) {
+      console.log(error);
+    }
   });
   return (
     <form onSubmit={onSubmit}>

@@ -5,6 +5,7 @@ import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-f
 import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
+import { useUserStore } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 
@@ -36,6 +37,7 @@ const schema = yup
   .required();
 
 const RepresentativeInfoForm = ({ nextStep }: IProps) => {
+  const companyId = useUserStore.getState().companyId;
   const {
     register,
     handleSubmit,
@@ -45,17 +47,22 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const updateCompany = useCompanyStore((state) => state.updateCompany);
 
   const onSubmit = handleSubmit(async (data) => {
-    await updateCompany(1, {
-      representative_country: data.representative_country,
-      representative_id_card_number: data.representative_id_card_number,
-      representative_id_card_issue_date: data.representative_id_card_issue_date,
-      representative_id_card_issue_location: data.representative_id_card_issue_location,
-      representative_id_card_front:
-        'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg',
-      representative_id_card_back:
-        'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
-    });
-    nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+    try {
+      if (!companyId) return;
+      await updateCompany(companyId, {
+        representative_country: data.representative_country,
+        representative_id_card_number: data.representative_id_card_number,
+        representative_id_card_issue_date: data.representative_id_card_issue_date,
+        representative_id_card_issue_location: data.representative_id_card_issue_location,
+        representative_id_card_front:
+          'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg',
+        representative_id_card_back:
+          'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
+      });
+      nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   return (
