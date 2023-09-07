@@ -1,26 +1,42 @@
 import { create } from 'zustand';
 
-import { Cart, OrderBuy, TransactionDetail } from '@/libs/api';
+import { Cart, CartDetailResonse, TransactionDetail } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
 
+type CartItem = {
+  selected: boolean;
+} & Cart;
+
 type CartState = {
-  cartList: Cart[];
+  cartList: CartItem[];
+  cartDetail: CartDetailResonse | null;
   checkoutDetail: TransactionDetail | null;
+  getSelectedCartIdList: () => CartItem['id'][];
+  getCartList: (page?: number) => void;
+  getCartDetail: () => void;
   addToCart: (arg: Cart) => void;
+  updateCartItemSelected: (id: Cart['id'], index: number, isSelected: boolean) => void;
+  updateCartItemQty: (...args: Parameters<typeof apiClient.trade.tradeCartPartialUpdate>) => void;
   deleteCartItem: (id: number) => void;
-  checkOutCart: (arg: OrderBuy) => void;
+  checkOutCart: () => void;
 };
 
-export const useCartStore = create<CartState>((set) => ({
+export const useCartStore = create<CartState>((set, get) => ({
   cartList: [],
+  cartDetail: null,
   checkoutDetail: null,
+  getSelectedCartIdList: () =>
+    get()
+      .cartList.filter((item) => item.selected)
+      .map((item) => item.id),
   getCartList: async (page?: number) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
       const response = await apiClient.trade.tradeCartList(page);
-      set({ cartList: response.results });
+      const cartList = (response.results || []).map((item) => ({ ...item, selected: false }));
+      set({ cartList });
       useModalStore.getState().close();
     } catch (error) {
       const err = error as Error;
@@ -30,10 +46,38 @@ export const useCartStore = create<CartState>((set) => ({
       });
     }
   },
+  getCartDetail: async () => {
+    console.log('aaa');
+    const cartDetail = await apiClient.trade.tradeCartDetailCreate({ cart_id_lsit: get().getSelectedCartIdList() });
+    set({ cartDetail });
+  },
   addToCart: async (arg: Cart) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
       await apiClient.trade.tradeCartCreate(arg);
+      await get().getCartDetail();
+      useModalStore.getState().close();
+    } catch (error) {
+      const err = error as Error;
+      console.error(err);
+      useModalStore.getState().open(ModalType.Error, {
+        errorText: `[${err.name}] ${err.message}`
+      });
+    }
+  },
+  updateCartItemSelected: async (id: Cart['id'], index: number, isSelected: boolean) => {
+    const cartList = Array.from(get().cartList);
+    if (cartList[index].id === id) {
+      cartList[index].selected = isSelected;
+    }
+    set({ cartList });
+    await get().getCartDetail();
+  },
+  updateCartItemQty: async (...args: Parameters<typeof apiClient.trade.tradeCartPartialUpdate>) => {
+    try {
+      useModalStore.getState().open(ModalType.Loading);
+      await apiClient.trade.tradeCartPartialUpdate(...args);
+      await get().getCartDetail();
       useModalStore.getState().close();
     } catch (error) {
       const err = error as Error;
@@ -47,7 +91,11 @@ export const useCartStore = create<CartState>((set) => ({
     try {
       useModalStore.getState().open(ModalType.Loading);
       await apiClient.trade.tradeCartDestroy(id);
-      // set({ cartList });
+      await get().getCartDetail();
+
+      const newCartList = get().cartList.filter((item) => item.id === id);
+      set({ cartList: newCartList });
+
       useModalStore.getState().close();
     } catch (error) {
       const err = error as Error;
@@ -57,10 +105,12 @@ export const useCartStore = create<CartState>((set) => ({
       });
     }
   },
-  checkOutCart: async (arg: OrderBuy) => {
+  checkOutCart: async () => {
     try {
       useModalStore.getState().open(ModalType.Loading);
-      const checkoutDetail = await apiClient.trade.tradeOrderBuyCreate(arg);
+      const checkoutDetail = await apiClient.trade.tradeOrderBuyCreate({
+        cart_id_list: get().getSelectedCartIdList()
+      });
       set({ checkoutDetail });
       useModalStore.getState().close();
     } catch (error) {

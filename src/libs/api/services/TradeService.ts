@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { Cart } from '../models/Cart';
 import type { CartDetail } from '../models/CartDetail';
+import type { CartDetailResonse } from '../models/CartDetailResonse';
 import type { Order } from '../models/Order';
 import type { OrderBuy } from '../models/OrderBuy';
 import type { OrderSell } from '../models/OrderSell';
@@ -108,12 +109,12 @@ export class TradeService {
 
     /**
      * @param requestBody
-     * @returns any No response body
+     * @returns CartDetailResonse
      * @throws ApiError
      */
     public tradeCartDetailCreate(
         requestBody?: CartDetail,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<CartDetailResonse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/trade/cart_detail/',

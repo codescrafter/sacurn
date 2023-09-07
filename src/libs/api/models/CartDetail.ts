@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 export type CartDetail = {
-    cart_id_lsit?: Array<any>;
+    cart_id_lsit?: Array<number>;
 };
 
