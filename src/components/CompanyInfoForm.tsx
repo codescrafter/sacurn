@@ -4,13 +4,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-// import { ExtendedCompany } from '@/libs/api';
 import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 
 import CompanyInputField from './CompanyInputField';
-// import CompanyDocumentUpload from './CompanyDocumentUpload';
 import CustomButton from './CustomButton';
 import UploadDocuments from './UploadDocuments';
 
@@ -77,9 +75,7 @@ const schema = yup
 
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [county, setCounty] = useState('');
-  const [town, setTown] = useState('');
-  const [street, setStreet] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -89,32 +85,30 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   const createCompany = useCompanyStore((state) => state.createCompany);
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log('data', data);
-    console.log('errors', errors);
-    // eslint-disable-next-line no-debugger
-    debugger;
-    const resonse = await createCompany({
+    const concatenatedAddresss = `${data.address.additionalProp1}, ${data.address.additionalProp2}, ${data.address.additionalProp3}, ${data.address.additionalProp4}, ${data.address.additionalProp5}, ${data.address.additionalProp6}, ${data.address.additionalProp7}, ${data.address.additionalProp8} ${data.address.additionalProp9}, ${data.address.additionalProp10}, ${data.address.additionalProp11}, ${data.address.additionalProp12}`;
+    await createCompany({
+      id: 0,
       name: data.name,
       registration_number: data.registration_number,
       phone: data.phone,
       representative: data.representative,
       capital: Number(data.capital),
       founding_date: data.founding_date,
-      contact_address: isChecked ? `${county}, ${town}, ${street}` : data.contact_address,
+      contact_address: isChecked ? concatenatedAddresss : data.contact_address,
       address: {
-        additionalProp1: `${county}, ${town}, ${street}`
+        additionalProp1: `${data.address.additionalProp1}, ${data.address.additionalProp2}, ${data.address.additionalProp3}, ${data.address.additionalProp4}`,
+        additionalProp2: `${data.address.additionalProp5}, ${data.address.additionalProp6}, ${data.address.additionalProp7}, ${data.address.additionalProp8}`,
+        additionalProp3: `${data.address.additionalProp9}, ${data.address.additionalProp10}, ${data.address.additionalProp11}, ${data.address.additionalProp12}`
       },
-      id: 0,
-      created_at: null,
-      updated_at: null,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
       registration_document:
         'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
     });
-    // eslint-disable-next-line no-debugger
-    debugger;
-    console.log('response', resonse);
+
     nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
   });
+
   return (
     <form onSubmit={onSubmit}>
       <div className="w-max mx-auto">
@@ -194,9 +188,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
                         Style
                       )}
-                      value={county}
                       defaultValue="縣市"
-                      onChange={(e) => setCounty(e.target.value)}
                     >
                       <option value="縣市" className="text-black">
                         縣市
@@ -215,8 +207,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
                         Style
                       )}
-                      value={town}
-                      onChange={(e) => setTown(e.target.value)}
                     >
                       <option value="鄉鎮市區" className="text-black">
                         鄉鎮市區
@@ -239,8 +229,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                           'border-bright-red border': errors.address?.additionalProp3
                         }
                       )}
-                      value={street}
-                      onChange={(e) => setStreet(e.target.value)}
                     />
                     <input
                       id="address.additionalProp4"
@@ -354,7 +342,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                   register={register}
                   heading="會員聯絡地址"
                   size={InputSize.SMALL}
-                  value={isChecked ? `${county}, ${town}, ${street}` : ''}
                 />
               </div>
               <div className="flex gap-2.7">
