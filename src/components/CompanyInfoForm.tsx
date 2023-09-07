@@ -4,13 +4,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-// import { ExtendedCompany } from '@/libs/api';
 import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 
 import CompanyInputField from './CompanyInputField';
-// import CompanyDocumentUpload from './CompanyDocumentUpload';
 import CustomButton from './CustomButton';
 import UploadDocuments from './UploadDocuments';
 
@@ -29,6 +27,13 @@ export type FormValues = {
     additionalProp1?: string;
     additionalProp2?: string;
     additionalProp3?: string;
+    additionalProp4?: string;
+    additionalProp5?: string;
+    additionalProp6?: string;
+    additionalProp7?: string;
+    additionalProp8?: string;
+    additionalProp9?: string;
+    additionalProp10?: string;
   };
   contact_address: string;
   registration_document: string;
@@ -43,12 +48,6 @@ const schema = yup
     founding_date: yup.string().required('Founding date is required'),
     representative: yup.string().required('Representative is required'),
     contact_address: yup.string().required('Contact address is required'),
-    //  address type
-    // address: yup.object({
-    //   additionalProp1: yup.string().required('Address is required'),
-    //   additionalProp2: yup.string().required('Address is required'),
-    //   additionalProp3: yup.string().required('Address is required')
-    // }),
     registration_document: yup.string().required('Registration document is required')
   })
   .required();
@@ -57,7 +56,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [county, setCounty] = useState('');
   const [town, setTown] = useState('');
-  const [street, setStreet] = useState('');
   const {
     register,
     handleSubmit,
@@ -67,20 +65,18 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   const createCompany = useCompanyStore((state) => state.createCompany);
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log('data', data);
-    console.log('errors', errors);
-    // eslint-disable-next-line no-debugger
-    debugger;
-    const resonse = await createCompany({
+    await createCompany({
       name: data.name,
       code: data.code,
       phone: data.phone,
       representative: data.representative,
       capital: Number(data.capital),
       founding_date: data.founding_date,
-      contact_address: isChecked ? `${county}, ${town}, ${street}` : data.contact_address,
+      contact_address: data.contact_address,
       address: {
-        additionalProp1: `${county}, ${town}, ${street}`
+        additionalProp1: `${county} ${town}, ${data.address?.additionalProp1}, ${data.address?.additionalProp2}`,
+        additionalProp2: `${data.address?.additionalProp3} ${data.address?.additionalProp4} ${data.address?.additionalProp5} ${data.address?.additionalProp6}`,
+        additionalProp3: `${data.address?.additionalProp7} ${data.address?.additionalProp8} ${data.address?.additionalProp9} ${data.address?.additionalProp10}`
       },
       id: 0,
       created_at: null,
@@ -88,11 +84,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       registration_document:
         'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
     });
-    // eslint-disable-next-line no-debugger
-    debugger;
-    console.log('response', resonse);
     nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
   });
+
   return (
     <form onSubmit={onSubmit}>
       <div className="w-max mx-auto">
@@ -208,10 +202,12 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-13 w-12 mr-2 px-5',
                         Style
                       )}
-                      value={street}
-                      onChange={(e) => setStreet(e.target.value)}
+                      id="address.additionalProp1"
+                      {...register('address.additionalProp1', { required: true })}
                     />
                     <input
+                      id="address.additionalProp2"
+                      {...register('address.additionalProp2', { required: true })}
                       type="text"
                       placeholder="路、街、村、段"
                       {...register('address.additionalProp1', { required: true })}
@@ -221,46 +217,130 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     />
                   </div>
                   <div className="flex flex-row my-1 items-center">
-                    {address_row_1.map((item: string) => {
-                      return (
-                        <>
-                          <input
-                            id="address.additionalProp2"
-                            type="text"
-                            className={classNames(
-                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
-                              Style,
-                              {
-                                'border-bright-red border': errors.address?.additionalProp2
-                              }
-                            )}
-                            {...register('address.additionalProp2', { required: true })}
-                          />
-                          <label className="text-black font-bold mr-1.5 text-[12px]">{item}</label>
-                        </>
-                      );
-                    })}
+                    <>
+                      <input
+                        id="address.additionalProp3"
+                        type="text"
+                        className={classNames(
+                          'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                          Style,
+                          {
+                            'border-bright-red border': errors.address?.additionalProp3
+                          }
+                        )}
+                        {...register('address.additionalProp3', { required: true })}
+                      />
+                      <label className="text-black font-bold mr-1.5 text-[12px]">鄰</label>
+                    </>
+                    <>
+                      <input
+                        id="address.additionalProp4"
+                        type="text"
+                        className={classNames(
+                          'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                          Style,
+                          {
+                            'border-bright-red border': errors.address?.additionalProp4
+                          }
+                        )}
+                        {...register('address.additionalProp4', { required: true })}
+                      />
+                      <label className="text-black font-bold mr-1.5 text-[12px]">巷</label>
+                    </>
+                    <>
+                      <input
+                        id="address.additionalProp5"
+                        type="text"
+                        className={classNames(
+                          'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                          Style,
+                          {
+                            'border-bright-red border': errors.address?.additionalProp5
+                          }
+                        )}
+                        {...register('address.additionalProp5', { required: true })}
+                      />
+                      <label className="text-black font-bold mr-1.5 text-[12px]">弄</label>
+                    </>
+                    <>
+                      <input
+                        id="address.additionalProp6"
+                        type="text"
+                        className={classNames(
+                          'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                          Style,
+                          {
+                            'border-bright-red border': errors.address?.additionalProp6
+                          }
+                        )}
+                        {...register('address.additionalProp6', { required: true })}
+                      />
+                      <label className="text-black font-bold mr-1.5 text-[12px]">街</label>
+                    </>
                   </div>
                   <div className="flex flex-row my-1 items-center">
-                    {address_row_2.map((item) => {
-                      return (
-                        <>
-                          <input
-                            id="address.additionalProp3"
-                            type="text"
-                            className={classNames(
-                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
-                              Style,
-                              {
-                                'border-bright-red border': errors.address?.additionalProp3
-                              }
-                            )}
-                            {...register('address.additionalProp3', { required: true })}
-                          />
-                          <label className="text-black font-bold mr-1.5 text-[12px]">{item}</label>
-                        </>
-                      );
-                    })}
+                    <>
+                      <input
+                        id="address.additionalProp7"
+                        type="text"
+                        className={classNames(
+                          'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                          Style,
+                          {
+                            'border-bright-red border': errors.address?.additionalProp7
+                          }
+                        )}
+                        {...register('address.additionalProp7', { required: true })}
+                      />
+                      <label className="text-black font-bold mr-1.5 text-[12px]">號之</label>
+                    </>
+
+                    <>
+                      <input
+                        id="address.additionalProp8"
+                        type="text"
+                        className={classNames(
+                          'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                          Style,
+                          {
+                            'border-bright-red border': errors.address?.additionalProp8
+                          }
+                        )}
+                        {...register('address.additionalProp8', { required: true })}
+                      />
+                      <label className="text-black font-bold mr-1.5 text-[12px]">,</label>
+                    </>
+                    <>
+                      <input
+                        id="address.additionalProp9"
+                        type="text"
+                        className={classNames(
+                          'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                          Style,
+                          {
+                            'border-bright-red border': errors.address?.additionalProp9
+                          }
+                        )}
+                        {...register('address.additionalProp9', { required: true })}
+                      />
+                      <label className="text-black font-bold mr-1.5 text-[12px]">樓之</label>
+                    </>
+
+                    <>
+                      <input
+                        id="address.additionalProp10"
+                        type="text"
+                        className={classNames(
+                          'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                          Style,
+                          {
+                            'border-bright-red border': errors.address?.additionalProp10
+                          }
+                        )}
+                        {...register('address.additionalProp10', { required: true })}
+                      />
+                      <label className="text-black font-bold mr-1.5 text-[12px]">室</label>
+                    </>
                   </div>
                 </div>
               </div>
@@ -295,7 +375,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                   register={register}
                   heading="會員聯絡地址"
                   size={InputSize.SMALL}
-                  value={isChecked ? `${county}, ${town}, ${street}` : ''}
                 />
               </div>
               <div className="flex gap-2.7">
@@ -323,5 +402,3 @@ export default CompanyInfoForm;
 
 const Style =
   'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6 min-[1550px]:px-2 min-[1200px]:px-1.5 px-1 py-2.5 text-black min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none';
-const address_row_1 = ['鄰', '巷', '弄', '街'];
-const address_row_2 = ['號之', ',', '樓之', '室'];
