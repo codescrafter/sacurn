@@ -38,7 +38,6 @@ export type FormValues = {
     additionalProp12: string;
   };
   contact_address: string;
-  registration_document: string;
 };
 
 const schema = yup
@@ -66,8 +65,7 @@ const schema = yup
         additionalProp11: yup.string().required('Address is required'),
         additionalProp12: yup.string().required('Address is required')
       })
-      .required(),
-    registration_document: yup.string().required('Registration document is required')
+      .required()
   })
   .required();
 
@@ -80,6 +78,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     getValues,
     setValue
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
+
+  const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
 
   const createCompany = useCompanyStore((state) => state.createCompany);
 
@@ -126,7 +126,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     const concatenatedAddresss = `${data.address.additionalProp1}, ${data.address.additionalProp2}, ${data.address.additionalProp3}, ${data.address.additionalProp4}, ${data.address.additionalProp5}, ${data.address.additionalProp6}, ${data.address.additionalProp7}, ${data.address.additionalProp8} ${data.address.additionalProp9}, ${data.address.additionalProp10}, ${data.address.additionalProp11}, ${data.address.additionalProp12}`;
-    await createCompany({
+    const dataToSubmit = {
       id: 0,
       name: data.name,
       registration_number: data.registration_number,
@@ -142,9 +142,29 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       },
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-      registration_document:
-        'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
-    });
+      registration_document: uploadedDocs
+    };
+    console.log('dataToSubmit', dataToSubmit);
+
+    const formData = new FormData();
+
+    formData.append('id', dataToSubmit.id.toString());
+    formData.append('name', dataToSubmit.name);
+    formData.append('registration_number', dataToSubmit.registration_number);
+    formData.append('phone', dataToSubmit.phone);
+    formData.append('representative', dataToSubmit.representative);
+    formData.append('capital', dataToSubmit.capital.toString());
+    formData.append('founding_date', dataToSubmit.founding_date);
+    formData.append('contact_address', dataToSubmit.contact_address);
+    formData.append('address', JSON.stringify(dataToSubmit.address));
+    formData.append('created_at', dataToSubmit.created_at);
+    formData.append('updated_at', dataToSubmit.updated_at);
+    // formData.append('registration_document', dataToSubmit.registration_document); // appending in form data
+    for (const img of uploadedDocs) {
+      formData.append('registration_document', img);
+    }
+    await createCompany(formData);
+
     nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
   });
 
@@ -387,7 +407,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 <label className="text-black text-right font-semibold col-span-1 mb-5.2 w-[128px]">
                   營業登記文件 :
                 </label>
-                <UploadDocuments register={register} />
+                <UploadDocuments uploadedDocs={uploadedDocs} setUploadedDocs={setUploadedDocs} />
               </div>
             </div>
           </div>
