@@ -69,3 +69,9 @@ export enum CarbonTag {
   Yellow = '黃碳',
   Blue = '藍碳'
 }
+
+export enum CompanyStatus {
+  NoReview = 0, // 有註冊 尚未送審
+  Reviewing = 1, // 送審中
+  PassReview = 2 // 審核通過
+}

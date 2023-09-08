@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Cart as CartItemType } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
+import { MIN_CART_QTY } from '@/util/constants';
 
 import Navbar from '../components/Navbar';
 
@@ -23,7 +24,7 @@ const Cart = () => {
   const open = useModalStore((store) => store.open);
 
   useEffect(() => {
-    if (cartList.length === 0) getCartList();
+    getCartList();
   }, []);
 
   const taxPercentage = useMemo(() => {
@@ -149,7 +150,7 @@ interface CartItemIProps extends CartItemType {
 const CartItem = (props: CartItemIProps) => {
   const { selected, id, name, image, remaining_quantity, order, company_code, onSelectedChange } = props;
 
-  const [qty, setQty] = useState(props.quantity || 0);
+  const [qty, setQty] = useState(props.quantity || MIN_CART_QTY);
 
   const updateCartItemQty = useCartStore((store) => store.updateCartItemQty);
   const deleteCartItem = useCartStore((store) => store.deleteCartItem);
@@ -159,7 +160,7 @@ const CartItem = (props: CartItemIProps) => {
   const onQuantityAdjust = useCallback(
     (value: number) => {
       const newQty = qty + value;
-      if (newQty >= 3 && newQty <= parseInt(remaining_quantity)) {
+      if (newQty >= MIN_CART_QTY && newQty <= parseInt(remaining_quantity)) {
         setQty(newQty);
         updateCartItemQty(id, {
           quantity: newQty,

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { Cart, CartDetailResonse, TransactionDetail } from '@/libs/api';
+import { Cart, CartDetailResonse, CartRequest, TransactionDetail } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
@@ -16,7 +16,7 @@ type CartState = {
   getSelectedCartIdList: () => CartItem['id'][];
   getCartList: (page?: number) => void;
   getCartDetail: () => void;
-  addToCart: (arg: Cart) => void;
+  addToCart: (arg: CartRequest) => void;
   updateCartItemSelected: (id: Cart['id'], index: number, isSelected: boolean) => void;
   updateCartItemQty: (...args: Parameters<typeof apiClient.trade.tradeCartPartialUpdate>) => void;
   deleteCartItem: (id: number) => void;
@@ -54,12 +54,16 @@ export const useCartStore = create<CartState>((set, get) => ({
       set({ cartDetail: null });
     }
   },
-  addToCart: async (arg: Cart) => {
+  addToCart: async (arg: CartRequest) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
-      await apiClient.trade.tradeCartCreate(arg);
+      const cartItem = await apiClient.trade.tradeCartCreate(arg);
+      const cartList = Array.from(get().cartList);
+      cartList.push({ ...cartItem, selected: false });
+      set({ cartList });
+
       await get().getCartDetail();
-      useModalStore.getState().close();
+      useModalStore.getState().open(ModalType.AddToCart);
     } catch (error) {
       const err = error as Error;
       console.error(err);
@@ -94,11 +98,9 @@ export const useCartStore = create<CartState>((set, get) => ({
     try {
       useModalStore.getState().open(ModalType.Loading);
       await apiClient.trade.tradeCartDestroy(id);
-      await get().getCartDetail();
-
-      const newCartList = get().cartList.filter((item) => item.id === id);
+      const newCartList = get().cartList.filter((item) => item.id !== id);
       set({ cartList: newCartList });
-
+      await get().getCartDetail();
       useModalStore.getState().close();
     } catch (error) {
       const err = error as Error;
