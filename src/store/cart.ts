@@ -117,7 +117,8 @@ export const useCartStore = create<CartState>((set, get) => ({
       const checkoutDetail = await apiClient.trade.tradeOrderBuyCreate({
         cart_id_list: get().getSelectedCartIdList()
       });
-      set({ checkoutDetail, cartList: [], cartDetail: null });
+      // set({ checkoutDetail, cartList: [], cartDetail: null });
+      set({ checkoutDetail });
       isSuccess = true;
       useModalStore.getState().close();
     } catch (error) {

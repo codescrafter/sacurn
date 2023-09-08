@@ -1,13 +1,41 @@
-import { Link } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import CustomButton from '@/components/CustomButton';
 import LightLayout from '@/components/LightLayout';
 import TotalPayment from '@/components/TotalPayment';
 import { useCartStore } from '@/store/cart';
+import { ModalType, useModalStore } from '@/store/modal';
 
 const PaymentInformation = () => {
+  const navigate = useNavigate();
   const cartDetail = useCartStore((store) => store.cartDetail);
-  // const checkOutCart = useCartStore((store) => store.checkOutCart);
+  const checkOutCart = useCartStore((store) => store.checkOutCart);
+  const open = useModalStore((state) => state.open);
+
+  const [isCheckout, setIsCheckouts] = useState(false);
+
+  useEffect(() => {
+    if (!cartDetail) navigate('/cart');
+  }, []);
+
+  const onCheckOut = useCallback(() => {
+    open(ModalType.CheckOutConfirm, {
+      buttons: [
+        {
+          text: '取消',
+          isOutline: true
+        },
+        {
+          text: '確認結帳',
+          onClick: async () => {
+            const isSuccess = await checkOutCart();
+            if (isSuccess) setIsCheckouts(true);
+          }
+        }
+      ]
+    });
+  }, []);
 
   return (
     <LightLayout>
@@ -51,13 +79,17 @@ const PaymentInformation = () => {
               </div>
             </div>
             <div className="flex justify-center mt-6">
-              <CustomButton variant="rounded">確認付款</CustomButton>
+              <CustomButton onClick={onCheckOut} variant="rounded">
+                確認付款
+              </CustomButton>
             </div>
           </div>
           {/* Third col */}
-          <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
-            <TotalPayment totalPrice={cartDetail?.total_amount || 0} />
-          </div>
+          {isCheckout && (
+            <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
+              <TotalPayment totalPrice={cartDetail?.total_amount || 0} />
+            </div>
+          )}
         </div>
         <div className="flex justify-end pt-5">
           <Link to="/cart">
