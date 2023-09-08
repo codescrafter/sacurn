@@ -5,10 +5,12 @@ import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-f
 import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
+import { useUserStore } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 
 import CustomButton from './CustomButton';
+import UploadDocuments from './UploadDocuments';
 
 interface IProps {
   nextStep: (val: number) => void;
@@ -29,30 +31,40 @@ const schema = yup.object({
   financial_institution_branch_name: yup.string().required(),
   account_name: yup.string().required(),
   account_number: yup.string().required(),
-  account_image: yup.string()
+  account_image: yup.mixed()
 });
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
+  const companyId = useUserStore.getState().companyId;
+
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<FinancialFormTypes>({ resolver: yupResolver(schema) });
+  const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
 
   const updateCompany = useCompanyStore((state) => state.updateCompany);
 
   const onSubmit = handleSubmit(async (data) => {
-    await updateCompany(1, {
-      financial_institution_type: data.financial_institution_type,
-      financial_institution_name: data.financial_institution_name,
-      financial_institution_branch_name: data.financial_institution_branch_name,
-      account_name: data.account_name,
-      account_number: data.account_number,
-      account_image:
-        'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
-    });
-    nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+    try {
+      if (!companyId) return;
+      const formData = new FormData();
+      formData.append('financial_institution_type', data.financial_institution_type);
+      formData.append('financial_institution_name', data.financial_institution_name);
+      formData.append('financial_institution_branch_name', data.financial_institution_branch_name);
+      formData.append('account_name', data.account_name);
+      formData.append('account_number', data.account_number);
+      formData.append('account_image', uploadedDocs?.[0]);
+      await updateCompany(companyId, formData);
+      nextStep(CompanyRegistrationSteps.TERMS_CONFIRMATION);
+    } catch (error) {
+      console.log(error);
+    }
   });
+
+  console.log(errors);
+
   return (
     <form onSubmit={onSubmit}>
       <div className="mx-auto px-5 w-[570px]">
@@ -101,7 +113,8 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           />
           <div className="flex gap-2.7">
             <h2 className="text-black text-base min-w-[144px] leading-5 text-right">存摺封面 : </h2>
-            <UploadDocuments register={register} />
+            {/* <UploadDocuments register={register} /> */}
+            <UploadDocuments uploadedDocs={uploadedDocs} setUploadedDocs={setUploadedDocs} />
           </div>
         </div>
       </div>
@@ -214,37 +227,6 @@ const LabelInput = ({
           })}
         />
         {errors && errors[id] && <p className="text-xs mt-1 ml-2 text-bright-red">{errorMessage}</p>}
-      </div>
-    </div>
-  );
-};
-
-const UploadDocuments = ({ register }: { register: UseFormRegister<FinancialFormTypes> }) => {
-  const [documentQuantity, setDocumentQuantity] = useState(1);
-  return (
-    <div className="flex flex-col max-w-[372px] max">
-      <p className="text-black min-[1500px]:text-base text-sm">
-        影業登記文件檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
-      </p>
-      <p className="text-navy-blue underline">了解營業登記文件上傳...</p>
-      <div className="flex flex-row flex-wrap max-w-[360px] gap-4 mt-2">
-        {Array.from({ length: documentQuantity }, (value, index) => index + 1).map((item) => {
-          return (
-            <div className="flex flex-col rounded-xl border items-center border-silverstone h-23.2 w-26.7">
-              <p className="text-[36px] text-black mt-2">{item}</p>
-              <label className="rounded-full bg-navy-blue p-0.5 px-5 text-xms text-white" htmlFor="get-file">
-                選擇
-              </label>
-              <input id="get-file" {...register('account_image')} type="file" className="invisible" />
-            </div>
-          );
-        })}
-        <div
-          className="flex flex-col rounded-xl border border-silverstone bg-light-trans-grey items-center justify-center h-23.2 w-26.7"
-          onClick={() => setDocumentQuantity((prev) => prev + 1)}
-        >
-          <img src="/images/operation-record/plus-icon.svg" alt="add new doc" />
-        </div>
       </div>
     </div>
   );

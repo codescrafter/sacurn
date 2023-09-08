@@ -100,7 +100,7 @@ export class CompanyService {
      */
     public companyPartialUpdate(
         id: number,
-        requestBody?: PatchedExtendedCompany,
+        requestBody?: FormData,
     ): CancelablePromise<Company> {
         return this.httpRequest.request({
             method: 'PATCH',
@@ -109,7 +109,8 @@ export class CompanyService {
                 'id': id,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'multipart/form-data',
+            // mediaType: 'application/json',
         });
     }
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
 import { useState } from 'react';
@@ -5,10 +6,12 @@ import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-f
 import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
+import { useUserStore } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 
 import CustomButton from './CustomButton';
+import UploadDocuments from './UploadDocuments';
 interface IProps {
   nextStep: (val: number) => void;
 }
@@ -18,8 +21,6 @@ export type RepresentativeFormTypes = {
   representative_id_card_number: string;
   representative_id_card_issue_date: string;
   representative_id_card_issue_location: string;
-  // representative_id_card_front: string;
-  // representative_id_card_back: string;
   representative_birthday: string;
 };
 
@@ -29,13 +30,14 @@ const schema = yup
     representative_id_card_number: yup.string().required('representative id card number is required'),
     representative_id_card_issue_date: yup.string().required('representative id card issue date is required'),
     representative_id_card_issue_location: yup.string().required('representative id card issue location is required'),
-    // representative_id_card_front: yup.string().required('representative id card front is required'),
-    // representative_id_card_back: yup.string().required('representative id card back is required'),
     representative_birthday: yup.string().required('representative birthday is required')
   })
   .required();
 
 const RepresentativeInfoForm = ({ nextStep }: IProps) => {
+  const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
+
+  const companyId = useUserStore.getState().companyId;
   const {
     register,
     handleSubmit,
@@ -45,17 +47,22 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const updateCompany = useCompanyStore((state) => state.updateCompany);
 
   const onSubmit = handleSubmit(async (data) => {
-    await updateCompany(1, {
-      representative_country: data.representative_country,
-      representative_id_card_number: data.representative_id_card_number,
-      representative_id_card_issue_date: data.representative_id_card_issue_date,
-      representative_id_card_issue_location: data.representative_id_card_issue_location,
-      representative_id_card_front:
-        'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg',
-      representative_id_card_back:
-        'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
-    });
-    nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+    try {
+      const _representative_id_card_issue_date = new Date().toISOString();
+      if (!companyId) return;
+      const formData = new FormData();
+      formData.append('representative_country', data.representative_country);
+      formData.append('representative_id_card_number', data.representative_id_card_number);
+      formData.append('representative_id_card_issue_date', _representative_id_card_issue_date);
+      formData.append('representative_id_card_issue_location', data.representative_id_card_issue_location);
+      formData.append('representative_birthday', _representative_id_card_issue_date);
+      formData.append('representative_id_card_front', uploadedDocs?.[0]);
+      formData.append('representative_id_card_back', uploadedDocs?.[1]);
+      updateCompany(companyId, formData);
+      nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   return (
@@ -170,7 +177,8 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
           />
           <div className="flex gap-2.7">
             <p className="text-black text-base min-w-[144px] text-right">身分證文件:</p>
-            <UploadDocuments register={register} />
+            {/* <UploadDocuments register={register} /> */}
+            <UploadDocuments uploadedDocs={uploadedDocs} setUploadedDocs={setUploadedDocs} />
           </div>
         </div>
       </div>
@@ -224,47 +232,6 @@ const SimpleSelect = ({ register, className, id, options }: SimpleSelectProps) =
         );
       })}
     </select>
-  );
-};
-
-const UploadDocuments = ({ register }: { register: UseFormRegister<RepresentativeFormTypes> }) => {
-  const [documentQuantity, setDocumentQuantity] = useState(1);
-  return (
-    <div className="flex flex-col max-w-[372px] max">
-      <p className="text-black min-[1500px]:text-base text-sm">
-        影業登記文件檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
-      </p>
-      <p className="text-navy-blue underline">了解營業登記文件上傳...</p>
-      <div className="flex flex-row flex-wrap max-w-[360px] gap-4 mt-2">
-        {Array.from({ length: documentQuantity }, (value, index) => index + 1).map((item) => {
-          return (
-            <div className="flex flex-col rounded-xl border items-center border-silverstone h-23.2 w-26.7">
-              <p className="text-[36px] text-black mt-2">{item}</p>
-              <label className="rounded-full bg-navy-blue p-0.5 px-5 text-xms text-white" htmlFor="get-file">
-                選擇
-              </label>
-              <input
-                id="get-file"
-                {...register}
-                // {...register(
-                //   `representative_id_card_front${item}` as
-                //     | 'representative_id_card_front'
-                //     | 'representative_id_card_back'
-                // )}
-                type="file"
-                className="invisible"
-              />
-            </div>
-          );
-        })}
-        <div
-          className="flex flex-col rounded-xl border border-silverstone bg-light-trans-grey items-center justify-center h-23.2 w-26.7"
-          onClick={() => setDocumentQuantity((prev) => prev + 1)}
-        >
-          <img src="/images/operation-record/plus-icon.svg" alt="add new doc" />
-        </div>
-      </div>
-    </div>
   );
 };
 
