@@ -2,16 +2,21 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import classNames from 'classnames';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
+// import { useCartStore } from '@/store/cart';
+import { usePriceListStore } from '@/store/priceList';
+
 import Navbar from '../components/Navbar';
-import { ProductDetailTypes } from '../type';
-import { PRODUCT_DETAILS } from '../util/constants';
 import AddedToCartModal from './AddedToCartModal';
 
 const ProductDetailList = () => {
   const [openCartSuccessModal, setOpenCartSuccessModal] = useState<boolean>(false);
+  const priceList = usePriceListStore((state) => state.priceList);
+  // const addToCart = useCartStore((state) => state.addToCart);
+
   return (
     <div className="w-full mt-8 pl-4 relative">
       <h1 className="text-[44px] font-semibold leading-10 text-white">CarbonCure Concrete Mineralization</h1>
@@ -41,18 +46,18 @@ const ProductDetailList = () => {
         {/* table body  */}
         <div className="overflow-x-auto max-w-[100%]">
           <div className="max-h-[65vh] overflow-scroll yellowScrollNoBg min-w-[700px]">
-            {PRODUCT_DETAILS?.map((item: ProductDetailTypes) => (
+            {priceList?.map((item) => (
               <div
-                key={item.memberCode}
+                key={item.id}
                 className="flex justify-between w-full py-6.2 border-b-2 border-opacity-30 border-white text-white"
               >
                 <p className="text-2xl leading-9 font-medium text-left ml-3 w-1/6">${item.price}</p>
-                <p className="text-2xl leading-9 font-normal text-left w-1/6">{item.memberCode}</p>
+                <p className="text-2xl leading-9 font-normal text-left w-1/6">{item.company_code}</p>
                 <div className="w-1/6 flex justify-center">
-                  <p className="text-2xl leading-9 font-normal text-right">{item.availableQuantity} 噸</p>
+                  <p className="text-2xl leading-9 font-normal text-right">{item.remaining_quantity} 噸</p>
                 </div>
                 <div className="w-1/6 flex justify-end">
-                  <p className="text-2xl leading-9 font-normal text-right mr-10">{item.minimumUnit} 噸</p>
+                  <p className="text-2xl leading-9 font-normal text-right mr-10">{item.min_order_quantity} 噸</p>
                 </div>
                 {/* + input - */}
                 <div className="w-1/6 flex justify-end ml-5">
@@ -89,7 +94,14 @@ const ProductDetailList = () => {
                     width={50}
                     height={42}
                     className="cursor-pointer"
-                    onClick={() => setOpenCartSuccessModal(true)}
+                    onClick={() => {
+                      // addToCart({
+                      //   order: item.id,
+                      //   trader: item.trader,
+                      //   quantity: item.quantity || 0
+                      // });
+                      setOpenCartSuccessModal(true);
+                    }}
                   />
                 </div>
               </div>
@@ -104,6 +116,16 @@ const ProductDetailList = () => {
 };
 
 function ProductDetail() {
+  const { carbonId } = useParams();
+
+  const getPriceList = usePriceListStore((state) => state.getPriceList);
+
+  useEffect(() => {
+    getPriceList({
+      carbonCreditId: carbonId?.toString()
+    });
+  }, []);
+
   return (
     <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
       <Navbar className="pt-4 relative z-30" />

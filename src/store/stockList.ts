@@ -5,7 +5,7 @@ import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
 
-type StockItem = {
+export type StockItem = {
   action: string | null;
   orderData: Order | null;
 } & Inventory;
@@ -13,6 +13,7 @@ type StockItem = {
 type StockListState = {
   stockList: StockItem[];
   getStockList: (page?: number) => void;
+  getStockInfo: (carbonCreditId: number) => Promise<boolean>;
   updateStockOnSale: (arg: OrderSell) => void;
   updateStockOffShelve: (id: number) => void;
 };
@@ -34,6 +35,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     }
   },
   getStockInfo: async (carbonCreditId: number) => {
+    let isSuccess = false;
     try {
       useModalStore.getState().open(ModalType.Loading);
       const orderData = await apiClient.trade.tradeListCarbonOrderRetrieve(carbonCreditId.toString());
@@ -47,6 +49,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
       } else {
         throw new Error('Not found stock index');
       }
+      isSuccess = true;
       useModalStore.getState().close();
     } catch (error) {
       const err = error as Error;
@@ -55,12 +58,13 @@ export const useStockListStore = create<StockListState>((set, get) => ({
         errorText: `[${err.name}] ${err.message}`
       });
     }
+    return isSuccess;
   },
   updateStockOnSale: async (arg: OrderSell) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
       await apiClient.trade.tradeOrderSellCreate(arg);
-      useModalStore.getState().close();
+      useModalStore.getState().open(ModalType.MakeStockOnSale);
     } catch (error) {
       const err = error as Error;
       console.error(err);

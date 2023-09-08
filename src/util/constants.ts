@@ -15,7 +15,7 @@ export const NAVBAR_ITEMS: NavbarItemTypes[] = [
   // },
   {
     name: 'Product List',
-    path: '/all-products'
+    path: '/'
   },
   {
     name: 'Wish List',
@@ -23,7 +23,7 @@ export const NAVBAR_ITEMS: NavbarItemTypes[] = [
   },
   {
     name: 'My Stock',
-    path: '/operation-record'
+    path: '/sales'
   }
   // {
   //   name: '碳權庫存',

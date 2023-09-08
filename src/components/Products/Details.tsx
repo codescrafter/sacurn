@@ -74,9 +74,7 @@ const Details = () => {
           </div>
           <div className="">
             <div className="flex items-start gap-2 pr-8 mt-5">
-              <h1 className="text-[32px] font-semibold text-white">
-                (VCS-985)Cordillera Azul REDD+ ProductCordillera Azul REDD+ Product
-              </h1>
+              <h1 className="text-[32px] flex-1 font-semibold text-white">(VCS-2250) Delta Blue Carbon - 1</h1>
               <img src="/images/products/green/start-gold.svg" alt="sacurn" />
             </div>
             {/* Product Details Tabs */}

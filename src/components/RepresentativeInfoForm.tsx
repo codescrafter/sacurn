@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
 import { useState } from 'react';

@@ -8,7 +8,7 @@ interface IProps {
 
 const ProductLayout = ({ children }: IProps) => {
   return (
-    <div className="bg-[url('../public/images/products/bg-green.png')] w-full min-h-screen bg-no-repeat bg-center bg-cover">
+    <div className="bg-[url('../public/images/products/bg-green.png')] w-full min-h-screen bg-no-repeat bg-center bg-cover absolute z-[-2]">
       <Navbar className="pt-4 relative z-30" />
       <div className="pt-4">
         <div>{children}</div>
