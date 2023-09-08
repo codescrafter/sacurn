@@ -901,7 +901,7 @@
         "/company/": {
             "get": {
                 "operationId": "company_list",
-                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(尚未完成公司註冊), 1(已完成公司註冊)\n\naddress 存放json dict",
+                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(新增公司未送審), 1(送審中) 2(審核通過)\n\naddress 存放json dict",
                 "parameters": [
                     {
                         "name": "page",
@@ -942,7 +942,7 @@
             },
             "post": {
                 "operationId": "company_create",
-                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(尚未完成公司註冊), 1(已完成公司註冊)\n\naddress 存放json dict",
+                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(新增公司未送審), 1(送審中) 2(審核通過)\n\naddress 存放json dict",
                 "tags": [
                     "company"
                 ],
@@ -994,7 +994,7 @@
         "/company/{id}/": {
             "get": {
                 "operationId": "company_retrieve",
-                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(尚未完成公司註冊), 1(已完成公司註冊)\n\naddress 存放json dict",
+                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(新增公司未送審), 1(送審中) 2(審核通過)\n\naddress 存放json dict",
                 "parameters": [
                     {
                         "in": "path",
@@ -1034,7 +1034,7 @@
             },
             "patch": {
                 "operationId": "company_partial_update",
-                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(尚未完成公司註冊), 1(已完成公司註冊)\n\naddress 存放json dict",
+                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(新增公司未送審), 1(送審中) 2(審核通過)\n\naddress 存放json dict",
                 "parameters": [
                     {
                         "in": "path",
@@ -1297,97 +1297,6 @@
                 "responses": {
                     "200": {
                         "description": "No response body"
-                    }
-                }
-            }
-        },
-        "/company/payment/": {
-            "get": {
-                "operationId": "company_payment_list",
-                "parameters": [
-                    {
-                        "name": "page",
-                        "required": false,
-                        "in": "query",
-                        "description": "A page number within the paginated result set.",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "tags": [
-                    "company"
-                ],
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {
-                        "jwtHeaderAuth": []
-                    },
-                    {
-                        "jwtCookieAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/PaginatedPaymentList"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            },
-            "post": {
-                "operationId": "company_payment_create",
-                "tags": [
-                    "company"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Payment"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Payment"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Payment"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {
-                        "jwtHeaderAuth": []
-                    },
-                    {
-                        "jwtCookieAuth": []
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Payment"
-                                }
-                            }
-                        },
-                        "description": ""
                     }
                 }
             }
@@ -2101,7 +2010,6 @@
         "/trade/cart/": {
             "get": {
                 "operationId": "trade_cart_list",
-                "description": "status_code\n\n409: 庫存數量小於下單數量",
                 "parameters": [
                     {
                         "name": "page",
@@ -2143,7 +2051,7 @@
             },
             "post": {
                 "operationId": "trade_cart_create",
-                "description": "status_code\n\n409: 庫存數量小於下單數量",
+                "description": "status_code\n\n409: 庫存數量小於下單數量\n\nstatus\n\n0: 待結帳\n\n1：已結帳\n\n2：刪除",
                 "tags": [
                     "trade"
                 ],
@@ -2151,21 +2059,20 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Cart"
+                                "$ref": "#/components/schemas/CartRequest"
                             }
                         },
                         "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/Cart"
+                                "$ref": "#/components/schemas/CartRequest"
                             }
                         },
                         "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/Cart"
+                                "$ref": "#/components/schemas/CartRequest"
                             }
                         }
-                    },
-                    "required": true
+                    }
                 },
                 "security": [
                     {
@@ -2196,7 +2103,6 @@
         "/trade/cart/{id}/": {
             "patch": {
                 "operationId": "trade_cart_partial_update",
-                "description": "status_code\n\n409: 庫存數量小於下單數量",
                 "parameters": [
                     {
                         "in": "path",
@@ -2256,7 +2162,6 @@
             },
             "delete": {
                 "operationId": "trade_cart_destroy",
-                "description": "status_code\n\n409: 庫存數量小於下單數量",
                 "parameters": [
                     {
                         "in": "path",
@@ -2462,7 +2367,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Order"
+                                    "$ref": "#/components/schemas/ListCarbonOrder"
                                 }
                             }
                         },
@@ -3148,6 +3053,19 @@
                     }
                 }
             },
+            "CartRequest": {
+                "type": "object",
+                "properties": {
+                    "quantity": {
+                        "type": "integer",
+                        "default": 100
+                    },
+                    "order": {
+                        "type": "integer",
+                        "default": 1
+                    }
+                }
+            },
             "Certificate": {
                 "type": "object",
                 "properties": {
@@ -3637,6 +3555,17 @@
                     "serial_number",
                     "status",
                     "vintage"
+                ]
+            },
+            "ListCarbonOrder": {
+                "type": "object",
+                "properties": {
+                    "order": {
+                        "$ref": "#/components/schemas/Order"
+                    }
+                },
+                "required": [
+                    "order"
                 ]
             },
             "Login": {
@@ -4169,33 +4098,6 @@
                     }
                 }
             },
-            "PaginatedPaymentList": {
-                "type": "object",
-                "properties": {
-                    "count": {
-                        "type": "integer",
-                        "example": 123
-                    },
-                    "next": {
-                        "type": "string",
-                        "nullable": true,
-                        "format": "uri",
-                        "example": "http://api.example.org/accounts/?page=4"
-                    },
-                    "previous": {
-                        "type": "string",
-                        "nullable": true,
-                        "format": "uri",
-                        "example": "http://api.example.org/accounts/?page=2"
-                    },
-                    "results": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Payment"
-                        }
-                    }
-                }
-            },
             "PaginatedPlanList": {
                 "type": "object",
                 "properties": {
@@ -4672,43 +4574,6 @@
                 },
                 "required": [
                     "tran_uuid"
-                ]
-            },
-            "Payment": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "readOnly": true
-                    },
-                    "amount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "deadline": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "status": {
-                        "type": "integer",
-                        "maximum": 2147483647,
-                        "minimum": -2147483648
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "readOnly": true
-                    },
-                    "company": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "amount",
-                    "company",
-                    "created_at",
-                    "deadline",
-                    "id"
                 ]
             },
             "Plan": {
