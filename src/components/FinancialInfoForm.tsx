@@ -30,7 +30,7 @@ const schema = yup.object({
   financial_institution_branch_name: yup.string().required(),
   account_name: yup.string().required(),
   account_number: yup.string().required(),
-  account_image: yup.string()
+  account_image: yup.mixed()
 });
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
@@ -53,14 +53,14 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
         financial_institution_branch_name: data.financial_institution_branch_name,
         account_name: data.account_name,
         account_number: data.account_number,
-        account_image:
-          'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
+        account_image: data.account_image?.[0]
       });
       nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
     } catch (error) {
       console.log(error);
     }
   });
+
   return (
     <form onSubmit={onSubmit}>
       <div className="mx-auto px-5 w-[570px]">

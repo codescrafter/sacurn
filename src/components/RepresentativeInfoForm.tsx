@@ -19,8 +19,8 @@ export type RepresentativeFormTypes = {
   representative_id_card_number: string;
   representative_id_card_issue_date: string;
   representative_id_card_issue_location: string;
-  // representative_id_card_front: string;
-  // representative_id_card_back: string;
+  representative_id_card_front?: string;
+  representative_id_card_back?: string;
   representative_birthday: string;
 };
 
@@ -30,8 +30,8 @@ const schema = yup
     representative_id_card_number: yup.string().required('representative id card number is required'),
     representative_id_card_issue_date: yup.string().required('representative id card issue date is required'),
     representative_id_card_issue_location: yup.string().required('representative id card issue location is required'),
-    // representative_id_card_front: yup.string().required('representative id card front is required'),
-    // representative_id_card_back: yup.string().required('representative id card back is required'),
+    representative_id_card_front: yup.mixed(),
+    representative_id_card_back: yup.mixed(),
     representative_birthday: yup.string().required('representative birthday is required')
   })
   .required();
@@ -48,18 +48,20 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      const _representative_id_card_issue_date = new Date().toISOString();
+      // const formData = new FormData();
+      // if (data?.representative_id_card_front?.length)
+      //   formData.append('representative_id_card_front', data?.representative_id_card_front?.[0]);
       if (!companyId) return;
       await updateCompany(companyId, {
         representative_country: data.representative_country,
         representative_id_card_number: data.representative_id_card_number,
-        representative_id_card_issue_date: data.representative_id_card_issue_date,
+        representative_id_card_issue_date: _representative_id_card_issue_date,
         representative_id_card_issue_location: data.representative_id_card_issue_location,
-        representative_id_card_front:
-          'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg',
-        representative_id_card_back:
-          'https://st2.depositphotos.com/1104517/11967/v/950/depositphotos_119675554-stock-illustration-male-avatar-profile-picture-vector.jpg'
+        representative_id_card_front: data?.representative_id_card_front?.[0],
+        representative_id_card_back: data.representative_id_card_back?.[1]
       });
-      nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+      nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
     } catch (error) {
       console.log(error);
     }
@@ -247,20 +249,10 @@ const UploadDocuments = ({ register }: { register: UseFormRegister<Representativ
           return (
             <div className="flex flex-col rounded-xl border items-center border-silverstone h-23.2 w-26.7">
               <p className="text-[36px] text-black mt-2">{item}</p>
-              <label className="rounded-full bg-navy-blue p-0.5 px-5 text-xms text-white" htmlFor="get-file">
+              <label className="rounded-full bg-navy-blue p-0.5 px-5 text-xms text-white" htmlFor="fileUpload">
                 選擇
               </label>
-              <input
-                id="get-file"
-                {...register}
-                // {...register(
-                //   `representative_id_card_front${item}` as
-                //     | 'representative_id_card_front'
-                //     | 'representative_id_card_back'
-                // )}
-                type="file"
-                className="invisible"
-              />
+              <input id="fileUpload" {...register('representative_id_card_front')} type="file" className="invisible" />
             </div>
           );
         })}
