@@ -1,48 +1,57 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+
+import { useProductListStore } from '@/store/productList';
+import { CarbonTag } from '@/type';
 
 import CustomButton from '../CustomButton';
 
-enum SWITCH {
-  GREEN = 'green',
-  YELLOW = 'yellow',
-  BLUE = 'blue'
-}
-
 const LayoutSwitch = () => {
-  const [active, setActive] = useState<SWITCH>(SWITCH.GREEN);
+  const filters = useProductListStore((state) => state.filters);
+  const updateProductListFilters = useProductListStore((state) => state.updateProductListFilters);
 
   return (
     <div className="px-10 pb-4 flex gap-6 items-center justify-end h-[46px]">
       <CustomButton
         variant="rounded-full"
         className={classNames('bg-dark-green', {
-          ['text-white w-[205px] h-7 flex justify-center items-center']: active === SWITCH.GREEN,
-          ['w-[90px] h-[18px]']: active !== SWITCH.GREEN
+          ['text-white w-[205px] h-7 flex justify-center items-center']: filters.tag === CarbonTag.Green,
+          ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.Green
         })}
-        onClick={() => setActive(SWITCH.GREEN)}
+        onClick={() => {
+          updateProductListFilters({
+            tag: CarbonTag.Green
+          });
+        }}
       >
-        {active === SWITCH.GREEN ? '綠碳' : ''}
+        {filters.tag === CarbonTag.Green ? '綠碳' : ''}
       </CustomButton>
       <CustomButton
         variant="rounded-full"
         className={classNames('bg-yellow', {
-          ['text-white w-[205px] h-7 flex justify-center items-center']: active === SWITCH.YELLOW,
-          ['w-[90px] h-[18px]']: active !== SWITCH.YELLOW
+          ['text-white w-[205px] h-7 flex justify-center items-center']: filters.tag === CarbonTag.Yellow,
+          ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.Yellow
         })}
-        onClick={() => setActive(SWITCH.YELLOW)}
+        onClick={() => {
+          updateProductListFilters({
+            tag: CarbonTag.Yellow
+          });
+        }}
       >
-        {active === SWITCH.YELLOW ? '黃碳' : ''}
+        {filters.tag === CarbonTag.Yellow ? '黃碳' : ''}
       </CustomButton>
       <CustomButton
         variant="rounded-full"
         className={classNames('bg-blue', {
-          ['text-white w-[205px] h-7 flex justify-center items-center']: active === SWITCH.BLUE,
-          ['w-[90px] h-[18px]']: active !== SWITCH.BLUE
+          ['text-white w-[205px] h-7 flex justify-center items-center']: filters.tag === CarbonTag.Blue,
+          ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.Blue
         })}
-        onClick={() => setActive(SWITCH.BLUE)}
+        onClick={() => {
+          updateProductListFilters({
+            tag: CarbonTag.Blue
+          });
+        }}
       >
-        {active === SWITCH.BLUE ? '藍碳' : ''}
+        {filters.tag === CarbonTag.Blue ? '藍碳' : ''}
       </CustomButton>
     </div>
   );

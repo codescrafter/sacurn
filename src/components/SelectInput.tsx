@@ -4,12 +4,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 interface IProps {
-  value: string;
   label: string;
-  handleChange: (value: string) => void;
+  options: { name: string; value: string }[];
+  value: string | undefined;
+  handleChange: (value: string | undefined) => void;
 }
 
-const SelectField = ({ value, label, handleChange }: IProps) => {
+const SelectField = ({ label, options, value, handleChange }: IProps) => {
   return (
     <FormControl sx={{ minWidth: 220 }} size="small">
       <Select
@@ -53,9 +54,14 @@ const SelectField = ({ value, label, handleChange }: IProps) => {
           }
         }}
       >
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+        <MenuItem value={undefined}>All</MenuItem>
+        {options.map((option) => {
+          return (
+            <MenuItem key={option.value} value={option.value}>
+              {option.name}
+            </MenuItem>
+          );
+        })}
       </Select>
     </FormControl>
   );

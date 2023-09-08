@@ -1,13 +1,16 @@
+import classNames from 'classnames';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useWishListStore } from '@/store/wishList';
+import { CarbonTag } from '@/type';
 
 import CustomButton from '../CustomButton';
 import CustomRating from '../Rating';
 
 interface IProps {
   id: number;
+  tag?: string | CarbonTag;
   name: string;
   image: string;
   rating?: string;
@@ -18,7 +21,7 @@ interface IProps {
   maxPrice: string;
 }
 
-const Tile = ({ id, name, rating, image, standard, type, vintage, minPrice, maxPrice }: IProps) => {
+const Tile = ({ id, tag, name, rating, image, standard, type, vintage, minPrice, maxPrice }: IProps) => {
   const addToWhishList = useWishListStore((store) => store.addToWhishList);
   const deleteWishList = useWishListStore((store) => store.deleteWishList);
   const wishList = useWishListStore((store) => store.wishList);
@@ -29,11 +32,19 @@ const Tile = ({ id, name, rating, image, standard, type, vintage, minPrice, maxP
   }, [wishList]);
 
   return (
-    <div className="bg-card-bg p-2 px-4 rounded-2xl flex justify-between items-center">
+    <div className="bg-card-bg py-[20px] px-[24px] rounded-2xl flex justify-between items-center">
       <div className="flex gap-5">
         {/* first col */}
         <div className="w-[340px] h-[240px]">
-          <img src={image} alt="sacurn" className="h-full w-full object-contain" />
+          <img
+            src={image}
+            alt="sacurn"
+            className={classNames('h-full w-full object-cover border-[5px] rounded-[14px]', {
+              'border-light-green': tag === CarbonTag.Green,
+              'border-yellow': tag === CarbonTag.Yellow,
+              'border-navy-blue': tag === CarbonTag.Blue
+            })}
+          />
         </div>
         {/* second col */}
         <div className="py-2">
