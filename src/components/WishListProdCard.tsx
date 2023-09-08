@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { WatchList } from '@/libs/api';
 import { useWishListStore } from '@/store/wishList';
 
@@ -6,12 +8,10 @@ interface IProps {
 }
 
 const WishListProdCard = ({ product }: IProps) => {
-  const getWishList = useWishListStore((state) => state.getWishList);
   const deleteWishList = useWishListStore((state) => state.deleteWishList);
 
   const deleteWishlistItemHandler = async () => {
     await deleteWishList(product.id);
-    await getWishList(1);
   };
   return (
     <>
@@ -36,9 +36,11 @@ const WishListProdCard = ({ product }: IProps) => {
               Item added {new Date(product.created_at).toDateString()}
             </p>
             <div className="flex flex-row gap-2 w-max">
-              <button className="bg-pale-yellow rounded-lg min-[1500px]:px-8 px-5 mx-auto min-[1500px]:py-0.7 py-0.5">
-                <img src="/images/wishlist/dollar.svg" className="min-[1500px]:w-3.2 w-2.5 min-[1500px]:h-5.5 h-4" />
-              </button>
+              <Link to={`/product-carbon/${product.id}`}>
+                <button className="bg-pale-yellow rounded-lg min-[1500px]:px-8 px-5 mx-auto min-[1500px]:py-0.7 py-0.5">
+                  <img src="/images/wishlist/dollar.svg" className="min-[1500px]:w-3.2 w-2.5 min-[1500px]:h-5.5 h-4" />
+                </button>
+              </Link>
               <button
                 className="border border-grey rounded-mdlg mx-auto min-[1500px]:px-4 px-2 min-[1500px]:py-0.7 py-0.5 hover:bg-[#f3dddd]"
                 onClick={deleteWishlistItemHandler}

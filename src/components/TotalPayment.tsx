@@ -1,50 +1,55 @@
 import CustomButton from './CustomButton';
 
-const TotalPayment = () => {
+type TotalPaymentProps = {
+  totalPrice: number;
+};
+
+const TotalPayment = (props: TotalPaymentProps) => {
+  const { totalPrice } = props;
   return (
     <div className="px-3">
       <p className="text-navy-blue text-xl font-bold text-center">付款資訊</p>
       <div className="pt-4">
         <div className="border rounded-[10px] border-silverstone p-4 flex justify-between mb-4">
           <p className="text-navy-blue text-lg font-bold">付款總額：</p>
-          <p className="text-bright-red text-lg font-bold">$13,119,000</p>
+          <p className="text-bright-red text-lg font-bold">$ {totalPrice}</p>
         </div>
         <div className="border rounded-[10px] border-silverstone p-4 flex justify-between mb-4">
           <p className="text-navy-blue text-lg font-bold">付款期限：</p>
           <div className="text-end">
             <p className="text-bright-red text-lg font-bold">30分鐘00秒</p>
-            <p className="text-[#525050] text-sm font-bold">在2023年03月25日 12:07到期</p>
+            <p className="text-[#525050] text-sm font-bold">在2023年09月25日 12:07到期</p>
           </div>
         </div>
         <div className="border rounded-[10px] border-silverstone p-4 flex justify-between mb-4">
           <p className="text-navy-blue text-lg font-bold">付款方式：</p>
           <div className="flex gap-2 items-center">
-            <CustomButton variant="outline" className="rounded px-5 py-1">
+            <CustomButton variant="primary" className="rounded px-5 py-1">
               匯款/轉帳
             </CustomButton>
-            <span>或</span>
+            {/* <span>或</span>
             <CustomButton variant="outline" className="rounded px-5 py-1">
               信託帳戶
-            </CustomButton>
+            </CustomButton> */}
           </div>
         </div>
         <div className="border rounded-[10px] border-silverstone p-4 mb-4">
           <div>
             <p className="text-navy-blue text-lg font-bold mb-1">銀行名稱：</p>
             <div className="text-black text-lg font-bold flex gap-4 items-center">
-              <p>OOOOOOOO銀行</p>
-              <p>OO分行</p>
+              <p>第一銀行</p>
+              <p>和平分行</p>
             </div>
           </div>
           <div className="h-[1px] w-full bg-light-grey my-5" />
           <div className="flex justify-between gap-4">
             <div>
               <p className="text-navy-blue text-lg font-bold mb-1">銀行代碼：</p>
-              <p className="text-bright-red text-lg font-bold">000</p>
+              <p className="text-bright-red text-lg font-bold">007</p>
             </div>
             <div>
               <p className="text-navy-blue text-lg font-bold mb-1">帳戶號碼：</p>
-              <p className="text-bright-red text-lg font-bold">0000 0000 0000 0000</p>
+              <p className="text-bright-red text-lg font-bold">4667 8249 1290 6678</p>
             </div>
             <div className="flex items-end">
               <p className="text-[#61A1CB] text-lg font-bold">複製</p>

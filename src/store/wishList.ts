@@ -45,11 +45,11 @@ export const useWishListStore = create<WishListState>((set, get) => ({
       });
     }
   },
-  deleteWishList: async (id: number) => {
+  deleteWishList: async (whishItemId: number) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
-      await apiClient.carbonCredit.carbonCreditWatchListDestroy2(id);
-      const newWishList = get().wishList.filter((wishListItem) => wishListItem.id === id);
+      await apiClient.carbonCredit.carbonCreditWatchListDestroy2(whishItemId);
+      const newWishList = get().wishList.filter((wishListItem) => wishListItem.id !== whishItemId);
       set({ wishList: newWishList });
       useModalStore.getState().close();
     } catch (error) {

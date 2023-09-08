@@ -7,13 +7,14 @@ import { ModalType, useModalStore } from './modal';
 import { useUserStore } from './user';
 
 type CompanyState = {
-  company: Partial<Company>;
+  company: Partial<Company> | null;
   createCompany: (arg: ExtendedCompany) => void;
+  getCompany: (companyId: number) => void;
   updateCompany: (id: number, companyData?: PatchedExtendedCompany) => void;
 };
 
 export const useCompanyStore = create<CompanyState>((set) => ({
-  company: {},
+  company: null,
   createCompany: async (arg: ExtendedCompany) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
@@ -31,6 +32,22 @@ export const useCompanyStore = create<CompanyState>((set) => ({
         errorText: `[${err.name}] ${err.message}`
       });
     }
+  },
+  getCompany: async (companyId: number) => {
+    let company = null;
+    try {
+      useModalStore.getState().open(ModalType.Loading);
+      company = await apiClient.company.companyRetrieve(companyId);
+      useModalStore.getState().close();
+      set({ company });
+    } catch (error) {
+      const err = error as Error;
+      console.error(err);
+      useModalStore.getState().open(ModalType.Error, {
+        errorText: `[${err.name}] ${err.message}`
+      });
+    }
+    return company;
   },
   updateCompany: async (id: number, companyData?: PatchedExtendedCompany) => {
     try {
