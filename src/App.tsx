@@ -1,6 +1,5 @@
 import './App.css';
 
-import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Cart from '@/pages/Cart';
@@ -19,7 +18,8 @@ import WishList from '@/pages/Wishlist';
 
 import Modal from './components/Modal/UniversalModal';
 import ProductDetail from './components/ProductDetail';
-import { ProtectedRoute } from './components/ProtectedRoute';
+import { ProtectedAuthRoute } from './components/ProtectedAuthRoute';
+import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRegisteredRoute';
 // import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
 
@@ -31,9 +31,11 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <ProtectedRoute>
-        <Products />
-      </ProtectedRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <Products />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     ) //<Dashboard />
   },
   // {
@@ -43,17 +45,21 @@ const router = createBrowserRouter([
   {
     path: '/product-carbon/:carbonId',
     element: (
-      <ProtectedRoute>
-        <ProductDetail />
-      </ProtectedRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <ProductDetail />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
     path: '/product-detail/:id',
     element: (
-      <ProtectedRoute>
-        <ProductDetails />
-      </ProtectedRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <ProductDetails />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   // {
@@ -63,82 +69,88 @@ const router = createBrowserRouter([
   {
     path: '/operation-record',
     element: (
-      <ProtectedRoute>
-        <OperationRecord />
-      </ProtectedRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <OperationRecord />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
     path: '/historical-order',
     element: (
-      <ProtectedRoute>
-        <HistoricalOrder />
-      </ProtectedRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <HistoricalOrder />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
     path: '/cart',
     element: (
-      <ProtectedRoute>
-        <Cart />
-      </ProtectedRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <Cart />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
     path: '/sales',
     element: (
-      <ProtectedRoute>
-        <Sales />
-      </ProtectedRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <Sales />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
     path: '/sign-up',
-    element: (
-      <ProtectedRoute>
-        <OperatorSignUp />
-      </ProtectedRoute>
-    )
+    element: <OperatorSignUp />
   },
   {
     path: '/company-registration',
     element: (
-      <ProtectedRoute>
+      <ProtectedAuthRoute>
         <CompanyRegistration />
-      </ProtectedRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
     path: '/wishlist',
     element: (
-      <ProtectedRoute>
-        <WishList />
-      </ProtectedRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <WishList />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
     path: '/certificate/:carbonId',
     element: (
-      <ProtectedRoute>
-        <Certificate />
-      </ProtectedRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <Certificate />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
     path: '/payment-information',
     element: (
-      <ProtectedRoute>
-        <PaymentInformation />
-      </ProtectedRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <PaymentInformation />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   }
 ]);
 
 export default function App() {
-  useEffect(() => {
-    console.log('Starting');
-  }, []);
-
   return (
     <div>
       <RouterProvider router={router} />
