@@ -1,21 +1,20 @@
 import { create } from 'zustand';
 
-import { Company, ExtendedCompany, PatchedExtendedCompany } from '@/libs/api';
+import { Company } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
 import { useUserStore } from './user';
 
 type CompanyState = {
-  company: Partial<Company> | null;
-  createCompany: (arg: ExtendedCompany) => void;
-  getCompany: (companyId: number) => void;
-  updateCompany: (id: number, companyData?: PatchedExtendedCompany) => void;
+  company: Partial<Company>;
+  createCompany: (arg: FormData) => void;
+  updateCompany: (id: number, companyData?: FormData) => void;
 };
 
 export const useCompanyStore = create<CompanyState>((set) => ({
-  company: null,
-  createCompany: async (arg: ExtendedCompany) => {
+  company: {},
+  createCompany: async (arg: FormData) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
       const company = await apiClient.company.companyCreate(arg);
@@ -33,23 +32,7 @@ export const useCompanyStore = create<CompanyState>((set) => ({
       });
     }
   },
-  getCompany: async (companyId: number) => {
-    let company = null;
-    try {
-      useModalStore.getState().open(ModalType.Loading);
-      company = await apiClient.company.companyRetrieve(companyId);
-      useModalStore.getState().close();
-      set({ company });
-    } catch (error) {
-      const err = error as Error;
-      console.error(err);
-      useModalStore.getState().open(ModalType.Error, {
-        errorText: `[${err.name}] ${err.message}`
-      });
-    }
-    return company;
-  },
-  updateCompany: async (id: number, companyData?: PatchedExtendedCompany) => {
+  updateCompany: async (id: number, companyData?: FormData) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
       const company = await apiClient.company.companyPartialUpdate(id, companyData);

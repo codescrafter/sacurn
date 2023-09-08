@@ -140,7 +140,7 @@ function ProductDetail() {
         </div>
         <div className="flex-1 pr-5 overflow-scroll xl:overflow-hidden">
           <div className="flex flex-col max-h-[973px] items-end mr-9.5 relative z-50 flex-1 w-full">
-            <ProductDetailList />;
+            <ProductDetailList />
           </div>
         </div>
       </div>

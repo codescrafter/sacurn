@@ -53,7 +53,6 @@ const CompanyInputField = ({
           disabled={!id}
           {...register(
             id as
-              | 'registration_document'
               | 'name'
               | 'registration_number'
               | 'representative'
