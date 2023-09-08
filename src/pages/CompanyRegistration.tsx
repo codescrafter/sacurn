@@ -10,7 +10,7 @@ import TermsConfirmation from '@/components/TermsConfirmation';
 import { CompanyRegistrationSteps, ProgressBarItems } from '@/util/constants';
 
 const CompanyRegistration = () => {
-  const [stepNumber, setStepNumber] = useState(CompanyRegistrationSteps.COMPANY_INFO_FORM);
+  const [stepNumber, setStepNumber] = useState(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
   const stepNumberHandler = (val: number) => {
     setStepNumber(val);
   };
