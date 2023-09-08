@@ -2,11 +2,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CarbonCredit } from '../models/CarbonCredit';
 import type { Certificate } from '../models/Certificate';
 import type { FilterList } from '../models/FilterList';
 import type { PaginatedCarbonCreditList } from '../models/PaginatedCarbonCreditList';
 import type { PaginatedWatchListList } from '../models/PaginatedWatchListList';
+import type { PatchedCarbonCredit } from '../models/PatchedCarbonCredit';
 import type { WatchList } from '../models/WatchList';
+import type { WatchListRequestSerialzer } from '../models/WatchListRequestSerialzer';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -44,6 +47,27 @@ export class CarbonCreditService {
                 'tags': tags,
                 'vintage': vintage,
             },
+        });
+    }
+
+    /**
+     * @param id
+     * @param requestBody
+     * @returns CarbonCredit
+     * @throws ApiError
+     */
+    public carbonCreditPartialUpdate(
+        id: number,
+        requestBody?: PatchedCarbonCredit,
+    ): CancelablePromise<CarbonCredit> {
+        return this.httpRequest.request({
+            method: 'PATCH',
+            url: '/carbon_credit/{id}/',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 
@@ -87,24 +111,18 @@ export class CarbonCreditService {
     }
 
     /**
-     * @returns any No response body
+     * @param requestBody
+     * @returns CarbonCredit
      * @throws ApiError
      */
-    public carbonCreditCreateRetrieve(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/create/',
-        });
-    }
-
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditCreateCreate(): CancelablePromise<any> {
+    public carbonCreditCreateCreate(
+        requestBody: CarbonCredit,
+    ): CancelablePromise<CarbonCredit> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/carbon_credit/create/',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 
@@ -203,7 +221,7 @@ export class CarbonCreditService {
      * @throws ApiError
      */
     public carbonCreditWatchListCreate(
-        requestBody: WatchList,
+        requestBody?: WatchListRequestSerialzer,
     ): CancelablePromise<WatchList> {
         return this.httpRequest.request({
             method: 'POST',

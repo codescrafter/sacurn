@@ -7,12 +7,12 @@ import { ModalType, useModalStore } from './modal';
 
 type ProductListState = {
   productList: CarbonCredit[];
-  getProducts: (...args: Parameters<typeof apiClient.carbonCredit.carbonCreditList>) => void;
+  getProductList: (...args: Parameters<typeof apiClient.carbonCredit.carbonCreditList>) => void;
 };
 
-export const useProductsStore = create<ProductListState>((set) => ({
+export const useProductListStore = create<ProductListState>((set) => ({
   productList: [],
-  getProducts: async (...args) => {
+  getProductList: async (...args) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
       const response = await apiClient.carbonCredit.carbonCreditList(...args);

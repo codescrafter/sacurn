@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Cart from '@/pages/Cart';
 import Certificate from '@/pages/Certificate';
 import CompanyRegistration from '@/pages/CompanyRegistration';
-import Dashboard from '@/pages/Dashboard';
+// import Dashboard from '@/pages/Dashboard';
 import HistoricalOrder from '@/pages/HistoricalOrder';
 import Login from '@/pages/Login';
 import NewsPage from '@/pages/NewsPage';
@@ -17,11 +17,9 @@ import Products from '@/pages/Products';
 import Sales from '@/pages/Sales';
 import WishList from '@/pages/Wishlist';
 
-// import { useMemberStore } from '@/store/memberCard';
-// import { ModalType, useModalStore } from '@/store/modal';
 import Modal from './components/Modal/UniversalModal';
 import ProductDetail from './components/ProductDetail';
-import AllProducts from './pages/AllProducts';
+// import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
 
 const router = createBrowserRouter([
@@ -31,18 +29,14 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Dashboard />
+    element: <Products /> //<Dashboard />
   },
+  // {
+  //   path: '/product-list',
+  //   element: <AllProducts />
+  // },
   {
-    path: '/all-products',
-    element: <Products />
-  },
-  {
-    path: '/product-list',
-    element: <AllProducts />
-  },
-  {
-    path: '/carbon-product-cart',
+    path: '/product-carbon/:carbonId',
     element: <ProductDetail />
   },
   {
@@ -92,13 +86,8 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  // const { open } = useModalStore();
-  // const { start } = useMemberStore();
-
   useEffect(() => {
     console.log('Starting');
-    // start();
-    // open(ModalType.Loading);
   }, []);
   return (
     <div>

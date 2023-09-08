@@ -2,13 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $CartDetail = {
+export const $WatchListRequestSerialzer = {
     properties: {
-        cart_id_list: {
-            type: 'array',
-            contains: {
-                type: 'number',
-            },
+        carbon_credit: {
+            type: 'number',
         },
     },
 } as const;

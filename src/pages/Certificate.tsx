@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Document, pdfjs } from 'react-pdf';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import CustomButton from '@/components/CustomButton';
 import Navbar from '@/components/Navbar';
@@ -55,10 +55,12 @@ const Certificate = () => {
                 </CustomButton>
               )}
 
-              <CustomButton variant="outline" className="rounded-[3px] py-2 px-12 flex items-center text-xl gap-3">
-                <img src="/images/certificate/left-arrow.svg" alt="download" />
-                回上一頁
-              </CustomButton>
+              <Link to="/sales">
+                <CustomButton variant="outline" className="rounded-[3px] py-2 px-12 flex items-center text-xl gap-3">
+                  <img src="/images/certificate/left-arrow.svg" alt="download" />
+                  回上一頁
+                </CustomButton>
+              </Link>
             </div>
           </div>
         </div>

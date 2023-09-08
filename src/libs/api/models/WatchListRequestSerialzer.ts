@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type CartDetail = {
-    cart_id_list?: Array<number>;
+export type WatchListRequestSerialzer = {
+    carbon_credit?: number;
 };
 

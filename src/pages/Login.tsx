@@ -29,7 +29,7 @@ const Login = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     const isSuccess = await login(data);
-    if (isSuccess) navigate('/all-products');
+    if (isSuccess) navigate('/');
   });
 
   return (

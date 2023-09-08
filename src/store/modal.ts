@@ -16,6 +16,9 @@ export enum ModalType {
   Loading = 'Loading',
   StartApplyCertificate = 'StartApplyCertificate',
   FinishedApplyCertificate = 'FinishedApplyCertificate',
+  MakeStockOnSale = 'MakeStockOnSale',
+  MakeStockOffShelve = 'MakeStockOffShelve',
+  CheckOutConfirm = 'CheckOutConfirm',
   Error = 'Error'
 }
 
@@ -67,6 +70,45 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
     buttons: [
       {
         text: '關閉'
+      }
+    ]
+  },
+  [ModalType.MakeStockOnSale]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_success.svg',
+    title: '恭喜！已開始交易',
+    description: '已完成上架作業',
+    buttons: [
+      {
+        text: '關閉'
+      }
+    ]
+  },
+  [ModalType.MakeStockOffShelve]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '再次提醒',
+    description: '確認停止交易後，資料將無法恢復 ',
+    buttons: [
+      {
+        text: '取消送出'
+      },
+      {
+        text: '確認停止交易'
+      }
+    ]
+  },
+  [ModalType.CheckOutConfirm]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '再次提醒',
+    description: '結帳後請您於30分鐘內進行付款，否則系統將會取消交易。 ',
+    buttons: [
+      {
+        text: '返回商品列表'
+      },
+      {
+        text: '確認結帳'
       }
     ]
   }

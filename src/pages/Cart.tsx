@@ -1,25 +1,33 @@
 import classNames from 'classnames';
-import React, { ChangeEvent, FC, useCallback, useEffect } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Cart as CartItemType } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
+import { ModalType, useModalStore } from '@/store/modal';
 
 import Navbar from '../components/Navbar';
-import { SelectedCartItemTypes } from '../type';
-import { SELECTED_CART_ITEMS } from '../util/constants';
 
 interface HeadingIProps {
   children: React.ReactNode;
 }
 
+const TAX_PERCENTAGE = 0.05;
+
 const Cart = () => {
+  const navigate = useNavigate();
   const cartList = useCartStore((store) => store.cartList);
   const getCartList = useCartStore((store) => store.getCartList);
-  const checkOutCart = useCartStore((store) => store.checkOutCart);
+  const cartDetail = useCartStore((store) => store.cartDetail);
   const updateCartItemSelected = useCartStore((store) => store.updateCartItemSelected);
+  const open = useModalStore((store) => store.open);
 
   useEffect(() => {
     if (cartList.length === 0) getCartList();
+  }, []);
+
+  const taxPercentage = useMemo(() => {
+    return (cartDetail?.tax_ratio || TAX_PERCENTAGE) * 100;
   }, []);
 
   return (
@@ -27,10 +35,12 @@ const Cart = () => {
       <Navbar className="pt-7 pb-2.5 !bg-navy-blue" />
       <div className="flex justify-between my-4 pl-13 pr-10">
         <div className="flex">
-          <button className="w-[202px] h-[46px] rounded-[3px] py-1 flex items-center justify-center border border-navy-blue text-navy-blue text-xl">
-            <img src="/images/cart/ic_back.svg" width={16} height={14} className="mr-2.5" alt="sacurn" />
-            繼續購物
-          </button>
+          <Link to="/">
+            <button className="w-[202px] h-[46px] rounded-[3px] py-1 flex items-center justify-center border border-navy-blue text-navy-blue text-xl">
+              <img src="/images/cart/ic_back.svg" width={16} height={14} className="mr-2.5" alt="sacurn" />
+              繼續購物
+            </button>
+          </Link>
           <div className="ml-4">
             <p className="text-[28px] font-normal text-navy-blue">| 購物車</p>
           </div>
@@ -51,61 +61,79 @@ const Cart = () => {
               {...item}
             />
           ))}
-          {/* {CART_ITEMS?.map((item: CartItemTypes, index) => <CartItem key={index} {...item} />)} */}
         </div>
-        <div className="2xl:h-[82vh] h-[78vh] flex-1 mr-7 rounded-[10px] shadow-cart-item py-6">
-          <div className="flex flex-col">
-            <div className="flex flex-row justify-between pr-6.7">
-              <Heading>商品共計</Heading>
-              <p className="2xl:text-lg text-base text-black font-medium">NT$ {120000}</p>
+        {cartDetail && (
+          <div className="2xl:h-[82vh] h-[78vh] flex-1 mr-7 rounded-[10px] shadow-cart-item py-6">
+            <div className="flex flex-col">
+              <div className="flex flex-row justify-between pr-6.7">
+                <Heading>商品共計</Heading>
+                <p className="2xl:text-lg text-base text-black font-medium">NT$ {cartDetail.total_amount}</p>
+              </div>
+              <div className="px-6.7 mt-2.5 ">
+                <p className="text-grey 2xl:text-sm text-xs">
+                  {cartDetail.product_list?.length}項(以下含稅金${taxPercentage}%及手續費)
+                </p>
+                <div className="2xl:mt-5.2 mt-3">
+                  {cartDetail.product_list?.map((product) => {
+                    return (
+                      <div className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
+                        <p className="w-[70%] text-grey 2xl:text-lg text-sm">{product.name}</p>
+                        <p className="text-grey 2xl:text-lg text-sm">{product.amount} 噸</p>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="flex flex-row justify-between 2xl:mb-5 mb-3">
+                  <p className="text-grey 2xl:text-lg text-base">手續費</p>
+                  <p className="text-grey 2xl:text-lg text-base">$ {cartDetail.cost}</p>
+                </div>
+                <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
+                  <p className="text-grey 2xl:text-lg text-base">稅金${taxPercentage}%</p>
+                  <p className="text-grey 2xl:text-lg text-base">${cartDetail.tax}</p>
+                </div>
+                <div className="flex flex-row justify-between">
+                  <p className="2xl:text-lg text-base font-semibold text-black">總付款金額</p>
+                  <p className="2xl:text-lg text-base text-bright-red font-semibold">NT$ {cartDetail.total_amount}</p>
+                </div>
+              </div>
+              <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
+              <Heading>優惠折扣</Heading>
+              <button className="border-navy-blue ml-6.7 2xl:mt-5 mt-3 flex flex-row rounded-lg border-solid border 2xl:px-5 px-4 2xl:py-3 py-2 max-w-max 2xl:mb-8 mb-5">
+                <img src="/images/cart/promocode.svg" width={25} height={25} alt="sacurn" />
+                <p className="text-navy-blue 2xl:text-base text-sm pl-3">使用優惠碼</p>
+              </button>
+              <Heading>服務條款</Heading>
+              <p className="ml-6.7 text-grey 2xl:text-base text-sm 2xl:mt-6 mt-2">
+                我瞭解並同意Sacurn服務條款與隱私權政策
+              </p>
+              <hr className="border-silverstone 2xl:mt-8 mt-4 2xl:mb-5 mb-3" />
+              <p className="2xl:text-base text-xms text-black self-center mb-1">
+                點擊「前往付款」，訂單及送出，請於下一步選擇付款方式
+              </p>
+              <button
+                onClick={() => {
+                  open(ModalType.CheckOutConfirm, {
+                    buttons: [
+                      {
+                        text: '返回商品列表',
+                        isOutline: true
+                      },
+                      {
+                        text: '確認結帳',
+                        onClick: () => {
+                          navigate('/payment-information');
+                        }
+                      }
+                    ]
+                  });
+                }}
+                className="bg-navy-blue w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white"
+              >
+                前往付款
+              </button>
             </div>
-            <div className="px-6.7 mt-2.5 ">
-              <p className="text-grey 2xl:text-sm text-xs">3項(以下含稅金5%及手續費)</p>
-              <div className="2xl:mt-5.2 mt-3">
-                {SELECTED_CART_ITEMS?.map((item: SelectedCartItemTypes) => {
-                  return (
-                    <div className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
-                      <p className="w-[70%] text-grey 2xl:text-lg text-sm">{item.name}</p>
-                      <p className="text-grey 2xl:text-lg text-sm">{item.quantity} 噸</p>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="flex flex-row justify-between 2xl:mb-5 mb-3">
-                <p className="text-grey 2xl:text-lg text-base">手續費</p>
-                <p className="text-grey 2xl:text-lg text-base">${120000}</p>
-              </div>
-              <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
-                <p className="text-grey 2xl:text-lg text-base">稅金5%</p>
-                <p className="text-grey 2xl:text-lg text-base">${619000}</p>
-              </div>
-              <div className="flex flex-row justify-between">
-                <p className="2xl:text-lg text-base font-semibold text-black">總付款金額</p>
-                <p className="2xl:text-lg text-base text-bright-red font-semibold">NT$ {12000000}</p>
-              </div>
-            </div>
-            <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
-            <Heading>優惠折扣</Heading>
-            <button className="border-navy-blue ml-6.7 2xl:mt-5 mt-3 flex flex-row rounded-lg border-solid border 2xl:px-5 px-4 2xl:py-3 py-2 max-w-max 2xl:mb-8 mb-5">
-              <img src="/images/cart/promocode.svg" width={25} height={25} alt="sacurn" />
-              <p className="text-navy-blue 2xl:text-base text-sm pl-3">使用優惠碼</p>
-            </button>
-            <Heading>服務條款</Heading>
-            <p className="ml-6.7 text-grey 2xl:text-base text-sm 2xl:mt-6 mt-2">
-              我瞭解並同意Sacurn服務條款與隱私權政策
-            </p>
-            <hr className="border-silverstone 2xl:mt-8 mt-4 2xl:mb-5 mb-3" />
-            <p className="2xl:text-base text-xms text-black self-center mb-1">
-              點擊「前往付款」，訂單及送出，請於下一步選擇付款方式
-            </p>
-            <button
-              onClick={checkOutCart}
-              className="bg-navy-blue w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white"
-            >
-              前往付款
-            </button>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
@@ -119,19 +147,35 @@ interface CartItemIProps extends CartItemType {
 }
 
 const CartItem = (props: CartItemIProps) => {
-  const { selected, id, name, image, remaining_quantity, company_code, onSelectedChange } = props;
+  const { selected, id, name, image, remaining_quantity, order, company_code, onSelectedChange } = props;
+
+  const [qty, setQty] = useState(props.quantity || 0);
 
   const updateCartItemQty = useCartStore((store) => store.updateCartItemQty);
   const deleteCartItem = useCartStore((store) => store.deleteCartItem);
 
-  const quantity = props.quantity || 0;
   const price = props.price || 0;
 
-  const onQuantityChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    updateCartItemQty(id, {
-      quantity: parseInt(event.target.value)
-    });
-  }, []);
+  const onQuantityAdjust = useCallback(
+    (value: number) => {
+      const newQty = qty + value;
+      if (newQty >= 3 && newQty <= parseInt(remaining_quantity)) {
+        setQty(newQty);
+        updateCartItemQty(id, {
+          quantity: newQty,
+          order
+        });
+      }
+    },
+    [qty]
+  );
+
+  // const onQuantityChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+  //   updateCartItemQty(id, {
+  //     quantity: parseInt(event.target.value),
+  //     order
+  //   });
+  // }, []);
 
   return (
     <div
@@ -166,21 +210,28 @@ const CartItem = (props: CartItemIProps) => {
       <div className="flex flex-1 justify-between">
         <p className="text-[15px] font-medium text-black leading-9">剩下 {remaining_quantity} 噸可購</p>
         <div className="flex items-center gap-1.2" onClick={(e) => e.stopPropagation()}>
-          <button className="w-6 h-6 rounded-full border border-[#B3B4B4] text-black text-xl flex items-center justify-center">
+          <button
+            onClick={() => onQuantityAdjust(-1)}
+            className="w-6 h-6 rounded-full border border-[#B3B4B4] text-black text-xl flex items-center justify-center"
+          >
             -
           </button>
           <input
             className="w-17 h-9 rounded-md border border-[#B3B4B4] bg-transparent text-right pr-3.5 text-bright-blue text-2xl font-medium flex items-center justify-center"
-            type="text"
-            value={quantity}
-            onChange={onQuantityChange}
+            type="number"
+            value={qty}
+            // onChange={onQuantityChange}
+            disabled
           />
-          <button className="w-6 h-6 rounded-full border border-[#B3B4B4] text-black text-xl flex items-center justify-center">
+          <button
+            onClick={() => onQuantityAdjust(+1)}
+            className="w-6 h-6 rounded-full border border-[#B3B4B4] text-black text-xl flex items-center justify-center"
+          >
             +
           </button>
         </div>
         <div>
-          <p className="text-xl font-bold text-black">$ {quantity * price}</p>
+          <p className="text-xl font-bold text-black">$ {qty * price}</p>
         </div>
         <div>
           <img
