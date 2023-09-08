@@ -11,7 +11,7 @@ const WishList = () => {
   const getWishList = useWishListStore((state) => state.getWishList);
 
   useEffect(() => {
-    getWishList(1);
+    if (wishList.length === 0) getWishList();
   }, []);
 
   return (

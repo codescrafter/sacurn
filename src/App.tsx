@@ -9,7 +9,7 @@ import CompanyRegistration from '@/pages/CompanyRegistration';
 // import Dashboard from '@/pages/Dashboard';
 import HistoricalOrder from '@/pages/HistoricalOrder';
 import Login from '@/pages/Login';
-import NewsPage from '@/pages/NewsPage';
+// import NewsPage from '@/pages/NewsPage';
 import OperationRecord from '@/pages/OperationRecord';
 import OperatorSignUp from '@/pages/OperatorSignup';
 import ProductDetails from '@/pages/ProductDetails';
@@ -19,7 +19,8 @@ import WishList from '@/pages/Wishlist';
 
 import Modal from './components/Modal/UniversalModal';
 import ProductDetail from './components/ProductDetail';
-import AllProducts from './pages/AllProducts';
+import { ProtectedRoute } from './components/ProtectedRoute';
+// import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
 
 const router = createBrowserRouter([
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Products /> //<Dashboard />
+    element: (
+      <ProtectedRoute>
+        <Products />
+      </ProtectedRoute>
+    ) //<Dashboard />
   },
   // {
   //   path: '/product-list',
@@ -37,59 +42,95 @@ const router = createBrowserRouter([
   // },
   {
     path: '/product-carbon/:carbonId',
-    element: <ProductDetail />
-  },
-  {
-    path: '/product-list',
-    element: <AllProducts />
-  },
-  {
-    path: '/carbon-product-cart',
-    element: <ProductDetail />
+    element: (
+      <ProtectedRoute>
+        <ProductDetail />
+      </ProtectedRoute>
+    )
   },
   {
     path: '/product-detail/:id',
-    element: <ProductDetails />
+    element: (
+      <ProtectedRoute>
+        <ProductDetails />
+      </ProtectedRoute>
+    )
   },
-  {
-    path: '/latest-news',
-    element: <NewsPage />
-  },
+  // {
+  //   path: '/latest-news',
+  //   element: <NewsPage />
+  // },
   {
     path: '/operation-record',
-    element: <OperationRecord />
+    element: (
+      <ProtectedRoute>
+        <OperationRecord />
+      </ProtectedRoute>
+    )
   },
   {
     path: '/historical-order',
-    element: <HistoricalOrder />
+    element: (
+      <ProtectedRoute>
+        <HistoricalOrder />
+      </ProtectedRoute>
+    )
   },
   {
     path: '/cart',
-    element: <Cart />
+    element: (
+      <ProtectedRoute>
+        <Cart />
+      </ProtectedRoute>
+    )
   },
   {
     path: '/sales',
-    element: <Sales />
+    element: (
+      <ProtectedRoute>
+        <Sales />
+      </ProtectedRoute>
+    )
   },
   {
     path: '/sign-up',
-    element: <OperatorSignUp />
+    element: (
+      <ProtectedRoute>
+        <OperatorSignUp />
+      </ProtectedRoute>
+    )
   },
   {
     path: '/company-registration',
-    element: <CompanyRegistration />
+    element: (
+      <ProtectedRoute>
+        <CompanyRegistration />
+      </ProtectedRoute>
+    )
   },
   {
     path: '/wishlist',
-    element: <WishList />
+    element: (
+      <ProtectedRoute>
+        <WishList />
+      </ProtectedRoute>
+    )
   },
   {
     path: '/certificate/:carbonId',
-    element: <Certificate />
+    element: (
+      <ProtectedRoute>
+        <Certificate />
+      </ProtectedRoute>
+    )
   },
   {
     path: '/payment-information',
-    element: <PaymentInformation />
+    element: (
+      <ProtectedRoute>
+        <PaymentInformation />
+      </ProtectedRoute>
+    )
   }
 ]);
 
@@ -97,6 +138,7 @@ export default function App() {
   useEffect(() => {
     console.log('Starting');
   }, []);
+
   return (
     <div>
       <RouterProvider router={router} />

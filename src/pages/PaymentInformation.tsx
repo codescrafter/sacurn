@@ -56,7 +56,7 @@ const PaymentInformation = () => {
           </div>
           {/* Third col */}
           <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
-            <TotalPayment />
+            <TotalPayment totalPrice={cartDetail?.total_amount || 0} />
           </div>
         </div>
         <div className="flex justify-end pt-5">

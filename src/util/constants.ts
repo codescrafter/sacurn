@@ -9,10 +9,6 @@ import {
 } from '../type';
 
 export const NAVBAR_ITEMS: NavbarItemTypes[] = [
-  // {
-  //   name: '首頁',
-  //   path: '/'
-  // },
   {
     name: 'Product List',
     path: '/'
@@ -402,3 +398,5 @@ export const Policy: string = `非常歡迎您光臨「○○網站」（以下�
 本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。
 八、聯繫管道
 對於本站之隱私權政策有任何疑問，或者想提出變更、移除個人資料之請求，請前往本站「聯絡我們」頁面提交表單。`;
+
+export const MIN_CART_QTY = 3;

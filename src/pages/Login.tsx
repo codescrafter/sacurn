@@ -1,10 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { useUserStore } from '@/store/user';
+import { CompanyStatus } from '@/type';
 
 type LoginFormType = {
   username: string;
@@ -28,8 +29,14 @@ const Login = () => {
   console.log(formState);
 
   const onSubmit = handleSubmit(async (data) => {
-    const isSuccess = await login(data);
-    if (isSuccess) navigate('/');
+    const result = await login(data);
+    if (result.isSuccess) {
+      if (result.companyStatus === CompanyStatus.PassReview) {
+        navigate('/');
+      } else {
+        navigate('/company-registration');
+      }
+    }
   });
 
   return (
@@ -91,7 +98,7 @@ const Login = () => {
           </button>
         </form>
         <p className="text-slate-blue-grey text-center font-bold text-sm leading-[22px]">
-          Forgot password? <span className="text-black">or</span> Sign Up
+          Forgot password? <span className="text-black">or</span> <Link to="/sign-up">Sign Up</Link>
         </p>
       </div>
       <div className="bg-[url('../public/images/login/bg-bottom.png')] bg-cover bg-right absolute bottom-0 left-0 lg:h-60 h-40 w-full" />
