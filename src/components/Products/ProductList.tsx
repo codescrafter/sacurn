@@ -1,6 +1,8 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowUp';
-import { useEffect } from 'react';
+import classNames from 'classnames';
+import { useCallback, useEffect } from 'react';
 
+import { useFilterOptionsStore } from '@/store/filterOptions';
 import { useProductListStore } from '@/store/productList';
 import { useWishListStore } from '@/store/wishList';
 
@@ -10,14 +12,28 @@ import Tile from './Tile';
 
 const ProductList = () => {
   const productList = useProductListStore((state) => state.productList);
-  const getProductList = useProductListStore((state) => state.getProductList);
+  const updateProductListFilters = useProductListStore((state) => state.updateProductListFilters);
+  const getProductListWithFilter = useProductListStore((state) => state.getProductListWithFilter);
+  const filters = useProductListStore((state) => state.filters);
   const wishList = useWishListStore((state) => state.wishList);
   const getWishList = useWishListStore((state) => state.getWishList);
+  const getFilterOptions = useFilterOptionsStore((state) => state.getFilterOptions);
+  const locationOptions = useFilterOptionsStore((state) => state.locationOptions);
+  const vintageOptions = useFilterOptionsStore((state) => state.vintageOptions);
 
   useEffect(() => {
-    if (productList.length === 0) getProductList();
+    getFilterOptions();
+    if (productList.length === 0) getProductListWithFilter();
     if (wishList.length === 0) getWishList();
   }, []);
+
+  const onSortChange = useCallback(() => {
+    updateProductListFilters({
+      desc: !filters.desc
+    });
+  }, [filters.desc]);
+
+  console.log(filters.desc);
 
   return (
     <div className="flex pr-10">
@@ -34,28 +50,44 @@ const ProductList = () => {
           <div className="flex justify-end items-center gap-5">
             <SelectField
               label="Location"
-              value="Location"
-              handleChange={(value: string) => {
-                console.log(value);
+              value={filters.location}
+              options={locationOptions}
+              handleChange={(location: (typeof locationOptions)[number]['value'] | undefined) => {
+                updateProductListFilters({
+                  location
+                });
               }}
             />
             <SelectField
               label="Vintages"
-              value="Vintages"
-              handleChange={(value: string) => {
-                console.log(value);
+              value={filters.vintage}
+              options={vintageOptions}
+              handleChange={(vintage: (typeof vintageOptions)[number]['value'] | undefined) => {
+                updateProductListFilters({
+                  vintage
+                });
               }}
             />
             <SelectField
               label="Price"
               value="Price"
-              handleChange={(value: string) => {
-                console.log(value);
+              options={[]}
+              handleChange={(price: string | undefined) => {
+                updateProductListFilters({
+                  price
+                });
               }}
             />
           </div>
-          <div className="text-white">
-            Sort: Low to High <KeyboardArrowDownIcon />
+          <div className="text-white" onClick={onSortChange}>
+            Sort: Low to High
+            <span>
+              <KeyboardArrowDownIcon
+                className={classNames({
+                  'scale-y-[-1]': !filters.desc
+                })}
+              />
+            </span>
           </div>
         </div>
         <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 overflow-scroll overflow-x-hidden">
@@ -64,6 +96,7 @@ const ProductList = () => {
               <Tile
                 key={product.id}
                 id={product.id}
+                tag={filters.tag}
                 image={product.image || '-'}
                 name={product.name || '-'}
                 // rating={product.rating}

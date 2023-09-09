@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 export type FilterList = {
-    location_list?: Array<any>;
-    vintage_list?: Array<any>;
+    location_list?: Array<string>;
+    vintage_list?: Array<string>;
 };
 

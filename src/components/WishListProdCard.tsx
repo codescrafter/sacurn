@@ -1,7 +1,9 @@
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { WatchList } from '@/libs/api';
 import { useWishListStore } from '@/store/wishList';
+import { CarbonTag } from '@/type';
 
 interface IProps {
   product: WatchList;
@@ -17,8 +19,16 @@ const WishListProdCard = ({ product }: IProps) => {
     <>
       <div className="flex flex-row px-5.7 py-3.2 min-[1700px]:w-[810px] min-[1500px]:min-w-[700px] min-[630px] w-auto bg-milky rounded-lg max-h-[190px]">
         <img
-          className="min-[1700px]:w-[256px] min-[1700px]:h-[162px] min-[1500px]:min-w-[220px] min-[1200px]:min-w-[180px] min-w-[150px] w-auto min-[1500px]:h-[150px] min-[1200px]:h-[130px] h-[140px] rounded-lg mr-3"
           src={product.image}
+          className={classNames(
+            'min-[1700px]:w-[256px] min-[1700px]:h-[162px] min-[1500px]:min-w-[220px] min-[1200px]:min-w-[180px] min-w-[150px] w-auto min-[1500px]:h-[150px] min-[1200px]:h-[130px] h-[140px] rounded-lg mr-3 border-[5px]',
+            {
+              'border-light-green': product.carbon_tag === CarbonTag.Green,
+              'border-yellow': product.carbon_tag === CarbonTag.Yellow,
+              'border-navy-blue': product.carbon_tag === CarbonTag.Blue,
+              [product.carbon_tag]: true
+            }
+          )}
         />
         <div className="flex flex-col w-full">
           <h1 className="min-[1500px]:text-lg min-[1200px]:text-base text-sm text-navy-blue font-bold">
