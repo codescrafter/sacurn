@@ -1,5 +1,5 @@
 import cookies from 'js-cookie';
-import { ReactNode, useEffect } from 'react';
+import { Fragment, ReactNode, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { useCompanyStore } from '@/store/company';
@@ -33,5 +33,5 @@ export const ProtectedRoute = ({ children }: ProtectedRoute) => {
     }
   }, []);
 
-  return children;
+  return <Fragment>{children}</Fragment>;
 };

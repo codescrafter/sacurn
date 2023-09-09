@@ -20,7 +20,7 @@ import WishList from '@/pages/Wishlist';
 import Modal from './components/Modal/UniversalModal';
 import ProductDetail from './components/ProductDetail';
 import { ProtectedRoute } from './components/ProtectedRoute';
-// import AllProducts from './pages/AllProducts';
+import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
 
 const router = createBrowserRouter([
