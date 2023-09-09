@@ -124,5 +124,4 @@ export class CancelablePromise<T> implements Promise<T> {
         this.cancelHandlers.length = 0;
         this.reject?.(new CancelError('Request aborted'));
     }
-
 }

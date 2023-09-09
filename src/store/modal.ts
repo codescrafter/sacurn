@@ -19,7 +19,8 @@ export enum ModalType {
   MakeStockOnSale = 'MakeStockOnSale',
   MakeStockOffShelve = 'MakeStockOffShelve',
   CheckOutConfirm = 'CheckOutConfirm',
-  Error = 'Error'
+  Error = 'Error',
+  CompanyReviewing = 'CompanyReviewing'
 }
 
 const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
@@ -65,8 +66,8 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
   [ModalType.AddToCart]: {
     status: UniversalModalStatus.Info,
     icon: '/images/ic_success.svg',
-    title: '恭喜！已開始交易',
-    description: '已完成上架作業',
+    title: '商品已加入購物車',
+    description: '已完成',
     buttons: [
       {
         text: '關閉'
@@ -103,6 +104,20 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
     icon: '/images/ic_error.svg',
     title: '再次提醒',
     description: '結帳後請您於30分鐘內進行付款，否則系統將會取消交易。 ',
+    buttons: [
+      {
+        text: '返回商品列表'
+      },
+      {
+        text: '確認結帳'
+      }
+    ]
+  },
+  [ModalType.CompanyReviewing]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '公司審核中',
+    description: '我們已經收到您建立法人帳戶的申請，待審核過尚可使用本系統',
     buttons: [
       {
         text: '返回商品列表'

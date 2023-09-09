@@ -38,13 +38,13 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     let isSuccess = false;
     try {
       useModalStore.getState().open(ModalType.Loading);
-      const orderData = await apiClient.trade.tradeListCarbonOrderRetrieve(carbonCreditId.toString());
+      const response = await apiClient.trade.tradeListCarbonOrderRetrieve(carbonCreditId.toString());
       // get response and set into stock set({ stockList: response.results });
       const stockIndex = get().stockList.findIndex((stock) => stock.id === carbonCreditId);
 
       if (stockIndex >= 0) {
         const newStockList = Array.from(get().stockList);
-        newStockList[stockIndex].orderData = orderData;
+        newStockList[stockIndex].orderData = response.order;
         set({ stockList: newStockList });
       } else {
         throw new Error('Not found stock index');
