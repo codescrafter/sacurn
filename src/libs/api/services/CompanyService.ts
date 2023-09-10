@@ -12,10 +12,12 @@ import type { PlanRecord } from '../models/PlanRecord';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
+import { ExtendedCompany } from '../models/ExtendedCompany';
+import { PatchedExtendedCompany } from '../models/PatchedExtendedCompany';
 
 export class CompanyService {
 
-    constructor(public readonly httpRequest: BaseHttpRequest) {}
+    constructor(public readonly httpRequest: BaseHttpRequest) { }
 
     /**
      * image: registration_document, representative_id_card_front, representative_id_card_back, account_image
@@ -28,7 +30,7 @@ export class CompanyService {
      * @throws ApiError
      */
     public companyCreate(
-        requestBody: FormData,
+        requestBody: ExtendedCompany,
     ): CancelablePromise<Company> {
         return this.httpRequest.request({
             method: 'POST',
@@ -73,7 +75,7 @@ export class CompanyService {
      */
     public companyPartialUpdate(
         id: number,
-        requestBody?: FormData,
+        requestBody?: PatchedExtendedCompany,
     ): CancelablePromise<Company> {
         return this.httpRequest.request({
             method: 'PATCH',

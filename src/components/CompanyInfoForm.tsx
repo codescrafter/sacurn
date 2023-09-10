@@ -159,7 +159,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     formData.append('address', JSON.stringify(dataToSubmit.address));
     formData.append('created_at', dataToSubmit.created_at);
     formData.append('updated_at', dataToSubmit.updated_at);
-    // formData.append('registration_document', dataToSubmit.registration_document); // appending in form data
     for (const img of uploadedDocs) {
       formData.append('registration_document', img);
     }
