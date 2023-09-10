@@ -39,8 +39,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     try {
       useModalStore.getState().open(ModalType.Loading);
       const response = await apiClient.trade.tradeListCarbonOrderRetrieve(carbonCreditId.toString());
-      // get response and set into stock set({ stockList: response.results });
-      const stockIndex = get().stockList.findIndex((stock) => stock.id === carbonCreditId);
+      const stockIndex = get().stockList.findIndex((stock) => stock.carbon_credit === carbonCreditId);
 
       if (stockIndex >= 0) {
         const newStockList = Array.from(get().stockList);
@@ -86,6 +85,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
       await apiClient.trade.tradeOrderSellDestroy(id);
       useModalStore.getState().close();
     } catch (error) {
+      console.log('xx', error);
       const err = error as Error;
       console.error(err);
       useModalStore.getState().open(ModalType.Error, {

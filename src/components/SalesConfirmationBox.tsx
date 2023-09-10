@@ -54,6 +54,7 @@ const SalesConfirmationBox = (props: IProps) => {
           <input
             type="number"
             value={qty}
+            disabled={actionType === ActionType.MakeOffShelve}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
             onChange={(e) => {
               const newQty = parseInt(e.target.value);
@@ -71,6 +72,7 @@ const SalesConfirmationBox = (props: IProps) => {
           <input
             type="number"
             value={price}
+            disabled={actionType === ActionType.MakeOffShelve}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
             onChange={(e) => setPrice(parseInt(e.target.value))}
           />
@@ -84,6 +86,7 @@ const SalesConfirmationBox = (props: IProps) => {
           <input
             type="number"
             value={minUnit}
+            disabled={actionType === ActionType.MakeOffShelve}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
             onChange={(e) => {
               const newMinUnit = parseInt(e.target.value);
