@@ -417,7 +417,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
         type="submit"
         className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md absolute bottom-7 right-5"
       >
-        储存 | 下一步
+        儲存 | 下一步
       </CustomButton>
     </form>
   );
