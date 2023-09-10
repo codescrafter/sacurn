@@ -20,6 +20,7 @@ const ProductList = () => {
   const getFilterOptions = useFilterOptionsStore((state) => state.getFilterOptions);
   const locationOptions = useFilterOptionsStore((state) => state.locationOptions);
   const vintageOptions = useFilterOptionsStore((state) => state.vintageOptions);
+  const priceOptions = useFilterOptionsStore((state) => state.priceOptions);
 
   useEffect(() => {
     getFilterOptions();
@@ -32,8 +33,6 @@ const ProductList = () => {
       desc: !filters.desc
     });
   }, [filters.desc]);
-
-  console.log(filters.desc);
 
   return (
     <div className="flex pr-10">
@@ -71,7 +70,7 @@ const ProductList = () => {
             <SelectField
               label="Price"
               value="Price"
-              options={[]}
+              options={priceOptions}
               handleChange={(price: string | undefined) => {
                 updateProductListFilters({
                   price

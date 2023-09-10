@@ -16,9 +16,10 @@ interface IProps {
   className?: string;
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset' | undefined;
+  isDisabled?: boolean;
 }
 
-const CustomButton = ({ variant = 'primary', children, className, type, onClick }: IProps) => {
+const CustomButton = ({ variant = 'primary', children, className, type, onClick, isDisabled }: IProps) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   return (
     <button
@@ -29,13 +30,15 @@ const CustomButton = ({ variant = 'primary', children, className, type, onClick 
         'rounded-full text-white bg-navy-blue': variant === 'rounded-full',
         'bg-transparent border border-navy-blue text-navy-blue': variant === 'outline',
         'bg-transparent border border-navy-blue rounded-xl text-white': variant === 'rounded-outline',
-        'btn-transition': isClicked
+        'btn-transition': isClicked,
+        'bg-silverstone': isDisabled
       })}
       type={type}
       onClick={() => {
         setIsClicked(true);
         onClick && onClick();
       }}
+      disabled={isDisabled}
     >
       {children}
     </button>
