@@ -5,6 +5,8 @@
 import type { Cart } from '../models/Cart';
 import type { CartDetail } from '../models/CartDetail';
 import type { CartDetailResonse } from '../models/CartDetailResonse';
+import type { CartRequest } from '../models/CartRequest';
+import type { ListCarbonOrder } from '../models/ListCarbonOrder';
 import type { Order } from '../models/Order';
 import type { OrderBuy } from '../models/OrderBuy';
 import type { OrderSell } from '../models/OrderSell';
@@ -25,9 +27,6 @@ export class TradeService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
 
     /**
-     * status_code
-     *
-     * 409: 庫存數量小於下單數量
      * @param page A page number within the paginated result set.
      * @returns PaginatedCartList
      * @throws ApiError
@@ -48,12 +47,20 @@ export class TradeService {
      * status_code
      *
      * 409: 庫存數量小於下單數量
+     *
+     * status
+     *
+     * 0: 待結帳
+     *
+     * 1：已結帳
+     *
+     * 2：刪除
      * @param requestBody
      * @returns Cart
      * @throws ApiError
      */
     public tradeCartCreate(
-        requestBody: Cart,
+        requestBody?: CartRequest,
     ): CancelablePromise<Cart> {
         return this.httpRequest.request({
             method: 'POST',
@@ -64,9 +71,6 @@ export class TradeService {
     }
 
     /**
-     * status_code
-     *
-     * 409: 庫存數量小於下單數量
      * @param id
      * @param requestBody
      * @returns Cart
@@ -88,9 +92,6 @@ export class TradeService {
     }
 
     /**
-     * status_code
-     *
-     * 409: 庫存數量小於下單數量
      * @param id
      * @returns void
      * @throws ApiError
@@ -158,12 +159,12 @@ export class TradeService {
 
     /**
      * @param carbonCreditId 碳權pk
-     * @returns Order
+     * @returns ListCarbonOrder
      * @throws ApiError
      */
     public tradeListCarbonOrderRetrieve(
         carbonCreditId?: string,
-    ): CancelablePromise<Order> {
+    ): CancelablePromise<ListCarbonOrder> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/trade/list_carbon_order/',

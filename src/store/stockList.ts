@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 
-import { Inventory, Order, OrderSell } from '@/libs/api';
+import { Inventory, ListCarbonOrder, OrderSell } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
 
 export type StockItem = {
   action: string | null;
-  orderData: Order | null;
+  orderData: ListCarbonOrder | null;
 } & Inventory;
 
 type StockListState = {

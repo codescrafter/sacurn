@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type FilterList = {
-    location_list?: Array<string>;
-    vintage_list?: Array<string>;
-    price_list?: Array<string>;
+import type { Order } from './Order';
+
+export type ListCarbonOrder = {
+    order?: Array<Order>;
 };
 

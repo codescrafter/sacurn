@@ -265,7 +265,7 @@ const Sales = () => {
                                         單價/噸
                                       </span>
                                       <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                        {stockItem.orderData?.price || '-'}
+                                        {stockItem.orderData?.order?.[0].price || '-'}
                                       </span>
                                     </div>
                                     {/* member id */}
@@ -274,7 +274,7 @@ const Sales = () => {
                                         最低單位
                                       </span>
                                       <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                        {stockItem.orderData?.min_order_quantity || '-'}
+                                        {stockItem.orderData?.order?.[0].min_order_quantity || '-'}
                                       </span>
                                     </div>
                                     {/* transaction status */}
@@ -283,7 +283,7 @@ const Sales = () => {
                                         數量
                                       </span>
                                       <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                        {stockItem.orderData?.quantity || '-'}
+                                        {stockItem.orderData?.order?.[0].quantity || '-'}
                                       </span>
                                     </div>
                                     <Button

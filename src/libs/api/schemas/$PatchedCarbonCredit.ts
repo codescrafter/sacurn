@@ -60,6 +60,27 @@ export const $PatchedCarbonCredit = {
             type: 'string',
             maxLength: 50,
         },
+        rating: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 8,
+        },
+        co_benefit: {
+            type: 'number',
+            isNullable: true,
+            maximum: 2147483647,
+            minimum: -2147483648,
+        },
+        standard: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 128,
+        },
+        type: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
         created_at: {
             type: 'string',
             isReadOnly: true,
