@@ -5,7 +5,6 @@
 import type { Company } from '../models/Company';
 import type { Employee } from '../models/Employee';
 import type { ExtendedCompany } from '../models/ExtendedCompany';
-import type { PaginatedCompanyList } from '../models/PaginatedCompanyList';
 import type { PaginatedEmployeeList } from '../models/PaginatedEmployeeList';
 import type { PaginatedPlanList } from '../models/PaginatedPlanList';
 import type { PaginatedPlanRecordList } from '../models/PaginatedPlanRecordList';
@@ -18,29 +17,7 @@ import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class CompanyService {
 
-    constructor(public readonly httpRequest: BaseHttpRequest) { }
-
-    /**
-     * image: registration_document, representative_id_card_front, representative_id_card_back, account_image
-     *
-     * status: 0(新增公司未送審), 1(送審中) 2(審核通過)
-     *
-     * address 存放json dict
-     * @param page A page number within the paginated result set.
-     * @returns PaginatedCompanyList
-     * @throws ApiError
-     */
-    public companyList(
-        page?: number,
-    ): CancelablePromise<PaginatedCompanyList> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/company/',
-            query: {
-                'page': page,
-            },
-        });
-    }
+    constructor(public readonly httpRequest: BaseHttpRequest) {}
 
     /**
      * image: registration_document, representative_id_card_front, representative_id_card_back, account_image
@@ -53,13 +30,13 @@ export class CompanyService {
      * @throws ApiError
      */
     public companyCreate(
-        requestBody: FormData,
+        requestBody: ExtendedCompany,
     ): CancelablePromise<Company> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/company/',
             body: requestBody,
-            mediaType: 'multipart/form-data',
+            mediaType: 'application/multi-part/form-data',
         });
     }
 
@@ -98,7 +75,7 @@ export class CompanyService {
      */
     public companyPartialUpdate(
         id: number,
-        requestBody?: FormData,
+        requestBody?: PatchedExtendedCompany,
     ): CancelablePromise<Company> {
         return this.httpRequest.request({
             method: 'PATCH',
@@ -107,8 +84,7 @@ export class CompanyService {
                 'id': id,
             },
             body: requestBody,
-            mediaType: 'multipart/form-data',
-            // mediaType: 'application/json',
+            mediaType: 'application/multi-part/form-data',
         });
     }
 

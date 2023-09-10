@@ -9,12 +9,14 @@ type OptionType = { name: string; value: string };
 export type FilterOptionsState = {
   locationOptions: OptionType[];
   vintageOptions: OptionType[];
+  priceOptions: OptionType[];
   getFilterOptions: () => void;
 };
 
 export const useFilterOptionsStore = create<FilterOptionsState>((set, get) => ({
   locationOptions: [],
   vintageOptions: [],
+  priceOptions: [],
   getFilterOptions: async () => {
     if (get().locationOptions.length !== 0 || get().vintageOptions.length !== 0) return;
 
@@ -23,7 +25,10 @@ export const useFilterOptionsStore = create<FilterOptionsState>((set, get) => ({
       const filterOptions = await apiClient.carbonCredit.carbonCreditFilterListRetrieve();
       const locationOptions = filterOptions.location_list?.map((item) => ({ name: item, value: item }));
       const vintageOptions = filterOptions.vintage_list?.map((item) => ({ name: item, value: item }));
-      set({ locationOptions, vintageOptions });
+      // 10,100 -> 10 ~ 100
+      const priceOptions = filterOptions.price_list?.map((item) => ({ name: item.replace(',', ' ~ '), value: item }));
+
+      set({ locationOptions, vintageOptions, priceOptions });
       useModalStore.getState().close();
     } catch (error) {
       const err = error as Error;

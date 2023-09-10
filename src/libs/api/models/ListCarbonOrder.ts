@@ -6,6 +6,6 @@
 import type { Order } from './Order';
 
 export type ListCarbonOrder = {
-    order: Order;
+    order?: Array<Order>;
 };
 

@@ -44,7 +44,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
 
       if (stockIndex >= 0) {
         const newStockList = Array.from(get().stockList);
-        newStockList[stockIndex].orderData = response.order;
+        newStockList[stockIndex].orderData = response.order?.[0] || null;
         set({ stockList: newStockList });
       } else {
         throw new Error('Not found stock index');

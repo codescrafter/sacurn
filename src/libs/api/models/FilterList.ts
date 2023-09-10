@@ -6,5 +6,6 @@
 export type FilterList = {
     location_list?: Array<string>;
     vintage_list?: Array<string>;
+    price_list?: Array<string>;
 };
 

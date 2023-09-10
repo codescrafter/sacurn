@@ -36,6 +36,6 @@ export type ExtendedCompany = {
     terms_of_service_confirm?: boolean;
     terms_of_service_confirm_at?: string | null;
     status?: number;
-    registration_document: string | File[];
+    registration_document: string;
 };
 

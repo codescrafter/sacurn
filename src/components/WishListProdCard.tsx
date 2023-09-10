@@ -47,7 +47,7 @@ const WishListProdCard = ({ product }: IProps) => {
             </p>
             <div className="flex flex-row gap-2 w-max">
               <Link to={`/product-carbon/${product.id}`}>
-                <button className="bg-pale-yellow rounded-lg min-[1500px]:px-8 px-5 mx-auto min-[1500px]:py-0.7 py-0.5">
+                <button className="bg-pale-yellow h-full rounded-lg min-[1500px]:px-8 px-5 mx-auto min-[1500px]:py-0.7 py-0.5">
                   <img src="/images/wishlist/dollar.svg" className="min-[1500px]:w-3.2 w-2.5 min-[1500px]:h-5.5 h-4" />
                 </button>
               </Link>

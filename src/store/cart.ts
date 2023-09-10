@@ -5,6 +5,11 @@ import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
 
+export type CheckoutResult = {
+  isSuccess: boolean;
+  checkoutDetail: TransactionDetail | null;
+};
+
 type CartItem = {
   selected: boolean;
 } & Cart;
@@ -12,7 +17,6 @@ type CartItem = {
 type CartState = {
   cartList: CartItem[];
   cartDetail: CartDetailResonse | null;
-  checkoutDetail: TransactionDetail | null;
   getSelectedCartIdList: () => CartItem['id'][];
   getCartList: (page?: number) => void;
   getCartDetail: () => void;
@@ -20,13 +24,12 @@ type CartState = {
   updateCartItemSelected: (id: Cart['id'], index: number, isSelected: boolean) => void;
   updateCartItemQty: (...args: Parameters<typeof apiClient.trade.tradeCartPartialUpdate>) => void;
   deleteCartItem: (id: number) => void;
-  checkOutCart: () => Promise<boolean>;
+  checkOutCart: () => Promise<CheckoutResult>;
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
   cartList: [],
   cartDetail: null,
-  checkoutDetail: null,
   getSelectedCartIdList: () =>
     get()
       .cartList.filter((item) => item.selected)
@@ -111,15 +114,17 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
   checkOutCart: async () => {
-    let isSuccess = false;
+    const result: CheckoutResult = {
+      isSuccess: false,
+      checkoutDetail: null
+    };
     try {
       useModalStore.getState().open(ModalType.Loading);
       const checkoutDetail = await apiClient.trade.tradeOrderBuyCreate({
         cart_id_list: get().getSelectedCartIdList()
       });
-      // set({ checkoutDetail, cartList: [], cartDetail: null });
-      set({ checkoutDetail });
-      isSuccess = true;
+      result.isSuccess = true;
+      result.checkoutDetail = checkoutDetail;
       useModalStore.getState().close();
     } catch (error) {
       const err = error as Error;
@@ -128,6 +133,6 @@ export const useCartStore = create<CartState>((set, get) => ({
         errorText: `[${err.name}] ${err.message}`
       });
     }
-    return isSuccess;
+    return result;
   }
 }));

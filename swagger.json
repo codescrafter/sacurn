@@ -346,9 +346,9 @@
                         "in": "query",
                         "name": "desc",
                         "schema": {
-                            "type": "string"
+                            "type": "boolean"
                         },
-                        "description": "價格排序方式: false(default), true"
+                        "description": "價格排序方式"
                     },
                     {
                         "in": "query",
@@ -899,47 +899,6 @@
             }
         },
         "/company/": {
-            "get": {
-                "operationId": "company_list",
-                "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(新增公司未送審), 1(送審中) 2(審核通過)\n\naddress 存放json dict",
-                "parameters": [
-                    {
-                        "name": "page",
-                        "required": false,
-                        "in": "query",
-                        "description": "A page number within the paginated result set.",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "tags": [
-                    "company"
-                ],
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {
-                        "jwtHeaderAuth": []
-                    },
-                    {
-                        "jwtCookieAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/PaginatedCompanyList"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            },
             "post": {
                 "operationId": "company_create",
                 "description": "image: registration_document, representative_id_card_front, representative_id_card_back, account_image\n\nstatus: 0(新增公司未送審), 1(送審中) 2(審核通過)\n\naddress 存放json dict",
@@ -948,17 +907,7 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ExtendedCompany"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ExtendedCompany"
-                            }
-                        },
-                        "multipart/form-data": {
+                        "application/multi-part/form-data": {
                             "schema": {
                                 "$ref": "#/components/schemas/ExtendedCompany"
                             }
@@ -1050,17 +999,7 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PatchedExtendedCompany"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PatchedExtendedCompany"
-                            }
-                        },
-                        "multipart/form-data": {
+                        "application/multi-part/form-data": {
                             "schema": {
                                 "$ref": "#/components/schemas/PatchedExtendedCompany"
                             }
@@ -2903,6 +2842,27 @@
                         "type": "string",
                         "maxLength": 50
                     },
+                    "rating": {
+                        "type": "string",
+                        "nullable": true,
+                        "maxLength": 8
+                    },
+                    "co_benefit": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": -2147483648,
+                        "nullable": true
+                    },
+                    "standard": {
+                        "type": "string",
+                        "nullable": true,
+                        "maxLength": 128
+                    },
+                    "type": {
+                        "type": "string",
+                        "nullable": true,
+                        "maxLength": 45
+                    },
                     "created_at": {
                         "type": "string",
                         "format": "date-time",
@@ -3481,12 +3441,23 @@
                 "properties": {
                     "location_list": {
                         "type": "array",
-                        "items": {},
+                        "items": {
+                            "type": "string"
+                        },
                         "default": []
                     },
                     "vintage_list": {
                         "type": "array",
-                        "items": {},
+                        "items": {
+                            "type": "string"
+                        },
+                        "default": []
+                    },
+                    "price_list": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
                         "default": []
                     }
                 }
@@ -3561,12 +3532,13 @@
                 "type": "object",
                 "properties": {
                     "order": {
-                        "$ref": "#/components/schemas/Order"
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Order"
+                        },
+                        "default": []
                     }
-                },
-                "required": [
-                    "order"
-                ]
+                }
             },
             "Login": {
                 "type": "object",
@@ -3936,33 +3908,6 @@
                     }
                 }
             },
-            "PaginatedCompanyList": {
-                "type": "object",
-                "properties": {
-                    "count": {
-                        "type": "integer",
-                        "example": 123
-                    },
-                    "next": {
-                        "type": "string",
-                        "nullable": true,
-                        "format": "uri",
-                        "example": "http://api.example.org/accounts/?page=4"
-                    },
-                    "previous": {
-                        "type": "string",
-                        "nullable": true,
-                        "format": "uri",
-                        "example": "http://api.example.org/accounts/?page=2"
-                    },
-                    "results": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Company"
-                        }
-                    }
-                }
-            },
             "PaginatedEmployeeList": {
                 "type": "object",
                 "properties": {
@@ -4322,6 +4267,27 @@
                     "serial_number": {
                         "type": "string",
                         "maxLength": 50
+                    },
+                    "rating": {
+                        "type": "string",
+                        "nullable": true,
+                        "maxLength": 8
+                    },
+                    "co_benefit": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": -2147483648,
+                        "nullable": true
+                    },
+                    "standard": {
+                        "type": "string",
+                        "nullable": true,
+                        "maxLength": 128
+                    },
+                    "type": {
+                        "type": "string",
+                        "nullable": true,
+                        "maxLength": 45
                     },
                     "created_at": {
                         "type": "string",
