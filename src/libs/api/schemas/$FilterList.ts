@@ -16,7 +16,7 @@ export const $FilterList = {
                 type: 'string',
             },
         },
-        price: {
+        price_list: {
             type: 'array',
             contains: {
                 type: 'string',
