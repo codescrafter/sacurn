@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ModalType, useModalStore } from '@/store/modal';
 import { StockItem, useStockListStore } from '@/store/stockList';
+import { MIN_CART_QTY } from '@/util/constants';
 
 import Button from './Button';
 import HorizontalDivider from './HorizontalDivider';
@@ -21,19 +22,26 @@ const SalesConfirmationBox = (props: IProps) => {
   const { actionType, onClose, stockItem } = props;
 
   const open = useModalStore((state) => state.open);
-  // const updateStockOnSale = useStockListStore((state) => state.updateStockOnSale);
+  const updateStockOnSale = useStockListStore((state) => state.updateStockOnSale);
   const updateStockOffShelve = useStockListStore((state) => state.updateStockOffShelve);
+  const [qty, setQty] = useState<number>(stockItem.quantity || 0);
+  const [price, setPrice] = useState<number>(stockItem.price || 0);
+  const [minUnit, setMinUnit] = useState<number>(MIN_CART_QTY);
 
   return (
     <div className="flex flex-col px-3 2xl:pl-[35px] 2xl:pr-[23px] py-5 2xl:pt-[33px] 2xl:pb-[26px] border-2 border-bright-blue bg-white rounded-[10px] shadow-sales-box">
       <h5 className="font-bold text-xl xl:text-[32]px text-black">{stockItem.name}</h5>
       {/* vintage */}
-      <div className="flex items-center justify-between mt-6 xl:mt-[33px]">
+      <div className="flex items-center justify-between mt-6 xl:mt-[30px]">
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">Vintage製造年份</span>
         <span className="text-lg xl:text-xl text-black font-bold">{stockItem.vintage}</span>
       </div>
+      <div className="flex items-center justify-between mt-6 xl:mt-[30px]">
+        <span className=" text-lg xl:text-xl font-normal text-dark-grey">單價</span>
+        <span className="text-lg xl:text-xl text-black font-bold">{stockItem.price}</span>
+      </div>
       {/* no of goods */}
-      <div className="flex items-center justify-between my-5 xl:my-[30px]">
+      <div className="flex items-center justify-between mt-6 mb-5 xl:my-[30px]">
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">商品擁有數量</span>
         <span className="text-lg xl:text-xl text-black font-bold">{stockItem.quantity}</span>
       </div>
@@ -44,9 +52,14 @@ const SalesConfirmationBox = (props: IProps) => {
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">設定可交易數量</span>
         <div className="flex items-center gap-2">
           <input
-            type="text"
-            value="99,999"
+            type="number"
+            value={qty}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
+            onChange={(e) => {
+              const newQty = parseInt(e.target.value);
+              if (newQty > (stockItem.quantity || 0)) return;
+              setQty(parseInt(e.target.value));
+            }}
           />
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
@@ -56,11 +69,12 @@ const SalesConfirmationBox = (props: IProps) => {
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">設定交易價格</span>
         <div className="flex items-center gap-2">
           <input
-            type="text"
-            value="999,999,999"
+            type="number"
+            value={price}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
+            onChange={(e) => setPrice(parseInt(e.target.value))}
           />
-          <span className="text-black font-normal text-base xl:text-xl">噸</span>
+          <span className="text-black font-normal text-base xl:text-xl">元</span>
         </div>
       </div>
       {/* transaction unit */}
@@ -68,9 +82,14 @@ const SalesConfirmationBox = (props: IProps) => {
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">設定交易最小單位</span>
         <div className="flex items-center gap-2">
           <input
-            type="text"
-            value="99,999"
+            type="number"
+            value={minUnit}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
+            onChange={(e) => {
+              const newMinUnit = parseInt(e.target.value);
+              if (newMinUnit > (stockItem.quantity || 0)) return;
+              setMinUnit(parseInt(e.target.value));
+            }}
           />
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
@@ -103,9 +122,10 @@ const SalesConfirmationBox = (props: IProps) => {
       <div className="flex items-center justify-center gap-4 2xl:gap-20 px-8 mt-5 xl:mt-[26px]">
         {actionType === ActionType.MakeOnSale && (
           <Button
-            className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl !bg-pale-yellow !text-navy-blue"
+            className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl bg-navy-blue text-white"
             onClick={() => {
-              // updateStockOnSale();
+              updateStockOnSale(stockItem.carbon_credit, qty, price, minUnit);
+              onClose();
             }}
           >
             上架交易
@@ -124,7 +144,10 @@ const SalesConfirmationBox = (props: IProps) => {
                   },
                   {
                     text: '確認停止交易',
-                    onClick: () => updateStockOffShelve(stockItem.carbon_credit)
+                    onClick: () => {
+                      updateStockOffShelve(stockItem.carbon_credit);
+                      onClose();
+                    }
                   }
                 ]
               });
