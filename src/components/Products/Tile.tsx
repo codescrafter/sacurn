@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import dateFormat from 'dateformat';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -16,12 +17,13 @@ interface IProps {
   rating?: string;
   standard?: string;
   type?: string;
+  coBenefit: number;
   vintage: string;
   minPrice: string;
   maxPrice: string;
 }
 
-const Tile = ({ id, tag, name, rating, image, standard, type, vintage, minPrice, maxPrice }: IProps) => {
+const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage, minPrice, maxPrice }: IProps) => {
   const addToWhishList = useWishListStore((store) => store.addToWhishList);
   const deleteWishList = useWishListStore((store) => store.deleteWishList);
   const wishList = useWishListStore((store) => store.wishList);
@@ -61,7 +63,7 @@ const Tile = ({ id, tag, name, rating, image, standard, type, vintage, minPrice,
               <br />
               <div className="inline-flex items-center bg-white gap-1 bg-red-200 rounded-full px-5 py-1 text-blue text-sm font-bold">
                 Co-Benefit
-                <CustomRating />
+                <CustomRating count={coBenefit} />
               </div>
             </>
           )}
@@ -81,7 +83,7 @@ const Tile = ({ id, tag, name, rating, image, standard, type, vintage, minPrice,
             )}
             <div className="flex gap-10 items-center">
               <p className="font-xs text-grey w-[25%]">Vintage</p>
-              <p className="text-sm text-black w-[75%]">{vintage}</p>
+              <p className="text-sm text-black w-[75%]">{dateFormat(vintage, 'yyyy')}</p>
             </div>
           </div>
         </div>
