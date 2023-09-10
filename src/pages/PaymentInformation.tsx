@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import CustomButton from '@/components/CustomButton';
 import LightLayout from '@/components/LightLayout';
 import TotalPayment from '@/components/TotalPayment';
-import { useCartStore } from '@/store/cart';
+import { CheckoutResult, useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
 
 const PaymentInformation = () => {
@@ -13,7 +13,9 @@ const PaymentInformation = () => {
   const checkOutCart = useCartStore((store) => store.checkOutCart);
   const open = useModalStore((state) => state.open);
 
-  const [isCheckout, setIsCheckouts] = useState(false);
+  const [checkoutDetail, setCheckoutDetail] = useState<CheckoutResult['checkoutDetail']>(null);
+
+  const isCheckout = useMemo(() => checkoutDetail !== null, [checkoutDetail]);
 
   useEffect(() => {
     if (!cartDetail) navigate('/cart');
@@ -29,8 +31,8 @@ const PaymentInformation = () => {
         {
           text: '確認結帳',
           onClick: async () => {
-            const isSuccess = await checkOutCart();
-            if (isSuccess) setIsCheckouts(true);
+            const result = await checkOutCart();
+            if (result.isSuccess) setCheckoutDetail(result.checkoutDetail);
           }
         }
       ]
@@ -79,8 +81,8 @@ const PaymentInformation = () => {
               </div>
             </div>
             <div className="flex justify-center mt-6">
-              <CustomButton onClick={onCheckOut} variant="rounded">
-                確認付款
+              <CustomButton onClick={onCheckOut} variant="rounded" isDisabled={isCheckout}>
+                {isCheckout ? '已確認' : '確認付款'}
               </CustomButton>
             </div>
           </div>

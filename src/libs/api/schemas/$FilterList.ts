@@ -7,15 +7,19 @@ export const $FilterList = {
         location_list: {
             type: 'array',
             contains: {
-                properties: {
-                },
+                type: 'string',
             },
         },
         vintage_list: {
             type: 'array',
             contains: {
-                properties: {
-                },
+                type: 'string',
+            },
+        },
+        price: {
+            type: 'array',
+            contains: {
+                type: 'string',
             },
         },
     },

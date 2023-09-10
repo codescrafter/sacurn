@@ -19,7 +19,7 @@ export class CarbonCreditService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
 
     /**
-     * @param desc 價格排序方式: false(default), true
+     * @param desc 價格排序方式
      * @param location 地點
      * @param page A page number within the paginated result set.
      * @param price 價格 ex: 100,200
@@ -29,7 +29,7 @@ export class CarbonCreditService {
      * @throws ApiError
      */
     public carbonCreditList(
-        desc?: string,
+        desc?: boolean,
         location?: string,
         page?: number,
         price?: string,
