@@ -78,7 +78,7 @@ const ProductList = () => {
               }}
             />
           </div>
-          <div className="text-white" onClick={onSortChange}>
+          <div className="text-white cursor-pointer" onClick={onSortChange}>
             Sort: Low to High
             <span>
               <KeyboardArrowDownIcon
@@ -98,9 +98,10 @@ const ProductList = () => {
                 tag={filters.tag}
                 image={product.image || '-'}
                 name={product.name || '-'}
-                // rating={product.rating}
-                // standard={product.standard}
-                // type={product.type}
+                rating={product.rating || '-'}
+                standard={product.standard || '-'}
+                type={product.type || '-'}
+                coBenefit={product.co_benefit || 0}
                 vintage={product.vintage || '-'}
                 minPrice={product.min_price}
                 maxPrice={product.max_price}
