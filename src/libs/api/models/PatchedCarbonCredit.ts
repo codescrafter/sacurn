@@ -16,6 +16,10 @@ export type PatchedCarbonCredit = {
     quantity?: number | null;
     vintage?: string | null;
     serial_number?: string;
+    rating?: string | null;
+    co_benefit?: number | null;
+    standard?: string | null;
+    type?: string | null;
     readonly created_at?: string;
     carbon_credit_location?: number | null;
     company?: number;

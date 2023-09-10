@@ -7,7 +7,7 @@ import { ModalType, useModalStore } from './modal';
 
 export type StockItem = {
   action: string | null;
-  orderData: Order | null;
+  orderData: Order[] | undefined;
 } & Inventory;
 
 type StockListState = {
@@ -24,7 +24,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     try {
       useModalStore.getState().open(ModalType.Loading);
       const response = await apiClient.inventory.inventoryList(page);
-      set({ stockList: (response.results || [])?.map((item) => ({ ...item, action: null, orderData: null })) });
+      set({ stockList: (response.results || [])?.map((item) => ({ ...item, action: null, orderData: undefined })) });
       useModalStore.getState().close();
     } catch (error) {
       const err = error as Error;

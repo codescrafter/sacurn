@@ -59,6 +59,6 @@ export const useProductListStore = create<ProductListState>((set, get) => ({
   },
   getProductListWithFilter: async () => {
     const filters = get().filters;
-    get().getProductList(filters.desc?.toString(), filters.location, filters.page, filters.price, filters.tag);
+    get().getProductList(filters.desc, filters.location, filters.page, filters.price, filters.tag);
   }
 }));

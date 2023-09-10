@@ -5,8 +5,10 @@
 export const $ListCarbonOrder = {
     properties: {
         order: {
-            type: 'Order',
-            isRequired: true,
+            type: 'array',
+            contains: {
+                type: 'Order',
+            },
         },
     },
 } as const;
