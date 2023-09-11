@@ -6,7 +6,7 @@ import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
-import { CompanyRegistrationSteps } from '@/util/constants';
+import { CompanyRegistrationSteps, COUNTY_LIST, URBAN_AREA_LIST } from '@/util/constants';
 
 import CompanyInputField from './CompanyInputField';
 import CustomButton from './CustomButton';
@@ -71,6 +71,7 @@ const schema = yup
 
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
+  const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -80,7 +81,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
 
   const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
-
   const createCompany = useCompanyStore((state) => state.createCompany);
 
   const handleGetValue = (value: boolean) => {
@@ -164,8 +164,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       formData.append('registration_document', img);
     }
     await createCompany(formData);
-
-    nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
+    const isSuccess = useCompanyStore.getState().isSuccess;
+    if (isSuccess) nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
+    useCompanyStore.setState({ isSuccess: false });
   });
 
   return (
@@ -248,16 +249,13 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         Style
                       )}
                       defaultValue="縣市"
+                      onChange={(e) => setSelectedCounty(e.target.value)}
                     >
-                      <option value="縣市" className="text-black">
-                        縣市
-                      </option>
-                      <option value="縣市" className="text-black">
-                        縣市
-                      </option>
-                      <option value="縣市" className="text-black">
-                        縣市
-                      </option>
+                      {COUNTY_LIST?.map((county) => (
+                        <option value={county.value} className="text-black">
+                          {county.value}
+                        </option>
+                      ))}
                     </select>
                     <select
                       id="address.additionalProp2"
@@ -267,15 +265,13 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         Style
                       )}
                     >
-                      <option value="鄉鎮市區" className="text-black">
-                        鄉鎮市區
-                      </option>
-                      <option value="鄉鎮市區" className="text-black">
-                        鄉鎮市區
-                      </option>
-                      <option value="鄉鎮市區" className="text-black">
-                        鄉鎮市區
-                      </option>
+                      {URBAN_AREA_LIST?.filter((item) => item.slug === selectedCounty).map(({ value }) =>
+                        value.map((item) => (
+                          <option value={item} className="text-black">
+                            {item}
+                          </option>
+                        ))
+                      )}
                     </select>
                     <input
                       id="address.additionalProp3"
