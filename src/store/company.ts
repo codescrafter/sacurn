@@ -8,6 +8,7 @@ import { useUserStore } from './user';
 
 type CompanyState = {
   company: Partial<Company>;
+  isSuccess: boolean;
   createCompany: (arg: FormData) => void;
   getCompany: (companyId: number) => Promise<Company | null>;
   updateCompany: (id: number, companyData?: FormData) => void;
@@ -15,21 +16,24 @@ type CompanyState = {
 
 export const useCompanyStore = create<CompanyState>((set) => ({
   company: {},
+  isSuccess: false,
   createCompany: async (arg: FormData) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
       // Check is work or not
       const data = arg as unknown as ExtendedCompany;
       const company = await apiClient.company.companyCreate(data);
-      set({ company });
       useUserStore.setState({
         companyId: company?.id
       });
+      set({ company });
+      set({ isSuccess: true });
       useModalStore.getState().close();
     } catch (error) {
       set({ company: {} });
       const err = error as Error;
       console.error(err);
+      set({ isSuccess: false });
       useModalStore.getState().open(ModalType.Error, {
         errorText: `[${err.name}] ${err.message}`
       });
@@ -56,11 +60,13 @@ export const useCompanyStore = create<CompanyState>((set) => ({
       useModalStore.getState().open(ModalType.Loading);
       const data = companyData as PatchedExtendedCompany;
       const company = await apiClient.company.companyPartialUpdate(id, data);
-      useModalStore.getState().close();
       set({ company });
+      set({ isSuccess: true });
+      useModalStore.getState().close();
     } catch (error) {
       const err = error as Error;
       console.error(err);
+      set({ isSuccess: false });
       useModalStore.getState().open(ModalType.Error, {
         errorText: `[${err.name}] ${err.message}`
       });

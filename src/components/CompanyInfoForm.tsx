@@ -164,8 +164,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       formData.append('registration_document', img);
     }
     await createCompany(formData);
-
-    nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
+    const isSuccess = useCompanyStore.getState().isSuccess;
+    if (isSuccess) nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
+    useCompanyStore.setState({ isSuccess: false });
   });
 
   return (
