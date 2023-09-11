@@ -89,7 +89,7 @@ const PaymentInformation = () => {
           {/* Third col */}
           {isCheckout && (
             <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
-              <TotalPayment totalPrice={cartDetail?.total_amount || 0} />
+              <TotalPayment checkoutDetail={checkoutDetail} totalPrice={cartDetail?.total_amount || 0} />
             </div>
           )}
         </div>
