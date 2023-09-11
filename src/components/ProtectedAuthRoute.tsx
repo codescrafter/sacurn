@@ -1,5 +1,5 @@
 import cookies from 'js-cookie';
-import { ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { AuthResult, COOKIE_AUTH_NAME } from '@/store/user';
@@ -22,5 +22,5 @@ export const ProtectedAuthRoute = ({ children }: ProtectedAuthRoute) => {
     return <Navigate to="/login" />;
   }
 
-  return children;
+  return <Fragment>{children}</Fragment>;
 };
