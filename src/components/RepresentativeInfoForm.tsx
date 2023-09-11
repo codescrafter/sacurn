@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
-import { useState, ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -369,4 +369,3 @@ const dates = [
   '31'
 ];
 const yearArray = Array.from({ length: 124 }, (_, index) => 1900 + index);
-
