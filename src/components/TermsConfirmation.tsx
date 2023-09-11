@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 import { CompanyRegistrationSteps, Policy } from '@/util/constants';
 
@@ -25,7 +26,14 @@ const TermsConfirmation = ({ nextStep }: IProps) => {
           </div>
           <button className="px-7 py-0.3 absolute -bottom-8 right-1 shadow-download-btn rounded-lg">
             <div className="flex gap-2 items-center">
-              <p className="text-mdbase font-bold text-navy-blue">Download</p>
+              <Link
+                to="/download.docx"
+                target="_blank"
+                download="土星_平台條款內容"
+                className="text-mdbase font-bold text-navy-blue"
+              >
+                Download
+              </Link>
               <img src="/images/company-registration/download.svg" />
             </div>
           </button>

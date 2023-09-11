@@ -57,7 +57,9 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
       formData.append('account_number', data.account_number);
       formData.append('account_image', uploadedDocs?.[0]);
       await updateCompany(companyId, formData);
-      nextStep(CompanyRegistrationSteps.TERMS_CONFIRMATION);
+      const isSuccess = useCompanyStore.getState().isSuccess;
+      if (isSuccess) nextStep(CompanyRegistrationSteps.TERMS_CONFIRMATION);
+      useCompanyStore.setState({ isSuccess: false });
     } catch (error) {
       console.log(error);
     }

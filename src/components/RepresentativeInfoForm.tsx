@@ -58,8 +58,10 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
       formData.append('representative_birthday', _representative_id_card_issue_date);
       formData.append('representative_id_card_front', uploadedDocs?.[0]);
       formData.append('representative_id_card_back', uploadedDocs?.[1]);
-      updateCompany(companyId, formData);
-      nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+      await updateCompany(companyId, formData);
+      const isSuccess = useCompanyStore.getState().isSuccess;
+      if (isSuccess) nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
+      useCompanyStore.setState({ isSuccess: false });
     } catch (error) {
       console.log(error);
     }
