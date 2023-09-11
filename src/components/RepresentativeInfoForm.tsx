@@ -18,8 +18,6 @@ interface IProps {
 export type RepresentativeFormTypes = {
   representative_country: string;
   representative_id_card_number: string;
-  representative_id_card_issue_date: string;
-  representative_id_card_issue_location: string;
   representative_birthday: string;
 };
 
@@ -27,8 +25,6 @@ const schema = yup
   .object({
     representative_country: yup.string().required('representative country is required'),
     representative_id_card_number: yup.string().required('representative id card number is required'),
-    representative_id_card_issue_date: yup.string().required('representative id card issue date is required'),
-    representative_id_card_issue_location: yup.string().required('representative id card issue location is required'),
     representative_birthday: yup.string().required('representative birthday is required')
   })
   .required();
@@ -36,6 +32,12 @@ const schema = yup
 const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
   const [selectedValue, setSelectedValue] = useState<string>('');
+  const [date, setDate] = useState<string>('1');
+  const [month, setMonth] = useState<string>('1');
+  const [year, setYear] = useState<string>('2023');
+  const [dateList, setDateList] = useState<string[]>(dates);
+  const [region, setRegion] = useState<string>('台北市');
+  const [cardIssue, setCardIssue] = useState<string>('台北市');
 
   const companyId = useUserStore.getState().companyId;
   const {
@@ -53,8 +55,11 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
       const formData = new FormData();
       formData.append('representative_country', data.representative_country);
       formData.append('representative_id_card_number', data.representative_id_card_number);
-      formData.append('representative_id_card_issue_date', _representative_id_card_issue_date);
-      formData.append('representative_id_card_issue_location', data.representative_id_card_issue_location);
+      formData.append(
+        'representative_id_card_issue_date',
+        new Date(parseInt(year), parseInt(month) - 1, parseInt(date)).toISOString()
+      );
+      formData.append('representative_id_card_issue_location', `${region},${cardIssue}`);
       formData.append('representative_birthday', _representative_id_card_issue_date);
       formData.append('representative_id_card_front', uploadedDocs?.[0]);
       formData.append('representative_id_card_back', uploadedDocs?.[1]);
@@ -133,44 +138,79 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
               {selectedValue === '本國籍' ? '身分證發證日期' : '發照日期:'}
             </p>
             <div className="flex justify-between w-[286px] items-center">
-              <SimpleSelect
-                register={register}
-                id="representative_id_card_issue_date"
-                className="w-21.7"
-                options={yearArray.map((year) => year.toString())}
-              />
-              /
-              <SimpleSelect
-                register={register}
-                id="representative_id_card_issue_date"
-                className="w-21.7"
-                options={months.map((month) => month)}
-              />
-              /
-              <SimpleSelect
-                register={register}
-                id="representative_id_card_issue_date"
-                className="w-21.7"
-                options={dates.map((date) => date)}
-              />
+              <select
+                className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-21.7"
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+              >
+                {yearArray.map((year) => (
+                  <option key={year} value={year} className="text-black">
+                    {year}
+                  </option>
+                ))}
+              </select>
+              <select
+                className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-21.7"
+                value={month}
+                onChange={(e) => {
+                  setMonth(e.target.value);
+                  const value = e.target.value;
+                  if (value === '2') {
+                    setDateList(Array.from({ length: 28 }, (_, i) => (i + 1).toString()));
+                  } else if (value === '4' || value === '6' || value === '9' || value === '11') {
+                    setDateList(Array.from({ length: 30 }, (_, i) => (i + 1).toString()));
+                  } else {
+                    const a = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
+                    setDateList(a);
+                  }
+                }}
+              >
+                {months.map((month) => (
+                  <option key={month} value={month} className="text-black">
+                    {month}
+                  </option>
+                ))}
+              </select>
+              <select
+                className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-21.7"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              >
+                {dateList.map((item) => (
+                  <option key={item} value={item} className="text-black">
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div className="flex gap-2.7 mb-5.5 items-center">
             <p className="text-base text-black w-[144px] text-right">
               {selectedValue === '本國籍' ? '身分證發證地點:' : '發照機關:'}
             </p>
-            <SimpleSelect
-              register={register}
-              id="representative_id_card_issue_location"
-              className="w-[87px]"
-              options={regionCityLocation.map((location) => location)}
-            />
-            <SimpleSelect
-              register={register}
-              id="representative_id_card_issue_location"
-              className="w-[81px]"
-              options={['初發', '補發', '換發']}
-            />
+
+            <select
+              className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-21.7"
+              value={region}
+              onChange={(e) => setRegion(e.target.value)}
+            >
+              {regionCityLocation.map((item) => (
+                <option key={item} value={item} className="text-black">
+                  {item}
+                </option>
+              ))}
+            </select>
+            <select
+              className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-21.7"
+              value={cardIssue}
+              onChange={(e) => setCardIssue(e.target.value)}
+            >
+              {['初發', '補發', '換發'].map((issue) => (
+                <option key={issue} value={issue} className="text-black">
+                  {issue}
+                </option>
+              ))}
+            </select>
           </div>
           <LabelInput
             register={register}
@@ -186,7 +226,6 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             <p className="text-black text-base min-w-[144px] text-right">
               {selectedValue === '本國籍' ? '身分證文件上傳:' : '護照文件上傳:'}
             </p>
-            {/* <UploadDocuments register={register} /> */}
             <UploadDocuments uploadedDocs={uploadedDocs} setUploadedDocs={setUploadedDocs} />
           </div>
         </div>
@@ -211,41 +250,6 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
 };
 
 export default RepresentativeInfoForm;
-
-interface SimpleSelectProps {
-  options: string[];
-  register: UseFormRegister<RepresentativeFormTypes>;
-  id: string;
-  className: string;
-}
-
-const SimpleSelect = ({ register, className, id, options }: SimpleSelectProps) => {
-  return (
-    <select
-      {...register(
-        id as
-          | 'representative_country'
-          | 'representative_id_card_number'
-          | 'representative_id_card_issue_date'
-          | 'representative_id_card_issue_location'
-          | 'representative_birthday',
-        { required: true }
-      )}
-      className={classNames(
-        'rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none',
-        className
-      )}
-    >
-      {options.map((option) => {
-        return (
-          <option value={option} className="text-black">
-            {option}
-          </option>
-        );
-      })}
-    </select>
-  );
-};
 
 interface LabelInputProps {
   id: string;
@@ -290,15 +294,9 @@ const LabelInput = ({
                 size === InputSize.SMALL
             }
           )}
-          {...register(
-            id as
-              | 'representative_country'
-              | 'representative_id_card_number'
-              | 'representative_id_card_issue_date'
-              | 'representative_id_card_issue_location'
-              | 'representative_birthday',
-            { required: isRequired }
-          )}
+          {...register(id as 'representative_country' | 'representative_id_card_number' | 'representative_birthday', {
+            required: isRequired
+          })}
           placeholder={placeholder}
           type={type}
         />
