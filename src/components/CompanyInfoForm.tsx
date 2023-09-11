@@ -145,7 +145,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       updated_at: new Date().toISOString(),
       registration_document: uploadedDocs
     };
-    console.log('dataToSubmit', dataToSubmit);
 
     const formData = new FormData();
 
