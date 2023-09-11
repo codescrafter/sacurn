@@ -125,6 +125,9 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           className="px-4.5 py-0.7 font-bold  rounded-md border border-navy-blue"
           variant="secondary"
           type="button"
+          onClick={() => {
+            nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
+          }}
         >
           修改 | 上一步
         </CustomButton>

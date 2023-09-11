@@ -41,10 +41,28 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const {
     register,
     handleSubmit,
+    // setValue,
     formState: { errors }
   } = useForm<RepresentativeFormTypes>({ resolver: yupResolver(schema) });
 
   const updateCompany = useCompanyStore((state) => state.updateCompany);
+  // const getCompany = useCompanyStore((state) => state.getCompany);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     // if (!companyId) return;
+  //     await getCompany(companyId || 13);
+  //     const company = useCompanyStore.getState().company;
+  //     if (!company) return;
+  //     setValue('representative_country', company.representative_country || '');
+  //     setValue('representative_id_card_number', company.representative_id_card_number || '');
+  //     setValue('representative_id_card_issue_date', company.representative_id_card_issue_date || '');
+  //     setValue('representative_id_card_issue_location', company.representative_id_card_issue_location || '');
+  //     setValue('representative_birthday', company.representative_birthday || '');
+  //   })();
+
+  //   // set the default value of the form
+  // }, []);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -70,6 +88,10 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   // Attach onChange event handlers to the radio buttons
   const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
+  };
+
+  const handleBack = () => {
+    nextStep(CompanyRegistrationSteps.COMPANY_INFO_FORM);
   };
 
   return (
@@ -196,6 +218,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
           className="px-4.5 py-0.7 font-bold  rounded-md border border-navy-blue"
           variant="secondary"
           type="button"
+          onClick={handleBack}
         >
           修改 | 上一步
         </CustomButton>

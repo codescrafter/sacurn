@@ -14,7 +14,6 @@ const UploadDocuments = ({ uploadedDocs, setUploadedDocs }: IProps) => {
     setUploadedDocs((prevState) => prevState.filter((item, index) => index !== idx));
   };
 
-  console.log('uploadedDocs', uploadedDocs);
   return (
     <div className="flex flex-col max-w-[372px] max">
       <p className="text-black min-[1500px]:text-base text-sm">
@@ -42,7 +41,10 @@ const UploadDocuments = ({ uploadedDocs, setUploadedDocs }: IProps) => {
           );
         })}
         <div className="flex flex-col rounded-xl border border-silverstone bg-light-trans-grey items-center justify-center h-23.2 w-26.7 relative">
-          <img src="/images/operation-record/plus-icon.svg" alt="add new doc" />
+          <img
+            src={uploadedDocs[0] ? URL.createObjectURL(uploadedDocs[0]) : '/images/operation-record/plus-icon.svg'}
+            alt="add new doc"
+          />
           <input
             type="file"
             className="absolute scale-y-[1] max-w-full max-h-full top-0 bottom-0 left-0 opacity-0 cursor-pointer z-50"
