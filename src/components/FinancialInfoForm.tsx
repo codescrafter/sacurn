@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { useCompanyStore } from '@/store/company';
 import { useUserStore } from '@/store/user';
 import { InputSize } from '@/type';
-import { CompanyRegistrationSteps } from '@/util/constants';
+import { CompanyRegistrationSteps, FINANCIAL_INSTUITION_LIST, FINANCIAL_CATEGORY } from '@/util/constants';
 
 import CustomButton from './CustomButton';
 import UploadDocuments from './UploadDocuments';
@@ -43,6 +43,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
     formState: { errors }
   } = useForm<FinancialFormTypes>({ resolver: yupResolver(schema) });
   const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
+  const [SelectedFinancialInstitution, setSelectedFinancialInstitution] = useState<string | null>(null);
 
   const updateCompany = useCompanyStore((state) => state.updateCompany);
 
@@ -77,23 +78,54 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           </h1>
         </div>
         <div>
-          <LabelSelect
-            register={register}
-            id="financial_institution_type"
-            heading="選擇金融機構分類"
-            options={['請選擇金融機構分類', '請選擇金融機構分類']}
-          />
-          <LabelSelect
-            register={register}
-            id="financial_institution_name"
-            heading="選擇銀行或郵局"
-            options={['金融機構名稱', '金融機構名稱']}
-          />
-          <LabelSelect
+          <div className="flex items-center mb-5.5 gap-2.7">
+            <h2 className="text-black text-base min-w-[144px] leading-5 text-right">選擇金融機構分類 :</h2>
+            <select
+              {...register(
+                `financial_institution_type`,
+
+                { required: true }
+              )}
+              className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-[286px]"
+              onChange={(e) => setSelectedFinancialInstitution(e.target.value)}
+            >
+              {FINANCIAL_CATEGORY?.map((financial) => (
+                <option value={financial.value} className="text-black">
+                  {financial.value}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex items-center mb-5.5 gap-2.7">
+            <h2 className="text-black text-base min-w-[144px] leading-5 text-right">選擇銀行或郵局 :</h2>
+            <select
+              {...register(
+                `financial_institution_name`,
+
+                { required: true }
+              )}
+              className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-[286px]"
+            >
+              {FINANCIAL_INSTUITION_LIST?.filter((item) => item.slug === SelectedFinancialInstitution).map(
+                ({ value }) =>
+                  value.map((item) => (
+                    <option value={item} className="text-black">
+                      {item}
+                    </option>
+                  ))
+              )}
+            </select>
+          </div>
+          <LabelInput
+            type="text"
             register={register}
             id="financial_institution_branch_name"
             heading="選擇分行或支局"
-            options={['分行或支局名稱', '分行或支局名稱']}
+            // options={['分行或支局名稱', '分行或支局名稱']}
+            isRequired={true}
+            errors={errors}
+            errorMessage="必填字段"
           />
           <LabelInput
             type="text"
@@ -129,7 +161,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           修改 | 上一步
         </CustomButton>
         <CustomButton className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md " type="submit">
-          儲存
+          儲存 | 下一步
         </CustomButton>
       </div>
     </form>
@@ -138,36 +170,36 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
 
 export default FinancialInfoForm;
 
-interface SimpleSelectProps {
-  options: string[];
-  register: UseFormRegister<FinancialFormTypes>;
-  id: string;
-  heading: string;
-}
+// interface SimpleSelectProps {
+//   options: string[];
+//   register: UseFormRegister<FinancialFormTypes>;
+//   id: string;
+//   heading: string;
+// }
 
-const LabelSelect = ({ register, id, options, heading }: SimpleSelectProps) => {
-  return (
-    <div className="flex items-center mb-5.5 gap-2.7">
-      <h2 className="text-black text-base min-w-[144px] leading-5 text-right">{heading} :</h2>
-      <select
-        {...register(
-          id as 'financial_institution_type' | 'financial_institution_name' | 'financial_institution_branch_name',
+// const LabelSelect = ({ register, id, options, heading }: SimpleSelectProps) => {
+//   return (
+//     <div className="flex items-center mb-5.5 gap-2.7">
+//       <h2 className="text-black text-base min-w-[144px] leading-5 text-right">{heading} :</h2>
+//       <select
+//         {...register(
+//           id as 'financial_institution_type' | 'financial_institution_name' | 'financial_institution_branch_name',
 
-          { required: true }
-        )}
-        className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-[286px]"
-      >
-        {options.map((option) => {
-          return (
-            <option value={option} className="text-black">
-              {option}
-            </option>
-          );
-        })}
-      </select>
-    </div>
-  );
-};
+//           { required: true }
+//         )}
+//         className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-[286px]"
+//       >
+//         {options.map((option) => {
+//           return (
+//             <option value={option} className="text-black">
+//               {option}
+//             </option>
+//           );
+//         })}
+//       </select>
+//     </div>
+//   );
+// };
 
 interface LabelProps {
   id: string;

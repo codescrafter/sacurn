@@ -17,9 +17,6 @@ export const useCertificateStore = create<CertificateState>(() => ({
     try {
       useModalStore.getState().open(ModalType.Loading);
       const certificate = await apiClient.carbonCredit.carbonCreditCertificateRetrieve(...args);
-      if (!certificate || !certificate.url) {
-        throw new Error('Certificate PDF url not found');
-      }
       useModalStore.getState().close();
       return certificate;
     } catch (error) {
