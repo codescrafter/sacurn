@@ -71,7 +71,7 @@ const schema = yup
 
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
+  const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
   const {
     register,
     handleSubmit,
@@ -316,7 +316,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             {...register(id, { required: false })}
                             type="text"
                             className={classNames(
-                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 text-center',
+                              'min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-13 w-9 mr-1.5 text-center',
                               Style,
                               {
                                 'border-bright-red border':
@@ -349,7 +349,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             id={id}
                             type="text"
                             className={classNames(
-                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 text-center',
+                              'min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-12 w-9 mr-1.5 text-center',
                               Style,
                               {
                                 'border-bright-red border':
@@ -423,6 +423,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
 export default CompanyInfoForm;
 
 const Style =
-  'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-1 py-1 text-black min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none';
+  'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-1.5 py-1 text-black min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none';
 const address_row_1 = ['鄰', '巷', '弄', '街'];
 const address_row_2 = ['號之', ',', '樓之', '室'];
