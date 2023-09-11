@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { useForm, UseFormRegister } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
@@ -37,12 +38,18 @@ const OperatorSignUp = () => {
   const { register, handleSubmit, formState } = useForm<SignupFormType>({ resolver: yupResolver(schema) });
   // const navigate = useNavigate();
   const signup = useUserStore((state) => state.signup);
+  const login = useUserStore((state) => state.login);
 
+  const navigate = useNavigate();
   const onSubmit = handleSubmit(async (data) => {
     // console.log('data being sent', data);
-    await signup(data);
-
-    // if (isSuccess) navigate('/login');
+    const isSucessFul = await signup(data);
+    if (isSucessFul) {
+      const result = await login({ username: data.username, password: data.password1 });
+      if (result.isSuccess) {
+        navigate('/');
+      }
+    }
   });
 
   console.log('formState.errors', formState.errors);

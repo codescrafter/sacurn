@@ -20,7 +20,7 @@ type UserState = {
   companyId: number | null;
   companyStatus: number | null;
   login: (arg: Login) => Promise<AuthResult>;
-  signup: (arg: Registration) => void;
+  signup: (arg: Registration) => Promise<boolean>;
 };
 
 export const useUserStore = create<UserState>((set) => ({
@@ -58,13 +58,14 @@ export const useUserStore = create<UserState>((set) => ({
     try {
       useModalStore.getState().open(ModalType.Loading);
       const response = await apiClient.registration.registrationCreate(arg);
+      if (response.user.email) isSuccess = true;
       set({ user: response.user });
       useModalStore.getState().close();
-      isSuccess = true;
     } catch (error) {
       set({ user: null });
       const err = error as Error;
       console.error(err);
+      isSuccess = false;
       useModalStore.getState().open(ModalType.Error, {
         errorText: `[${err.name}] ${err.message}`
       });
