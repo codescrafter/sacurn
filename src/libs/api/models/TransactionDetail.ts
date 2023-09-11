@@ -12,5 +12,6 @@ export type TransactionDetail = {
     total_money?: number | null;
     status?: number;
     pay_at?: string | null;
+    deadline?: string | null;
 };
 
