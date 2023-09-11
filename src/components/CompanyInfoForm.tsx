@@ -71,7 +71,7 @@ const schema = yup
 
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
+  const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
   const {
     register,
     handleSubmit,
