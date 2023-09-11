@@ -81,6 +81,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
 
   const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
+
   const createCompany = useCompanyStore((state) => state.createCompany);
 
   const handleGetValue = (value: boolean) => {
