@@ -1034,19 +1034,25 @@ export const FINANCIAL_INSTUITION_LIST = [
   }
 ];
 
-export const FINANCIAL_CATEGORY = [{
-  value: '本國銀行',
-  slug: 'Domestic bank'
-},{
-  value: '郵局',
-  slug: 'post office'
-},{
-  value: '信用合作社',
-  slug: 'credit store'
-},{
-  value: '農會信用部',
-  slug: 'argiculture store'
-},{
-  value: '漁會信用部',
-  slug: 'fishery store'
-},]
+export const FINANCIAL_CATEGORY = [
+  {
+    value: '本國銀行',
+    slug: 'Domestic bank'
+  },
+  {
+    value: '郵局',
+    slug: 'post office'
+  },
+  {
+    value: '信用合作社',
+    slug: 'credit store'
+  },
+  {
+    value: '農會信用部',
+    slug: 'argiculture store'
+  },
+  {
+    value: '漁會信用部',
+    slug: 'fishery store'
+  }
+];
