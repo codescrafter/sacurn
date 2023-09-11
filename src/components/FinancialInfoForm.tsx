@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { useCompanyStore } from '@/store/company';
 import { useUserStore } from '@/store/user';
 import { InputSize } from '@/type';
-import { CompanyRegistrationSteps, FINANCIAL_INSTUITION_LIST, FINANCIAL_CATEGORY } from '@/util/constants';
+import { CompanyRegistrationSteps, FINANCIAL_CATEGORY, FINANCIAL_INSTUITION_LIST } from '@/util/constants';
 
 import CustomButton from './CustomButton';
 import UploadDocuments from './UploadDocuments';
