@@ -15,12 +15,13 @@ import Navbar from '../components/Navbar';
 
 const Item = ({ order }: { order: Order }) => {
   const addToCart = useCartStore((state) => state.addToCart);
-  const [qty, setQty] = useState(3);
+  const [qty, setQty] = useState(order.min_order_quantity || MIN_CART_QTY);
 
   const onQuantityAdjust = useCallback(
     (value: number) => {
       const newQty = qty + value;
-      if (newQty >= MIN_CART_QTY && newQty <= parseInt(order.remaining_quantity)) {
+      const minQty = order.min_order_quantity || MIN_CART_QTY;
+      if (newQty >= minQty && newQty <= parseInt(order.remaining_quantity)) {
         setQty(newQty);
       }
     },
