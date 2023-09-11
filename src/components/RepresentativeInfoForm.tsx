@@ -200,7 +200,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
           修改 | 上一步
         </CustomButton>
         <CustomButton className="text-white bg-navy-blue px-4.5 py-0.7 font-bold rounded-md " type="submit">
-          儲存
+          儲存 | 下一步
         </CustomButton>
       </div>
     </form>

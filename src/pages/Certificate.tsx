@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { Document, pdfjs } from 'react-pdf';
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import CustomButton from '@/components/CustomButton';
@@ -7,22 +6,12 @@ import Navbar from '@/components/Navbar';
 import { useCertificateStore } from '@/store/certificate';
 import { ModalType, useModalStore } from '@/store/modal';
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.js', import.meta.url).toString();
-
 const Certificate = () => {
   const { carbonId } = useParams();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const action = useCertificateStore((state: any) => state);
+  const applyCertificate = useCertificateStore((state) => state.applyCertificate);
   const openModal = useModalStore((state) => state.open);
-  const [pdfUrl, setPdfUrl] = useState<string>();
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    action.getCertificatePdf(carbonId).then((certificate: any) => {
-      if (certificate) setPdfUrl(certificate?.url);
-    });
-  }, []);
+  const [isPdfLoaded, setIsPdfLoaded] = useState(false);
 
   return (
     <div>
@@ -31,19 +20,25 @@ const Certificate = () => {
         <h2 className="border-l-4 border-navy-blue text-navy-blue text-[28px] pl-4">憑證認證書</h2>
         <div className="flex flex-col justify-center items-center mt-2">
           <div className="w-[1033px] h-[730px]">
-            {pdfUrl && <Document file={pdfUrl} className="w-full h-full" />}
-            {/* <img src="/images/certificate/certificate.svg" alt="certificate" className="w-full h-full object-contain" /> */}
+            {/* {pdf && <Document file={pdf} onLoadSuccess={() => setIsPdfLoaded(true)} className="w-full h-full" />} */}
+            <iframe
+              src={`https://platform-api2.sacurn-dev.com/carbon_credit/certificate/?carbon_credit_id=${carbonId}#toolbar=0&navpanes=0&statusbar=0&view=FitH`}
+              onLoad={() => setIsPdfLoaded(true)}
+              className="w-full h-full"
+            >
+              你的瀏覽器不支援 iframe
+            </iframe>
           </div>
           <div className="flex justify-end items-end w-full mt-4">
             <div className="flex justify-between w-[56%]">
-              {pdfUrl && (
+              {isPdfLoaded && (
                 <CustomButton
                   onClick={() =>
                     openModal(ModalType.StartApplyCertificate, {
                       buttons: [
                         {
                           text: '確認申請',
-                          onClick: () => action.applyCertificate(carbonId)
+                          onClick: () => applyCertificate(carbonId)
                         }
                       ]
                     })

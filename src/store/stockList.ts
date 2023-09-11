@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { Inventory, Order, OrderSell } from '@/libs/api';
+import { Inventory, Order } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
@@ -14,7 +14,7 @@ type StockListState = {
   stockList: StockItem[];
   getStockList: (page?: number) => void;
   getStockInfo: (carbonCreditId: number) => Promise<boolean>;
-  updateStockOnSale: (arg: OrderSell) => void;
+  updateStockOnSale: (carbonId: number, qty: number, price: number, minUnit: number) => void;
   updateStockOffShelve: (id: number) => void;
 };
 
@@ -39,8 +39,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     try {
       useModalStore.getState().open(ModalType.Loading);
       const response = await apiClient.trade.tradeListCarbonOrderRetrieve(carbonCreditId.toString());
-      // get response and set into stock set({ stockList: response.results });
-      const stockIndex = get().stockList.findIndex((stock) => stock.id === carbonCreditId);
+      const stockIndex = get().stockList.findIndex((stock) => stock.carbon_credit === carbonCreditId);
 
       if (stockIndex >= 0) {
         const newStockList = Array.from(get().stockList);
@@ -60,10 +59,17 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     }
     return isSuccess;
   },
-  updateStockOnSale: async (arg: OrderSell) => {
+  updateStockOnSale: async (carbonId, quantity, price, minUnit) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
-      await apiClient.trade.tradeOrderSellCreate(arg);
+      await apiClient.trade.tradeOrderSellCreate({
+        carbon_credit: carbonId,
+        quantity,
+        price: price.toString(),
+        min_order_quantity: minUnit,
+        sell: 1
+      });
+      get().getStockList();
       useModalStore.getState().open(ModalType.MakeStockOnSale);
     } catch (error) {
       const err = error as Error;
@@ -79,6 +85,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
       await apiClient.trade.tradeOrderSellDestroy(id);
       useModalStore.getState().close();
     } catch (error) {
+      console.log('xx', error);
       const err = error as Error;
       console.error(err);
       useModalStore.getState().open(ModalType.Error, {
