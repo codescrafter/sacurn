@@ -85,7 +85,6 @@ export const useStockListStore = create<StockListState>((set, get) => ({
       await apiClient.trade.tradeOrderSellDestroy(id);
       useModalStore.getState().close();
     } catch (error) {
-      console.log('xx', error);
       const err = error as Error;
       console.error(err);
       useModalStore.getState().open(ModalType.Error, {
