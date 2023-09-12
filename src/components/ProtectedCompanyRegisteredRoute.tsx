@@ -1,5 +1,5 @@
 import cookies from 'js-cookie';
-import { ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { useCompanyStore } from '@/store/company';
@@ -34,5 +34,5 @@ export const ProtectedCompanyRegisteredRoute = ({ children }: ProtectedCompanyRe
     });
   }
 
-  return children;
+  return <Fragment>{children}</Fragment>;
 };
