@@ -39,6 +39,7 @@ const schema = yup
 
 const OperatorSignUp = () => {
   const { register, handleSubmit, formState } = useForm<SignupFormType>({ resolver: yupResolver(schema) });
+  console.log(formState.errors);
   // const navigate = useNavigate();
   const signup = useUserStore((state) => state.signup);
   const login = useUserStore((state) => state.login);
@@ -80,7 +81,14 @@ const OperatorSignUp = () => {
           className={classNames(Style, 'w-full min-[1550px]:mb-10.7 min-[1200px]:mb-8 mb-6')}
         /> */}
         <div className="flex flex-row justify-between w-full min-[1550px]:mb-6 min-[1200px]:mb-8 mb-6">
-          <Field heading="管理者姓名" type="text" className="self-start" register={register} id="last_name" />
+          <Field
+            heading="管理者姓名"
+            type="text"
+            className="self-start"
+            register={register}
+            id="last_name"
+            error={formState?.errors?.last_name?.message}
+          />
 
           <Field
             heading="管理者手機"
@@ -89,6 +97,7 @@ const OperatorSignUp = () => {
             register={register}
             id="phone"
             downText="此欄位再多項服務提供時將進行驗證，請正確填寫"
+            error={formState?.errors?.phone?.message}
           />
         </div>
         <div className="flex flex-row justify-between w-full min-[1550px]:mb-6 min-[1200px]:mb-8 mb-6">
@@ -99,20 +108,28 @@ const OperatorSignUp = () => {
             register={register}
             id="username"
             downText="英數混合，最常請勿超過20個字元，可接受 ”_” “.” “@” 三種符號"
+            error={formState?.errors?.username?.message}
           />
-          <Field heading="Email" type="email" className="self-start" register={register} id="email" />
+          <Field
+            heading="Email"
+            type="email"
+            className="self-start"
+            register={register}
+            id="email"
+            error={formState?.errors?.email?.message}
+          />
         </div>
         <div className="flex flex-row justify-between w-full min-[1550px]:mb-7.2 min-[1200px]:mb-6 mb-5">
           <div className="flex flex-col self-start w-[45%]">
             <Heading heading="設定密碼" />
-            <PasswordInput register={register} id="password1" />
+            <PasswordInput register={register} id="password1" error={formState?.errors?.password1?.message} />
             <p className="text-grey ml-5.5 mt-2 w-[100%] min-[1500px]:text-base min-[1200px]:text-sm text-[12px]">
               提示：密碼需至少有12字元，請混和使用大小寫字母、數字，使密碼更加安全。
             </p>
           </div>
           <div className="flex flex-col self-start w-[45%]">
             <Heading heading="再次輸入密碼" />
-            <PasswordInput register={register} id="password2" />
+            <PasswordInput register={register} id="password2" error={formState?.errors?.password2?.message} />
             <div className="flex ml-5.5 mt-2 w-[100%] justify-start gap-1">
               <input
                 className="mt-1 self-start min-[1500px]:w-3.5 w-3 min-[1500px]:h-4 h-3.5"
@@ -166,19 +183,22 @@ interface FieldProps {
   downText?: string;
   register?: UseFormRegister<SignupFormType>;
   id?: 'username' | 'email' | 'password1' | 'password2' | 'last_name' | 'phone';
+  error?: string;
 }
 interface PasswordInputProps {
   className?: string;
   register?: UseFormRegister<SignupFormType>;
   id?: 'password1' | 'password2';
+  error?: string;
 }
 
-const Field = ({ heading, type, className, downText, register, id }: FieldProps) => {
+const Field = ({ heading, type, className, downText, register, id, error }: FieldProps) => {
   const registeringObject = register && id ? { ...register(id) } : {};
   return (
     <div className={classNames('relative flex flex-col w-[45%]', className)}>
       <Heading heading={heading} />
       <input disabled={!id} {...registeringObject} type={type} className={classNames(Style, 'w-full')} />
+      {error && <p className="text-bright-red text-xs mt-1 ml-2">{error}</p>}
       <p className="text-grey ml-5.5 mt-2 w-[100%] min-[1500px]:text-base min-[1200px]:text-sm text-[12px] input-no-bg">
         {downText}
       </p>
@@ -186,23 +206,26 @@ const Field = ({ heading, type, className, downText, register, id }: FieldProps)
   );
 };
 
-const PasswordInput = ({ className, register, id }: PasswordInputProps) => {
+const PasswordInput = ({ className, register, id, error }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const registeringObject = register && id ? { ...register(id) } : {};
 
   return (
-    <div className="rounded-full shadow-operator-signup-input bg-white min-[1550px]:h-17.5 min-[1200px]:h-13.2 h-11.5 px-5 py-3 text-black min-[1550px]:text-xl min-[1200px]:text-lg text-base outline-none flex justify-between w-[100%]">
-      <input
-        {...registeringObject}
-        className={classNames('outline-none w-[85%] input-no-bg', className)}
-        type={showPassword ? 'text' : 'password'}
-      />
-      <img
-        src={showPassword ? '/images/operator-signup/visible.svg' : '/images/operator-signup/invisible.svg'}
-        onClick={() => setShowPassword((prev) => !prev)}
-      />
-    </div>
+    <>
+      <div className="rounded-full shadow-operator-signup-input bg-white min-[1550px]:h-17.5 min-[1200px]:h-13.2 h-11.5 px-5 py-3 text-black min-[1550px]:text-xl min-[1200px]:text-lg text-base outline-none flex justify-between w-[100%]">
+        <input
+          {...registeringObject}
+          className={classNames('outline-none w-[85%] input-no-bg', className)}
+          type={showPassword ? 'text' : 'password'}
+        />
+        <img
+          src={showPassword ? '/images/operator-signup/visible.svg' : '/images/operator-signup/invisible.svg'}
+          onClick={() => setShowPassword((prev) => !prev)}
+        />
+      </div>
+      {error && <p className="text-bright-red text-xs mt-1 ml-2">{error}</p>}
+    </>
   );
 };
 
