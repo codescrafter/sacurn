@@ -284,5 +284,5 @@ input[type='number'] {
 .input-no-bg:-webkit-autofill:-webkit-autofill:focus,
 .input-no-bg:-webkit-autofill:-webkit-autofill:active {
   -webkit-background-clip: text;
-  -webkit-text-fill-color: rgb(0, 84, 135);
+  -webkit-text-fill-color: black;
 }
