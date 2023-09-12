@@ -44,7 +44,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
     formState: { errors }
   } = useForm<FinancialFormTypes>({ resolver: yupResolver(schema) });
   const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
-  const [SelectedFinancialInstitution, setSelectedFinancialInstitution] = useState<string | null>(null);
+  const [SelectedFinancialInstitution, setSelectedFinancialInstitution] = useState<string>('本國銀行');
 
   const updateCompany = useCompanyStore((state) => state.updateCompany);
 
@@ -88,6 +88,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
               )}
               className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-[286px]"
               onChange={(e) => setSelectedFinancialInstitution(e.target.value)}
+              value={SelectedFinancialInstitution}
             >
               {FINANCIAL_CATEGORY?.map((financial) => (
                 <option value={financial.value} className="text-black">
@@ -100,11 +101,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           <div className="flex items-center mb-5.5 gap-2.7">
             <h2 className="text-black text-base min-w-[144px] leading-5 text-right">選擇銀行或郵局 :</h2>
             <select
-              {...register(
-                `financial_institution_name`,
-
-                { required: true }
-              )}
+              {...register(`financial_institution_name`, { required: true })}
               className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-[286px]"
             >
               {FINANCIAL_INSTUITION_LIST?.filter((item) => item.slug === SelectedFinancialInstitution).map(
