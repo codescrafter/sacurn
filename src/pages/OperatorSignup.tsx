@@ -15,6 +15,7 @@ type SignupFormType = {
   password2: string;
   phone: string;
   last_name: string;
+  check: boolean;
 };
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -30,7 +31,9 @@ const schema = yup
       .oneOf([yup.ref('password1')], 'Passwords must match')
       .required('password required'),
     phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required('phoneNumber required'),
-    last_name: yup.string().required('lastname required')
+    last_name: yup.string().required('lastname required'),
+
+    check: yup.boolean().oneOf([true], 'checkbox needs to be checked').required('checkbox needs to be checked')
   })
   .required();
 
@@ -42,7 +45,6 @@ const OperatorSignUp = () => {
 
   const navigate = useNavigate();
   const onSubmit = handleSubmit(async (data) => {
-    // console.log('data being sent', data);
     const isSucessFul = await signup(data);
     if (isSucessFul) {
       const result = await login({ username: data.username, password: data.password1 });
@@ -52,7 +54,6 @@ const OperatorSignUp = () => {
     }
   });
 
-  console.log('formState.errors', formState.errors);
   return (
     <div className="flex flex-row h-screen">
       <div className="flex flex-col items-center justify-center min-[1550px]:ml-23.5 min-[1200px]:ml-19 ml-14">
@@ -113,14 +114,20 @@ const OperatorSignUp = () => {
             <Heading heading="再次輸入密碼" />
             <PasswordInput register={register} id="password2" />
             <div className="flex ml-5.5 mt-2 w-[100%] justify-start gap-1">
-              <input className="mt-1 self-start min-[1500px]:w-3.5 w-3 min-[1500px]:h-4 h-3.5" type="checkbox" />
+              <input
+                className="mt-1 self-start min-[1500px]:w-3.5 w-3 min-[1500px]:h-4 h-3.5"
+                type="checkbox"
+                {...register('check')}
+              />
               <div>
                 <p className="text-navy-blue min-[1500px]:text-base min-[1200px]:text-sm text-[12px] font-bold">
                   我已知悉並同意個人資料將被平台搜集、處理及利用。
                 </p>
-                <p className="text-bright-red min-[1500px]:text-xs min-[1200px]:text-xms text-xxs">
-                  請務必確認勾選此框，才能點選下一步。
-                </p>
+                {formState?.errors?.check?.message && (
+                  <p className="text-bright-red min-[1500px]:text-xs min-[1200px]:text-xms text-xxs">
+                    請務必確認勾選此框，才能點選下一步。
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -172,7 +179,7 @@ const Field = ({ heading, type, className, downText, register, id }: FieldProps)
     <div className={classNames('relative flex flex-col w-[45%]', className)}>
       <Heading heading={heading} />
       <input disabled={!id} {...registeringObject} type={type} className={classNames(Style, 'w-full')} />
-      <p className="text-grey ml-5.5 mt-2 w-[100%] min-[1500px]:text-base min-[1200px]:text-sm text-[12px]">
+      <p className="text-grey ml-5.5 mt-2 w-[100%] min-[1500px]:text-base min-[1200px]:text-sm text-[12px] input-no-bg">
         {downText}
       </p>
     </div>
@@ -188,7 +195,7 @@ const PasswordInput = ({ className, register, id }: PasswordInputProps) => {
     <div className="rounded-full shadow-operator-signup-input bg-white min-[1550px]:h-17.5 min-[1200px]:h-13.2 h-11.5 px-5 py-3 text-black min-[1550px]:text-xl min-[1200px]:text-lg text-base outline-none flex justify-between w-[100%]">
       <input
         {...registeringObject}
-        className={classNames('outline-none w-[85%]', className)}
+        className={classNames('outline-none w-[85%] input-no-bg', className)}
         type={showPassword ? 'text' : 'password'}
       />
       <img
@@ -200,4 +207,4 @@ const PasswordInput = ({ className, register, id }: PasswordInputProps) => {
 };
 
 const Style =
-  'rounded-full shadow-operator-signup-input bg-white min-[1550px]:h-17.5 min-[1200px]:h-13.2 h-11.5 px-5 py-5.7 text-black min-[1550px]:text-xl min-[1200px]:text-lg text-base outline-none';
+  'rounded-full shadow-operator-signup-input bg-white min-[1550px]:h-17.5 min-[1200px]:h-13.2 h-11.5 px-5 py-5.7 text-black min-[1550px]:text-xl min-[1200px]:text-lg text-base outline-none input-no-bg';
