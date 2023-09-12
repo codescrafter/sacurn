@@ -21,6 +21,7 @@ const UploadDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setError
 
   const removeDocumentHandler = (idx: number) => {
     setUploadedDocs((prevState) => prevState.filter((item, index) => index !== idx));
+    if (uploadedDocs.length === 1) setError(null);
   };
 
   console.log('uploadedDocs', uploadedDocs);
