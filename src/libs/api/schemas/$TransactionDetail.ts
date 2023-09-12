@@ -47,5 +47,10 @@ export const $TransactionDetail = {
             isNullable: true,
             format: 'date-time',
         },
+        deadline: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
     },
 } as const;

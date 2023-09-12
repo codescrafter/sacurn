@@ -399,7 +399,7 @@ export const Policy: string = `非常歡迎您光臨「○○網站」（以下�
 八、聯繫管道
 對於本站之隱私權政策有任何疑問，或者想提出變更、移除個人資料之請求，請前往本站「聯絡我們」頁面提交表單。`;
 
-export const MIN_CART_QTY = 3;
+export const MIN_CART_QTY = 1;
 
 export const COUNTY_LIST = [
   {

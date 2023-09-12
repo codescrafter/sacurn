@@ -1,11 +1,50 @@
+import dateFormat from 'dateformat';
+import { useCallback, useMemo } from 'react';
+import Countdown, { CountdownRenderProps } from 'react-countdown';
+
+import { CheckoutResult } from '@/store/cart';
+
 import CustomButton from './CustomButton';
 
 type TotalPaymentProps = {
   totalPrice: number;
+  checkoutDetail: CheckoutResult['checkoutDetail'];
 };
 
 const TotalPayment = (props: TotalPaymentProps) => {
-  const { totalPrice } = props;
+  const { totalPrice, checkoutDetail } = props;
+
+  const result = useMemo(() => {
+    const result = {
+      isError: true,
+      deadlineString: '-',
+      countdownGap: 0
+    };
+
+    if (checkoutDetail?.deadline) {
+      result.isError = false;
+      const deadlineDate = new Date(checkoutDetail.deadline);
+      result.deadlineString = dateFormat(new Date(deadlineDate), '在yyyy年mm月dd日 HH:MM到期');
+      result.countdownGap = Date.now() - deadlineDate.getMilliseconds();
+    }
+
+    return result;
+  }, []);
+
+  const renderer = useCallback((props: CountdownRenderProps) => {
+    const { minutes, seconds, completed } = props;
+
+    if (completed) {
+      return '已超過繳費期限';
+    } else {
+      return (
+        <span>
+          {minutes.toString().padStart(2, '0')}分鐘:{seconds.toString().padStart(2, '0')}秒
+        </span>
+      );
+    }
+  }, []);
+
   return (
     <div className="px-3">
       <p className="text-navy-blue text-xl font-bold text-center">付款資訊</p>
@@ -17,8 +56,10 @@ const TotalPayment = (props: TotalPaymentProps) => {
         <div className="border rounded-[10px] border-silverstone p-4 flex justify-between mb-4">
           <p className="text-navy-blue text-lg font-bold">付款期限：</p>
           <div className="text-end">
-            <p className="text-bright-red text-lg font-bold">30分鐘00秒</p>
-            <p className="text-[#525050] text-sm font-bold">在2023年09月25日 12:07到期</p>
+            <p className="text-bright-red text-lg font-bold">
+              {result.isError ? 'Error' : <Countdown date={Date.now() + result.countdownGap} renderer={renderer} />}
+            </p>
+            <p className="text-[#525050] text-sm font-bold">{result.deadlineString}</p>
           </div>
         </div>
         <div className="border rounded-[10px] border-silverstone p-4 flex justify-between mb-4">

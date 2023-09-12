@@ -275,6 +275,14 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
+}
+/* remove chrome autocomplete background color */
+.input-no-bg:-webkit-autofill:-webkit-autofill,
+.input-no-bg:-webkit-autofill:-webkit-autofill:hover,
+.input-no-bg:-webkit-autofill:-webkit-autofill:focus,
+.input-no-bg:-webkit-autofill:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgb(0, 84, 135);
 }
