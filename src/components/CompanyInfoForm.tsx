@@ -118,7 +118,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    if (!uploadedDocs.length) return setImageErrorMessage('请上传图片');
+    if (!uploadedDocs.length) return setImageErrorMessage('請上傳營業登記文件');
     const concatenatedAddresss = `${data.address.additionalProp1}, ${data.address.additionalProp2}, ${data.address.additionalProp3}, ${data.address.additionalProp4}, ${data.address.additionalProp5}, ${data.address.additionalProp6}, ${data.address.additionalProp7}, ${data.address.additionalProp8} ${data.address.additionalProp9}, ${data.address.additionalProp10}, ${data.address.additionalProp11}, ${data.address.additionalProp12}`;
     const dataToSubmit = {
       id: 0,
