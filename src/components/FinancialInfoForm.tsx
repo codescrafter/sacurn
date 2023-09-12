@@ -5,7 +5,6 @@ import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-f
 import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
-import { useUserStore } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps, FINANCIAL_CATEGORY, FINANCIAL_INSTUITION_LIST } from '@/util/constants';
 
@@ -35,7 +34,7 @@ const schema = yup.object({
 });
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
-  const companyId = useUserStore.getState().companyId;
+  const companyId = useCompanyStore.getState().company.id;
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
 
   const {
@@ -50,7 +49,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (!uploadedDocs.length) return setImageErrorMessage('请上传图片');
+      if (!uploadedDocs.length) return setImageErrorMessage('請上傳圖片');
       if (!companyId) return;
       const formData = new FormData();
       formData.append('financial_institution_type', data.financial_institution_type);

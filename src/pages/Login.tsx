@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { useUserStore } from '@/store/user';
-import { CompanyStatus } from '@/type';
 
 type LoginFormType = {
   username: string;
@@ -31,11 +30,7 @@ const Login = () => {
   const onSubmit = handleSubmit(async (data) => {
     const result = await login(data);
     if (result.isSuccess) {
-      if (result.companyStatus === CompanyStatus.PassReview) {
-        navigate('/');
-      } else {
-        navigate('/company-registration');
-      }
+      navigate(result.redirectUrl);
     }
   });
 

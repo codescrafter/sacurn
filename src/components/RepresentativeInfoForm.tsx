@@ -6,7 +6,6 @@ import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-f
 import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
-import { useUserStore } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 
@@ -41,7 +40,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const [cardIssue, setCardIssue] = useState<string>('台北市');
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
 
-  const companyId = useUserStore.getState().companyId;
+  const companyId = useCompanyStore.getState().company.id;
   const {
     register,
     handleSubmit,
