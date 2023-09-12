@@ -36,6 +36,7 @@ const schema = yup.object({
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
   const companyId = useUserStore.getState().companyId;
+  const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -43,12 +44,13 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
     formState: { errors }
   } = useForm<FinancialFormTypes>({ resolver: yupResolver(schema) });
   const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
-  const [SelectedFinancialInstitution, setSelectedFinancialInstitution] = useState<string | null>(null);
+  const [SelectedFinancialInstitution, setSelectedFinancialInstitution] = useState<string>('本國銀行');
 
   const updateCompany = useCompanyStore((state) => state.updateCompany);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      if (!uploadedDocs.length) return setImageErrorMessage('请上传图片');
       if (!companyId) return;
       const formData = new FormData();
       formData.append('financial_institution_type', data.financial_institution_type);
@@ -86,6 +88,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
               )}
               className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-[286px]"
               onChange={(e) => setSelectedFinancialInstitution(e.target.value)}
+              value={SelectedFinancialInstitution}
             >
               {FINANCIAL_CATEGORY?.map((financial) => (
                 <option value={financial.value} className="text-black">
@@ -98,11 +101,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           <div className="flex items-center mb-5.5 gap-2.7">
             <h2 className="text-black text-base min-w-[144px] leading-5 text-right">選擇銀行或郵局 :</h2>
             <select
-              {...register(
-                `financial_institution_name`,
-
-                { required: true }
-              )}
+              {...register(`financial_institution_name`, { required: true })}
               className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-[286px]"
             >
               {FINANCIAL_INSTUITION_LIST?.filter((item) => item.slug === SelectedFinancialInstitution).map(
@@ -145,8 +144,12 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           />
           <div className="flex gap-2.7">
             <h2 className="text-black text-base min-w-[144px] leading-5 text-right">存摺封面 : </h2>
-            {/* <UploadDocuments register={register} /> */}
-            <UploadDocuments uploadedDocs={uploadedDocs} setUploadedDocs={setUploadedDocs} />
+            <UploadDocuments
+              uploadedDocs={uploadedDocs}
+              setUploadedDocs={setUploadedDocs}
+              errorMessage={imageErrorMessage}
+              setErrorMessage={setImageErrorMessage}
+            />
           </div>
         </div>
       </div>

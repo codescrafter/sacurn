@@ -3,28 +3,32 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 interface IProps {
   uploadedDocs: File[];
   setUploadedDocs: Dispatch<SetStateAction<File[]>>;
+  errorMessage?: string | null;
+  setErrorMessage?: Dispatch<SetStateAction<string | null>>;
 }
 
-const UploadDocuments = ({ uploadedDocs, setUploadedDocs }: IProps) => {
+const UploadDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setErrorMessage }: IProps) => {
   const [error, setError] = useState<string | null>(null);
   const addOptionHandler = (file: File) => {
     if (uploadedDocs.some((item) => item.name === file.name)) {
-      setError(`${file.name} 图像已经存在`);
+      setError(`${file.name} 圖像已經存在`);
       return;
     }
     setUploadedDocs((prevState) => [...prevState, file]);
     setError(null);
+    setErrorMessage && setErrorMessage(null);
   };
 
   const removeDocumentHandler = (idx: number) => {
     setUploadedDocs((prevState) => prevState.filter((item, index) => index !== idx));
+    if (uploadedDocs.length === 1) setError(null);
   };
 
   console.log('uploadedDocs', uploadedDocs);
   return (
     <div className="flex flex-col max-w-[372px] max">
       <p className="text-black min-[1500px]:text-base text-sm">
-        影業登記文件檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
+        營業登記文件檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
       </p>
       <p className="text-navy-blue underline">了解營業登記文件上傳...</p>
       <div className="flex flex-row flex-wrap max-w-[360px] gap-4 mt-2">
@@ -58,7 +62,7 @@ const UploadDocuments = ({ uploadedDocs, setUploadedDocs }: IProps) => {
           />
         </div>
       </div>
-      <p className="text-bright-red text-xs mt-2">{error}</p>
+      <p className="text-bright-red text-xs mt-2">{error || errorMessage}</p>
     </div>
   );
 };
