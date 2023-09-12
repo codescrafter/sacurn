@@ -36,8 +36,8 @@ const CompanyRegistration = () => {
     <div className=" bg-smoke min-h-screen">
       <SimpleNav className="mb-20" />
       <ProgressBar steps={5} stepNumber={stepNumber} stepName={ProgressBarItems[stepNumber]} />
-      {stepNumber === 1 && <CompanyInfoForm nextStep={setStepNumber} />}
-      {stepNumber === 2 && <RepresentativeInfoForm nextStep={setStepNumber} />}
+      {stepNumber === 2 && <CompanyInfoForm nextStep={setStepNumber} />}
+      {stepNumber === 1 && <RepresentativeInfoForm nextStep={setStepNumber} />}
       {stepNumber === 3 && <FinancialInfoForm nextStep={setStepNumber} />}
       {stepNumber === 4 && <TermsConfirmation nextStep={setStepNumber} />}
       {stepNumber === 5 && <RegistrationCompleted />}

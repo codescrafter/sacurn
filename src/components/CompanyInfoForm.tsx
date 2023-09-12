@@ -217,37 +217,33 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               size={InputSize.SMALL}
             />
 
-            {/* <CompanyInputField
-              id="founding_date"
-              isRequired={true}
-              type="date"
-              placeholder='"YYYY-MM-DD"'
-              register={register}
-              heading="核准設立日期"
-              errors={errors}
-              errorMessage="必填字段"
-              size={InputSize.SMALL}
-            /> */}
-            <div className="flex gap-2.7 items-center mb-5.5">
-              <label className="text-base text-black leading-5 text-right w-[128px] font-bold">核准設立日期 :</label>
-
-              <ReactDatePicker
-                dateFormat="yyyy/MM/dd"
-                selected={getValues('founding_date') ? new Date(getValues('founding_date')) : new Date()}
-                onChange={(date) => {
-                  date && setValue('founding_date', date.toISOString().split('T')[0], { shouldValidate: true });
-                }}
-                className={classNames(
-                  'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none ',
-                  'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5'
+            <div className="flex gap-2.7 items-start mb-5.5">
+              <label className="text-base text-black leading-5 text-right w-[128px] font-bold mt-1">
+                核准設立日期 :
+              </label>
+              <div>
+                <ReactDatePicker
+                  dateFormat="yyyy/MM/dd"
+                  selected={getValues('founding_date') ? new Date(getValues('founding_date')) : new Date()}
+                  onChange={(date) => {
+                    date && setValue('founding_date', date.toISOString().split('T')[0], { shouldValidate: true });
+                  }}
+                  className={classNames(
+                    'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none ',
+                    'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5'
+                  )}
+                  maxDate={new Date()}
+                  showYearDropdown
+                  dateFormatCalendar="MMMM"
+                  yearDropdownItemNumber={40}
+                  scrollableYearDropdown
+                />
+                {errors.founding_date?.message && (
+                  <p className="text-xs mt-1 ml-2 text-bright-red">{errors.founding_date.message}</p>
                 )}
-                maxDate={new Date()}
-                showYearDropdown
-                dateFormatCalendar="MMMM"
-                yearDropdownItemNumber={40}
-                scrollableYearDropdown
-              />
+              </div>
             </div>
+
             <div className="flex gap-2.7">
               <label className="text-black text-right font-semibold w-[128px] mb-5.2">公司登記地址 :</label>
               <div className="flex flex-col">
