@@ -11,7 +11,7 @@ const UploadDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setError
   const [error, setError] = useState<string | null>(null);
   const addOptionHandler = (file: File) => {
     if (uploadedDocs.some((item) => item.name === file.name)) {
-      setError(`${file.name} 图像已经存在`);
+      setError(`${file.name} 圖像已經存在`);
       return;
     }
     setUploadedDocs((prevState) => [...prevState, file]);
@@ -28,7 +28,7 @@ const UploadDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setError
   return (
     <div className="flex flex-col max-w-[372px] max">
       <p className="text-black min-[1500px]:text-base text-sm">
-        影業登記文件檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
+        營業登記文件檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
       </p>
       <p className="text-navy-blue underline">了解營業登記文件上傳...</p>
       <div className="flex flex-row flex-wrap max-w-[360px] gap-4 mt-2">

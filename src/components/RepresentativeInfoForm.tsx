@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
 import { ChangeEvent, useState } from 'react';
+import ReactDatePicker from 'react-datepicker';
 import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -44,14 +45,16 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setValue,
+    getValues
   } = useForm<RepresentativeFormTypes>({ resolver: yupResolver(schema) });
 
   const updateCompany = useCompanyStore((state) => state.updateCompany);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (uploadedDocs.length < 2) return setImageErrorMessage('请上传图片');
+      if (uploadedDocs.length < 2) return setImageErrorMessage('請上傳身分證正反面圖檔');
       if (!companyId) return;
       const _representative_id_card_issue_date = new Date().toISOString();
       const formData = new FormData();
@@ -215,16 +218,37 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
               ))}
             </select>
           </div>
-          <LabelInput
-            register={register}
-            type="text"
-            id="representative_birthday"
-            isRequired={true}
-            heading={selectedValue === '本國籍' ? '出生年月日:' : '出生日期:'}
-            placeholder="YYYY-MM-DD"
-            errors={errors}
-            errorMessage="必填字段"
-          />
+
+          <div className="flex gap-2.7 items-start mb-5.5">
+            <label className="text-base text-black leading-5 text-right w-36 mt-1">
+              {selectedValue === '本國籍' ? '出生年月日:' : '出生日期:'}
+            </label>
+            <div>
+              <ReactDatePicker
+                dateFormat="yyyy/MM/dd"
+                selected={
+                  getValues('representative_birthday') ? new Date(getValues('representative_birthday')) : new Date()
+                }
+                onChange={(date) => {
+                  date &&
+                    setValue('representative_birthday', date.toISOString().split('T')[0], { shouldValidate: true });
+                }}
+                className={classNames(
+                  'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none ',
+                  'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5'
+                )}
+                maxDate={new Date()}
+                showYearDropdown
+                dateFormatCalendar="MMMM"
+                yearDropdownItemNumber={100}
+                scrollableYearDropdown
+              />
+              {errors.representative_birthday?.message && (
+                <p className="text-xs mt-1 ml-2 text-bright-red">{errors.representative_birthday.message}</p>
+              )}
+            </div>
+          </div>
+
           <div className="flex gap-2.7">
             <p className="text-black text-base min-w-[144px] text-right">
               {selectedValue === '本國籍' ? '身分證文件上傳:' : '護照文件上傳:'}
