@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -21,6 +21,7 @@ export type FinancialFormTypes = {
   financial_institution_name: string;
   financial_institution_branch_name: string;
   account_name: string;
+  account_number: string;
   account_image?: string;
 };
 
@@ -29,13 +30,19 @@ const schema = yup.object({
   financial_institution_name: yup.string().required(),
   financial_institution_branch_name: yup.string().required(),
   account_name: yup.string().required(),
-  account_image: yup.mixed()
+  account_image: yup.mixed(),
+  account_number: yup
+    .string()
+    .required()
+    .min(14, 'Must be exactly 14 digits')
+    .max(14, 'Must be exactly 14 digits')
+    // .matches(/^[0-9]+$/, 'Must be only digits')
+    .matches(/^\d+$/, 'The field should have digits only')
 });
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
   const companyId = useUserStore.getState().companyId;
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
-  const [accountNumberError, setAccountNumberError] = useState<string | null>(null);
 
   const {
     register,
@@ -44,22 +51,11 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
   } = useForm<FinancialFormTypes>({ resolver: yupResolver(schema) });
   const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
   const [SelectedFinancialInstitution, setSelectedFinancialInstitution] = useState<string>('本國銀行');
-  const [accountNumber, setAccountNumber] = useState<string>('');
 
   const updateCompany = useCompanyStore((state) => state.updateCompany);
-  const getCompany = useCompanyStore((state) => state.getCompany);
-
-  useEffect(() => {
-    (async () => {
-      const company = await getCompany(13);
-      console.log(company);
-    })();
-  }, []);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (Number(accountNumber?.length) === 14) return setAccountNumberError('');
-      if (accountNumber?.length < 14) return setAccountNumberError('請輸入14位數字');
       if (!uploadedDocs.length) return setImageErrorMessage('请上传图片');
       if (!companyId) return;
       const formData = new FormData();
@@ -67,7 +63,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
       formData.append('financial_institution_name', data.financial_institution_name);
       formData.append('financial_institution_branch_name', data.financial_institution_branch_name);
       formData.append('account_name', data.account_name);
-      formData.append('account_number', accountNumber);
+      formData.append('account_number', data.account_number);
       formData.append('account_image', uploadedDocs?.[0]);
       await updateCompany(companyId, formData);
       const isSuccess = useCompanyStore.getState().isSuccess;
@@ -91,7 +87,11 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           <div className="flex items-center mb-5.5 gap-2.7">
             <h2 className="text-black text-base min-w-[144px] leading-5 text-right">選擇金融機構分類 :</h2>
             <select
-              {...register(`financial_institution_type`, { required: true })}
+              {...register(
+                `financial_institution_type`,
+
+                { required: true }
+              )}
               className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-[286px]"
               onChange={(e) => setSelectedFinancialInstitution(e.target.value)}
               value={SelectedFinancialInstitution}
@@ -139,35 +139,15 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
             errors={errors}
             errorMessage="必填字段"
           />
-          <div className="mb-5.5">
-            <div className="flex gap-2.7 items-center ">
-              <label className="text-base text-black leading-5 text-right w-[144px]">帳號 :</label>
-              <input
-                type="text"
-                value={accountNumber}
-                onChange={(e) => {
-                  if (e.target.value.length > 14) {
-                    setAccountNumberError('( 帳號長度限制為14碼 )');
-                    return;
-                  }
-                  if (isNaN(Number(e.target.value))) {
-                    setAccountNumberError('請輸入數字');
-                    return;
-                  }
-                  setAccountNumber(e.target.value);
-                  setAccountNumberError('');
-                }}
-                max={3}
-                className={classNames(
-                  'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5'
-                )}
-              />
-            </div>
-            <div className="flex">
-              <div className="w-[160px]"></div>
-              <p className="text-xs mt-1 ml-2 text-bright-red">{accountNumberError}</p>
-            </div>
-          </div>
+          <LabelInput
+            type="text"
+            register={register}
+            id="account_number"
+            isRequired={true}
+            heading="帳號"
+            errors={errors}
+            errorMessage="( 帳號長度限制為14碼 )"
+          />
           <div className="flex gap-2.7">
             <h2 className="text-black text-base min-w-[144px] leading-5 text-right">存摺封面 : </h2>
             <UploadDocuments
@@ -199,6 +179,37 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
 };
 
 export default FinancialInfoForm;
+
+// interface SimpleSelectProps {
+//   options: string[];
+//   register: UseFormRegister<FinancialFormTypes>;
+//   id: string;
+//   heading: string;
+// }
+
+// const LabelSelect = ({ register, id, options, heading }: SimpleSelectProps) => {
+//   return (
+//     <div className="flex items-center mb-5.5 gap-2.7">
+//       <h2 className="text-black text-base min-w-[144px] leading-5 text-right">{heading} :</h2>
+//       <select
+//         {...register(
+//           id as 'financial_institution_type' | 'financial_institution_name' | 'financial_institution_branch_name',
+
+//           { required: true }
+//         )}
+//         className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-[286px]"
+//       >
+//         {options.map((option) => {
+//           return (
+//             <option value={option} className="text-black">
+//               {option}
+//             </option>
+//           );
+//         })}
+//       </select>
+//     </div>
+//   );
+// };
 
 interface LabelProps {
   id: string;
@@ -243,7 +254,9 @@ const LabelInput = ({
                 size === InputSize.SMALL
             }
           )}
-          {...register(id as 'account_name', { required: isRequired })}
+          {...register(id as 'account_name' | 'account_number', {
+            required: isRequired
+          })}
           placeholder={placeholder}
           type={type}
         />

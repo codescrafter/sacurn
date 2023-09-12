@@ -14,7 +14,7 @@ import { CompanyStatus } from '@/type';
 import { CompanyRegistrationSteps, ProgressBarItems } from '@/util/constants';
 
 const CompanyRegistration = () => {
-  const [stepNumber, setStepNumber] = useState(CompanyRegistrationSteps.COMPANY_INFO_FORM);
+  const [stepNumber, setStepNumber] = useState(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
   const company = useCompanyStore((state) => state.company);
   const open = useModalStore((state) => state.open);
   const navigate = useNavigate();
