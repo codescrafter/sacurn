@@ -1,6 +1,9 @@
+import 'react-datepicker/dist/react-datepicker.css';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
 import { useState } from 'react';
+import ReactDatePicker from 'react-datepicker';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -72,6 +75,7 @@ const schema = yup
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
+  const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -108,24 +112,13 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     } = address;
     setValue(
       'contact_address',
-      `${additionalProp1} 
-      ${additionalProp2} 
-      ${additionalProp3} 
-      ${additionalProp4} 
-      ${additionalProp5} 
-      ${additionalProp6} 
-      ${additionalProp7} 
-      ${additionalProp8} 
-      ${additionalProp9} 
-      ${additionalProp10} 
-      ${additionalProp11} 
-      ${additionalProp12}`,
-
+      `${additionalProp1} ${additionalProp2} ${additionalProp3} ${additionalProp4} ${additionalProp5} ${additionalProp6} ${additionalProp7} ${additionalProp8} ${additionalProp9} ${additionalProp10} ${additionalProp11} ${additionalProp12}`,
       { shouldValidate: true }
     );
   };
 
   const onSubmit = handleSubmit(async (data) => {
+    if (!uploadedDocs.length) return setImageErrorMessage('請上傳營業登記文件');
     const concatenatedAddresss = `${data.address.additionalProp1}, ${data.address.additionalProp2}, ${data.address.additionalProp3}, ${data.address.additionalProp4}, ${data.address.additionalProp5}, ${data.address.additionalProp6}, ${data.address.additionalProp7}, ${data.address.additionalProp8} ${data.address.additionalProp9}, ${data.address.additionalProp10}, ${data.address.additionalProp11}, ${data.address.additionalProp12}`;
     const dataToSubmit = {
       id: 0,
@@ -145,8 +138,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       updated_at: new Date().toISOString(),
       registration_document: uploadedDocs
     };
-    console.log('dataToSubmit', dataToSubmit);
-
     const formData = new FormData();
 
     formData.append('id', dataToSubmit.id.toString());
@@ -226,17 +217,33 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               size={InputSize.SMALL}
             />
 
-            <CompanyInputField
-              id="founding_date"
-              isRequired={true}
-              type="date"
-              placeholder='"YYYY-MM-DD"'
-              register={register}
-              heading="核准設立日期"
-              errors={errors}
-              errorMessage="必填字段"
-              size={InputSize.SMALL}
-            />
+            <div className="flex gap-2.7 items-start mb-5.5">
+              <label className="text-base text-black leading-5 text-right w-[128px] font-bold mt-1">
+                核准設立日期 :
+              </label>
+              <div>
+                <ReactDatePicker
+                  dateFormat="yyyy/MM/dd"
+                  selected={getValues('founding_date') ? new Date(getValues('founding_date')) : new Date()}
+                  onChange={(date) => {
+                    date && setValue('founding_date', date.toISOString().split('T')[0], { shouldValidate: true });
+                  }}
+                  className={classNames(
+                    'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none ',
+                    'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5'
+                  )}
+                  maxDate={new Date()}
+                  showYearDropdown
+                  dateFormatCalendar="MMMM"
+                  yearDropdownItemNumber={40}
+                  scrollableYearDropdown
+                />
+                {errors.founding_date?.message && (
+                  <p className="text-xs mt-1 ml-2 text-bright-red">{errors.founding_date.message}</p>
+                )}
+              </div>
+            </div>
+
             <div className="flex gap-2.7">
               <label className="text-black text-right font-semibold w-[128px] mb-5.2">公司登記地址 :</label>
               <div className="flex flex-col">
@@ -404,7 +411,12 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 <label className="text-black text-right font-semibold col-span-1 mb-5.2 w-[128px]">
                   營業登記文件 :
                 </label>
-                <UploadDocuments uploadedDocs={uploadedDocs} setUploadedDocs={setUploadedDocs} />
+                <UploadDocuments
+                  uploadedDocs={uploadedDocs}
+                  setUploadedDocs={setUploadedDocs}
+                  errorMessage={imageErrorMessage}
+                  setErrorMessage={setImageErrorMessage}
+                />
               </div>
             </div>
           </div>
