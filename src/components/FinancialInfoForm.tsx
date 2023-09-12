@@ -36,6 +36,7 @@ const schema = yup.object({
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
   const companyId = useUserStore.getState().companyId;
+  const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -49,6 +50,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      if (!uploadedDocs.length) return setImageErrorMessage('请上传图片');
       if (!companyId) return;
       const formData = new FormData();
       formData.append('financial_institution_type', data.financial_institution_type);
@@ -145,8 +147,12 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           />
           <div className="flex gap-2.7">
             <h2 className="text-black text-base min-w-[144px] leading-5 text-right">存摺封面 : </h2>
-            {/* <UploadDocuments register={register} /> */}
-            <UploadDocuments uploadedDocs={uploadedDocs} setUploadedDocs={setUploadedDocs} />
+            <UploadDocuments
+              uploadedDocs={uploadedDocs}
+              setUploadedDocs={setUploadedDocs}
+              errorMessage={imageErrorMessage}
+              setErrorMessage={setImageErrorMessage}
+            />
           </div>
         </div>
       </div>

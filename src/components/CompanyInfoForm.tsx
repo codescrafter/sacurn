@@ -75,6 +75,7 @@ const schema = yup
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
+  const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -117,6 +118,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
+    if (!uploadedDocs.length) return setImageErrorMessage('请上传图片');
     const concatenatedAddresss = `${data.address.additionalProp1}, ${data.address.additionalProp2}, ${data.address.additionalProp3}, ${data.address.additionalProp4}, ${data.address.additionalProp5}, ${data.address.additionalProp6}, ${data.address.additionalProp7}, ${data.address.additionalProp8} ${data.address.additionalProp9}, ${data.address.additionalProp10}, ${data.address.additionalProp11}, ${data.address.additionalProp12}`;
     const dataToSubmit = {
       id: 0,
@@ -136,8 +138,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       updated_at: new Date().toISOString(),
       registration_document: uploadedDocs
     };
-    console.log('dataToSubmit', dataToSubmit);
-
     const formData = new FormData();
 
     formData.append('id', dataToSubmit.id.toString());
@@ -415,7 +415,12 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 <label className="text-black text-right font-semibold col-span-1 mb-5.2 w-[128px]">
                   營業登記文件 :
                 </label>
-                <UploadDocuments uploadedDocs={uploadedDocs} setUploadedDocs={setUploadedDocs} />
+                <UploadDocuments
+                  uploadedDocs={uploadedDocs}
+                  setUploadedDocs={setUploadedDocs}
+                  errorMessage={imageErrorMessage}
+                  setErrorMessage={setImageErrorMessage}
+                />
               </div>
             </div>
           </div>
