@@ -38,6 +38,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const [dateList, setDateList] = useState<string[]>(dates);
   const [region, setRegion] = useState<string>('台北市');
   const [cardIssue, setCardIssue] = useState<string>('台北市');
+  const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
 
   const companyId = useUserStore.getState().companyId;
   const {
@@ -50,8 +51,9 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const _representative_id_card_issue_date = new Date().toISOString();
       if (!companyId) return;
+      if (uploadedDocs.length < 2) return setImageErrorMessage('请上传图片');
+      const _representative_id_card_issue_date = new Date().toISOString();
       const formData = new FormData();
       formData.append('representative_country', data.representative_country);
       formData.append('representative_id_card_number', data.representative_id_card_number);
@@ -226,7 +228,12 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             <p className="text-black text-base min-w-[144px] text-right">
               {selectedValue === '本國籍' ? '身分證文件上傳:' : '護照文件上傳:'}
             </p>
-            <UploadDocuments uploadedDocs={uploadedDocs} setUploadedDocs={setUploadedDocs} />
+            <UploadDocuments
+              uploadedDocs={uploadedDocs}
+              setUploadedDocs={setUploadedDocs}
+              errorMessage={imageErrorMessage}
+              setErrorMessage={setImageErrorMessage}
+            />
           </div>
         </div>
       </div>

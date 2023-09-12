@@ -3,9 +3,11 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 interface IProps {
   uploadedDocs: File[];
   setUploadedDocs: Dispatch<SetStateAction<File[]>>;
+  errorMessage?: string | null;
+  setErrorMessage?: Dispatch<SetStateAction<string | null>>;
 }
 
-const UploadDocuments = ({ uploadedDocs, setUploadedDocs }: IProps) => {
+const UploadDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setErrorMessage }: IProps) => {
   const [error, setError] = useState<string | null>(null);
   const addOptionHandler = (file: File) => {
     if (uploadedDocs.some((item) => item.name === file.name)) {
@@ -14,6 +16,7 @@ const UploadDocuments = ({ uploadedDocs, setUploadedDocs }: IProps) => {
     }
     setUploadedDocs((prevState) => [...prevState, file]);
     setError(null);
+    setErrorMessage && setErrorMessage(null);
   };
 
   const removeDocumentHandler = (idx: number) => {
@@ -58,7 +61,7 @@ const UploadDocuments = ({ uploadedDocs, setUploadedDocs }: IProps) => {
           />
         </div>
       </div>
-      <p className="text-bright-red text-xs mt-2">{error}</p>
+      <p className="text-bright-red text-xs mt-2">{error || errorMessage}</p>
     </div>
   );
 };
