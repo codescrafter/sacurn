@@ -77,7 +77,7 @@ const Cart = () => {
                 <div className="2xl:mt-5.2 mt-3">
                   {cartDetail.product_list?.map((product) => {
                     return (
-                      <div className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
+                      <div key={product.name} className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
                         <p className="w-[70%] text-grey 2xl:text-lg text-sm">{product.name}</p>
                         <p className="text-grey 2xl:text-lg text-sm">{product.amount} 噸</p>
                       </div>
