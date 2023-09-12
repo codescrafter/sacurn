@@ -31,7 +31,7 @@ const schema = yup
 
 const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
-  const [selectedValue, setSelectedValue] = useState<string>('');
+  const [selectedValue, setSelectedValue] = useState<string>('本國籍');
   const [date, setDate] = useState<string>('1');
   const [month, setMonth] = useState<string>('1');
   const [year, setYear] = useState<string>('2023');
@@ -51,8 +51,8 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (!companyId) return;
       if (uploadedDocs.length < 2) return setImageErrorMessage('请上传图片');
+      if (!companyId) return;
       const _representative_id_card_issue_date = new Date().toISOString();
       const formData = new FormData();
       formData.append('representative_country', data.representative_country);
@@ -98,6 +98,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
                     type="radio"
                     {...register('representative_country')}
                     value="本國籍"
+                    defaultChecked={true}
                     className="border-navy-blue w-3.2 checked:bg-navy-blue"
                     onChange={handleRadioChange}
                   />

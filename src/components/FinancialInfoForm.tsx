@@ -50,8 +50,8 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (!companyId) return;
       if (!uploadedDocs.length) return setImageErrorMessage('请上传图片');
+      if (!companyId) return;
       const formData = new FormData();
       formData.append('financial_institution_type', data.financial_institution_type);
       formData.append('financial_institution_name', data.financial_institution_name);
