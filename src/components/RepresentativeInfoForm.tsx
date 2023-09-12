@@ -54,7 +54,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (uploadedDocs.length < 2) return setImageErrorMessage('请上传图片');
+      if (uploadedDocs.length < 2) return setImageErrorMessage('請上傳身分證正反面圖檔');
       if (!companyId) return;
       const _representative_id_card_issue_date = new Date().toISOString();
       const formData = new FormData();
