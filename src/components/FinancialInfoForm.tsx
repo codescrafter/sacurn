@@ -30,8 +30,14 @@ const schema = yup.object({
   financial_institution_name: yup.string().required(),
   financial_institution_branch_name: yup.string().required(),
   account_name: yup.string().required(),
-  account_number: yup.string().required(),
-  account_image: yup.mixed()
+  account_image: yup.mixed(),
+  account_number: yup
+    .string()
+    .required()
+    .min(14, 'Must be exactly 14 digits')
+    .max(14, 'Must be exactly 14 digits')
+    // .matches(/^[0-9]+$/, 'Must be only digits')
+    .matches(/^\d+$/, 'The field should have digits only')
 });
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
@@ -248,11 +254,9 @@ const LabelInput = ({
                 size === InputSize.SMALL
             }
           )}
-          {...register(
-            id as 'account_name' | 'account_number',
-
-            { required: isRequired }
-          )}
+          {...register(id as 'account_name' | 'account_number', {
+            required: isRequired
+          })}
           placeholder={placeholder}
           type={type}
         />

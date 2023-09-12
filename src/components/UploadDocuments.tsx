@@ -55,9 +55,13 @@ const UploadDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setError
           <img src="/images/operation-record/plus-icon.svg" alt="add new doc" />
           <input
             type="file"
+            accept="application/pdf"
             className="absolute scale-y-[1] max-w-full max-h-full top-0 bottom-0 left-0 opacity-0 cursor-pointer z-50"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
               e?.target?.files && e?.target?.files?.length > 0 && addOptionHandler(e.target.files[0]);
+            }}
+            onClick={(e) => {
+              e.currentTarget.value = '';
             }}
           />
         </div>
