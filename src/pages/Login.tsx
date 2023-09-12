@@ -66,7 +66,7 @@ const Login = () => {
             />
             <input
               {...register('username')}
-              className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base"
+              className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
               type="text"
               placeholder={t('username')}
             />
@@ -83,7 +83,7 @@ const Login = () => {
             />
             <input
               {...register('password')}
-              className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base"
+              className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
               type="password"
               placeholder={t('password')}
             />
