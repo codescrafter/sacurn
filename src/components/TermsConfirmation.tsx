@@ -52,7 +52,9 @@ const TermsConfirmation = ({ nextStep }: IProps) => {
             </label>
           </div>
           {errors && errors['terms-and-conditions'] && (
-            <p className="text-xs mt-1 ml-2 text-bright-red">请同意隐私和政策</p>
+            <p className="text-xs mt-1 ml-2 text-bright-red">
+              需先打勾確認貴公司之《服務條款》、《隱私政策》和《Cookie 政策》
+            </p>
           )}
         </div>
         <CustomButton

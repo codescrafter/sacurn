@@ -46,11 +46,36 @@ export type FormValues = {
 const schema = yup
   .object({
     name: yup.string().required('Name is required'),
-    registration_number: yup.string().required('registration_number is required'),
-    capital: yup.number().required('Capital is required'),
-    phone: yup.string().required('Phone is required'),
-    founding_date: yup.string().required('Founding date is required'),
-    representative: yup.string().required('Representative is required'),
+    registration_number: yup
+      .string()
+      .required('統一編號是必填的')
+      .length(8, '統一編號必須是8位數')
+      .matches(/^\d{8}$/, '統一編號必須是8位數')
+      .test('is-valid', '無效的統一編號', function (value) {
+        const weights = [1, 2, 1, 2, 1, 2, 4, 1];
+        const nums = value.split('').map(Number);
+        let sum = 0;
+        for (let i = 0; i < 8; i++) {
+          const product = nums[i] * weights[i];
+          sum += Math.floor(product / 10) + (product % 10);
+        }
+        return sum % 10 === 0 || (sum + nums[6]) % 10 === 0;
+      }),
+    capital: yup
+      .number()
+      .typeError('Capital must be a number')
+      .required('Capital is required')
+      .positive('Capital must be a positive number')
+      .integer('Capital must be an integer'),
+    phone: yup
+      .string()
+      .required('Phone number is required')
+      .matches(/^09\d{8}$/, 'Invalid phone number'),
+    founding_date: yup.string().required('請輸入正確企業設立日期'),
+    representative: yup
+      .string()
+      .required('Representative is required')
+      .matches(/^[\u4e00-\u9fa5]+$/, 'Representative must be in Chinese'),
     contact_address: yup.string().required('Contact address is required'),
     address: yup
       .object()
@@ -191,7 +216,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               heading="統一編號"
               placeholder="請輸入統一編號"
               errors={errors}
-              errorMessage="必填字段"
+              errorMessage="請輸入正確統一編號"
               size={InputSize.SMALL}
             />
 
@@ -202,7 +227,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               register={register}
               heading="代表人中文姓名"
               errors={errors}
-              errorMessage="必填字段"
+              errorMessage="請輸入中文姓名"
               size={InputSize.SMALL}
             />
 
@@ -213,7 +238,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               register={register}
               heading="實收資本額"
               errors={errors}
-              errorMessage="必填字段"
+              errorMessage="請輸入資本額數字"
               size={InputSize.SMALL}
             />
 
