@@ -31,14 +31,14 @@ export type FormValues = {
     additionalProp2: string;
     additionalProp3: string;
     additionalProp4: string;
-    additionalProp5: string;
-    additionalProp6: string;
-    additionalProp7: string;
-    additionalProp8: string;
+    additionalProp5?: string;
+    additionalProp6?: string;
+    additionalProp7?: string;
+    additionalProp8?: string;
     additionalProp9: string;
-    additionalProp10: string;
-    additionalProp11: string;
-    additionalProp12: string;
+    additionalProp10?: string;
+    additionalProp11?: string;
+    additionalProp12?: string;
   };
   contact_address: string;
 };
@@ -59,14 +59,14 @@ const schema = yup
         additionalProp2: yup.string().required('Address is required'),
         additionalProp3: yup.string().required('Address is required'),
         additionalProp4: yup.string().required('Address is required'),
-        additionalProp5: yup.string().required('Address is required'),
-        additionalProp6: yup.string().required('Address is required'),
-        additionalProp7: yup.string().required('Address is required'),
-        additionalProp8: yup.string().required('Address is required'),
+        additionalProp5: yup.string(),
+        additionalProp6: yup.string(),
+        additionalProp7: yup.string(),
+        additionalProp8: yup.string(),
         additionalProp9: yup.string().required('Address is required'),
-        additionalProp10: yup.string().required('Address is required'),
-        additionalProp11: yup.string().required('Address is required'),
-        additionalProp12: yup.string().required('Address is required')
+        additionalProp10: yup.string(),
+        additionalProp11: yup.string(),
+        additionalProp12: yup.string()
       })
       .required()
   })
@@ -371,7 +371,13 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       );
                     })}
                   </div>
-                  {errors.address && <p className="text-[#FF0000] text-xs font-normal">( 紅色框格請務必填寫 )</p>}
+                  {(errors.address?.additionalProp1 ||
+                    errors.address?.additionalProp2 ||
+                    errors.address?.additionalProp3 ||
+                    errors.address?.additionalProp4 ||
+                    errors.address?.additionalProp9) && (
+                    <p className="text-[#FF0000] text-xs font-normal">( 紅色框格請務必填寫 )</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -400,10 +406,12 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 </div>
                 <CompanyInputField
                   id="contact_address"
-                  isRequired={false}
+                  isRequired={true}
                   type="text"
                   register={register}
                   heading="會員聯絡地址"
+                  errors={errors}
+                  errorMessage="請提供公司聯絡地址"
                   size={InputSize.SMALL}
                 />
               </div>
