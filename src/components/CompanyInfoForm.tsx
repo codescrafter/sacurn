@@ -2,7 +2,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -10,6 +10,7 @@ import * as yup from 'yup';
 import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps, COUNTY_LIST, URBAN_AREA_LIST } from '@/util/constants';
+import { getCookie } from '@/util/helper';
 
 import CompanyInputField from './CompanyInputField';
 import CustomButton from './CustomButton';
@@ -76,6 +77,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
+
   const {
     register,
     handleSubmit,
@@ -84,9 +88,45 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     setValue
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
 
-  const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
-
+  // const companyId = useUserStore.getState().companyId;
+  const companyId = getCookie('auth');
   const createCompany = useCompanyStore((state) => state.createCompany);
+  const updateCompany = useCompanyStore((state) => state.updateCompany);
+  const getCompanyInfo = useCompanyStore((state) => state.getCompany);
+
+  useEffect(() => {
+    (async () => {
+      if (!companyId) return;
+      const data = await getCompanyInfo(companyId);
+      if (!data) return;
+      // update form value
+      if (data.name) setValue('name', data.name);
+      if (data.registration_number) setValue('registration_number', data.registration_number);
+      if (data.capital) setValue('capital', data.capital);
+      if (data.phone) setValue('phone', data.phone);
+      if (data.founding_date) setValue('founding_date', data.founding_date);
+      if (data.representative) setValue('representative', data.representative);
+      if (data.contact_address) setValue('contact_address', data.contact_address);
+      if (data?.address) {
+        const address1 = data.address?.additionalProp1.split(',');
+        const address2 = data.address?.additionalProp2.split(',');
+        const address3 = data.address?.additionalProp3.split(',');
+        setValue('address.additionalProp1', address1[0].trim());
+        setValue('address.additionalProp2', address1[1].trim());
+        setValue('address.additionalProp3', address1[2].trim());
+        setValue('address.additionalProp4', address1[3].trim());
+        setValue('address.additionalProp5', address2[0].trim());
+        setValue('address.additionalProp6', address2[1].trim());
+        setValue('address.additionalProp7', address2[2].trim());
+        setValue('address.additionalProp8', address2[3].trim());
+        setValue('address.additionalProp9', address3[0].trim());
+        setValue('address.additionalProp10', address3[1].trim());
+        setValue('address.additionalProp11', address3[2].trim());
+        setValue('address.additionalProp12', address3[3].trim());
+      }
+      if (data.registration_document.length) setUploadedDocs(data.registration_document);
+    })();
+  }, []);
 
   const handleGetValue = (value: boolean) => {
     setIsChecked(!isChecked);
@@ -139,7 +179,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       registration_document: uploadedDocs
     };
     const formData = new FormData();
-
     formData.append('id', dataToSubmit.id.toString());
     formData.append('name', dataToSubmit.name);
     formData.append('registration_number', dataToSubmit.registration_number);
@@ -151,11 +190,14 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     formData.append('address', JSON.stringify(dataToSubmit.address));
     formData.append('created_at', dataToSubmit.created_at);
     formData.append('updated_at', dataToSubmit.updated_at);
-    // formData.append('registration_document', dataToSubmit.registration_document); // appending in form data
     for (const img of uploadedDocs) {
       formData.append('registration_document', img);
     }
-    await createCompany(formData);
+    if (companyId) {
+      await updateCompany(companyId, formData);
+    } else {
+      await createCompany(formData);
+    }
     const isSuccess = useCompanyStore.getState().isSuccess;
     if (isSuccess) nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
     useCompanyStore.setState({ isSuccess: false });
@@ -256,7 +298,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                         Style
                       )}
-                      defaultValue="縣市"
+                      // defaultValue="縣市"
                       onChange={(e) => setSelectedCounty(e.target.value)}
                     >
                       {COUNTY_LIST?.map((county) => (

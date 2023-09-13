@@ -5,9 +5,9 @@ import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-f
 import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
-import { useUserStore } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps, FINANCIAL_CATEGORY, FINANCIAL_INSTUITION_LIST } from '@/util/constants';
+import { getCookie } from '@/util/helper';
 
 import CustomButton from './CustomButton';
 import UploadBankBookDocuments from './UploadBankBookDocuments';
@@ -41,7 +41,8 @@ const schema = yup.object({
 });
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
-  const companyId = useUserStore.getState().companyId;
+  // const companyId = useUserStore.getState().companyId;
+
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
 
   const {
@@ -54,6 +55,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
   const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
   const [SelectedFinancialInstitution, setSelectedFinancialInstitution] = useState<string>('本國銀行');
 
+  const companyId = getCookie('auth');
   const updateCompany = useCompanyStore((state) => state.updateCompany);
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
 
@@ -85,7 +87,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
       formData.append('account_number', data.account_number);
       if (typeof uploadedDocs[0] !== 'string' && uploadedDocs.length)
         formData.append('account_image', uploadedDocs?.[0]);
-      await updateCompany(companyId || 13, formData);
+      await updateCompany(companyId, formData);
       const isSuccess = useCompanyStore.getState().isSuccess;
       if (isSuccess) nextStep(CompanyRegistrationSteps.TERMS_CONFIRMATION);
       useCompanyStore.setState({ isSuccess: false });
