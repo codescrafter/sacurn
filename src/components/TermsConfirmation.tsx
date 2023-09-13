@@ -9,14 +9,18 @@ interface IProps {
   nextStep: (val: number) => void;
 }
 const TermsConfirmation = ({ nextStep }: IProps) => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
   return (
     <form
       onSubmit={handleSubmit(() => {
         nextStep(CompanyRegistrationSteps.REGISTRATION_COMPLETED);
       })}
     >
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center py-4 ">
         <h2 className="text-xl font-bold leading-normal text-dark-grey mb-6">
           本網站之《服務條款》、《隱私政策》和《Cookie 政策》
         </h2>
@@ -40,12 +44,16 @@ const TermsConfirmation = ({ nextStep }: IProps) => {
         </div>
 
         <h3 className="font-bold mb-5.5 text-dark-grey">下滑至文章底部即可勾選同意</h3>
-
-        <div className="flex gap-2 items-center mb-5.5">
-          <input type="checkbox" {...register('terms-and-conditions', { required: true })} />
-          <label className="font-bold text-[#095181]">
-            本人同意貴公司之《服務條款》、《隱私政策》和《Cookie 政策》
-          </label>
+        <div className="mb-5.5">
+          <div className="flex gap-2 items-center">
+            <input type="checkbox" {...register('terms-and-conditions', { required: true })} />
+            <label className="font-bold text-[#095181]">
+              本人同意貴公司之《服務條款》、《隱私政策》和《Cookie 政策》
+            </label>
+          </div>
+          {errors && errors['terms-and-conditions'] && (
+            <p className="text-xs mt-1 ml-2 text-bright-red">请同意隐私和政策</p>
+          )}
         </div>
         <CustomButton
           className="rounded-full bg-operator-signup shadow-operator-signup-button text-base font-bold h-10 w-[711px] text-white"

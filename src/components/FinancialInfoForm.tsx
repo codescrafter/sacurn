@@ -10,7 +10,7 @@ import { InputSize } from '@/type';
 import { CompanyRegistrationSteps, FINANCIAL_CATEGORY, FINANCIAL_INSTUITION_LIST } from '@/util/constants';
 
 import CustomButton from './CustomButton';
-import UploadDocuments from './UploadDocuments';
+import UploadBankBookDocuments from './UploadBankBookDocuments';
 
 interface IProps {
   nextStep: (val: number) => void;
@@ -30,8 +30,14 @@ const schema = yup.object({
   financial_institution_name: yup.string().required(),
   financial_institution_branch_name: yup.string().required(),
   account_name: yup.string().required(),
-  account_number: yup.string().required(),
-  account_image: yup.mixed()
+  account_image: yup.mixed(),
+  account_number: yup
+    .string()
+    .required()
+    .min(14, 'Must be exactly 14 digits')
+    .max(14, 'Must be exactly 14 digits')
+    .matches(/^[0-9]+$/, 'Must be only digits')
+  // .matches(/^\d+$/, 'The field should have digits only')
 });
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
@@ -50,7 +56,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (!uploadedDocs.length) return setImageErrorMessage('请上传图片');
+      if (!uploadedDocs.length) return setImageErrorMessage('請上傳存摺影本圖檔');
       if (!companyId) return;
       const formData = new FormData();
       formData.append('financial_institution_type', data.financial_institution_type);
@@ -144,7 +150,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           />
           <div className="flex gap-2.7">
             <h2 className="text-black text-base min-w-[144px] leading-5 text-right">存摺封面 : </h2>
-            <UploadDocuments
+            <UploadBankBookDocuments
               uploadedDocs={uploadedDocs}
               setUploadedDocs={setUploadedDocs}
               errorMessage={imageErrorMessage}
@@ -241,18 +247,16 @@ const LabelInput = ({
         </label>
         <input
           className={classNames(
-            'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none ',
+            'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase text-xs outline-none ',
             {
-              'w-[286px] h-9 px-2 py-3.5': size === undefined || size === InputSize.MEDIUM,
-              'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5':
+              'w-[286px] h-9 px-2 py-1': size === undefined || size === InputSize.MEDIUM,
+              'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 h-7.5  px-2 py-2.5':
                 size === InputSize.SMALL
             }
           )}
-          {...register(
-            id as 'account_name' | 'account_number',
-
-            { required: isRequired }
-          )}
+          {...register(id as 'account_name' | 'account_number', {
+            required: isRequired
+          })}
           placeholder={placeholder}
           type={type}
         />
