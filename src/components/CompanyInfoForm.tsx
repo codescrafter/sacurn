@@ -13,7 +13,7 @@ import { CompanyRegistrationSteps, COUNTY_LIST, URBAN_AREA_LIST } from '@/util/c
 
 import CompanyInputField from './CompanyInputField';
 import CustomButton from './CustomButton';
-import UploadDocuments from './UploadDocuments';
+import UploadCommercialDocuments from './UploadCommercialDocuments';
 
 interface IProps {
   nextStep: (val: number) => void;
@@ -31,14 +31,14 @@ export type FormValues = {
     additionalProp2: string;
     additionalProp3: string;
     additionalProp4: string;
-    additionalProp5: string;
-    additionalProp6: string;
-    additionalProp7: string;
-    additionalProp8: string;
+    additionalProp5?: string;
+    additionalProp6?: string;
+    additionalProp7?: string;
+    additionalProp8?: string;
     additionalProp9: string;
-    additionalProp10: string;
-    additionalProp11: string;
-    additionalProp12: string;
+    additionalProp10?: string;
+    additionalProp11?: string;
+    additionalProp12?: string;
   };
   contact_address: string;
 };
@@ -46,11 +46,36 @@ export type FormValues = {
 const schema = yup
   .object({
     name: yup.string().required('Name is required'),
-    registration_number: yup.string().required('registration_number is required'),
-    capital: yup.number().required('Capital is required'),
-    phone: yup.string().required('Phone is required'),
-    founding_date: yup.string().required('Founding date is required'),
-    representative: yup.string().required('Representative is required'),
+    registration_number: yup
+      .string()
+      .required('統一編號是必填的')
+      .length(8, '統一編號必須是8位數')
+      .matches(/^\d{8}$/, '統一編號必須是8位數')
+      .test('is-valid', '無效的統一編號', function (value) {
+        const weights = [1, 2, 1, 2, 1, 2, 4, 1];
+        const nums = value.split('').map(Number);
+        let sum = 0;
+        for (let i = 0; i < 8; i++) {
+          const product = nums[i] * weights[i];
+          sum += Math.floor(product / 10) + (product % 10);
+        }
+        return sum % 10 === 0 || (sum + nums[6]) % 10 === 0;
+      }),
+    capital: yup
+      .number()
+      .typeError('Capital must be a number')
+      .required('Capital is required')
+      .positive('Capital must be a positive number')
+      .integer('Capital must be an integer'),
+    phone: yup
+      .string()
+      .required('Phone number is required')
+      .matches(/^09\d{8}$/, 'Invalid phone number'),
+    founding_date: yup.string().required('請輸入正確企業設立日期'),
+    representative: yup
+      .string()
+      .required('Representative is required')
+      .matches(/^[\u4e00-\u9fa5]+$/, 'Representative must be in Chinese'),
     contact_address: yup.string().required('Contact address is required'),
     address: yup
       .object()
@@ -59,14 +84,14 @@ const schema = yup
         additionalProp2: yup.string().required('Address is required'),
         additionalProp3: yup.string().required('Address is required'),
         additionalProp4: yup.string().required('Address is required'),
-        additionalProp5: yup.string().required('Address is required'),
-        additionalProp6: yup.string().required('Address is required'),
-        additionalProp7: yup.string().required('Address is required'),
-        additionalProp8: yup.string().required('Address is required'),
+        additionalProp5: yup.string(),
+        additionalProp6: yup.string(),
+        additionalProp7: yup.string(),
+        additionalProp8: yup.string(),
         additionalProp9: yup.string().required('Address is required'),
-        additionalProp10: yup.string().required('Address is required'),
-        additionalProp11: yup.string().required('Address is required'),
-        additionalProp12: yup.string().required('Address is required')
+        additionalProp10: yup.string(),
+        additionalProp11: yup.string(),
+        additionalProp12: yup.string()
       })
       .required()
   })
@@ -191,7 +216,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               heading="統一編號"
               placeholder="請輸入統一編號"
               errors={errors}
-              errorMessage="必填字段"
+              errorMessage="請輸入正確統一編號"
               size={InputSize.SMALL}
             />
 
@@ -202,7 +227,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               register={register}
               heading="代表人中文姓名"
               errors={errors}
-              errorMessage="必填字段"
+              errorMessage="請輸入中文姓名"
               size={InputSize.SMALL}
             />
 
@@ -213,7 +238,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
               register={register}
               heading="實收資本額"
               errors={errors}
-              errorMessage="必填字段"
+              errorMessage="請輸入資本額數字"
               size={InputSize.SMALL}
             />
 
@@ -229,8 +254,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     date && setValue('founding_date', date.toISOString().split('T')[0], { shouldValidate: true });
                   }}
                   className={classNames(
-                    'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none ',
-                    'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5'
+                    'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs outline-none ',
+                    'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-7  px-2 py-1'
                   )}
                   maxDate={new Date()}
                   showYearDropdown
@@ -253,7 +278,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       id="address.additionalProp1"
                       {...register(`address.additionalProp1`, { required: true })}
                       className={classNames(
-                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
+                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                         Style
                       )}
                       defaultValue="縣市"
@@ -269,7 +294,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       id="address.additionalProp2"
                       {...register(`address.additionalProp2`, { required: true })}
                       className={classNames(
-                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
+                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                         Style
                       )}
                     >
@@ -286,7 +311,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       {...register(`address.additionalProp3`, { required: true })}
                       type="text"
                       className={classNames(
-                        'min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-13 w-12 mr-2 px-5',
+                        'min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-13 w-12 mr-2 px-2',
                         Style,
                         {
                           'border-bright-red border': errors.address?.additionalProp3
@@ -298,7 +323,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       {...register(`address.additionalProp4`, { required: true })}
                       type="text"
                       placeholder="路、街、村、段"
-                      className={classNames('px-5 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style, {
+                      className={classNames('px-2 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style, {
                         'border-bright-red border': errors.address?.additionalProp4
                       })}
                     />
@@ -323,13 +348,13 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             {...register(id, { required: false })}
                             type="text"
                             className={classNames(
-                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
-                              Style,
-                              {
-                                'border-bright-red border':
-                                  errors.address &&
-                                  Object.prototype.hasOwnProperty.call(errors.address, id.replace('address.', ''))
-                              }
+                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-1 text-center',
+                              Style
+                              // {
+                              //   'border-bright-red border':
+                              //     errors.address &&
+                              //     Object.prototype.hasOwnProperty.call(errors.address, id.replace('address.', ''))
+                              // }
                             )}
                           />
                           <label className="text-black font-bold mr-1.5 text-[12px]">{item}</label>
@@ -356,9 +381,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             id={id}
                             type="text"
                             className={classNames(
-                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-1 text-center',
                               Style,
-                              {
+                              idx === 0 && {
                                 'border-bright-red border':
                                   errors.address &&
                                   Object.prototype.hasOwnProperty.call(errors.address, id.replace('address.', ''))
@@ -371,7 +396,13 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       );
                     })}
                   </div>
-                  {errors.address && <p className="text-[#FF0000] text-xs font-normal">( 紅色框格請務必填寫 )</p>}
+                  {(errors.address?.additionalProp1 ||
+                    errors.address?.additionalProp2 ||
+                    errors.address?.additionalProp3 ||
+                    errors.address?.additionalProp4 ||
+                    errors.address?.additionalProp9) && (
+                    <p className="text-[#FF0000] text-xs font-normal">( 紅色框格請務必填寫 )</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -400,10 +431,12 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 </div>
                 <CompanyInputField
                   id="contact_address"
-                  isRequired={false}
+                  isRequired={true}
                   type="text"
                   register={register}
-                  heading="會員聯絡地址"
+                  heading="聯絡地址"
+                  errors={errors}
+                  errorMessage="請提供公司聯絡地址"
                   size={InputSize.SMALL}
                 />
               </div>
@@ -411,7 +444,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 <label className="text-black text-right font-semibold col-span-1 mb-5.2 w-[128px]">
                   營業登記文件 :
                 </label>
-                <UploadDocuments
+                <UploadCommercialDocuments
                   uploadedDocs={uploadedDocs}
                   setUploadedDocs={setUploadedDocs}
                   errorMessage={imageErrorMessage}
@@ -435,6 +468,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
 export default CompanyInfoForm;
 
 const Style =
-  'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6 min-[1550px]:px-2 min-[1200px]:px-1.5 px-1 py-2.5 text-black min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none';
+  'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-7 min-[1550px]:px-2 min-[1200px]:px-1.5 px-1 py-1 text-black min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs outline-none';
 const address_row_1 = ['鄰', '巷', '弄', '街'];
 const address_row_2 = ['號之', ',', '樓之', '室'];

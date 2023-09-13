@@ -7,7 +7,7 @@ interface IProps {
   setErrorMessage?: Dispatch<SetStateAction<string | null>>;
 }
 
-const UploadDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setErrorMessage }: IProps) => {
+const UploadCommercialDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setErrorMessage }: IProps) => {
   const [error, setError] = useState<string | null>(null);
   const addOptionHandler = (file: File) => {
     if (uploadedDocs.some((item) => item.name === file.name)) {
@@ -28,9 +28,9 @@ const UploadDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setError
   return (
     <div className="flex flex-col max-w-[372px] max">
       <p className="text-black min-[1500px]:text-base text-sm">
-        身分證文件檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
+        存摺封面影像檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
       </p>
-      <p className="text-navy-blue underline">「了解身分證文件上傳規範」</p>
+      <p className="text-navy-blue underline">「了解存摺影本文件上傳規範」</p>
       <div className="flex flex-row flex-wrap max-w-[360px] gap-4 mt-2">
         {uploadedDocs.map((item, idx) => {
           return (
@@ -71,4 +71,4 @@ const UploadDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setError
   );
 };
 
-export default UploadDocuments;
+export default UploadCommercialDocuments;

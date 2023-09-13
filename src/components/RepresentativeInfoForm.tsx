@@ -24,8 +24,12 @@ export type RepresentativeFormTypes = {
 const schema = yup
   .object({
     representative_country: yup.string().required('representative country is required'),
-    representative_id_card_number: yup.string().required('representative id card number is required'),
-    representative_birthday: yup.string().required('representative birthday is required')
+    representative_id_card_number: yup
+      .string()
+      .required('身分證字號是必填的')
+      .length(10, '身分證字號必須是10個字元')
+      .matches(/^[A-Z][1-2]\d{8}$/, '無效的身分證字號'),
+    representative_birthday: yup.string().required('請輸入正確日期')
   })
   .required();
 
@@ -135,7 +139,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             heading={selectedValue === '本國籍' ? '代表人身分證字號' : '代表人護照號碼'}
             placeholder={selectedValue === '本國籍' ? '請輸入代表人身分證字號' : '請輸入代表人護照號碼'}
             errors={errors}
-            errorMessage="必填字段"
+            errorMessage={selectedValue === '本國籍' ? '請輸入正確身分證字號' : '請輸入正確護照號碼'}
           />
 
           <div className="flex gap-2.7 mb-5.5 items-center">
@@ -144,7 +148,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             </p>
             <div className="flex justify-between w-[286px] items-center">
               <select
-                className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-21.7"
+                className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-7.5 text-xs py-2 px-3.5 outline-none w-21.7"
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
               >
@@ -155,7 +159,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
                 ))}
               </select>
               <select
-                className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-21.7"
+                className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-7.5 text-xs py-2 px-3.5 outline-none w-21.7"
                 value={month}
                 onChange={(e) => {
                   setMonth(e.target.value);
@@ -177,7 +181,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
                 ))}
               </select>
               <select
-                className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-21.7"
+                className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-7.5 text-xs py-2 px-3.5 outline-none w-21.7"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               >
@@ -195,7 +199,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             </p>
 
             <select
-              className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-21.7"
+              className="rounded-full text-black font-bold shadow-company-registration-input bg-white 7.5 text-xs py-2 px-3.5 outline-none w-21.7"
               value={region}
               onChange={(e) => setRegion(e.target.value)}
             >
@@ -206,7 +210,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
               ))}
             </select>
             <select
-              className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-9 text-xs py-2 px-3.5 outline-none w-21.7"
+              className="rounded-full text-black font-bold shadow-company-registration-input bg-white h-7.5 text-xs py-2 px-3.5 outline-none w-21.7"
               value={cardIssue}
               onChange={(e) => setCardIssue(e.target.value)}
             >
@@ -233,8 +237,8 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
                     setValue('representative_birthday', date.toISOString().split('T')[0], { shouldValidate: true });
                 }}
                 className={classNames(
-                  'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none ',
-                  'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5'
+                  'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs outline-none ',
+                  'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 h-7.5  px-2 py-1'
                 )}
                 maxDate={new Date()}
                 showYearDropdown
@@ -318,10 +322,10 @@ const LabelInput = ({
         </label>
         <input
           className={classNames(
-            'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none ',
+            'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs outline-none ',
             {
-              'w-[286px] h-9 px-2 py-3.5': size === undefined || size === InputSize.MEDIUM,
-              'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5':
+              'w-[286px] h-7.5 px-2 py-1': size === undefined || size === InputSize.MEDIUM,
+              'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 h-7.5  px-2 py-1':
                 size === InputSize.SMALL
             }
           )}
