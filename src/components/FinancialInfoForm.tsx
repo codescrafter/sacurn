@@ -10,7 +10,7 @@ import { InputSize } from '@/type';
 import { CompanyRegistrationSteps, FINANCIAL_CATEGORY, FINANCIAL_INSTUITION_LIST } from '@/util/constants';
 
 import CustomButton from './CustomButton';
-import UploadDocuments from './UploadDocuments';
+import UploadBankBookDocuments from './UploadBankBookDocuments';
 
 interface IProps {
   nextStep: (val: number) => void;
@@ -150,7 +150,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
           />
           <div className="flex gap-2.7">
             <h2 className="text-black text-base min-w-[144px] leading-5 text-right">存摺封面 : </h2>
-            <UploadDocuments
+            <UploadBankBookDocuments
               uploadedDocs={uploadedDocs}
               setUploadedDocs={setUploadedDocs}
               errorMessage={imageErrorMessage}

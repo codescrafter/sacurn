@@ -13,7 +13,7 @@ import { CompanyRegistrationSteps, COUNTY_LIST, URBAN_AREA_LIST } from '@/util/c
 
 import CompanyInputField from './CompanyInputField';
 import CustomButton from './CustomButton';
-import UploadDocuments from './UploadDocuments';
+import UploadCommercialDocuments from './UploadCommercialDocuments';
 
 interface IProps {
   nextStep: (val: number) => void;
@@ -411,7 +411,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 <label className="text-black text-right font-semibold col-span-1 mb-5.2 w-[128px]">
                   營業登記文件 :
                 </label>
-                <UploadDocuments
+                <UploadCommercialDocuments
                   uploadedDocs={uploadedDocs}
                   setUploadedDocs={setUploadedDocs}
                   errorMessage={imageErrorMessage}
