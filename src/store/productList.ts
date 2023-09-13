@@ -4,22 +4,13 @@ import { CarbonCredit } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 import { CarbonTag } from '@/type';
 
-import { FilterOptionsState } from './filterOptions';
+import { Filters } from './filterOptions';
 import { ModalType, useModalStore } from './modal';
-
-type Filters = {
-  location?: FilterOptionsState['locationOptions'][number]['value'];
-  vintage?: FilterOptionsState['vintageOptions'][number]['value'];
-  price?: string;
-  desc?: boolean;
-  tag?: string;
-  page?: number;
-};
 
 type ProductListState = {
   productList: CarbonCredit[];
   filters: Filters;
-  updateProductListFilters: (filters: Filters) => void;
+  updateProductListByFilters: (filters: Filters) => void;
   getProductList: (...args: Parameters<typeof apiClient.carbonCredit.carbonCreditList>) => void;
   getProductListWithFilter: () => void;
 };
@@ -34,7 +25,7 @@ export const useProductListStore = create<ProductListState>((set, get) => ({
     tag: CarbonTag.Green,
     page: undefined
   },
-  updateProductListFilters: (filters: Filters) => {
+  updateProductListByFilters: (filters: Filters) => {
     set({
       filters: {
         ...get().filters,
@@ -59,6 +50,6 @@ export const useProductListStore = create<ProductListState>((set, get) => ({
   },
   getProductListWithFilter: async () => {
     const filters = get().filters;
-    get().getProductList(filters.desc, filters.location, filters.page, filters.price, filters.tag);
+    get().getProductList(filters.desc, filters.location, filters.page, filters.price, filters.tag, filters.vintage);
   }
 }));

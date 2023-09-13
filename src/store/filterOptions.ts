@@ -6,11 +6,20 @@ import { ModalType, useModalStore } from './modal';
 
 type OptionType = { name: string; value: string };
 
-export type FilterOptionsState = {
+type FilterOptionsState = {
   locationOptions: OptionType[];
   vintageOptions: OptionType[];
   priceOptions: OptionType[];
   getFilterOptions: () => void;
+};
+
+export type Filters = {
+  location?: FilterOptionsState['locationOptions'][number]['value'];
+  vintage?: FilterOptionsState['vintageOptions'][number]['value'];
+  price?: string;
+  desc?: boolean;
+  tag?: string;
+  page?: number;
 };
 
 export const useFilterOptionsStore = create<FilterOptionsState>((set, get) => ({

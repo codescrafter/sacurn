@@ -3,21 +3,34 @@ import { create } from 'zustand';
 import { WatchList } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
+import { Filters } from './filterOptions';
 import { ModalType, useModalStore } from './modal';
 
 type WishListState = {
   wishList: WatchList[];
-  getWishList: (page?: number) => void;
+  filters: Filters;
+  getWishList: (...args: Parameters<typeof apiClient.carbonCredit.carbonCreditWatchListList>) => void;
+  getWishListWithFilter: () => void;
+  updateWishListByFilters: (filters: Filters) => void;
   addToWhishList: (id: number) => void;
   deleteWishList: (id: number) => void;
 };
 
 export const useWishListStore = create<WishListState>((set, get) => ({
   wishList: [],
-  getWishList: async (page) => {
+  filters: {
+    location: undefined,
+    vintage: undefined,
+    price: undefined,
+    desc: false,
+    tag: undefined,
+    page: undefined
+  },
+
+  getWishList: async (...args) => {
     try {
       useModalStore.getState().open(ModalType.Loading);
-      const response = await apiClient.carbonCredit.carbonCreditWatchListList(page);
+      const response = await apiClient.carbonCredit.carbonCreditWatchListList(...args);
       set({ wishList: response.results });
       useModalStore.getState().close();
     } catch (error) {
@@ -28,6 +41,19 @@ export const useWishListStore = create<WishListState>((set, get) => ({
         errorText: `[${err.name}] ${err.message}`
       });
     }
+  },
+  getWishListWithFilter: async () => {
+    const filters = get().filters;
+    get().getWishList(filters.desc, filters.location, filters.page, filters.price, filters.tag, filters.vintage);
+  },
+  updateWishListByFilters: (filters: Filters) => {
+    set({
+      filters: {
+        ...get().filters,
+        ...filters
+      }
+    });
+    get().getWishListWithFilter();
   },
   addToWhishList: async (id: number) => {
     try {
