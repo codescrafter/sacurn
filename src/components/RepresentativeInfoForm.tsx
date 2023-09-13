@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 import * as yup from 'yup';
@@ -31,7 +31,8 @@ const schema = yup
   .required();
 
 const RepresentativeInfoForm = ({ nextStep }: IProps) => {
-  const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
   const [selectedValue, setSelectedValue] = useState<string>('本國籍');
   const [date, setDate] = useState<string>('1');
   const [month, setMonth] = useState<string>('1');
@@ -51,6 +52,23 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   } = useForm<RepresentativeFormTypes>({ resolver: yupResolver(schema) });
 
   const updateCompany = useCompanyStore((state) => state.updateCompany);
+  const getCompanyInfo = useCompanyStore((state) => state.getCompany);
+
+  useEffect(() => {
+    (async () => {
+      if (!companyId) return;
+      const data = await getCompanyInfo(companyId);
+      if (!data) return;
+      // const { representative_country, representative_id_card_number, representative_birthday } = data;
+      if (data.representative_country) setValue('representative_country', data.representative_country);
+      if (data.representative_id_card_number)
+        setValue('representative_id_card_number', data.representative_id_card_number);
+      if (data.representative_birthday) setValue('representative_birthday', data.representative_birthday);
+      if (data.representative_id_card_front && data.representative_id_card_back) {
+        setUploadedDocs([data.representative_id_card_front, data.representative_id_card_back]);
+      }
+    })();
+  }, []);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -66,8 +84,10 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
       );
       formData.append('representative_id_card_issue_location', `${region},${cardIssue}`);
       formData.append('representative_birthday', _representative_id_card_issue_date);
-      formData.append('representative_id_card_front', uploadedDocs?.[0]);
-      formData.append('representative_id_card_back', uploadedDocs?.[1]);
+      if (typeof uploadedDocs[0] !== 'string' && typeof uploadedDocs[1] !== 'string' && uploadedDocs.length === 2) {
+        formData.append('representative_id_card_front', uploadedDocs?.[0]);
+        formData.append('representative_id_card_back', uploadedDocs?.[1]);
+      }
       await updateCompany(companyId, formData);
       const isSuccess = useCompanyStore.getState().isSuccess;
       if (isSuccess) nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
