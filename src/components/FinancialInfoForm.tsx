@@ -36,7 +36,7 @@ const schema = yup.object({
     .required()
     .min(14, 'Must be exactly 14 digits')
     .max(14, 'Must be exactly 14 digits')
-    .matches(/^[0-9]+$/, 'Must be only digits')
+    .matches(/^[0-9-]*$/, 'Must be only digits')
   // .matches(/^\d+$/, 'The field should have digits only')
 });
 
