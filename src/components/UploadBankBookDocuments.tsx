@@ -11,7 +11,7 @@ const UploadCommercialDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs
   const [error, setError] = useState<string | null>(null);
   const addOptionHandler = (file: File) => {
     if (uploadedDocs.some((item) => item.name === file.name)) {
-      setError(`${file.name} 圖像已經存在`);
+      setError(`${file.name} 檔案已經存在`);
       return;
     }
     setUploadedDocs((prevState) => [...prevState, file]);
@@ -55,7 +55,7 @@ const UploadCommercialDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs
           <img src="/images/operation-record/plus-icon.svg" alt="add new doc" />
           <input
             type="file"
-            accept="application/pdf"
+            accept="image/jpeg, image/png"
             className="absolute scale-y-[1] max-w-full max-h-full top-0 bottom-0 left-0 opacity-0 cursor-pointer z-50"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
               e?.target?.files && e?.target?.files?.length > 0 && addOptionHandler(e.target.files[0]);
