@@ -324,12 +324,12 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             type="text"
                             className={classNames(
                               'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-1 text-center',
-                              Style,
-                              {
-                                'border-bright-red border':
-                                  errors.address &&
-                                  Object.prototype.hasOwnProperty.call(errors.address, id.replace('address.', ''))
-                              }
+                              Style
+                              // {
+                              //   'border-bright-red border':
+                              //     errors.address &&
+                              //     Object.prototype.hasOwnProperty.call(errors.address, id.replace('address.', ''))
+                              // }
                             )}
                           />
                           <label className="text-black font-bold mr-1.5 text-[12px]">{item}</label>
@@ -358,7 +358,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             className={classNames(
                               'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-1 text-center',
                               Style,
-                              {
+                              idx === 0 && {
                                 'border-bright-red border':
                                   errors.address &&
                                   Object.prototype.hasOwnProperty.call(errors.address, id.replace('address.', ''))
