@@ -5,7 +5,6 @@ import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-f
 import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
-import { useUserStore } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps, FINANCIAL_CATEGORY, FINANCIAL_INSTUITION_LIST } from '@/util/constants';
 
@@ -46,7 +45,7 @@ const schema = yup.object({
 });
 
 const FinancialInfoForm = ({ nextStep }: IProps) => {
-  const companyId = useUserStore.getState().companyId;
+  const companyId = useCompanyStore.getState().company.id;
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
 
   const {

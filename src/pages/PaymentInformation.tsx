@@ -54,7 +54,7 @@ const PaymentInformation = () => {
               <div className="px-7">
                 <p className="text-grey text-sm font-bold mb-5">3項(以下含稅金5%及手續費)</p>
                 {cartDetail?.product_list?.map((product) => (
-                  <TextRow title={product.name} value={`$ ${product.amount}`} />
+                  <TextRow key={product.name} title={product.name} value={`$ ${product.amount}`} />
                 ))}
               </div>
             </div>

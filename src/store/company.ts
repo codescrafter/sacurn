@@ -4,7 +4,6 @@ import { Company, ExtendedCompany, PatchedExtendedCompany } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, useModalStore } from './modal';
-import { useUserStore } from './user';
 
 type CompanyState = {
   company: Partial<Company>;
@@ -23,9 +22,6 @@ export const useCompanyStore = create<CompanyState>((set) => ({
       // Check is work or not
       const data = arg as unknown as ExtendedCompany;
       const company = await apiClient.company.companyCreate(data);
-      useUserStore.setState({
-        companyId: company?.id
-      });
       set({ company });
       set({ isSuccess: true });
       useModalStore.getState().close();
