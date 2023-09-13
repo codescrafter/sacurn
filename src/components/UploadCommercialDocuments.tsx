@@ -11,7 +11,7 @@ const UploadCommercialDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs
   const [error, setError] = useState<string | null>(null);
   const addOptionHandler = (file: File) => {
     if (uploadedDocs.some((item) => item.name === file.name)) {
-      setError(`${file.name} 圖像已經存在`);
+      setError(`${file.name} 檔案已經存在`);
       return;
     }
     setUploadedDocs((prevState) => [...prevState, file]);
