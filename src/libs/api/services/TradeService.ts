@@ -280,12 +280,12 @@ export class TradeService {
 
     /**
      * @param requestBody
-     * @returns any No response body
+     * @returns PayCallback
      * @throws ApiError
      */
     public tradePayCallbackCreate(
         requestBody: PayCallback,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<PayCallback> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/trade/pay_callback/',
