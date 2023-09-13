@@ -5,7 +5,7 @@ import apiClient from '@/libs/api/client';
 import { CarbonTag } from '@/type';
 
 import { Filters } from './filterOptions';
-import { ModalType, useModalStore } from './modal';
+import { runTask } from './modal';
 
 type ProductListState = {
   productList: CarbonCredit[];
@@ -35,18 +35,10 @@ export const useProductListStore = create<ProductListState>((set, get) => ({
     get().getProductListWithFilter();
   },
   getProductList: async (...args) => {
-    try {
-      useModalStore.getState().open(ModalType.Loading);
+    runTask(async () => {
       const response = await apiClient.carbonCredit.carbonCreditList(...args);
       set({ productList: response.results });
-      useModalStore.getState().close();
-    } catch (error) {
-      const err = error as Error;
-      console.error(err);
-      useModalStore.getState().open(ModalType.Error, {
-        errorText: `[${err.name}] ${err.message}`
-      });
-    }
+    });
   },
   getProductListWithFilter: async () => {
     const filters = get().filters;

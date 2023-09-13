@@ -9,6 +9,10 @@ type ModalState = {
   data: UniversalModalProps | null;
   open: (type: ModalType, override?: Partial<UniversalModalProps>) => void;
   close: () => void;
+  runTask: (
+    task: () => void,
+    result?: { onComplete?: () => ModalType | void; onError?: (error: unknown) => void }
+  ) => void;
 };
 
 export enum ModalType {
@@ -129,7 +133,7 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
   }
 };
 
-export const useModalStore = create<ModalState>((set) => ({
+export const useModalStore = create<ModalState>((set, get) => ({
   isOpen: true,
   type: null,
   data: null,
@@ -140,5 +144,53 @@ export const useModalStore = create<ModalState>((set) => ({
       data: { ...ModalDataRecord[type], ...override }
     });
   },
-  close: () => set({ isOpen: false, type: null, data: null })
+  close: () => set({ isOpen: false, type: null, data: null }),
+  runTask: async (task, result) => {
+    try {
+      get().open(ModalType.Loading);
+      await task();
+      const modalType = await result?.onComplete?.();
+
+      if (modalType) {
+        useModalStore.getState().open(modalType);
+      } else {
+        useModalStore.getState().close();
+      }
+    } catch (error) {
+      console.error(error);
+      await result?.onError?.(error);
+
+      const err1 = error as APIError;
+
+      if (err1?.body?.msg) {
+        console.log('xxx555', err1?.body?.msg);
+        useModalStore.getState().open(ModalType.Error, {
+          errorText: err1?.body?.msg
+        });
+        return;
+      }
+      const err2 = error as Error;
+      useModalStore.getState().open(ModalType.Error, {
+        errorText: `[${err2.name}] ${err2.message}`
+      });
+    }
+  }
 }));
+
+export const runTask = useModalStore.getState().runTask;
+
+type APIError = {
+  url: string;
+  status: number;
+  statusText: string;
+  body: {
+    msg: string;
+  };
+  request: {
+    method: string;
+    url: string;
+    body: Record<string, string>;
+    mediaType: string;
+  };
+  name: string;
+};
