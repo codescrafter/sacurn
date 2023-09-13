@@ -229,8 +229,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     date && setValue('founding_date', date.toISOString().split('T')[0], { shouldValidate: true });
                   }}
                   className={classNames(
-                    'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none ',
-                    'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6  px-2 py-2.5'
+                    'rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs outline-none ',
+                    'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-7  px-2 py-1'
                   )}
                   maxDate={new Date()}
                   showYearDropdown
@@ -253,7 +253,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       id="address.additionalProp1"
                       {...register(`address.additionalProp1`, { required: true })}
                       className={classNames(
-                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
+                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                         Style
                       )}
                       defaultValue="縣市"
@@ -269,7 +269,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       id="address.additionalProp2"
                       {...register(`address.additionalProp2`, { required: true })}
                       className={classNames(
-                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs',
+                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                         Style
                       )}
                     >
@@ -286,7 +286,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       {...register(`address.additionalProp3`, { required: true })}
                       type="text"
                       className={classNames(
-                        'min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-13 w-12 mr-2 px-5',
+                        'min-[1700px]:w-16 min-[1550px]:w-14 min-[1200px]:w-13 w-12 mr-2 px-2',
                         Style,
                         {
                           'border-bright-red border': errors.address?.additionalProp3
@@ -298,7 +298,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       {...register(`address.additionalProp4`, { required: true })}
                       type="text"
                       placeholder="路、街、村、段"
-                      className={classNames('px-5 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style, {
+                      className={classNames('px-2 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style, {
                         'border-bright-red border': errors.address?.additionalProp4
                       })}
                     />
@@ -323,7 +323,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             {...register(id, { required: false })}
                             type="text"
                             className={classNames(
-                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-1 text-center',
                               Style,
                               {
                                 'border-bright-red border':
@@ -356,7 +356,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             id={id}
                             type="text"
                             className={classNames(
-                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-4 text-center',
+                              'min-[1700px]:w-15 min-[1550px]:w-13 min-[1200px]:w-10 w-9 mr-1.5 min-[1400px]:px-5 px-1 text-center',
                               Style,
                               {
                                 'border-bright-red border':
@@ -435,6 +435,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
 export default CompanyInfoForm;
 
 const Style =
-  'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-6 min-[1550px]:px-2 min-[1200px]:px-1.5 px-1 py-2.5 text-black min-[1550px]:text-mdbase min-[1200px]:text-xms text-xxs outline-none';
+  'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-7 min-[1550px]:px-2 min-[1200px]:px-1.5 px-1 py-1 text-black min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs outline-none';
 const address_row_1 = ['鄰', '巷', '弄', '街'];
 const address_row_2 = ['號之', ',', '樓之', '室'];
