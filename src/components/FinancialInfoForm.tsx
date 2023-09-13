@@ -28,15 +28,20 @@ export type FinancialFormTypes = {
 const schema = yup.object({
   financial_institution_type: yup.string().required(),
   financial_institution_name: yup.string().required(),
-  financial_institution_branch_name: yup.string().required(),
-  account_name: yup.string().required(),
+  financial_institution_branch_name: yup
+    .string()
+    .required('Representative is required')
+    .matches(/^[\u4e00-\u9fa5]+$/, 'Representative must be in Chinese'),
+  account_name: yup
+    .string()
+    .required('Representative is required')
+    .matches(/^[\u4e00-\u9fa5]+$/, 'Representative must be in Chinese'),
   account_image: yup.mixed(),
   account_number: yup
     .string()
     .required()
-    .min(14, 'Must be exactly 14 digits')
-    .max(14, 'Must be exactly 14 digits')
-    .matches(/^[0-9-]*$/, 'Must be only digits')
+    .max(14, 'Must be at most 14 digits')
+    .matches(/^[0-9-]*$/, 'Must be only digits or hyphen')
   // .matches(/^\d+$/, 'The field should have digits only')
 });
 
@@ -128,7 +133,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
             // options={['分行或支局名稱', '分行或支局名稱']}
             isRequired={true}
             errors={errors}
-            errorMessage="必填字段"
+            errorMessage="請填入正確分行或支局"
           />
           <LabelInput
             type="text"
@@ -137,7 +142,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
             isRequired={true}
             heading="戶名"
             errors={errors}
-            errorMessage="必填字段"
+            errorMessage="請填入正確戶名"
           />
           <LabelInput
             type="text"
@@ -146,7 +151,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
             isRequired={true}
             heading="帳號"
             errors={errors}
-            errorMessage="( 帳號長度限制為14碼 )"
+            errorMessage="請輸入正確金融機構帳號 ( 帳號長度限制為14碼 )"
           />
           <div className="flex gap-2.7">
             <h2 className="text-black text-base min-w-[144px] leading-5 text-right">存摺封面 : </h2>

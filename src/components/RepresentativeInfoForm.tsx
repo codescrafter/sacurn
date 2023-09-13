@@ -25,8 +25,12 @@ export type RepresentativeFormTypes = {
 const schema = yup
   .object({
     representative_country: yup.string().required('representative country is required'),
-    representative_id_card_number: yup.string().required('representative id card number is required'),
-    representative_birthday: yup.string().required('representative birthday is required')
+    representative_id_card_number: yup
+      .string()
+      .required('身分證字號是必填的')
+      .length(10, '身分證字號必須是10個字元')
+      .matches(/^[A-Z][1-2]\d{8}$/, '無效的身分證字號'),
+    representative_birthday: yup.string().required('請輸入正確日期')
   })
   .required();
 
@@ -136,7 +140,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
             heading={selectedValue === '本國籍' ? '代表人身分證字號' : '代表人護照號碼'}
             placeholder={selectedValue === '本國籍' ? '請輸入代表人身分證字號' : '請輸入代表人護照號碼'}
             errors={errors}
-            errorMessage="必填字段"
+            errorMessage={selectedValue === '本國籍' ? '請輸入正確身分證字號' : '請輸入正確護照號碼'}
           />
 
           <div className="flex gap-2.7 mb-5.5 items-center">
