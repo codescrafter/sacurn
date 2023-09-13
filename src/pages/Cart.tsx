@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Cart as CartItemType } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
+import { OrderStatus } from '@/type';
 import { MIN_CART_QTY } from '@/util/constants';
 
 import Navbar from '../components/Navbar';
@@ -148,7 +149,7 @@ interface CartItemIProps extends CartItemType {
 }
 
 const CartItem = (props: CartItemIProps) => {
-  const { selected, id, name, image, remaining_quantity, order, company_code, onSelectedChange } = props;
+  const { selected, id, name, image, remaining_quantity, order, order_deleted, company_code, onSelectedChange } = props;
 
   const [qty, setQty] = useState(props.quantity || MIN_CART_QTY);
 
@@ -157,8 +158,11 @@ const CartItem = (props: CartItemIProps) => {
 
   const price = props.price || 0;
 
+  const isOffShelve = useMemo(() => order_deleted === OrderStatus.OffShelve, []);
+
   const onQuantityAdjust = useCallback(
     (value: number) => {
+      if (isOffShelve) return;
       const newQty = qty + value;
       if (newQty >= MIN_CART_QTY && newQty <= parseInt(remaining_quantity)) {
         setQty(newQty);
@@ -170,13 +174,6 @@ const CartItem = (props: CartItemIProps) => {
     },
     [qty]
   );
-
-  // const onQuantityChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-  //   updateCartItemQty(id, {
-  //     quantity: parseInt(event.target.value),
-  //     order
-  //   });
-  // }, []);
 
   return (
     <div
@@ -209,7 +206,13 @@ const CartItem = (props: CartItemIProps) => {
         </div>
       </div>
       <div className="flex flex-1 justify-between">
-        <p className="text-[15px] font-medium text-black leading-9">剩下 {remaining_quantity} 噸可購</p>
+        <p
+          className={classNames('text-[15px] font-medium text-black leading-9', {
+            'text-bright-red': isOffShelve
+          })}
+        >
+          {isOffShelve ? '剩下 0 噸無法交易' : `剩下 ${remaining_quantity} 噸可購`}
+        </p>
         <div className="flex items-center gap-1.2" onClick={(e) => e.stopPropagation()}>
           <button
             onClick={() => onQuantityAdjust(-1)}
@@ -221,7 +224,6 @@ const CartItem = (props: CartItemIProps) => {
             className="w-17 h-9 rounded-md border border-[#B3B4B4] bg-transparent text-right pr-3.5 text-bright-blue text-2xl font-medium flex items-center justify-center"
             type="number"
             value={qty}
-            // onChange={onQuantityChange}
             disabled
           />
           <button
