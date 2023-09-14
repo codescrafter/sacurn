@@ -434,7 +434,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                   isRequired={true}
                   type="text"
                   register={register}
-                  heading="會員聯絡地址"
+                  heading="聯絡地址"
                   errors={errors}
                   errorMessage="請提供公司聯絡地址"
                   size={InputSize.SMALL}
