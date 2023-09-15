@@ -24,7 +24,6 @@ const UploadCommercialDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs
     if (uploadedDocs.length === 1) setError(null);
   };
 
-  console.log('uploadedDocs', uploadedDocs);
   return (
     <div className="flex flex-col max-w-[372px] max">
       <p className="text-black min-[1500px]:text-base text-sm">

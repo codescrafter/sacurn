@@ -22,16 +22,29 @@ const phoneRegExp =
 
 const schema = yup
   .object({
-    username: yup.string().required('username required'),
+    username: yup
+      .string()
+      .required('username required')
+      .max(20, 'username must be at most 20 characters')
+      .matches(/^[a-zA-Z0-9_.@]{1,20}$/, 'username can only contain letters, numbers, and the symbols: _ . @'),
     email: yup.string().email('email format should be correct').required('email required'),
-    password1: yup.string().required('password required'),
-    // match password1 and password2, show error if they dont match
+    password1: yup
+      .string()
+      .required('password required')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{12,}$/,
+        'Must contain at least 12 characters, at least one uppercase letter, one lowercase letter, and one number'
+      ),
     password2: yup
       .string()
-      .oneOf([yup.ref('password1')], 'Passwords must match')
-      .required('password required'),
+      .oneOf([yup.ref('password1')], 'password must match')
+      .required('password required')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{12,}$/,
+        'Must contain at least 12 characters, at least one uppercase letter, one lowercase letter, and one number'
+      ),
     phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required('phoneNumber required'),
-    last_name: yup.string().required('lastname required'),
+    last_name: yup.string().required('name required'),
 
     check: yup.boolean().oneOf([true], 'checkbox needs to be checked').required('checkbox needs to be checked')
   })
@@ -96,7 +109,7 @@ const OperatorSignUp = () => {
             className="self-end"
             register={register}
             id="phone"
-            downText="此欄位再多項服務提供時將進行驗證，請正確填寫"
+            downText="此欄位在多項服務提供時將進行驗證，請正確填寫"
             error={formState?.errors?.phone?.message}
           />
         </div>
@@ -107,7 +120,7 @@ const OperatorSignUp = () => {
             className="self-start"
             register={register}
             id="username"
-            downText="英數混合，最常請勿超過20個字元，可接受 ”_” “.” “@” 三種符號"
+            downText="英數混合，最長請勿超過20個字元，可接受 ”_” “.” “@” 三種符號"
             error={formState?.errors?.username?.message}
           />
           <Field
@@ -116,6 +129,7 @@ const OperatorSignUp = () => {
             className="self-start"
             register={register}
             id="email"
+            downText="此欄位在多項服務提供時將進行驗證，請正確填寫"
             error={formState?.errors?.email?.message}
           />
         </div>
