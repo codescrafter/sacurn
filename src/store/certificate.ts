@@ -15,7 +15,7 @@ type CertificateState = {
 export const useCertificateStore = create<CertificateState>(() => ({
   getCertificatePdf: async (...args) => {
     let certificate = undefined;
-    runTask(async () => {
+    await runTask(async () => {
       certificate = await apiClient.carbonCredit.carbonCreditCertificateRetrieve(...args);
     });
     return certificate;

@@ -21,7 +21,7 @@ type StockListState = {
 export const useStockListStore = create<StockListState>((set, get) => ({
   stockList: [],
   getStockList: async (page?: number) => {
-    runTask(async () => {
+    await runTask(async () => {
       const response = await apiClient.inventory.inventoryList(page);
       set({ stockList: (response.results || [])?.map((item) => ({ ...item, action: null, orderData: null })) });
     });
@@ -29,7 +29,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
   getStockInfo: async (carbonCreditId: number) => {
     let isSuccess = false;
 
-    runTask(async () => {
+    await runTask(async () => {
       const response = await apiClient.trade.tradeListCarbonOrderRetrieve(carbonCreditId.toString());
       const stockIndex = get().stockList.findIndex((stock) => stock.carbon_credit === carbonCreditId);
 
@@ -63,7 +63,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     );
   },
   updateStockOffShelve: async (id: number) => {
-    runTask(async () => {
+    await runTask(async () => {
       await apiClient.trade.tradeOrderSellDestroy(id);
     });
   }

@@ -29,7 +29,7 @@ export const useFilterOptionsStore = create<FilterOptionsState>((set, get) => ({
   getFilterOptions: async () => {
     if (get().locationOptions.length !== 0 || get().vintageOptions.length !== 0) return;
 
-    runTask(async () => {
+    await runTask(async () => {
       const filterOptions = await apiClient.carbonCredit.carbonCreditFilterListRetrieve();
       const locationOptions = filterOptions.location_list?.map((item) => ({ name: item, value: item }));
       const vintageOptions = filterOptions.vintage_list?.map((item) => ({ name: item, value: item }));

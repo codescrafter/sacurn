@@ -27,7 +27,7 @@ export const useWishListStore = create<WishListState>((set, get) => ({
     page: undefined
   },
   getWishList: async (...args) => {
-    runTask(async () => {
+    await runTask(async () => {
       const response = await apiClient.carbonCredit.carbonCreditWatchListList(...args);
       set({ wishList: response.results });
     });
@@ -46,7 +46,7 @@ export const useWishListStore = create<WishListState>((set, get) => ({
     get().getWishListWithFilter();
   },
   addToWhishList: async (id: number) => {
-    runTask(async () => {
+    await runTask(async () => {
       const wishListItem = await apiClient.carbonCredit.carbonCreditWatchListCreate({ carbon_credit: id });
       const newWishList = Array.from(get().wishList);
       newWishList.push(wishListItem);
@@ -54,7 +54,7 @@ export const useWishListStore = create<WishListState>((set, get) => ({
     });
   },
   deleteWishList: async (whishItemId: number) => {
-    runTask(async () => {
+    await runTask(async () => {
       await apiClient.carbonCredit.carbonCreditWatchListDestroy2(whishItemId);
       const newWishList = get().wishList.filter((wishListItem) => wishListItem.id !== whishItemId);
       set({ wishList: newWishList });

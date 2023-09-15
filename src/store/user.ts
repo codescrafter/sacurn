@@ -31,7 +31,7 @@ export const useUserStore = create<UserState>((set) => ({
       redirectUrl: '/'
     };
 
-    runTask(async () => {
+    await runTask(async () => {
       const response = await apiClient.login.loginCreate(arg);
       result.isSuccess = true;
       result.companyId = response.company_id;
@@ -51,7 +51,7 @@ export const useUserStore = create<UserState>((set) => ({
   },
   signup: async (arg: Registration) => {
     let isSuccess = false;
-    runTask(async () => {
+    await runTask(async () => {
       const response = await apiClient.registration.registrationCreate(arg);
       if (response.user.email) isSuccess = true;
       set({ user: response.user });

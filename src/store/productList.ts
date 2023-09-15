@@ -35,7 +35,7 @@ export const useProductListStore = create<ProductListState>((set, get) => ({
     get().getProductListWithFilter();
   },
   getProductList: async (...args) => {
-    runTask(async () => {
+    await runTask(async () => {
       const response = await apiClient.carbonCredit.carbonCreditList(...args);
       set({ productList: response.results });
     });

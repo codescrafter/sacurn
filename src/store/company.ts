@@ -32,7 +32,7 @@ export const useCompanyStore = create<CompanyState>((set) => ({
   },
   getCompany: async (companyId: number) => {
     let company: Company | null = null;
-    runTask(async () => {
+    await runTask(async () => {
       company = await apiClient.company.companyRetrieve(companyId);
       set({ company });
     });

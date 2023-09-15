@@ -35,7 +35,7 @@ export const useCartStore = create<CartState>((set, get) => ({
       .cartList.filter((item) => item.selected)
       .map((item) => item.id),
   getCartList: async (page?: number) => {
-    runTask(async () => {
+    await runTask(async () => {
       const response = await apiClient.trade.tradeCartList(page);
       const cartList = (response.results || []).map((item) => ({ ...item, selected: false }));
       set({ cartList });
@@ -72,13 +72,13 @@ export const useCartStore = create<CartState>((set, get) => ({
     await get().getCartDetail();
   },
   updateCartItemQty: async (...args: Parameters<typeof apiClient.trade.tradeCartPartialUpdate>) => {
-    runTask(async () => {
+    await runTask(async () => {
       await apiClient.trade.tradeCartPartialUpdate(...args);
       await get().getCartDetail();
     });
   },
   deleteCartItem: async (id: number) => {
-    runTask(async () => {
+    await runTask(async () => {
       await apiClient.trade.tradeCartDestroy(id);
       const newCartList = get().cartList.filter((item) => item.id !== id);
       set({ cartList: newCartList });
@@ -90,7 +90,7 @@ export const useCartStore = create<CartState>((set, get) => ({
       isSuccess: false,
       checkoutDetail: null
     };
-    runTask(async () => {
+    await runTask(async () => {
       const checkoutDetail = await apiClient.trade.tradeOrderBuyCreate({
         cart_id_list: get().getSelectedCartIdList()
       });

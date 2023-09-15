@@ -15,7 +15,7 @@ export const usePriceListStore = create<PriceListState>((set) => ({
   getPriceList: async (arg) => {
     const { carbonCreditId, desc, page, sortby } = arg;
 
-    runTask(async () => {
+    await runTask(async () => {
       const response = await apiClient.trade.tradeOrderSellList(carbonCreditId, desc, page, sortby);
       set({ priceList: response.results });
     });
