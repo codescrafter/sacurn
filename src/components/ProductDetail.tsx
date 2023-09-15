@@ -51,6 +51,7 @@ const Item = ({ order }: { order: Order }) => {
             className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
             type="number"
             value={qty}
+            readOnly
           />
           <button
             onClick={() => onQuantityAdjust(+1)}
