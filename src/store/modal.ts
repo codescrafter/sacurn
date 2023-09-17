@@ -1,7 +1,11 @@
+import { HttpStatusCode } from 'axios';
+import cookies from 'js-cookie';
 import { create } from 'zustand';
 
 import { UniversalModalProps } from '@/components/Modal/UniversalModal';
 import { UniversalModalStatus } from '@/types';
+
+import { COOKIE_AUTH_NAME } from './user';
 
 type ModalState = {
   isOpen: boolean;
@@ -177,8 +181,13 @@ export const useModalStore = create<ModalState>((set, get) => ({
 
       const err1 = error as APIError;
 
+      if (err1.status === HttpStatusCode.Unauthorized) {
+        cookies.remove(COOKIE_AUTH_NAME);
+        window.location.reload();
+        return;
+      }
+
       if (err1?.body?.msg) {
-        console.log('xxx555', err1?.body?.msg);
         useModalStore.getState().open(ModalType.Error, {
           errorText: err1?.body?.msg
         });
