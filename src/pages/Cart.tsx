@@ -193,7 +193,7 @@ const CartItem = (props: CartItemIProps) => {
         </div>
         <img src={image} width={114} height={114} className="object-cover" alt="sacurn" />
         <div className="ml-6 flex flex-col justify-between h-full">
-          <p className="text-[10.6px] font-medium text-black">{company_code}</p>
+          <p className="text-[10.6px] font-medium text-dark-grey">會員代號：{company_code}</p>
           <p
             className={classNames('font-bold text-xl leading-[18px] w-[316px] mr-3 mt-3 mb-3', {
               'text-bright-blue': selected,
