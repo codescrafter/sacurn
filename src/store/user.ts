@@ -6,7 +6,7 @@ import apiClient from '@/libs/api/client';
 import { Login } from '@/libs/api/models/Login';
 import { CompanyStatus } from '@/type';
 
-import { ModalType, useModalStore } from './modal';
+import { runTask } from './modal';
 
 export const COOKIE_AUTH_NAME = 'auth';
 
@@ -31,8 +31,7 @@ export const useUserStore = create<UserState>((set) => ({
       redirectUrl: '/'
     };
 
-    try {
-      useModalStore.getState().open(ModalType.Loading);
+    await runTask(async () => {
       const response = await apiClient.login.loginCreate(arg);
       result.isSuccess = true;
       result.companyId = response.company_id;
@@ -46,33 +45,17 @@ export const useUserStore = create<UserState>((set) => ({
       cookies.set(COOKIE_AUTH_NAME, JSON.stringify(result), { expires: 1 });
 
       set({ user: response.user });
-      useModalStore.getState().close();
-    } catch (error) {
-      const err = error as Error;
-      console.error(err);
-      useModalStore.getState().open(ModalType.Error, {
-        errorText: `[${err.name}] ${err.message}`
-      });
-    }
+    });
+
     return result;
   },
   signup: async (arg: Registration) => {
     let isSuccess = false;
-    try {
-      useModalStore.getState().open(ModalType.Loading);
+    await runTask(async () => {
       const response = await apiClient.registration.registrationCreate(arg);
       if (response.user.email) isSuccess = true;
       set({ user: response.user });
-      useModalStore.getState().close();
-    } catch (error) {
-      set({ user: null });
-      const err = error as Error;
-      console.error(err);
-      isSuccess = false;
-      useModalStore.getState().open(ModalType.Error, {
-        errorText: `[${err.name}] ${err.message}`
-      });
-    }
+    });
     return isSuccess;
   }
 }));

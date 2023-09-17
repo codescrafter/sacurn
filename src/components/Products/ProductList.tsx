@@ -1,5 +1,3 @@
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowUp';
-import classNames from 'classnames';
 import { useCallback, useEffect } from 'react';
 
 import { useFilterOptionsStore } from '@/store/filterOptions';
@@ -7,12 +5,13 @@ import { useProductListStore } from '@/store/productList';
 import { useWishListStore } from '@/store/wishList';
 
 import SelectField from '../SelectInput';
+import Sort from '../Sort';
 import LayoutSwitch from './LayoutSwitch';
 import Tile from './Tile';
 
 const ProductList = () => {
   const productList = useProductListStore((state) => state.productList);
-  const updateProductListFilters = useProductListStore((state) => state.updateProductListFilters);
+  const updateProductListByFilters = useProductListStore((state) => state.updateProductListByFilters);
   const getProductListWithFilter = useProductListStore((state) => state.getProductListWithFilter);
   const filters = useProductListStore((state) => state.filters);
   const wishList = useWishListStore((state) => state.wishList);
@@ -29,7 +28,7 @@ const ProductList = () => {
   }, []);
 
   const onSortChange = useCallback(() => {
-    updateProductListFilters({
+    updateProductListByFilters({
       desc: !filters.desc
     });
   }, [filters.desc]);
@@ -52,7 +51,7 @@ const ProductList = () => {
               value={filters.location}
               options={locationOptions}
               handleChange={(location: (typeof locationOptions)[number]['value'] | undefined) => {
-                updateProductListFilters({
+                updateProductListByFilters({
                   location
                 });
               }}
@@ -62,32 +61,23 @@ const ProductList = () => {
               value={filters.vintage}
               options={vintageOptions}
               handleChange={(vintage: (typeof vintageOptions)[number]['value'] | undefined) => {
-                updateProductListFilters({
+                updateProductListByFilters({
                   vintage
                 });
               }}
             />
             <SelectField
               label="Price"
-              value="Price"
+              value={filters.price}
               options={priceOptions}
               handleChange={(price: string | undefined) => {
-                updateProductListFilters({
+                updateProductListByFilters({
                   price
                 });
               }}
             />
           </div>
-          <div className="text-white cursor-pointer" onClick={onSortChange}>
-            Sort: Low to High
-            <span>
-              <KeyboardArrowDownIcon
-                className={classNames({
-                  'scale-y-[-1]': !filters.desc
-                })}
-              />
-            </span>
-          </div>
+          <Sort isLowToHight={!filters.desc} onSortChange={onSortChange} />
         </div>
         <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 overflow-scroll overflow-x-hidden">
           <div className="flex flex-col gap-5 h-[60vh] 2xl:h-[74vh]">
@@ -95,7 +85,7 @@ const ProductList = () => {
               <Tile
                 key={product.id}
                 id={product.id}
-                tag={filters.tag}
+                tag={product.carbon_tag}
                 image={product.image || '-'}
                 name={product.name || '-'}
                 rating={product.rating || '-'}

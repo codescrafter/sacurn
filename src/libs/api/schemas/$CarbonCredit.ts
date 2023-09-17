@@ -24,6 +24,11 @@ export const $CarbonCredit = {
             isReadOnly: true,
             isRequired: true,
         },
+        carbon_tag: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         name: {
             type: 'string',
             isNullable: true,

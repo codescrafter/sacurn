@@ -7,7 +7,7 @@ import CustomButton from '../CustomButton';
 
 const LayoutSwitch = () => {
   const filters = useProductListStore((state) => state.filters);
-  const updateProductListFilters = useProductListStore((state) => state.updateProductListFilters);
+  const updateProductListByFilters = useProductListStore((state) => state.updateProductListByFilters);
 
   return (
     <div className="px-10 pb-4 flex gap-6 items-center justify-end h-[46px]">
@@ -18,7 +18,7 @@ const LayoutSwitch = () => {
           ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.Green
         })}
         onClick={() => {
-          updateProductListFilters({
+          updateProductListByFilters({
             tag: CarbonTag.Green
           });
         }}
@@ -32,7 +32,7 @@ const LayoutSwitch = () => {
           ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.Yellow
         })}
         onClick={() => {
-          updateProductListFilters({
+          updateProductListByFilters({
             tag: CarbonTag.Yellow
           });
         }}
@@ -46,7 +46,7 @@ const LayoutSwitch = () => {
           ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.Blue
         })}
         onClick={() => {
-          updateProductListFilters({
+          updateProductListByFilters({
             tag: CarbonTag.Blue
           });
         }}

@@ -8,6 +8,7 @@ export type PatchedCarbonCredit = {
     readonly max_price?: string;
     readonly min_price?: string;
     readonly location?: string;
+    readonly carbon_tag?: string;
     name?: string | null;
     about?: string | null;
     video?: string | null;

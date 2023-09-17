@@ -10,7 +10,9 @@
     "lint": "eslint --ext .jsx,.js,.tsx,.ts,.json .",
     "lint:fix": "yarn lint --fix",
     "deploy": "npx firebase-tools deploy --only hosting",
-    "gen:api": "openapi --input ./swagger.json --output ./src/libs/api  --client axios --name ApiClient --exportSchemas true"
+    "api:get": "curl -o swagger.yaml https://platform-api2.sacurn-dev.com/api/schema/",
+    "api:gen": "openapi --input ./swagger.yaml --output ./src/libs/api  --client axios --name ApiClient --exportSchemas true",
+    "api:update": "yarn api:get && yarn api:gen"
   },
   "eslintConfig": {
     "extends": [

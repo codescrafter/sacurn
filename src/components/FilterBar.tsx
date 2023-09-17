@@ -1,42 +1,63 @@
+import { useEffect } from 'react';
+
+import { useFilterOptionsStore } from '@/store/filterOptions';
+import { useWishListStore } from '@/store/wishList';
+
+import SelectField from './SelectInput';
+import Sort from './Sort';
+
 const FilterBar = () => {
+  const filters = useWishListStore((state) => state.filters);
+  const updateWishListByFilters = useWishListStore((state) => state.updateWishListByFilters);
+  const getFilterOptions = useFilterOptionsStore((state) => state.getFilterOptions);
+  const locationOptions = useFilterOptionsStore((state) => state.locationOptions);
+  const vintageOptions = useFilterOptionsStore((state) => state.vintageOptions);
+  const priceOptions = useFilterOptionsStore((state) => state.priceOptions);
+
+  useEffect(() => {
+    getFilterOptions();
+  }, []);
+
   return (
-    <div className="flex flex-row items-center justify-end mb-7">
-      <div className="flex flex-row">
-        <select
-          name="location"
-          className="bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdbase font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2 text-white"
-        >
-          <option className="bg-grey hover:bg-black cursor-pointer">Location</option>
-          <option className="bg-grey">Location</option>
-          <option className="bg-grey">Location</option>
-        </select>
-        <select
-          name="vintages"
-          className="bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdbase font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2 text-white"
-        >
-          <option>vintages</option>
-          <option>vintages</option> <option>vintages</option>
-          <option>vintages</option>
-          <option>vintages</option>
-        </select>
-        <select
-          name="prices"
-          className="wishSelect bg-drop-down rounded-xl min-[1500px]:text-mdlg text-mdbase font-bold bg-trans-grey min-[1500px]:w-[220px] min-[1200px]:w-[170px] w-[150px] min-[1500px]:h-[41px] h-[36px] outline-none px-[1.5rem] appearance-none bg-no-repeat bg-[center_right_1.5rem] min-[1500px]:mx-4 mx-2 text-white"
-        >
-          <option>Prices</option>
-        </select>
-      </div>
-      <label className="min-[1500px]:ml-22.5 min-[1200px]:ml-17 ml-11 min-[1500px]:text-base min-[1200px]:text-sm text-[12px] text-white">
-        Sort:&nbsp;
-      </label>
-      <span className="min-[1500px]:mr-8 mr-6 text-white">
-        <select
-          id="sort"
-          className="bg-transparent min-[1500px]:text-base min-[1200px]:text-sm text-[12px] outline-none"
-        >
-          <option>High to Low</option>
-        </select>
-      </span>
+    <div className="flex flex-row gap-[20px] items-center justify-end mb-7">
+      <SelectField
+        label="Location"
+        value={filters.location}
+        options={locationOptions}
+        handleChange={(location: (typeof locationOptions)[number]['value'] | undefined) => {
+          updateWishListByFilters({
+            location
+          });
+        }}
+      />
+      <SelectField
+        label="Vintages"
+        value={filters.vintage}
+        options={vintageOptions}
+        handleChange={(vintage: (typeof vintageOptions)[number]['value'] | undefined) => {
+          updateWishListByFilters({
+            vintage
+          });
+        }}
+      />
+      <SelectField
+        label="Price"
+        value={filters.price}
+        options={priceOptions}
+        handleChange={(price: string | undefined) => {
+          updateWishListByFilters({
+            price
+          });
+        }}
+      />
+      <Sort
+        isLowToHight={!filters.desc}
+        onSortChange={() => {
+          updateWishListByFilters({
+            desc: !filters.desc
+          });
+        }}
+      />
     </div>
   );
 };
