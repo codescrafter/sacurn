@@ -191,7 +191,10 @@ const CartItem = (props: CartItemIProps) => {
         'border-bright-blue bg-slight-blue': selected,
         'border-white bg-white': !selected
       })}
-      onClick={() => onSelectedChange(!selected)}
+      onClick={() => {
+        if (isOffShelve) return;
+        onSelectedChange(!selected);
+      }}
     >
       <div className="flex items-center">
         <div className="ml-7.5 mr-4">
