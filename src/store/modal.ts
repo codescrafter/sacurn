@@ -24,7 +24,8 @@ export enum ModalType {
   MakeStockOffShelve = 'MakeStockOffShelve',
   CheckOutConfirm = 'CheckOutConfirm',
   Error = 'Error',
-  CompanyReviewing = 'CompanyReviewing'
+  CompanyReviewing = 'CompanyReviewing',
+  DeleteCartItem = 'DeleteCartItem'
 }
 
 const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
@@ -128,6 +129,20 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
       },
       {
         text: '確認結帳'
+      }
+    ]
+  },
+  [ModalType.DeleteCartItem]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '再次提醒',
+    description: '購物車項目即將刪除',
+    buttons: [
+      {
+        text: '取消'
+      },
+      {
+        text: '確認'
       }
     ]
   }

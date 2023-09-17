@@ -155,8 +155,18 @@ const CartItem = (props: CartItemIProps) => {
 
   const updateCartItemQty = useCartStore((store) => store.updateCartItemQty);
   const deleteCartItem = useCartStore((store) => store.deleteCartItem);
+  const open = useModalStore((store) => store.open);
 
   const price = props.price || 0;
+
+  const onDeleteCartItem = useCallback(() => {
+    open(ModalType.DeleteCartItem, {
+      buttons: [
+        { text: '取消', isOutline: true },
+        { text: '確定', onClick: () => deleteCartItem(id) }
+      ]
+    });
+  }, [id]);
 
   const isOffShelve = useMemo(() => order_deleted === OrderStatus.OffShelve, []);
 
@@ -236,16 +246,9 @@ const CartItem = (props: CartItemIProps) => {
         <div>
           <p className="text-xl font-bold text-black">$ {qty * price}</p>
         </div>
-        <div>
-          <img
-            src="/images/cart/ic_delete.svg"
-            className="mr-7"
-            width={23}
-            height={27}
-            alt="sacurn"
-            onClick={() => deleteCartItem(id)}
-          />
-        </div>
+        <button className="mr-7">
+          <img src="/images/cart/ic_delete.svg" width={23} height={27} alt="sacurn" onClick={onDeleteCartItem} />
+        </button>
       </div>
     </div>
   );
