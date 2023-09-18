@@ -8,17 +8,22 @@ import Slider from 'react-slick';
 
 import { Order } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
+import { useCompanyStore } from '@/store/company';
 import { usePriceListStore } from '@/store/priceList';
 import { MIN_CART_QTY } from '@/util/constants';
 
 import Navbar from '../components/Navbar';
 
 const Item = ({ order }: { order: Order }) => {
+  const company = useCompanyStore((state) => state.company);
   const addToCart = useCartStore((state) => state.addToCart);
   const [qty, setQty] = useState(order.min_order_quantity || MIN_CART_QTY);
 
+  const isMyOrder = order.trader && company.id && order.trader === company.id ? true : false;
+
   const onQuantityAdjust = useCallback(
     (value: number) => {
+      if (isMyOrder) return;
       const newQty = qty + value;
       const minQty = order.min_order_quantity || MIN_CART_QTY;
       if (newQty >= minQty && newQty <= parseInt(order.remaining_quantity)) {
@@ -68,7 +73,11 @@ const Item = ({ order }: { order: Order }) => {
           width={50}
           height={42}
           className="cursor-pointer"
+          style={{
+            filter: isMyOrder ? 'brightness(0.2)' : 'none'
+          }}
           onClick={() => {
+            if (isMyOrder) return;
             addToCart({
               order: order.id,
               quantity: qty

@@ -155,8 +155,18 @@ const CartItem = (props: CartItemIProps) => {
 
   const updateCartItemQty = useCartStore((store) => store.updateCartItemQty);
   const deleteCartItem = useCartStore((store) => store.deleteCartItem);
+  const open = useModalStore((store) => store.open);
 
   const price = props.price || 0;
+
+  const onDeleteCartItem = useCallback(() => {
+    open(ModalType.DeleteCartItem, {
+      buttons: [
+        { text: '取消', isOutline: true },
+        { text: '確定', onClick: () => deleteCartItem(id) }
+      ]
+    });
+  }, [id]);
 
   const isOffShelve = useMemo(() => order_deleted === OrderStatus.OffShelve, []);
 
@@ -181,7 +191,10 @@ const CartItem = (props: CartItemIProps) => {
         'border-bright-blue bg-slight-blue': selected,
         'border-white bg-white': !selected
       })}
-      onClick={() => onSelectedChange(!selected)}
+      onClick={() => {
+        if (isOffShelve) return;
+        onSelectedChange(!selected);
+      }}
     >
       <div className="flex items-center">
         <div className="ml-7.5 mr-4">
@@ -193,7 +206,7 @@ const CartItem = (props: CartItemIProps) => {
         </div>
         <img src={image} width={114} height={114} className="object-cover" alt="sacurn" />
         <div className="ml-6 flex flex-col justify-between h-full">
-          <p className="text-[10.6px] font-medium text-black">{company_code}</p>
+          <p className="text-[10.6px] font-medium text-dark-grey">會員代號：{company_code}</p>
           <p
             className={classNames('font-bold text-xl leading-[18px] w-[316px] mr-3 mt-3 mb-3', {
               'text-bright-blue': selected,
@@ -236,16 +249,9 @@ const CartItem = (props: CartItemIProps) => {
         <div>
           <p className="text-xl font-bold text-black">$ {qty * price}</p>
         </div>
-        <div>
-          <img
-            src="/images/cart/ic_delete.svg"
-            className="mr-7"
-            width={23}
-            height={27}
-            alt="sacurn"
-            onClick={() => deleteCartItem(id)}
-          />
-        </div>
+        <button className="mr-7">
+          <img src="/images/cart/ic_delete.svg" width={23} height={27} alt="sacurn" onClick={onDeleteCartItem} />
+        </button>
       </div>
     </div>
   );
