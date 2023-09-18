@@ -33,7 +33,13 @@ export type FormValues = {
     additionalProp3: string;
     additionalProp4: string;
   };
-  contact_address: string;
+  contact_address: {
+    additionalProp1: string;
+    additionalProp2: string;
+    additionalProp3: string;
+    additionalProp4: string;
+  };
+  // contact_address: string;
 };
 
 const schema = yup
@@ -69,8 +75,17 @@ const schema = yup
       .string()
       .required('Representative is required')
       .matches(/^[\u4e00-\u9fa5]+$/, 'Representative must be in Chinese'),
-    contact_address: yup.string().required('Contact address is required'),
+    // contact_address: yup.string().required('Contact address is required'),
     address: yup
+      .object()
+      .shape({
+        additionalProp1: yup.string().required('Address is required'),
+        additionalProp2: yup.string().required('Address is required'),
+        additionalProp3: yup.string().required('Address is required'),
+        additionalProp4: yup.string().required('Address is required')
+      })
+      .required(),
+    contact_address: yup
       .object()
       .shape({
         additionalProp1: yup.string().required('Address is required'),
@@ -85,6 +100,7 @@ const schema = yup
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
+  const [contactSelectedCounty, setContactSelectedCounty] = useState<string | null>('基隆市');
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
@@ -115,8 +131,14 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       if (data.phone) setValue('phone', data.phone);
       if (data.founding_date) setValue('founding_date', data.founding_date);
       if (data.representative) setValue('representative', data.representative);
-      if (data.contact_address) setValue('contact_address', data.contact_address);
-      if (data?.address) {
+      if (data.contact_address) {
+        const contactAddress = data.contact_address.split(',');
+        setValue('contact_address.additionalProp1', contactAddress[0]?.trim());
+        setValue('contact_address.additionalProp2', contactAddress[1]?.trim());
+        setValue('contact_address.additionalProp3', contactAddress[2]?.trim());
+        setValue('contact_address.additionalProp4', contactAddress[3]?.trim());
+      }
+      if (data.address) {
         const address1 = data.address?.additionalProp1?.split(',');
         const address2 = data.address?.additionalProp2?.split(',');
         const address3 = data.address?.additionalProp3?.split(',');
@@ -126,6 +148,20 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
         setValue('address.additionalProp4', address3[0].trim());
       }
       if (data.registration_document.length) setUploadedDocs(data.registration_document);
+      if (data.address && data.contact_address) {
+        const address1 = data.address?.additionalProp1?.split(',');
+        const address2 = data.address?.additionalProp2?.split(',');
+        const address3 = data.address?.additionalProp3?.split(',');
+        const contactAddress = data.contact_address.split(',');
+        if (
+          address1[0]?.trim() === contactAddress[0]?.trim() &&
+          address1[1]?.trim() === contactAddress[1]?.trim() &&
+          address2[0]?.trim() === contactAddress[2]?.trim() &&
+          address3[0]?.trim() === contactAddress[3]?.trim()
+        ) {
+          setIsChecked(true);
+        }
+      }
     })();
   }, []);
 
@@ -133,14 +169,18 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     setIsChecked(!isChecked);
     const address = getValues('address');
     if (!value) {
-      setValue('contact_address', '');
+      setValue('contact_address.additionalProp1', '');
+      setValue('contact_address.additionalProp2', '');
+      setValue('contact_address.additionalProp3', '');
+      setValue('contact_address.additionalProp4', '');
       return;
     }
     if (!address) return;
     const { additionalProp1, additionalProp2, additionalProp3, additionalProp4 } = address;
-    setValue('contact_address', `${additionalProp1} ${additionalProp2} ${additionalProp3} ${additionalProp4} `, {
-      shouldValidate: true
-    });
+    setValue('contact_address.additionalProp1', additionalProp1);
+    setValue('contact_address.additionalProp2', additionalProp2);
+    setValue('contact_address.additionalProp3', additionalProp3);
+    setValue('contact_address.additionalProp4', additionalProp4);
   };
 
   const onSubmit = handleSubmit(async (data) => {
@@ -154,7 +194,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       representative: data.representative,
       capital: Number(data.capital),
       founding_date: data.founding_date,
-      contact_address: isChecked ? concatenatedAddresss : data.contact_address,
+      contact_address: isChecked
+        ? concatenatedAddresss
+        : `${data.contact_address.additionalProp1}, ${data.contact_address.additionalProp2}, ${data.contact_address.additionalProp3}, ${data.contact_address.additionalProp4}`,
       address: {
         additionalProp1: `${data.address.additionalProp1}, ${data.address.additionalProp2}`,
         additionalProp2: `${data.address.additionalProp3}`,
@@ -314,7 +356,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       {...register(`address.additionalProp3`, { required: true })}
                       type="text"
                       placeholder="郵遞區號"
-                      className={classNames('w-24', Style, {
+                      className={classNames('w-24 px-3', Style, {
                         'border-bright-red border': errors.address?.additionalProp3
                       })}
                     />
@@ -377,19 +419,19 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                 /> */}
                 <div className="pt-4 pb-14">
                   <div className="flex">
-                    <label className="text-black text-right font-semibold w-[128px] mb-5.2">公司登記地址 :</label>
+                    <label className="text-black text-right font-semibold w-[128px] mb-5.2">聯絡地址 :</label>
                     <div className="flex flex-col">
                       <div className="absolute flex flex-col -translate-y-1.5 ml-2">
                         <div className="flex flex-row my-1">
                           <select
-                            id="address.additionalProp1"
-                            {...register(`address.additionalProp1`, { required: true })}
+                            id="contact_address.additionalProp1"
+                            {...register(`contact_address.additionalProp1`, { required: true })}
                             className={classNames(
                               'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                               Style
                             )}
                             // defaultValue="縣市"
-                            onChange={(e) => setSelectedCounty(e.target.value)}
+                            onChange={(e) => setContactSelectedCounty(e.target.value)}
                           >
                             {COUNTY_LIST?.map((county) => (
                               <option value={county.value} className="text-black">
@@ -398,14 +440,14 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             ))}
                           </select>
                           <select
-                            id="address.additionalProp2"
-                            {...register(`address.additionalProp2`, { required: true })}
+                            id="contact_address.additionalProp2"
+                            {...register(`contact_address.additionalProp2`, { required: true })}
                             className={classNames(
                               'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                               Style
                             )}
                           >
-                            {URBAN_AREA_LIST?.filter((item) => item.slug === selectedCounty).map(({ value }) =>
+                            {URBAN_AREA_LIST?.filter((item) => item.slug === contactSelectedCounty).map(({ value }) =>
                               value.map((item) => (
                                 <option value={item} className="text-black">
                                   {item}
@@ -414,18 +456,18 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             )}
                           </select>
                           <input
-                            id="address.additionalProp3"
-                            {...register(`address.additionalProp3`, { required: true })}
+                            id="contact_address.additionalProp3"
+                            {...register(`contact_address.additionalProp3`, { required: true })}
                             type="text"
                             placeholder="郵遞區號"
-                            className={classNames('w-24', Style, {
-                              'border-bright-red border': errors.address?.additionalProp3
+                            className={classNames('w-24 px-3', Style, {
+                              'border-bright-red border': errors.contact_address?.additionalProp3
                             })}
                           />
                         </div>
                         <input
-                          id="address.additionalProp4"
-                          {...register(`address.additionalProp4`, { required: true })}
+                          id="contact_address.additionalProp4"
+                          {...register(`contact_address.additionalProp4`, { required: true })}
                           type="text"
                           placeholder="詳細地址"
                           className={classNames(
@@ -437,10 +479,10 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             }
                           )}
                         />
-                        {(errors.address?.additionalProp1 ||
-                          errors.address?.additionalProp2 ||
-                          errors.address?.additionalProp3 ||
-                          errors.address?.additionalProp4) && (
+                        {(errors.contact_address?.additionalProp1 ||
+                          errors.contact_address?.additionalProp2 ||
+                          errors.contact_address?.additionalProp3 ||
+                          errors.contact_address?.additionalProp4) && (
                           <p className="text-[#FF0000] text-xs font-normal">( 紅色框格請務必填寫 )</p>
                         )}
                       </div>
