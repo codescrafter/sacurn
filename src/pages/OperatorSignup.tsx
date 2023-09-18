@@ -53,7 +53,6 @@ const schema = yup
 const OperatorSignUp = () => {
   const { register, handleSubmit, formState } = useForm<SignupFormType>({ resolver: yupResolver(schema) });
   console.log(formState.errors);
-
   const signup = useUserStore((state) => state.signup);
   const login = useUserStore((state) => state.login);
 
