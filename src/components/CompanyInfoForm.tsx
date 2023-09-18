@@ -9,7 +9,7 @@ import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
-import { CompanyRegistrationSteps, COUNTY_LIST, URBAN_AREA_LIST } from '@/util/constants';
+import { CompanyRegistrationSteps, COUNTY_LIST, REGION_AREA_LIST, URBAN_AREA_LIST } from '@/util/constants';
 import { getCookie } from '@/util/helper';
 
 import CompanyInputField from './CompanyInputField';
@@ -101,6 +101,7 @@ const schema = yup
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
+  const [selectedRegion, setSelectedRegion] = useState<string | null>('仁愛區');
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
@@ -339,6 +340,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                         Style
                       )}
+                      onChange={(e) => setSelectedRegion(e.target.value)}
                     >
                       {URBAN_AREA_LIST?.filter((item) => item.slug === selectedCounty).map(({ value }) =>
                         value.map((item) => (
@@ -348,7 +350,31 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         ))
                       )}
                     </select>
-                    <input
+                    <div
+                      id="address.additionalProp3"
+                      {...register(`address.additionalProp3`, { required: true })}
+                      className={classNames(
+                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
+                        Style
+                      )}
+                      // onChange={(e) => setSelectedRegion(e.target.value)}
+                    >
+                      {/* {REGION_AREA_LIST.map(({ value, slug }) => (
+                        <option value={value} className="text-black" selected={slug === selectedRegion}>
+                          {value}
+                        </option>
+                      ))} */}
+
+                      {(() => {
+                        const selectedRegionObject = REGION_AREA_LIST.find((item) => item.slug === selectedRegion);
+                        <>{console.log('selectedRegionObject', selectedRegionObject)}</>;
+
+                        return (
+                          <div className="text-black">{selectedRegionObject ? selectedRegionObject.value : null}</div>
+                        );
+                      })()}
+                    </div>
+                    {/* <input
                       id="address.additionalProp3"
                       {...register(`address.additionalProp3`, { required: true })}
                       type="text"
@@ -359,8 +385,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                           'border-bright-red border': errors.address?.additionalProp3
                         }
                       )}
-                    />
-                    <input
+                    /> */}
+                    {/* <input
                       id="address.additionalProp4"
                       {...register(`address.additionalProp4`, { required: true })}
                       type="text"
@@ -368,9 +394,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       className={classNames('px-2 min-[1700px]:w-36 min-[1550px]:w-33 min-[1200px]:w-31 w-29', Style, {
                         'border-bright-red border': errors.address?.additionalProp4
                       })}
-                    />
+                    /> */}
                   </div>
-                  <div className="flex flex-row my-1 items-center">
+                  {/* <div className="flex flex-row my-1 items-center">
                     {address_row_1.map((item: string, idx: number) => {
                       let id = '' as
                         | 'address.additionalProp5'
@@ -437,12 +463,12 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         </>
                       );
                     })}
-                  </div>
+                  </div> */}
                   {(errors.address?.additionalProp1 ||
                     errors.address?.additionalProp2 ||
                     errors.address?.additionalProp3 ||
-                    errors.address?.additionalProp4 ||
-                    errors.address?.additionalProp9) && (
+                    errors.address?.additionalProp4) && (
+                    //errors.address?.additionalProp9
                     <p className="text-[#FF0000] text-xs font-normal">( 紅色框格請務必填寫 )</p>
                   )}
                 </div>
@@ -511,5 +537,5 @@ export default CompanyInfoForm;
 
 const Style =
   'rounded-full text-black shadow-company-registration-input bg-white min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-7 min-[1550px]:px-2 min-[1200px]:px-1.5 px-1 py-1 text-black min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs outline-none';
-const address_row_1 = ['鄰', '巷', '弄', '街'];
-const address_row_2 = ['號之', ',', '樓之', '室'];
+//const address_row_1 = ['鄰', '巷', '弄', '街'];
+// const address_row_2 = ['號之', ',', '樓之', '室'];
