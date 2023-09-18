@@ -75,3 +75,8 @@ export enum CompanyStatus {
   Reviewing = 1, // 送審中
   PassReview = 2 // 審核通過
 }
+
+export enum OrderStatus {
+  OnSale = 0, // 商品上架中
+  OffShelve = 1 // 商品已下架
+}

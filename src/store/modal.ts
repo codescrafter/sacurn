@@ -1,7 +1,11 @@
+import { HttpStatusCode } from 'axios';
+import cookies from 'js-cookie';
 import { create } from 'zustand';
 
 import { UniversalModalProps } from '@/components/Modal/UniversalModal';
 import { UniversalModalStatus } from '@/types';
+
+import { COOKIE_AUTH_NAME } from './user';
 
 type ModalState = {
   isOpen: boolean;
@@ -9,6 +13,10 @@ type ModalState = {
   data: UniversalModalProps | null;
   open: (type: ModalType, override?: Partial<UniversalModalProps>) => void;
   close: () => void;
+  runTask: (
+    task: () => void,
+    result?: { onComplete?: () => ModalType | void; onError?: (error: unknown) => void }
+  ) => void;
 };
 
 export enum ModalType {
@@ -20,7 +28,8 @@ export enum ModalType {
   MakeStockOffShelve = 'MakeStockOffShelve',
   CheckOutConfirm = 'CheckOutConfirm',
   Error = 'Error',
-  CompanyReviewing = 'CompanyReviewing'
+  CompanyReviewing = 'CompanyReviewing',
+  DeleteCartItem = 'DeleteCartItem'
 }
 
 const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
@@ -126,10 +135,24 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
         text: '確認結帳'
       }
     ]
+  },
+  [ModalType.DeleteCartItem]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '再次提醒',
+    description: '購物車項目即將刪除',
+    buttons: [
+      {
+        text: '取消'
+      },
+      {
+        text: '確認'
+      }
+    ]
   }
 };
 
-export const useModalStore = create<ModalState>((set) => ({
+export const useModalStore = create<ModalState>((set, get) => ({
   isOpen: true,
   type: null,
   data: null,
@@ -140,5 +163,58 @@ export const useModalStore = create<ModalState>((set) => ({
       data: { ...ModalDataRecord[type], ...override }
     });
   },
-  close: () => set({ isOpen: false, type: null, data: null })
+  close: () => set({ isOpen: false, type: null, data: null }),
+  runTask: async (task, result) => {
+    try {
+      get().open(ModalType.Loading);
+      await task();
+      const modalType = await result?.onComplete?.();
+
+      if (modalType) {
+        useModalStore.getState().open(modalType);
+      } else {
+        useModalStore.getState().close();
+      }
+    } catch (error) {
+      console.error(error);
+      await result?.onError?.(error);
+
+      const err1 = error as APIError;
+
+      if (err1.status === HttpStatusCode.Unauthorized) {
+        cookies.remove(COOKIE_AUTH_NAME);
+        window.location.reload();
+        return;
+      }
+
+      if (err1?.body?.msg) {
+        useModalStore.getState().open(ModalType.Error, {
+          errorText: err1?.body?.msg
+        });
+        return;
+      }
+      const err2 = error as Error;
+      useModalStore.getState().open(ModalType.Error, {
+        errorText: `[${err2.name}] ${err2.message}`
+      });
+    }
+  }
 }));
+
+export const runTask = useModalStore.getState().runTask;
+
+type APIError = {
+  url: string;
+  status: number;
+  statusText: string;
+  body: {
+    msg: string;
+  };
+  request: {
+    method: string;
+    url: string;
+    body: Record<string, string>;
+    mediaType: string;
+  };
+  name: string;
+};

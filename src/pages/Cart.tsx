@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Cart as CartItemType } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
+import { OrderStatus } from '@/type';
 import { MIN_CART_QTY } from '@/util/constants';
 
 import Navbar from '../components/Navbar';
@@ -77,7 +78,7 @@ const Cart = () => {
                 <div className="2xl:mt-5.2 mt-3">
                   {cartDetail.product_list?.map((product) => {
                     return (
-                      <div className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
+                      <div key={product.name} className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
                         <p className="w-[70%] text-grey 2xl:text-lg text-sm">{product.name}</p>
                         <p className="text-grey 2xl:text-lg text-sm">{product.amount} 噸</p>
                       </div>
@@ -148,17 +149,30 @@ interface CartItemIProps extends CartItemType {
 }
 
 const CartItem = (props: CartItemIProps) => {
-  const { selected, id, name, image, remaining_quantity, order, company_code, onSelectedChange } = props;
+  const { selected, id, name, image, remaining_quantity, order, order_deleted, company_code, onSelectedChange } = props;
 
   const [qty, setQty] = useState(props.quantity || MIN_CART_QTY);
 
   const updateCartItemQty = useCartStore((store) => store.updateCartItemQty);
   const deleteCartItem = useCartStore((store) => store.deleteCartItem);
+  const open = useModalStore((store) => store.open);
 
   const price = props.price || 0;
 
+  const onDeleteCartItem = useCallback(() => {
+    open(ModalType.DeleteCartItem, {
+      buttons: [
+        { text: '取消', isOutline: true },
+        { text: '確定', onClick: () => deleteCartItem(id) }
+      ]
+    });
+  }, [id]);
+
+  const isOffShelve = useMemo(() => order_deleted === OrderStatus.OffShelve, []);
+
   const onQuantityAdjust = useCallback(
     (value: number) => {
+      if (isOffShelve) return;
       const newQty = qty + value;
       if (newQty >= MIN_CART_QTY && newQty <= parseInt(remaining_quantity)) {
         setQty(newQty);
@@ -171,20 +185,16 @@ const CartItem = (props: CartItemIProps) => {
     [qty]
   );
 
-  // const onQuantityChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-  //   updateCartItemQty(id, {
-  //     quantity: parseInt(event.target.value),
-  //     order
-  //   });
-  // }, []);
-
   return (
     <div
       className={classNames('flex items-center py-4.5 border-2 rounded-[10px] direction-ltr shadow-cart-item', {
         'border-bright-blue bg-slight-blue': selected,
         'border-white bg-white': !selected
       })}
-      onClick={() => onSelectedChange(!selected)}
+      onClick={() => {
+        if (isOffShelve) return;
+        onSelectedChange(!selected);
+      }}
     >
       <div className="flex items-center">
         <div className="ml-7.5 mr-4">
@@ -196,7 +206,7 @@ const CartItem = (props: CartItemIProps) => {
         </div>
         <img src={image} width={114} height={114} className="object-cover" alt="sacurn" />
         <div className="ml-6 flex flex-col justify-between h-full">
-          <p className="text-[10.6px] font-medium text-black">{company_code}</p>
+          <p className="text-[10.6px] font-medium text-dark-grey">會員代號：{company_code}</p>
           <p
             className={classNames('font-bold text-xl leading-[18px] w-[316px] mr-3 mt-3 mb-3', {
               'text-bright-blue': selected,
@@ -209,7 +219,13 @@ const CartItem = (props: CartItemIProps) => {
         </div>
       </div>
       <div className="flex flex-1 justify-between">
-        <p className="text-[15px] font-medium text-black leading-9">剩下 {remaining_quantity} 噸可購</p>
+        <p
+          className={classNames('text-[15px] font-medium text-black leading-9', {
+            'text-bright-red': isOffShelve
+          })}
+        >
+          {isOffShelve ? '剩下 0 噸無法交易' : `剩下 ${remaining_quantity} 噸可購`}
+        </p>
         <div className="flex items-center gap-1.2" onClick={(e) => e.stopPropagation()}>
           <button
             onClick={() => onQuantityAdjust(-1)}
@@ -221,7 +237,6 @@ const CartItem = (props: CartItemIProps) => {
             className="w-17 h-9 rounded-md border border-[#B3B4B4] bg-transparent text-right pr-3.5 text-bright-blue text-2xl font-medium flex items-center justify-center"
             type="number"
             value={qty}
-            // onChange={onQuantityChange}
             disabled
           />
           <button
@@ -234,16 +249,9 @@ const CartItem = (props: CartItemIProps) => {
         <div>
           <p className="text-xl font-bold text-black">$ {qty * price}</p>
         </div>
-        <div>
-          <img
-            src="/images/cart/ic_delete.svg"
-            className="mr-7"
-            width={23}
-            height={27}
-            alt="sacurn"
-            onClick={() => deleteCartItem(id)}
-          />
-        </div>
+        <button className="mr-7">
+          <img src="/images/cart/ic_delete.svg" width={23} height={27} alt="sacurn" onClick={onDeleteCartItem} />
+        </button>
       </div>
     </div>
   );

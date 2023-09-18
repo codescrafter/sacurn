@@ -20,6 +20,10 @@ export const $PatchedCarbonCredit = {
             type: 'string',
             isReadOnly: true,
         },
+        carbon_tag: {
+            type: 'string',
+            isReadOnly: true,
+        },
         name: {
             type: 'string',
             isNullable: true,

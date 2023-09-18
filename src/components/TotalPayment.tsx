@@ -25,7 +25,7 @@ const TotalPayment = (props: TotalPaymentProps) => {
       result.isError = false;
       const deadlineDate = new Date(checkoutDetail.deadline);
       result.deadlineString = dateFormat(new Date(deadlineDate), '在yyyy年mm月dd日 HH:MM到期');
-      result.countdownGap = Date.now() - deadlineDate.getMilliseconds();
+      result.countdownGap = deadlineDate.getTime() - Date.now();
     }
 
     return result;

@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { Certificate } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
-import { ModalType, useModalStore } from './modal';
+import { ModalType, runTask } from './modal';
 
 type CertificateState = {
   getCertificatePdf: (
@@ -14,30 +14,20 @@ type CertificateState = {
 
 export const useCertificateStore = create<CertificateState>(() => ({
   getCertificatePdf: async (...args) => {
-    try {
-      useModalStore.getState().open(ModalType.Loading);
-      const certificate = await apiClient.carbonCredit.carbonCreditCertificateRetrieve(...args);
-      useModalStore.getState().close();
-      return certificate;
-    } catch (error) {
-      const err = error as Error;
-      console.error(err);
-      useModalStore.getState().open(ModalType.Error, {
-        errorText: `[${err.name}] ${err.message}`
-      });
-    }
+    let certificate = undefined;
+    await runTask(async () => {
+      certificate = await apiClient.carbonCredit.carbonCreditCertificateRetrieve(...args);
+    });
+    return certificate;
   },
   applyCertificate: async (...args) => {
-    try {
-      useModalStore.getState().open(ModalType.Loading);
-      await apiClient.carbonCredit.carbonCreditMailCertificateRetrieve(...args);
-      useModalStore.getState().open(ModalType.FinishedApplyCertificate);
-    } catch (error) {
-      const err = error as Error;
-      console.error(err);
-      useModalStore.getState().open(ModalType.Error, {
-        errorText: `[${err.name}] ${err.message}`
-      });
-    }
+    runTask(
+      async () => {
+        await apiClient.carbonCredit.carbonCreditMailCertificateRetrieve(...args);
+      },
+      {
+        onComplete: () => ModalType.FinishedApplyCertificate
+      }
+    );
   }
 }));

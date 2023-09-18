@@ -71,19 +71,19 @@ const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage
           <div className="mt-7">
             {standard && (
               <div className="flex gap-10 items-center">
-                <p className="font-xs text-grey w-[25%]">Standard</p>
-                <p className="text-sm text-black w-[75%]">{standard}</p>
+                <p className="font-xs text-grey min-w-[100px]">Standard</p>
+                <p className="text-sm text-black flex-1">{standard}</p>
               </div>
             )}
             {type && (
               <div className="flex gap-10 items-center">
-                <p className="font-xs text-grey w-[25%]">Type</p>
-                <p className="text-sm text-black w-[75%]">{type}</p>
+                <p className="font-xs text-grey min-w-[100px]">Type</p>
+                <p className="text-sm text-black flex-1">{type}</p>
               </div>
             )}
             <div className="flex gap-10 items-center">
-              <p className="font-xs text-grey w-[25%]">Vintage</p>
-              <p className="text-sm text-black w-[75%]">{dateFormat(vintage, 'yyyy')}</p>
+              <p className="font-xs text-grey min-w-[100px]">Vintage</p>
+              <p className="text-sm text-black flex-1">{dateFormat(vintage, 'yyyy')}</p>
             </div>
           </div>
         </div>

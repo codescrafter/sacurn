@@ -199,18 +199,33 @@ export class CarbonCreditService {
     }
 
     /**
+     * @param desc 價格排序方式
+     * @param location 地點
      * @param page A page number within the paginated result set.
+     * @param price 價格 ex: 100,200
+     * @param tags 碳權種類
+     * @param vintage 年份
      * @returns PaginatedWatchListList
      * @throws ApiError
      */
     public carbonCreditWatchListList(
+        desc?: boolean,
+        location?: string,
         page?: number,
+        price?: string,
+        tags?: string,
+        vintage?: string,
     ): CancelablePromise<PaginatedWatchListList> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/watch_list/',
             query: {
+                'desc': desc,
+                'location': location,
                 'page': page,
+                'price': price,
+                'tags': tags,
+                'vintage': vintage,
             },
         });
     }

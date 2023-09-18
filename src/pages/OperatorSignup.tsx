@@ -53,17 +53,16 @@ const schema = yup
 const OperatorSignUp = () => {
   const { register, handleSubmit, formState } = useForm<SignupFormType>({ resolver: yupResolver(schema) });
   console.log(formState.errors);
-  // const navigate = useNavigate();
   const signup = useUserStore((state) => state.signup);
   const login = useUserStore((state) => state.login);
 
   const navigate = useNavigate();
   const onSubmit = handleSubmit(async (data) => {
-    const isSucessFul = await signup(data);
-    if (isSucessFul) {
+    const isSuccess = await signup(data);
+    if (isSuccess) {
       const result = await login({ username: data.username, password: data.password1 });
       if (result.isSuccess) {
-        navigate('/');
+        navigate(result.redirectUrl);
       }
     }
   });
