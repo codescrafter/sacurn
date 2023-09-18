@@ -430,8 +430,10 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                               Style
                             )}
-                            // defaultValue="縣市"
-                            onChange={(e) => setContactSelectedCounty(e.target.value)}
+                            onChange={(e) => {
+                              setContactSelectedCounty(e.target.value);
+                              setIsChecked(false);
+                            }}
                           >
                             {COUNTY_LIST?.map((county) => (
                               <option value={county.value} className="text-black">
@@ -446,6 +448,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                               Style
                             )}
+                            onChange={() => setIsChecked(false)}
                           >
                             {URBAN_AREA_LIST?.filter((item) => item.slug === contactSelectedCounty).map(({ value }) =>
                               value.map((item) => (
@@ -460,6 +463,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             {...register(`contact_address.additionalProp3`, { required: true })}
                             type="text"
                             placeholder="郵遞區號"
+                            onChange={() => setIsChecked(false)}
                             className={classNames('w-24 px-3', Style, {
                               'border-bright-red border': errors.contact_address?.additionalProp3
                             })}
@@ -470,6 +474,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                           {...register(`contact_address.additionalProp4`, { required: true })}
                           type="text"
                           placeholder="詳細地址"
+                          onChange={() => setIsChecked(false)}
                           className={classNames(
                             'mt-1 rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs outline-none ',
                             {
