@@ -334,6 +334,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       onChange={(e) => {
                         if (isChecked) {
                           setValue('contact_address.additionalProp1', e.target.value);
+                          setContactSelectedCounty(e.target.value);
                         }
                         setSelectedCounty(e.target.value);
                       }}
@@ -353,10 +354,10 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       )}
                       onChange={(e) => {
                         if (isChecked) {
-                          setValue('contact_address.additionalProp2', e.target.value);
                           const findPostalCode = REGION_AREA_LIST.find((item) => item.slug === e.target.value)?.value;
                           setValue('address.additionalProp3', findPostalCode || '');
                           setValue('contact_address.additionalProp3', findPostalCode || '');
+                          setValue('contact_address.additionalProp2', e.target.value);
                         }
                       }}
                     >
