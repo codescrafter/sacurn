@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 import * as yup from 'yup';
-
+import { COOKIE_AUTH_NAME } from '@/store/user';
 import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps, FINANCIAL_CATEGORY, FINANCIAL_INSTUITION_LIST } from '@/util/constants';
@@ -60,7 +60,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
   const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
   const [SelectedFinancialInstitution, setSelectedFinancialInstitution] = useState<string>('本國銀行');
 
-  const companyId = getCookie('auth');
+ const companyId = getCookie(COOKIE_AUTH_NAME);
   const updateCompany = useCompanyStore((state) => state.updateCompany);
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
 

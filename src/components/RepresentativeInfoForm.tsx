@@ -4,7 +4,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 import * as yup from 'yup';
-
+import { COOKIE_AUTH_NAME } from '@/store/user';
 import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
@@ -56,7 +56,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
     getValues
   } = useForm<RepresentativeFormTypes>({ resolver: yupResolver(schema) });
 
-  const companyId = getCookie('auth');
+  const companyId = getCookie(COOKIE_AUTH_NAME);
   const updateCompany = useCompanyStore((state) => state.updateCompany);
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
 
