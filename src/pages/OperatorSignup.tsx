@@ -32,7 +32,7 @@ const schema = yup
       .string()
       .required('password required')
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{12,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{12,}$/,
         'Must contain at least 12 characters, at least one uppercase letter, one lowercase letter, and one number'
       ),
     password2: yup
@@ -40,7 +40,7 @@ const schema = yup
       .oneOf([yup.ref('password1')], 'password must match')
       .required('password required')
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{12,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{12,}$/,
         'Must contain at least 12 characters, at least one uppercase letter, one lowercase letter, and one number'
       ),
     phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required('phoneNumber required'),
@@ -53,7 +53,6 @@ const schema = yup
 const OperatorSignUp = () => {
   const { register, handleSubmit, formState } = useForm<SignupFormType>({ resolver: yupResolver(schema) });
   console.log(formState.errors);
-
   const signup = useUserStore((state) => state.signup);
   const login = useUserStore((state) => state.login);
 
