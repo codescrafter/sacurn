@@ -99,10 +99,12 @@ const schema = yup
 
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
-  const [contactSelectedCounty, setContactSelectedCounty] = useState<string | null>('基隆市');
-  const [selectedRegion, setSelectedRegion] = useState<string | null>('仁愛區');
-  const [selectedContactRegion, setSelectedContactRegion] = useState<string | null>('仁愛區');
+
+  // const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
+  // const [contactSelectedCounty, setContactSelectedCounty] = useState<string | null>('基隆市');
+  // const [selectedRegion, setSelectedRegion] = useState<string | null>('仁愛區');
+  // const [selectedContactRegion, setSelectedContactRegion] = useState<string | null>('仁愛區');
+
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
@@ -139,8 +141,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
         setValue('contact_address.additionalProp2', contactAddress[1]?.trim());
         setValue('contact_address.additionalProp3', contactAddress[2]?.trim());
         setValue('contact_address.additionalProp4', contactAddress[3]?.trim());
-        console.log('contact_address.additionalProp2', contactAddress[1]?.trim());
-        console.log('contact_address.additionalProp3', contactAddress[2]?.trim());
       }
 
       if (data.address) {
@@ -182,6 +182,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     }
     if (!address) return;
     const { additionalProp1, additionalProp2, additionalProp3, additionalProp4 } = address;
+    console.log('address123', address);
     setValue('contact_address.additionalProp1', additionalProp1);
     setValue('contact_address.additionalProp2', additionalProp2);
     setValue('contact_address.additionalProp3', additionalProp3);
@@ -235,6 +236,26 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     if (isSuccess) nextStep(CompanyRegistrationSteps.REPRESENTATIVE_INFO_FORM);
     useCompanyStore.setState({ isSuccess: false });
   });
+
+  // useEffect(() => {
+  //   const regionValue = REGION_AREA_LIST.find((item) => item.slug === selectedRegion)?.value || '';
+
+  //   setValue('address.additionalProp3', regionValue);
+  //   // if checked, set contact address
+  //   if (isChecked) {
+  //     setValue('contact_address.additionalProp1', getValues('address.additionalProp1'));
+  //     setValue('contact_address.additionalProp2', getValues('address.additionalProp2'));
+  //     setValue('contact_address.additionalProp3', getValues('address.additionalProp3'));
+  //     setValue('contact_address.additionalProp4', getValues('address.additionalProp4'));
+  //   }
+  // }, [selectedRegion]);
+
+  // useEffect(() => {
+  //   if (isChecked) return;
+  //   const regionValue = REGION_AREA_LIST.find((item) => item.slug === selectedContactRegion)?.value || '';
+
+  //   setValue('contact_address.additionalProp3', regionValue);
+  // }, [selectedContactRegion]);
 
   return (
     <form onSubmit={onSubmit}>
@@ -332,7 +353,11 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         Style
                       )}
                       // defaultValue="縣市"
-                      onChange={(e) => setSelectedCounty(e.target.value)}
+                      onChange={(e) => {
+                        setIsChecked(false);
+                        setValue('address.additionalProp1', e.target.value);
+                        // setSelectedCounty(e.target.value);
+                      }}
                     >
                       {COUNTY_LIST?.map((county) => (
                         <option value={county.value} className="text-black">
@@ -347,14 +372,21 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                         Style
                       )}
-                      onChange={(e) => setSelectedRegion(e.target.value)}
+                      onChange={(e) => {
+                        setIsChecked(false);
+                        setValue('address.additionalProp2', e.target.value);
+                        const regionValue = REGION_AREA_LIST.find((item) => item.slug === e.target.value)?.value || '';
+                        setValue('address.additionalProp3', regionValue);
+                        // setSelectedRegion(e.target.value);
+                      }}
                     >
-                      {URBAN_AREA_LIST?.filter((item) => item.slug === selectedCounty).map(({ value }) =>
-                        value.map((item) => (
-                          <option value={item} className="text-black">
-                            {item}
-                          </option>
-                        ))
+                      {URBAN_AREA_LIST?.filter((item) => item.slug === getValues('address.additionalProp1')).map(
+                        ({ value }) =>
+                          value.map((item) => (
+                            <option value={item} className="text-black">
+                              {item}
+                            </option>
+                          ))
                       )}
                     </select>
                     <input
@@ -365,7 +397,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       className={classNames('w-24 px-3', Style, {
                         'border-bright-red border': errors.address?.additionalProp3
                       })}
-                      value={REGION_AREA_LIST.find((item) => item.slug === selectedRegion)?.value || ''}
+                      // value={REGION_AREA_LIST.find((item) => item.slug === selectedRegion)?.value || ''}
                     />
                   </div>
                   <input
@@ -373,6 +405,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     {...register(`address.additionalProp4`, { required: true })}
                     type="text"
                     placeholder="詳細地址"
+                    onChange={() => setIsChecked(false)}
                     className={classNames(
                       'mt-1 rounded-full text-black shadow-company-registration-input bg-white  min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs outline-none ',
                       {
@@ -409,7 +442,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                   <input
                     type="checkbox"
                     checked={isChecked}
-                    onChange={(e) => handleGetValue(e.target.checked)}
+                    onChange={(e) => {
+                      handleGetValue(e.target.checked);
+                    }}
                     className="w-4 h-4"
                   />
                   <label className="text-black ml-2 text-xs">同公司登記地址</label>
@@ -439,7 +474,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             )}
                             onChange={(e) => {
                               setIsChecked(false);
-                              setContactSelectedCounty(e.target.value);
+                              setValue('contact_address.additionalProp1', e.target.value);
                             }}
                           >
                             {COUNTY_LIST?.map((county) => (
@@ -457,10 +492,15 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             )}
                             onChange={(e) => {
                               setIsChecked(false);
-                              setSelectedContactRegion(e.target.value);
+                              setValue('contact_address.additionalProp2', e.target.value);
+                              const regionValue =
+                                REGION_AREA_LIST.find((item) => item.slug === e.target.value)?.value || '';
+                              setValue('contact_address.additionalProp3', regionValue);
                             }}
                           >
-                            {URBAN_AREA_LIST?.filter((item) => item.slug === contactSelectedCounty).map(({ value }) =>
+                            {URBAN_AREA_LIST?.filter(
+                              (item) => item.slug === getValues('contact_address.additionalProp1')
+                            ).map(({ value }) =>
                               value.map((item) => (
                                 <option value={item} className="text-black">
                                   {item}
@@ -474,7 +514,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             type="text"
                             placeholder="郵遞區號"
                             onChange={() => setIsChecked(false)}
-                            value={REGION_AREA_LIST.find((item) => item.slug === selectedContactRegion)?.value || ''}
                             className={classNames('w-24 px-3', Style, {
                               'border-bright-red border': errors.contact_address?.additionalProp3
                             })}
