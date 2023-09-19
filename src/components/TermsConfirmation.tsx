@@ -21,9 +21,10 @@ const TermsConfirmation = ({ nextStep }: IProps) => {
       })}
     >
       <div className="flex flex-col items-center py-4 ">
-        <h2 className="text-xl font-bold leading-normal text-dark-grey mb-6">
+        {/* <h2 className="text-xl font-bold leading-normal text-dark-grey mb-6">
           本網站之《服務條款》、《隱私政策》和《Cookie 政策》
-        </h2>
+        </h2> */}
+        <h2 className="text-xl font-bold leading-normal text-dark-grey mb-6">《土星永續股份有限公司 會員服務條款》</h2>
         <div className="bg-white rounded-2.5xl shadow-company-registration-input py-3 px-4 h-[50vh] w-[95%] mb-3 relative">
           <div className="overflow-y-scroll yellowScroll w-[calc(100%-5px)] h-full">
             <p className="text-mdbase font-bold break-normal break-keep whitespace-pre-wrap w-[95%]">{Policy}</p>
