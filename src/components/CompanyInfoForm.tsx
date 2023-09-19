@@ -102,8 +102,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
   const [contactSelectedCounty, setContactSelectedCounty] = useState<string | null>('基隆市');
-  // const [selectedRegion, setSelectedRegion] = useState<string | null>('仁愛區');
-  // const [selectedContactRegion, setSelectedContactRegion] = useState<string | null>('仁愛區');
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
@@ -140,10 +138,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
         setValue('contact_address.additionalProp2', contactAddress[1]?.trim());
         setValue('contact_address.additionalProp3', contactAddress[2]?.trim());
         setValue('contact_address.additionalProp4', contactAddress[3]?.trim());
-        console.log('contact_address.additionalProp2', contactAddress[1]?.trim());
-        console.log('contact_address.additionalProp3', contactAddress[2]?.trim());
+        setContactSelectedCounty(contactAddress[0]?.trim());
       }
-
       if (data.address) {
         const address1 = data.address?.additionalProp1?.split(',');
         const address2 = data.address?.additionalProp2?.split(',');
@@ -152,6 +148,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
         setValue('address.additionalProp2', address1[1].trim());
         setValue('address.additionalProp3', address2[0].trim());
         setValue('address.additionalProp4', address3[0].trim());
+        setSelectedCounty(address1[0]?.trim());
       }
       if (data.registration_document.length) setUploadedDocs(data.registration_document);
       if (data.address && data.contact_address) {
@@ -166,6 +163,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
           address3[0]?.trim() === contactAddress[3]?.trim()
         ) {
           setIsChecked(true);
+        } else {
+          setIsChecked(false);
         }
       }
     })();
@@ -179,14 +178,19 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       setValue('contact_address.additionalProp2', '');
       setValue('contact_address.additionalProp3', '');
       setValue('contact_address.additionalProp4', '');
+      setContactSelectedCounty(null);
       return;
     }
+
     if (!address) return;
     const { additionalProp1, additionalProp2, additionalProp3, additionalProp4 } = address;
+    setContactSelectedCounty(additionalProp1);
     setValue('contact_address.additionalProp1', additionalProp1);
-    setValue('contact_address.additionalProp2', additionalProp2);
-    setValue('contact_address.additionalProp3', additionalProp3);
-    setValue('contact_address.additionalProp4', additionalProp4);
+    setTimeout(() => {
+      setValue('contact_address.additionalProp2', additionalProp2);
+      setValue('contact_address.additionalProp3', additionalProp3);
+      setValue('contact_address.additionalProp4', additionalProp4);
+    }, 100);
   };
 
   const onSubmit = handleSubmit(async (data) => {
@@ -337,6 +341,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                           setValue('contact_address.additionalProp1', e.target.value);
                           setContactSelectedCounty(e.target.value);
                         }
+                        setValue('address.additionalProp2', '');
                         setSelectedCounty(e.target.value);
                       }}
                     >
@@ -354,12 +359,12 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         Style
                       )}
                       onChange={(e) => {
+                        const findPostalCode = REGION_AREA_LIST.find((item) => item.slug === e.target.value)?.value;
                         if (isChecked) {
-                          const findPostalCode = REGION_AREA_LIST.find((item) => item.slug === e.target.value)?.value;
-                          setValue('address.additionalProp3', findPostalCode || '');
-                          setValue('contact_address.additionalProp3', findPostalCode || '');
                           setValue('contact_address.additionalProp2', e.target.value);
+                          setValue('contact_address.additionalProp3', findPostalCode || '');
                         }
+                        setValue('address.additionalProp3', findPostalCode || '');
                       }}
                     >
                       {URBAN_AREA_LIST?.filter((item) => item.slug === selectedCounty).map(({ value }) =>
