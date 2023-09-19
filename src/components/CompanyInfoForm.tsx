@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { COOKIE_AUTH_NAME } from '@/store/user';
 
 import { useCompanyStore } from '@/store/company';
+import { COOKIE_AUTH_NAME } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps, COUNTY_LIST, REGION_AREA_LIST, URBAN_AREA_LIST } from '@/util/constants';
 import { getCookie } from '@/util/helper';
@@ -117,7 +117,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
 
   // const companyId = useUserStore.getState().companyId;
- const companyId = getCookie(COOKIE_AUTH_NAME);
+  const companyId = getCookie(COOKIE_AUTH_NAME);
   const createCompany = useCompanyStore((state) => state.createCompany);
   const updateCompany = useCompanyStore((state) => state.updateCompany);
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);

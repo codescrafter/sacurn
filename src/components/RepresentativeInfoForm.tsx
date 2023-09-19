@@ -4,8 +4,9 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 import * as yup from 'yup';
-import { COOKIE_AUTH_NAME } from '@/store/user';
+
 import { useCompanyStore } from '@/store/company';
+import { COOKIE_AUTH_NAME } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 import { getCookie } from '@/util/helper';
