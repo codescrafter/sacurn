@@ -43,8 +43,7 @@ export const useCompanyStore = create<CompanyState>((set) => ({
     //   async () => {
     //     const data = companyData as PatchedExtendedCompany;
     //     const company = await apiClient.company.companyPartialUpdate(id, data);
-    //     set({ company });
-    //     set({ isSuccess: true });
+    //     set({ company, isSuccess: true });
     //   },
     //   {
     //     onError: () => set({ isSuccess: false })

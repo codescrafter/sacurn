@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
+import { COOKIE_AUTH_NAME } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps, COUNTY_LIST, REGION_AREA_LIST, URBAN_AREA_LIST } from '@/util/constants';
 import { getCookie } from '@/util/helper';
@@ -116,7 +117,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
 
   // const companyId = useUserStore.getState().companyId;
-  const companyId = getCookie('auth');
+  const companyId = getCookie(COOKIE_AUTH_NAME);
   const createCompany = useCompanyStore((state) => state.createCompany);
   const updateCompany = useCompanyStore((state) => state.updateCompany);
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
@@ -139,8 +140,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
         setValue('contact_address.additionalProp2', contactAddress[1]?.trim());
         setValue('contact_address.additionalProp3', contactAddress[2]?.trim());
         setValue('contact_address.additionalProp4', contactAddress[3]?.trim());
-        console.log('contact_address.additionalProp2', contactAddress[1]?.trim());
-        console.log('contact_address.additionalProp3', contactAddress[2]?.trim());
       }
 
       if (data.address) {

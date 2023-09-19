@@ -3,9 +3,8 @@ import cookies from 'js-cookie';
 import { create } from 'zustand';
 
 import { UniversalModalProps } from '@/components/Modal/UniversalModal';
+import { COOKIE_AUTH_NAME } from '@/store/user';
 import { UniversalModalStatus } from '@/types';
-
-import { COOKIE_AUTH_NAME } from './user';
 
 type ModalState = {
   isOpen: boolean;

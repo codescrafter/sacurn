@@ -6,6 +6,7 @@ import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-f
 import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
+import { COOKIE_AUTH_NAME } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
 import { getCookie } from '@/util/helper';
@@ -56,7 +57,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
     getValues
   } = useForm<RepresentativeFormTypes>({ resolver: yupResolver(schema) });
 
-  const companyId = getCookie('auth');
+  const companyId = getCookie(COOKIE_AUTH_NAME);
   const updateCompany = useCompanyStore((state) => state.updateCompany);
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
 
