@@ -12,9 +12,11 @@ const RegistrationCompleted = () => {
         <p className="min-[1500px]:text-xl text-lg min-[1500px]:leading-8 leading-6">提醒您</p>
         <ol className="list-decimal ml-5 mt-2 min-[1500px]:text-xl text-lg min-[1500px]:leading-8 leading-6">
           <li>會員申請程序約七個工作天，我們將盡速為您處理。</li>
-          <li>申請通過後我們將以Email通知，並寄發會員卡至會員登記地址。</li>
-          <li>如有任何問題請於於上班時間致電02-9876-5432，由專人為您處理。</li>
-          <li>說明事項說明事項說明事項說明事項</li>
+          <li>會員申請通過後，我們將以email通知，並寄發會員卡至會員登記地址。</li>
+          <li>如有任何問題，歡迎您致電或來信客服</li>
+          <li>客服 : 周一到週五(平日) 9:30~17:30</li>
+          <li>電話 : 02-2221-7000</li>
+          <li>信箱：service@sacurn.com</li>
         </ol>
       </div>
     </div>
