@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { FieldErrors, FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 import * as yup from 'yup';
@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
+import { getCookie } from '@/util/helper';
 
 import CustomButton from './CustomButton';
 import UploadDocuments from './UploadDocuments';
@@ -34,7 +35,8 @@ const schema = yup
   .required();
 
 const RepresentativeInfoForm = ({ nextStep }: IProps) => {
-  const [uploadedDocs, setUploadedDocs] = useState<File[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
   const [selectedValue, setSelectedValue] = useState<string>('本國籍');
   const [date, setDate] = useState<string>('1');
   const [month, setMonth] = useState<string>('1');
@@ -44,7 +46,8 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const [cardIssue, setCardIssue] = useState<string>('台北市');
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
 
-  const companyId = useCompanyStore.getState().company.id;
+  // const companyId = useUserStore.getState().companyId;
+
   const {
     register,
     handleSubmit,
@@ -53,13 +56,40 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
     getValues
   } = useForm<RepresentativeFormTypes>({ resolver: yupResolver(schema) });
 
+  const companyId = getCookie('auth');
   const updateCompany = useCompanyStore((state) => state.updateCompany);
+  const getCompanyInfo = useCompanyStore((state) => state.getCompany);
+
+  useEffect(() => {
+    (async () => {
+      if (!companyId) return;
+      const data = await getCompanyInfo(companyId);
+      if (!data) return;
+      if (data.representative_country) setValue('representative_country', data.representative_country);
+      if (data.representative_id_card_number)
+        setValue('representative_id_card_number', data.representative_id_card_number);
+      if (data.representative_birthday) setValue('representative_birthday', data.representative_birthday);
+      if (data.representative_id_card_issue_date) {
+        const date = new Date(data.representative_id_card_issue_date);
+        setYear(date.getFullYear().toString());
+        setMonth((date.getMonth() + 1).toString());
+        setDate(date.getDate().toString());
+      }
+      if (data.representative_id_card_issue_location) {
+        const location = data.representative_id_card_issue_location.split(',');
+        setRegion(location[0]);
+        setCardIssue(location[1]);
+      }
+      if (data.representative_id_card_front && data.representative_id_card_back) {
+        setUploadedDocs([data.representative_id_card_front, data.representative_id_card_back]);
+      }
+    })();
+  }, []);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
       if (uploadedDocs.length < 2) return setImageErrorMessage('請上傳身分證正反面圖檔');
       if (!companyId) return;
-      const _representative_id_card_issue_date = new Date().toISOString();
       const formData = new FormData();
       formData.append('representative_country', data.representative_country);
       formData.append('representative_id_card_number', data.representative_id_card_number);
@@ -68,9 +98,11 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
         new Date(parseInt(year), parseInt(month) - 1, parseInt(date)).toISOString()
       );
       formData.append('representative_id_card_issue_location', `${region},${cardIssue}`);
-      formData.append('representative_birthday', _representative_id_card_issue_date);
-      formData.append('representative_id_card_front', uploadedDocs?.[0]);
-      formData.append('representative_id_card_back', uploadedDocs?.[1]);
+      formData.append('representative_birthday', data.representative_birthday);
+      if (typeof uploadedDocs[0] !== 'string' && typeof uploadedDocs[1] !== 'string' && uploadedDocs.length === 2) {
+        formData.append('representative_id_card_front', uploadedDocs?.[0]);
+        formData.append('representative_id_card_back', uploadedDocs?.[1]);
+      }
       await updateCompany(companyId, formData);
       const isSuccess = useCompanyStore.getState().isSuccess;
       if (isSuccess) nextStep(CompanyRegistrationSteps.FINANCIAL_INFO_FORM);
