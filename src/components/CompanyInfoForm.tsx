@@ -9,7 +9,7 @@ import * as yup from 'yup';
 
 import { useCompanyStore } from '@/store/company';
 import { InputSize } from '@/type';
-import { CompanyRegistrationSteps, COUNTY_LIST, URBAN_AREA_LIST } from '@/util/constants';
+import { CompanyRegistrationSteps, COUNTY_LIST, REGION_AREA_LIST, URBAN_AREA_LIST } from '@/util/constants';
 import { getCookie } from '@/util/helper';
 
 import CompanyInputField from './CompanyInputField';
@@ -101,6 +101,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
   const [contactSelectedCounty, setContactSelectedCounty] = useState<string | null>('基隆市');
+  const [selectedRegion, setSelectedRegion] = useState<string | null>('仁愛區');
+  const [selectedContactRegion, setSelectedContactRegion] = useState<string | null>('仁愛區');
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
@@ -137,7 +139,10 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
         setValue('contact_address.additionalProp2', contactAddress[1]?.trim());
         setValue('contact_address.additionalProp3', contactAddress[2]?.trim());
         setValue('contact_address.additionalProp4', contactAddress[3]?.trim());
+        console.log('contact_address.additionalProp2', contactAddress[1]?.trim());
+        console.log('contact_address.additionalProp3', contactAddress[2]?.trim());
       }
+
       if (data.address) {
         const address1 = data.address?.additionalProp1?.split(',');
         const address2 = data.address?.additionalProp2?.split(',');
@@ -342,6 +347,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                         Style
                       )}
+                      onChange={(e) => setSelectedRegion(e.target.value)}
                     >
                       {URBAN_AREA_LIST?.filter((item) => item.slug === selectedCounty).map(({ value }) =>
                         value.map((item) => (
@@ -359,6 +365,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                       className={classNames('w-24 px-3', Style, {
                         'border-bright-red border': errors.address?.additionalProp3
                       })}
+                      value={REGION_AREA_LIST.find((item) => item.slug === selectedRegion)?.value || ''}
                     />
                   </div>
                   <input
@@ -431,8 +438,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               Style
                             )}
                             onChange={(e) => {
-                              setContactSelectedCounty(e.target.value);
                               setIsChecked(false);
+                              setContactSelectedCounty(e.target.value);
                             }}
                           >
                             {COUNTY_LIST?.map((county) => (
@@ -448,7 +455,10 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
                               Style
                             )}
-                            onChange={() => setIsChecked(false)}
+                            onChange={(e) => {
+                              setIsChecked(false);
+                              setSelectedContactRegion(e.target.value);
+                            }}
                           >
                             {URBAN_AREA_LIST?.filter((item) => item.slug === contactSelectedCounty).map(({ value }) =>
                               value.map((item) => (
@@ -464,6 +474,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                             type="text"
                             placeholder="郵遞區號"
                             onChange={() => setIsChecked(false)}
+                            value={REGION_AREA_LIST.find((item) => item.slug === selectedContactRegion)?.value || ''}
                             className={classNames('w-24 px-3', Style, {
                               'border-bright-red border': errors.contact_address?.additionalProp3
                             })}
