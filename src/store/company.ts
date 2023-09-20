@@ -1,9 +1,11 @@
+import cookies from 'js-cookie';
 import { create } from 'zustand';
 
 import { Company, ExtendedCompany, PatchedExtendedCompany } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, runTask, useModalStore } from './modal';
+import { COOKIE_AUTH_NAME } from './user';
 
 type CompanyState = {
   company: Partial<Company>;
@@ -34,6 +36,13 @@ export const useCompanyStore = create<CompanyState>((set) => ({
       useModalStore.getState().open(ModalType.Loading);
       const data = arg as unknown as ExtendedCompany;
       const company = await apiClient.company.companyCreate(data);
+      // get auth from cookies, parse it. add company id to it and set it again
+      const auth = cookies.get(COOKIE_AUTH_NAME);
+      if (auth) {
+        const authData = JSON.parse(auth);
+        authData.companyId = company.id;
+        cookies.set(COOKIE_AUTH_NAME, JSON.stringify(authData), { expires: 1 });
+      }
       set({ company });
       set({ isSuccess: true });
       useModalStore.getState().close();
