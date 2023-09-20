@@ -7,7 +7,7 @@ type CustomRatingProps = {
 const CustomRating = (props: CustomRatingProps) => {
   const { count } = props;
 
-  return <Rating value={count} size="small" />;
+  return <Rating value={count} size="small" readOnly />;
 };
 
 export default CustomRating;
