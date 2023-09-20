@@ -23,6 +23,8 @@ const Cart = () => {
   const cartDetail = useCartStore((store) => store.cartDetail);
   const updateCartItemSelected = useCartStore((store) => store.updateCartItemSelected);
   const open = useModalStore((store) => store.open);
+  const [isChecked, setIsChecked] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     getCartList();
@@ -75,33 +77,34 @@ const Cart = () => {
             <div className="flex flex-col">
               <div className="flex flex-row justify-between pr-6.7">
                 <Heading>商品共計</Heading>
-                <p className="2xl:text-lg text-base text-black font-medium">NT$ {cartDetail.total_amount}</p>
+                <p className="2xl:text-lg text-base text-black font-medium">NT$ {cartDetail?.total_amount}</p>
               </div>
               <div className="px-6.7 mt-2.5 ">
                 <p className="text-grey 2xl:text-sm text-xs">
-                  {cartDetail.product_list?.length}項(以下含稅金${taxPercentage}%及手續費)
+                  {cartDetail && cartDetail.product_list?.length}項(以下含稅金${taxPercentage}%及手續費)
                 </p>
                 <div className="2xl:mt-5.2 mt-3">
-                  {cartDetail.product_list?.map((product) => {
-                    return (
-                      <div key={product.name} className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
-                        <p className="w-[70%] text-grey 2xl:text-lg text-sm">{product.name}</p>
-                        <p className="text-grey 2xl:text-lg text-sm">{product.amount} 噸</p>
-                      </div>
-                    );
-                  })}
+                  {cartDetail &&
+                    cartDetail.product_list?.map((product) => {
+                      return (
+                        <div key={product.name} className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
+                          <p className="w-[70%] text-grey 2xl:text-lg text-sm">{product.name}</p>
+                          <p className="text-grey 2xl:text-lg text-sm">{product.amount} 噸</p>
+                        </div>
+                      );
+                    })}
                 </div>
                 <div className="flex flex-row justify-between 2xl:mb-5 mb-3">
                   <p className="text-grey 2xl:text-lg text-base">手續費</p>
-                  <p className="text-grey 2xl:text-lg text-base">$ {cartDetail.cost}</p>
+                  <p className="text-grey 2xl:text-lg text-base">$ {cartDetail?.cost}</p>
                 </div>
                 <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
                   <p className="text-grey 2xl:text-lg text-base">稅金${taxPercentage}%</p>
-                  <p className="text-grey 2xl:text-lg text-base">${cartDetail.tax}</p>
+                  <p className="text-grey 2xl:text-lg text-base">${cartDetail?.tax}</p>
                 </div>
                 <div className="flex flex-row justify-between">
                   <p className="2xl:text-lg text-base font-semibold text-black">總付款金額</p>
-                  <p className="2xl:text-lg text-base text-bright-red font-semibold">NT$ {cartDetail.total_amount}</p>
+                  <p className="2xl:text-lg text-base text-bright-red font-semibold">NT$ {cartDetail?.total_amount}</p>
                 </div>
               </div>
               <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
@@ -111,15 +114,28 @@ const Cart = () => {
                 <p className="text-navy-blue 2xl:text-base text-sm pl-3">使用優惠碼</p>
               </button>
               <Heading>服務條款</Heading>
-              <p className="ml-6.7 text-grey 2xl:text-base text-sm 2xl:mt-6 mt-2">
+              <p className="ml-6.7 2xl:text-base text-sm 2xl:mt-6 mt-2 text-navy-blue">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={(e) => {
+                    setIsChecked(!isChecked);
+                    if (e.target.checked) {
+                      setError(false);
+                    }
+                  }}
+                  className="text-[#F00] mr-2"
+                />
                 我瞭解並同意Sacurn服務條款與隱私權政策
               </p>
+              {error && <p className="text-[#f00] text-xs ml-12">請務必確認勾選此框，才能點選「前往付款」。</p>}
               <hr className="border-silverstone 2xl:mt-8 mt-4 2xl:mb-5 mb-3" />
               <p className="2xl:text-base text-xms text-black self-center mb-1">
                 點擊「前往付款」，訂單及送出，請於下一步選擇付款方式
               </p>
               <button
                 onClick={() => {
+                  if (!isChecked) return setError(true);
                   open(ModalType.CheckOutConfirm, {
                     buttons: [
                       {
@@ -135,7 +151,10 @@ const Cart = () => {
                     ]
                   });
                 }}
-                className="bg-navy-blue w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white"
+                className={classNames('w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white', {
+                  ['bg-navy-blue']: isChecked,
+                  ['bg-grey']: !isChecked
+                })}
               >
                 前往付款
               </button>

@@ -8,7 +8,7 @@ const ProductSlider = () => {
       <div
         className={classNames(
           className,
-          "slick-button-before !bg-black !bg-[url('../public/images/products/green/right-arrow.svg')] !bg-no-repeat !bg-center rounded !right-2"
+          "slick-button-before !bg-black !bg-[url('../public/images/products/green/right-arrow.svg')] !bg-no-repeat !bg-center rounded !right-4 !cursor-pointer"
         )}
         onClick={onClick}
       />
@@ -19,11 +19,11 @@ const ProductSlider = () => {
     const { className, onClick } = props;
     return (
       <div
+        onClick={onClick}
         className={classNames(
           className,
-          "slick-button-before !bg-black !bg-[url('../public/images/products/green/left-arrow.svg')] !bg-no-repeat !bg-center rounded !left-5 z-30"
+          "slick-button-before !bg-black !bg-[url('../public/images/products/green/left-arrow.svg')] !bg-no-repeat !bg-center rounded !left-7 z-30"
         )}
-        onClick={onClick}
       />
     );
   }
