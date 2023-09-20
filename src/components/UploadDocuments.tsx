@@ -9,7 +9,12 @@ interface IProps {
 
 const UploadDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs, setErrorMessage }: IProps) => {
   const [error, setError] = useState<string | null>(null);
+
   const addOptionHandler = (file: File) => {
+    if (file.size > 2 * 1024 * 1024) {
+      setError(`${file.name} 檔案大小超過2MB`);
+      return;
+    }
     if (uploadedDocs.some((item) => item.name === file.name)) {
       setError(`${file.name} 檔案已經存在`);
       return;
