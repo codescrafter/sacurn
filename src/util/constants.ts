@@ -1429,3 +1429,31 @@ export const REGION_AREA_LIST = [
   { value: '211', slug: '莒光鄉' },
   { value: '212', slug: '東引鄉' }
 ];
+
+// TODO: update correct values according to backend
+export const locationOptions = [
+  {
+    name: 'Asia',
+    value: 'Asia'
+  },
+  {
+    name: 'Africa',
+    value: 'Africa'
+  },
+  {
+    name: 'Europe',
+    value: 'Europe'
+  },
+  {
+    name: 'North American',
+    value: 'North American'
+  },
+  {
+    name: 'South American',
+    value: 'South American'
+  },
+  {
+    name: 'South Pacific',
+    value: 'South Pacific'
+  }
+];

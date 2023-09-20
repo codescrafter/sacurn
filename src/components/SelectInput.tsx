@@ -12,7 +12,21 @@ interface IProps {
 
 const SelectField = ({ label, options, value, handleChange }: IProps) => {
   return (
-    <FormControl sx={{ minWidth: 220 }} size="small">
+    <FormControl
+      sx={{
+        minWidth: {
+          xs: '140px',
+          sm: '140px',
+          md: '140px',
+          lg: '160px',
+          xl: '220px'
+        },
+        '& .MuiInputBase-input': {
+          color: '#fff'
+        }
+      }}
+      size="small"
+    >
       <Select
         value={value}
         IconComponent={KeyboardArrowDownIcon}
