@@ -11,7 +11,13 @@ import * as yup from 'yup';
 import { useCompanyStore } from '@/store/company';
 import { COOKIE_AUTH_NAME } from '@/store/user';
 import { InputSize } from '@/type';
-import { CompanyRegistrationSteps, COUNTY_LIST, REGION_AREA_LIST, URBAN_AREA_LIST } from '@/util/constants';
+import {
+  CompanyRegistrationSteps,
+  COUNTY_LIST,
+  REGION_AREA_LIST,
+  REGISTRATION_COMPLETED_STATUS,
+  URBAN_AREA_LIST
+} from '@/util/constants';
 import { getCookie } from '@/util/helper';
 
 import CompanyInputField from './CompanyInputField';
@@ -29,19 +35,6 @@ export type FormValues = {
   phone: string;
   founding_date: string;
   representative: string;
-  // address: {
-  //   additionalProp1: string;
-  //   additionalProp2: string;
-  //   additionalProp3: string;
-  //   additionalProp4: string;
-  // };
-  // contact_address: {
-  //   additionalProp1: string;
-  //   additionalProp2: string;
-  //   additionalProp3: string;
-  //   additionalProp4: string;
-  // };
-  // // contact_address: string;
 };
 
 const schema = yup
@@ -81,25 +74,6 @@ const schema = yup
       .string()
       .required('Representative is required')
       .matches(/^[\u4e00-\u9fa5]+$/, 'Representative must be in Chinese')
-    // contact_address: yup.string().required('Contact address is required'),
-    // address: yup
-    //   .object()
-    //   .shape({
-    //     additionalProp1: yup.string().required('Address is required'),
-    //     additionalProp2: yup.string().required('Address is required'),
-    //     additionalProp3: yup.string().required('Address is required'),
-    //     additionalProp4: yup.string().required('Address is required')
-    //   })
-    //   .required(),
-    // contact_address: yup
-    //   .object()
-    //   .shape({
-    //     additionalProp1: yup.string().required('Address is required'),
-    //     additionalProp2: yup.string().required('Address is required'),
-    //     additionalProp3: yup.string().required('Address is required'),
-    //     additionalProp4: yup.string().required('Address is required')
-    //   })
-    //   .required()
   })
   .required();
 
@@ -114,10 +88,6 @@ interface IUrbanAddress {
 
 const CompanyInfoForm = ({ nextStep }: IProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  // const [selectedCounty, setSelectedCounty] = useState<string | null>('基隆市');
-  // const [contactSelectedCounty, setContactSelectedCounty] = useState<string | null>('基隆市');
-  // const [selectedRegion, setSelectedRegion] = useState<string | null>('仁愛區');
-  // const [selectedContactRegion, setSelectedContactRegion] = useState<string | null>('仁愛區');
   const [imageErrorMessage, setImageErrorMessage] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [uploadedDocs, setUploadedDocs] = useState<File[] | any>([]);
@@ -154,6 +124,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       if (!companyId) return;
       const data = await getCompanyInfo(companyId);
       if (!data) return;
+      if (data.status === REGISTRATION_COMPLETED_STATUS) {
+        return nextStep(CompanyRegistrationSteps.REGISTRATION_COMPLETED);
+      }
       // update form value
       if (data.name) setValue('name', data.name);
       if (data.registration_number) setValue('registration_number', data.registration_number);
