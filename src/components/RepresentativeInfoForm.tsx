@@ -31,7 +31,10 @@ const schema = yup
       .required('身分證字號是必填的')
       .length(10, '身分證字號必須是10個字元')
       .matches(/^[A-Z][1-2]\d{8}$/, '無效的身分證字號'),
-    representative_birthday: yup.string().required('請輸入正確日期')
+    representative_birthday: yup
+      .string()
+      .default(() => new Date().toISOString().slice(0, 10))
+      .required('請輸入正確日期')
   })
   .required();
 
