@@ -1,4 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   uploadedDocs: File[];
@@ -29,7 +30,15 @@ const UploadCommercialDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs
       <p className="text-black min-[1500px]:text-base text-sm">
         存摺封面影像檔上傳,限小於<span className="text-bright-red">2MB</span>的JPG、PNG檔案。
       </p>
-      <p className="text-navy-blue underline">「了解存摺影本文件上傳規範」</p>
+      {/* <p className="text-navy-blue underline">「了解存摺影本文件上傳規範」</p> */}
+      <Link
+        to="/download.docx"
+        target="_blank"
+        download="「了解存摺影本文件上傳規範」"
+        className="text-navy-blue underline cursor-pointer"
+      >
+        「了解存摺影本文件上傳規範」
+      </Link>
       <div className="flex flex-row flex-wrap max-w-[360px] gap-4 mt-2">
         {uploadedDocs.map((item, idx) => {
           return (
