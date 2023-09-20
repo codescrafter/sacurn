@@ -35,7 +35,7 @@ const Cart = () => {
   return (
     <div className="bg-neutral-150 h-screen overflow-hidden">
       <Navbar className="pt-7 pb-2.5 !bg-navy-blue" />
-      <div className="flex justify-between my-4 pl-13 pr-10">
+      <div className="flex justify-between my-4 pl-13 w-[65%]">
         <div className="flex">
           <Link to="/">
             <button className="w-[202px] h-[46px] rounded-[3px] py-1 flex items-center justify-center border border-navy-blue text-navy-blue text-xl">
@@ -47,9 +47,15 @@ const Cart = () => {
             <p className="text-[28px] font-normal text-navy-blue">| 購物車</p>
           </div>
         </div>
-        <div className="flex items-center">
-          <p className="text-2xl font-normal text-black mr-3">全部刪除</p>
-          <img src="/images/cart/ic_delete.svg" width={28} height={34} alt="sacurn" />
+        <div className="flex items-center gap-3">
+          <div className="flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
+            <span>全選</span>
+            <input type="radio" className="ml-2.5 w-5 h-5 mt-0.5" />
+          </div>
+          <div className="flex gap-3 flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
+            <span>刪除選取</span>
+            <img src="/images/cart/ic_delete.svg" width={22} height={27} alt="sacurn" />
+          </div>
         </div>
       </div>
       <div className="flex flex-row">
@@ -196,7 +202,7 @@ const CartItem = (props: CartItemIProps) => {
         onSelectedChange(!selected);
       }}
     >
-      <div className="flex items-center">
+      <div className="flex items-center justify-between">
         <div className="ml-7.5 mr-4">
           {selected ? (
             <img src="/images/cart/ic_check.svg" width={29} height={29} alt="sacurn" />
@@ -205,7 +211,7 @@ const CartItem = (props: CartItemIProps) => {
           )}
         </div>
         <img src={image} width={114} height={114} className="object-cover" alt="sacurn" />
-        <div className="ml-6 flex flex-col justify-between h-full">
+        <div className="ml-6 flex flex-col justify-between h-full max-w-[120px]">
           <p className="text-[10.6px] font-medium text-dark-grey">會員代號：{company_code}</p>
           <p
             className={classNames('font-bold text-xl leading-[18px] w-[316px] mr-3 mt-3 mb-3', {
@@ -246,11 +252,18 @@ const CartItem = (props: CartItemIProps) => {
             +
           </button>
         </div>
-        <div>
-          <p className="text-xl font-bold text-black">$ {qty * price}</p>
+        <div className="flex items-center">
+          <p className="text-xl font-bold text-black whitespace-nowrap">$ {qty * price}</p>
         </div>
         <button className="mr-7">
-          <img src="/images/cart/ic_delete.svg" width={23} height={27} alt="sacurn" onClick={onDeleteCartItem} />
+          <img
+            src="/images/cart/ic_delete.svg"
+            width={23}
+            height={27}
+            className="w-6 h-7"
+            alt="sacurn"
+            onClick={onDeleteCartItem}
+          />
         </button>
       </div>
     </div>

@@ -52,14 +52,7 @@ const CompanyInputField = ({
           )}
           disabled={!id}
           {...register(
-            id as
-              | 'name'
-              | 'registration_number'
-              | 'representative'
-              | 'capital'
-              | 'founding_date'
-              | 'phone'
-              | 'contact_address',
+            id as 'name' | 'registration_number' | 'representative' | 'capital' | 'founding_date' | 'phone',
             { required: isRequired }
           )}
           // value={value && value}

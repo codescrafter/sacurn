@@ -17,18 +17,35 @@ export const useCompanyStore = create<CompanyState>((set) => ({
   company: {},
   isSuccess: false,
   createCompany: async (arg: FormData) => {
-    runTask(
-      async () => {
-        // Check is work or not
-        const data = arg as unknown as ExtendedCompany;
-        const company = await apiClient.company.companyCreate(data);
-        set({ company });
-        set({ isSuccess: true });
-      },
-      {
-        onError: () => set({ isSuccess: false })
-      }
-    );
+    // runTask(
+    //   async () => {
+    //     // Check is work or not
+    //     const data = arg as unknown as ExtendedCompany;
+    //     const company = await apiClient.company.companyCreate(data);
+    //     set({ company });
+    //     set({ isSuccess: true });
+    //   },
+    //   {
+    //     onError: () => set({ isSuccess: false })
+    //   }
+    // );
+    try {
+      // eslint-disable-next-line no-debugger
+      useModalStore.getState().open(ModalType.Loading);
+      const data = arg as unknown as ExtendedCompany;
+      const company = await apiClient.company.companyCreate(data);
+      set({ company });
+      set({ isSuccess: true });
+      useModalStore.getState().close();
+    } catch (error) {
+      set({ company: {} });
+      const err = error as Error;
+      console.error(err);
+      set({ isSuccess: false });
+      useModalStore.getState().open(ModalType.Error, {
+        errorText: `[${err.name}] ${err.message}`
+      });
+    }
   },
   getCompany: async (companyId: number) => {
     let company: Company | null = null;

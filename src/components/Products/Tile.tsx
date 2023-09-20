@@ -90,7 +90,7 @@ const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage
       </div>
       {/* third col */}
       <div className="flex flex-1 flex-col justify-between items-end h-full py-2">
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 whitespace-nowrap">
           <p className="text-sm text-black">USD</p>
           <p className="text-xl font-bold text-black">
             {minPrice} ~ {maxPrice}
@@ -103,11 +103,11 @@ const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage
           </Link>
           {isExistInWishList ? (
             <button onClick={() => deleteWishList(id)}>
-              <img src="/images/products/green/star-minus.svg" alt="sacurn" />
+              <img src="/images/wishlist/favicon.png" alt="sacurn" />
             </button>
           ) : (
             <button onClick={() => addToWhishList(id)}>
-              <img src="/images/products/green/star-plus.svg" alt="sacurn" />
+              <img src="/images/wishlist/unfavicon.png" alt="sacurn" />
             </button>
           )}
         </div>

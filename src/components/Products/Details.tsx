@@ -2,6 +2,9 @@ import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
+import { useProductListStore } from '@/store/productList';
+import { CarbonTag } from '@/type';
+
 import BenefitImpact from './BenefitImpact';
 import CartonImpact from './CartonImpact';
 import LayoutSwitch from './LayoutSwitch';
@@ -16,13 +19,23 @@ const Details = () => {
     Carton_Impact_Performance = 2,
     Cobenefit_Impact = 3
   }
+  const selectedTag = useProductListStore((state) => state.filters.tag);
+  // let imgsArray = [];
+  let imgsArray = ['/images/products/green/detail1.png', '/images/products/green/bird.png'];
+  if (selectedTag === CarbonTag.Green || selectedTag === CarbonTag.White) {
+    imgsArray = ['/images/products/green/detail1.png', '/images/products/green/bird.png'];
+  } else if (selectedTag === CarbonTag.Yellow) {
+    imgsArray = ['/images/products/yellow/detail1.png'];
+  } else if (selectedTag === CarbonTag.Blue) {
+    imgsArray = ['/images/products/blue/detail1.png'];
+  }
 
   return (
     <div className="flex mt-4 pb-4">
       {/* First Col */}
       <div className="w-[38%]">
         <div className="relative z-[2]">
-          <ImgSlider images={['/images/products/green/detail1.png', '/images/products/green/bird.png']} />
+          <ImgSlider images={imgsArray} />
         </div>
         <div className="pl-5 pt-12">
           {/* Price */}
