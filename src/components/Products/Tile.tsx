@@ -103,11 +103,11 @@ const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage
           </Link>
           {isExistInWishList ? (
             <button onClick={() => deleteWishList(id)}>
-              <img src="/images/wishlist/favicon.png" alt="sacurn" />
+              <img src="/images/wishlist/favicon.svg" alt="sacurn" />
             </button>
           ) : (
             <button onClick={() => addToWhishList(id)}>
-              <img src="/images/wishlist/unfavicon.png" alt="sacurn" />
+              <img src="/images/wishlist/unfavicon.svg" alt="sacurn" />
             </button>
           )}
         </div>
