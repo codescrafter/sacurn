@@ -37,7 +37,7 @@ const UploadCommercialDocuments = ({ uploadedDocs, errorMessage, setUploadedDocs
       </p>
       {/* <p className="text-navy-blue underline">「了解存摺影本文件上傳規範」</p> */}
       <Link
-        to="/download.docx"
+        to="/pdf/passbook.pdf"
         target="_blank"
         download="「了解存摺影本文件上傳規範」"
         className="text-navy-blue underline cursor-pointer"
