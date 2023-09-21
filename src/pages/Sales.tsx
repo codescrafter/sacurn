@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import StockItemBar from '@/components/StockItemBar';
 import { StockItem, useStockListStore } from '@/store/stockList';
 import { CarbonTag } from '@/type';
 
@@ -31,12 +32,12 @@ const Sales = () => {
   useEffect(() => {
     if (stockList.length === 0) getStockList();
   }, []);
-
+  console.log('stockList', stockList);
   return (
-    <div className="w-screen relative h-screen overflow-hidden bg-neutral-250">
+    <div className="w-screen relative overflow-hidden bg-neutral-250">
       {/* navbar */}
-      <Navbar className="relative z-30 !bg-navy-blue h-[70px]" />
-      <main className="py-[30px] pl-2 xl:pl-4 2xl:pl-[30px] pr-2 xl:pr-4 2xl:pr-[25px]">
+      <Navbar className="fixed top-0 left-0 right-0 !bg-navy-blue h-[70px] z-[100]" />
+      <main className="py-[30px] pl-2 xl:pl-4 2xl:pl-[30px] pr-2 xl:pr-4 2xl:pr-[25px] mt-[70px]">
         <div className="flex gap-2 2xl:gap-[33px]">
           {/* sidebar */}
           {selectStockItem && actionType ? (
@@ -256,48 +257,31 @@ const Sales = () => {
 
                             {/* shelf information */}
                             {stockItem.id === stockItemDetailId && (
-                              <tr className="bg-light-gray dropdown-row  h-[95px]">
-                                <td colSpan={6} className="dropdown-td px-3">
-                                  <div className="flex items-center space-x-3 xl:space-x-5 2xl:space-x-8 w-full bg-white rounded-[10px] h-[73px] pr-3">
-                                    {/* date */}
-                                    <div className="flex items-center gap-1 2xl:gap-2 ml-16 xl:ml-[90px]">
-                                      <span className="font-medium text-sm xl:text-lg text-grey whitespace-nowrap">
-                                        單價/噸
-                                      </span>
-                                      <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                        {stockItem.orderData?.price || '-'}
-                                      </span>
+                              <>
+                                {/* TODO: change it to real list when you have real data */}
+                                <StockItemBar
+                                  stockItem={stockItem}
+                                  setActionType={setActionType}
+                                  setSelectStockItem={setSelectStockItem}
+                                  number={1}
+                                />
+                                <StockItemBar
+                                  stockItem={stockItem}
+                                  setActionType={setActionType}
+                                  setSelectStockItem={setSelectStockItem}
+                                  number={2}
+                                />
+
+                                <tr className="bg-light-gray dropdown-row h-[70px]">
+                                  <td colSpan={6} className="dropdown-td px-3">
+                                    <div className="flex justify-center items-center space-x-3 xl:space-x-5 2xl:space-x-8 w-full bg-[#f2f4f5] rounded-[10px] h-[73px] 2xl:pl-10 2xl:pr-13 pl-5 pr-6">
+                                      <Button className="rounded-[10px] font-bold min-w-[172px] h-9 flex items-center justify-center min-w-40 !bg-pale-yellow shadow-stoptrading-btn xl:text-base text-sm !text-navy-blue whitespace-nowrap px-3">
+                                        <span className="xl:text-xl text-base"> +</span> 新增上架商品
+                                      </Button>
                                     </div>
-                                    {/* member id */}
-                                    <div className="flex items-center gap-1 2xl:gap-2">
-                                      <span className="font-medium text-sm xl:text-lg text-grey leading-[1px] whitespace-nowrap">
-                                        最低單位
-                                      </span>
-                                      <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                        {stockItem.orderData?.min_order_quantity || '-'}
-                                      </span>
-                                    </div>
-                                    {/* transaction status */}
-                                    <div className="flex items-center gap-1 2xl:gap-2">
-                                      <span className="font-medium text-sm xl:text-lg text-grey leading-[1px] whitespace-nowrap">
-                                        數量
-                                      </span>
-                                      <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                                        {stockItem.orderData?.quantity || '-'}
-                                      </span>
-                                    </div>
-                                    <Button
-                                      className="rounded-[10px] min-w-[120px] 2xl:min-w-[183px] !bg-pale-yellow shadow-stoptrading-btn text-base !text-navy-blue font-medium xl:!ml-20 2xl:!ml-14"
-                                      onClick={() => {
-                                        setActionType(ActionType.MakeOffShelve);
-                                        setSelectStockItem(stockItem);
-                                      }}
-                                    >
-                                      停止交易
-                                    </Button>
-                                  </div>
-                                </td>
-                              </tr>
+                                  </td>
+                                </tr>
+                              </>
                             )}
                           </Fragment>
                         ))}

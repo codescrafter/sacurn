@@ -8,6 +8,8 @@ import {
   WishlistTypes
 } from '../type';
 
+export const REGISTRATION_COMPLETED_STATUS = 3;
+
 export const NAVBAR_ITEMS: NavbarItemTypes[] = [
   {
     name: 'Product List',

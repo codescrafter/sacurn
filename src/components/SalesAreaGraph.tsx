@@ -58,7 +58,7 @@ const SalesAreaGraph = () => {
   };
 
   return (
-    <GraphCard className="h-[347px] flex items-center justify-center relative z-[999]">
+    <GraphCard className="h-[347px] flex items-center justify-center relative z-40">
       {/* action buttons */}
       <div className="absolute z-40 -right-9 2xl:-right-5 transform rotate-90">
         <Button
