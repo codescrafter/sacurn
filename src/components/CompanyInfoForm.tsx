@@ -136,32 +136,34 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       if (data.representative) setValue('representative', data.representative);
       if (data.contact_address) {
         const contactAddress = data.contact_address.split(',');
-        setContactFirstAddress(contactAddress[0].trim());
-        setContactSecondAddress(contactAddress[1].trim());
-        setContactThirdAddress(contactAddress[2].trim());
-        setContactFourthAddress(contactAddress[3].trim());
+        if (contactAddress?.length) {
+          setContactFirstAddress(contactAddress?.[0]?.trim());
+          setContactSecondAddress(contactAddress?.[1]?.trim());
+          setContactThirdAddress(contactAddress?.[2]?.trim());
+          setContactFourthAddress(contactAddress?.[3]?.trim());
+        }
       }
 
-      if (data.address) {
-        const address1 = data.address?.additionalProp1?.split(',');
-        const address2 = data.address?.additionalProp2?.split(',');
-        const address3 = data.address?.additionalProp3?.split(',');
-        setFirstAddress(address1[0].trim());
-        setSecondAddress(address1[1].trim());
-        setThirdAddress(address2[0].trim());
-        setFourthAddress(address3[0].trim());
+      if (data?.address) {
+        const address1 = data?.address?.additionalProp1?.split(',');
+        const address2 = data?.address?.additionalProp2?.split(',');
+        const address3 = data?.address?.additionalProp3?.split(',');
+        setFirstAddress(address1?.[0]?.trim());
+        setSecondAddress(address1?.[1]?.trim());
+        setThirdAddress(address2?.[0]?.trim());
+        setFourthAddress(address3?.[0]?.trim());
       }
-      if (data.registration_document.length) setUploadedDocs(data.registration_document);
-      if (data.address && data.contact_address) {
-        const address1 = data.address?.additionalProp1?.split(',');
-        const address2 = data.address?.additionalProp2?.split(',');
-        const address3 = data.address?.additionalProp3?.split(',');
-        const contactAddress = data.contact_address.split(',');
+      if (data?.registration_document.length) setUploadedDocs(data.registration_document);
+      if (data?.address && data.contact_address) {
+        const address1 = data?.address?.additionalProp1?.split(',');
+        const address2 = data?.address?.additionalProp2?.split(',');
+        const address3 = data?.address?.additionalProp3?.split(',');
+        const contactAddress = data?.contact_address?.split(',');
         if (
-          address1[0]?.trim() === contactAddress[0]?.trim() &&
-          address1[1]?.trim() === contactAddress[1]?.trim() &&
-          address2[0]?.trim() === contactAddress[2]?.trim() &&
-          address3[0]?.trim() === contactAddress[3]?.trim()
+          address1?.[0]?.trim() === contactAddress[0]?.trim() &&
+          address1?.[1]?.trim() === contactAddress[1]?.trim() &&
+          address2?.[0]?.trim() === contactAddress[2]?.trim() &&
+          address3?.[0]?.trim() === contactAddress[3]?.trim()
         ) {
           setIsChecked(true);
         }
