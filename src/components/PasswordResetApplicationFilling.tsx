@@ -1,9 +1,83 @@
+import CustomButton from './CustomButton';
+
 const PasswordResetApplicationFilling = () => {
   return (
-    <div className="flex flex-col gap-y-8">
-      <div className="bg-white rounded-mdlg shadow-completed-box flex w-full"></div>
+    <div className="flex flex-col gap-y-8 w-[93%] mx-auto">
+      <div className="bg-white rounded-2.5xl shadow-completed-box flex w-full justify-center items-center gap-40 h-31">
+        <CustomInput heading="帳號" placeholder="請輸入帳號" />
+        <CustomInput heading="email" placeholder="請輸入完整email" />
+      </div>
+      <div className="flex h-[430px] gap-12">
+        <div className="bg-white rounded-2.5xl shadow-completed-box w-[50%] py-14 text-lg font-bold flex flex-col justify-between">
+          <p className="w-[90%] mx-auto mb-10">
+            <span className="text-bright-red">*</span>本人已於合理期間(至少五日)詳細審閱個人
+            <span className="text-bright-red">「Sacurn服務條款」</span>
+            內容，並充分瞭解且確認同意遵守，並已詳閱Sacurn服務條款中以顯著字體表示之重要約定事項，有疑問之處業經本人向貴司提出詢問並業經貴司說明及解答，對重要約定事項已充分理解並同意其內容。
+          </p>
+          <div className="flex mx-auto min-[1300px]:gap-9 min-[1100px]:gap-6 gap-4 w-max">
+            <CustomButton
+              children="我同意"
+              className="border-navy-blue border-2 rounded-full min-[1300px]:text-xl min-[1100px]:text-lg text-base font-bold min-[1300px]:w-[230px] min-[1100px]:w-[190px] w-[170px] h-[53px]"
+              variant="secondary"
+              type="button"
+            />
+            <CustomButton
+              children="我不同意"
+              className="border-navy-blue border-2 rounded-full min-[1300px]:text-xl min-[1100px]:text-lg text-base font-bold min-[1300px]:w-[230px] min-[1100px]:w-[190px] w-[170px] h-[53px]"
+              variant="secondary"
+              type="button"
+            />
+          </div>
+        </div>
+        <div className="pt-14 text-xl font-bold w-[50%]">
+          提醒您
+          <ul className="list-disc ml-8">
+            {reset_steps.map((step) => {
+              return <li>{step}</li>;
+            })}
+          </ul>
+        </div>
+      </div>
+      <div className="w-max flex mx-auto mb-12.7 mt-6 gap-7">
+        <CustomButton
+          className="rounded-xl min-[1300px]:text-xl text-lg font-bold border-2 min-[1300px]:w-[197px] w-[175px] h-[40px]"
+          children="取消申請"
+          variant="secondary"
+        />
+        <CustomButton
+          className="rounded-xl min-[1300px]:text-xl text-lg font-bold min-[1300px]:w-[197px] w-[175px] h-[40px]"
+          children="下一步"
+          variant="primary"
+        />
+      </div>
+    </div>
+  );
+};
+
+interface CustomInputProps {
+  heading: string;
+  placeholder: string;
+}
+
+const CustomInput = ({ heading, placeholder }: CustomInputProps) => {
+  return (
+    <div className="flex items-center gap-5.2">
+      <label className="min-[1300px]:text-xl text-lg text-navy-blue font-bold flex">
+        <p className="text-bright-red">*</p>
+        {heading}
+      </label>
+      <input
+        className="rounded-md border border-navy-blue min-[1600px]:w-[350px] min-[1400px]:w-[320px] min-[1200px]:w-[280px] min-[1300px]:text-xl text-lg min-[1300px]:px-3 px-1.5 min-[1300px]:py-2.5 py-1 "
+        placeholder={placeholder}
+      />
     </div>
   );
 };
 
 export default PasswordResetApplicationFilling;
+
+const reset_steps = [
+  '若您忘記密碼，需請您填寫您的帳號及註冊信箱。',
+  '完成身分驗證後，平台將寄信至您的信箱，請您點擊信件中的重設密碼連結後，重新設定密碼',
+  '密碼重設連結僅15分鐘內有效，請您成功送出申請後，儘速完成重設密碼'
+];
