@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
+import { useCompanyStore } from '@/store/company';
+import { COOKIE_AUTH_NAME } from '@/store/user';
 import { CompanyRegistrationSteps, Policy } from '@/util/constants';
+import { getCookie } from '@/util/helper';
 
 import CustomButton from './CustomButton';
 
@@ -9,17 +12,26 @@ interface IProps {
   nextStep: (val: number) => void;
 }
 const TermsConfirmation = ({ nextStep }: IProps) => {
+  const companyId = getCookie(COOKIE_AUTH_NAME);
+  const updateCompany = useCompanyStore((state) => state.updateCompany);
+
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm();
+
+  const onSubmit = handleSubmit(async () => {
+    if (!companyId) return;
+    const formData = new FormData();
+    formData.append('status', '1');
+    await updateCompany(companyId, formData);
+    const isSuccess = useCompanyStore.getState().isSuccess;
+    if (isSuccess) nextStep(CompanyRegistrationSteps.REGISTRATION_COMPLETED);
+  });
+
   return (
-    <form
-      onSubmit={handleSubmit(() => {
-        nextStep(CompanyRegistrationSteps.REGISTRATION_COMPLETED);
-      })}
-    >
+    <form onSubmit={onSubmit}>
       <div className="flex flex-col items-center py-4 ">
         <h2 className="text-xl font-bold leading-normal text-dark-grey mb-6">《土星永續股份有限公司 會員服務條款》</h2>
         <div className="bg-white rounded-2.5xl shadow-company-registration-input py-3 px-4 h-[50vh] w-[95%] mb-3 relative">
