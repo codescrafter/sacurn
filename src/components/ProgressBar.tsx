@@ -1,15 +1,23 @@
+import classNames from 'classnames';
+
 interface ProgressBarProps {
   steps: number;
   stepNumber: number;
   stepName: string;
+  gap: 'large' | 'small';
 }
 
-const ProgressBar = ({ steps, stepNumber, stepName }: ProgressBarProps) => {
+const ProgressBar = ({ steps, stepNumber, stepName, gap }: ProgressBarProps) => {
   const noOfSteps = Array.from({ length: steps }, (value, index) => index);
   return (
     <div className="relative flex flex-col items-center w-full">
       <div className="bg-navy-blue py-1 rounded-full w-[90%]"></div>
-      <div className="flex flex-row relative -translate-y-5.5 justify-between w-[75%]">
+      <div
+        className={classNames('flex flex-row relative -translate-y-5.5 w-[75%]', {
+          'justify-around': gap === 'small',
+          'justify-between': gap === 'large'
+        })}
+      >
         {noOfSteps.map((step, index) => {
           return (
             <div className="flex flex-col relative items-center">

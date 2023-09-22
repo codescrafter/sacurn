@@ -378,7 +378,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     <input
                       type="text"
                       placeholder="郵遞區號"
-                      className={classNames('w-24 px-3', Style, {})}
+                      className={classNames('w-24 px-3', Style)}
                       value={thirdAddress}
                     />
                   </div>

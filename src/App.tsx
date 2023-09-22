@@ -20,6 +20,7 @@ import Modal from './components/Modal/UniversalModal';
 import ProductDetail from './components/ProductDetail';
 import { ProtectedAuthRoute } from './components/ProtectedAuthRoute';
 import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRegisteredRoute';
+import PasswordReset from './pages/PasswordReset';
 // import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
 
@@ -147,6 +148,10 @@ const router = createBrowserRouter([
         </ProtectedCompanyRegisteredRoute>
       </ProtectedAuthRoute>
     )
+  },
+  {
+    path: '/password-reset',
+    element: <PasswordReset />
   }
 ]);
 
