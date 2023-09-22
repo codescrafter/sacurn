@@ -1,11 +1,20 @@
+import classNames from 'classnames';
+import { useState } from 'react';
+import { FieldValues, useForm, UseFormRegister } from 'react-hook-form';
+
 import CustomButton from './CustomButton';
 
 const PasswordResetApplicationFilling = () => {
+  const { register, handleSubmit } = useForm();
+  const [isChecked, setIsChecked] = useState(false);
+  const isCheckedHandler = (value: boolean) => {
+    setIsChecked(value);
+  };
   return (
     <div className="flex flex-col gap-y-8 w-[93%] mx-auto">
       <div className="bg-white rounded-2.5xl shadow-completed-box flex w-full justify-center items-center gap-40 h-31">
-        <CustomInput heading="帳號" placeholder="請輸入帳號" />
-        <CustomInput heading="email" placeholder="請輸入完整email" />
+        <CustomInput heading="帳號" placeholder="請輸入帳號" register={register} id="account_number" />
+        <CustomInput heading="email" placeholder="請輸入完整email" register={register} id="email" />
       </div>
       <div className="flex h-[430px] gap-12">
         <div className="bg-white rounded-2.5xl shadow-completed-box w-[50%] py-14 text-lg font-bold flex flex-col justify-between">
@@ -15,23 +24,31 @@ const PasswordResetApplicationFilling = () => {
             內容，並充分瞭解且確認同意遵守，並已詳閱Sacurn服務條款中以顯著字體表示之重要約定事項，有疑問之處業經本人向貴司提出詢問並業經貴司說明及解答，對重要約定事項已充分理解並同意其內容。
           </p>
           <div className="flex mx-auto min-[1300px]:gap-9 min-[1100px]:gap-6 gap-4 w-max">
-            <CustomButton
-              children="我同意"
-              className="border-navy-blue border-2 rounded-full min-[1300px]:text-xl min-[1100px]:text-lg text-base font-bold min-[1300px]:w-[230px] min-[1100px]:w-[190px] w-[170px] h-[53px]"
-              variant="secondary"
-              type="button"
-            />
+            <div className="w-max relative">
+              {isChecked && <img src="/images/password-reset/confirm.svg" className="absolute -top-3 right-6" />}
+              <CustomButton
+                children="我同意"
+                className={classNames(
+                  'border-2 rounded-full min-[1300px]:text-xl min-[1100px]:text-lg text-base font-bold min-[1300px]:w-[230px] min-[1100px]:w-[190px] w-[170px] h-[53px]',
+                  { 'border-bright-red': isChecked, 'border-navy-blue': !isChecked }
+                )}
+                variant="secondary"
+                type="button"
+                onClick={() => isCheckedHandler(true)}
+              />
+            </div>
             <CustomButton
               children="我不同意"
               className="border-navy-blue border-2 rounded-full min-[1300px]:text-xl min-[1100px]:text-lg text-base font-bold min-[1300px]:w-[230px] min-[1100px]:w-[190px] w-[170px] h-[53px]"
               variant="secondary"
               type="button"
+              onClick={() => isCheckedHandler(false)}
             />
           </div>
         </div>
         <div className="pt-14 text-xl font-bold w-[50%]">
           提醒您
-          <ul className="list-disc ml-8">
+          <ul className="list-disc font-normal ml-8">
             {reset_steps.map((step) => {
               return <li>{step}</li>;
             })}
@@ -48,6 +65,7 @@ const PasswordResetApplicationFilling = () => {
           className="rounded-xl min-[1300px]:text-xl text-lg font-bold min-[1300px]:w-[197px] w-[175px] h-[40px]"
           children="下一步"
           variant="primary"
+          type="submit"
         />
       </div>
     </div>
@@ -57,9 +75,11 @@ const PasswordResetApplicationFilling = () => {
 interface CustomInputProps {
   heading: string;
   placeholder: string;
+  register: UseFormRegister<FieldValues>;
+  id: string;
 }
 
-const CustomInput = ({ heading, placeholder }: CustomInputProps) => {
+const CustomInput = ({ heading, placeholder, register, id }: CustomInputProps) => {
   return (
     <div className="flex items-center gap-5.2">
       <label className="min-[1300px]:text-xl text-lg text-navy-blue font-bold flex">
@@ -69,6 +89,7 @@ const CustomInput = ({ heading, placeholder }: CustomInputProps) => {
       <input
         className="rounded-md border border-navy-blue min-[1600px]:w-[350px] min-[1400px]:w-[320px] min-[1200px]:w-[280px] min-[1300px]:text-xl text-lg min-[1300px]:px-3 px-1.5 min-[1300px]:py-2.5 py-1 "
         placeholder={placeholder}
+        {...register(id)}
       />
     </div>
   );
