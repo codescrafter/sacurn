@@ -9,6 +9,7 @@ import {
 } from '../type';
 
 export const REGISTRATION_COMPLETED_STATUS = 3;
+export const REGISTRATION_PENDING_STATUS = 1;
 
 export const NAVBAR_ITEMS: NavbarItemTypes[] = [
   {
