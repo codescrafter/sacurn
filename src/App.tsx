@@ -22,11 +22,17 @@ import { ProtectedAuthRoute } from './components/ProtectedAuthRoute';
 import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRegisteredRoute';
 // import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
+import MemberCenter from './pages/v2/MemberCenter';
 
 const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />
+  },
+  // routes for v2
+  {
+    path: '/v2',
+    element: <MemberCenter />
   },
   {
     path: '/',

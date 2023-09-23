@@ -215,7 +215,9 @@ module.exports = {
       'card-bg-light': '#c6c6c626',
       cyan: '#7EF1F1',
       'text-light': '#DCDCDC',
-      'trans-grey': 'rgba(255, 255, 255, 0.30)'
+      'trans-grey': 'rgba(255, 255, 255, 0.30)',
+      // v2 colors
+      ceramic: '#F9F9F9'
     }
   },
   plugins: []
