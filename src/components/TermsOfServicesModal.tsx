@@ -10,7 +10,7 @@ const TermsOfServicesModal = () => {
         <p className="text-center font-bold text-dark-grey mb-4">本網站之《服務條款》、《隱私政策》和《Cookie 政策》</p>
 
         <div className="yellowScroll pr-4.2 overflow-y-scroll h-[70%]">
-          <div className="bg-smoke break-normal break-keep whitespace-pre-wrap">{Policy}</div>
+          <div className="bg-smoke break-normal break-keep whitespace-pre-wrap px-2 py-0.5">{Policy}</div>
         </div>
         <button className="px-7 py-0.3 self-end bg-smoke shadow-download-btn rounded-lg mr-5.5 mt-1.5">
           <div className="flex gap-2 items-center">
