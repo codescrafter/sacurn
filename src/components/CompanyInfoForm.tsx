@@ -16,6 +16,7 @@ import {
   COUNTY_LIST,
   REGION_AREA_LIST,
   REGISTRATION_COMPLETED_STATUS,
+  REGISTRATION_PENDING_STATUS,
   URBAN_AREA_LIST
 } from '@/util/constants';
 import { getCookie } from '@/util/helper';
@@ -124,7 +125,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       if (!companyId) return;
       const data = await getCompanyInfo(companyId);
       if (!data) return;
-      if (data.status === REGISTRATION_COMPLETED_STATUS) {
+      if (data.status === REGISTRATION_COMPLETED_STATUS || REGISTRATION_PENDING_STATUS) {
         return nextStep(CompanyRegistrationSteps.REGISTRATION_COMPLETED);
       }
       // update form value
