@@ -1,4 +1,5 @@
 import IdentityVerification from '@/components/IdentityVerification';
+import PasswordResetApplicationCompleted from '@/components/PasswordResetApplicationCompleted';
 import PasswordResetApplicationFilling from '@/components/PasswordResetApplicationFilling';
 import ProgressBar from '@/components/ProgressBar';
 import SimpleNav from '@/components/SimpleNav';
@@ -11,7 +12,8 @@ const PasswordReset = () => {
       <ProgressBar steps={3} stepNumber={1} stepName="申請填寫" gap="small" width="normal" />
       {/* <PasswordResetApplicationFilling /> */}
       {/* <TermsOfServicesModal /> */}
-      <IdentityVerification />
+      {/* <IdentityVerification /> */}
+      <PasswordResetApplicationCompleted />
     </div>
   );
 };
