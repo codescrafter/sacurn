@@ -74,6 +74,19 @@ const IdentityVerification = () => {
           </div>
         </VerificationCard>
       }
+      <div className="w-max flex mx-auto mb-8 mt-6 gap-7">
+        <CustomButton
+          className="rounded-xl min-[1300px]:text-xl text-lg font-bold border-2 min-[1300px]:w-[197px] w-[175px] h-[40px]"
+          children="取消申請"
+          variant="secondary"
+        />
+        <CustomButton
+          className="rounded-xl min-[1300px]:text-xl text-lg font-bold min-[1300px]:w-[197px] w-[175px] h-[40px]"
+          children="下一步"
+          variant="primary"
+          type="submit"
+        />
+      </div>
     </div>
   );
 };
