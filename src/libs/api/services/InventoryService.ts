@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Inventory } from '../models/Inventory';
 import type { PaginatedInventoryList } from '../models/PaginatedInventoryList';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -26,22 +25,6 @@ export class InventoryService {
             query: {
                 'page': page,
             },
-        });
-    }
-
-    /**
-     * @param requestBody
-     * @returns Inventory
-     * @throws ApiError
-     */
-    public inventoryCreate(
-        requestBody: Inventory,
-    ): CancelablePromise<Inventory> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/inventory/',
-            body: requestBody,
-            mediaType: 'application/json',
         });
     }
 

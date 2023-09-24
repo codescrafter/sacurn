@@ -19,6 +19,21 @@ export const $Employee = {
             isReadOnly: true,
             isRequired: true,
         },
+        status_cht: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        last_name: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        group_name: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         created_at: {
             type: 'string',
             isReadOnly: true,
@@ -36,15 +51,35 @@ export const $Employee = {
         deleted: {
             type: 'boolean',
         },
+        deleted_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
+        position: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        tel: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 12,
+        },
+        tel_extension: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 12,
+        },
         phone: {
             type: 'string',
             isNullable: true,
             maxLength: 45,
         },
-        deleted_at: {
-            type: 'string',
-            isNullable: true,
-            format: 'date-time',
+        status: {
+            type: 'number',
+            maximum: 2147483647,
+            minimum: -2147483648,
         },
         user: {
             type: 'number',
