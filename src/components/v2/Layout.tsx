@@ -19,7 +19,7 @@ const Layout = ({ children }: IProps) => {
         )}
       >
         <div className="flex justify-between gap-4">
-          <div className="w-[30%] mt-10 min-[1400px]:mt-[102px]">
+          <div className="w-[30%] mt-10 min-[1400px]:mt-[102px] min-[1700px]:mt[150px]">
             <div className="pl-12">
               <img src="/v2/card.svg" alt="sacurn card" className="" />
               <p className="text-ceramic text-xs font-bold relative -mt-[14px] mx-[8%] text-center 2xl:text-left xl:tracking-[1.8px] 2xl:tracking-[3.6px] ">
@@ -27,7 +27,9 @@ const Layout = ({ children }: IProps) => {
               </p>
             </div>
             <div>
-              <h4 className="text-white text-4xl font-bold text-center mt-3 min-[1400px]:mt-7">ECOGREEN</h4>
+              <h4 className="text-white text-4xl font-bold text-center mt-3 min-[1400px]:mt-7 min-[1700px]:mt-10">
+                ECOGREEN
+              </h4>
               <div className="flex justify-center my-3 min-[1400px]:my-7">
                 <div className="w-0.5 h-10 min-[1400px]:h-[55px] bg-white" />
               </div>
