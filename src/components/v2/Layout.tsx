@@ -15,7 +15,7 @@ const Layout = ({ children }: IProps) => {
       <Navbar className="!bg-navy-blue py-4" />
       <div
         className={classNames(
-          "bg-[url('../public/v2/bg.png')] w-full h-[calc(100vh-71px)] 2xl:h-[calc(100vh-74px)] bg-no-repeat bg-cover"
+          "bg-[url('../public/v2/bg.png')] w-full h-[calc(100vh-71px)] min-h-[900px] 2xl:h-[calc(100vh-74px)] bg-no-repeat bg-cover"
         )}
       >
         <div className="flex justify-between gap-4">
@@ -42,6 +42,11 @@ const Layout = ({ children }: IProps) => {
                   <b className="text-lg font-bold text-white">/100,000</b>
                 </p>
                 <RangeSlider value={95} />
+              </div>
+              <div className="flex gap-6 items-center px-[20%] mt-12">
+                <img src="/v2/layout/card.svg" alt="card" className="w-[112px] h-14 object-contain" />
+                <img src="/v2/layout/help.svg" alt="card" className="w-[112px] h-14 object-contain" />
+                <img src="/v2/layout/cancel.svg" alt="card" className="w-[112px] h-14 object-contain" />
               </div>
             </div>
           </div>
