@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { useCompanyStore } from '@/store/company';
 import { COOKIE_AUTH_NAME } from '@/store/user';
-import { CompanyRegistrationSteps, Policy } from '@/util/constants';
+import { CompanyRegistrationSteps, MEMBERS_TERMS } from '@/util/constants';
 import { getCookie } from '@/util/helper';
 
 import CustomButton from './CustomButton';
@@ -36,12 +36,29 @@ const TermsConfirmation = ({ nextStep }: IProps) => {
         <h2 className="text-xl font-bold leading-normal text-dark-grey mb-6">《土星永續股份有限公司 會員服務條款》</h2>
         <div className="bg-white rounded-2.5xl shadow-company-registration-input py-3 px-4 h-[50vh] w-[95%] mb-3 relative">
           <div className="overflow-y-scroll yellowScroll w-[calc(100%-5px)] h-full">
-            <p className="text-mdbase font-bold break-normal break-keep whitespace-pre-wrap w-[95%]">{Policy}</p>
+            <div className="text-mdbase font-bold break-normal break-keep whitespace-pre-wrap w-[95%]">
+              {MEMBERS_TERMS?.map((term) => (
+                <div key={term.id}>
+                  <div className="flex gap-3 mt-4 mb-1">
+                    <p>{term.id}</p>
+                    <p>{term.title}</p>
+                  </div>
+                  <div>
+                    {term?.content?.map((x) => (
+                      <div key={x.id} className="flex indent-5 mb-2">
+                        <p>{x.id}</p>
+                        <p>{x.detail}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
           <button className="px-7 py-0.3 absolute -bottom-8 right-1 shadow-download-btn rounded-lg">
             <div className="flex gap-2 items-center">
               <Link
-                to="/download.docx"
+                to="/pdf/Membership_Terms_Service.pdf"
                 target="_blank"
                 download="土星_平台條款內容"
                 className="text-mdbase font-bold text-navy-blue"
