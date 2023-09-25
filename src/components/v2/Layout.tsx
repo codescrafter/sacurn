@@ -15,7 +15,7 @@ const Layout = ({ children }: IProps) => {
       <Navbar className="!bg-navy-blue py-4" />
       <div
         className={classNames(
-          "bg-[url('../public/v2/bg.png')] w-full h-[calc(100vh-71px)] min-h-[700px] 2xl:h-[calc(100vh-74px)] bg-no-repeat bg-cover"
+          "bg-[url('../public/v2/bg.png')] w-full min-h-[calc(100vh-71px)] pb-7 2xl:h-[calc(100vh-74px)] bg-no-repeat bg-cover"
         )}
       >
         <div className="flex justify-between gap-4">
