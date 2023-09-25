@@ -60,7 +60,7 @@ const ProductList = () => {
         </div>
       </div>
       {/* second col */}
-      <div className=" 2xl:w-[58%] flex-1 max-w-[900px]">
+      <div className=" 2xl:w-[58%] flex-1 max-w-[900px] 2xl:max-w-full">
         <LayoutSwitch />
         <div className="mt-3 flex justify-between items-center">
           <div className="flex justify-end items-center gap-5">

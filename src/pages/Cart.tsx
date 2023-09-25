@@ -89,7 +89,7 @@ const Cart = () => {
                       return (
                         <div key={product.name} className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
                           <p className="w-[70%] text-grey 2xl:text-lg text-sm">{product.name}</p>
-                          <p className="text-grey 2xl:text-lg text-sm">{product.amount} 噸</p>
+                          <p className="text-grey 2xl:text-lg text-sm">$ {product.amount}</p>
                         </div>
                       );
                     })}
