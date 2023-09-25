@@ -21,7 +21,7 @@ export const useCertificateStore = create<CertificateState>(() => ({
     return certificate;
   },
   applyCertificate: async (...args) => {
-    runTask(
+    await runTask(
       async () => {
         await apiClient.carbonCredit.carbonCreditMailCertificateRetrieve(...args);
       },

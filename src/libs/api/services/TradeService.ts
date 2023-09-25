@@ -110,6 +110,22 @@ export class TradeService {
 
     /**
      * @param requestBody
+     * @returns void
+     * @throws ApiError
+     */
+    public tradeCartDeleteAllCreate(
+        requestBody?: OrderBuy,
+    ): CancelablePromise<void> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/trade/cart/delete_all/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param requestBody
      * @returns CartDetailResonse
      * @throws ApiError
      */

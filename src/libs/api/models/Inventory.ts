@@ -12,6 +12,7 @@ export type Inventory = {
     readonly serial_number: string;
     readonly location: string;
     readonly ratio: string;
+    readonly available_sale_quantity: string;
     quantity?: number | null;
     price?: number | null;
     carbon_credit: number;

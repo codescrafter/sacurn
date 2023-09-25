@@ -2,27 +2,44 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $OperationRecord = {
+export const $ShopProduct = {
     properties: {
         id: {
             type: 'number',
             isReadOnly: true,
             isRequired: true,
         },
-        username: {
+        created_at: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,
+            isNullable: true,
+            format: 'date-time',
         },
-        total_money: {
+        updated_at: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,
+            isNullable: true,
+            format: 'date-time',
         },
-        product_name: {
+        deleted: {
+            type: 'boolean',
+        },
+        deleted_at: {
             type: 'string',
             isNullable: true,
-            maxLength: 128,
+            format: 'date-time',
+        },
+        name: {
+            type: 'string',
+            isRequired: true,
+            maxLength: 45,
+        },
+        desc: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 512,
         },
         price: {
             type: 'number',
@@ -35,45 +52,19 @@ export const $OperationRecord = {
             maximum: 2147483647,
             minimum: -2147483648,
         },
-        action: {
+        pubished_at: {
             type: 'string',
             isNullable: true,
-            maxLength: 45,
-        },
-        note: {
-            type: 'string',
-            isNullable: true,
-            maxLength: 128,
-        },
-        created_at: {
-            type: 'string',
-            isReadOnly: true,
-            isRequired: true,
             format: 'date-time',
         },
-        user: {
+        status: {
             type: 'number',
-            isNullable: true,
+            maximum: 2147483647,
+            minimum: -2147483648,
         },
-        carbon_credit: {
+        trader: {
             type: 'number',
-            isNullable: true,
-        },
-        cart: {
-            type: 'number',
-            isNullable: true,
-        },
-        sell_order: {
-            type: 'number',
-            isNullable: true,
-        },
-        buy_order: {
-            type: 'number',
-            isNullable: true,
-        },
-        transaction: {
-            type: 'number',
-            isNullable: true,
+            isRequired: true,
         },
     },
 } as const;

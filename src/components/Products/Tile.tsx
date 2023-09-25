@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import dateFormat from 'dateformat';
-import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useWishListStore } from '@/store/wishList';
@@ -28,10 +27,7 @@ const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage
   const deleteWishList = useWishListStore((store) => store.deleteWishList);
   const wishList = useWishListStore((store) => store.wishList);
 
-  const isExistInWishList = useMemo(() => {
-    const result = wishList.find((wishItem) => wishItem.carbon_credit === id);
-    return !!result;
-  }, [wishList]);
+  const wishItem = wishList.find((wishItem) => wishItem.carbon_credit === id);
 
   return (
     <div className="bg-card-bg py-[20px] px-[24px] rounded-2xl flex justify-between items-center">
@@ -101,9 +97,9 @@ const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage
           <Link to={`/product-carbon/${id}`}>
             <img src="/images/products/green/dollar.svg" alt="sacurn" className="w-9 h-9" width={36} height={36} />
           </Link>
-          {isExistInWishList ? (
-            <button onClick={() => deleteWishList(id)}>
-              <img src="/images/wishlist/favicon.svg" alt="sacurn" className="w-13 h-13 relative left-0.5" />
+          {wishItem ? (
+            <button onClick={() => deleteWishList(wishItem.id)}>
+              <img src="/images/wishlist/favicon.svg" alt="sacurn" />
             </button>
           ) : (
             <button onClick={() => addToWhishList(id)}>
