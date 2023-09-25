@@ -97,17 +97,17 @@ const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage
           </p>
           <p className="text-[10px] text-black">/Tonne</p>
         </div>
-        <div className="h-full flex flex-col items-start justify-evenly">
+        <div className="h-full flex flex-col items-center justify-evenly">
           <Link to={`/product-carbon/${id}`}>
-            <img src="/images/products/green/dollar.svg" alt="sacurn" />
+            <img src="/images/products/green/dollar.svg" alt="sacurn" className="w-9 h-9" width={36} height={36} />
           </Link>
           {isExistInWishList ? (
             <button onClick={() => deleteWishList(id)}>
-              <img src="/images/wishlist/favicon.svg" alt="sacurn" />
+              <img src="/images/wishlist/favicon.svg" alt="sacurn" className="w-13 h-13 relative left-0.5" />
             </button>
           ) : (
             <button onClick={() => addToWhishList(id)}>
-              <img src="/images/wishlist/unfavicon.svg" alt="sacurn" />
+              <img src="/images/wishlist/unfavicon.svg" alt="sacurn" className="w-13 h-13 relative left-0.5" />
             </button>
           )}
         </div>
