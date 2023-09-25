@@ -125,7 +125,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       if (!companyId) return;
       const data = await getCompanyInfo(companyId);
       if (!data) return;
-      if (data.status === REGISTRATION_COMPLETED_STATUS || REGISTRATION_PENDING_STATUS) {
+      if (data.status === REGISTRATION_COMPLETED_STATUS || data.status === REGISTRATION_PENDING_STATUS) {
         return nextStep(CompanyRegistrationSteps.REGISTRATION_COMPLETED);
       }
       // update form value
