@@ -44,6 +44,11 @@ export const $Inventory = {
             isReadOnly: true,
             isRequired: true,
         },
+        available_sale_quantity: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         quantity: {
             type: 'number',
             isNullable: true,

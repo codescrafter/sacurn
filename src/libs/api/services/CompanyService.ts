@@ -4,10 +4,13 @@
 /* eslint-disable */
 import type { Company } from '../models/Company';
 import type { Employee } from '../models/Employee';
+import type { Employees } from '../models/Employees';
 import type { ExtendedCompany } from '../models/ExtendedCompany';
 import type { PaginatedEmployeeList } from '../models/PaginatedEmployeeList';
+import type { PaginatedGroupList } from '../models/PaginatedGroupList';
 import type { PaginatedPlanList } from '../models/PaginatedPlanList';
 import type { PaginatedPlanRecordList } from '../models/PaginatedPlanRecordList';
+import type { PatchedEmployeesPatch } from '../models/PatchedEmployeesPatch';
 import type { PatchedExtendedCompany } from '../models/PatchedExtendedCompany';
 import type { Plan } from '../models/Plan';
 import type { PlanRecord } from '../models/PlanRecord';
@@ -89,6 +92,7 @@ export class CompanyService {
     }
 
     /**
+     * 網址上帶的id是員工列表回傳裡的id 不是user
      * @param page A page number within the paginated result set.
      * @returns PaginatedEmployeeList
      * @throws ApiError
@@ -106,12 +110,13 @@ export class CompanyService {
     }
 
     /**
+     * 網址上帶的id是員工列表回傳裡的id 不是user
      * @param requestBody
      * @returns Employee
      * @throws ApiError
      */
     public companyEmployeeCreate(
-        requestBody: Employee,
+        requestBody?: Employees,
     ): CancelablePromise<Employee> {
         return this.httpRequest.request({
             method: 'POST',
@@ -122,13 +127,77 @@ export class CompanyService {
     }
 
     /**
+     * 網址上帶的id是員工列表回傳裡的id 不是user
+     * @param id
+     * @returns Employee
+     * @throws ApiError
+     */
+    public companyEmployeeRetrieve(
+        id: number,
+    ): CancelablePromise<Employee> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/company/employee/{id}/',
+            path: {
+                'id': id,
+            },
+        });
+    }
+
+    /**
+     * 網址上帶的id是員工列表回傳裡的id 不是user
+     * @param id
+     * @param requestBody
+     * @returns Employee
+     * @throws ApiError
+     */
+    public companyEmployeePartialUpdate(
+        id: number,
+        requestBody?: PatchedEmployeesPatch,
+    ): CancelablePromise<Employee> {
+        return this.httpRequest.request({
+            method: 'PATCH',
+            url: '/company/employee/{id}/',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * 網址上帶的id是員工列表回傳裡的id 不是user
+     * @param id
      * @returns void
      * @throws ApiError
      */
-    public companyEmployeeDestroy(): CancelablePromise<void> {
+    public companyEmployeeDestroy(
+        id: number,
+    ): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/company/employee/',
+            url: '/company/employee/{id}/',
+            path: {
+                'id': id,
+            },
+        });
+    }
+
+    /**
+     * @param page A page number within the paginated result set.
+     * @returns PaginatedGroupList
+     * @throws ApiError
+     */
+    public companyGroupList(
+        page?: number,
+    ): CancelablePromise<PaginatedGroupList> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/company/group/',
+            query: {
+                'page': page,
+            },
         });
     }
 

@@ -19,7 +19,7 @@ export const useCompanyStore = create<CompanyState>((set) => ({
   company: {},
   isSuccess: false,
   createCompany: async (arg: FormData) => {
-    // runTask(
+    // await runTask(
     //   async () => {
     //     // Check is work or not
     //     const data = arg as unknown as ExtendedCompany;
@@ -65,7 +65,7 @@ export const useCompanyStore = create<CompanyState>((set) => ({
     return company;
   },
   updateCompany: async (id: number, companyData?: FormData) => {
-    // runTask(
+    // await runTask(
     //   async () => {
     //     const data = companyData as PatchedExtendedCompany;
     //     const company = await apiClient.company.companyPartialUpdate(id, data);

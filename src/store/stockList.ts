@@ -46,7 +46,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     return isSuccess;
   },
   updateStockOnSale: async (carbonId, quantity, price, minUnit) => {
-    runTask(
+    await runTask(
       async () => {
         await apiClient.trade.tradeOrderSellCreate({
           carbon_credit: carbonId,

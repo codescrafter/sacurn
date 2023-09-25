@@ -672,6 +672,7 @@ paths:
   /company/employee/:
     get:
       operationId: company_employee_list
+      description: 網址上帶的id是員工列表回傳裡的id 不是user
       parameters:
       - name: page
         required: false
@@ -694,20 +695,20 @@ paths:
           description: ''
     post:
       operationId: company_employee_create
+      description: 網址上帶的id是員工列表回傳裡的id 不是user
       tags:
       - company
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Employee'
+              $ref: '#/components/schemas/Employees'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Employee'
+              $ref: '#/components/schemas/Employees'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Employee'
-        required: true
+              $ref: '#/components/schemas/Employees'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -719,8 +720,71 @@ paths:
               schema:
                 $ref: '#/components/schemas/Employee'
           description: ''
+  /company/employee/{id}/:
+    get:
+      operationId: company_employee_retrieve
+      description: 網址上帶的id是員工列表回傳裡的id 不是user
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - company
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
+    patch:
+      operationId: company_employee_partial_update
+      description: 網址上帶的id是員工列表回傳裡的id 不是user
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - company
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeesPatch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeesPatch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeesPatch'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
     delete:
       operationId: company_employee_destroy
+      description: 網址上帶的id是員工列表回傳裡的id 不是user
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
       - company
       security:
@@ -730,6 +794,30 @@ paths:
       responses:
         '204':
           description: No response body
+  /company/group/:
+    get:
+      operationId: company_group_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - company
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGroupList'
+          description: ''
   /company/level/:
     get:
       operationId: company_level_retrieve
@@ -985,34 +1073,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedInventoryList'
           description: ''
-    post:
-      operationId: inventory_create
-      tags:
-      - inventory
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Inventory'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Inventory'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Inventory'
-        required: true
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Inventory'
-          description: ''
   /login/:
     post:
       operationId: login_create
@@ -1176,6 +1236,58 @@ paths:
               schema:
                 $ref: '#/components/schemas/ShopCart'
           description: ''
+  /shop/product/:
+    get:
+      operationId: shop_product_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - shop
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedShopProductList'
+          description: ''
+    post:
+      operationId: shop_product_create
+      tags:
+      - shop
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShopProduct'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ShopProduct'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ShopProduct'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShopProduct'
+          description: ''
   /trade/cart/:
     get:
       operationId: trade_cart_list
@@ -1288,6 +1400,29 @@ paths:
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
       - {}
+      responses:
+        '204':
+          description: No response body
+  /trade/cart/delete_all/:
+    post:
+      operationId: trade_cart_delete_all_create
+      tags:
+      - trade
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
       responses:
         '204':
           description: No response body
@@ -1776,8 +1911,7 @@ components:
           type: string
           readOnly: true
         order_deleted:
-          type: string
-          readOnly: true
+          type: integer
         price:
           type: number
           format: double
@@ -1810,7 +1944,6 @@ components:
       - image
       - name
       - order
-      - order_deleted
       - price
       - quantity
       - remaining_quantity
@@ -1864,7 +1997,7 @@ components:
       properties:
         url:
           type: string
-          default: https://lychee-backend-web-dev1.s3.us-east-2.amazonaws.com/image/test.pdf
+          default: https://lychee-backend-web-dev1.s3.us-east-2.amazonaws.com/20230621.pdf
     Company:
       type: object
       properties:
@@ -2013,6 +2146,15 @@ components:
         email:
           type: string
           readOnly: true
+        status_cht:
+          type: string
+          readOnly: true
+        last_name:
+          type: string
+          readOnly: true
+        group_name:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -2025,14 +2167,30 @@ components:
           nullable: true
         deleted:
           type: boolean
-        phone:
-          type: string
-          nullable: true
-          maxLength: 45
         deleted_at:
           type: string
           format: date-time
           nullable: true
+        position:
+          type: string
+          nullable: true
+          maxLength: 45
+        tel:
+          type: string
+          nullable: true
+          maxLength: 12
+        tel_extension:
+          type: string
+          nullable: true
+          maxLength: 12
+        phone:
+          type: string
+          nullable: true
+          maxLength: 45
+        status:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
         user:
           type: integer
         company:
@@ -2041,10 +2199,40 @@ components:
       required:
       - created_at
       - email
+      - group_name
       - id
+      - last_name
+      - status_cht
       - updated_at
       - user
       - username
+    Employees:
+      type: object
+      properties:
+        username:
+          type: string
+          default: new1
+        password1:
+          type: string
+          default: test123456
+        email:
+          type: string
+          default: test@lychee.tw
+        last_name:
+          type: string
+          default: John
+        position:
+          type: string
+          default: CFO
+        tel:
+          type: string
+          default: 033345678
+        tel_extension:
+          type: string
+          default: '123'
+        group_name:
+          type: string
+          default: 操作人員
     ExtendedCompany:
       type: object
       properties:
@@ -2199,6 +2387,22 @@ components:
           items:
             type: string
           default: []
+    Group:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 150
+        permissions:
+          type: array
+          items:
+            type: integer
+      required:
+      - id
+      - name
     Inventory:
       type: object
       properties:
@@ -2226,6 +2430,9 @@ components:
         ratio:
           type: string
           readOnly: true
+        available_sale_quantity:
+          type: string
+          readOnly: true
         quantity:
           type: integer
           maximum: 2147483647
@@ -2240,6 +2447,7 @@ components:
         company:
           type: integer
       required:
+      - available_sale_quantity
       - carbon_credit
       - carbon_tag
       - company
@@ -2327,6 +2535,12 @@ components:
         id:
           type: integer
           readOnly: true
+        username:
+          type: string
+          readOnly: true
+        total_money:
+          type: string
+          readOnly: true
         product_name:
           type: string
           nullable: true
@@ -2373,6 +2587,8 @@ components:
       required:
       - created_at
       - id
+      - total_money
+      - username
     Order:
       type: object
       properties:
@@ -2553,6 +2769,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Employee'
+    PaginatedGroupList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
     PaginatedInventoryList:
       type: object
       properties:
@@ -2693,6 +2929,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ShopCart'
+    PaginatedShopProductList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShopProduct'
     PaginatedTransactionRecordList:
       type: object
       properties:
@@ -2858,8 +3114,7 @@ components:
           type: string
           readOnly: true
         order_deleted:
-          type: string
-          readOnly: true
+          type: integer
         price:
           type: number
           format: double
@@ -2884,6 +3139,30 @@ components:
           nullable: true
         order:
           type: integer
+    PatchedEmployeesPatch:
+      type: object
+      properties:
+        password1:
+          type: string
+          default: test123456
+        email:
+          type: string
+          default: test@lychee.tw
+        last_name:
+          type: string
+          default: John
+        position:
+          type: string
+          default: CFO
+        tel:
+          type: string
+          default: 033345678
+        tel_extension:
+          type: string
+          default: '123'
+        group_name:
+          type: string
+          default: 操作人員
     PatchedExtendedCompany:
       type: object
       properties:
@@ -3166,6 +3445,60 @@ components:
       - shop_product
       - trader
       - updated_at
+    ShopProduct:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted:
+          type: boolean
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        name:
+          type: string
+          maxLength: 45
+        desc:
+          type: string
+          nullable: true
+          maxLength: 512
+        price:
+          type: number
+          format: double
+          nullable: true
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        pubished_at:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        trader:
+          type: integer
+      required:
+      - created_at
+      - id
+      - name
+      - trader
+      - updated_at
     TokenObtainPair:
       type: object
       properties:
@@ -3255,6 +3588,27 @@ components:
         id:
           type: integer
           readOnly: true
+        order_no:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        action_cht:
+          type: string
+          readOnly: true
+        price:
+          type: string
+          readOnly: true
+        quantity:
+          type: string
+          readOnly: true
+        total_money:
+          type: string
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
         action:
           type: integer
           maximum: 2147483647
@@ -3273,9 +3627,16 @@ components:
           nullable: true
       required:
       - action
+      - action_cht
       - carbon_credit
       - id
+      - name
       - order
+      - order_no
+      - price
+      - quantity
+      - status
+      - total_money
       - trader
       - transaction_detail
     User:
