@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useForm, UseFormRegister } from 'react-hook-form';
 import * as yup from 'yup';
 
+import { PASSWORD_RESET_STEPS } from '@/util/constants';
+
 import CustomButton from './CustomButton';
 
 const schema = yup
@@ -62,7 +64,7 @@ const PasswordResetApplicationFilling = () => {
           <div className="pt-14 text-xl font-bold w-[50%]">
             提醒您
             <ul className="list-disc font-normal ml-8">
-              {reset_steps.map((step) => {
+              {PASSWORD_RESET_STEPS.map((step) => {
                 return <li>{step}</li>;
               })}
             </ul>
@@ -110,9 +112,3 @@ const CustomInput = ({ heading, placeholder, register, id }: CustomInputProps) =
 };
 
 export default PasswordResetApplicationFilling;
-
-const reset_steps = [
-  '若您忘記密碼，需請您填寫您的帳號及註冊信箱。',
-  '完成身分驗證後，平台將寄信至您的信箱，請您點擊信件中的重設密碼連結後，重新設定密碼',
-  '密碼重設連結僅15分鐘內有效，請您成功送出申請後，儘速完成重設密碼'
-];

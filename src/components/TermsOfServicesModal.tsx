@@ -6,7 +6,7 @@ import CustomButton from './CustomButton';
 const TermsOfServicesModal = () => {
   return (
     <div className="fixed top-0 left-0 z-40 w-full h-full bg-[#3D3D3D99] flex justify-center items-center">
-      <div className="flex flex-col w-[60%] h-[70vh] max-h-[578px] bg-white rounded-2.5xl py-5 px-4.2">
+      <div className="flex flex-col w-[60%] h-[75vh] max-h-[578px] bg-white rounded-2.5xl py-5 px-4.2">
         <p className="text-center font-bold text-dark-grey mb-4">本網站之《服務條款》、《隱私政策》和《Cookie 政策》</p>
 
         <div className="yellowScroll pr-4.2 overflow-y-scroll h-[70%]">

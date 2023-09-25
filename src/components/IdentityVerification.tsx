@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 
+import { PRECAUTIONS } from '@/util/constants';
+
 import CustomButton from './CustomButton';
 
 const IdentityVerification = () => {
@@ -51,7 +53,7 @@ const IdentityVerification = () => {
           <div className="mt-10">
             <p className="text-xl">注意事項</p>
             <ul className="text-xl list-disc mt-1 ml-8">
-              {precautions.map((precaution) => {
+              {PRECAUTIONS.map((precaution) => {
                 return <li>{precaution}</li>;
               })}
             </ul>
@@ -115,9 +117,3 @@ const VerificationCard = ({ children }: VerificationCardProps) => {
     </div>
   );
 };
-
-const precautions = [
-  '若您的電子信箱已變更，請洽平台客服專線(02)2221-7000，或email至客服信箱 service@sacurn.com 。',
-  '重新產生通知信驗證碼每日上限 5 次，為確保您的交易安全，請立即至您的信箱收取通知信，並於10分鐘內完成動態驗證碼驗證，若未完成申請步驟，郵件內的動態驗證碼將會失效，請再重新申請',
-  '如未收到驗證信件，請確認您留存的電子郵件地址是否正確及電子郵件信箱是否正常使用，或是被您的郵件伺服器判斷為垃圾郵件。'
-];
