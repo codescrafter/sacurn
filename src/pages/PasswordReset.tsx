@@ -12,8 +12,8 @@ const PasswordReset = () => {
       <ProgressBar steps={3} stepNumber={1} stepName="申請填寫" gap="small" width="normal" />
       {/* <PasswordResetApplicationFilling /> */}
       {/* <TermsOfServicesModal /> */}
-      {/* <IdentityVerification /> */}
-      <PasswordResetApplicationCompleted />
+      <IdentityVerification />
+      {/* <PasswordResetApplicationCompleted /> */}
     </div>
   );
 };

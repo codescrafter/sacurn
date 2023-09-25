@@ -6,8 +6,12 @@ import CustomButton from './CustomButton';
 const IdentityVerification = () => {
   const [btnText, setBtnText] = useState('寄送驗證碼');
   const [isClicked, setIsClicked] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
   useEffect(() => {
     if (isClicked) {
+      if (!isOpened) {
+        setIsOpened(true);
+      }
       let seconds: number = 0;
       const intervalId = setInterval(() => {
         seconds += 1;
@@ -54,39 +58,42 @@ const IdentityVerification = () => {
           </div>
         </div>
       </VerificationCard>
-      {
-        <VerificationCard>
-          <div className="mt-10">
-            <div className="flex gap-4.5 items-center">
-              <label className="min-[1300px]:text-xl text-lg text-navy-blue font-bold">驗證碼</label>
-              <input
-                className="rounded-md border border-navy-blue min-[1600px]:w-[350px] min-[1400px]:w-[320px] min-[1200px]:w-[280px] min-[1300px]:text-xl text-lg min-[1300px]:px-3 px-1.5 min-[1300px]:py-2.5 py-1 "
-                placeholder="請輸入驗證碼6碼"
-              />
-            </div>
+      {isOpened && (
+        <div className="flex flex-col gap-4">
+          <VerificationCard>
             <div className="mt-10">
-              <p className="text-xl">
-                <span className="font-bold">*</span>通知信動態驗證碼有效時間至
-                <span className="text-bright-red">15:30，</span>
-                逾時未輸入，請點選重新寄送驗證碼。
-              </p>
+              <div className="flex gap-4.5 items-center">
+                <label className="min-[1300px]:text-xl text-lg text-navy-blue font-bold">驗證碼</label>
+                <input
+                  className="rounded-md border border-navy-blue min-[1600px]:w-[350px] min-[1400px]:w-[320px] min-[1200px]:w-[280px] min-[1300px]:text-xl text-lg min-[1300px]:px-3 px-1.5 min-[1300px]:py-2.5 py-1 "
+                  placeholder="請輸入驗證碼6碼"
+                />
+              </div>
+              <div className="mt-10">
+                <p className="text-xl">
+                  <span className="font-bold">*</span>通知信動態驗證碼有效時間至
+                  <span className="text-bright-red">15:30，</span>
+                  逾時未輸入，請點選重新寄送驗證碼。
+                </p>
+              </div>
             </div>
+          </VerificationCard>
+
+          <div className="w-max flex mx-auto mb-8 mt-6 gap-7">
+            <CustomButton
+              className="rounded-xl min-[1300px]:text-xl text-lg font-bold border-2 min-[1300px]:w-[197px] w-[175px] h-[40px]"
+              children="取消申請"
+              variant="secondary"
+            />
+            <CustomButton
+              className="rounded-xl min-[1300px]:text-xl text-lg font-bold min-[1300px]:w-[197px] w-[175px] h-[40px]"
+              children="下一步"
+              variant="primary"
+              type="submit"
+            />
           </div>
-        </VerificationCard>
-      }
-      <div className="w-max flex mx-auto mb-8 mt-6 gap-7">
-        <CustomButton
-          className="rounded-xl min-[1300px]:text-xl text-lg font-bold border-2 min-[1300px]:w-[197px] w-[175px] h-[40px]"
-          children="取消申請"
-          variant="secondary"
-        />
-        <CustomButton
-          className="rounded-xl min-[1300px]:text-xl text-lg font-bold min-[1300px]:w-[197px] w-[175px] h-[40px]"
-          children="下一步"
-          variant="primary"
-          type="submit"
-        />
-      </div>
+        </div>
+      )}
     </div>
   );
 };
