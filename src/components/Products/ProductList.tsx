@@ -24,10 +24,6 @@ const ProductList = () => {
   const priceOptions = useFilterOptionsStore((state) => state.priceOptions);
   const selectedTag = useProductListStore((state) => state.filters.tag);
 
-  console.log('locationOptions', locationOptions);
-  console.log('vintageOptions', vintageOptions);
-  console.log('priceOptions', priceOptions);
-
   useEffect(() => {
     getFilterOptions();
     if (productList.length === 0) getProductListWithFilter();
