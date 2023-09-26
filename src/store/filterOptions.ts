@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 
 import apiClient from '@/libs/api/client';
-import { locationOptions } from '@/util/constants';
 
 import { runTask } from './modal';
 
@@ -24,7 +23,7 @@ export type Filters = {
 };
 
 export const useFilterOptionsStore = create<FilterOptionsState>((set, get) => ({
-  locationOptions: locationOptions,
+  locationOptions: [],
   vintageOptions: [],
   priceOptions: [],
   getFilterOptions: async () => {

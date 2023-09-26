@@ -55,7 +55,11 @@ export default function SortFiltersModal({ isLowToHight, onSortChange }: IProps)
               </div>
               <h6 className="text-[#525252] text-lg font-bold mb-4">Vintages</h6>
               <div className="flex justify-between items-center">
-                <span className="text-[#525252] text-lg font-normal">Most Recent First</span>
+                <span className="text-[#525252] text-lg font-normal">Newest to Oldest</span>
+                <input type="radio" name="price" className="w-5 h-5" />
+              </div>
+              <div className="flex justify-between items-center mt-3">
+                <span className="text-[#525252] text-lg font-normal">Oldest to Newest</span>
                 <input type="radio" name="price" className="w-5 h-5" />
               </div>
             </div>
