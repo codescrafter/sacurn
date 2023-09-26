@@ -30,7 +30,13 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Products /> //<Dashboard />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <Products />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    ) //<Dashboard />
   },
   // {
   //   path: '/product-list',
