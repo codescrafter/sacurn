@@ -66,6 +66,13 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
 
   useEffect(() => {
+    if (!uploadedDocs.length) return;
+    const fileSize = fileSizeLimit(uploadedDocs);
+    if (fileSize) return setImageErrorMessage(fileSize);
+    setImageErrorMessage(null);
+  }, [uploadedDocs]);
+
+  useEffect(() => {
     (async () => {
       if (!companyId) return;
       const data = await getCompanyInfo(companyId);
