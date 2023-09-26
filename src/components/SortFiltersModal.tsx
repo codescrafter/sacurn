@@ -7,8 +7,8 @@ import * as React from 'react';
 
 interface IProps {
   desc: boolean | undefined;
-  onSortChange: (sortType: 'price' | 'year', desc: boolean) => void;
-  sortBy: 'price' | 'year' | undefined;
+  onSortChange: (sortType: 'price' | 'vintage', desc: boolean) => void;
+  sortBy: 'price' | 'vintage' | undefined;
 }
 
 export default function SortFiltersModal({ desc, onSortChange, sortBy }: IProps) {
@@ -35,8 +35,8 @@ export default function SortFiltersModal({ desc, onSortChange, sortBy }: IProps)
   const textToShow = React.useCallback(() => {
     if (sortBy === 'price' && !desc) return 'Sort: Low to High';
     if (sortBy === 'price' && desc) return 'Sort: High to Low';
-    if (sortBy === 'year' && desc) return 'Sort: Newest to Oldest';
-    if (sortBy === 'year' && !desc) return 'Sort: Oldest to Newest';
+    if (sortBy === 'vintage' && desc) return 'Sort: Newest to Oldest';
+    if (sortBy === 'vintage' && !desc) return 'Sort: Oldest to Newest';
     return '';
   }, [sortBy, desc]);
 
@@ -68,19 +68,19 @@ export default function SortFiltersModal({ desc, onSortChange, sortBy }: IProps)
               </div>
               <h6 className="text-[#525252] text-lg font-bold mb-4">Vintages</h6>
               <div
-                onClick={() => onSortChange('year', true)}
+                onClick={() => onSortChange('vintage', true)}
                 className="flex justify-between items-center cursor-pointer"
               >
                 <span className="text-[#525252] text-lg font-normal">Newest to Oldest</span>
 
-                <input type="radio" name="price" className="w-5 h-5" checked={sortBy === 'year' && desc} />
+                <input type="radio" name="price" className="w-5 h-5" checked={sortBy === 'vintage' && desc} />
               </div>
               <div
-                onClick={() => onSortChange('year', false)}
+                onClick={() => onSortChange('vintage', false)}
                 className="flex justify-between items-center mt-3 cursor-pointer"
               >
                 <span className="text-[#525252] text-lg font-normal">Oldest to Newest</span>
-                <input type="radio" name="price" className="w-5 h-5" checked={sortBy === 'year' && !desc} />
+                <input type="radio" name="price" className="w-5 h-5" checked={sortBy === 'vintage' && !desc} />
               </div>
             </div>
           </Box>

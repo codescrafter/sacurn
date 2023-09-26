@@ -31,7 +31,7 @@ const ProductList = () => {
   }, []);
 
   const onSortChange = useCallback(
-    (sortType: 'price' | 'year', desc: boolean) => {
+    (sortType: 'price' | 'vintage', desc: boolean) => {
       updateProductListByFilters({
         desc: desc,
         sort_by: sortType

@@ -34,7 +34,7 @@ export class CarbonCreditService {
     price?: string,
     tags?: string,
     vintage?: string,
-    sort_by?: 'price' | 'year'
+    sort_by?: 'price' | 'vintage'
   ): CancelablePromise<PaginatedCarbonCreditList> {
     return this.httpRequest.request({
       method: 'GET',
