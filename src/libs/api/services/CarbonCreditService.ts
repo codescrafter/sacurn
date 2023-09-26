@@ -15,263 +15,250 @@ import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class CarbonCreditService {
+  constructor(public readonly httpRequest: BaseHttpRequest) {}
 
-    constructor(public readonly httpRequest: BaseHttpRequest) {}
+  /**
+   * @param desc 價格排序方式
+   * @param location 地點
+   * @param page A page number within the paginated result set.
+   * @param price 價格 ex: 100,200
+   * @param tags 碳權種類
+   * @param vintage 年份
+   * @returns PaginatedCarbonCreditList
+   * @throws ApiError
+   */
+  public carbonCreditList(
+    desc?: boolean,
+    location?: string,
+    page?: number,
+    price?: string,
+    tags?: string,
+    vintage?: string,
+    sort_by?: 'price' | 'year'
+  ): CancelablePromise<PaginatedCarbonCreditList> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/carbon_credit/',
+      query: {
+        desc: desc,
+        location: location,
+        page: page,
+        price: price,
+        tags: tags,
+        vintage: vintage,
+        sort_by: sort_by
+      }
+    });
+  }
 
-    /**
-     * @param desc 價格排序方式
-     * @param location 地點
-     * @param page A page number within the paginated result set.
-     * @param price 價格 ex: 100,200
-     * @param tags 碳權種類
-     * @param vintage 年份
-     * @returns PaginatedCarbonCreditList
-     * @throws ApiError
-     */
-    public carbonCreditList(
-        desc?: boolean,
-        location?: string,
-        page?: number,
-        price?: string,
-        tags?: string,
-        vintage?: string,
-    ): CancelablePromise<PaginatedCarbonCreditList> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/',
-            query: {
-                'desc': desc,
-                'location': location,
-                'page': page,
-                'price': price,
-                'tags': tags,
-                'vintage': vintage,
-            },
-        });
-    }
+  /**
+   * @param id
+   * @param requestBody
+   * @returns CarbonCredit
+   * @throws ApiError
+   */
+  public carbonCreditPartialUpdate(id: number, requestBody?: PatchedCarbonCredit): CancelablePromise<CarbonCredit> {
+    return this.httpRequest.request({
+      method: 'PATCH',
+      url: '/carbon_credit/{id}/',
+      path: {
+        id: id
+      },
+      body: requestBody,
+      mediaType: 'application/json'
+    });
+  }
 
-    /**
-     * @param id
-     * @param requestBody
-     * @returns CarbonCredit
-     * @throws ApiError
-     */
-    public carbonCreditPartialUpdate(
-        id: number,
-        requestBody?: PatchedCarbonCredit,
-    ): CancelablePromise<CarbonCredit> {
-        return this.httpRequest.request({
-            method: 'PATCH',
-            url: '/carbon_credit/{id}/',
-            path: {
-                'id': id,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
+  /**
+   * @returns any No response body
+   * @throws ApiError
+   */
+  public carbonCreditCarbonLocationRetrieve(): CancelablePromise<any> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/carbon_credit/carbon_location/'
+    });
+  }
 
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditCarbonLocationRetrieve(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/carbon_location/',
-        });
-    }
+  /**
+   * @returns any No response body
+   * @throws ApiError
+   */
+  public carbonCreditCarbonLocationCreate(): CancelablePromise<any> {
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/carbon_credit/carbon_location/'
+    });
+  }
 
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditCarbonLocationCreate(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/carbon_credit/carbon_location/',
-        });
-    }
+  /**
+   * @param carbonCreditId 碳權pk
+   * @returns Certificate
+   * @throws ApiError
+   */
+  public carbonCreditCertificateRetrieve(carbonCreditId?: string): CancelablePromise<Certificate> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/carbon_credit/certificate/',
+      query: {
+        carbon_credit_id: carbonCreditId
+      }
+    });
+  }
 
-    /**
-     * @param carbonCreditId 碳權pk
-     * @returns Certificate
-     * @throws ApiError
-     */
-    public carbonCreditCertificateRetrieve(
-        carbonCreditId?: string,
-    ): CancelablePromise<Certificate> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/certificate/',
-            query: {
-                'carbon_credit_id': carbonCreditId,
-            },
-        });
-    }
+  /**
+   * @param requestBody
+   * @returns CarbonCredit
+   * @throws ApiError
+   */
+  public carbonCreditCreateCreate(requestBody: CarbonCredit): CancelablePromise<CarbonCredit> {
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/carbon_credit/create/',
+      body: requestBody,
+      mediaType: 'application/json'
+    });
+  }
 
-    /**
-     * @param requestBody
-     * @returns CarbonCredit
-     * @throws ApiError
-     */
-    public carbonCreditCreateCreate(
-        requestBody: CarbonCredit,
-    ): CancelablePromise<CarbonCredit> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/carbon_credit/create/',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
+  /**
+   * @returns FilterList
+   * @throws ApiError
+   */
+  public carbonCreditFilterListRetrieve(): CancelablePromise<FilterList> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/carbon_credit/filter_list/'
+    });
+  }
 
-    /**
-     * @returns FilterList
-     * @throws ApiError
-     */
-    public carbonCreditFilterListRetrieve(): CancelablePromise<FilterList> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/filter_list/',
-        });
-    }
+  /**
+   * @returns any No response body
+   * @throws ApiError
+   */
+  public carbonCreditImpactRetrieve(): CancelablePromise<any> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/carbon_credit/impact/'
+    });
+  }
 
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditImpactRetrieve(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/impact/',
-        });
-    }
+  /**
+   * @returns any No response body
+   * @throws ApiError
+   */
+  public carbonCreditImpactCreate(): CancelablePromise<any> {
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/carbon_credit/impact/'
+    });
+  }
 
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditImpactCreate(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/carbon_credit/impact/',
-        });
-    }
+  /**
+   * @returns any No response body
+   * @throws ApiError
+   */
+  public carbonCreditLocationRetrieve(): CancelablePromise<any> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/carbon_credit/location/'
+    });
+  }
 
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditLocationRetrieve(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/location/',
-        });
-    }
+  /**
+   * @returns any No response body
+   * @throws ApiError
+   */
+  public carbonCreditLocationCreate(): CancelablePromise<any> {
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/carbon_credit/location/'
+    });
+  }
 
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditLocationCreate(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/carbon_credit/location/',
-        });
-    }
+  /**
+   * @param carbonCreditId 碳權pk
+   * @returns any No response body
+   * @throws ApiError
+   */
+  public carbonCreditMailCertificateRetrieve(carbonCreditId?: string): CancelablePromise<any> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/carbon_credit/mail_certificate/',
+      query: {
+        carbon_credit_id: carbonCreditId
+      }
+    });
+  }
 
-    /**
-     * @param carbonCreditId 碳權pk
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditMailCertificateRetrieve(
-        carbonCreditId?: string,
-    ): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/mail_certificate/',
-            query: {
-                'carbon_credit_id': carbonCreditId,
-            },
-        });
-    }
+  /**
+   * @param desc 價格排序方式
+   * @param location 地點
+   * @param page A page number within the paginated result set.
+   * @param price 價格 ex: 100,200
+   * @param tags 碳權種類
+   * @param vintage 年份
+   * @returns PaginatedWatchListList
+   * @throws ApiError
+   */
+  public carbonCreditWatchListList(
+    desc?: boolean,
+    location?: string,
+    page?: number,
+    price?: string,
+    tags?: string,
+    vintage?: string
+  ): CancelablePromise<PaginatedWatchListList> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/carbon_credit/watch_list/',
+      query: {
+        desc: desc,
+        location: location,
+        page: page,
+        price: price,
+        tags: tags,
+        vintage: vintage
+      }
+    });
+  }
 
-    /**
-     * @param desc 價格排序方式
-     * @param location 地點
-     * @param page A page number within the paginated result set.
-     * @param price 價格 ex: 100,200
-     * @param tags 碳權種類
-     * @param vintage 年份
-     * @returns PaginatedWatchListList
-     * @throws ApiError
-     */
-    public carbonCreditWatchListList(
-        desc?: boolean,
-        location?: string,
-        page?: number,
-        price?: string,
-        tags?: string,
-        vintage?: string,
-    ): CancelablePromise<PaginatedWatchListList> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/watch_list/',
-            query: {
-                'desc': desc,
-                'location': location,
-                'page': page,
-                'price': price,
-                'tags': tags,
-                'vintage': vintage,
-            },
-        });
-    }
+  /**
+   * @param requestBody
+   * @returns WatchList
+   * @throws ApiError
+   */
+  public carbonCreditWatchListCreate(requestBody?: WatchListRequestSerialzer): CancelablePromise<WatchList> {
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/carbon_credit/watch_list/',
+      body: requestBody,
+      mediaType: 'application/json'
+    });
+  }
 
-    /**
-     * @param requestBody
-     * @returns WatchList
-     * @throws ApiError
-     */
-    public carbonCreditWatchListCreate(
-        requestBody?: WatchListRequestSerialzer,
-    ): CancelablePromise<WatchList> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/carbon_credit/watch_list/',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
+  /**
+   * @returns void
+   * @throws ApiError
+   */
+  public carbonCreditWatchListDestroy(): CancelablePromise<void> {
+    return this.httpRequest.request({
+      method: 'DELETE',
+      url: '/carbon_credit/watch_list/'
+    });
+  }
 
-    /**
-     * @returns void
-     * @throws ApiError
-     */
-    public carbonCreditWatchListDestroy(): CancelablePromise<void> {
-        return this.httpRequest.request({
-            method: 'DELETE',
-            url: '/carbon_credit/watch_list/',
-        });
-    }
-
-    /**
-     * @param id
-     * @returns void
-     * @throws ApiError
-     */
-    public carbonCreditWatchListDestroy2(
-        id: number,
-    ): CancelablePromise<void> {
-        return this.httpRequest.request({
-            method: 'DELETE',
-            url: '/carbon_credit/watch_list/{id}/',
-            path: {
-                'id': id,
-            },
-        });
-    }
-
+  /**
+   * @param id
+   * @returns void
+   * @throws ApiError
+   */
+  public carbonCreditWatchListDestroy2(id: number): CancelablePromise<void> {
+    return this.httpRequest.request({
+      method: 'DELETE',
+      url: '/carbon_credit/watch_list/{id}/',
+      path: {
+        id: id
+      }
+    });
+  }
 }
