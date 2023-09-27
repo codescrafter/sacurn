@@ -64,8 +64,8 @@ const PasswordResetApplicationFilling = () => {
           <div className="pt-14 text-xl font-bold w-[50%]">
             提醒您
             <ul className="list-disc font-normal ml-8">
-              {PASSWORD_RESET_STEPS.map((step) => {
-                return <li>{step}</li>;
+              {PASSWORD_RESET_STEPS.map((step, index) => {
+                return <li key={index}>{step}</li>;
               })}
             </ul>
           </div>

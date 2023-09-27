@@ -53,8 +53,8 @@ const IdentityVerification = () => {
           <div className="mt-10">
             <p className="text-xl">注意事項</p>
             <ul className="text-xl list-disc mt-1 ml-8">
-              {PRECAUTIONS.map((precaution) => {
-                return <li>{precaution}</li>;
+              {PRECAUTIONS.map((precaution, index) => {
+                return <li key={index}>{precaution}</li>;
               })}
             </ul>
           </div>
