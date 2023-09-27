@@ -6,11 +6,12 @@ import { SxProps } from '@mui/system';
 import * as React from 'react';
 
 interface IProps {
-  isLowToHight: boolean;
-  onSortChange: () => void;
+  desc: boolean | undefined;
+  onSortChange: (sortType: 'price' | 'vintage', desc: boolean) => void;
+  sortBy: 'price' | 'vintage' | undefined;
 }
 
-export default function SortFiltersModal({ isLowToHight, onSortChange }: IProps) {
+export default function SortFiltersModal({ desc, onSortChange, sortBy }: IProps) {
   const [openSortModal, setOpenSortModal] = React.useState(false);
 
   const handleClickAway = () => {
@@ -31,11 +32,19 @@ export default function SortFiltersModal({ isLowToHight, onSortChange }: IProps)
     borderRadius: '5px'
   };
 
+  const textToShow = React.useCallback(() => {
+    if (sortBy === 'price' && !desc) return 'Sort: Low to High';
+    if (sortBy === 'price' && desc) return 'Sort: High to Low';
+    if (sortBy === 'vintage' && desc) return 'Sort: Newest to Oldest';
+    if (sortBy === 'vintage' && !desc) return 'Sort: Oldest to Newest';
+    return '';
+  }, [sortBy, desc]);
+
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <div className="relative text-white">
         <span className="cursor-pointer" onClick={() => setOpenSortModal(true)}>
-          {isLowToHight ? 'Sort: Low to High' : 'Sort: High to Low'}
+          {textToShow()}
         </span>
         {openSortModal && <KeyboardArrowDownIcon />}
         {!openSortModal && <KeyboardArrowUpIcon />}
@@ -43,24 +52,35 @@ export default function SortFiltersModal({ isLowToHight, onSortChange }: IProps)
           <Box sx={styles}>
             <div className="px-2.5 py-3">
               <h6 className="text-[#525252] text-lg font-bold mb-4">Price</h6>
-              <div onClick={onSortChange} className="flex cursor-pointer justify-between items-center mb-4">
+              <div
+                onClick={() => onSortChange('price', false)}
+                className="flex cursor-pointer justify-between items-center mb-4"
+              >
                 <span className="text-[#525252] text-lg font-normal">Low to High</span>
-                <input type="radio" name="price" className="w-5 h-5" checked={isLowToHight} />
+                <input type="radio" name="price" className="w-5 h-5" checked={!desc && sortBy === 'price'} />
               </div>
-              <div className="flex cursor-pointer justify-between items-center mb-4">
-                <span onClick={onSortChange} className="text-[#525252] text-lg font-normal">
-                  High to Low
-                </span>
-                <input type="radio" name="price" className="w-5 h-5" checked={!isLowToHight} onChange={onSortChange} />
+              <div
+                onClick={() => onSortChange('price', true)}
+                className="flex cursor-pointer justify-between items-center mb-4"
+              >
+                <span className="text-[#525252] text-lg font-normal">High to Low</span>
+                <input type="radio" name="price" className="w-5 h-5" checked={desc && sortBy === 'price'} />
               </div>
               <h6 className="text-[#525252] text-lg font-bold mb-4">Vintages</h6>
-              <div className="flex justify-between items-center">
+              <div
+                onClick={() => onSortChange('vintage', true)}
+                className="flex justify-between items-center cursor-pointer"
+              >
                 <span className="text-[#525252] text-lg font-normal">Newest to Oldest</span>
-                <input type="radio" name="price" className="w-5 h-5" />
+
+                <input type="radio" name="price" className="w-5 h-5" checked={sortBy === 'vintage' && desc} />
               </div>
-              <div className="flex justify-between items-center mt-3">
+              <div
+                onClick={() => onSortChange('vintage', false)}
+                className="flex justify-between items-center mt-3 cursor-pointer"
+              >
                 <span className="text-[#525252] text-lg font-normal">Oldest to Newest</span>
-                <input type="radio" name="price" className="w-5 h-5" />
+                <input type="radio" name="price" className="w-5 h-5" checked={sortBy === 'vintage' && !desc} />
               </div>
             </div>
           </Box>

@@ -10,7 +10,7 @@ export type Cart = {
     readonly image: string;
     readonly company_code: string;
     readonly remaining_quantity: string;
-    readonly order_deleted: number;
+    order_deleted?: number;
     price: number;
     quantity: number;
     status?: number;

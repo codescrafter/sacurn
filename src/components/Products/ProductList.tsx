@@ -30,11 +30,15 @@ const ProductList = () => {
     if (wishList.length === 0) getWishList();
   }, []);
 
-  const onSortChange = useCallback(() => {
-    updateProductListByFilters({
-      desc: !filters.desc
-    });
-  }, [filters.desc]);
+  const onSortChange = useCallback(
+    (sortType: 'price' | 'vintage', desc: boolean) => {
+      updateProductListByFilters({
+        desc: desc,
+        sort_by: sortType
+      });
+    },
+    [filters.desc]
+  );
 
   return (
     <div className="flex pr-10 justify-end">
@@ -95,7 +99,7 @@ const ProductList = () => {
               }}
             />
           </div>
-          <SortFiltersModal isLowToHight={!filters.desc} onSortChange={onSortChange} />
+          <SortFiltersModal desc={filters.desc} sortBy={filters.sort_by} onSortChange={onSortChange} />
         </div>
         <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 overflow-scroll overflow-x-hidden">
           <div className="flex flex-col gap-5 h-[60vh] 2xl:h-[74vh]">

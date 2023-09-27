@@ -9,3 +9,14 @@ export const getCookie = (name: 'auth') => {
   }
   return null;
 };
+
+export const fileSizeLimit = (files: File[]) => {
+  const totalSize = files?.reduce((acc: number, file: File) => {
+    if (file?.size) {
+      return acc + file.size;
+    }
+    return acc;
+  }, 0);
+  if (totalSize > 2097152) return '文件大小超过 2MB';
+  return null;
+};

@@ -5,6 +5,8 @@
 
 export type OperationRecord = {
     readonly id: number;
+    readonly username: string;
+    readonly total_money: string;
     product_name?: string | null;
     price?: number | null;
     quantity?: number | null;

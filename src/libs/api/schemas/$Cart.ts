@@ -35,9 +35,7 @@ export const $Cart = {
             isRequired: true,
         },
         order_deleted: {
-            type: 'string',
-            isReadOnly: true,
-            isRequired: true,
+            type: 'number',
         },
         price: {
             type: 'number',
