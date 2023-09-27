@@ -217,7 +217,10 @@ module.exports = {
       'text-light': '#DCDCDC',
       'trans-grey': 'rgba(255, 255, 255, 0.30)',
       // v2 colors
-      ceramic: '#F9F9F9'
+      ceramic: '#F9F9F9',
+      deepseablue:'#005487',
+      'sunset-orange':'#FF0000'
+  
     }
   },
   plugins: []
