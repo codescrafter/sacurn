@@ -69,7 +69,7 @@ const ProductList = () => {
         <div className="mt-3 flex justify-between items-center">
           <div className="flex justify-end items-center gap-5">
             <SelectField
-              label="Location"
+              label="All"
               value={filters.location}
               options={locationOptions}
               handleChange={(location: (typeof locationOptions)[number]['value'] | undefined) => {
@@ -117,6 +117,7 @@ const ProductList = () => {
                 vintage={product.vintage || '-'}
                 minPrice={product.min_price}
                 maxPrice={product.max_price}
+                location={product.location || '-'}
               />
             ))}
           </div>
