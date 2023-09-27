@@ -9,6 +9,7 @@ const IdentityVerification = () => {
   const [btnText, setBtnText] = useState('寄送驗證碼');
   const [isClicked, setIsClicked] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
+
   useEffect(() => {
     if (isClicked) {
       if (!isOpened) {
@@ -29,6 +30,7 @@ const IdentityVerification = () => {
   const isClickedHandler = () => {
     setIsClicked((state) => !state);
   };
+
   return (
     <div className="w-[90%] mx-auto flex flex-col gap-4">
       <VerificationCard>
@@ -36,7 +38,7 @@ const IdentityVerification = () => {
           <div className="flex justify-between items-center mt-10">
             <div className="text-navy-blue text-xl">
               <p>系統將寄送驗證通知信至您留存於本行的電子郵件信箱</p>
-              <span className="text-bright-red">{'example@gmail.com'}</span>
+              <span className="text-bright-red">example@gmail.com</span>
               <span>請確認電子信箱是否正確</span>
             </div>
             <CustomButton
