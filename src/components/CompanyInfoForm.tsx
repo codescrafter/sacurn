@@ -19,7 +19,7 @@ import {
   REGISTRATION_PENDING_STATUS,
   URBAN_AREA_LIST
 } from '@/util/constants';
-import { getCookie } from '@/util/helper';
+import { fileSizeLimit, getCookie } from '@/util/helper';
 
 import CompanyInputField from './CompanyInputField';
 import CustomButton from './CustomButton';
@@ -121,6 +121,13 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
 
   useEffect(() => {
+    if (!uploadedDocs.length) return;
+    const fileSize = fileSizeLimit(uploadedDocs);
+    if (fileSize) return setImageErrorMessage(fileSize);
+    setImageErrorMessage(null);
+  }, [uploadedDocs]);
+
+  useEffect(() => {
     (async () => {
       if (!companyId) return;
       const data = await getCompanyInfo(companyId);
@@ -190,6 +197,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     if (!contactFirstAddress || !contactSecondAddress || !contactThirdAddress || !contactFourthAddress) {
       return setContactAddressError(true);
     }
+    const fileSize = fileSizeLimit(uploadedDocs);
+    if (fileSize) return setImageErrorMessage(fileSize);
     if (!uploadedDocs.length) return setImageErrorMessage('請上傳營業登記文件');
     const dataToSubmit = {
       id: 0,
@@ -381,7 +390,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     <input
                       type="text"
                       placeholder="郵遞區號"
-                      className={classNames('w-24 px-3', Style, {})}
+                      className={classNames('w-24 px-3', Style)}
                       value={thirdAddress}
                     />
                   </div>

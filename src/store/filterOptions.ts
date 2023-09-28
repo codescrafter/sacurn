@@ -20,6 +20,7 @@ export type Filters = {
   desc?: boolean;
   tag?: string;
   page?: number;
+  sort_by?: 'price' | 'vintage';
 };
 
 export const useFilterOptionsStore = create<FilterOptionsState>((set, get) => ({
