@@ -17,11 +17,11 @@ const WishListProdCard = ({ product }: IProps) => {
   };
   return (
     <>
-      <div className="flex flex-row px-5.7 py-3.2 min-[1700px]:w-[810px] min-[1500px]:min-w-[700px] min-[630px] w-auto bg-milky rounded-lg max-h-[190px]">
+      <div className="flex flex-row px-5.7 py-3.2 min-[1700px]:w-[810px] min-[1500px]:min-w-[700px] min-[630px] w-auto bg-milky rounded-lg max-h-[190px] 3xl:w-full 3xl:h-[260px] 3xl:max-h-full">
         <img
           src={product.image}
           className={classNames(
-            'min-[1700px]:w-[256px] min-[1700px]:h-[162px] min-[1500px]:min-w-[220px] min-[1200px]:min-w-[180px] min-w-[150px] w-auto min-[1500px]:h-[150px] min-[1200px]:h-[130px] h-[140px] rounded-lg mr-3 border-[5px]',
+            'min-[1700px]:w-[256px] min-[1700px]:h-[162px] min-[1500px]:min-w-[220px] min-[1200px]:min-w-[180px] min-w-[150px] w-auto min-[1500px]:h-[150px] min-[1200px]:h-[130px] h-[140px] rounded-lg mr-3 border-[5px] 3xl:h-[232px] 3xl:min-w-[332px]',
             {
               'border-light-green': product.carbon_tag === CarbonTag.Green,
               'border-yellow': product.carbon_tag === CarbonTag.Yellow,
