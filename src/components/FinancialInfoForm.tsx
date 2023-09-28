@@ -8,7 +8,7 @@ import { useCompanyStore } from '@/store/company';
 import { COOKIE_AUTH_NAME } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps, FINANCIAL_CATEGORY, FINANCIAL_INSTUITION_LIST } from '@/util/constants';
-import { getCookie } from '@/util/helper';
+import { fileSizeLimit, getCookie } from '@/util/helper';
 
 import CustomButton from './CustomButton';
 import UploadBankBookDocuments from './UploadBankBookDocuments';
@@ -66,6 +66,13 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
 
   useEffect(() => {
+    if (!uploadedDocs.length) return;
+    const fileSize = fileSizeLimit(uploadedDocs);
+    if (fileSize) return setImageErrorMessage(fileSize);
+    setImageErrorMessage(null);
+  }, [uploadedDocs]);
+
+  useEffect(() => {
     (async () => {
       if (!companyId) return;
       const data = await getCompanyInfo(companyId);
@@ -83,6 +90,8 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      const fileSize = fileSizeLimit(uploadedDocs);
+      if (fileSize) return setImageErrorMessage(fileSize);
       if (!uploadedDocs.length) return setImageErrorMessage('請上傳存摺影本圖檔');
       if (!companyId) return;
       const formData = new FormData();

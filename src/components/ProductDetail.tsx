@@ -34,10 +34,10 @@ const Item = ({ order }: { order: Order }) => {
   );
 
   return (
-    <div className="flex justify-between w-full py-6.2 border-b-2 border-opacity-30 border-white text-white">
+    <div className="flex justify-between items-center w-full py-6.2 border-b-2 border-opacity-30 border-white text-white">
       <p className="text-2xl leading-9 font-medium text-left ml-3 w-1/6">${order.price}</p>
       <p className="text-2xl leading-9 font-normal text-left w-1/6">{order.company_code}</p>
-      <div className="w-1/6 flex justify-center">
+      <div className="w-1/6 flex justify-center items-center">
         <p className="text-2xl leading-9 font-normal text-right">{order.remaining_quantity} 噸</p>
       </div>
       <div className="w-1/6 flex justify-end">

@@ -152,7 +152,7 @@ const TextRow = ({ title, value }: TextRowProps) => {
   );
 };
 
-const PURCHASE_INFO_NOTE = [
+export const PURCHASE_INFO_NOTE = [
   {
     id: 1,
     title: '注意事項',

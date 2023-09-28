@@ -20,9 +20,23 @@ interface IProps {
   vintage: string;
   minPrice: string;
   maxPrice: string;
+  location: string;
 }
 
-const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage, minPrice, maxPrice }: IProps) => {
+const Tile = ({
+  id,
+  tag,
+  name,
+  rating,
+  image,
+  standard,
+  type,
+  coBenefit,
+  vintage,
+  minPrice,
+  maxPrice,
+  location
+}: IProps) => {
   const addToWhishList = useWishListStore((store) => store.addToWhishList);
   const deleteWishList = useWishListStore((store) => store.deleteWishList);
   const wishList = useWishListStore((store) => store.wishList);
@@ -49,7 +63,7 @@ const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage
           <h3 className="text-lg font-bold text-black">{name}</h3>
           <div className="flex gap-.5 items-center mb-1">
             <img src="/images/products/green/location.svg" alt="location" className="inline-block mr-2" />
-            <p className="text-sm text-grey">Peru</p>
+            <p className="text-sm text-grey">{location}</p>
           </div>
           {rating && (
             <>
