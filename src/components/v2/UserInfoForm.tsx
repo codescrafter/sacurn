@@ -26,7 +26,7 @@ const UserInfoForm = () => {
     <div className="rounded-mdlg bg-white py-6.2 px-8 mt-[146px] w-max flex flex-col gap-4.5">
       <p className="text-navy-blue text-lg font-bold">| 新增使用者</p>
       <div className="flex gap-8 mt-2.5">
-        <div className="relative mt-[95px]">
+        <div className="relative mt-[65px]">
           <IconButton component="label" className="relative z-50">
             <label className="absolute text-sm z-40 text-white cursor-pointer" htmlFor="image">
               更換照片

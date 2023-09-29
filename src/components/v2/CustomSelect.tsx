@@ -1,21 +1,32 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 const CustomSelect = () => {
+  const dropDownRef = useRef(null);
+
   const [isOpen, setIsOpen] = useState(false);
   const [isSelected, setIsSelected] = useState('');
-  const isOpenHandler = () => {
-    setIsOpen((state) => !state);
+  const isOpenHandler = (val: boolean) => {
+    setIsOpen((state) => {
+      if (state == true && val == true) return false;
+      return val;
+    });
   };
 
   const isSelectedHandler = (val: string) => {
     setIsSelected(val);
   };
 
+  useOutsideClick(dropDownRef, () => {
+    if (isOpen) isOpenHandler(false);
+  });
+
   return (
     <div
       className={classNames({
-        'bg-white shadow-input-field rounded-2.5xl': isOpen,
+        'bg-white shadow-input-field rounded-2.5xl h-max': isOpen,
         '': !isOpen
       })}
     >
@@ -23,7 +34,8 @@ const CustomSelect = () => {
         className={classNames('h-11.5 px-6 py-2.5 outline-none w-[296px] flex items-center cursor-pointer gap-2.5', {
           ' shadow-input-field rounded-full': !isOpen
         })}
-        onClick={isOpenHandler}
+        onClick={() => isOpenHandler(true)}
+        ref={dropDownRef}
       >
         <p>身份選擇</p>
         <img src="/v2/user-info-form/down-arrow.svg" />
