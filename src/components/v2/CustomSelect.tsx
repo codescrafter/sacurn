@@ -3,11 +3,22 @@ import { useState } from 'react';
 
 const CustomSelect = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSelected, setIsSelected] = useState('');
   const isOpenHandler = () => {
     setIsOpen((state) => !state);
   };
+
+  const isSelectedHandler = (val: string) => {
+    setIsSelected(val);
+  };
+
   return (
-    <div className={classNames({ 'bg-white shadow-input-field rounded-2.5xl': isOpen, '': !isOpen })}>
+    <div
+      className={classNames({
+        'bg-white shadow-input-field rounded-2.5xl': isOpen,
+        '': !isOpen
+      })}
+    >
       <div
         className={classNames('h-11.5 px-6 py-2.5 outline-none w-[296px] flex items-center cursor-pointer gap-2.5', {
           ' shadow-input-field rounded-full': !isOpen
@@ -18,9 +29,17 @@ const CustomSelect = () => {
         <img src="/v2/user-info-form/down-arrow.svg" />
       </div>
       {isOpen && (
-        <div className="rounded-b-2.5xl bg-white py-1 flex flex-col gap-4 pb-3 px-10">
-          {options.map((option) => (
-            <label>{option}</label>
+        <div className="rounded-b-2.5xl bg-white py-1 flex flex-col gap-4 pb-3 px-10 ">
+          {options.map((option, index) => (
+            <label
+              className={classNames('bg-white hover:text-light-blue cursor-pointer', {
+                'font-extrabold underline text-navy-blue leading-normal': isSelected === option
+              })}
+              key={index}
+              onClick={() => isSelectedHandler(option)}
+            >
+              {option}
+            </label>
           ))}
         </div>
       )}

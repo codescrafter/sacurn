@@ -23,9 +23,9 @@ const UserInfoForm = () => {
   }
 
   return (
-    <div className="rounded-mdlg bg-white py-6.2 px-8 mt-[146px] w-max flex flex-col">
+    <div className="rounded-mdlg bg-white py-6.2 px-8 mt-[146px] w-max flex flex-col gap-4.5">
       <p className="text-navy-blue text-lg font-bold">| 新增使用者</p>
-      <div className="flex gap-8">
+      <div className="flex gap-8 mt-2.5">
         <div className="relative mt-[95px]">
           <IconButton component="label" className="relative z-50">
             <label className="absolute text-sm z-40 text-white cursor-pointer" htmlFor="image">
@@ -40,15 +40,15 @@ const UserInfoForm = () => {
           <CustomInput heading="職稱" id="job_title" type="text" register={register} />
           <CustomInput heading="Email" id="email" type="text" register={register} />
           <CustomInput heading="電話" id="telephone" type="text" register={register} />
-          <CustomInput heading="分機" id="extension" type="text" register={register} className="w-[148px]" />
+          <CustomInput heading="分機" id="extension" type="text" register={register} className="!w-[148px]" />
         </div>
-        <div className="flex flex-col justify-between max-w-[410px]">
+        <div className="flex flex-col justify-between max-w-[415px]">
           <div className="flex gap-7.5 self-end">
             <p className="text-lg text-navy-blue font-bold mt-2.5">操作權限</p>
             <CustomSelect />
           </div>
-          <div>
-            <div className="flex gap-2">
+          <div className="flex flex-col">
+            <div className="flex gap-2 w-[95%] self-end">
               <input type="checkbox" className="h-7 w-7" />
               <p className="text-navy-blue text-base font-bold break-normal">
                 確認後無法修改, 系統將自動寄送email至指定信箱進行身分驗證。
