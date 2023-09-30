@@ -224,7 +224,8 @@ module.exports = {
       'trans-grey': 'rgba(255, 255, 255, 0.30)',
       // v2 colors
       ceramic: '#F9F9F9',
-      'light-white': '#ffffff4c'
+      'light-white': '#ffffff4c',
+      'trans-white': '#ffffffe6'
     }
   },
   plugins: []

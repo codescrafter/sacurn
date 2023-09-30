@@ -1,9 +1,14 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
+import { FieldValues, UseFormSetValue } from 'react-hook-form';
 
 import useOutsideClick from '@/hooks/useOutsideClick';
 
-const CustomSelect = () => {
+interface CustomSelectIProps {
+  setValue: UseFormSetValue<FieldValues>;
+}
+
+const CustomSelect = ({ setValue }: CustomSelectIProps) => {
   const dropDownRef = useRef(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +21,7 @@ const CustomSelect = () => {
   };
 
   const isSelectedHandler = (val: string) => {
+    setValue('operation_permission', val);
     setIsSelected(val);
   };
 
@@ -31,9 +37,13 @@ const CustomSelect = () => {
       })}
     >
       <div
-        className={classNames('h-11.5 px-6 py-2.5 outline-none w-[296px] flex items-center cursor-pointer gap-2.5', {
-          ' shadow-input-field rounded-full': !isOpen
-        })}
+        className={classNames(
+          'bg-white h-11.5 px-6 py-2.5 outline-none w-[296px] flex items-center cursor-pointer gap-2.5',
+          {
+            ' shadow-input-field rounded-full': !isOpen,
+            'rounded-t-2.5xl': isOpen
+          }
+        )}
         onClick={() => isOpenHandler(true)}
         ref={dropDownRef}
       >

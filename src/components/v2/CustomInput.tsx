@@ -14,12 +14,14 @@ const CustomInput = ({ id, register, type, placeholder, heading, className }: Cu
   return (
     <div className="flex items-center gap-7.5">
       <p className="text-xl text-navy-blue text-right font-bold min-w-[54px]">{heading}</p>
-      <input
-        className={classNames('rounded-full shadow-input-field h-11.5 px-2 py-1 outline-none w-[296px]', className)}
-        {...register(id)}
-        placeholder={placeholder}
-        type={type}
-      />
+      <div>
+        <input
+          className={classNames('rounded-full shadow-input-field h-11.5 px-2 py-1 outline-none w-[296px]', className)}
+          {...register(id)}
+          placeholder={placeholder}
+          type={type}
+        />
+      </div>
     </div>
   );
 };
