@@ -37,7 +37,7 @@ const CardRenewal = () => {
         <div>
           <CardSteps totalSteps={3} currentStep={cardRenewal} />
         </div>
-        <div className="my-8 text-center grid grid-cols-3 gap-5">
+        <div className="my-8 text-center grid grid-cols-3">
           {cardRenewalList &&
             cardRenewalList.map((item) => (
               <CustomCard
