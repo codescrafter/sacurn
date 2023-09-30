@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
@@ -6,10 +7,23 @@ import Layout from '@/components/v2/Layout';
 import { CardRenewalEnum } from '@/type';
 
 const CardRenewal = () => {
+  const { state } = useLocation();
+  const navigate = useNavigate();
   const [cardRenewal, setCardRenewal] = useState<CardRenewalEnum>();
   const [cardRenewalList, setCardRenewalList] = useState([CARD_RENEWAL[0]]);
 
+  useEffect(() => {
+    if (state && state?.step) {
+      setCardRenewal(state.step);
+      setCardRenewalList(CARD_RENEWAL);
+    }
+  }, []);
+
   const getCardRenewalValue = (value: number) => {
+    if (value === CardRenewalEnum.PAYMENT_METHOD) {
+      navigate('/v2/cart');
+      return;
+    }
     setCardRenewal(CardRenewalEnum.EXPIRY_DATE + value);
     const updatedList = [...cardRenewalList, CARD_RENEWAL[value]];
     setCardRenewalList(updatedList);

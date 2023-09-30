@@ -3,6 +3,10 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      screens: {
+        '2.5xl': '1780px',
+        '3xl': '1920px'
+      },
       // light mode
       tremor: {
         brand: {
