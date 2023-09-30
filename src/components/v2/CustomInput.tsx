@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 
+import { UserInfoFormValues } from './UserInfoForm';
 interface CustomInputIProps {
-  id: string;
-  register: UseFormRegister<FieldValues>;
+  id: 'name' | 'job_title' | 'email' | 'telephone' | 'extension' | 'operation_permission';
+  register: UseFormRegister<UserInfoFormValues>;
   type: string;
   placeholder?: string;
   heading?: string;

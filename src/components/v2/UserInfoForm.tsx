@@ -1,15 +1,45 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import React from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
 import CustomButton from '../CustomButton';
 import CustomInput from './CustomInput';
 import CustomSelect from './CustomSelect';
 
+export interface UserInfoFormValues {
+  name: string;
+  job_title: string;
+  email: string;
+  telephone: string;
+  extension: string;
+  operation_permission: string;
+  confirm_info: boolean;
+}
+
+const Schema = yup
+  .object({
+    name: yup.string().required('姓名為必填項'),
+    job_title: yup.string().required('職位名稱為必填項'),
+    email: yup.string().email('Enter valid address').required('電子郵件為必填項'),
+    telephone: yup
+      .string()
+      .required('例如：0x-000111 或 09xx-000111')
+      .matches(/^09\d{8}$/, '例如：0x-000111 或 09xx-000111'),
+    extension: yup.string().required('需要延期'),
+    operation_permission: yup.string().required('需要操作權限'),
+    confirm_info: yup
+      .boolean()
+      .required('請務必確認勾選此框。')
+      .test('is-true', '請務必確認勾選此框。', (value) => value === true)
+  })
+  .required();
+
 const UserInfoForm = () => {
-  const { register, setValue, handleSubmit } = useForm();
+  const { register, setValue, handleSubmit } = useForm<UserInfoFormValues>({ resolver: yupResolver(Schema) });
 
   const [file, setFile] = useState<string>('/v2/user-info-form/default.svg');
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {

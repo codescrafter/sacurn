@@ -1,11 +1,13 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
-import { FieldValues, UseFormSetValue } from 'react-hook-form';
+import { UseFormSetValue } from 'react-hook-form';
 
 import useOutsideClick from '@/hooks/useOutsideClick';
 
+import { UserInfoFormValues } from './UserInfoForm';
+
 interface CustomSelectIProps {
-  setValue: UseFormSetValue<FieldValues>;
+  setValue: UseFormSetValue<UserInfoFormValues>;
 }
 
 const CustomSelect = ({ setValue }: CustomSelectIProps) => {
