@@ -94,3 +94,9 @@ export type MembershipTypes = {
   icon: string;
   slug: MembershipStep;
 };
+
+export enum CardRenewalEnum {
+  EXPIRY_DATE = 1,
+  PAYMENT_METHOD = 2,
+  COMPLETE_RENEWAL = 3
+}
