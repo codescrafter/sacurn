@@ -81,3 +81,22 @@ export enum OrderStatus {
   OnSale = 0, // 商品上架中
   OffShelve = 1 // 商品已下架
 }
+
+export enum MembershipStep {
+  RENEWAL = 'RENEWAL',
+  REISSUE = 'REISSUE',
+  REVOKED = 'REVOKED'
+}
+
+export type MembershipTypes = {
+  id: number;
+  title: string;
+  icon: string;
+  slug: MembershipStep;
+};
+
+export enum CardRenewalEnum {
+  EXPIRY_DATE = 1,
+  PAYMENT_METHOD = 2,
+  COMPLETE_RENEWAL = 3
+}
