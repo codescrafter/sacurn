@@ -16,7 +16,7 @@ interface IProps {
 const Layout = ({ children }: IProps) => {
   const { pathname } = useLocation();
   const membership = useMembershipStepsStore((state) => state.step);
-  console.log('membership--------------------', membership);
+
   return (
     <Fragment>
       <Navbar className="!bg-navy-blue py-4" />
