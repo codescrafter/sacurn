@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
+import classNames from 'classnames';
 import React from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -39,7 +40,12 @@ const Schema = yup
   .required();
 
 const UserInfoForm = () => {
-  const { register, setValue, handleSubmit } = useForm<UserInfoFormValues>({ resolver: yupResolver(Schema) });
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<UserInfoFormValues>({ resolver: yupResolver(Schema) });
 
   const [file, setFile] = useState<string>('/v2/user-info-form/default.svg');
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -68,12 +74,19 @@ const UserInfoForm = () => {
               <input type="file" hidden onChange={handleChange} id="image" />
             </IconButton>
           </div>
-          <div className="flex flex-col gap-4.2">
-            <CustomInput heading="姓名" id="name" type="text" register={register} />
-            <CustomInput heading="職稱" id="job_title" type="text" register={register} />
-            <CustomInput heading="Email" id="email" type="text" register={register} />
-            <CustomInput heading="電話" id="telephone" type="text" register={register} />
-            <CustomInput heading="分機" id="extension" type="text" register={register} className="!w-[148px]" />
+          <div className={classNames('flex flex-col gap-4.2')}>
+            <CustomInput errors={errors} heading="姓名" id="name" type="text" register={register} />
+            <CustomInput errors={errors} heading="職稱" id="job_title" type="text" register={register} />
+            <CustomInput errors={errors} heading="Email" id="email" type="text" register={register} />
+            <CustomInput errors={errors} heading="電話" id="telephone" type="text" register={register} />
+            <CustomInput
+              errors={errors}
+              heading="分機"
+              id="extension"
+              type="text"
+              register={register}
+              className="!w-[148px]"
+            />
           </div>
           <div className="flex flex-col justify-between max-w-[415px]">
             <div className="flex gap-7.5 self-end">
@@ -83,9 +96,14 @@ const UserInfoForm = () => {
             <div className="flex flex-col">
               <div className="flex gap-2 w-[95%] self-end">
                 <input type="checkbox" className="h-7 w-7" {...register('confirm_info')} />
-                <p className="text-navy-blue text-base font-bold break-normal">
-                  確認後無法修改, 系統將自動寄送email至指定信箱進行身分驗證。
-                </p>
+                <div className="flex flex-col">
+                  <p className="text-navy-blue text-base font-bold break-normal">
+                    確認後無法修改, 系統將自動寄送email至指定信箱進行身分驗證。
+                  </p>
+                  {errors && errors.confirm_info && (
+                    <p className="text-xs text-bright-red">{errors.confirm_info?.message}</p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
