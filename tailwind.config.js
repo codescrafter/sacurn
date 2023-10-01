@@ -3,6 +3,10 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      screens: {
+        '2.5xl': '1780px',
+        '3xl': '1920px'
+      },
       // light mode
       tremor: {
         brand: {
@@ -225,7 +229,9 @@ module.exports = {
       // v2 colors
       ceramic: '#F9F9F9',
       'light-white': '#ffffff4c',
-      'trans-white': '#ffffffe6'
+      'trans-white': '#ffffffe6',
+      'ceramic-bg': '#E0E0E0',
+      'hit-grey': '#A8A8A8'
     }
   },
   plugins: []
