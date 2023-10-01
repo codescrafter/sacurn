@@ -9,8 +9,8 @@ const MembershipCenterNav = () => {
     setSelected(selectedSection);
   };
   return (
-    <div className="flex flex-col gap-5 w-max mt-5">
-      <div className="flex 2xl:w-[55vw] xl:w-[53vw] w-[50vw] h-[42px] first:rounded-s-md">
+    <div className="flex flex-col gap-5 w-max mt-5 ml-3">
+      <div className="flex min-[1600]:w-[60vw] min-[1500]:w-[55vw] min-[1300]:w-[53vw] w-[50vw] h-[42px] first:rounded-s-md">
         <CustomButton
           children="帳號資訊"
           variant="secondary"

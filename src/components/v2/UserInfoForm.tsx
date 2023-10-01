@@ -62,7 +62,7 @@ const UserInfoForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <div className="rounded-mdlg bg-trans-white min-[1400px]:py-6.2 min-[1200px]:py-4.7 py-3 min-[1400px]:px-8 min-[1200px]:px-6 px-4 mt-[146px] w-max flex flex-col bg-blend-lighten min-[1400px]:gap-4.5 gap-3">
+      <div className="rounded-mdlg bg-trans-white min-[1400px]:py-6.2 min-[1200px]:py-4.7 py-3 min-[1400px]:px-8 min-[1200px]:px-6 px-4 mt-[146px] w-max flex flex-col bg-blend-lighten min-[1400px]:gap-4.5 gap-3 ml-10">
         <p className="text-navy-blue 2xl:text-lg xl:text-base text-mdbase font-bold">| 新增使用者</p>
         <div className="flex 2xl:gap-8 xl:gap-6.5 gap-5 mt-2.5">
           <div className="relative mt-[65px]">
