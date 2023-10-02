@@ -31,8 +31,8 @@ const Navbar = ({ className }: IProps) => {
                   'border-b border-white': location.pathname === item.path
                 })}
               >
-                <Link to={item.path}>
-                  <p className="text-white">{item.name}</p>
+                <Link to={item.path} className="text-white xl:text-xl 2xl:text-2xl font-normal">
+                  {item.name}
                 </Link>
               </li>
             ))}
@@ -43,7 +43,7 @@ const Navbar = ({ className }: IProps) => {
             <img
               src="/images/navbar/cart.svg"
               alt="sacurn"
-              className="2xl:w-9 w-7 2xl:h-9 h-7 cursor-pointer"
+              className="2xl:w-9 w-7 2xl:h-9 h-7 cursor-pointer pt-1"
               width={35}
               height={34}
             />
@@ -52,7 +52,7 @@ const Navbar = ({ className }: IProps) => {
             onClick={() => navigate('/')}
             alt="sacurn"
             src="/images/navbar/member.svg"
-            className="2xl:w-10.5 2xl:h-10.5 w-8 h-8 cursor-pointer"
+            className="2xl:w-10.5 2xl:h-10.5 w-8 h-8 cursor-pointer pt-1"
             width={42}
             height={42}
           />

@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        '3xl': '1800px'
+        '2.5xl': '1780px',
+        '3xl': '1920px'
       },
       // light mode
       tremor: {
@@ -220,7 +221,11 @@ module.exports = {
       'card-bg-light': '#c6c6c626',
       cyan: '#7EF1F1',
       'text-light': '#DCDCDC',
-      'trans-grey': 'rgba(255, 255, 255, 0.30)'
+      'trans-grey': 'rgba(255, 255, 255, 0.30)',
+      // v2 colors
+      ceramic: '#F9F9F9',
+      'ceramic-bg': '#E0E0E0',
+      'hit-grey': '#A8A8A8'
     }
   },
   plugins: []
