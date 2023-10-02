@@ -60,7 +60,7 @@ const SelectField = ({ label, options, value, handleChange }: IProps) => {
         MenuProps={{
           sx: {
             '& .MuiMenuItem-root': {
-              color: '#1076B4',
+              color: '#000',
               fontWeight: 700,
               fontSize: '16px',
               backgroundColor: '#FFFFFF4D'

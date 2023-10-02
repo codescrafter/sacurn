@@ -29,8 +29,7 @@ export const $PatchedCart = {
             isReadOnly: true,
         },
         order_deleted: {
-            type: 'string',
-            isReadOnly: true,
+            type: 'number',
         },
         price: {
             type: 'number',

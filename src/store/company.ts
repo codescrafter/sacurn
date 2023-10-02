@@ -19,24 +19,10 @@ export const useCompanyStore = create<CompanyState>((set) => ({
   company: {},
   isSuccess: false,
   createCompany: async (arg: FormData) => {
-    // runTask(
-    //   async () => {
-    //     // Check is work or not
-    //     const data = arg as unknown as ExtendedCompany;
-    //     const company = await apiClient.company.companyCreate(data);
-    //     set({ company });
-    //     set({ isSuccess: true });
-    //   },
-    //   {
-    //     onError: () => set({ isSuccess: false })
-    //   }
-    // );
     try {
-      // eslint-disable-next-line no-debugger
       useModalStore.getState().open(ModalType.Loading);
       const data = arg as unknown as ExtendedCompany;
       const company = await apiClient.company.companyCreate(data);
-      // get auth from cookies, parse it. add company id to it and set it again
       const auth = cookies.get(COOKIE_AUTH_NAME);
       if (auth) {
         const authData = JSON.parse(auth);
@@ -65,19 +51,6 @@ export const useCompanyStore = create<CompanyState>((set) => ({
     return company;
   },
   updateCompany: async (id: number, companyData?: FormData) => {
-    // runTask(
-    //   async () => {
-    //     const data = companyData as PatchedExtendedCompany;
-    //     const company = await apiClient.company.companyPartialUpdate(id, data);
-    //     set({ company });
-    //     set({ isSuccess: true });
-    //   },
-    //   {
-    //     onError: () => set({ isSuccess: false })
-    //   }
-    // );
-
-    //! Reason: Commented this code because when this function was called, after calling api, it was returning the calling function without setting the state in line number 46,47 it means there is some bug there. Using old code it was working fine.
     try {
       useModalStore.getState().open(ModalType.Loading);
       const data = companyData as PatchedExtendedCompany;

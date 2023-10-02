@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import dateFormat from 'dateformat';
-import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useWishListStore } from '@/store/wishList';
@@ -21,17 +20,28 @@ interface IProps {
   vintage: string;
   minPrice: string;
   maxPrice: string;
+  location: string;
 }
 
-const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage, minPrice, maxPrice }: IProps) => {
+const Tile = ({
+  id,
+  tag,
+  name,
+  rating,
+  image,
+  standard,
+  type,
+  coBenefit,
+  vintage,
+  minPrice,
+  maxPrice,
+  location
+}: IProps) => {
   const addToWhishList = useWishListStore((store) => store.addToWhishList);
   const deleteWishList = useWishListStore((store) => store.deleteWishList);
   const wishList = useWishListStore((store) => store.wishList);
 
-  const isExistInWishList = useMemo(() => {
-    const result = wishList.find((wishItem) => wishItem.carbon_credit === id);
-    return !!result;
-  }, [wishList]);
+  const wishItem = wishList.find((wishItem) => wishItem.carbon_credit === id);
 
   return (
     <div className="bg-card-bg py-[20px] px-[24px] rounded-2xl flex justify-between items-center">
@@ -53,7 +63,7 @@ const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage
           <h3 className="text-lg font-bold text-black">{name}</h3>
           <div className="flex gap-.5 items-center mb-1">
             <img src="/images/products/green/location.svg" alt="location" className="inline-block mr-2" />
-            <p className="text-sm text-grey">Peru</p>
+            <p className="text-sm text-grey">{location}</p>
           </div>
           {rating && (
             <>
@@ -97,17 +107,17 @@ const Tile = ({ id, tag, name, rating, image, standard, type, coBenefit, vintage
           </p>
           <p className="text-[10px] text-black">/Tonne</p>
         </div>
-        <div className="h-full flex flex-col items-start justify-evenly">
+        <div className="h-full flex flex-col items-center justify-evenly">
           <Link to={`/product-carbon/${id}`}>
-            <img src="/images/products/green/dollar.svg" alt="sacurn" />
+            <img src="/images/products/green/dollar.svg" alt="sacurn" className="w-9 h-9" width={36} height={36} />
           </Link>
-          {isExistInWishList ? (
-            <button onClick={() => deleteWishList(id)}>
+          {wishItem ? (
+            <button onClick={() => deleteWishList(wishItem.id)}>
               <img src="/images/wishlist/favicon.svg" alt="sacurn" />
             </button>
           ) : (
             <button onClick={() => addToWhishList(id)}>
-              <img src="/images/wishlist/unfavicon.svg" alt="sacurn" />
+              <img src="/images/wishlist/unfavicon.svg" alt="sacurn" className="w-13 h-13 relative left-0.5" />
             </button>
           )}
         </div>
