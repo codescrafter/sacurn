@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
@@ -8,7 +8,6 @@ import { CardMembershipEnum, CardRenewalTypes } from '@/type';
 
 const MembershipUpgrade = () => {
   const { state } = useLocation();
-  const navigate = useNavigate();
   const [cardRenewal, setCardRenewal] = useState<CardMembershipEnum>();
   const [membershipUpgradeList, setMembershipUpgradeList] = useState<CardRenewalTypes[]>([MEMBERSHIP_UPGRADE[0]]);
 
@@ -21,7 +20,6 @@ const MembershipUpgrade = () => {
 
   const getCardRenewalValue = (value: number) => {
     if (value === CardMembershipEnum.COMPLETE) {
-      navigate('/v2/cart');
       return;
     }
     setCardRenewal(CardMembershipEnum.APPLY + value);
@@ -47,9 +45,10 @@ const MembershipUpgrade = () => {
                 responseTitle={item.responseTitle}
                 responseDetail={item.responseDetail}
                 buttonText={item.buttonText}
-                // terms={item.terms}
+                terms={item.terms}
                 step={item.id}
                 cardRenewalNumber={cardRenewal || 1}
+                isStyleChanged={CardMembershipEnum.APPLICATION}
                 getCurrentValue={(value) => getCardRenewalValue(value)}
               />
             ))}
@@ -79,7 +78,7 @@ const MEMBERSHIP_UPGRADE: CardRenewalTypes[] = [
     subTitle: '本卡已於',
     info: '2023/08/03',
     responseTitle: '申請升等',
-    responseDetail: '',
+    responseDetail: `申請日非核准日。\n 升等核准後，原卡片將廢止並寄送升等卡至會員收件地址`,
     buttonText: '確認'
   },
   {
@@ -89,7 +88,7 @@ const MEMBERSHIP_UPGRADE: CardRenewalTypes[] = [
     subTitle: '本卡已於',
     info: '2023/08/10',
     responseTitle: '完成升等',
-    responseDetail: '',
+    responseDetail: `新卡於五個工作日內寄至註冊收件地址 \n 舊卡已廢止`,
     buttonText: '確認'
   }
 ];
