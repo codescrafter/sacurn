@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 
+import { CardMembershipEnum } from '@/type';
+
 import CustomButton from '../CustomButton';
 
 interface CustomCardProps {
@@ -13,6 +15,7 @@ interface CustomCardProps {
   terms?: string;
   step: number;
   cardRenewalNumber: number;
+  isStyleChanged?: CardMembershipEnum.APPLICATION | CardMembershipEnum.COMPLETE;
   getCurrentValue?: (values: number) => void;
 }
 
@@ -31,7 +34,7 @@ const CustomCard = ({
 }: CustomCardProps) => {
   return (
     <div className="flex items-center">
-      <div className="2.5xl:w-[310px] flex flex-col justify-center gap-5">
+      <div className="2.5xl:w-[310px] flex flex-col justify-center gap-5 flex-1">
         <h5 className="text-navy-blue text-[28px] font-extrabold">{name}</h5>
         <div
           className={classNames('w-full min-h-[500px] bg-white rounded-[10px] px-6 pb-2', {
@@ -49,16 +52,34 @@ const CustomCard = ({
           </h6>
           <p className="text-xl xl:text-2xl">{subTitle}</p>
           <h2
-            className={classNames('text-2xl :text-3xl 2.5xl:text-5xl font-extrabold pt-3 pb-10 text-navy-blue', {
-              '!text-hit-grey': step < cardRenewalNumber
+            className={classNames('text-2xl 2.5xl:text-3xl 3xl:text-5xl font-extrabold pt-3 pb-10 text-navy-blue', {
+              '!text-hit-grey': step < cardRenewalNumber,
+              'pb-0': step === CardMembershipEnum.APPLICATION || step === CardMembershipEnum.COMPLETE
             })}
           >
             {info}
           </h2>
           {responseTitle && (
-            <div className="flex flex-col gap-4 h-[220px] justify-between items-center">
-              <p className="text-xl xl:text-2xl">{responseTitle}</p>
-              <p className="text-base xl:text-lg">{responseDetail}</p>
+            <div className="flex flex-col gap-4 min-h-[220px] justify-between items-center">
+              <p
+                className={classNames('text-xl xl:text-2xl', {
+                  'text-navy-blue': step === CardMembershipEnum.APPLICATION || step === CardMembershipEnum.COMPLETE,
+                  '!text-hit-grey': step < cardRenewalNumber
+                })}
+              >
+                {responseTitle}
+              </p>
+              {step === CardMembershipEnum.APPLICATION || step === CardMembershipEnum.COMPLETE ? (
+                <ul className="list-disc px-4">
+                  {responseDetail?.split('\n').map((item, index) => (
+                    <li key={index} className="text-start text-base xl:text-lg mb-1">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-base xl:text-lg">{responseDetail}</p>
+              )}
               {buttonText && (
                 <CustomButton
                   className={classNames('px-6 2.5xl:px-8 py-1.5 text-lg font-bold rounded-[10px] mb-10', {

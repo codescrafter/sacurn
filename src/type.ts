@@ -100,3 +100,21 @@ export enum CardRenewalEnum {
   PAYMENT_METHOD = 2,
   COMPLETE_RENEWAL = 3
 }
+
+export enum CardMembershipEnum {
+  APPLY = 1,
+  APPLICATION = 2,
+  COMPLETE = 3
+}
+
+export type CardRenewalTypes = {
+  id: number;
+  name: string;
+  title: string;
+  subTitle: string;
+  info: string;
+  responseTitle: string;
+  responseDetail?: string;
+  buttonText?: string;
+  terms?: string;
+};
