@@ -22,7 +22,7 @@ const CartV2 = () => {
   return (
     <div className="bg-neutral-150 h-screen overflow-hidden">
       <Navbar className="pt-7 pb-2.5 !bg-navy-blue" />
-      <div className="flex justify-between my-4 pl-13 w-[65%]">
+      <div className="flex justify-between my-4 px-13">
         <div className="flex">
           <Link to="/">
             <button className="w-[202px] h-[46px] rounded-[3px] py-1 flex items-center justify-center border border-navy-blue text-navy-blue text-xl">
@@ -39,7 +39,7 @@ const CartV2 = () => {
             <span>全選</span>
             <input type="radio" className="ml-2.5 w-5 h-5 mt-0.5" />
           </div>
-          <div className="flex gap-3 flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
+          <div className="flex gap-3 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
             <span>刪除選取</span>
             <img src="/images/cart/ic_delete.svg" width={22} height={27} alt="sacurn" />
           </div>

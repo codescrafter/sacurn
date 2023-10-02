@@ -31,7 +31,7 @@ const CustomCard = ({
 }: CustomCardProps) => {
   return (
     <div className="flex items-center">
-      <div className="2.5xl:w-[310px] flex flex-col justify-center gap-5">
+      <div className="2.5xl:w-[310px] flex flex-col justify-center gap-5 flex-1">
         <h5 className="text-navy-blue text-[28px] font-extrabold">{name}</h5>
         <div
           className={classNames('w-full min-h-[500px] bg-white rounded-[10px] px-6 pb-2', {
@@ -49,7 +49,7 @@ const CustomCard = ({
           </h6>
           <p className="text-xl xl:text-2xl">{subTitle}</p>
           <h2
-            className={classNames('text-2xl :text-3xl 2.5xl:text-5xl font-extrabold pt-3 pb-10 text-navy-blue', {
+            className={classNames('text-2xl 2.5xl:text-3xl 3xl:text-5xl font-extrabold pt-3 pb-10 text-navy-blue', {
               '!text-hit-grey': step < cardRenewalNumber
             })}
           >
