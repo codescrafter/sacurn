@@ -55,7 +55,7 @@ const CustomSelect = ({ setValue }: CustomSelectIProps) => {
         <img src="/v2/user-info-form/down-arrow.svg" className="" />
       </div>
       {isOpen && (
-        <div className="rounded-b-2.5xl bg-white py-1 flex flex-col min-[1400px]:gap-4 gap-2 min-[1400px]:pb-3 pb-2 min-[1600px]:px-10 min-[1500px]:px-8.7 min-[1350px]:px-7 min-[1200px]:px-5.5 px-4.5  ">
+        <div className="rounded-b-2.5xl bg-white py-1 flex flex-col min-[1400px]:gap-4 gap-2 min-[1400px]:pb-3 pb-2 min-[1600px]:px-10 min-[1500px]:px-8.7 min-[1350px]:px-7 px-4.5  ">
           {options.map((option, index) => (
             <label
               className={classNames(
