@@ -4,13 +4,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
 import Layout from '@/components/v2/Layout';
-import { CardRenewalEnum } from '@/type';
+import { CardRenewalEnum, CardRenewalTypes } from '@/type';
 
 const CardRenewal = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [cardRenewal, setCardRenewal] = useState<CardRenewalEnum>();
-  const [cardRenewalList, setCardRenewalList] = useState([CARD_RENEWAL[0]]);
+  const [cardRenewalList, setCardRenewalList] = useState<CardRenewalTypes[]>([CARD_RENEWAL[0]]);
 
   useEffect(() => {
     if (state && state?.step) {
@@ -39,7 +39,7 @@ const CardRenewal = () => {
         </div>
         <div className="my-8 text-center grid grid-cols-3">
           {cardRenewalList &&
-            cardRenewalList.map((item) => (
+            cardRenewalList.map((item: CardRenewalTypes) => (
               <CustomCard
                 key={item.id}
                 name={item.name}
@@ -63,7 +63,7 @@ const CardRenewal = () => {
 
 export default CardRenewal;
 
-const CARD_RENEWAL = [
+const CARD_RENEWAL: CardRenewalTypes[] = [
   {
     id: 1,
     name: '會員到期日',

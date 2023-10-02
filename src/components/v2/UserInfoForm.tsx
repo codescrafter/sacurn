@@ -62,20 +62,20 @@ const UserInfoForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <div className="rounded-mdlg bg-trans-white min-[1400px]:py-6.2 min-[1200px]:py-4.7 py-3 min-[1400px]:px-8 min-[1200px]:px-6 px-4 mt-[146px] w-max flex flex-col bg-blend-lighten min-[1400px]:gap-4.5 gap-3 ml-10">
+      <div className="rounded-mdlg bg-trans-white min-[1400px]:py-6.2 1.5lg:py-4.7 py-3 min-[1400px]:px-8 1.5lg:px-6 px-4 mt-[146px] w-max flex flex-col bg-blend-lighten min-[1400px]:gap-4.5 gap-3 ml-10">
         <p className="text-navy-blue 2xl:text-lg xl:text-base text-mdbase font-bold">| 新增使用者</p>
         <div className="flex 2xl:gap-8 xl:gap-6.5 gap-5 mt-2.5">
           <div className="relative mt-[65px]">
             <IconButton component="label" className="relative z-50 ">
               <label
-                className="absolute min-[1600px]:text-sm min-[1500px]:text-xs text-xms z-40 text-white cursor-pointer"
+                className="absolute 2.3xl:text-sm 2xl:text-xs text-xms z-40 text-white cursor-pointer"
                 htmlFor="image"
               >
                 更換照片
               </label>
               <Avatar
                 src={file}
-                className="min-[1600px]:!w-[100px] min-[1600px]:!h-[100px] min-[1500px]:!w-[85px] min-[1500px]:!h-[85px] min-[1300px]:!w-[75px] min-[1300px]:!h-[75px] !w-[60px] !h-[60px]"
+                className="2.3xl:!w-[100px] 2.3xl:!h-[100px] 2xl:!w-[85px] 2xl:!h-[85px] xl:!w-[75px] xl:!h-[75px] !w-[60px] !h-[60px]"
               />
               <input type="file" hidden onChange={handleChange} id="image" />
             </IconButton>
@@ -94,9 +94,9 @@ const UserInfoForm = () => {
               className="!w-[60%]"
             />
           </div>
-          <div className="flex flex-col justify-between min-[1600px]:max-w-[415px] min-[1500px]:max-w-[375px] min-[1300px]:max-w-[325px] max-w-[265px]">
-            <div className="flex  min-[1600px]:gap-7.5 min-[1500px]:gap-6 min-[1300px]:gap-5.5 gap-5 self-end">
-              <p className="min-[1600px]:text-lg min-[1500px]:text-base text-mdbase text-navy-blue font-bold min-[1600px]:mt-2.5 min-[1500px]:mt-2 min-[1300px]:mt-1.5 min-[1200px]:mt-1 mt-0.5">
+          <div className="flex flex-col justify-between 2.3xl:max-w-[415px] 2xl:max-w-[375px] xl:max-w-[325px] max-w-[265px]">
+            <div className="flex  2.3xl:gap-7.5 2xl:gap-6 xl:gap-5.5 gap-5 self-end">
+              <p className="2.3xl:text-lg 2xl:text-base text-mdbase text-navy-blue font-bold 2.3xl:mt-2.5 2xl:mt-2 xl:mt-1.5 1.5lg:mt-1 mt-0.5">
                 操作權限
               </p>
               <CustomSelect setValue={setValue} />
@@ -105,34 +105,32 @@ const UserInfoForm = () => {
               <div className="flex gap-2 w-[95%] self-end">
                 <input
                   type="checkbox"
-                  className="min-[1600px]:h-7 min-[1500px]:h-6 min-[1300px]:h-5 h-3.5 min-[1600px]:w-7 min-[1500px]:w-6 min-[1300px]:w-5"
+                  className="2.3xl:h-7 2xl:h-6 xl:h-5 h-3.5 2.3xl:w-7 2xl:w-6 xl:w-5"
                   {...register('confirm_info')}
                 />
                 <div className="flex flex-col">
-                  <p className="text-navy-blue min-[1600px]:text-base min-[1500px]:text-sm min-[1300px]:text-xs text-xms font-bold break-normal">
+                  <p className="text-navy-blue 2.3xl:text-base 2xl:text-sm xl:text-xs text-xms font-bold break-normal">
                     確認後無法修改, 系統將自動寄送email至指定信箱進行身分驗證。
                   </p>
                   {errors && errors.confirm_info && (
-                    <p className="min-[1500px]:text-xs min-[1300px]:text-xms text-xxs text-bright-red">
-                      {errors.confirm_info?.message}
-                    </p>
+                    <p className="2xl:text-xs xl:text-xms text-xxs text-bright-red">{errors.confirm_info?.message}</p>
                   )}
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex min-[1600px]:gap-7.5 min-[1500px]:gap-6.5 min-[1300px]:gap-5 gap-4.5 self-end">
+        <div className="flex 2.3xl:gap-7.5 2xl:gap-6.5 xl:gap-5 gap-4.5 self-end">
           <CustomButton
             children="取消"
             variant="secondary"
-            className="min-[1600px]:w-31 min-[1600px]:h-8.7 min-[1500px]:w-26.7 min-[1500px]:h-7.5 w-23.2 h-6.7   border rounded-mdlg min-[1600px]:text-lg min-[1500px]:text-base text-sm font-bold"
+            className="2.3xl:w-31 2.3xl:h-8.7 2xl:w-26.7 2xl:h-7.5 w-23.2 h-6.7   border rounded-mdlg 2.3xl:text-lg 2xl:text-base text-sm font-bold"
           />
           <CustomButton
             children="確認"
             variant="primary"
             type="submit"
-            className="min-[1600px]:w-31 min-[1600px]:h-8.7 min-[1500px]:w-26.7 min-[1500px]:h-7.5 w-23.2 h-6.7 rounded-mdlg min-[1600px]:text-lg min-[1500px]:text-base text-sm font-bold"
+            className="2.3xl:w-31 2.3xl:h-8.7 2xl:w-26.7 2xl:h-7.5 w-23.2 h-6.7 rounded-mdlg 2.3xl:text-lg 2xl:text-base text-sm font-bold"
           />
         </div>
       </div>
