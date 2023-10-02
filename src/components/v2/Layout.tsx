@@ -1,5 +1,9 @@
 import classNames from 'classnames';
 import React, { Fragment } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import { useMembershipStepsStore } from '@/store/memberShipSteps';
+import { MembershipStep, MembershipTypes } from '@/type';
 
 import Navbar from '../Navbar';
 import RangeSlider from './RangeSlider';
@@ -10,12 +14,16 @@ interface IProps {
 }
 
 const Layout = ({ children }: IProps) => {
+  const { pathname } = useLocation();
+  const membership = useMembershipStepsStore((state) => state.step);
+
   return (
     <Fragment>
       <Navbar className="!bg-navy-blue py-4" />
       <div
         className={classNames(
-          "bg-[url('../public/v2/bg.png')] w-full min-h-[calc(100vh-71px)] pb-7 2xl:min-h-[calc(100vh-74px)] bg-no-repeat bg-cover"
+          "bg-[url('../public/v2/bg.png')] w-full min-h-[calc(100vh-71px)] pb-7 2xl:min-h-[calc(100vh-74px)] bg-no-repeat bg-cover",
+          { "bg-[url('../public/v2/secondary.png')]": pathname === '/v2/card-renewal' || '/v2/membership-upgrade' }
         )}
       >
         <div className="flex justify-between gap-4">
@@ -46,9 +54,20 @@ const Layout = ({ children }: IProps) => {
                 <RangeSlider value={95} />
               </div>
               <div className="flex gap-6 items-center px-[20%] mt-6 min-[1400px]:mt-12">
-                <img src="/v2/layout/card.svg" alt="card" className="w-[112px] h-14 object-contain" />
-                <img src="/v2/layout/help.svg" alt="card" className="w-[112px] h-14 object-contain" />
-                <img src="/v2/layout/cancel.svg" alt="card" className="w-[112px] h-14 object-contain" />
+                {MEMBERSHIP_STEPS.map((step) => (
+                  <div
+                    key={step.id}
+                    className={classNames('text-ceramic font-bold cursor-pointer flex flex-col gap-3', {
+                      'transition-none border bg-[#ffffff4d] rounded-lg px-4 py-2': membership === step.slug
+                    })}
+                    onClick={() => {
+                      useMembershipStepsStore.setState({ step: step.slug });
+                    }}
+                  >
+                    <img src={step.icon} alt={step.title} className="w-[90px] h-10 object-contain" />
+                    <span className="text-center whitespace-nowrap">{step.title}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -60,3 +79,24 @@ const Layout = ({ children }: IProps) => {
 };
 
 export default Layout;
+
+const MEMBERSHIP_STEPS: MembershipTypes[] = [
+  {
+    id: 1,
+    title: '會員卡續卡',
+    slug: MembershipStep.RENEWAL,
+    icon: '/v2/layout/card.svg'
+  },
+  {
+    id: 2,
+    title: '會員卡補發',
+    slug: MembershipStep.REISSUE,
+    icon: '/v2/layout/help.svg'
+  },
+  {
+    id: 1,
+    title: '會員卡廢止',
+    slug: MembershipStep.REVOKED,
+    icon: '/v2/layout/cancel.svg'
+  }
+];
