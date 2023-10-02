@@ -23,11 +23,32 @@ import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRe
 import PasswordReset from './pages/PasswordReset';
 // import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
+import CardRenewal from './pages/v2/CardRenewal';
+import CartV2 from './pages/v2/CartV2';
+import MemberCenter from './pages/v2/MemberCenter';
+import MembershipUpgrade from './pages/v2/MembershipUpgrade';
 
 const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />
+  },
+  // routes for v2
+  {
+    path: '/v2',
+    element: <MemberCenter />
+  },
+  {
+    path: '/v2/card-renewal',
+    element: <CardRenewal />
+  },
+  {
+    path: '/v2/cart',
+    element: <CartV2 />
+  },
+  {
+    path: '/v2/membership-upgrade',
+    element: <MembershipUpgrade />
   },
   {
     path: '/',
