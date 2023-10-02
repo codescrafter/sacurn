@@ -9,6 +9,41 @@ export const $TransactionRecord = {
             isReadOnly: true,
             isRequired: true,
         },
+        order_no: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        name: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        action_cht: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        price: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        quantity: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        total_money: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        status: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         action: {
             type: 'number',
             isRequired: true,

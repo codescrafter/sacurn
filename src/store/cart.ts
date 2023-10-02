@@ -50,7 +50,7 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
   addToCart: async (arg: CartRequest) => {
-    runTask(
+    await runTask(
       async () => {
         const cartItem = await apiClient.trade.tradeCartCreate(arg);
         const cartList = Array.from(get().cartList);

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import { useProductListStore } from '@/store/productList';
@@ -76,13 +77,20 @@ const Details = () => {
               <img src="/images/products/green/verra-standard.svg" alt="sacurn" />
             </div>
           </div>
+          <Link
+            to={'/'}
+            className="xl:w-[245px] w-[200px] h-9.5 bg-navy-blue border-t-[#A0ADB7] border-r-[#A0ADB7] border-b-[#A0ADB7] rounded-tr-[10px] rounded-br-[10px] flex items-center justify-center gap-4 mt-5.2 mb-1"
+          >
+            <img src="/images/products-page/back-icon.svg" alt="sacurn" width={23} height={16} />
+            <p className="font-normal text-base text-white">Back</p>
+          </Link>
         </div>
       </div>
       {/* Second Col */}
       <div className="w-[62%]">
         <LayoutSwitch />
         <div>
-          <div className="relative z-[1] w-[103%] left-[-32px]">
+          <div className="relative z-[1] w-[103%] left-[-32px] ">
             <ProductSlider />
           </div>
           <div className="">
