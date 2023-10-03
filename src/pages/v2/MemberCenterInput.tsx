@@ -20,7 +20,7 @@ const MemberCenterInput = ({ id, heading, type, register, isRequired, errorMessa
         </label>
         <input
           type="text"
-          className="rounded-full w-54 py-3 bg-white outline-none px-4 md:w-[66%] lg:w-[80%] xl:w-[90%] "
+          className="rounded-full w-54 py-3 bg-white outline-none px-4 md:w-[78%] xl:w-[80%] "
           {...register(id as 'name' | 'phone' | 'professionaltitle' | 'email' | 'phone' | 'extention', {
             required: isRequired
           })}

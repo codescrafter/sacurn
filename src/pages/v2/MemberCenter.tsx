@@ -1,5 +1,6 @@
 import { DevTool } from '@hookform/devtools';
 import { yupResolver } from '@hookform/resolvers/yup';
+import classNames from 'classnames';
 // import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -69,7 +70,7 @@ const MemberCenter = () => {
               </div>
             </div>
             {/* second child */}
-            <div className="flex flex-col gap-4 pt-13 pb-10 md:w-[35%] lg:w-[40%] xl:w-[40%]">
+            <div className="flex flex-col gap-4 pt-13 pb-10 md:w-[45%] lg:w-[40%] xl:w-[40%]">
               <MemberCenterInput
                 id="name"
                 heading="姓名"
@@ -117,7 +118,7 @@ const MemberCenter = () => {
               />
             </div>
             {/* Third Child */}
-            <div className=" flex flex-col justify-between md:w-[43%] lg:w-[33%] xl:w-[]">
+            <div className=" flex flex-col justify-between md:w-[27%] border lg:w-[33%] xl:w-[]">
               {/* third-child-1 */}
               <div className=" flex items-center gap-5 mt-13 xl:gap-10">
                 <label htmlFor="" className="font-bold text-xl text-deepseablue md:text-sm md:w-31 ">
@@ -150,7 +151,7 @@ const MemberCenter = () => {
                 <div className=" flex flex-col">
                   <div className="flex gap-2">
                     <input type="checkbox" id="" className="h-8 w-8 md:-mt-1" {...register('check')} />
-                    <label htmlFor="" className="font-bold text-base text-deepseablue md:text-sm xl:text-base">
+                    <label htmlFor="" className="font-bold text-base text-deepseablue md:text-xs xl:text-base">
                       確認後無法修改, 系統將自動寄送email至指定信箱進行身分驗證。
                     </label>
                   </div>
