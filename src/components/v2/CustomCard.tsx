@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { CardMembershipEnum } from '@/type';
+import { CardMembershipEnum, CardReissueEnum } from '@/type';
 
 import CustomButton from '../CustomButton';
 
@@ -15,7 +15,7 @@ interface CustomCardProps {
   terms?: string;
   step: number;
   cardRenewalNumber: number;
-  isStyleChanged?: CardMembershipEnum.APPLICATION | CardMembershipEnum.COMPLETE;
+  isStyleChanged?: CardMembershipEnum.APPLICATION | CardMembershipEnum.COMPLETE | CardReissueEnum.ANNULMENT;
   getCurrentValue?: (values: number) => void;
 }
 

@@ -1,11 +1,93 @@
-import Layout from '@/components/v2/Layout';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-const CardReissue = () => {
+import CardSteps from '@/components/v2/CardSteps';
+import CustomCard from '@/components/v2/CustomCard';
+import Layout from '@/components/v2/Layout';
+import { CardReissueEnum, CardRenewalTypes } from '@/type';
+
+const CardReIssue = () => {
+  const { state } = useLocation();
+  const [cardRenewal, setCardRenewal] = useState<CardReissueEnum>();
+  const [cardReIssueList, setCardReIssueList] = useState<CardRenewalTypes[]>([CARD_REISSUE[0]]);
+
+  useEffect(() => {
+    if (state && state?.step) {
+      setCardRenewal(state.step);
+      setCardReIssueList(CARD_REISSUE);
+    }
+  }, []);
+
+  const getCardRenewalValue = (value: number) => {
+    if (value === CardReissueEnum.COMPLETE_ABOLITION) {
+      return;
+    }
+    setCardRenewal(CardReissueEnum.ANNULMENT + value);
+    const updatedList = [...cardReIssueList, CARD_REISSUE[value]];
+    setCardReIssueList(updatedList);
+  };
+
   return (
     <Layout>
-      <h1>hello</h1>
+      <div className="mt-10 px-[12%]">
+        <h3 className="text-center text-navy-blue text-[32px] font-bold mb-5">會員卡升級</h3>
+        <CardSteps totalSteps={3} currentStep={cardRenewal} />
+        <div className="my-8 text-center grid grid-cols-3">
+          {cardReIssueList &&
+            cardReIssueList.map((item: CardRenewalTypes) => (
+              <CustomCard
+                key={item.id}
+                name={item.name}
+                title={item.title}
+                subTitle={item.subTitle}
+                info={item.info}
+                responseTitle={item.responseTitle}
+                responseDetail={item.responseDetail}
+                buttonText={item.buttonText}
+                terms={item.terms}
+                step={item.id}
+                cardRenewalNumber={cardRenewal || 1}
+                isStyleChanged={CardReissueEnum.ANNULMENT}
+                getCurrentValue={(value) => getCardRenewalValue(value)}
+              />
+            ))}
+        </div>
+      </div>
     </Layout>
   );
 };
 
-export default CardReissue;
+export default CardReIssue;
+
+const CARD_REISSUE: CardRenewalTypes[] = [
+  {
+    id: 1,
+    name: '申請升級',
+    title: 'ECOGREEN',
+    subTitle: '手續費',
+    info: '買5% 賣8%',
+    responseTitle: '已達升等',
+    responseDetail: 'ECOLAND',
+    buttonText: '升等申請'
+  },
+  {
+    id: 2,
+    name: '申請完成',
+    title: '',
+    subTitle: '本卡已於',
+    info: '2023/08/03',
+    responseTitle: '申請升等',
+    responseDetail: `申請日非核准日。\n 升等核准後，原卡片將廢止並寄送升等卡至會員收件地址`,
+    buttonText: '確認'
+  },
+  {
+    id: 3,
+    name: '完成升等',
+    title: '',
+    subTitle: '本卡已於',
+    info: '2023/08/10',
+    responseTitle: '完成升等',
+    responseDetail: `新卡於五個工作日內寄至註冊收件地址 \n 舊卡已廢止`,
+    buttonText: '確認'
+  }
+];
