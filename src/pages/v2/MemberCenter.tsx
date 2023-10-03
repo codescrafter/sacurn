@@ -115,6 +115,7 @@ const MemberCenter = () => {
                 register={register}
                 errors={errors}
                 errorMessage="enter right extention"
+                className=![60%]
               />
             </div>
             {/* Third Child */}
