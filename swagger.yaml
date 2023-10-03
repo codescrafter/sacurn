@@ -272,10 +272,15 @@ paths:
         schema:
           type: integer
       - in: query
-        name: price
+        name: price_range
         schema:
           type: string
-        description: '價格 ex: 100,200'
+        description: '價格區間 ex: 100,200'
+      - in: query
+        name: sort_by
+        schema:
+          type: string
+        description: 排序依據 price, vintage
       - in: query
         name: tags
         schema:
@@ -358,10 +363,10 @@ paths:
       operationId: carbon_credit_certificate_retrieve
       parameters:
       - in: query
-        name: carbon_credit_id
+        name: carbon_credit
         schema:
           type: string
-        description: 碳權pk
+        description: 碳權
       tags:
       - carbon_credit
       security:
@@ -465,10 +470,10 @@ paths:
       operationId: carbon_credit_mail_certificate_retrieve
       parameters:
       - in: query
-        name: carbon_credit_id
+        name: carbon_credit
         schema:
           type: string
-        description: 碳權pk
+        description: 碳權
       tags:
       - carbon_credit
       security:
@@ -499,10 +504,15 @@ paths:
         schema:
           type: integer
       - in: query
-        name: price
+        name: price_range
         schema:
           type: string
         description: '價格 ex: 100,200'
+      - in: query
+        name: sort_by
+        schema:
+          type: string
+        description: 排序依據 price, vintage
       - in: query
         name: tags
         schema:
@@ -581,6 +591,22 @@ paths:
       responses:
         '204':
           description: No response body
+  /carbon_credit/watch_list_filter_list/:
+    get:
+      operationId: carbon_credit_watch_list_filter_list_retrieve
+      tags:
+      - carbon_credit
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterList'
+          description: ''
   /company/:
     post:
       operationId: company_create
@@ -1071,7 +1097,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedInventoryList'
+                $ref: '#/components/schemas/PaginatedExtendedInventoryList'
           description: ''
   /login/:
     post:
@@ -1210,20 +1236,25 @@ paths:
           description: ''
     post:
       operationId: shop_cart_create
+      description: |-
+        0: 待結帳
+
+        1：已結帳
+
+        2：刪除
       tags:
       - shop
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ShopCart'
+              $ref: '#/components/schemas/ShopCartRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/ShopCart'
+              $ref: '#/components/schemas/ShopCartRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/ShopCart'
-        required: true
+              $ref: '#/components/schemas/ShopCartRequest'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1236,9 +1267,111 @@ paths:
               schema:
                 $ref: '#/components/schemas/ShopCart'
           description: ''
-  /shop/product/:
+  /shop/cart/{id}/:
+    patch:
+      operationId: shop_cart_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - shop
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedShopCart'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedShopCart'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedShopCart'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShopCart'
+          description: ''
+    delete:
+      operationId: shop_cart_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - shop
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /shop/cart/bulk_delete/:
+    post:
+      operationId: shop_cart_bulk_delete_create
+      tags:
+      - shop
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /shop/cart_detail/:
+    post:
+      operationId: shop_cart_detail_create
+      tags:
+      - shop
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartDetailResponse'
+          description: ''
+  /shop/order/:
     get:
-      operationId: shop_product_list
+      operationId: shop_order_list
       parameters:
       - name: page
         required: false
@@ -1258,6 +1391,80 @@ paths:
           content:
             application/json:
               schema:
+                $ref: '#/components/schemas/PaginatedShopCartList'
+          description: ''
+    post:
+      operationId: shop_order_create
+      tags:
+      - shop
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderBuy'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShopTransaction'
+          description: ''
+  /shop/pay_callback/:
+    post:
+      operationId: shop_pay_callback_create
+      tags:
+      - shop
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayCallback'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PayCallback'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PayCallback'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /shop/product/:
+    get:
+      operationId: shop_product_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - shop
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
                 $ref: '#/components/schemas/PaginatedShopProductList'
           description: ''
     post:
@@ -1268,25 +1475,47 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ShopProduct'
+              $ref: '#/components/schemas/ShopProductRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/ShopProduct'
+              $ref: '#/components/schemas/ShopProductRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/ShopProduct'
-        required: true
+              $ref: '#/components/schemas/ShopProductRequest'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
-      - {}
       responses:
         '201':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ShopProduct'
+          description: ''
+  /shop/transaction/:
+    get:
+      operationId: shop_transaction_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - shop
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedShopTransactionList'
           description: ''
   /trade/cart/:
     get:
@@ -1310,7 +1539,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedCartList'
+                $ref: '#/components/schemas/PaginatedExtendedCartList'
           description: ''
     post:
       operationId: trade_cart_create
@@ -1349,7 +1578,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Cart'
+                $ref: '#/components/schemas/ExtendedCart'
           description: ''
   /trade/cart/{id}/:
     patch:
@@ -1383,7 +1612,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Cart'
+                $ref: '#/components/schemas/ExtendedCart'
           description: ''
     delete:
       operationId: trade_cart_destroy
@@ -1403,9 +1632,9 @@ paths:
       responses:
         '204':
           description: No response body
-  /trade/cart/delete_all/:
+  /trade/cart/bulk_delete/:
     post:
-      operationId: trade_cart_delete_all_create
+      operationId: trade_cart_bulk_delete_create
       tags:
       - trade
       requestBody:
@@ -1453,10 +1682,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/CartDetailResonse'
           description: ''
-  /trade/goods/:
+  /trade/list_carbon_order/:
     get:
-      operationId: trade_goods_list
+      operationId: trade_list_carbon_order_list
       parameters:
+      - in: query
+        name: carbon_credit
+        schema:
+          type: string
+        description: 碳權id
       - name: page
         required: false
         in: query
@@ -1476,65 +1710,41 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedOrderList'
           description: ''
-    post:
-      operationId: trade_goods_create
-      tags:
-      - trade
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Order'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Order'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Order'
-        required: true
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-          description: ''
-  /trade/list_carbon_order/:
-    get:
-      operationId: trade_list_carbon_order_retrieve
-      parameters:
-      - in: query
-        name: carbon_credit_id
-        schema:
-          type: string
-        description: 碳權pk
-      tags:
-      - trade
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListCarbonOrder'
-          description: ''
   /trade/operation_record/:
     get:
       operationId: trade_operation_record_list
       parameters:
+      - in: query
+        name: download
+        schema:
+          type: string
+        description: 下載csv (download=1會下載）
+      - in: query
+        name: keyword
+        schema:
+          type: string
+        description: 搜尋關鍵字(碳權名稱)
       - name: page
         required: false
         in: query
         description: A page number within the paginated result set.
         schema:
           type: integer
+      - in: query
+        name: range
+        schema:
+          type: string
+        description: '期間 ex: 2023-09-01,2023-09-30'
+      - in: query
+        name: status
+        schema:
+          type: string
+        description: '狀態 ex: 加入購物車,下單結帳,完成付款'
+      - in: query
+        name: user
+        schema:
+          type: string
+        description: 操作者(username)
       tags:
       - trade
       security:
@@ -1591,10 +1801,10 @@ paths:
       operationId: trade_order_sell_list
       parameters:
       - in: query
-        name: carbon_credit_id
+        name: carbon_credit
         schema:
           type: string
-        description: 碳權pk
+        description: 碳權id
       - in: query
         name: desc
         schema:
@@ -1607,7 +1817,7 @@ paths:
         schema:
           type: integer
       - in: query
-        name: sortby
+        name: sort_by
         schema:
           type: string
         description: '排序依據: price(default)'
@@ -1702,12 +1912,32 @@ paths:
     get:
       operationId: trade_transaction_record_list
       parameters:
+      - in: query
+        name: download
+        schema:
+          type: string
+        description: 下載csv (download=1會下載）
+      - in: query
+        name: keyword
+        schema:
+          type: string
+        description: 搜尋關鍵字(碳權名稱, 訂單號號)
       - name: page
         required: false
         in: query
         description: A page number within the paginated result set.
         schema:
           type: integer
+      - in: query
+        name: range
+        schema:
+          type: string
+        description: '期間 ex: 2023-09-01,2023-09-30'
+      - in: query
+        name: status
+        schema:
+          type: string
+        description: '狀態: 待付款,完成付款'
       tags:
       - trade
       security:
@@ -1723,6 +1953,27 @@ paths:
           description: ''
     post:
       operationId: trade_transaction_record_create
+      parameters:
+      - in: query
+        name: download
+        schema:
+          type: string
+        description: 下載csv (download=1會下載）
+      - in: query
+        name: keyword
+        schema:
+          type: string
+        description: 搜尋關鍵字(碳權名稱, 訂單號號)
+      - in: query
+        name: range
+        schema:
+          type: string
+        description: '期間 ex: 2023-09-01,2023-09-30'
+      - in: query
+        name: status
+        schema:
+          type: string
+        description: '狀態: 待付款,完成付款'
       tags:
       - trade
       requestBody:
@@ -1747,6 +1998,100 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionRecord'
+          description: ''
+  /twid/cpntAuth/:
+    post:
+      operationId: twid_cpntAuth_create
+      tags:
+      - twid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CpntAuth'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CpntAuth'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CpntAuth'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CpntAuthResponse'
+          description: ''
+  /twid/doTwdsS0S1/:
+    post:
+      operationId: twid_doTwdsS0S1_create
+      tags:
+      - twid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoTwdsS0S1'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DoTwdsS0S1'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DoTwdsS0S1'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /twid/genPkcs7Tbs/:
+    post:
+      operationId: twid_genPkcs7Tbs_create
+      tags:
+      - twid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenPkcs7Tbs'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GenPkcs7Tbs'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GenPkcs7Tbs'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenPkcs7TbsResponse'
+          description: ''
+  /twid/preDoTwdsS0/:
+    post:
+      operationId: twid_preDoTwdsS0_create
+      tags:
+      - twid
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreDoTwdsS0Response'
           description: ''
 components:
   schemas:
@@ -1889,64 +2234,6 @@ components:
       - location
       - max_price
       - min_price
-    Cart:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          readOnly: true
-        carbon_tag:
-          type: string
-          readOnly: true
-        image:
-          type: string
-          readOnly: true
-        company_code:
-          type: string
-          readOnly: true
-        remaining_quantity:
-          type: string
-          readOnly: true
-        order_deleted:
-          type: integer
-        price:
-          type: number
-          format: double
-        quantity:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        status:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        deleted_at:
-          type: string
-          format: date-time
-          nullable: true
-        trader:
-          type: integer
-          nullable: true
-        order:
-          type: integer
-      required:
-      - carbon_tag
-      - company_code
-      - created_at
-      - id
-      - image
-      - name
-      - order
-      - price
-      - quantity
-      - remaining_quantity
     CartDetail:
       type: object
       properties:
@@ -1983,6 +2270,12 @@ components:
         total_amount:
           type: integer
           default: 12644000
+    CartDetailResponse:
+      type: object
+      properties:
+        total_amount:
+          type: integer
+          default: 10000
     CartRequest:
       type: object
       properties:
@@ -2125,15 +2418,63 @@ components:
           format: date-time
           nullable: true
         status:
-          type: integer
-          maximum: 2147483647
+          allOf:
+          - $ref: '#/components/schemas/Status02bEnum'
+          readOnly: true
           minimum: -2147483648
+          maximum: 2147483647
       required:
       - created_at
       - id
       - name
       - registration_document
+      - status
       - updated_at
+    CpntAuth:
+      type: object
+      properties:
+        clientAuthCode:
+          type: string
+      required:
+      - clientAuthCode
+    CpntAuthResponse:
+      type: object
+      properties:
+        returnCode:
+          type: string
+        returnCodeDesc:
+          type: string
+        serverAuthCode:
+          type: string
+      required:
+      - returnCode
+      - returnCodeDesc
+      - serverAuthCode
+    DoTwdsS0S1:
+      type: object
+      properties:
+        semiPdfs:
+          type: array
+          items: {}
+          default:
+          - aGVsbG8gd29ybGQ=
+        unfinishedPdfs:
+          type: array
+          items: {}
+          default:
+          - aGVsbG8gd29ybGQ=
+        pkcs1s:
+          type: string
+          default: pkcs1s
+        b64Cert:
+          type: string
+          default: b64Cert
+        timestamp:
+          type: string
+          default: '20230828172612650'
+        memberNo:
+          type: string
+          default: customer_tax_id
     Employee:
       type: object
       properties:
@@ -2188,9 +2529,10 @@ components:
           nullable: true
           maxLength: 45
         status:
-          type: integer
-          maximum: 2147483647
+          allOf:
+          - $ref: '#/components/schemas/Status1d2Enum'
           minimum: -2147483648
+          maximum: 2147483647
         user:
           type: integer
         company:
@@ -2233,6 +2575,66 @@ components:
         group_name:
           type: string
           default: 操作人員
+    ExtendedCart:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        carbon_tag:
+          type: string
+          readOnly: true
+        image:
+          type: string
+          readOnly: true
+        company_code:
+          type: string
+          readOnly: true
+        remaining_quantity:
+          type: string
+          readOnly: true
+        order_deleted:
+          type: integer
+          default: 0
+        price:
+          type: number
+          format: double
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        status:
+          allOf:
+          - $ref: '#/components/schemas/Status1d2Enum'
+          minimum: -2147483648
+          maximum: 2147483647
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        company:
+          type: integer
+          nullable: true
+        order:
+          type: integer
+      required:
+      - carbon_tag
+      - company_code
+      - created_at
+      - id
+      - image
+      - name
+      - order
+      - price
+      - quantity
+      - remaining_quantity
     ExtendedCompany:
       type: object
       properties:
@@ -2357,9 +2759,10 @@ components:
           format: date-time
           nullable: true
         status:
-          type: integer
-          maximum: 2147483647
+          allOf:
+          - $ref: '#/components/schemas/Status02bEnum'
           minimum: -2147483648
+          maximum: 2147483647
         registration_document:
           type: string
           format: uri
@@ -2369,41 +2772,7 @@ components:
       - name
       - registration_document
       - updated_at
-    FilterList:
-      type: object
-      properties:
-        location_list:
-          type: array
-          items:
-            type: string
-          default: []
-        vintage_list:
-          type: array
-          items:
-            type: string
-          default: []
-        price_list:
-          type: array
-          items:
-            type: string
-          default: []
-    Group:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 150
-        permissions:
-          type: array
-          items:
-            type: integer
-      required:
-      - id
-      - name
-    Inventory:
+    ExtendedInventory:
       type: object
       properties:
         id:
@@ -2431,8 +2800,8 @@ components:
           type: string
           readOnly: true
         available_sale_quantity:
-          type: string
-          readOnly: true
+          type: integer
+          default: 100
         quantity:
           type: integer
           maximum: 2147483647
@@ -2447,7 +2816,6 @@ components:
         company:
           type: integer
       required:
-      - available_sale_quantity
       - carbon_credit
       - carbon_tag
       - company
@@ -2458,14 +2826,56 @@ components:
       - serial_number
       - status
       - vintage
-    ListCarbonOrder:
+    FilterList:
       type: object
       properties:
-        order:
+        location_list:
           type: array
           items:
-            $ref: '#/components/schemas/Order'
+            type: string
           default: []
+        vintage_list:
+          type: array
+          items:
+            type: string
+          default: []
+        price_list:
+          type: array
+          items:
+            type: string
+          default: []
+    GenPkcs7Tbs:
+      type: object
+      properties:
+        cart_id_list:
+          type: array
+          items: {}
+          default:
+          - 1
+          - 2
+    GenPkcs7TbsResponse:
+      type: object
+      properties:
+        hashedContent:
+          type: string
+      required:
+      - hashedContent
+    Group:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 150
+        permissions:
+          type: array
+          items:
+            type: integer
+      required:
+      - id
+      - name
     Login:
       type: object
       properties:
@@ -2484,7 +2894,7 @@ components:
           type: string
         user:
           $ref: '#/components/schemas/User'
-        company_id:
+        company:
           type: integer
           default: 1
         company_status:
@@ -2538,7 +2948,7 @@ components:
         username:
           type: string
           readOnly: true
-        total_money:
+        total_amount:
           type: string
           readOnly: true
         product_name:
@@ -2587,7 +2997,7 @@ components:
       required:
       - created_at
       - id
-      - total_money
+      - total_amount
       - username
     Order:
       type: object
@@ -2601,6 +3011,22 @@ components:
         company_code:
           type: string
           readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted:
+          type: boolean
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
         quantity:
           type: integer
           maximum: 2147483647
@@ -2625,27 +3051,23 @@ components:
           type: number
           format: double
           nullable: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        deleted:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        deleted_at:
-          type: string
-          format: date-time
-          nullable: true
         traded_quantity:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
-        status:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        trader:
+        pkcs1:
+          type: string
+          nullable: true
+          maxLength: 256
+        b64Cert:
+          type: string
+          nullable: true
+          maxLength: 256
+        twid_resp:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        company:
           type: integer
           nullable: true
         cart:
@@ -2659,6 +3081,7 @@ components:
       - created_at
       - id
       - remaining_quantity
+      - updated_at
     OrderBuy:
       type: object
       properties:
@@ -2729,26 +3152,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CarbonCredit'
-    PaginatedCartList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=2
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Cart'
     PaginatedEmployeeList:
       type: object
       properties:
@@ -2769,6 +3172,46 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Employee'
+    PaginatedExtendedCartList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtendedCart'
+    PaginatedExtendedInventoryList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtendedInventory'
     PaginatedGroupList:
       type: object
       properties:
@@ -2789,26 +3232,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Group'
-    PaginatedInventoryList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=2
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Inventory'
     PaginatedMemberRecordList:
       type: object
       properties:
@@ -2949,6 +3372,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ShopProduct'
+    PaginatedShopTransactionList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShopTransaction'
     PaginatedTransactionRecordList:
       type: object
       properties:
@@ -3114,7 +3557,8 @@ components:
           type: string
           readOnly: true
         order_deleted:
-          type: integer
+          type: string
+          readOnly: true
         price:
           type: number
           format: double
@@ -3123,9 +3567,10 @@ components:
           maximum: 2147483647
           minimum: -2147483648
         status:
-          type: integer
-          maximum: 2147483647
+          allOf:
+          - $ref: '#/components/schemas/Status1d2Enum'
           minimum: -2147483648
+          maximum: 2147483647
         created_at:
           type: string
           format: date-time
@@ -3134,7 +3579,7 @@ components:
           type: string
           format: date-time
           nullable: true
-        trader:
+        company:
           type: integer
           nullable: true
         order:
@@ -3287,12 +3732,52 @@ components:
           format: date-time
           nullable: true
         status:
-          type: integer
-          maximum: 2147483647
+          allOf:
+          - $ref: '#/components/schemas/Status02bEnum'
           minimum: -2147483648
+          maximum: 2147483647
         registration_document:
           type: string
           format: uri
+    PatchedShopCart:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted:
+          type: boolean
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/Status1d2Enum'
+          minimum: -2147483648
+          maximum: 2147483647
+        company:
+          type: integer
+        shop_product:
+          type: integer
     PayCallback:
       type: object
       properties:
@@ -3346,6 +3831,20 @@ components:
       - id
       - plan
       - updated_at
+    PreDoTwdsS0Response:
+      type: object
+      properties:
+        unfinishedPdfs:
+          type: array
+          items: {}
+        tbsPdfs:
+          type: string
+        timestamp:
+          type: string
+      required:
+      - tbsPdfs
+      - timestamp
+      - unfinishedPdfs
     Product:
       type: object
       properties:
@@ -3410,6 +3909,9 @@ components:
         id:
           type: integer
           readOnly: true
+        name:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -3430,21 +3932,32 @@ components:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
         status:
-          type: integer
-          maximum: 2147483647
+          allOf:
+          - $ref: '#/components/schemas/Status1d2Enum'
           minimum: -2147483648
-        trader:
+          maximum: 2147483647
+        company:
           type: integer
         shop_product:
           type: integer
       required:
+      - company
       - created_at
       - id
-      - quantity
+      - name
       - shop_product
-      - trader
       - updated_at
+    ShopCartRequest:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          default: 100
+        shop_product:
+          type: integer
+          default: 1
     ShopProduct:
       type: object
       properties:
@@ -3483,22 +3996,107 @@ components:
           maximum: 2147483647
           minimum: -2147483648
           nullable: true
-        pubished_at:
+        published_at:
           type: string
           format: date-time
           nullable: true
         status:
-          type: integer
-          maximum: 2147483647
+          allOf:
+          - $ref: '#/components/schemas/ShopProductStatusEnum'
           minimum: -2147483648
-        trader:
+          maximum: 2147483647
+        company:
           type: integer
       required:
+      - company
       - created_at
       - id
       - name
-      - trader
       - updated_at
+    ShopProductRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          default: 證書
+        price:
+          type: integer
+          default: 10000
+        quantity:
+          type: integer
+          default: 100
+    ShopProductStatusEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      description: |-
+        * `0` - Off Sale
+        * `1` - On Sale
+    ShopTransaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted:
+          type: boolean
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        total_amount:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        status:
+          allOf:
+          - $ref: '#/components/schemas/Status1d2Enum'
+          minimum: -2147483648
+          maximum: 2147483647
+        company:
+          type: integer
+        shop_order:
+          type: integer
+      required:
+      - company
+      - created_at
+      - id
+      - shop_order
+      - updated_at
+    Status02bEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      description: |-
+        * `0` - Not Reviewed
+        * `1` - Reviewing
+        * `2` - Reviewed Pass
+        * `3` - Documents Needed
+    Status1d2Enum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `0` - Verifying
+        * `1` - Verified Pass
+        * `2` - Suspended
     TokenObtainPair:
       type: object
       properties:
@@ -3562,14 +4160,15 @@ components:
           type: string
           format: date-time
           nullable: true
-        total_money:
+        total_amount:
           type: number
           format: double
           nullable: true
         status:
-          type: integer
-          maximum: 2147483647
+          allOf:
+          - $ref: '#/components/schemas/Status1d2Enum'
           minimum: -2147483648
+          maximum: 2147483647
         pay_at:
           type: string
           format: date-time
@@ -3594,7 +4193,7 @@ components:
         name:
           type: string
           readOnly: true
-        action_cht:
+        action:
           type: string
           readOnly: true
         price:
@@ -3603,19 +4202,18 @@ components:
         quantity:
           type: string
           readOnly: true
-        total_money:
+        total_amount:
           type: string
           readOnly: true
         status:
           type: string
           readOnly: true
-        action:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
+        created_at:
+          type: string
+          readOnly: true
         carbon_credit:
           type: integer
-        trader:
+        company:
           type: integer
         order:
           type: integer
@@ -3627,8 +4225,9 @@ components:
           nullable: true
       required:
       - action
-      - action_cht
       - carbon_credit
+      - company
+      - created_at
       - id
       - name
       - order
@@ -3636,13 +4235,12 @@ components:
       - price
       - quantity
       - status
-      - total_money
-      - trader
+      - total_amount
       - transaction_detail
     User:
       type: object
       properties:
-        pk:
+        id:
           type: integer
         username:
           type: string
@@ -3656,8 +4254,8 @@ components:
       required:
       - email
       - first_name
+      - id
       - last_name
-      - pk
       - username
     WatchList:
       type: object
@@ -3680,6 +4278,9 @@ components:
         min_price:
           type: string
           readOnly: true
+        vintage:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -3698,6 +4299,7 @@ components:
       - max_price
       - min_price
       - name
+      - vintage
     WatchListRequestSerialzer:
       type: object
       properties:

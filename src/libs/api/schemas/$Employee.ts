@@ -77,9 +77,10 @@ export const $Employee = {
             maxLength: 45,
         },
         status: {
-            type: 'number',
-            maximum: 2147483647,
-            minimum: -2147483648,
+            type: 'all-of',
+            contains: [{
+                type: 'Status1d2Enum',
+            }],
         },
         user: {
             type: 'number',

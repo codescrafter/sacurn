@@ -163,9 +163,10 @@ export const $ExtendedCompany = {
             format: 'date-time',
         },
         status: {
-            type: 'number',
-            maximum: 2147483647,
-            minimum: -2147483648,
+            type: 'all-of',
+            contains: [{
+                type: 'Status02bEnum',
+            }],
         },
         registration_document: {
             type: 'string',
