@@ -12,7 +12,7 @@ export const COOKIE_AUTH_NAME = 'auth';
 
 export type AuthResult = {
   isSuccess: boolean;
-  companyId: LoginResponse['company_id'];
+  companyId: LoginResponse['company'];
   redirectUrl: string;
 };
 
@@ -34,7 +34,7 @@ export const useUserStore = create<UserState>((set) => ({
     await runTask(async () => {
       const response = await apiClient.login.loginCreate(arg);
       result.isSuccess = true;
-      result.companyId = response.company_id;
+      result.companyId = response.company;
 
       if (response.company_status === CompanyStatus.PassReview) {
         result.redirectUrl = '/';
