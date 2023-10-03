@@ -110,6 +110,7 @@ const ProductList = () => {
                 tag={product.carbon_tag}
                 image={product.image || '-'}
                 name={product.name || '-'}
+                location={product.location}
                 rating={product.rating || '-'}
                 standard={product.standard || '-'}
                 type={product.type || '-'}
@@ -117,7 +118,6 @@ const ProductList = () => {
                 vintage={product.vintage || '-'}
                 minPrice={product.min_price}
                 maxPrice={product.max_price}
-                location={product.location || '-'}
               />
             ))}
           </div>
