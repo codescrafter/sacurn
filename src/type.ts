@@ -118,3 +118,10 @@ export type CardRenewalTypes = {
   buttonText?: string;
   terms?: string;
 };
+
+export enum AccountStepsEnum {
+  ACCOUNT_INFORMATION = 'ACCOUNT_INFORMATION',
+  ENTERPRISE_ACCOUNT = 'ENTERPRISE_ACCOUNT',
+  ACCOUNT_CARBON_CREDIT = 'ACCOUNT_CARBON_CREDIT',
+  OPERATING_INSTRUCTION = 'OPERATING_INSTRUCTION'
+}
