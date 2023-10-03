@@ -65,7 +65,7 @@ const schema = yup
     phone: yup
       .string()
       .required('Phone number is required')
-      .matches(/^09\d{8}$/, 'Invalid phone number'),
+      .matches(/^09\d{k8}$/, 'Invalid phone number'),
     founding_date: yup
       .string()
       .default(() => new Date().toISOString().slice(0, 10))
