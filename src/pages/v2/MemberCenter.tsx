@@ -5,10 +5,8 @@ import UserInfoForm from '@/components/v2/UserInfoForm';
 const MemberCenter = () => {
   return (
     <Layout>
-      <div className="">
-        <AccountSteps />
-        <UserInfoForm />
-      </div>
+      <AccountSteps />
+      <UserInfoForm />
     </Layout>
   );
 };
