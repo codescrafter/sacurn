@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { Cart as CartItemType } from '@/libs/api';
+import { ExtendedCart as CartItemType } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
 import { OrderStatus } from '@/type';
