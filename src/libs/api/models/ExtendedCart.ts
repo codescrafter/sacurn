@@ -3,7 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Cart = {
+import type { Status1d2Enum } from './Status1d2Enum';
+
+export type ExtendedCart = {
     readonly id: number;
     readonly name: string;
     readonly carbon_tag: string;
@@ -13,10 +15,10 @@ export type Cart = {
     order_deleted?: number;
     price: number;
     quantity: number;
-    status?: number;
+    status?: Status1d2Enum;
     readonly created_at: string;
     deleted_at?: string | null;
-    trader?: number | null;
+    company?: number | null;
     order: number;
 };
 

@@ -19,7 +19,7 @@ const Item = ({ order }: { order: Order }) => {
   const addToCart = useCartStore((state) => state.addToCart);
   const [qty, setQty] = useState(order.min_order_quantity || MIN_CART_QTY);
 
-  const isMyOrder = order.trader && company.id && order.trader === company.id ? true : false;
+  const isMyOrder = order.company && company.id && order.company === company.id ? true : false;
 
   const onQuantityAdjust = useCallback(
     (value: number) => {

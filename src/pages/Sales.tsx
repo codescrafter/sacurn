@@ -6,12 +6,11 @@ import StockItemBar from '@/components/StockItemBar';
 import { StockItem, useStockListStore } from '@/store/stockList';
 import { CarbonTag } from '@/type';
 
-// import Alert from '../components/Alert';
 import Button from '../components/Button';
 import Navbar from '../components/Navbar';
 import ProgressBarChart from '../components/ProgressBarChart';
 import SalesAreaGraph from '../components/SalesAreaGraph';
-import SalesConfirmationBox, { ActionType } from '../components/SalesConfirmationBox';
+import SalesConfirmationBox from '../components/SalesConfirmationBox';
 import SalesLineChart from '../components/SalesLineChart';
 
 const TABLE_HEAD = ['', '商品名稱', 'Vintage', '總數量', '碳權證書', '設定交易'];
@@ -23,16 +22,15 @@ enum SaleItemStatus {
 const Sales = () => {
   const [stockItemDetailId, setStockItemDetailId] = useState<StockItem['id'] | null>(null);
   const [selectStockItem, setSelectStockItem] = useState<StockItem | null>(null);
-  const [actionType, setActionType] = useState<ActionType | null>(null);
 
   const stockList = useStockListStore((store) => store.stockList);
   const getStockList = useStockListStore((store) => store.getStockList);
-  const getStockInfo = useStockListStore((store) => store.getStockInfo);
+  const getStockOrderList = useStockListStore((store) => store.getStockOrderList);
 
   useEffect(() => {
     if (stockList.length === 0) getStockList();
   }, []);
-  console.log('stockList', stockList);
+
   return (
     <div className="w-screen relative overflow-hidden bg-neutral-250">
       {/* navbar */}
@@ -40,14 +38,12 @@ const Sales = () => {
       <main className="py-[30px] pl-2 xl:pl-4 2xl:pl-[30px] pr-2 xl:pr-4 2xl:pr-[25px] mt-[70px]">
         <div className="flex gap-2 2xl:gap-[33px]">
           {/* sidebar */}
-          {selectStockItem && actionType ? (
+          {selectStockItem ? (
             <div className="max-w-[618px] 2xl:min-w-[618px] xl:w-[500px] w-[390px]">
               {/* confirmation box */}
               <SalesConfirmationBox
                 stockItem={selectStockItem}
-                actionType={actionType}
                 onClose={() => {
-                  setActionType(null);
                   setSelectStockItem(null);
                 }}
               />
@@ -143,7 +139,6 @@ const Sales = () => {
                                     {
                                       'bg-pale-yellow': stockItem.carbon_tag === CarbonTag.Yellow,
                                       'bg-light-blue': stockItem.carbon_tag === CarbonTag.Blue,
-                                      // 'bg-light-purple': stockItem.carbon_tag === CarbonTag.Yellow,
                                       'bg-light-green': stockItem.carbon_tag === CarbonTag.Green
                                     }
                                   )}
@@ -208,8 +203,8 @@ const Sales = () => {
                                   <Button
                                     className="whitespace-nowrap rounded-[7px] text-base !bg-pale-yellow hover:!bg-transparent hover:!border hover:!border-pale-yellow hover:!text-pale-yellow w-auto 2xl:min-w-[74px] !p-[5px]  2xl:!p-[7px]"
                                     onClick={async () => {
-                                      if (!stockItem.orderData) {
-                                        const isSuccess = await getStockInfo(stockItem.carbon_credit);
+                                      if (stockItem.orderList.length === 0) {
+                                        const isSuccess = await getStockOrderList(stockItem.carbon_credit);
                                         if (!isSuccess) return;
                                       }
                                       setStockItemDetailId((id) => (id === stockItem.id ? null : stockItem.id));
@@ -239,7 +234,6 @@ const Sales = () => {
                                           alt="settings icon"
                                           className="cursor-pointer w-[35px] 2xl:w-[45px] h-auto"
                                           onClick={() => {
-                                            setActionType(ActionType.MakeOnSale);
                                             setSelectStockItem(stockItem);
                                           }}
                                         />
@@ -258,24 +252,17 @@ const Sales = () => {
                             {/* shelf information */}
                             {stockItem.id === stockItemDetailId && (
                               <>
-                                {/* TODO: change it to real list when you have real data */}
-                                <StockItemBar
-                                  stockItem={stockItem}
-                                  setActionType={setActionType}
-                                  setSelectStockItem={setSelectStockItem}
-                                  number={1}
-                                />
-                                <StockItemBar
-                                  stockItem={stockItem}
-                                  setActionType={setActionType}
-                                  setSelectStockItem={setSelectStockItem}
-                                  number={2}
-                                />
+                                {stockItem.orderList.map((order, index) => (
+                                  <StockItemBar key={order.id} order={order} number={index + 1} />
+                                ))}
 
                                 <tr className="bg-light-gray dropdown-row h-[70px]">
                                   <td colSpan={6} className="dropdown-td px-3">
                                     <div className="flex justify-center items-center space-x-3 xl:space-x-5 2xl:space-x-8 w-full bg-[#f2f4f5] rounded-[10px] h-[73px] 2xl:pl-10 2xl:pr-13 pl-5 pr-6">
-                                      <Button className="rounded-[10px] font-bold min-w-[172px] h-9 flex items-center justify-center min-w-40 !bg-pale-yellow shadow-stoptrading-btn xl:text-base text-sm !text-navy-blue whitespace-nowrap px-3">
+                                      <Button
+                                        onClick={() => setSelectStockItem(stockItem)}
+                                        className="rounded-[10px] font-bold min-w-[172px] h-9 flex items-center justify-center min-w-40 !bg-pale-yellow shadow-stoptrading-btn xl:text-base text-sm !text-navy-blue whitespace-nowrap px-3"
+                                      >
                                         <span className="xl:text-xl text-base"> +</span> 新增上架商品
                                       </Button>
                                     </div>

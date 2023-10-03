@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Inventory } from './Inventory';
+import type { ShopTransaction } from './ShopTransaction';
 
-export type PaginatedInventoryList = {
+export type PaginatedShopTransactionList = {
     count?: number;
     next?: string | null;
     previous?: string | null;
-    results?: Array<Inventory>;
+    results?: Array<ShopTransaction>;
 };
 

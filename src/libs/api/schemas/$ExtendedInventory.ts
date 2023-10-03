@@ -2,10 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $Cart = {
+export const $ExtendedInventory = {
     properties: {
         id: {
             type: 'number',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        status: {
+            type: 'string',
             isReadOnly: true,
             isRequired: true,
         },
@@ -19,56 +24,45 @@ export const $Cart = {
             isReadOnly: true,
             isRequired: true,
         },
-        image: {
+        vintage: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,
         },
-        company_code: {
+        serial_number: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,
         },
-        remaining_quantity: {
+        location: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,
         },
-        order_deleted: {
+        ratio: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        available_sale_quantity: {
             type: 'number',
-        },
-        price: {
-            type: 'number',
-            isRequired: true,
-            format: 'double',
         },
         quantity: {
             type: 'number',
-            isRequired: true,
+            isNullable: true,
             maximum: 2147483647,
             minimum: -2147483648,
         },
-        status: {
+        price: {
             type: 'number',
-            maximum: 2147483647,
-            minimum: -2147483648,
+            isNullable: true,
+            format: 'double',
         },
-        created_at: {
-            type: 'string',
-            isReadOnly: true,
+        carbon_credit: {
+            type: 'number',
             isRequired: true,
-            format: 'date-time',
         },
-        deleted_at: {
-            type: 'string',
-            isNullable: true,
-            format: 'date-time',
-        },
-        trader: {
-            type: 'number',
-            isNullable: true,
-        },
-        order: {
+        company: {
             type: 'number',
             isRequired: true,
         },

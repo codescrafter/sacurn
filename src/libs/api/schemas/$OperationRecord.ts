@@ -14,7 +14,7 @@ export const $OperationRecord = {
             isReadOnly: true,
             isRequired: true,
         },
-        total_money: {
+        total_amount: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,
