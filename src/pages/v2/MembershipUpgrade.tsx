@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import AccountSteps from '@/components/v2/AccountSteps';
 import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
 import Layout from '@/components/v2/Layout';
@@ -30,7 +29,6 @@ const MembershipUpgrade = () => {
 
   return (
     <Layout>
-      <AccountSteps />
       <div className="mt-10 px-[12%]">
         <h3 className="text-center text-navy-blue text-[32px] font-bold mb-5">會員卡升級</h3>
         <CardSteps totalSteps={3} currentStep={cardRenewal} />
