@@ -1,6 +1,6 @@
 import { DevTool } from '@hookform/devtools';
 import { yupResolver } from '@hookform/resolvers/yup';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 // import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -115,19 +115,19 @@ const MemberCenter = () => {
                 register={register}
                 errors={errors}
                 errorMessage="enter right extention"
-                className=![60%]
+                // classNames="![60%]"
               />
             </div>
             {/* Third Child */}
-            <div className=" flex flex-col justify-between md:w-[27%] border lg:w-[33%] xl:w-[]">
+            <div className=" flex flex-col justify-between md:w-[27%] lg:w-[36%] xl:w-[]">
               {/* third-child-1 */}
               <div className=" flex items-center gap-5 mt-13 xl:gap-10">
-                <label htmlFor="" className="font-bold text-xl text-deepseablue md:text-sm md:w-31 ">
+                <label htmlFor="" className="font-bold text-xl text-deepseablue md:text-xs md:w-20 lg:text-sm">
                   操作權限
                 </label>
                 <div>
                   <div className="w-60 h-10 rounded-full bg-white pl-4 flex md:w-full ">
-                    <select id="" {...register('identity')} className="w-24 outline-none md:w-20 md:text-sm">
+                    <select id="" {...register('identity')} className="w-24 outline-none md:w-20 md:text-sm xl:">
                       <option value="">身份選擇</option>
                       {countries.map((item) => {
                         return (

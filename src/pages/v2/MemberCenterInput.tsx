@@ -10,8 +10,9 @@ interface IProps {
   register: UseFormRegister<FormValues>;
   errors?: FieldErrors<FieldValues>;
   errorMessage?: string;
+  // classNames?: string;
 }
-const MemberCenterInput = ({ id, heading, type, register, isRequired, errorMessage, errors,clas }: IProps) => {
+const MemberCenterInput = ({ id, heading, type, register, isRequired, errorMessage, errors }: IProps) => {
   return (
     <div className="flex flex-col ">
       <div className="flex justify-between items-center  gap-3 md:w-full md:gap-2 xl:w-full">
@@ -20,10 +21,6 @@ const MemberCenterInput = ({ id, heading, type, register, isRequired, errorMessa
         </label>
         <input
           type="text"
-          className={classNames(
-            'rounded-full w-54 py-3 bg-white outline-none px-4 md:w-[78%] xl:w-[80%]'
-            className
-          )}
           className="rounded-full w-54 py-3 bg-white outline-none px-4 md:w-[78%] xl:w-[80%] "
           {...register(id as 'name' | 'phone' | 'professionaltitle' | 'email' | 'phone' | 'extention', {
             required: isRequired
