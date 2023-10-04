@@ -1,29 +1,29 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
 import Layout from '@/components/v2/Layout';
-import { CardMembershipTypes, CardReIssueEnum } from '@/type';
+import { CardMembershipTypes, CardRevokedEnum } from '@/type';
 
-const CardReIssue = () => {
+const CardRevoked = () => {
   const { state } = useLocation();
-  const [cardRenewal, setCardRenewal] = useState<CardReIssueEnum>();
-  const [cardReIssueList, setCardReIssueList] = useState<CardMembershipTypes[]>([CARD_REISSUE[0]]);
+  const [cardRenewal, setCardRenewal] = useState<CardRevokedEnum>();
+  const [cardReIssueList, setCardReIssueList] = useState<CardMembershipTypes[]>([CARD_REVOKED[0]]);
 
   useEffect(() => {
     if (state && state?.step) {
       setCardRenewal(state.step);
-      setCardReIssueList(CARD_REISSUE);
+      setCardReIssueList(CARD_REVOKED);
     }
   }, []);
 
   const getCardRenewalValue = (value: number) => {
-    if (value === CardReIssueEnum.APPLICATION_STATUS) {
+    if (value === CardRevokedEnum.COMPLETE_ABOLITION) {
       return;
     }
-    setCardRenewal(CardReIssueEnum.REPORT_LOSS + value);
-    const updatedList = [...cardReIssueList, CARD_REISSUE[value]];
+    setCardRenewal(CardRevokedEnum.ANNULMENT + value);
+    const updatedList = [...cardReIssueList, CARD_REVOKED[value]];
     setCardReIssueList(updatedList);
   };
 
@@ -47,7 +47,7 @@ const CardReIssue = () => {
                 terms={item.terms}
                 step={item.id}
                 cardRenewalNumber={cardRenewal || 1}
-                isStyleChanged={CardReIssueEnum.REPORT_LOSS}
+                // isStyleChanged={CardReIssueEnum.REPORT_LOSS}
                 slug={item.slug}
                 getCurrentValue={(value) => getCardRenewalValue(value)}
               />
@@ -58,40 +58,40 @@ const CardReIssue = () => {
   );
 };
 
-export default CardReIssue;
+export default CardRevoked;
 
-const CARD_REISSUE: CardMembershipTypes[] = [
+const CARD_REVOKED: CardMembershipTypes[] = [
   {
     id: 1,
     name: '進行掛失',
     title: '',
-    subTitle:
-      '如確認會員卡已遺失無法尋回且尚在有效期內，為確保憑證的安全性，建議進行元卡片廢止並申請新卡補發。完成掛失申請後，將無法撤銷掛失。',
+    subTitle: '如會員卡尚在效期內，但因企業異動，可自行申請會員卡廢止。',
     info: '',
-    responseTitle: '新卡補辦費用: $2,000',
-    responseDetail: '如會員地址已異動，請於申請前與客服中心聯絡，先行變更地址。',
+    responseTitle: '會員卡費止作業經核准，此會員卡已永久失效，如有使用需求需重新申請。',
+    responseDetail: '',
     slug: 'REPORT_LOSS',
-    buttonText: '確認掛失'
+    buttonText: '確認廢止'
   },
   {
     id: 2,
-    name: '繳費方式',
+    name: '廢止確認',
     title: '',
-    subTitle: '手續費',
-    info: '$2,000',
-    responseTitle: '付款方式',
-    responseDetail: `點擊確認後，將新增補卡費用於購物車內，待付款完成後，系統將寄發通知給您。`,
-    slug: 'PAYMENT_METHOD',
-    buttonText: '確認付款'
+    subTitle: '本卡於',
+    info: '2023/06/12',
+    responseTitle: '申請廢止',
+    responseDetail: `請注意，申請日非廢止日。\n 平台將於5個工作日，寄發廢止通知至您的註冊信箱。`,
+    slug: 'INFO_MARGIN',
+    buttonText: '確認'
   },
   {
     id: 3,
-    name: '申請狀態',
+    name: '完成廢止',
     title: '',
-    subTitle: '舊卡已於',
-    info: '2023/08/10',
-    responseTitle: '廢止',
-    responseDetail: `新卡於五個工作天內安排補發，寄送至原收件地址。`,
+    subTitle: '本卡已於',
+    info: '2023/06/17',
+    responseTitle: '完成廢止',
+    slug: 'INFO_MARGIN',
+    responseDetail: `會員卡已永久失效，如需使用請重新申請。`,
     buttonText: '確認'
   }
 ];

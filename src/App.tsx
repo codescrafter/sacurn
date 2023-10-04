@@ -25,6 +25,7 @@ import PasswordReset from './pages/PasswordReset';
 import PaymentInformation from './pages/PaymentInformation';
 import CardReIssue from './pages/v2/CardReIssue';
 import CardRenewal from './pages/v2/CardRenewal';
+import CardRevoked from './pages/v2/CardRevoked';
 import CartV2 from './pages/v2/CartV2';
 import MemberCenter from './pages/v2/MemberCenter';
 import MembershipUpgrade from './pages/v2/MembershipUpgrade';
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: '/v2/card-reissue',
     element: <CardReIssue />
+  },
+  {
+    path: '/v2/card-revoked',
+    element: <CardRevoked />
   },
   {
     path: '/',
