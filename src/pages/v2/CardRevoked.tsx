@@ -5,6 +5,7 @@ import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
 import Layout from '@/components/v2/Layout';
 import { CardMembershipTypes, CardRevokedEnum } from '@/type';
+import { INFO_MARGIN } from '@/util/constants';
 
 const CardRevoked = () => {
   const { state } = useLocation();
@@ -80,7 +81,7 @@ const CARD_REVOKED: CardMembershipTypes[] = [
     info: '2023/06/12',
     responseTitle: '申請廢止',
     responseDetail: `請注意，申請日非廢止日。\n 平台將於5個工作日，寄發廢止通知至您的註冊信箱。`,
-    slug: 'INFO_MARGIN',
+    slug: INFO_MARGIN,
     buttonText: '確認'
   },
   {
@@ -90,7 +91,7 @@ const CARD_REVOKED: CardMembershipTypes[] = [
     subTitle: '本卡已於',
     info: '2023/06/17',
     responseTitle: '完成廢止',
-    slug: 'INFO_MARGIN',
+    slug: INFO_MARGIN,
     responseDetail: `會員卡已永久失效，如需使用請重新申請。`,
     buttonText: '確認'
   }

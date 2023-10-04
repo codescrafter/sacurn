@@ -10,6 +10,7 @@ import {
 
 export const REGISTRATION_COMPLETED_STATUS = 3;
 export const REGISTRATION_PENDING_STATUS = 1;
+export const INFO_MARGIN = 'INFO_MARGIN';
 
 export const NAVBAR_ITEMS: NavbarItemTypes[] = [
   {
