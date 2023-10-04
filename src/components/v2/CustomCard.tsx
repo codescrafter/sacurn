@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
 import { CardMembershipEnum, CardReIssueEnum } from '@/type';
+import { INFO_MARGIN } from '@/util/constants';
 
 import CustomButton from '../CustomButton';
 
@@ -65,7 +66,7 @@ const CustomCard = ({
           <h2
             className={classNames('text-2xl 2.5xl:text-3xl 3xl:text-5xl font-extrabold pt-3 pb-10 text-navy-blue', {
               '!text-hit-grey': step < cardRenewalNumber,
-              '!pb-0': slug === 'INFO_MARGIN',
+              '!pb-0': slug === INFO_MARGIN,
               hidden: slug === 'REPORT_LOSS'
             })}
           >

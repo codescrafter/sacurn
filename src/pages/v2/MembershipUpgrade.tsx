@@ -5,6 +5,7 @@ import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
 import Layout from '@/components/v2/Layout';
 import { CardMembershipEnum, CardMembershipTypes } from '@/type';
+import { INFO_MARGIN } from '@/util/constants';
 
 const MembershipUpgrade = () => {
   const { state } = useLocation();
@@ -78,7 +79,7 @@ const MEMBERSHIP_UPGRADE: CardMembershipTypes[] = [
     subTitle: '本卡已於',
     info: '2023/08/03',
     responseTitle: '申請升等',
-    slug: 'INFO_MARGIN',
+    slug: INFO_MARGIN,
     responseDetail: `申請日非核准日。\n 升等核准後，原卡片將廢止並寄送升等卡至會員收件地址`,
     buttonText: '確認'
   },
@@ -89,7 +90,7 @@ const MEMBERSHIP_UPGRADE: CardMembershipTypes[] = [
     subTitle: '本卡已於',
     info: '2023/08/10',
     responseTitle: '完成升等',
-    slug: 'INFO_MARGIN',
+    slug: INFO_MARGIN,
     responseDetail: `新卡於五個工作日內寄至註冊收件地址 \n 舊卡已廢止`,
     buttonText: '確認'
   }
