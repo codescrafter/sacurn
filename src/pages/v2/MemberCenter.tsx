@@ -30,7 +30,7 @@ const schema = yup.object().shape({
     .matches(/^09\d{8}$/, 'Invalid phone number'),
   extention: yup.string().required(),
   check: yup.boolean().default(false).oneOf([true], '請務必確認勾選此框。').required('請務必確認勾選此框。'),
-  identity: yup.string().required()
+  identity: yup.string().required('Country is requiured')
 });
 const MemberCenter = () => {
   const form = useForm<FormValues>({
@@ -59,18 +59,18 @@ const MemberCenter = () => {
           <div className="flex  md:gap-5 xl:gap-7">
             {/* child 1 */}
             <div className=" flex flex-col gap-24 items-center md:w-[20%] xl:w-[15%] ">
-              <h1 className=" text-lg font-bold text-deepseablue md:text-sm xl:text-lg">| 新增使用者</h1>
+              <h1 className=" text-lg font-bold text-deepseablue md:text-sm xl:text-lg 2xl:text-2xl">| 新增使用者</h1>
               <div
-                className="rounded-full bg-deepseablue h-28 w-28  flex justify-center items-center md:h-20 md:w-20 xl:h-24 xl:w-24"
+                className="rounded-full bg-deepseablue h-28 w-28  flex justify-center items-center md:h-20 md:w-20 xl:h-24 xl:w-24 2xl:h-32 2xl:w-32 "
                 // onClick={() => {
                 //   console.log(errors);
                 // }}
               >
-                <h2 className="text-white md:text-xs xl:text-lg"> 更換照片</h2>
+                <h2 className="text-white md:text-xs xl:text-lg 2xl:text-xl"> 更換照片</h2>
               </div>
             </div>
             {/* second child */}
-            <div className="flex flex-col gap-4 pt-13 pb-10 md:w-[45%] lg:w-[40%] xl:w-[40%]">
+            <div className="flex flex-col gap-4 pt-13 pb-10 md:w-[33%] lg:w-[40%] xl:w-[40%]">
               <MemberCenterInput
                 id="name"
                 heading="姓名"
@@ -115,19 +115,24 @@ const MemberCenter = () => {
                 register={register}
                 errors={errors}
                 errorMessage="enter right extention"
-                // classNames="![60%]"
+                isHalfWidth={true}
+                isleftmargin={true}
               />
             </div>
             {/* Third Child */}
-            <div className=" flex flex-col justify-between md:w-[27%] lg:w-[36%] xl:w-[]">
+            <div className="flex flex-col justify-between md:w-[40%] lg:w-[36%] 2xl:">
               {/* third-child-1 */}
-              <div className=" flex items-center gap-5 mt-13 xl:gap-10">
-                <label htmlFor="" className="font-bold text-xl text-deepseablue md:text-xs md:w-20 lg:text-sm">
+              <div className=" flex items-center gap-5 mt-13 xl:gap-10 2xl:gap-15">
+                <label htmlFor="" className="font-bold text-xl text-deepseablue md:text-xs lg:text-sm 2xl:text-base">
                   操作權限
                 </label>
-                <div>
-                  <div className="w-60 h-10 rounded-full bg-white pl-4 flex md:w-full ">
-                    <select id="" {...register('identity')} className="w-24 outline-none md:w-20 md:text-sm xl:">
+                <div className="w-[65%] lg:w-[63%] xl:w-[61%] 2xl:w-[64%] ">
+                  <div className="w-100 h-10 rounded-full bg-white pl-4 flex md:w-full md:h-6 lg:h-8 xl:h-10 2xl:w-full 2xl:h-11">
+                    <select
+                      id=""
+                      className="w-24 outline-none md:w-20 md:text-xs xl:w-24 2xl:text-base"
+                      {...register('identity')}
+                    >
                       <option value="">身份選擇</option>
                       {countries.map((item) => {
                         return (
@@ -141,7 +146,7 @@ const MemberCenter = () => {
                       type=""
                       name=""
                       id=""
-                      className="rounded-full h-full w-32 bg-white outline-none px-4 md:w-full"
+                      className="rounded-full h-full w-32 bg-white outline-none px-4 md:w-full md:hidden"
                     />
                   </div>
                   {errors.identity && <p className="text-sunset-orange ml-7 text-xs">{errors.identity.message}</p>}
@@ -150,9 +155,12 @@ const MemberCenter = () => {
 
               <div className="flex flex-col gap-3">
                 <div className=" flex flex-col">
-                  <div className="flex gap-2">
+                  <div className="flex gap-4 2xl:gap-5">
                     <input type="checkbox" id="" className="h-8 w-8 md:-mt-1" {...register('check')} />
-                    <label htmlFor="" className="font-bold text-base text-deepseablue md:text-xs xl:text-base">
+                    <label
+                      htmlFor=""
+                      className="font-bold text-base text-deepseablue md:text-xs xl:text-base 2xl:text-lg"
+                    >
                       確認後無法修改, 系統將自動寄送email至指定信箱進行身分驗證。
                     </label>
                   </div>
@@ -162,13 +170,13 @@ const MemberCenter = () => {
                 <div className="flex justify-end gap-6 items-center md:w-full">
                   <button
                     type="submit"
-                    className="border px-10 py-1 font-bold rounded-xl outline-none text-deepseablue md:px-6 md:py-2 md:text-xs  xl:px-10 xl:py-2 xl:text-base"
+                    className="border px-10 py-1 font-bold rounded-xl outline-none text-deepseablue md:px-4 md:py-2 md:text-xs  xl:px-10 xl:py-2 xl:text-base 2xl:px-10 2xl:py-2 2xl:text-lg"
                   >
                     取消
                   </button>
                   <button
                     type="submit"
-                    className="px-10 py-1 font-bold rounded-xl bg-deepseablue text-white  outline-none md:px-6 md:py-2 md:text-xs xl:px-10 xl:py-2 xl:text-base"
+                    className="px-10 py-1 font-bold rounded-xl bg-deepseablue text-white  outline-none md:px-4 md:py-2 md:text-xs xl:px-10 xl:py-2 xl:text-base 2xl:px-10 2xl:py-2 2xl:text-lg"
                   >
                     確認
                   </button>
