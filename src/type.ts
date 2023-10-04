@@ -117,6 +117,7 @@ export type CardRenewalTypes = {
   responseDetail?: string;
   buttonText?: string;
   terms?: string;
+  slug?: string;
 };
 
 export enum AccountStepsEnum {
@@ -126,8 +127,14 @@ export enum AccountStepsEnum {
   OPERATING_INSTRUCTION = 'OPERATING_INSTRUCTION'
 }
 
-export enum CardReissueEnum {
+export enum CardRevokedEnum {
   ANNULMENT = 1,
   CANCELLATION_CONFIRMATION = 2,
   COMPLETE_ABOLITION = 3
+}
+
+export enum CardReIssueEnum {
+  REPORT_LOSS = 1,
+  PAYMENT_METHOD = 2,
+  APPLICATION_STATUS = 3
 }
