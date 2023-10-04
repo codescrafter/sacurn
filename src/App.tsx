@@ -23,6 +23,7 @@ import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRe
 import PasswordReset from './pages/PasswordReset';
 // import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
+import CardReIssue from './pages/v2/CardReIssue';
 import CardRenewal from './pages/v2/CardRenewal';
 import CartV2 from './pages/v2/CartV2';
 import MemberCenter from './pages/v2/MemberCenter';
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: '/v2/membership-upgrade',
     element: <MembershipUpgrade />
+  },
+  {
+    path: '/v2/card-reissue',
+    element: <CardReIssue />
   },
   {
     path: '/',

@@ -4,27 +4,27 @@ import { useLocation } from 'react-router-dom';
 import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
 import Layout from '@/components/v2/Layout';
-import { CardMembershipEnum, CardRenewalTypes } from '@/type';
+import { CardReissueEnum, CardRenewalTypes } from '@/type';
 
-const MembershipUpgrade = () => {
+const CardReIssue = () => {
   const { state } = useLocation();
-  const [cardRenewal, setCardRenewal] = useState<CardMembershipEnum>();
-  const [membershipUpgradeList, setMembershipUpgradeList] = useState<CardRenewalTypes[]>([MEMBERSHIP_UPGRADE[0]]);
+  const [cardRenewal, setCardRenewal] = useState<CardReissueEnum>();
+  const [cardReIssueList, setCardReIssueList] = useState<CardRenewalTypes[]>([CARD_REISSUE[0]]);
 
   useEffect(() => {
     if (state && state?.step) {
       setCardRenewal(state.step);
-      setMembershipUpgradeList(MEMBERSHIP_UPGRADE);
+      setCardReIssueList(CARD_REISSUE);
     }
   }, []);
 
   const getCardRenewalValue = (value: number) => {
-    if (value === CardMembershipEnum.COMPLETE) {
+    if (value === CardReissueEnum.COMPLETE_ABOLITION) {
       return;
     }
-    setCardRenewal(CardMembershipEnum.APPLY + value);
-    const updatedList = [...membershipUpgradeList, MEMBERSHIP_UPGRADE[value]];
-    setMembershipUpgradeList(updatedList);
+    setCardRenewal(CardReissueEnum.ANNULMENT + value);
+    const updatedList = [...cardReIssueList, CARD_REISSUE[value]];
+    setCardReIssueList(updatedList);
   };
 
   return (
@@ -33,8 +33,8 @@ const MembershipUpgrade = () => {
         <h3 className="text-center text-navy-blue text-[32px] font-bold mb-5">會員卡升級</h3>
         <CardSteps totalSteps={3} currentStep={cardRenewal} />
         <div className="my-8 text-center grid grid-cols-3">
-          {membershipUpgradeList &&
-            membershipUpgradeList.map((item: CardRenewalTypes) => (
+          {cardReIssueList &&
+            cardReIssueList.map((item: CardRenewalTypes) => (
               <CustomCard
                 key={item.id}
                 name={item.name}
@@ -47,7 +47,7 @@ const MembershipUpgrade = () => {
                 terms={item.terms}
                 step={item.id}
                 cardRenewalNumber={cardRenewal || 1}
-                isStyleChanged={CardMembershipEnum.APPLICATION}
+                isStyleChanged={CardReissueEnum.ANNULMENT}
                 getCurrentValue={(value) => getCardRenewalValue(value)}
               />
             ))}
@@ -57,9 +57,9 @@ const MembershipUpgrade = () => {
   );
 };
 
-export default MembershipUpgrade;
+export default CardReIssue;
 
-const MEMBERSHIP_UPGRADE: CardRenewalTypes[] = [
+const CARD_REISSUE: CardRenewalTypes[] = [
   {
     id: 1,
     name: '申請升級',
