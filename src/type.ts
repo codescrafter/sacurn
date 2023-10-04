@@ -107,7 +107,7 @@ export enum CardMembershipEnum {
   COMPLETE = 3
 }
 
-export type CardRenewalTypes = {
+export type CardMembershipTypes = {
   id: number;
   name: string;
   title: string;
