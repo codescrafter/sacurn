@@ -62,7 +62,14 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Products /> //<Dashboard />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <Products />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
+    //<Dashboard />
   },
   // {
   //   path: '/product-list',
@@ -146,7 +153,13 @@ const router = createBrowserRouter([
   },
   {
     path: '/wishlist',
-    element: <WishList />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <WishList />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/certificate/:carbonId',
