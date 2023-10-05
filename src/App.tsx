@@ -62,13 +62,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: (
-      <ProtectedAuthRoute>
-        <ProtectedCompanyRegisteredRoute>
-          <Products />
-        </ProtectedCompanyRegisteredRoute>
-      </ProtectedAuthRoute>
-    ) //<Dashboard />
+    element: <Products /> //<Dashboard />
   },
   // {
   //   path: '/product-list',
