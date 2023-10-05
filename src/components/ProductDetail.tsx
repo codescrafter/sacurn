@@ -107,6 +107,8 @@ const ProductDetailList = () => {
     [qty]
   );
 
+  console.log('priceList', priceList);
+
   return (
     <div className="w-full mt-8 pl-4 relative">
       <h1 className="text-[44px] font-semibold leading-10 text-white">CarbonCure Concrete Mineralization</h1>
@@ -219,10 +221,11 @@ const ProductDetailList = () => {
                       height={42}
                       className="cursor-pointer"
                       style={{
-                        filter: item.company_code && company.id === company.id ? 'brightness(0.2)' : 'none'
+                        filter: item.company && company.id && item.company === company.id ? 'brightness(0.2)' : 'none'
                       }}
                       onClick={() => {
-                        const isMyOrder = item.company_code && company.id === company.id ? true : false;
+                        const isMyOrder = item.company && company.id && item.company === company.id ? true : false;
+
                         if (isMyOrder) return;
                         addToCart({
                           order: item.id,
