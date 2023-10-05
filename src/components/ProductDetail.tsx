@@ -108,22 +108,6 @@ const ProductDetailList = () => {
           />
         </p>
       </div>
-      {/* table */}
-      {/* <div className="w-full">
-        <div className="flex justify-between w-full py-2.5 border-b-2 border-white text-white">
-          <p className="text-[18px] leading-9 font-normal text-left ml-3 w-1/6">價格</p>
-          <p className="text-[18px] leading-9 font-normal text-left w-1/6">會員編號</p>
-          <p className="text-[18px] leading-9 font-normal text-center w-1/6">可用數量</p>
-          <p className="text-[18px] leading-9 font-normal text-center w-1/6">最小單位</p>
-          <p className="text-[18px] leading-9 font-normal text-center w-1/6">訂購數量</p>
-          <p className="text-[18px] leading-9 font-normal text-right mr-3 w-1/6">加入購物車</p>
-        </div>
-        <div className="overflow-x-auto max-w-[100%]">
-          <div className="max-h-[65vh] overflow-scroll yellowScrollNoBg min-w-[700px]">
-            {priceList?.map((item) => <Item order={item} key={item.id} />)}
-          </div>
-        </div>
-      </div> */}
 
       <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
