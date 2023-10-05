@@ -14,98 +14,83 @@ import { MIN_CART_QTY } from '@/util/constants';
 
 import Navbar from '../components/Navbar';
 
-// const Item = ({ order }: { order: Order }) => {
-//   const company = useCompanyStore((state) => state.company);
-//   const addToCart = useCartStore((state) => state.addToCart);
-//   const [qty, setQty] = useState(order.min_order_quantity || MIN_CART_QTY);
-
-//   const isMyOrder = order.company && company.id && order.company === company.id ? true : false;
-
-//   const onQuantityAdjust = useCallback(
-//     (value: number) => {
-//       if (isMyOrder) return;
-//       const newQty = qty + value;
-//       const minQty = order.min_order_quantity || MIN_CART_QTY;
-//       if (newQty >= minQty && newQty <= parseInt(order.remaining_quantity)) {
-//         setQty(newQty);
-//       }
-//     },
-//     [qty]
-//   );
-
-//   return (
-//     <div className="flex justify-between items-center w-full py-6.2 border-b-2 border-opacity-30 border-white text-white">
-//       <p className="text-2xl leading-9 font-medium text-left ml-3 w-1/6">${order.price}</p>
-//       <p className="text-2xl leading-9 font-normal text-left w-1/6">{order.company_code}</p>
-//       <div className="w-1/6 flex justify-center items-center">
-//         <p className="text-2xl leading-9 font-normal text-right">{order.remaining_quantity} 噸</p>
-//       </div>
-//       <div className="w-1/6 flex justify-end">
-//         <p className="text-2xl leading-9 font-normal text-right mr-10">{order.min_order_quantity} 噸</p>
-//       </div>
-//       {/* + input - */}
-//       <div className="w-1/6 flex justify-end ml-5">
-//         <div className="flex justify-center gap-1.2 items-center">
-//           <button
-//             onClick={() => onQuantityAdjust(-1)}
-//             className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
-//           >
-//             <img src="/images/products-page/ic_minus.svg" className="mx-auto" alt="arrow-down" width={13} height={2} />
-//           </button>
-//           <input
-//             className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
-//             type="number"
-//             value={qty}
-//             readOnly
-//           />
-//           <button
-//             onClick={() => onQuantityAdjust(+1)}
-//             className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
-//           >
-//             <img src="/images/products-page/ic_plus.svg" className="mx-auto" alt="arrow-down" width={13} height={13} />
-//           </button>
-//         </div>
-//       </div>
-//       <div className="w-1/6 flex justify-end mr-7">
-//         <img
-//           src="/images/products-page/ic_add_to_cart.svg"
-//           alt="arrow-down"
-//           width={50}
-//           height={42}
-//           className="cursor-pointer"
-//           style={{
-//             filter: isMyOrder ? 'brightness(0.2)' : 'none'
-//           }}
-//           onClick={() => {
-//             if (isMyOrder) return;
-//             addToCart({
-//               order: order.id,
-//               quantity: qty
-//             });
-//           }}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-const ProductDetailList = () => {
-  const priceList = usePriceListStore((state) => state.priceList);
+const OrderItem = ({ order }: { order: Order }) => {
   const company = useCompanyStore((state) => state.company);
   const addToCart = useCartStore((state) => state.addToCart);
-  const [qty, setQty] = useState(MIN_CART_QTY);
+  const [qty, setQty] = useState(order.min_order_quantity || MIN_CART_QTY);
+
+  const isMyOrder = order.company && company.id && order.company === company.id ? true : false;
 
   const onQuantityAdjust = useCallback(
-    (value: number, item: Order) => {
-      if (!priceList.length) return;
+    (value: number) => {
+      if (isMyOrder) return;
       const newQty = qty + value;
-      const minQty = item.min_order_quantity || MIN_CART_QTY;
-      if (newQty >= minQty && newQty <= parseInt(item.remaining_quantity)) {
+      const minQty = order.min_order_quantity || MIN_CART_QTY;
+      if (newQty >= minQty && newQty <= parseInt(order.remaining_quantity)) {
         setQty(newQty);
       }
     },
     [qty]
   );
+
+  return (
+    <tr key={order.id} className=" border-b dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl">
+      <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        {order.price}
+      </th>
+      <td className="px-6 py-4 whitespace-nowrap text-center">{order.company_code}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-center">{order.remaining_quantity} 噸</td>
+      <td className="px-6 py-4 whitespace-nowrap text-center">{order.min_order_quantity} 噸</td>
+      <td className="px-6 py-4 items-center whitespace-nowrap">
+        <div className="flex justify-center items-center gap-1.5">
+          <button
+            onClick={() => onQuantityAdjust(-1)}
+            className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
+          >
+            <img src="/images/products-page/ic_minus.svg" className="mx-auto" alt="arrow-down" width={13} height={2} />
+          </button>
+          <input
+            className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
+            type="number"
+            value={qty}
+            readOnly
+          />
+          <button
+            onClick={() => onQuantityAdjust(+1)}
+            className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
+          >
+            <img src="/images/products-page/ic_plus.svg" className="mx-auto" alt="arrow-down" width={13} height={13} />
+          </button>
+        </div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="flex justify-center">
+          <img
+            src="/images/products-page/ic_add_to_cart.svg"
+            alt="arrow-down"
+            width={50}
+            height={42}
+            className="cursor-pointer"
+            style={{
+              filter: order.company && company.id && order.company === company.id ? 'brightness(0.2)' : 'none'
+            }}
+            onClick={() => {
+              const isMyOrder = order.company && company.id && order.company === company.id ? true : false;
+              if (isMyOrder) return;
+              addToCart({
+                order: order.id,
+                quantity: qty
+              });
+            }}
+          />
+        </div>
+      </td>
+    </tr>
+  );
+};
+
+const ProductDetailList = () => {
+  const priceList = usePriceListStore((state) => state.priceList);
 
   return (
     <div className="w-full mt-8 pl-4 relative">
@@ -123,22 +108,6 @@ const ProductDetailList = () => {
           />
         </p>
       </div>
-      {/* table */}
-      {/* <div className="w-full">
-        <div className="flex justify-between w-full py-2.5 border-b-2 border-white text-white">
-          <p className="text-[18px] leading-9 font-normal text-left ml-3 w-1/6">價格</p>
-          <p className="text-[18px] leading-9 font-normal text-left w-1/6">會員編號</p>
-          <p className="text-[18px] leading-9 font-normal text-center w-1/6">可用數量</p>
-          <p className="text-[18px] leading-9 font-normal text-center w-1/6">最小單位</p>
-          <p className="text-[18px] leading-9 font-normal text-center w-1/6">訂購數量</p>
-          <p className="text-[18px] leading-9 font-normal text-right mr-3 w-1/6">加入購物車</p>
-        </div>
-        <div className="overflow-x-auto max-w-[100%]">
-          <div className="max-h-[65vh] overflow-scroll yellowScrollNoBg min-w-[700px]">
-            {priceList?.map((item) => <Item order={item} key={item.id} />)}
-          </div>
-        </div>
-      </div> */}
 
       <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -164,77 +133,7 @@ const ProductDetailList = () => {
               </th>
             </tr>
           </thead>
-          <tbody>
-            {priceList?.map((item) => (
-              <tr
-                key={item.id}
-                className=" border-b dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl"
-              >
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {item.price}
-                </th>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.remaining_quantity} 噸</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.min_order_quantity} 噸</td>
-                <td className="px-6 py-4 items-center whitespace-nowrap">
-                  <div className="flex justify-center items-center gap-1.5">
-                    <button
-                      onClick={() => onQuantityAdjust(-1, item)}
-                      className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
-                    >
-                      <img
-                        src="/images/products-page/ic_minus.svg"
-                        className="mx-auto"
-                        alt="arrow-down"
-                        width={13}
-                        height={2}
-                      />
-                    </button>
-                    <input
-                      className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
-                      type="number"
-                      value={qty}
-                      readOnly
-                    />
-                    <button
-                      onClick={() => onQuantityAdjust(+1, item)}
-                      className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
-                    >
-                      <img
-                        src="/images/products-page/ic_plus.svg"
-                        className="mx-auto"
-                        alt="arrow-down"
-                        width={13}
-                        height={13}
-                      />
-                    </button>
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex justify-center">
-                    <img
-                      src="/images/products-page/ic_add_to_cart.svg"
-                      alt="arrow-down"
-                      width={50}
-                      height={42}
-                      className="cursor-pointer"
-                      style={{
-                        filter: item.company_code && company.id === company.id ? 'brightness(0.2)' : 'none'
-                      }}
-                      onClick={() => {
-                        const isMyOrder = item.company_code && company.id === company.id ? true : false;
-                        if (isMyOrder) return;
-                        addToCart({
-                          order: item.id,
-                          quantity: qty
-                        });
-                      }}
-                    />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          <tbody>{priceList?.map((item) => <OrderItem order={item} key={item.id} />)}</tbody>
         </table>
       </div>
     </div>
