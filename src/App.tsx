@@ -68,8 +68,7 @@ const router = createBrowserRouter([
           <Products />
         </ProtectedCompanyRegisteredRoute>
       </ProtectedAuthRoute>
-    )
-    //<Dashboard />
+    ) //<Dashboard />
   },
   // {
   //   path: '/product-list',

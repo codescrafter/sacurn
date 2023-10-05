@@ -38,6 +38,7 @@ export class CarbonCreditService {
         tags?: string,
         vintage?: string,
     ): CancelablePromise<PaginatedCarbonCreditList> {
+    
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/',

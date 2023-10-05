@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { yupResolver } from '@hookform/resolvers/yup';
