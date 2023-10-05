@@ -9,7 +9,9 @@ const EnterpriseAccount = () => {
     <Layout>
       <div>
         <MembershipCenterNav />
-        <EnterpriseAccountinfo />
+        <EnterpriseAccountinfo
+        // isborder="#68A362"
+        />
       </div>
     </Layout>
   );

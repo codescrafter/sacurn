@@ -235,7 +235,12 @@ module.exports = {
       'light-white': '#ffffff4c',
       'trans-white': '#ffffffe6',
       'ceramic-bg': '#E0E0E0',
-      'hit-grey': '#A8A8A8'
+      'hit-grey': '#A8A8A8',
+      DeepseaBlue: '#005487',
+      OrangeYellow: '#FFD600',
+      GrayCloud: '#B3B4B4',
+      smokegray: '#525252',
+      MoonSoon: '#888888'
     }
   },
   plugins: []
