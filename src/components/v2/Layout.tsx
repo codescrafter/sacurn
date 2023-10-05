@@ -6,6 +6,7 @@ import { useMembershipStepsStore } from '@/store/memberShipSteps';
 import { MembershipStep, MembershipTypes } from '@/type';
 
 import Navbar from '../Navbar';
+import AccountSteps from './AccountSteps';
 import RangeSlider from './RangeSlider';
 
 interface IProps {
@@ -71,7 +72,10 @@ const Layout = ({ children }: IProps) => {
               </div>
             </div>
           </div>
-          <div className="w-[70%]">{children}</div>
+          <div className="w-[70%]">
+            <AccountSteps />
+            {children}
+          </div>
         </div>
       </div>
     </Fragment>

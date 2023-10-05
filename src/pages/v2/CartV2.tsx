@@ -3,7 +3,7 @@ import React, { FC, useCallback, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Navbar from '@/components/Navbar';
-import { Cart as CartItemType } from '@/libs/api';
+import { ExtendedCart as CartItemType } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
 import { CardRenewalEnum, OrderStatus } from '@/type';

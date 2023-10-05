@@ -107,7 +107,7 @@ export enum CardMembershipEnum {
   COMPLETE = 3
 }
 
-export type CardRenewalTypes = {
+export type CardMembershipTypes = {
   id: number;
   name: string;
   title: string;
@@ -117,4 +117,24 @@ export type CardRenewalTypes = {
   responseDetail?: string;
   buttonText?: string;
   terms?: string;
+  slug?: string;
 };
+
+export enum AccountStepsEnum {
+  ACCOUNT_INFORMATION = 'ACCOUNT_INFORMATION',
+  ENTERPRISE_ACCOUNT = 'ENTERPRISE_ACCOUNT',
+  ACCOUNT_CARBON_CREDIT = 'ACCOUNT_CARBON_CREDIT',
+  OPERATING_INSTRUCTION = 'OPERATING_INSTRUCTION'
+}
+
+export enum CardRevokedEnum {
+  ANNULMENT = 1,
+  CANCELLATION_CONFIRMATION = 2,
+  COMPLETE_ABOLITION = 3
+}
+
+export enum CardReIssueEnum {
+  REPORT_LOSS = 1,
+  PAYMENT_METHOD = 2,
+  APPLICATION_STATUS = 3
+}
