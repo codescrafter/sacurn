@@ -145,16 +145,16 @@ const ProductDetailList = () => {
           <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white text-lg 2xl:text-xl">
             <tr>
               <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                價格
+                單價
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
                 會員編號
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
-                可用數量
+                可交易數量
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
-                最小單位
+                交易最小單位
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
                 訂購數量
