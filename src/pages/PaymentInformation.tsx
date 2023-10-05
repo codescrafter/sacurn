@@ -72,10 +72,6 @@ const PaymentInformation = () => {
             <h4 className="text-xl font-bold text-navy-blue text-center">購買須知</h4>
             <div className="yellowScrollNoBg mr-2 overflow-scroll overflow-x-hidden mt-4">
               <div className="bg-neutral-150 m-4 rounded py-4 pl-1 pr-2">
-                <p className="text-sm mb-3 text-center">
-                  依《土星永續股份有限公司 會員服務條款》會員同意遵守本交易條款內容如下：
-                </p>
-
                 {PURCHASE_INFO_NOTE.map((note) => (
                   <div key={note.id}>
                     <div className="mb-1 flex gap-2 items-center px-2">
