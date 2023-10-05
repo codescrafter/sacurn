@@ -10,7 +10,7 @@ interface IProps {
   handleChange: (value: string | undefined) => void;
 }
 
-const SelectField = ({ label, value, handleChange }: IProps) => {
+const SelectField = ({ label, value, options, handleChange }: IProps) => {
   return (
     <FormControl
       sx={{
@@ -92,10 +92,7 @@ const SelectField = ({ label, value, handleChange }: IProps) => {
         >
           All
         </MenuItem>
-        {[
-          { name: 'hello', value: 'hello' },
-          { name: 'option1', value: 'option1' }
-        ].map((option) => {
+        {options.map((option) => {
           return (
             <MenuItem key={option.value} value={option.value}>
               {option.name}
