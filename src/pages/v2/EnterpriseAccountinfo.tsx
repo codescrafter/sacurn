@@ -12,9 +12,9 @@ const EnterpriseAccountinfo = () => {
               title={element.enterpriseTitle}
               username={element.enterpriseUsername}
               email={element.enterpriseUsermail}
+              id={element.id}
               color={element.color}
               bgColor={element.bgColor}
-              id={element.id}
             />
           );
         })}
