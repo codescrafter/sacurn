@@ -118,7 +118,6 @@ const ProductList = () => {
                 vintage={product.vintage || '-'}
                 minPrice={product.min_price}
                 maxPrice={product.max_price}
-                location={product.location || '-'}
               />
             ))}
           </div>
