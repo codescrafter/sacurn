@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { Cart as CartItemType } from '@/libs/api';
+import { ExtendedCart as CartItemType } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
 import { OrderStatus } from '@/type';
@@ -25,6 +25,7 @@ const Cart = () => {
   const open = useModalStore((store) => store.open);
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState(false);
+  const [isSelectAll, setIsSelectAll] = useState(false);
 
   useEffect(() => {
     getCartList();
@@ -52,7 +53,14 @@ const Cart = () => {
         <div className="flex items-center gap-3">
           <div className="flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
             <span>全選</span>
-            <input type="radio" className="ml-2.5 w-5 h-5 mt-0.5" />
+            <input
+              type="radio"
+              className="ml-2.5 w-5 h-5 mt-0.5"
+              checked={isSelectAll}
+              onClick={() => {
+                setIsSelectAll(!isSelectAll);
+              }}
+            />
           </div>
           <div className="flex gap-3 flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
             <span>刪除選取</span>

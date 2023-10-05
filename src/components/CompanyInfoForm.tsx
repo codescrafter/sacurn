@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -230,6 +229,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     formData.append('address', JSON.stringify(dataToSubmit.address));
     formData.append('created_at', dataToSubmit.created_at);
     formData.append('updated_at', dataToSubmit.updated_at);
+
     for (const img of uploadedDocs) {
       formData.append('registration_document', img);
     }

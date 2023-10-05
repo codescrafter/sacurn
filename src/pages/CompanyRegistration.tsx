@@ -20,7 +20,7 @@ const CompanyRegistration = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (company?.status === CompanyStatus.Reviewing) {
+    if (company?.status?.toString() === CompanyStatus.Reviewing.toString()) {
       open(ModalType.CompanyReviewing, {
         buttons: [
           {

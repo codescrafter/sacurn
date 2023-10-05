@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Status02bEnum } from './Status02bEnum';
+
 export type Company = {
     readonly id: number;
     readonly registration_document: string;
@@ -36,6 +38,6 @@ export type Company = {
     account_image?: string | null;
     terms_of_service_confirm?: boolean;
     terms_of_service_confirm_at?: string | null;
-    status?: number;
+    readonly status: Status02bEnum;
 };
 

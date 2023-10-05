@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { Cart, CartDetailResonse, CartRequest, TransactionDetail } from '@/libs/api';
+import { CartDetailResonse, CartRequest, ExtendedCart, TransactionDetail } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, runTask } from './modal';
@@ -12,7 +12,7 @@ export type CheckoutResult = {
 
 type CartItem = {
   selected: boolean;
-} & Cart;
+} & ExtendedCart;
 
 type CartState = {
   cartList: CartItem[];
@@ -21,7 +21,7 @@ type CartState = {
   getCartList: (page?: number) => void;
   getCartDetail: () => void;
   addToCart: (arg: CartRequest) => void;
-  updateCartItemSelected: (id: Cart['id'], index: number, isSelected: boolean) => void;
+  updateCartItemSelected: (id: ExtendedCart['id'], index: number, isSelected: boolean) => void;
   updateCartItemQty: (...args: Parameters<typeof apiClient.trade.tradeCartPartialUpdate>) => void;
   deleteCartItem: (id: number) => void;
   checkOutCart: () => Promise<CheckoutResult>;
@@ -63,7 +63,7 @@ export const useCartStore = create<CartState>((set, get) => ({
       }
     );
   },
-  updateCartItemSelected: async (id: Cart['id'], index: number, isSelected: boolean) => {
+  updateCartItemSelected: async (id: ExtendedCart['id'], index: number, isSelected: boolean) => {
     const cartList = Array.from(get().cartList);
     if (cartList[index].id === id) {
       cartList[index].selected = isSelected;

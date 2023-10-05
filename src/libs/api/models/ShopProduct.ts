@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { ShopProductStatusEnum } from './ShopProductStatusEnum';
+
 export type ShopProduct = {
     readonly id: number;
     readonly created_at: string | null;
@@ -13,8 +15,8 @@ export type ShopProduct = {
     desc?: string | null;
     price?: number | null;
     quantity?: number | null;
-    pubished_at?: string | null;
-    status?: number;
-    trader: number;
+    published_at?: string | null;
+    status?: ShopProductStatusEnum;
+    company: number;
 };
 

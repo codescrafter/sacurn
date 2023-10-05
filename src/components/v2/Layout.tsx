@@ -47,7 +47,7 @@ const Layout = ({ children }: IProps) => {
                   目前累積訂單 <b className="text-pale-yellow text-2xl font-bold">19</b>
                   <b className="text-lg font-bold text-white">/20</b>
                 </p>
-                <RangeSlider value={60} />
+                <RangeSlider value={90} />
                 <p className="text-sm font-normal text-white mt-4 min-[1400px]:mt-10">
                   目前累積消費 <b className="text-pale-yellow text-2xl font-bold">$99,000</b>
                   <b className="text-lg font-bold text-white">/100,000</b>

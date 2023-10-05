@@ -2,15 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $Inventory = {
+export const $ExtendedCart = {
     properties: {
         id: {
             type: 'number',
-            isReadOnly: true,
-            isRequired: true,
-        },
-        status: {
-            type: 'string',
             isReadOnly: true,
             isRequired: true,
         },
@@ -24,47 +19,57 @@ export const $Inventory = {
             isReadOnly: true,
             isRequired: true,
         },
-        vintage: {
+        image: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,
         },
-        serial_number: {
+        company_code: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,
         },
-        location: {
+        remaining_quantity: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,
         },
-        ratio: {
-            type: 'string',
-            isReadOnly: true,
-            isRequired: true,
-        },
-        available_sale_quantity: {
-            type: 'string',
-            isReadOnly: true,
-            isRequired: true,
-        },
-        quantity: {
+        order_deleted: {
             type: 'number',
-            isNullable: true,
-            maximum: 2147483647,
-            minimum: -2147483648,
         },
         price: {
             type: 'number',
-            isNullable: true,
+            isRequired: true,
             format: 'double',
         },
-        carbon_credit: {
+        quantity: {
             type: 'number',
             isRequired: true,
+            maximum: 2147483647,
+            minimum: -2147483648,
+        },
+        status: {
+            type: 'all-of',
+            contains: [{
+                type: 'Status1d2Enum',
+            }],
+        },
+        created_at: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+            format: 'date-time',
+        },
+        deleted_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
         },
         company: {
+            type: 'number',
+            isNullable: true,
+        },
+        order: {
             type: 'number',
             isRequired: true,
         },
