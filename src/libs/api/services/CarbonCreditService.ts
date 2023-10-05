@@ -16,7 +16,7 @@ import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class CarbonCreditService {
 
-    constructor(public readonly httpRequest: BaseHttpRequest) {}
+    constructor(public readonly httpRequest: BaseHttpRequest) { }
 
     /**
      * @param desc 價格排序方式
@@ -38,6 +38,7 @@ export class CarbonCreditService {
         tags?: string,
         vintage?: string,
     ): CancelablePromise<PaginatedCarbonCreditList> {
+    
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/',

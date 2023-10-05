@@ -10,7 +10,6 @@ import BenefitImpact from './BenefitImpact';
 import CartonImpact from './CartonImpact';
 import LayoutSwitch from './LayoutSwitch';
 import ProductDetail from './ProductDetail';
-import ProductSlider from './ProductSlider';
 
 const Details = () => {
   const [openTab, setOpenTab] = useState(1);
@@ -90,9 +89,6 @@ const Details = () => {
       <div className="w-[62%]">
         <LayoutSwitch />
         <div>
-          <div className="relative z-[1] w-[103%] left-[-32px] ">
-            <ProductSlider />
-          </div>
           <div className="">
             <div className="flex items-start gap-2 pr-8 mt-5">
               <h1 className="text-[32px] flex-1 font-semibold text-white">(VCS-2250) Delta Blue Carbon - 1</h1>
