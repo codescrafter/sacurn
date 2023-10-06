@@ -4,36 +4,40 @@ interface IProps {
   title: string;
   color: string;
   bgColor: string;
-  username: string;
-  email: string;
-  id: string;
+  userName: string;
+  userEmail: string;
+  id: number;
+  img: string;
 }
 
-const EnterpriseCard = ({ title, username, email, color, bgColor, id }: IProps) => {
+const EnterpriseCard = ({ title, userName, userEmail, color, bgColor, id, img }: IProps) => {
   return (
     <div className="bg-white rounded-lg p-10 pb-12 md:p-7 xl:p-10">
       <div className="flex flex-col justify-center items-center gap-4">
-        <h1 className="text-DeepseaBlue font-bold text-xl md:text-base xl:text-xl">{title}</h1>
+        <h1 className="text-deep-sea-blue font-bold text-xl md:text-base xl:text-xl 2xl:text-2xl">{title}</h1>
         <div
-          className={classNames('h-20 w-20 border-4 rounded-full bg-MoonSoon mt-2 flex justify-center items-end', {
-            'border-OrangeYellow': !color,
-            'border-[#68A362]': color,
-            'border-[#005487]': id
-          })}
+          className={classNames(
+            'h-20 w-20 border-4 rounded-full bg-moon-soon mt-2 flex justify-center items-end xl:h-24 xl:w-24',
+            {
+              'border-mustard-yellow': !color,
+              'border-[#68A362]': color,
+              'border-deep-sea-blue': id == 5
+            }
+          )}
         >
-          <img src="/images/enterprise-account/user-icon.svg" alt="no Image" />
+          <img src={img} alt="no Image" className="h-15 xl:h-18 " />
         </div>
         <div
           className={classNames(
-            'h-5 w-5 rounded-full border-4 border-white shadow-sm shadow-smokegray relative -top-9 left-6',
+            'h-5 w-5 rounded-full border-4 border-white shadow-sm shadow-smoke-gray relative -top-9 left-6',
             {
-              ' bg-GrayCloud': !bgColor,
+              ' bg-gray-cloud': !bgColor,
               'bg-[#68A362]': bgColor
             }
           )}
         ></div>
-        <h1 className="font-bold text-xl md:text-base xl:text-xl">{username}</h1>
-        <p className="font-normal text-sm text-smokegray md:text-xs xl:text-base">{email}</p>
+        <h1 className="font-bold text-xl md:text-base xl:text-xl 2xl:text-2xl">{userName}</h1>
+        <p className="font-normal text-sm text-smoke-gray md:text-xs xl:text-base 2xl:text-xl">{userEmail}</p>
       </div>
     </div>
   );

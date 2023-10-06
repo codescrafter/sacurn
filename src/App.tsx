@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     element: <MemberCenter />
   },
   {
-    path: '/v2/EnterpriseAccount',
+    path: '/v2/enterprise-account',
     element: <EnterpriseAccount />
   },
   {

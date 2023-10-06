@@ -138,3 +138,13 @@ export enum CardReIssueEnum {
   PAYMENT_METHOD = 2,
   APPLICATION_STATUS = 3
 }
+
+export type CardEnterpriseTypes = {
+  title: string;
+  color: string;
+  bgColor: string;
+  userName: string;
+  userEmail: string;
+  id: number;
+  img: string;
+};
