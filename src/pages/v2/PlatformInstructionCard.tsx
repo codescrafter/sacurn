@@ -13,10 +13,10 @@ const PlatformInstructionCard = ({ Card_heading, Card_name, Card_description, Ca
   const [show2, setShow2] = useState(true);
   return (
     <div className="">
-      <h1 className="text-3xl text-DeepSeaBlue font-bold">{Card_heading}</h1>
+      <h1 className="text-3xl text-DeepSeaBlue font-bold max-[1400px]:text-xl">{Card_heading}</h1>
 
       <div className="">
-        <div className="flex justify-between px-8 text-xl font-bold py-2">
+        <div className="flex justify-between px-8 text-xl font-bold py-2  max-[1400px]:text-base">
           <p>{Card_name}</p>
 
           <button onClick={() => setShow(!show)}>
@@ -32,8 +32,8 @@ const PlatformInstructionCard = ({ Card_heading, Card_name, Card_description, Ca
           </button>
         </div>
         <div className="w-[100%] border-b-2 border-grey-ghoose border-dashed bg-Geyser ">
-          <div className={`px-10 h-[100px] overflow-y-scroll yellowScroll  ${show ? '' : 'hidden'}`}>
-            {show && <p className="text-xl text-justify font-normal py-4"> {Card_description}</p>}
+          <div className={`px-10 h-[100px] overflow-y-scroll scroll-right  ${show ? '' : 'hidden'}`}>
+            {show && <p className="text-xl text-left font-normal py-4  max-[1400px]:text-base"> {Card_description}</p>}
           </div>
         </div>
         <div className="flex justify-between px-8 text-xl font-bold py-2">
@@ -51,8 +51,10 @@ const PlatformInstructionCard = ({ Card_heading, Card_name, Card_description, Ca
           </button>
         </div>
         <div className=" w-[100%] border-b-2 border-grey-ghoose border-dashed bg-Geyser">
-          <div className={`px-10  h-[100px] overflow-y-scroll yellowScroll  ${show2 ? '' : 'hidden'}`}>
-            {show2 && <p className="text-xl text-justify font-normal py-4"> {Card_description}</p>}
+          <div className={`px-10  h-[100px] overflow-y-scroll scroll-right  ${show2 ? '' : 'hidden'} `}>
+            {show2 && (
+              <p className="text-xl text-left font-normal py-4  max-[1400px]:text-base "> {Card_description}</p>
+            )}
           </div>
         </div>
       </div>
