@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Inventory = {
+export type ExtendedInventory = {
     readonly id: number;
     readonly status: string;
     readonly name: string;
@@ -12,7 +12,7 @@ export type Inventory = {
     readonly serial_number: string;
     readonly location: string;
     readonly ratio: string;
-    readonly available_sale_quantity: string;
+    available_sale_quantity?: number;
     quantity?: number | null;
     price?: number | null;
     carbon_credit: number;

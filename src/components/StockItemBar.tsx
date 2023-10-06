@@ -1,18 +1,20 @@
 import React from 'react';
 
-import { StockItem } from '@/store/stockList';
+import { Order } from '@/libs/api';
+import { ModalType, useModalStore } from '@/store/modal';
+import { useStockListStore } from '@/store/stockList';
 
 import Button from './Button';
-import { ActionType } from './SalesConfirmationBox';
 
 interface StockItemProps {
-  stockItem: StockItem;
-  setActionType: React.Dispatch<React.SetStateAction<ActionType | null>>;
-  setSelectStockItem: React.Dispatch<React.SetStateAction<StockItem | null>>;
+  order: Order;
   number: number;
 }
 
-const StockItemBar = ({ stockItem, setActionType, setSelectStockItem, number }: StockItemProps) => {
+const StockItemBar = ({ order, number }: StockItemProps) => {
+  const open = useModalStore((state) => state.open);
+  const updateStockOffShelve = useStockListStore((state) => state.updateStockOffShelve);
+
   return (
     <tr className="bg-light-gray dropdown-row h-[84px]">
       <td colSpan={6} className="dropdown-td px-3">
@@ -24,29 +26,41 @@ const StockItemBar = ({ stockItem, setActionType, setSelectStockItem, number }: 
             <div className="flex items-center xl:gap-2.5 gap-1 2xl:gap-2">
               <span className="font-medium text-sm xl:text-lg text-grey whitespace-nowrap">單價/噸</span>
               <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                $ {stockItem.orderData?.price || '-'}
+                $ {order.price || '-'}
               </span>
             </div>
             {/* member id */}
             <div className="flex items-center xl:gap-2.5 gap-1 2xl:gap-2">
               <span className="font-medium text-sm xl:text-lg text-grey leading-[1px] whitespace-nowrap">最低單位</span>
               <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                {stockItem.orderData?.min_order_quantity || '-'} 噸
+                {order.min_order_quantity || '-'} 噸
               </span>
             </div>
             {/* transaction status */}
             <div className="flex items-center xl:gap-2.5 gap-1 2xl:gap-2">
               <span className="font-medium text-sm xl:text-lg text-grey leading-[1px] whitespace-nowrap">數量</span>
               <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                {stockItem.orderData?.quantity || '-'} 噸
+                {order.quantity || '-'} 噸
               </span>
             </div>
           </div>
           <Button
             className="rounded-[10px] min-w-[120px] 2xl:min-w-[183px] !bg-pale-yellow shadow-stoptrading-btn text-base !text-navy-blue font-medium xl:!ml-20 2xl:!ml-14"
             onClick={() => {
-              setActionType(ActionType.MakeOffShelve);
-              setSelectStockItem(stockItem);
+              open(ModalType.MakeStockOffShelve, {
+                buttons: [
+                  {
+                    text: '取消送出',
+                    isOutline: true
+                  },
+                  {
+                    text: '確認停止交易',
+                    onClick: () => {
+                      updateStockOffShelve(order.id);
+                    }
+                  }
+                ]
+              });
             }}
           >
             停止交易

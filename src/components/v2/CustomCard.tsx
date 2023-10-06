@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
-import { CardMembershipEnum } from '@/type';
+import { CardMembershipEnum, CardReIssueEnum } from '@/type';
+import { INFO_MARGIN } from '@/util/constants';
 
 import CustomButton from '../CustomButton';
 
@@ -15,7 +16,8 @@ interface CustomCardProps {
   terms?: string;
   step: number;
   cardRenewalNumber: number;
-  isStyleChanged?: CardMembershipEnum.APPLICATION | CardMembershipEnum.COMPLETE;
+  isStyleChanged?: CardMembershipEnum.APPLICATION | CardMembershipEnum.COMPLETE | CardReIssueEnum.REPORT_LOSS;
+  slug?: string;
   getCurrentValue?: (values: number) => void;
 }
 
@@ -29,6 +31,7 @@ const CustomCard = ({
   buttonText,
   terms,
   step,
+  slug,
   cardRenewalNumber,
   getCurrentValue
 }: CustomCardProps) => {
@@ -37,24 +40,34 @@ const CustomCard = ({
       <div className="2.5xl:w-[310px] flex flex-col justify-center gap-5 flex-1">
         <h5 className="text-navy-blue text-[28px] font-extrabold">{name}</h5>
         <div
-          className={classNames('w-full min-h-[500px] bg-white rounded-[10px] px-6 pb-2', {
+          className={classNames('w-full min-h-[500px] bg-white rounded-[10px] px-6 pb-2 flex flex-col justify-center', {
             'flex flex-col justify-center': step === 3,
             'bg-ceramic-bg text-hit-grey': step < cardRenewalNumber
           })}
         >
-          <h6
-            className={classNames('text-lg xl:text-2xl 2.5xl:text-[30px] font-bold text-black pt-12 pb-8', {
-              'text-navy-blue': step === 3,
-              'text-hit-grey': step < cardRenewalNumber
+          {title && (
+            <h6
+              className={classNames('text-lg xl:text-2xl 2.5xl:text-[30px] font-bold text-black pt-12 pb-8', {
+                'text-navy-blue': step === 3,
+                'text-hit-grey': step < cardRenewalNumber,
+                'pt-5 pb-3': slug === 'REPORT_LOSS'
+              })}
+            >
+              {title}
+            </h6>
+          )}
+          <p
+            className={classNames('text-xl xl:text-2xl', {
+              ['text-base xl:text-lg pb-4']: slug === 'REPORT_LOSS'
             })}
           >
-            {title}
-          </h6>
-          <p className="text-xl xl:text-2xl">{subTitle}</p>
+            {subTitle}
+          </p>
           <h2
             className={classNames('text-2xl 2.5xl:text-3xl 3xl:text-5xl font-extrabold pt-3 pb-10 text-navy-blue', {
               '!text-hit-grey': step < cardRenewalNumber,
-              'pb-0': step === CardMembershipEnum.APPLICATION || step === CardMembershipEnum.COMPLETE
+              '!pb-0': slug === INFO_MARGIN,
+              hidden: slug === 'REPORT_LOSS'
             })}
           >
             {info}
@@ -64,12 +77,14 @@ const CustomCard = ({
               <p
                 className={classNames('text-xl xl:text-2xl', {
                   'text-navy-blue': step === CardMembershipEnum.APPLICATION || step === CardMembershipEnum.COMPLETE,
-                  '!text-hit-grey': step < cardRenewalNumber
+                  '!text-hit-grey': step < cardRenewalNumber,
+                  'text-base xl:text-lg': slug === 'REPORT_LOSS'
                 })}
               >
                 {responseTitle}
               </p>
-              {step === CardMembershipEnum.APPLICATION || step === CardMembershipEnum.COMPLETE ? (
+              {(step === CardMembershipEnum.APPLICATION || step === CardMembershipEnum.COMPLETE) &&
+              slug !== 'PAYMENT_METHOD' ? (
                 <ul className="list-disc px-4">
                   {responseDetail?.split('\n').map((item, index) => (
                     <li key={index} className="text-start text-base xl:text-lg mb-1">
@@ -78,7 +93,14 @@ const CustomCard = ({
                   ))}
                 </ul>
               ) : (
-                <p className="text-base xl:text-lg">{responseDetail}</p>
+                <p
+                  className={classNames('text-base xl:text-lg', {
+                    'text-bright-red': slug === 'REPORT_LOSS',
+                    '!text-hit-grey': step < cardRenewalNumber
+                  })}
+                >
+                  {responseDetail}
+                </p>
               )}
               {buttonText && (
                 <CustomButton

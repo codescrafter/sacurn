@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 export type User = {
-    pk: number;
+    id: number;
     username: string;
     email: string;
     first_name: string;

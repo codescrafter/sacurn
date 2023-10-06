@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Status1d2Enum } from './Status1d2Enum';
+
 export type Employee = {
     readonly id: number;
     readonly username: string;
@@ -18,7 +20,7 @@ export type Employee = {
     tel?: string | null;
     tel_extension?: string | null;
     phone?: string | null;
-    status?: number;
+    status?: Status1d2Enum;
     user: number;
     company?: number | null;
 };

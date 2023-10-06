@@ -34,6 +34,11 @@ export const $WatchList = {
             isReadOnly: true,
             isRequired: true,
         },
+        vintage: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         created_at: {
             type: 'string',
             isReadOnly: true,

@@ -4,12 +4,13 @@ import { useLocation } from 'react-router-dom';
 import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
 import Layout from '@/components/v2/Layout';
-import { CardMembershipEnum, CardRenewalTypes } from '@/type';
+import { CardMembershipEnum, CardMembershipTypes } from '@/type';
+import { INFO_MARGIN } from '@/util/constants';
 
 const MembershipUpgrade = () => {
   const { state } = useLocation();
   const [cardRenewal, setCardRenewal] = useState<CardMembershipEnum>();
-  const [membershipUpgradeList, setMembershipUpgradeList] = useState<CardRenewalTypes[]>([MEMBERSHIP_UPGRADE[0]]);
+  const [membershipUpgradeList, setMembershipUpgradeList] = useState<CardMembershipTypes[]>([MEMBERSHIP_UPGRADE[0]]);
 
   useEffect(() => {
     if (state && state?.step) {
@@ -29,13 +30,12 @@ const MembershipUpgrade = () => {
 
   return (
     <Layout>
-      <div className="h-[100px]">{/* steps section */}</div>
       <div className="mt-10 px-[12%]">
         <h3 className="text-center text-navy-blue text-[32px] font-bold mb-5">會員卡升級</h3>
         <CardSteps totalSteps={3} currentStep={cardRenewal} />
         <div className="my-8 text-center grid grid-cols-3">
           {membershipUpgradeList &&
-            membershipUpgradeList.map((item: CardRenewalTypes) => (
+            membershipUpgradeList.map((item: CardMembershipTypes) => (
               <CustomCard
                 key={item.id}
                 name={item.name}
@@ -48,6 +48,7 @@ const MembershipUpgrade = () => {
                 terms={item.terms}
                 step={item.id}
                 cardRenewalNumber={cardRenewal || 1}
+                slug={item.slug}
                 isStyleChanged={CardMembershipEnum.APPLICATION}
                 getCurrentValue={(value) => getCardRenewalValue(value)}
               />
@@ -60,7 +61,7 @@ const MembershipUpgrade = () => {
 
 export default MembershipUpgrade;
 
-const MEMBERSHIP_UPGRADE: CardRenewalTypes[] = [
+const MEMBERSHIP_UPGRADE: CardMembershipTypes[] = [
   {
     id: 1,
     name: '申請升級',
@@ -78,6 +79,7 @@ const MEMBERSHIP_UPGRADE: CardRenewalTypes[] = [
     subTitle: '本卡已於',
     info: '2023/08/03',
     responseTitle: '申請升等',
+    slug: INFO_MARGIN,
     responseDetail: `申請日非核准日。\n 升等核准後，原卡片將廢止並寄送升等卡至會員收件地址`,
     buttonText: '確認'
   },
@@ -88,6 +90,7 @@ const MEMBERSHIP_UPGRADE: CardRenewalTypes[] = [
     subTitle: '本卡已於',
     info: '2023/08/10',
     responseTitle: '完成升等',
+    slug: INFO_MARGIN,
     responseDetail: `新卡於五個工作日內寄至註冊收件地址 \n 舊卡已廢止`,
     buttonText: '確認'
   }

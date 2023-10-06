@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Cart } from './Cart';
+import type { ExtendedCart } from './ExtendedCart';
 
-export type PaginatedCartList = {
+export type PaginatedExtendedCartList = {
     count?: number;
     next?: string | null;
     previous?: string | null;
-    results?: Array<Cart>;
+    results?: Array<ExtendedCart>;
 };
 
