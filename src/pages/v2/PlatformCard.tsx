@@ -6,15 +6,14 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-// import * as React from 'react';
 interface IProps {
-  Card_heading: string;
-  Card_name: string;
-  Card_description: string;
-  Card_heading2: string;
+  title: string;
+  name: string;
+  description: string;
+  subTitle: string;
 }
 
-const PlatformInstructionCard = ({ Card_heading, Card_name, Card_description, Card_heading2 }: IProps) => {
+const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
   // const [show, setShow] = useState(false);
   // const [show2, setShow2] = useState(false);
   const [showAccordion, setShowAccordion] = useState(false);
@@ -26,9 +25,9 @@ const PlatformInstructionCard = ({ Card_heading, Card_name, Card_description, Ca
 
   return (
     <div className="">
-      <h1 className="text-3xl text-DeepSeaBlue font-bold max-[1400px]:text-xl">{Card_heading}</h1>
+      <h1 className="text-3xl text-DeepSeaBlue font-bold max-[1400px]:text-xl">{title}</h1>
 
-      <div className="">
+      <div>
         {/* <div className="flex justify-between px-8 text-xl font-bold py-2  max-[1400px]:text-base">
           <p>{Card_name}</p>
 
@@ -65,8 +64,8 @@ const PlatformInstructionCard = ({ Card_heading, Card_name, Card_description, Ca
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className=" ">
-              <p className="  px-4 text-xl font-bold max-[1400px]:text-base">{Card_name}</p>
+            <Typography>
+              <p className="  px-4 text-xl font-bold max-[1400px]:text-base">{name}</p>
             </Typography>
           </AccordionSummary>
           <AccordionDetails
@@ -74,8 +73,8 @@ const PlatformInstructionCard = ({ Card_heading, Card_name, Card_description, Ca
               showAccordion ? '' : 'hidden'
             }`}
           >
-            <Typography className="  ">
-              <p className="px-4 text-xl text-left font-normal max-[1400px]:text-base"> {Card_description}</p>
+            <Typography>
+              <p className="px-4 text-xl text-left font-normal max-[1400px]:text-base"> {description}</p>
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -117,7 +116,7 @@ const PlatformInstructionCard = ({ Card_heading, Card_name, Card_description, Ca
             id="panel1a-header"
           >
             <Typography>
-              <p className="px-4 text-xl font-bold max-[1400px]:text-base">{Card_heading2}</p>
+              <p className="px-4 text-xl font-bold max-[1400px]:text-base">{subTitle}</p>
             </Typography>
           </AccordionSummary>
           <AccordionDetails
@@ -126,7 +125,7 @@ const PlatformInstructionCard = ({ Card_heading, Card_name, Card_description, Ca
             }`}
           >
             <Typography className="text-xl text-left font-normal py-4  max-[1400px]:text-base">
-              {Card_description}
+              {description}
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -135,4 +134,4 @@ const PlatformInstructionCard = ({ Card_heading, Card_name, Card_description, Ca
   );
 };
 
-export default PlatformInstructionCard;
+export default PlatformCard;

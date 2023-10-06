@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     element: <MemberCenter />
   },
   {
-    path: '/v2/PlatformUsage',
+    path: '/v2/platform-use',
     element: <PlatformUsage />
   },
   {

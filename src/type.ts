@@ -138,3 +138,10 @@ export enum CardReIssueEnum {
   PAYMENT_METHOD = 2,
   APPLICATION_STATUS = 3
 }
+
+export type InstructionCardTypes = {
+  title: string;
+  name: string;
+  description: string;
+  subTitle: string;
+};
