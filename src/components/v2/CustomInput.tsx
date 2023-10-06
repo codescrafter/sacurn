@@ -7,12 +7,12 @@ interface CustomInputIProps {
   register: UseFormRegister<UserInfoFormValues>;
   type: string;
   placeholder?: string;
-  heading?: string;
+  label?: string;
   className?: string;
   errors: FieldErrors<UserInfoFormValues>;
 }
 
-const CustomInput = ({ id, register, type, placeholder, heading, className, errors }: CustomInputIProps) => {
+const CustomInput = ({ id, register, type, placeholder, label, className, errors }: CustomInputIProps) => {
   return (
     <div
       className={classNames(
@@ -23,7 +23,7 @@ const CustomInput = ({ id, register, type, placeholder, heading, className, erro
       )}
     >
       <p className="min-[1600px]:text-xl min-[1500px]:text-lg min-[1300px]:text-base text-sm text-navy-blue text-right font-bold min-[1600px]:min-w-[54px] min-[1500px]:min-w-[52px] min-[1300px]:min-w-[51px] min-w-[50px]">
-        {heading}
+        {label}
       </p>
       <div className={classNames('flex flex-col relative', { 'gap-0.5': errors && errors[id] })}>
         <input
