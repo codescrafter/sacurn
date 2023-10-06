@@ -6,7 +6,7 @@ import { CardEnterpriseTypes } from '@/type';
 import EnterpriseCard from './EnterpriseCard';
 const EnterpriseAccountInfo = () => {
   return (
-    <div className="w-[90%] h-[520px] mx-auto mt-4 overflow-y-scroll yellowScroll md:w-[80%] md:h-[550px] lg:h-[560px] lg:w-[90%] xl:h-[560px] xl:w-[90%] 2xl:h-[600px]">
+    <div className="w-[90%] h-[565px] mx-auto mt-4 overflow-y-scroll yellowScroll  min-[1400px]:h-[750px] min-[1700px]:h-[780px]">
       <div className=" w-[94%]  grid grid-cols-3 gap-8 xl:h-[820px]">
         {ENTERPRISE_CARDS.map(({ title, userName, userEmail, id, color, bgColor, img }: CardEnterpriseTypes) => {
           return (

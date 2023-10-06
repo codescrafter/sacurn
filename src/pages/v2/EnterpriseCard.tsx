@@ -14,7 +14,7 @@ const EnterpriseCard = ({ title, userName, userEmail, color, bgColor, id, img }:
   return (
     <div className="bg-white rounded-lg p-10 pb-12 md:p-7 xl:p-10">
       <div className="flex flex-col justify-center items-center gap-4">
-        <h1 className="text-deep-sea-blue font-bold text-xl md:text-base xl:text-xl 2xl:text-2xl">{title}</h1>
+        <h1 className="text-deep-sea-blue font-bold text-xl md:text-base xl:text-xl 2xl:text-2xl ">{title}</h1>
         <div
           className={classNames(
             'h-20 w-20 border-4 rounded-full bg-moon-soon mt-2 flex justify-center items-end xl:h-24 xl:w-24',
