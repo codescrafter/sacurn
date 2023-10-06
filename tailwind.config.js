@@ -235,7 +235,10 @@ module.exports = {
       'light-white': '#ffffff4c',
       'trans-white': '#ffffffe6',
       'ceramic-bg': '#E0E0E0',
-      'hit-grey': '#A8A8A8'
+      'hit-grey': '#A8A8A8',
+      'grey-ghoose': '#979797',
+      DeepSeaBlue: '#005487',
+      Geyser: '#3F84AE21'
     }
   },
   plugins: []
