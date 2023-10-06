@@ -29,7 +29,8 @@ export const $PatchedCart = {
             isReadOnly: true,
         },
         order_deleted: {
-            type: 'number',
+            type: 'string',
+            isReadOnly: true,
         },
         price: {
             type: 'number',
@@ -41,9 +42,10 @@ export const $PatchedCart = {
             minimum: -2147483648,
         },
         status: {
-            type: 'number',
-            maximum: 2147483647,
-            minimum: -2147483648,
+            type: 'all-of',
+            contains: [{
+                type: 'Status1d2Enum',
+            }],
         },
         created_at: {
             type: 'string',
@@ -55,7 +57,7 @@ export const $PatchedCart = {
             isNullable: true,
             format: 'date-time',
         },
-        trader: {
+        company: {
             type: 'number',
             isNullable: true,
         },

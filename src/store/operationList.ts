@@ -7,14 +7,14 @@ import { runTask } from './modal';
 
 type OperationListState = {
   operationList: OperationRecord[];
-  getOperationList: (page?: number) => void;
+  getOperationList: (...args: Parameters<typeof apiClient.trade.tradeOperationRecordList>) => void;
 };
 
 export const useOperationListStore = create<OperationListState>((set) => ({
   operationList: [],
-  getOperationList: async (page?: number) => {
+  getOperationList: async (...args) => {
     await runTask(async () => {
-      const response = await apiClient.trade.tradeOperationRecordList(page);
+      const response = await apiClient.trade.tradeOperationRecordList(...args);
       set({ operationList: response.results });
     });
   }

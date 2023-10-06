@@ -17,8 +17,10 @@ const ProductLayout = ({ children }: IProps) => {
       className={classNames(
         'w-full min-h-screen bg-no-repeat bg-center bg-cover absolute z-[-2]',
         {
-          "bg-[url('../public/images/products/green/bg-green.png')]":
-            CarbonTag.Green === selectedTag || CarbonTag.White === selectedTag
+          "bg-[url('../public/images/products-page/cover.png')]": CarbonTag.White === selectedTag
+        },
+        {
+          "bg-[url('../public/images/products/green/bg-green.png')]": CarbonTag.Green === selectedTag
         },
         {
           "bg-[url('../public/images/products/yellow/bg-yellow.png')]": CarbonTag.Yellow === selectedTag

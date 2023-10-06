@@ -2,13 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $ListCarbonOrder = {
+export const $CpntAuth = {
     properties: {
-        order: {
-            type: 'array',
-            contains: {
-                type: 'Order',
-            },
+        clientAuthCode: {
+            type: 'string',
+            isRequired: true,
         },
     },
 } as const;

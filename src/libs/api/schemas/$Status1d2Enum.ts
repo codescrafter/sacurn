@@ -2,10 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
-import type { Order } from './Order';
-
-export type ListCarbonOrder = {
-    order?: Array<Order>;
-};
-
+export const $Status1d2Enum = {
+    type: 'Enum',
+} as const;

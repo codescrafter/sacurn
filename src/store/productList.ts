@@ -48,9 +48,9 @@ export const useProductListStore = create<ProductListState>((set, get) => ({
       filters.location,
       filters.page,
       filters.price,
+      filters.sort_by,
       filters.tag,
-      filters.vintage,
-      filters.sort_by
+      filters.vintage
     );
   }
 }));

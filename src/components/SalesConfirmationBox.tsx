@@ -1,32 +1,29 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { PURCHASE_INFO_NOTE } from '@/pages/PaymentInformation';
-import { ModalType, useModalStore } from '@/store/modal';
 import { StockItem, useStockListStore } from '@/store/stockList';
 import { MIN_CART_QTY } from '@/util/constants';
 
 import Button from './Button';
 import HorizontalDivider from './HorizontalDivider';
 
-export enum ActionType {
-  MakeOffShelve = 'MakeOffShelve',
-  MakeOnSale = 'MakeOnSale'
-}
-
 interface IProps {
   onClose: () => void;
-  actionType: ActionType;
   stockItem: StockItem;
 }
 
 const SalesConfirmationBox = (props: IProps) => {
-  const { actionType, onClose, stockItem } = props;
+  const { onClose, stockItem } = props;
 
-  const open = useModalStore((state) => state.open);
   const updateStockOnSale = useStockListStore((state) => state.updateStockOnSale);
-  const updateStockOffShelve = useStockListStore((state) => state.updateStockOffShelve);
-  const [qty, setQty] = useState<number>(stockItem.quantity || 0);
+
+  const maxSaleQty = useMemo(
+    () => stockItem.available_sale_quantity || stockItem.quantity || 0,
+    [stockItem.available_sale_quantity]
+  );
+
+  const [qty, setQty] = useState<number>(maxSaleQty);
   const [price, setPrice] = useState<number>(stockItem.price || 0);
   const [minUnit, setMinUnit] = useState<number>(MIN_CART_QTY);
   const [isReadMore, setIsReadMore] = useState<boolean>(false);
@@ -57,11 +54,11 @@ const SalesConfirmationBox = (props: IProps) => {
           <input
             type="number"
             value={qty}
-            disabled={actionType === ActionType.MakeOffShelve}
+            max={maxSaleQty}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
             onChange={(e) => {
               const newQty = parseInt(e.target.value);
-              if (newQty > (stockItem.quantity || 0)) return;
+              if (newQty > maxSaleQty) return;
               setQty(parseInt(e.target.value));
             }}
           />
@@ -75,7 +72,6 @@ const SalesConfirmationBox = (props: IProps) => {
           <input
             type="number"
             value={price}
-            disabled={actionType === ActionType.MakeOffShelve}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
             onChange={(e) => setPrice(parseInt(e.target.value))}
           />
@@ -89,7 +85,6 @@ const SalesConfirmationBox = (props: IProps) => {
           <input
             type="number"
             value={minUnit}
-            disabled={actionType === ActionType.MakeOffShelve}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
             onChange={(e) => {
               const newMinUnit = parseInt(e.target.value);
@@ -146,42 +141,15 @@ const SalesConfirmationBox = (props: IProps) => {
       </div>
       {/* action buttons */}
       <div className="flex items-center justify-center gap-4 2xl:gap-20 px-8 mt-5 xl:mt-[26px]">
-        {actionType === ActionType.MakeOnSale && (
-          <Button
-            className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl bg-navy-blue text-white"
-            onClick={() => {
-              updateStockOnSale(stockItem.carbon_credit, qty, price, minUnit);
-              onClose();
-            }}
-          >
-            上架交易
-          </Button>
-        )}
-
-        {actionType === ActionType.MakeOffShelve && (
-          <Button
-            className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl"
-            onClick={() => {
-              open(ModalType.MakeStockOffShelve, {
-                buttons: [
-                  {
-                    text: '取消送出',
-                    isOutline: true
-                  },
-                  {
-                    text: '確認停止交易',
-                    onClick: () => {
-                      updateStockOffShelve(stockItem.carbon_credit);
-                      onClose();
-                    }
-                  }
-                ]
-              });
-            }}
-          >
-            停止交易
-          </Button>
-        )}
+        <Button
+          className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl bg-navy-blue text-white"
+          onClick={() => {
+            updateStockOnSale(stockItem.carbon_credit, qty, price, minUnit);
+            onClose();
+          }}
+        >
+          上架交易
+        </Button>
         <Button
           onClick={onClose}
           className="!p-[10px] !bg-transparent rounded-[10px] min-w-[175px] border border-grey !text-grey text-base xl:text-2xl"

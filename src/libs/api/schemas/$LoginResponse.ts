@@ -15,7 +15,7 @@ export const $LoginResponse = {
             type: 'User',
             isRequired: true,
         },
-        company_id: {
+        company: {
             type: 'number',
         },
         company_status: {

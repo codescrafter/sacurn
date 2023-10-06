@@ -7,14 +7,14 @@ import { runTask } from './modal';
 
 type TransactionHistoryListState = {
   transactionHistoryList: TransactionRecord[];
-  getTransactionHistoryList: (page?: number) => void;
+  getTransactionHistoryList: (...args: Parameters<typeof apiClient.trade.tradeTransactionRecordList>) => void;
 };
 
 export const useTransactionHistoryListStore = create<TransactionHistoryListState>((set) => ({
   transactionHistoryList: [],
-  getTransactionHistoryList: async (page?: number) => {
+  getTransactionHistoryList: async (...args) => {
     await runTask(async () => {
-      const response = await apiClient.trade.tradeTransactionRecordList(page);
+      const response = await apiClient.trade.tradeTransactionRecordList(...args);
       set({ transactionHistoryList: response.results });
     });
   }

@@ -52,17 +52,18 @@ export const $ShopProduct = {
             maximum: 2147483647,
             minimum: -2147483648,
         },
-        pubished_at: {
+        published_at: {
             type: 'string',
             isNullable: true,
             format: 'date-time',
         },
         status: {
-            type: 'number',
-            maximum: 2147483647,
-            minimum: -2147483648,
+            type: 'all-of',
+            contains: [{
+                type: 'ShopProductStatusEnum',
+            }],
         },
-        trader: {
+        company: {
             type: 'number',
             isRequired: true,
         },
