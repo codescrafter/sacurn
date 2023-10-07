@@ -30,6 +30,7 @@ import CardRevoked from './pages/v2/CardRevoked';
 import CartV2 from './pages/v2/CartV2';
 import MemberCenter from './pages/v2/MemberCenter';
 import MembershipUpgrade from './pages/v2/MembershipUpgrade';
+import Permission from './pages/v2/Permission';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: '/v2',
     element: <MemberCenter />
+  },
+  {
+    path: '/v2/permision-setting',
+    element: <Permission />
   },
   {
     path: '/v2/card-renewal',
