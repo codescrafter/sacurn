@@ -148,3 +148,8 @@ export type CardEnterpriseTypes = {
   id: number;
   img: string;
 };
+
+export type AccountInformationTypes = {
+  key: string;
+  value: string;
+};
