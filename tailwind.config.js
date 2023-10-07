@@ -238,8 +238,8 @@ module.exports = {
       'ceramic-bg': '#E0E0E0',
       'hit-grey': '#A8A8A8',
       'grey-ghoose': '#979797',
-      DeepSeaBlue: '#005487',
-      Geyser: '#3F84AE21',
+      'Deep-sea-blue': '#005487',
+      geyser: '#3F84AE21',
       'transparent-blue': '#005487e6'
     }
   },

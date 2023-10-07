@@ -1,5 +1,4 @@
 import AddIcon from '@mui/icons-material/Add';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -19,8 +18,8 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
   const [showAccordion2, setShowAccordion2] = useState(false);
 
   return (
-    <div className="">
-      <h1 className="text-3xl text-DeepSeaBlue font-bold max-[1400px]:text-xl">{title}</h1>
+    <div>
+      <h1 className="text-3xl text-Deep-sea-blue font-bold max-[1400px]:text-xl ">{title}</h1>
       <div>
         <Accordion
           className={classNames('mt-5', {
@@ -29,11 +28,6 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
           })}
           sx={{ backgroundColor: 'inherit', boxShadow: '0px 0px 0px 0px #ffffffe6', Opacity: '0.1' }}
         >
-          {/* ${
-            showAccordion
-              ? 'border-b-2 border-grey-ghoose border-dashed bg-Geyser'
-              : 'border-b-2 border-grey-ghoose border-dashed bg-Geyser'
-          } */}
           <AccordionSummary
             expandIcon={
               showAccordion ? (
@@ -50,11 +44,11 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
             id="panel1a-header"
           >
             <Typography>
-              <p className="  px-4 text-xl font-bold max-[1400px]:text-base">{name}</p>
+              <p className="px-4 text-xl font-bold max-[1400px]:text-base">{name}</p>
             </Typography>
           </AccordionSummary>
           <AccordionDetails
-            className={`pl-10 h-[90px] overflow-y-scroll scroll-right w-[100%] bg-Geyser ${
+            className={`pl-10 h-[90px] overflow-y-scroll scroll-right w-[100%] bg-geyser ${
               showAccordion ? '' : 'hidden'
             }`}
           >
@@ -91,7 +85,7 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails
-            className={` px-10 h-[100px] overflow-y-scroll scroll-right w-[100%] bg-Geyser  ${
+            className={` px-10 h-[100px] overflow-y-scroll scroll-right w-[100%] bg-geyser  ${
               showAccordion2 ? '' : 'hidden'
             }`}
           >
