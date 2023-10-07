@@ -6,7 +6,7 @@ import PlatformCard from './PlatformCard';
 
 const PlatformInstructions = () => {
   return (
-    <div className="w-[90%] h-[560px] rounded-lg bg-trans-white mt-4 p-2 pt-4 ml-15 lg:h-[590px] 2xl:h-[800px]">
+    <div className="w-[90%] rounded-lg bg-trans-white mt-4 p-2 pt-4 ml-15 ">
       {/* min-[1400px]:mt[600px] min-[1700px]:!h-[800px]  */}
       <div className="flex justify-end pr-4">
         <div className="w-[40%] border text-grey-ghoose text-xs rounded-full bg-white pl-4 flex justify-between p-2">
@@ -17,7 +17,8 @@ const PlatformInstructions = () => {
         </div>
       </div>
 
-      <div className=" h-[500px] overflow-y-scroll yellowScroll border lg:h-[540px] min-[1400px]: 2xl:h-[700px]">
+      <div className="overflow-y-scroll yellowScroll border h-[500px]  [@media(min-width:1700px)]:h-[800px]">
+        {/* lg:h-[540px] min-[1400px]: 2xl:h-[700px] */}
         {/* min-[1700px]:h-[712px]  */}
         <div className="w-[100%] p-5">
           {/* min-[1400px]:h-[884px] min-[1500]:h-[970px] */}
