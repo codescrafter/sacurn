@@ -6,9 +6,7 @@ import EnterpriseAccountInfo from './EnterpriseAccountinfo';
 const EnterpriseAccount = () => {
   return (
     <Layout>
-      <div>
-        <EnterpriseAccountInfo />
-      </div>
+      <EnterpriseAccountInfo />
     </Layout>
   );
 };
