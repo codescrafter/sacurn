@@ -26,7 +26,7 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
             'border-b-2 border-grey-ghoose border-dashed ': !{ showAccordion },
             'border-b-2 border-grey-ghoose border-dashed': { showAccordion }
           })}
-          sx={{ backgroundColor: 'inherit', boxShadow: '0px 0px 0px 0px #ffffffe6', Opacity: '0.1' }}
+          sx={{ backgroundColor: 'inherit', boxShadow: '0px 0px 0px 0px transparent', Opacity: '0.1' }}
         >
           <AccordionSummary
             expandIcon={
@@ -55,7 +55,7 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
             'border-b-2 border-grey-ghoose border-dashed ': !{ showAccordion2 },
             'border-b-2 border-grey-ghoose border-dashed': { showAccordion2 }
           })}
-          sx={{ backgroundColor: 'inherit', boxShadow: '0px 0px 0px 0px rgba(255, 255, 255,0.1)' }}
+          sx={{ backgroundColor: 'inherit', boxShadow: '0px 0px 0px 0px transparent' }}
         >
           <AccordionSummary
             expandIcon={
@@ -76,9 +76,7 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
               <p className="px-4 text-xl font-bold max-[1400px]:text-base">{subTitle}</p>
             </Typography>
           </AccordionSummary>
-          <AccordionDetails
-            className={` px-10 border-l-4 border-candle-light  bg-geyser  ${showAccordion2 ? '' : 'hidden'}`}
-          >
+          <AccordionDetails className=" px-10 border-l-4 border-candle-light  bg-geyser">
             <Typography className="text-xl text-left font-normal py-3 max-[1400px]:text-base">{description}</Typography>
           </AccordionDetails>
         </Accordion>
