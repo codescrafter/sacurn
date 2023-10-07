@@ -139,15 +139,14 @@ export enum CardReIssueEnum {
   APPLICATION_STATUS = 3
 }
 
-<<<<<<< HEAD
 export type InstructionCardTypes = {
   title: string;
   name: string;
   description: string;
   subTitle: string;
-=======
+};
+
 export type AccountInformationTypes = {
   key: string;
   value: string;
->>>>>>> e6f2b9ad0359edd236e68b8c3eecfa2f938d5d72
 };

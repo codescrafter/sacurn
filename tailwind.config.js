@@ -237,13 +237,10 @@ module.exports = {
       'trans-white': '#ffffffe6',
       'ceramic-bg': '#E0E0E0',
       'hit-grey': '#A8A8A8',
-<<<<<<< HEAD
       'grey-ghoose': '#979797',
       DeepSeaBlue: '#005487',
-      Geyser: '#3F84AE21'
-=======
+      Geyser: '#3F84AE21',
       'transparent-blue': '#005487e6'
->>>>>>> e6f2b9ad0359edd236e68b8c3eecfa2f938d5d72
     }
   },
   plugins: []
