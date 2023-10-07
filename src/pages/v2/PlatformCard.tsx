@@ -19,7 +19,7 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
 
   return (
     <div>
-      <h1 className="text-3xl text-Deep-sea-blue font-bold max-[1400px]:text-xl ">{title}</h1>
+      <h1 className="text-3xl text-deep-sea-blue font-bold max-[1400px]:text-xl ">{title}</h1>
       <div>
         <Accordion
           className={classNames('mt-5', {
