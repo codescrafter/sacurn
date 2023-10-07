@@ -102,6 +102,9 @@ const SalesConfirmationBox = (props: IProps) => {
             'h-[155px]': !isReadMore
           })}
         >
+          <p className="text-sm mb-3 text-left">
+            依《土星永續股份有限公司 會員服務條款》會員同意遵守本交易條款內容如下：
+          </p>
           {PURCHASE_INFO_NOTE.slice(0, isReadMore ? PURCHASE_INFO_NOTE.length : 1).map((note) => (
             <div key={note.id}>
               <div className="mb-1 flex gap-2 items-center">

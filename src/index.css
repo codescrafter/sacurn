@@ -290,3 +290,7 @@ input[type='number'] {
 .css-148sd3j-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
   background-color: transparent !important;
 }
+
+.account-information-clip-path {
+  clip-path: polygon(0 0, 68% 0, 100% 100%, 0% 100%);
+}

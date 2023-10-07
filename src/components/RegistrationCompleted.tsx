@@ -6,7 +6,7 @@ const RegistrationCompleted = () => {
           className="min-[1500px]:h-auto min-[1500px]:w-auto h-12 w-12"
           src="/images/company-registration/completed.svg"
         />
-        <p className="min-[1500px]:text-3.5xl text-2.5xl">已完成法人用戶會員註冊申請。</p>
+        <p className="min-[1500px]:text-3.5xl text-2.5xl">已完成法人用戶會員註冊申請。(審核中)</p>
       </div>
       <div className="rounded-2.5xl items-center min-[1500px]py-8.2 min-[1500px]:px-19 py-6 px-15 bg-white w-[95%]">
         <p className="min-[1500px]:text-xl text-lg min-[1500px]:leading-8 leading-6">提醒您</p>
