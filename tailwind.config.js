@@ -242,7 +242,8 @@ module.exports = {
       'gray-cloud': '#B3B4B4',
       'smoke-gray': '#525252',
       'moon-soon': '#888888',
-      'transparent-blue': '#005487e6'
+      'transparent-blue': '#005487e6',
+      'muted-green': '#68A362'
     }
   },
   plugins: []

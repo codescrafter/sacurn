@@ -20,7 +20,7 @@ const EnterpriseCard = ({ title, userName, userEmail, color, bgColor, id, img }:
             'h-20 w-20 border-4 rounded-full bg-moon-soon mt-2 flex justify-center items-end xl:h-24 xl:w-24',
             {
               'border-mustard-yellow': !color,
-              'border-[#68A362]': color,
+              'border-muted-green': color,
               'border-deep-sea-blue': id == 5
             }
           )}
@@ -32,7 +32,7 @@ const EnterpriseCard = ({ title, userName, userEmail, color, bgColor, id, img }:
             'h-5 w-5 rounded-full border-4 border-white shadow-sm shadow-smoke-gray relative -top-9 left-6',
             {
               ' bg-gray-cloud': !bgColor,
-              'bg-[#68A362]': bgColor
+              'bg-muted-green': bgColor
             }
           )}
         ></div>
