@@ -138,3 +138,16 @@ export enum CardReIssueEnum {
   PAYMENT_METHOD = 2,
   APPLICATION_STATUS = 3
 }
+
+export type AccountTableBodyItems = {
+  id: number;
+  transactionDate: string;
+  transactionStatus: string;
+  orderNumber: string;
+  totalAmount: string;
+  points: string;
+};
+export type AccountTableHeadingItems = {
+  id: number;
+  heading: string;
+};

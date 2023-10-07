@@ -1,5 +1,6 @@
 import 'react-datepicker/dist/react-datepicker.css';
 
+import classNames from 'classnames';
 import { zhTW } from 'date-fns/locale';
 import { useRef } from 'react';
 import DatePicker from 'react-datepicker';
@@ -12,12 +13,13 @@ import HorizontalDivider from './HorizontalDivider';
 interface IProps {
   startDate: Date | null;
   endDate: Date | null;
-  setDateRange: (update: [Date | null, Date | null]) => void;
+  setDateRange?: (update: [Date | null, Date | null]) => void;
   setOpen: (open: boolean) => void;
   open: boolean;
+  className?: string;
 }
 
-const DatePickerModal = ({ startDate, endDate, setDateRange, setOpen, open }: IProps) => {
+const DatePickerModal = ({ startDate, endDate, setDateRange, setOpen, open, className }: IProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick(ref, () => {
@@ -27,15 +29,18 @@ const DatePickerModal = ({ startDate, endDate, setDateRange, setOpen, open }: IP
   return (
     <div
       ref={ref}
-      className="absolute py-3 z-40 top-8 inset-x-0 bg-white rounded-lg flex flex-col justify-center items-center shadow-2xl"
+      className={classNames(
+        'absolute py-3 z-40 top-8 inset-x-0 bg-white rounded-lg flex flex-col justify-center items-center shadow-2xl',
+        className
+      )}
     >
-      {/* data picker */}
+      `{/* data picker */}
       <DatePicker
         selectsRange={true}
         startDate={startDate}
         endDate={endDate}
         onChange={(update: [Date | null, Date | null]) => {
-          setDateRange(update);
+          setDateRange && setDateRange(update);
         }}
         isClearable={true}
         inline
