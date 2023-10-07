@@ -21,7 +21,7 @@ const CustomAccountTable = ({ tableHeadings, tableBody }: IProps) => {
       <div className="inline-block flex-col md:min-w-[600px] lg:min-w-[800px] xl:min-w-[1029px]">
         <div className="flex flex-col w-full">
           <div className="flex justify-end w-[96.5%] -right-12">
-            <div className="flex items-center justify-center gap-[15px] py-1 px-3 bg-white opacity-90 rounded-smsm shadow-sales-box w-2/6">
+            <div className="flex items-center justify-center gap-[15px] py-1 px-3 bg-white opacity-90 rounded-smsm shadow-sales-box w-2/6 relative z-50">
               {/* date picker modal */}
               {open && (
                 <DatePickerModal
@@ -30,7 +30,7 @@ const CustomAccountTable = ({ tableHeadings, tableBody }: IProps) => {
                   setDateRange={setDateRange}
                   setOpen={setOpen}
                   open={open}
-                  className="w-1/5 bg-white absolute left-[69%] top-[22%]"
+                  className="w-1/5 bg-white z-50 top-12"
                 />
               )}
 
