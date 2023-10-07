@@ -240,7 +240,8 @@ module.exports = {
       'grey-ghoose': '#979797',
       'Deep-sea-blue': '#005487',
       geyser: '#3F84AE21',
-      'transparent-blue': '#005487e6'
+      'transparent-blue': '#005487e6',
+      'candle-light': '#ffd600'
     }
   },
   plugins: []

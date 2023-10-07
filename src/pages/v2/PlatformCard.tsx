@@ -31,13 +31,9 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
           <AccordionSummary
             expandIcon={
               showAccordion ? (
-                <span>
-                  <RemoveIcon onClick={() => setShowAccordion(!showAccordion)} />
-                </span>
+                <RemoveIcon onClick={() => setShowAccordion(!showAccordion)} />
               ) : (
-                <span>
-                  <AddIcon onClick={() => setShowAccordion(!showAccordion)} />
-                </span>
+                <AddIcon onClick={() => setShowAccordion(!showAccordion)} />
               )
             }
             aria-controls="panel1a-content"
@@ -47,13 +43,9 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
               <p className="px-4 text-xl font-bold max-[1400px]:text-base">{name}</p>
             </Typography>
           </AccordionSummary>
-          <AccordionDetails
-            className={`pl-10 h-[90px] overflow-y-scroll scroll-right w-[100%] bg-geyser ${
-              showAccordion ? '' : 'hidden'
-            }`}
-          >
+          <AccordionDetails className="pl-10 border-l-4 border-candle-light w-full bg-geyser ">
             <Typography>
-              <p className="px-4 text-xl text-left font-normal max-[1400px]:text-base"> {description}</p>
+              <p className="px-4 text-xl text-left font-normal max-[1400px]:text-base py-3"> {description}</p>
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -63,7 +55,7 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
             'border-b-2 border-grey-ghoose border-dashed ': !{ showAccordion2 },
             'border-b-2 border-grey-ghoose border-dashed': { showAccordion2 }
           })}
-          sx={{ backgroundColor: 'inherit', boxShadow: '0px 0px 0px 0px #ffffffe6', Opacity: '0.1' }}
+          sx={{ backgroundColor: 'inherit', boxShadow: '0px 0px 0px 0px rgba(255, 255, 255,0.1)' }}
         >
           <AccordionSummary
             expandIcon={
@@ -85,13 +77,9 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails
-            className={` px-10 h-[100px] overflow-y-scroll scroll-right w-[100%] bg-geyser  ${
-              showAccordion2 ? '' : 'hidden'
-            }`}
+            className={` px-10 border-l-4 border-candle-light  bg-geyser  ${showAccordion2 ? '' : 'hidden'}`}
           >
-            <Typography className="text-xl text-left font-normal py-4  max-[1400px]:text-base">
-              {description}
-            </Typography>
+            <Typography className="text-xl text-left font-normal py-3 max-[1400px]:text-base">{description}</Typography>
           </AccordionDetails>
         </Accordion>
       </div>

@@ -6,8 +6,7 @@ import PlatformCard from './PlatformCard';
 
 const PlatformInstructions = () => {
   return (
-    <div className="w-[90%] rounded-lg bg-trans-white mt-4 p-2 pt-4 ml-15 ">
-      {/* min-[1400px]:mt[600px] min-[1700px]:!h-[800px]  */}
+    <div className="w-[88%] rounded-lg bg-trans-white mt-4 p-2 pt-4 ml-15 md:w-[80%] lg:w-[86%] [@media(min-width:1400px)]:w-[90%]">
       <div className="flex justify-end pr-4">
         <div className="w-[40%] border text-grey-ghoose text-xs rounded-full bg-white pl-4 flex justify-between p-2">
           <input type="text" placeholder="輸入想要搜尋的碳權名稱,代號或是關鍵字" className=" w-[60%] outline-none" />
@@ -17,11 +16,8 @@ const PlatformInstructions = () => {
         </div>
       </div>
 
-      <div className="overflow-y-scroll yellowScroll border h-[500px]  [@media(min-width:1700px)]:h-[800px]">
-        {/* lg:h-[540px] min-[1400px]: 2xl:h-[700px] */}
-        {/* min-[1700px]:h-[712px]  */}
-        <div className="w-[100%] p-5">
-          {/* min-[1400px]:h-[884px] min-[1500]:h-[970px] */}
+      <div className="overflow-y-scroll yellowScroll h-[507px] [@media(min-width:1400px)]:h-[690px]  [@media(min-width:1700px)]:h-[710px]">
+        <div className="w-full p-5">
           {INSTRUCTION_CARD_DATA.map(({ title, name, description, subTitle }: InstructionCardTypes) => {
             return <PlatformCard title={title} name={name} description={description} subTitle={subTitle} />;
           })}
