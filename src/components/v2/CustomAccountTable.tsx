@@ -17,10 +17,11 @@ const CustomAccountTable = ({ tableHeadings, tableBody }: IProps) => {
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
   const [startDate, endDate] = dateRange;
   return (
-    <div className="inline-block pt-[38px] justify-end items-center h-full w-[90%]">
-      <div className="inline-block flex-col md:min-w-[600px] lg:min-w-[800px] xl:min-w-[1029px]">
+    // md:min-w-[600px] lg:min-w-[800px]
+    <div className="flex pt-[38px] justify-end items-center w-full pr-16">
+      <div className="flex flex-col min-w-[1000px]">
         <div className="flex flex-col w-full">
-          <div className="flex justify-end w-[96.5%] -right-12">
+          <div className="flex justify-end w-full pr-9">
             <div className="flex items-center justify-center gap-[15px] py-1 px-3 bg-white opacity-90 rounded-smsm shadow-sales-box w-2/6 relative z-50">
               {/* date picker modal */}
               {open && (
@@ -31,6 +32,7 @@ const CustomAccountTable = ({ tableHeadings, tableBody }: IProps) => {
                   setOpen={setOpen}
                   open={open}
                   className="w-1/5 bg-white z-50 top-12"
+                  variant="secondary"
                 />
               )}
 

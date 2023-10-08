@@ -17,9 +17,10 @@ interface IProps {
   setOpen: (open: boolean) => void;
   open: boolean;
   className?: string;
+  variant?: 'secondary';
 }
 
-const DatePickerModal = ({ startDate, endDate, setDateRange, setOpen, open, className }: IProps) => {
+const DatePickerModal = ({ startDate, endDate, setDateRange, setOpen, open, className, variant }: IProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick(ref, () => {
@@ -30,11 +31,28 @@ const DatePickerModal = ({ startDate, endDate, setDateRange, setOpen, open, clas
     <div
       ref={ref}
       className={classNames(
-        'absolute py-3 z-40 top-8 inset-x-0 bg-white rounded-lg flex flex-col justify-center items-center shadow-2xl w-full',
+        'absolute py-3 z-40 top-8 inset-x-0 bg-white rounded-lg flex flex-col justify-center items-center shadow-2xl !w-full',
         className
       )}
     >
-      `{/* data picker */}
+      {variant === 'secondary' && (
+        <div className="flex items-center gap-1 my-3 w-full justify-center">
+          <div className="flex flex-col">
+            <span className="text-sm text-dark-grey">從</span>
+            <div className="rounded-full border border-light-grey py-2 px-4 text-sm text-dark-grey">
+              {startDate ? formatDate(startDate) : formatDate(new Date())}
+            </div>
+          </div>
+          <span className="text-grey/50 mt-4">-</span>
+          <div className="flex flex-col">
+            <span className="text-sm text-dark-grey">到</span>
+            <div className="rounded-full border border-light-grey py-2 px-4 text-sm text-dark-grey">
+              {endDate ? formatDate(endDate) : formatDate(new Date())}
+            </div>
+          </div>
+        </div>
+      )}
+      {/* data picker */}
       <DatePicker
         selectsRange={true}
         startDate={startDate}
@@ -43,29 +61,31 @@ const DatePickerModal = ({ startDate, endDate, setDateRange, setOpen, open, clas
           setDateRange && setDateRange(update);
         }}
         isClearable={true}
-        inline
+        inline={true}
         locale={zhTW}
       />
       <HorizontalDivider className="!w-[85%]" />
       {/* start & end date boxes */}
-      <div className="flex items-center gap-1 my-3">
-        <div className="flex flex-col">
-          <span className="text-sm text-dark-grey">從</span>
-          <div className="rounded-full border border-light-grey py-2 px-4 text-sm text-dark-grey">
-            {startDate ? formatDate(startDate) : formatDate(new Date())}
+      {variant !== 'secondary' && (
+        <div className="flex items-center gap-1 my-3 w-full justify-center">
+          <div className="flex flex-col">
+            <span className="text-sm text-dark-grey">從</span>
+            <div className="rounded-full border border-light-grey py-2 px-4 text-sm text-dark-grey">
+              {startDate ? formatDate(startDate) : formatDate(new Date())}
+            </div>
+          </div>
+          <span className="text-grey/50 mt-4">-</span>
+          <div className="flex flex-col">
+            <span className="text-sm text-dark-grey">到</span>
+            <div className="rounded-full border border-light-grey py-2 px-4 text-sm text-dark-grey">
+              {endDate ? formatDate(endDate) : formatDate(new Date())}
+            </div>
           </div>
         </div>
-        <span className="text-grey/50 mt-4">-</span>
-        <div className="flex flex-col">
-          <span className="text-sm text-dark-grey">到</span>
-          <div className="rounded-full border border-light-grey py-2 px-4 text-sm text-dark-grey">
-            {endDate ? formatDate(endDate) : formatDate(new Date())}
-          </div>
-        </div>
-      </div>
+      )}
       <HorizontalDivider />
       {/* action buttons */}
-      <div className="flex items-center space-x-2 mt-2 self-end pr-4">
+      <div className="flex items-center space-x-2 mt-2 self-end pr-4 w-full justify-end">
         <Button className="!bg-neutral-150 !text-grey text-sm !rounded-xl !py-1 !px-3">取消</Button>
         <Button className="!text-sm !rounded-xl !py-1 !px-3">查詢</Button>
       </div>
