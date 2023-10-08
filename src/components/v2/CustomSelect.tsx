@@ -4,6 +4,7 @@ import { UseFormSetValue } from 'react-hook-form';
 
 import useOutsideClick from '@/hooks/useOutsideClick';
 
+import { UserProfileUpdateFormValues } from './MemberProfileUpdate';
 import { UserInfoFormValues } from './UserInfoForm';
 
 interface CustomSelectIProps {
