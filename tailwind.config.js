@@ -109,7 +109,8 @@ module.exports = {
         'membership-nav-out': '0px 2px 4px 0px rgba(0, 0, 0, 0.25)',
         'membership-nav-in': '0px 3px 4px 0px rgba(0, 0, 0, 0.40) inset',
         'membership-nav-underline': '0px 3px 4px 0px rgba(0, 0, 0, 0.55)',
-        'input-field': '0px 21.89325px 63.41492px 0px #F0F0F0, 0px 6.03952px 23.40312px 0px rgba(0, 0, 0, 0.05)'
+        'input-field': '0px 21.89325px 63.41492px 0px #F0F0F0, 0px 6.03952px 23.40312px 0px rgba(0, 0, 0, 0.05)',
+        'account-info-box': '0px 0px 44px 0px rgba(0, 0, 0, 0.2)'
       },
       backgroundImage: {
         'login-white': 'linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)',
@@ -237,7 +238,14 @@ module.exports = {
       'light-white': '#ffffff4c',
       'trans-white': '#ffffffe6',
       'ceramic-bg': '#E0E0E0',
-      'hit-grey': '#A8A8A8'
+      'hit-grey': '#A8A8A8',
+      'deep-sea-blue': '#005487',
+      'mustard-yellow': '#FFD600',
+      'gray-cloud': '#B3B4B4',
+      'smoke-gray': '#525252',
+      'moon-soon': '#888888',
+      'transparent-blue': '#005487e6',
+      'muted-green': '#68A362'
     }
   },
   plugins: []

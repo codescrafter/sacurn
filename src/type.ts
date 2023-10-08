@@ -139,6 +139,20 @@ export enum CardReIssueEnum {
   APPLICATION_STATUS = 3
 }
 
+export type CardEnterpriseTypes = {
+  title: string;
+  color: string;
+  bgColor: string;
+  userName: string;
+  userEmail: string;
+  id: number;
+  img: string;
+};
+
+export type AccountInformationTypes = {
+  key: string;
+  value: string;
+};
 export type AccountTableBodyItems = {
   id: number;
   transactionDate: string;
