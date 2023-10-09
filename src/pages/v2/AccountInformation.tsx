@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Avatar, IconButton } from '@mui/material';
 import classNames from 'classnames';
 import React, { Fragment, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -42,17 +43,17 @@ const AccountInformation = () => {
     formState: { errors }
   } = useForm<AccountInfoValues>({ resolver: yupResolver(Schema) });
 
-  // const [file, setFile] = useState<string>('/v2/user-info-form/default.svg');
+  const [file, setFile] = useState<string>('/v2/account-pic.svg');
 
-  // function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-  //   if (event.target.files) {
-  //     try {
-  //       setFile(URL.createObjectURL(event.target.files[0]));
-  //     } catch (err) {
-  //       return;
-  //     }
-  //   }
-  // }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      try {
+        setFile(URL.createObjectURL(event.target.files[0]));
+      } catch (err) {
+        return;
+      }
+    }
+  };
 
   const onSubmit = handleSubmit(() => {});
 
@@ -64,14 +65,22 @@ const AccountInformation = () => {
             <div className="w-[50%]">
               <div className="account-information-clip-path rounded-tl-lg rounded-bl-lg bg-white min-h-[490px] xl:min-h-[570px] 2.5xl:min-h-[600px]">
                 <div className="pt-12 pl-8">
-                  <div>
-                    <div className="w-[90px] h-[90px] rounded-[50%] bg-[url('../public/v2/account-pic.svg')] flex items-end justify-center">
-                      {/* <img src="/v2/account-pic.svg" alt="user image" className="w-full h-full object-contain" /> */}
-                      <div className="bg-[#1e191999] w-[92%] h-[40%] flex items-center justify-center mb-0.5 rounded-b-[40px]">
-                        <img src={'/v2/camera-icon.svg'} alt="user image" className="w-8 h-5 object-contain" />
-                        {/* <input type="file" hidden onChange={handleChange} id="image" /> */}
+                  <div className="relative">
+                    <IconButton component="label" className="relative z-50 ">
+                      <label
+                        className="absolute min-[1600px]:text-sm min-[1500px]:text-xs text-xms z-40 text-white cursor-pointer"
+                        htmlFor="image"
+                      ></label>
+                      <Avatar src={file} className="relative !w-[90px] !h-[90px]" />
+                      <input type="file" hidden onChange={handleChange} id="image" />
+                      <div className="bg-file-select-bg rounded-[50%] absolute w-[89px] h-[89px] flex justify-center items-end">
+                        <img
+                          src={'/v2/camera-icon.svg'}
+                          alt="user image"
+                          className="w-6 h-4 object-contain absolute bottom-2.5"
+                        />
                       </div>
-                    </div>
+                    </IconButton>
                   </div>
                   <div className="mt-10 2.5xl:mt-14">
                     {ACCOUNT_INFORMATION.map(({ key, value }: AccountInformationTypes) => (
@@ -208,7 +217,7 @@ const CustomInput = ({ id, register, defaultValue, type, placeholder, label, err
               src="/v2/icon/eye-icon.svg"
               alt="sacurn"
               className="h-6 w-6 object-contain"
-              onClick={() => setUpdateType(false)}
+              onClick={() => setUpdateType(!updateType)}
             />
           ) : edit ? (
             <img src="/v2/icon/tick-icon.svg" alt="sacurn" className="h-6 w-6 object-contain" />
