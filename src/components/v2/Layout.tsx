@@ -12,9 +12,10 @@ import RangeSlider from './RangeSlider';
 interface IProps {
   children: React.ReactNode;
   background?: 'primary' | 'secondary';
+  variant?: 'secondary';
 }
 
-const Layout = ({ children }: IProps) => {
+const Layout = ({ children, variant }: IProps) => {
   const { pathname } = useLocation();
   const membership = useMembershipStepsStore((state) => state.step);
 
@@ -75,10 +76,12 @@ const Layout = ({ children }: IProps) => {
               </div>
             </div>
           </div>
-          <div className="w-[70%]">
-            <AccountSteps />
-            {children}
-          </div>
+          {variant !== 'secondary' && (
+            <div className="w-[70%]">
+              <AccountSteps />
+              {children}
+            </div>
+          )}
         </div>
       </div>
     </Fragment>

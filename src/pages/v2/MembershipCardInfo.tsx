@@ -5,7 +5,7 @@ import MemberCardCompareInfo from '@/components/v2/MemberCardCompareInfo';
 
 const MembershipCardInfo = () => {
   return (
-    <Layout>
+    <Layout variant="secondary">
       <MemberCardCompareInfo />
     </Layout>
   );

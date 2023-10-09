@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MemberCardCompareInfo = () => {
-  return <div>MemberCardCompareInfo</div>;
+  return <div className="mt-"></div>;
 };
 
 export default MemberCardCompareInfo;
