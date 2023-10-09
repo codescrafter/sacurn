@@ -31,7 +31,7 @@ const DatePickerModal = ({ startDate, endDate, setDateRange, setOpen, open, clas
     <div
       ref={ref}
       className={classNames(
-        'absolute py-3 z-40 top-8 inset-x-0 bg-white rounded-lg flex flex-col justify-center items-center shadow-2xl !w-full',
+        'absolute py-3 z-40 top-8 inset-x-0 bg-white rounded-lg flex flex-col justify-center items-center shadow-2xl !w-full mt-2',
         className
       )}
     >
