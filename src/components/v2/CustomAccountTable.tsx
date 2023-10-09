@@ -75,8 +75,8 @@ const CustomAccountTable = ({ tableHeadings, tableBody }: IProps) => {
                   );
                 })}
               </tr>
-              <div className="w-full overflow-y-scroll yellowScroll h-[685px] rounded-smmd">
-                <div className="bg-white rounded-smmd opacity-90 shadow-sales-box flex-col text-black justify-between items-center text-xl font-bold w-[97%]">
+              <div className="w-full overflow-y-scroll yellowScroll h-[685px] rounded-round-up-2.5">
+                <div className="bg-white rounded-round-up-2.5 opacity-90 shadow-sales-box flex-col text-black justify-between items-center text-xl font-bold w-[97%]">
                   {tableBody.map(
                     ({
                       id,
