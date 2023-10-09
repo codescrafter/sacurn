@@ -181,11 +181,11 @@ const CustomInput = ({ id, register, defaultValue, type, placeholder, label, err
 
   return (
     <div
-      className={classNames('flex justify-between w-full gap-7', {
+      className={classNames('flex justify-between w-full gap-7 items-center', {
         'mb-0.5': errors && errors[id]
       })}
     >
-      <p className="2xl:text-xl font-bold xl:text-base text-sm text-white text-right whitespace-nowrap w-[24%]">
+      <p className="2xl:text-xl font-bold xl:text-base text-sm text-white text-right whitespace-nowrap w-[24%] tracking-[2px]">
         {label}
       </p>
       <div className={classNames('flex flex-col relative w-[76%]', { 'gap-0.5': errors && errors[id] })}>
