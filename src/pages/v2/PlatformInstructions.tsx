@@ -18,8 +18,17 @@ const PlatformInstructions = () => {
 
       <div className="overflow-y-scroll yellowScroll h-[507px] [@media(min-width:1400px)]:h-[690px]  [@media(min-width:1700px)]:h-[710px]">
         <div className="w-full p-5">
-          {INSTRUCTION_CARD_DATA.map(({ title, name, description, subTitle }: InstructionCardTypes) => {
-            return <PlatformCard title={title} name={name} description={description} subTitle={subTitle} />;
+          {INSTRUCTION_CARD_DATA.map(({ title, name, description, subTitle }: InstructionCardTypes, index) => {
+            return (
+              <PlatformCard
+                key={index}
+                currentIndex={index}
+                title={title}
+                name={name}
+                description={description}
+                subTitle={subTitle}
+              />
+            );
           })}
         </div>
       </div>

@@ -7,21 +7,23 @@ import Typography from '@mui/material/Typography';
 import classNames from 'classnames';
 import { useState } from 'react';
 interface IProps {
+  currentIndex?: number;
   title: string;
   name: string;
   description: string;
   subTitle: string;
 }
 
-const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
+const PlatformCard = ({ title, name, description, subTitle, currentIndex }: IProps) => {
   const [showAccordion, setShowAccordion] = useState(false);
   const [showAccordion2, setShowAccordion2] = useState(false);
 
   return (
     <div>
-      <h1 className="text-3xl text-deep-sea-blue font-bold max-[1400px]:text-xl ">{title}</h1>
+      <h1 className="text-3xl text-deep-sea-blue font-bold max-[1400px]:text-xl mt-3 ">{title}</h1>
       <div>
         <Accordion
+          defaultExpanded={currentIndex === 0 ? true : false}
           className={classNames('mt-5', {
             'border-b-2 border-grey-ghoose border-dashed ': !{ showAccordion },
             'border-b-2 border-grey-ghoose border-dashed': { showAccordion }
@@ -51,7 +53,7 @@ const PlatformCard = ({ title, name, description, subTitle }: IProps) => {
         </Accordion>
 
         <Accordion
-          className={classNames('mt-3 mb-5', {
+          className={classNames('mt-5 mb-7', {
             'border-b-2 border-grey-ghoose border-dashed ': !{ showAccordion2 },
             'border-b-2 border-grey-ghoose border-dashed': { showAccordion2 }
           })}

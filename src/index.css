@@ -294,3 +294,8 @@ input[type='number'] {
 .account-information-clip-path {
   clip-path: polygon(0 0, 68% 0, 100% 100%, 0% 100%);
 }
+
+/* remove accordion line */
+.css-xe1gli-MuiPaper-root-MuiAccordion-root:before {
+  height: 0 !important;
+}
