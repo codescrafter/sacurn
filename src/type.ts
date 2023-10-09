@@ -143,3 +143,10 @@ export type AccountInformationTypes = {
   key: string;
   value: string;
 };
+
+export type PermissionCardInstructionDataType = {
+  img: string;
+  title: string;
+  subtitle: string;
+  text: string;
+};
