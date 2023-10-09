@@ -23,6 +23,7 @@ import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRe
 import PasswordReset from './pages/PasswordReset';
 // import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
+import AccountCredit from './pages/v2/AccountCredit';
 import AccountInformation from './pages/v2/AccountInformation';
 import CardReIssue from './pages/v2/CardReIssue';
 import CardRenewal from './pages/v2/CardRenewal';
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: '/v2/account-information',
     element: <AccountInformation />
+  },
+  {
+    path: '/v2/account-credit',
+    element: <AccountCredit />
   },
   {
     path: '/',

@@ -152,3 +152,15 @@ export type AccountInformationTypes = {
   key: string;
   value: string;
 };
+export type AccountTableBodyItems = {
+  id: number;
+  transactionDate: string;
+  transactionStatus: string;
+  orderNumber: string;
+  totalAmount: string;
+  points: string;
+};
+export type AccountTableHeadingItems = {
+  id: number;
+  heading: string;
+};

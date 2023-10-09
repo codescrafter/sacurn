@@ -71,7 +71,9 @@ module.exports = {
       },
       borderRadius: {
         mdlg: '8px',
-        '2.5xl': '20px'
+        '2.5xl': '20px',
+        'round-2.5': '10px',
+        'round-up-2.5': '10px 10px 0px 0px'
       },
       fontSize: {
         xxs: ['8px', '12px'],
