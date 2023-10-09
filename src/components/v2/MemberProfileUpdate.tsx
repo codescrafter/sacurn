@@ -3,10 +3,11 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import classNames from 'classnames';
 import { useState } from 'react';
-import { FieldErrors, useForm, UseFormRegister } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import CustomButton from '../CustomButton';
+import CustomInput from './CustomInput';
 // import CustomSelect from '../CustomSelect';
 
 export interface UserProfileUpdateFormValues {
@@ -37,6 +38,8 @@ const MemberProfileUpdate = () => {
     // handleSubmit,
     formState: { errors }
   } = useForm<UserProfileUpdateFormValues>({ resolver: yupResolver(Schema) });
+
+  const [isUpdateAble, setIsUpdateAble] = useState(true);
   const [file, setFile] = useState<string>('/v2/user-info-form/default.svg');
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files) {
@@ -76,10 +79,34 @@ const MemberProfileUpdate = () => {
           <CustomInfo heading="帳戶狀態" data="驗證中" className="!text-light-green" />
         </div> */}
         <div className={classNames('flex flex-col gap-y-4.2 w-min')}>
-          <CustomInput errors={errors} heading="姓名" id="name" type="text" register={register} />
-          <CustomInput errors={errors} heading="職稱" id="job_title" type="text" register={register} />
-          <CustomInput errors={errors} heading="Email" id="email" type="text" register={register} />
-          <CustomInput errors={errors} heading="電話" id="telephone" type="text" register={register} />
+          <CustomInput<UserProfileUpdateFormValues>
+            errors={errors}
+            heading="姓名"
+            id="name"
+            type="text"
+            register={register}
+          />
+          <CustomInput<UserProfileUpdateFormValues>
+            errors={errors}
+            heading="職稱"
+            id="job_title"
+            type="text"
+            register={register}
+          />
+          <CustomInput<UserProfileUpdateFormValues>
+            errors={errors}
+            heading="Email"
+            id="email"
+            type="text"
+            register={register}
+          />
+          <CustomInput<UserProfileUpdateFormValues>
+            errors={errors}
+            heading="電話"
+            id="telephone"
+            type="text"
+            register={register}
+          />
         </div>
         <div className="flex flex-col justify-between min-[1600px]:max-w-[415px] min-[1500px]:max-w-[375px] min-[1300px]:max-w-[325px] max-w-[265px]">
           <div className="flex  min-[1600px]:gap-7.5 min-[1500px]:gap-6 min-[1300px]:gap-5.5 gap-5 self-end">
@@ -90,22 +117,44 @@ const MemberProfileUpdate = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-between w-full">
-        <div className="flex gap-7.2">
+      {!isUpdateAble && (
+        <div className="flex justify-between w-full">
+          <div className="flex gap-7.2">
+            <CustomButton
+              children="刪除帳號"
+              className="border !border-silverstone !text-silverstone !bg-transparent min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
+            />
+            <CustomButton
+              children="凍結帳號"
+              className="border !border-silverstone !text-silverstone !bg-transparent min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
+            />
+          </div>
+          <CustomButton
+            children="資料修改"
+            className="bg-pale-yellow !text-silverstone  min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
+          />
+        </div>
+      )}
+      {isUpdateAble && (
+        <div className="flex justify-between w-full">
           <CustomButton
             children="刪除帳號"
             className="border !border-silverstone !text-silverstone !bg-transparent min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
           />
-          <CustomButton
-            children="凍結帳號"
-            className="border !border-silverstone !text-silverstone !bg-transparent min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
-          />
+          <div className="flex gap-7.2 items-center">
+            <CustomButton
+              children="取消"
+              className="border !border-navy-blue min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[122px] min-[1500px]:w-[110px] min-[1300px]:w-[90px] w-[75px]  min-[1600px]:h-8 min-[1500px]:h-6.5 min-[1300px]:h-5.5 h-5"
+              variant="secondary"
+            />
+            <CustomButton
+              children="儲存"
+              className=" min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
+              variant="primary"
+            />
+          </div>
         </div>
-        <CustomButton
-          children="資料修改"
-          className="bg-pale-yellow !text-silverstone  min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
-        />
-      </div>
+      )}
     </div>
   );
 };
@@ -135,48 +184,3 @@ export default MemberProfileUpdate;
 //     </div>
 //   );
 // };
-
-interface CustomInputIProps {
-  id: 'name' | 'job_title' | 'email' | 'telephone' | 'operation_permission';
-  register: UseFormRegister<UserProfileUpdateFormValues>;
-  type: string;
-  placeholder?: string;
-  heading?: string;
-  className?: string;
-  errors: FieldErrors<UserProfileUpdateFormValues>;
-}
-
-const CustomInput = ({ id, register, type, placeholder, heading, className, errors }: CustomInputIProps) => {
-  return (
-    <div
-      className={classNames(
-        'flex items-center min-[1600px]:gap-7.5 min-[1500px]:gap-6 min-[1300px]:gap-5.5 gap-5 max-w-max',
-        {
-          'mb-0.5': errors && errors[id]
-        }
-      )}
-    >
-      <p className="min-[1600px]:text-xl min-[1500px]:text-lg min-[1300px]:text-base text-sm text-navy-blue text-right font-bold min-[1600px]:min-w-[54px] min-[1500px]:min-w-[52px] min-[1300px]:min-w-[51px] min-w-[50px]">
-        {heading}
-      </p>
-      <div className={classNames('flex flex-col relative', { 'gap-0.5': errors && errors[id] })}>
-        <input
-          className={classNames(
-            'rounded-full shadow-input-field min-[1600px]:h-11.5 min-[1600px]:w-[296px] min-[1500px]:h-10 min-[1500px]:w-[260px] min-[1300px]:h-8.5 min-[1300px]:w-[215px] h-7 w-[165px] px-2 py-1 outline-none ',
-            className
-          )}
-          {...register(id)}
-          placeholder={placeholder}
-          type={type}
-        />
-        <div className="relative w-full">
-          {errors && errors[id] && (
-            <p className="min-[1500px]:text-xs min-[1200px]:text-xms text-xms text-bright-red ml-4 absolute">
-              {errors[id]?.message}
-            </p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};

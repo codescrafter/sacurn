@@ -1,18 +1,26 @@
 import classNames from 'classnames';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { DeepMap, FieldError, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-import { UserInfoFormValues } from './UserInfoForm';
-interface CustomInputIProps {
-  id: 'name' | 'job_title' | 'email' | 'telephone' | 'extension' | 'operation_permission';
-  register: UseFormRegister<UserInfoFormValues>;
+// import { UserInfoFormValues } from './UserInfoForm';
+interface CustomInputIProps<TFormValues extends FieldValues> {
+  id: Path<TFormValues>;
+  register: UseFormRegister<TFormValues>;
   type: string;
   placeholder?: string;
   heading?: string;
   className?: string;
-  errors: FieldErrors<UserInfoFormValues>;
+  errors?: Partial<DeepMap<TFormValues, FieldError>>;
 }
 
-const CustomInput = ({ id, register, type, placeholder, heading, className, errors }: CustomInputIProps) => {
+const CustomInput = <TFormValues extends FieldValues>({
+  id,
+  register,
+  type,
+  placeholder,
+  heading,
+  className,
+  errors
+}: CustomInputIProps<TFormValues>) => {
   return (
     <div
       className={classNames(

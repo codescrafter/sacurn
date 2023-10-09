@@ -81,11 +81,29 @@ const UserInfoForm = () => {
             </IconButton>
           </div>
           <div className={classNames('flex flex-col gap-y-4.2 w-min')}>
-            <CustomInput errors={errors} heading="姓名" id="name" type="text" register={register} />
-            <CustomInput errors={errors} heading="職稱" id="job_title" type="text" register={register} />
-            <CustomInput errors={errors} heading="Email" id="email" type="text" register={register} />
-            <CustomInput errors={errors} heading="電話" id="telephone" type="text" register={register} />
-            <CustomInput
+            <CustomInput<UserInfoFormValues> errors={errors} heading="姓名" id="name" type="text" register={register} />
+            <CustomInput<UserInfoFormValues>
+              errors={errors}
+              heading="職稱"
+              id="job_title"
+              type="text"
+              register={register}
+            />
+            <CustomInput<UserInfoFormValues>
+              errors={errors}
+              heading="Email"
+              id="email"
+              type="text"
+              register={register}
+            />
+            <CustomInput<UserInfoFormValues>
+              errors={errors}
+              heading="電話"
+              id="telephone"
+              type="text"
+              register={register}
+            />
+            <CustomInput<UserInfoFormValues>
               errors={errors}
               heading="分機"
               id="extension"
