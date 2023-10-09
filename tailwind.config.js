@@ -121,7 +121,8 @@ module.exports = {
           'linear-gradient(90deg, rgba(217, 217, 217, 0.1) 0%, rgba(217, 217, 217, 0.5) 48.44%, rgba(217, 217, 217, 0.1) 100%)',
         'multi-slide': 'linear-gradient(89.71deg, #D9D9D9 69.19%, rgba(217, 217, 217, 0) 99.76%)',
         'operator-signup': 'linear-gradient(179deg, #32769F 0%, #015588 100%)',
-        'drop-down': "url('/public/images/wishlist/dropDown.png')"
+        'drop-down': "url('/public/images/wishlist/dropDown.png')",
+        'file-select-bg': 'linear-gradient(180deg, transparent 60%, #1e191999 60%, #1e191999 80%)'
       },
       blur: {
         xxs: '0.5px'
@@ -237,13 +238,9 @@ module.exports = {
       'trans-white': '#ffffffe6',
       'ceramic-bg': '#E0E0E0',
       'hit-grey': '#A8A8A8',
-      'deep-sea-blue': '#005487',
-      'mustard-yellow': '#FFD600',
-      'gray-cloud': '#B3B4B4',
-      'smoke-gray': '#525252',
-      'moon-soon': '#888888',
       'transparent-blue': '#005487e6',
-      'muted-green': '#68A362'
+      aluminium: '#ABABAB',
+      'soft-green': '#60C757'
     }
   },
   plugins: []
