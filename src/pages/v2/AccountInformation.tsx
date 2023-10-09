@@ -59,10 +59,10 @@ const AccountInformation = () => {
   return (
     <Layout>
       <form onSubmit={onSubmit} className="flex justify-end mr-4 xl:block">
-        <div className="mt-[124px] w-[90%] rounded-lg bg-transparent-blue opacity-[0.9] shadow-account-info-box min-h-[490px] 2xl:min-h-[530px] 2.5xl:min-h-[600px]">
+        <div className="mt-[124px] w-[90%] rounded-lg bg-transparent-blue opacity-[0.9] shadow-account-info-box min-h-[490px] 2xl:min-h-[570px] 2.5xl:min-h-[600px]">
           <div className="flex">
-            <div className="w-[46%]">
-              <div className="account-information-clip-path rounded-tl-lg rounded-bl-lg bg-white min-h-[490px] xl:min-h-[530px] 2.5xl:min-h-[600px]">
+            <div className="w-[50%]">
+              <div className="account-information-clip-path rounded-tl-lg rounded-bl-lg bg-white min-h-[490px] xl:min-h-[570px] 2.5xl:min-h-[600px]">
                 <div className="pt-12 pl-8">
                   <div>
                     <div className="w-[90px] h-[90px] rounded-[50%] bg-[url('../public/v2/account-pic.svg')] flex items-end justify-center">
@@ -77,10 +77,10 @@ const AccountInformation = () => {
                     {ACCOUNT_INFORMATION.map(({ key, value }: AccountInformationTypes) => (
                       <div
                         key={key}
-                        className="flex gap-2 text-navy-blue font-semibold 2xl:font-bold text-base 2xl:text-xl 2.5xl:text-[22px] mb-4 2xl:mb-8 2.5xl:mb-10 first:pr-16 w-full"
+                        className="flex gap-2 text-navy-blue font-semibold 2xl:font-bold text-base xl:text-xl 2.5xl:text-[22px] mb-4 xl:mb-8 2.5xl:mb-10 first:pr-16 w-full"
                       >
-                        <p className="whitespace-nowrap w-[25%]">{key}:</p>
-                        <p className="pr-4">{value}</p>
+                        <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px]">{key}:</p>
+                        <p className="pr-4 w-[65%]">{value}</p>
                       </div>
                     ))}
                   </div>
@@ -177,6 +177,7 @@ interface CustomInputIProps {
 
 const CustomInput = ({ id, register, defaultValue, type, placeholder, label, errors, callback }: CustomInputIProps) => {
   const [edit, setEdit] = useState<boolean>(false);
+  const [updateType, setUpdateType] = useState<boolean>(true);
 
   return (
     <div
@@ -194,7 +195,7 @@ const CustomInput = ({ id, register, defaultValue, type, placeholder, label, err
             className="outline-none bg-transparent w-[90%] text-navy-blue text-lg font-semibold 2xl:text-xl 2xl:font-bold"
             {...register(id)}
             placeholder={placeholder}
-            type={type}
+            type={updateType && id === 'confirmPassword' ? 'password' : type}
             onFocus={() => {
               setEdit(true);
               if (id === 'password' && callback) {
@@ -202,7 +203,14 @@ const CustomInput = ({ id, register, defaultValue, type, placeholder, label, err
               }
             }}
           />
-          {edit ? (
+          {id === 'confirmPassword' ? (
+            <img
+              src="/v2/icon/eye-icon.svg"
+              alt="sacurn"
+              className="h-6 w-6 object-contain"
+              onClick={() => setUpdateType(false)}
+            />
+          ) : edit ? (
             <img src="/v2/icon/tick-icon.svg" alt="sacurn" className="h-6 w-6 object-contain" />
           ) : (
             <img src="/v2/icon/edit-icon.svg" alt="sacurn" className="h-6 w-6 object-contain" />
