@@ -243,7 +243,9 @@ module.exports = {
       'smoke-gray': '#525252',
       'moon-soon': '#888888',
       'transparent-blue': '#005487e6',
-      'muted-green': '#68A362'
+      'muted-green': '#68A362',
+      aluminium: '#ABABAB',
+      'soft-green': '#60C757'
     }
   },
   plugins: []

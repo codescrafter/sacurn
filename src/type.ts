@@ -141,12 +141,11 @@ export enum CardReIssueEnum {
 
 export type CardEnterpriseTypes = {
   title: string;
-  color: string;
-  bgColor: string;
   userName: string;
   userEmail: string;
   id: number;
   img: string;
+  isActive: boolean;
 };
 
 export type AccountInformationTypes = {
