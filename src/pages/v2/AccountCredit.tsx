@@ -3,8 +3,6 @@ import React from 'react';
 import CustomAccountTable from '@/components/v2/CustomAccountTable';
 import Layout from '@/components/v2/Layout';
 
-//import UserInfoForm from '@/components/v2/UserInfoForm';
-
 const AccountCredit = () => {
   return (
     <Layout>

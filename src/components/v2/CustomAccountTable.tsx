@@ -22,7 +22,7 @@ const CustomAccountTable = ({ tableHeadings, tableBody }: IProps) => {
         <div className="flex flex-col w-full">
           <div className="flex justify-end whitespace-nowrap w-[96.5%]">
             <div className="flex pb-1.5">
-              <div className="flex text-center items-center whitespace-nowrap justify-center gap-[15px] py-1 px-3 bg-white opacity-90 rounded-smsm shadow-sales-box relative z-50">
+              <div className="flex text-center items-center whitespace-nowrap justify-center gap-[15px] py-1 px-3 bg-white opacity-90 rounded-round-2.5 shadow-sales-box relative z-50">
                 {/* date picker modal */}
                 {open && (
                   <DatePickerModal
