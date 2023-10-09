@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import CustomButton from '@/components/CustomButton';
+import { BLUE, GREEN, YELLOW } from '@/util/constants';
 interface IProps {
   title: string;
   userName: string;
@@ -14,8 +15,9 @@ interface IProps {
 const EnterpriseCard = ({ title, userName, userEmail, img, isActive }: IProps) => {
   const randomColor = () => {
     const randomValue = Math.random();
-    if (randomValue < 0.5) return false;
-    else return true;
+    if (randomValue < 0.3) return YELLOW;
+    if (randomValue < 0.9 && randomValue > 0.3) return GREEN;
+    else return BLUE;
   };
 
   return (
@@ -30,11 +32,14 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive }: IProps) =
       <div className="flex flex-col justify-center items-center gap-4">
         <h1 className="text-navy-blue font-bold text-xl md:text-base xl:text-xl 2xl:text-2xl ">{title}</h1>
         <div
-          className={classNames('relative border-4 rounded-full bg-grey mt-2 flex justify-center items-end h-24 w-24', {
-            'border-pale-yellow': !randomColor(),
-            'border-light-green': randomColor(),
-            'border-navy-blue': true
-          })}
+          className={classNames(
+            'relative border-4 rounded-full bg-grey mt-2 flex justify-center items-end h-24 w-24 border-light-green',
+            {
+              'border-pale-yellow': randomColor() === YELLOW,
+              'border-light-green': randomColor() === GREEN,
+              'border-navy-blue': randomColor() === BLUE
+            }
+          )}
         >
           <img src={img} alt="no Image" className="h-15 xl:h-18" />
           <div
