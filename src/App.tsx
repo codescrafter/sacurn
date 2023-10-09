@@ -30,6 +30,7 @@ import CardRevoked from './pages/v2/CardRevoked';
 import CartV2 from './pages/v2/CartV2';
 import EnterpriseAccount from './pages/v2/EnterpriseAccount';
 import MemberCenter from './pages/v2/MemberCenter';
+import MembershipCardInfo from './pages/v2/MembershipCardInfo';
 import MembershipUpgrade from './pages/v2/MembershipUpgrade';
 
 const router = createBrowserRouter([
@@ -193,6 +194,10 @@ const router = createBrowserRouter([
   {
     path: '/password-reset',
     element: <PasswordReset />
+  },
+  {
+    path: '/v2/membership-card-comparison-info',
+    element: <MembershipCardInfo />
   }
 ]);
 
