@@ -115,28 +115,28 @@ const MemberProfileUpdate = () => {
             <div className={classNames('flex flex-col gap-y-4.2 w-min')}>
               <CustomInput<UserProfileUpdateFormValues>
                 errors={errors}
-                heading="姓名"
+                label="姓名"
                 id="name"
                 type="text"
                 register={register}
               />
               <CustomInput<UserProfileUpdateFormValues>
                 errors={errors}
-                heading="職稱"
+                label="職稱"
                 id="job_title"
                 type="text"
                 register={register}
               />
               <CustomInput<UserProfileUpdateFormValues>
                 errors={errors}
-                heading="Email"
+                label="Email"
                 id="email"
                 type="text"
                 register={register}
               />
               <CustomInput<UserProfileUpdateFormValues>
                 errors={errors}
-                heading="電話"
+                label="電話"
                 id="telephone"
                 type="text"
                 register={register}
