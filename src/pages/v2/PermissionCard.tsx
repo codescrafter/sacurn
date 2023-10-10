@@ -6,7 +6,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import classNames from 'classnames';
 import { useState } from 'react';
-import React from 'react';
+
+import { PermissionCardInstructionDataType } from '@/type';
 
 import PermissionInstructionSetting from './PermissionInstructionSetting';
 interface IProps {
@@ -18,7 +19,7 @@ const PermissionCard = ({ title, subTitle }: IProps) => {
 
   return (
     <div>
-      <h1 className="text-3xl text-deep-sea-blue font-bold max-[1400px]:text-xl ">{title}</h1>
+      <h1 className="text-3xl text-navy-blue font-bold max-[1400px]:text-xl ">{title}</h1>
       <div>
         <Accordion
           className={classNames('mt-5', {
@@ -39,13 +40,12 @@ const PermissionCard = ({ title, subTitle }: IProps) => {
             id="panel1a-header"
           >
             <Typography>
-              <p className="px-4 text-xl font-bold max-[1400px]:text-base text-deep-sea-blue">{subTitle}</p>
+              <p className="px-4 text-xl font-bold max-[1400px]:text-base text-navy-blue">{subTitle}</p>
             </Typography>
           </AccordionSummary>
-          <AccordionDetails className="pl-10 border-l-4 border-candle-light w-full bg-geyser">
+          <AccordionDetails className="pl-10 border-l-4 border-pale-yellow w-full bg-geyser">
             <Typography className="pt-2 px-4">
-              {/* <p className="px-4 text-xl text-left font-normal max-[1400px]:text-base py-3"> dd</p> */}
-              <PermissionInstructionSetting />
+              <PermissionInstructionSetting CardHeading={PERMISSION_CARD_INSTRUCTION_DATA} />
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -55,3 +55,29 @@ const PermissionCard = ({ title, subTitle }: IProps) => {
 };
 
 export default PermissionCard;
+const PERMISSION_CARD_INSTRUCTION_DATA: PermissionCardInstructionDataType[] = [
+  {
+    img: '',
+    title: '',
+    subtitle: ' ',
+    text: ''
+  },
+  {
+    img: '/v2/permission-instruction-setting/Group.svg',
+    title: '管理員',
+    subtitle: ' ',
+    text: '最多授權2名'
+  },
+  {
+    img: '/v2/permission-instruction-setting/Group (1).svg',
+    title: '進階操作人員',
+    subtitle: '',
+    text: '依會員卡別授權人數'
+  },
+  {
+    img: '/v2/permission-instruction-setting/Group (2).svg',
+    title: '基礎操作人員',
+    subtitle: '*無後台操作權',
+    text: '依會員卡別授權人數'
+  }
+];
