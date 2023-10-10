@@ -55,6 +55,7 @@ const MemberProfileUpdate = () => {
   const {
     register,
     setValue,
+    watch,
     // handleSubmit,
     formState: { errors }
   } = useForm<UserProfileUpdateFormValues>({ resolver: yupResolver(Schema) });
@@ -148,7 +149,8 @@ const MemberProfileUpdate = () => {
                 </p>
                 <CustomSelect setValue={setValue} />
               </div>
-              {
+
+              {watch('password_update_able') && (
                 <div className="flex min-[1600px]:gap-7.5 min-[1500px]:gap-6 min-[1300px]:gap-5.5 gap-5">
                   <p className="min-[1600px]:text-xl min-[1500px]:text-lg min-[1300px]:text-base text-sm text-navy-blue font-bold min-[1600px]:mt-2.5 min-[1500px]:mt-2 min-[1300px]:mt-1.5 min-[1200px]:mt-1 mt-0.5">
                     密碼設定
@@ -158,7 +160,7 @@ const MemberProfileUpdate = () => {
                     <PasswordInput register={register} id="password2" errors={errors} />
                   </div>
                 </div>
-              }
+              )}
             </div>
           </div>
         )}
