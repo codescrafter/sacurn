@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import classNames from 'classnames';
 import React from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -80,32 +79,26 @@ const UserInfoForm = () => {
               <input type="file" hidden onChange={handleChange} id="image" />
             </IconButton>
           </div>
-          <div className={classNames('flex flex-col gap-y-4.2 w-min')}>
-            <CustomInput<UserInfoFormValues> errors={errors} heading="姓名" id="name" type="text" register={register} />
+          <div className="flex flex-col gap-y-4.2 w-min">
+            <CustomInput<UserInfoFormValues> errors={errors} label="姓名" id="name" type="text" register={register} />
             <CustomInput<UserInfoFormValues>
               errors={errors}
-              heading="職稱"
+              label="職稱"
               id="job_title"
               type="text"
               register={register}
             />
+            <CustomInput<UserInfoFormValues> errors={errors} label="Email" id="email" type="text" register={register} />
             <CustomInput<UserInfoFormValues>
               errors={errors}
-              heading="Email"
-              id="email"
-              type="text"
-              register={register}
-            />
-            <CustomInput<UserInfoFormValues>
-              errors={errors}
-              heading="電話"
+              label="電話"
               id="telephone"
               type="text"
               register={register}
             />
             <CustomInput<UserInfoFormValues>
               errors={errors}
-              heading="分機"
+              label="分機"
               id="extension"
               type="text"
               register={register}
