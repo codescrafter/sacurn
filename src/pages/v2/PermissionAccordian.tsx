@@ -4,29 +4,27 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
-import classNames from 'classnames';
 import { useState } from 'react';
 
-import { PermissionCardInstructionDataType } from '@/type';
+import { PermissionTableHeadingType } from '@/type';
 
-import PermissionInstructionSetting from './PermissionInstructionSetting';
+import PermissionAccordianTable from './PermissionAccordianTable';
+
 interface IProps {
   title: string;
   subTitle: string;
 }
-const PermissionCard = ({ title, subTitle }: IProps) => {
-  const [showAccordion, setShowAccordion] = useState(false);
+const PermissionAccordian = ({ title, subTitle }: IProps) => {
+  const [showAccordion, setShowAccordion] = useState(true);
 
   return (
     <div>
       <h1 className="text-3xl text-navy-blue font-bold max-[1400px]:text-xl ">{title}</h1>
       <div>
         <Accordion
-          className={classNames('mt-5', {
-            'border-b-2 border-grey-ghoose border-dashed ': !{ showAccordion },
-            'border-b-2 border-grey-ghoose border-dashed': { showAccordion }
-          })}
+          classes="mt-5"
           sx={{ backgroundColor: 'inherit', boxShadow: '0px 0px 0px 0px transparent', Opacity: '0.1' }}
+          expanded={true}
         >
           <AccordionSummary
             expandIcon={
@@ -45,7 +43,7 @@ const PermissionCard = ({ title, subTitle }: IProps) => {
           </AccordionSummary>
           <AccordionDetails className="pl-10 border-l-4 border-pale-yellow w-full bg-geyser">
             <Typography className="pt-2 px-4">
-              <PermissionInstructionSetting CardHeading={PERMISSION_CARD_INSTRUCTION_DATA} />
+              <PermissionAccordianTable CardHeading={PERMISSION_TABLE_HEADING} />
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -54,8 +52,8 @@ const PermissionCard = ({ title, subTitle }: IProps) => {
   );
 };
 
-export default PermissionCard;
-const PERMISSION_CARD_INSTRUCTION_DATA: PermissionCardInstructionDataType[] = [
+export default PermissionAccordian;
+const PERMISSION_TABLE_HEADING: PermissionTableHeadingType[] = [
   {
     img: '',
     title: '',

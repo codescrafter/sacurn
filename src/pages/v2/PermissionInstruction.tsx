@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import React from 'react';
 
-import PermissionCard from './PermissionCard';
+import PermissionAccordian from './PermissionAccordian';
 const PermissionInstruction = () => {
   return (
     <div className="w-[88%] rounded-lg bg-trans-white mt-4 p-2 pt-4 ml-15 md:w-[80%] lg:w-[86%] [@media(min-width:1400px)]:w-[90%]">
@@ -16,7 +16,7 @@ const PermissionInstruction = () => {
 
       <div className="overflow-y-scroll yellowScroll h-[507px] [@media(min-width:1400px)]:h-[690px]  [@media(min-width:1700px)]:h-[710px]">
         <div className="w-full p-5">
-          <PermissionCard title="權限設定說明" subTitle="權限的區分？" />
+          <PermissionAccordian title="權限設定說明" subTitle="權限的區分？" />
         </div>
       </div>
     </div>

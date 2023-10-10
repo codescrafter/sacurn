@@ -153,9 +153,18 @@ export type AccountInformationTypes = {
   value: string;
 };
 
-export type PermissionCardInstructionDataType = {
+export type PermissionTableHeadingType = {
   img: string;
   title: string;
   subtitle: string;
   text: string;
+};
+export type PermissionTableBodyType = {
+  heading: string;
+  data: {
+    text: string;
+    box1: boolean;
+    box2: boolean;
+    box3: boolean;
+  }[];
 };
