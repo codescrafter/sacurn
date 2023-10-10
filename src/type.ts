@@ -139,6 +139,15 @@ export enum CardReIssueEnum {
   APPLICATION_STATUS = 3
 }
 
+export type CardEnterpriseTypes = {
+  title: string;
+  userName: string;
+  userEmail: string;
+  id: number;
+  img: string;
+  isActive: boolean;
+};
+
 export type AccountInformationTypes = {
   key: string;
   value: string;

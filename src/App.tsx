@@ -28,6 +28,7 @@ import CardReIssue from './pages/v2/CardReIssue';
 import CardRenewal from './pages/v2/CardRenewal';
 import CardRevoked from './pages/v2/CardRevoked';
 import CartV2 from './pages/v2/CartV2';
+import EnterpriseAccount from './pages/v2/EnterpriseAccount';
 import MemberCenter from './pages/v2/MemberCenter';
 import MembershipUpgrade from './pages/v2/MembershipUpgrade';
 import Permission from './pages/v2/Permission';
@@ -43,8 +44,12 @@ const router = createBrowserRouter([
     element: <MemberCenter />
   },
   {
-    path: '/v2/permision-setting',
+    path: '/v2/permission-setting',
     element: <Permission />
+  },
+  {
+    path: '/v2/enterprise-account',
+    element: <EnterpriseAccount />
   },
   {
     path: '/v2/card-renewal',
