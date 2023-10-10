@@ -36,7 +36,7 @@ const CustomInput = <TFormValues extends FieldValues>({
       <div className={classNames('flex flex-col relative', { 'gap-0.5': errors && errors[id] })}>
         <input
           className={classNames(
-            'rounded-full shadow-input-field min-[1600px]:h-11.5 min-[1600px]:w-[296px] min-[1500px]:h-10 min-[1500px]:w-[260px] min-[1300px]:h-8.5 min-[1300px]:w-[215px] h-7 w-[165px] px-2 py-1 outline-none ',
+            'rounded-full shadow-input-field min-[1700px]:h-11.5 min-[1700px]:w-[296px] min-[1500px]:h-10 min-[1500px]:w-[260px] min-[1300px]:h-8.5 min-[1300px]:w-[215px] h-7 w-[165px] px-2 py-1 outline-none ',
             className
           )}
           {...register(id)}
