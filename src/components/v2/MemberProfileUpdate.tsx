@@ -345,7 +345,7 @@ const PasswordInput = ({ className, register, id, errors, defaultValue }: Passwo
         />
       </div>
       {errors && errors[id] && (
-        <p className="text-bright-red min-[1500px]:text-xs min-[1200px]:text-xms text-xxs ml-2">
+        <p className="text-bright-red min-[1500px]:text-xs min-[1200px]:text-xms text-xxs ml-4">
           {errors[id]?.message?.toString()}
         </p>
       )}
