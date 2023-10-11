@@ -71,7 +71,9 @@ module.exports = {
       },
       borderRadius: {
         mdlg: '8px',
-        '2.5xl': '20px'
+        '2.5xl': '20px',
+        'round-2.5': '10px',
+        'round-up-2.5': '10px 10px 0px 0px'
       },
       fontSize: {
         xxs: ['8px', '12px'],
@@ -107,7 +109,8 @@ module.exports = {
         'membership-nav-out': '0px 2px 4px 0px rgba(0, 0, 0, 0.25)',
         'membership-nav-in': '0px 3px 4px 0px rgba(0, 0, 0, 0.40) inset',
         'membership-nav-underline': '0px 3px 4px 0px rgba(0, 0, 0, 0.55)',
-        'input-field': '0px 21.89325px 63.41492px 0px #F0F0F0, 0px 6.03952px 23.40312px 0px rgba(0, 0, 0, 0.05)'
+        'input-field': '0px 21.89325px 63.41492px 0px #F0F0F0, 0px 6.03952px 23.40312px 0px rgba(0, 0, 0, 0.05)',
+        'account-info-box': '0px 0px 44px 0px rgba(0, 0, 0, 0.2)'
       },
       backgroundImage: {
         'login-white': 'linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)',
@@ -120,7 +123,8 @@ module.exports = {
           'linear-gradient(90deg, rgba(217, 217, 217, 0.1) 0%, rgba(217, 217, 217, 0.5) 48.44%, rgba(217, 217, 217, 0.1) 100%)',
         'multi-slide': 'linear-gradient(89.71deg, #D9D9D9 69.19%, rgba(217, 217, 217, 0) 99.76%)',
         'operator-signup': 'linear-gradient(179deg, #32769F 0%, #015588 100%)',
-        'drop-down': "url('/public/images/wishlist/dropDown.png')"
+        'drop-down': "url('/public/images/wishlist/dropDown.png')",
+        'file-select-bg': 'linear-gradient(180deg, transparent 60%, #1e191999 60%, #1e191999 80%)'
       },
       blur: {
         xxs: '0.5px'
@@ -235,7 +239,15 @@ module.exports = {
       'light-white': '#ffffff4c',
       'trans-white': '#ffffffe6',
       'ceramic-bg': '#E0E0E0',
-      'hit-grey': '#A8A8A8'
+      'hit-grey': '#A8A8A8',
+      'grey-ghoose': '#979797',
+      geyser: '#3F84AE21',
+      'transparent-blue': '#005487e6',
+      'grey-ghoose': '#979797',
+      geyser: '#3F84AE21',
+      'vista-white': '#FAFAFB',
+      aluminium: '#ABABAB',
+      'soft-green': '#60C757'
     }
   },
   plugins: []
