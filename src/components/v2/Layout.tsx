@@ -24,7 +24,10 @@ const Layout = ({ children }: IProps) => {
       <div
         className={classNames(
           "bg-[url('../public/v2/bg.png')] w-full min-h-[calc(100vh-71px)] pb-7 2xl:min-h-[calc(100vh-74px)] bg-no-repeat bg-cover",
-          { "bg-[url('../public/v2/secondary.png')]": pathname === '/v2/card-renewal' || '/v2/membership-upgrade' }
+          {
+            "bg-[url('../public/v2/secondary.png')]":
+              pathname === '/v2/card-renewal' || pathname === '/v2/membership-upgrade'
+          }
         )}
       >
         <div className="flex justify-between gap-4">

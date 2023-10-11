@@ -4,6 +4,7 @@ import { UseFormSetValue } from 'react-hook-form';
 
 import useOutsideClick from '@/hooks/useOutsideClick';
 
+// import { UserProfileUpdateFormValues } from './MemberProfileUpdate';
 import { UserInfoFormValues } from './UserInfoForm';
 
 interface CustomSelectIProps {
@@ -34,14 +35,13 @@ const CustomSelect = ({ setValue }: CustomSelectIProps) => {
   return (
     <div
       className={classNames({
-        'bg-white shadow-input-field rounded-2.5xl h-max': isOpen,
-        '': !isOpen
+        'bg-white shadow-input-field relative rounded-2.5xl h-max z-50': isOpen
       })}
       ref={dropDownRef}
     >
       <div
         className={classNames(
-          'bg-white min-[1600px]:h-11.5 min-[1600px]:w-[296px] min-[1500px]:h-10 min-[1500px]:w-[260px] min-[1300px]:h-8.5 min-[1300px]:w-[215px] h-7 w-[165px] min-[1500px]:px-6 min-[1300px]:px-4.5 px-3 py-2.5 outline-none  flex items-center cursor-pointer gap-2.5',
+          'bg-white relative z-50 min-[1600px]:h-11.5 min-[1600px]:w-[296px] min-[1500px]:h-10 min-[1500px]:w-[260px] min-[1300px]:h-8.5 min-[1300px]:w-[215px] h-7 w-[165px] min-[1500px]:px-6 min-[1300px]:px-4.5 px-3 py-2.5 outline-none  flex items-center cursor-pointer gap-2.5',
           {
             ' shadow-input-field rounded-full': !isOpen,
             'rounded-t-2.5xl': isOpen
@@ -55,7 +55,7 @@ const CustomSelect = ({ setValue }: CustomSelectIProps) => {
         <img src="/v2/user-info-form/down-arrow.svg" className="" />
       </div>
       {isOpen && (
-        <div className="rounded-b-2.5xl bg-white py-1 flex flex-col min-[1400px]:gap-4 gap-2 min-[1400px]:pb-3 pb-2 min-[1600px]:px-10 min-[1500px]:px-8.7 min-[1350px]:px-7 px-4.5  ">
+        <div className="absolute z-40 shadow-input-field rounded-b-2.5xl bg-white py-1 flex flex-col min-[1400px]:gap-4 gap-2 min-[1400px]:pb-3 pb-2 min-[1600px]:px-10 min-[1500px]:px-8.7 min-[1350px]:px-7 px-4.5 w-full">
           {options.map((option, index) => (
             <label
               className={classNames(
