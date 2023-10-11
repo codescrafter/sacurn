@@ -31,6 +31,7 @@ import CardRevoked from './pages/v2/CardRevoked';
 import CartV2 from './pages/v2/CartV2';
 import EnterpriseAccount from './pages/v2/EnterpriseAccount';
 import MemberCenter from './pages/v2/MemberCenter';
+import MemberProfile from './pages/v2/MemberProfile';
 import MembershipUpgrade from './pages/v2/MembershipUpgrade';
 import Permission from './pages/v2/Permission';
 import PlatformUsage from './pages/v2/PlatformUsage';
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
   {
     path: '/v2/account-information',
     element: <AccountInformation />
+  },
+  {
+    path: '/v2/profile-update',
+    element: <MemberProfile />
   },
   {
     path: '/v2/account-credit',

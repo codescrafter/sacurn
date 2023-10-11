@@ -80,11 +80,23 @@ const UserInfoForm = () => {
             </IconButton>
           </div>
           <div className="flex flex-col gap-y-4.2 w-min">
-            <CustomInput errors={errors} label="姓名" id="name" type="text" register={register} />
-            <CustomInput errors={errors} label="職稱" id="job_title" type="text" register={register} />
-            <CustomInput errors={errors} label="Email" id="email" type="text" register={register} />
-            <CustomInput errors={errors} label="電話" id="telephone" type="text" register={register} />
-            <CustomInput
+            <CustomInput<UserInfoFormValues> errors={errors} label="姓名" id="name" type="text" register={register} />
+            <CustomInput<UserInfoFormValues>
+              errors={errors}
+              label="職稱"
+              id="job_title"
+              type="text"
+              register={register}
+            />
+            <CustomInput<UserInfoFormValues> errors={errors} label="Email" id="email" type="text" register={register} />
+            <CustomInput<UserInfoFormValues>
+              errors={errors}
+              label="電話"
+              id="telephone"
+              type="text"
+              register={register}
+            />
+            <CustomInput<UserInfoFormValues>
               errors={errors}
               label="分機"
               id="extension"
