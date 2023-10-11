@@ -160,6 +160,22 @@ export type AccountInformationTypes = {
   key: string;
   value: string;
 };
+
+export type PermissionTableHeadingType = {
+  img: string;
+  title: string;
+  subtitle: string;
+  text: string;
+};
+export type PermissionTableBodyType = {
+  heading: string;
+  data: {
+    text: string;
+    administratorPermissions: boolean;
+    advancedPermissions: boolean;
+    basicPermisssions: boolean;
+  }[];
+};
 export type AccountTableBodyItems = {
   id: number;
   transactionDate: string;

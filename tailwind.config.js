@@ -243,6 +243,9 @@ module.exports = {
       'grey-ghoose': '#979797',
       geyser: '#3F84AE21',
       'transparent-blue': '#005487e6',
+      'grey-ghoose': '#979797',
+      geyser: '#3F84AE21',
+      'vista-white': '#FAFAFB',
       aluminium: '#ABABAB',
       'soft-green': '#60C757'
     }
