@@ -139,6 +139,14 @@ export enum CardReIssueEnum {
   APPLICATION_STATUS = 3
 }
 
+export type PlatformAccordianTypes = {
+  id: number;
+  title: string;
+  items: {
+    name: string;
+    description: string;
+  }[];
+};
 export type CardEnterpriseTypes = {
   title: string;
   userName: string;
@@ -153,25 +161,30 @@ export type AccountInformationTypes = {
   value: string;
 };
 
-export type MembershipCardTableHeading = {
+export type PermissionTableHeadingType = {
+  img: string;
+  title: string;
+  subtitle: string;
+  text: string;
+};
+export type PermissionTableBodyType = {
+  heading: string;
+  data: {
+    text: string;
+    administratorPermissions: boolean;
+    advancedPermissions: boolean;
+    basicPermisssions: boolean;
+  }[];
+};
+export type AccountTableBodyItems = {
+  id: number;
+  transactionDate: string;
+  transactionStatus: string;
+  orderNumber: string;
+  totalAmount: string;
+  points: string;
+};
+export type AccountTableHeadingItems = {
   id: number;
   heading: string;
-};
-export type MembershipCardTableBody = {
-  id: number;
-  variant: 'primary' | 'secondary' | 'tertiary';
-  memberLevel: string;
-  registrationFee: string;
-  renewalFee: string;
-  membershipPeriod: string;
-  recommendedMembership: string;
-  projectPoints: string;
-  data: MembershipCardData;
-};
-export type MembershipCardData = {
-  id: number;
-  variant: string;
-  memberLevel: string;
-  identity: string;
-  cardUpgrade: string;
 };

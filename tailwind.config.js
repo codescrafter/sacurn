@@ -71,7 +71,9 @@ module.exports = {
       },
       borderRadius: {
         mdlg: '8px',
-        '2.5xl': '20px'
+        '2.5xl': '20px',
+        'round-2.5': '10px',
+        'round-up-2.5': '10px 10px 0px 0px'
       },
       fontSize: {
         xxs: ['8px', '12px'],
@@ -246,7 +248,12 @@ module.exports = {
       'trans-white': '#ffffffe6',
       'ceramic-bg': '#E0E0E0',
       'hit-grey': '#A8A8A8',
+      'grey-ghoose': '#979797',
+      geyser: '#3F84AE21',
       'transparent-blue': '#005487e6',
+      'grey-ghoose': '#979797',
+      geyser: '#3F84AE21',
+      'vista-white': '#FAFAFB',
       aluminium: '#ABABAB',
       'soft-green': '#60C757'
     }

@@ -23,6 +23,7 @@ import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRe
 import PasswordReset from './pages/PasswordReset';
 // import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
+import AccountCredit from './pages/v2/AccountCredit';
 import AccountInformation from './pages/v2/AccountInformation';
 import CardReIssue from './pages/v2/CardReIssue';
 import CardRenewal from './pages/v2/CardRenewal';
@@ -30,8 +31,11 @@ import CardRevoked from './pages/v2/CardRevoked';
 import CartV2 from './pages/v2/CartV2';
 import EnterpriseAccount from './pages/v2/EnterpriseAccount';
 import MemberCenter from './pages/v2/MemberCenter';
+import MemberProfile from './pages/v2/MemberProfile';
 import MembershipCardInfo from './pages/v2/MembershipCardInfo';
 import MembershipUpgrade from './pages/v2/MembershipUpgrade';
+import Permission from './pages/v2/Permission';
+import PlatformUsage from './pages/v2/PlatformUsage';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +46,14 @@ const router = createBrowserRouter([
   {
     path: '/v2',
     element: <MemberCenter />
+  },
+  {
+    path: '/v2/permission-setting',
+    element: <Permission />
+  },
+  {
+    path: '/v2/platform-use',
+    element: <PlatformUsage />
   },
   {
     path: '/v2/enterprise-account',
@@ -70,6 +82,14 @@ const router = createBrowserRouter([
   {
     path: '/v2/account-information',
     element: <AccountInformation />
+  },
+  {
+    path: '/v2/profile-update',
+    element: <MemberProfile />
+  },
+  {
+    path: '/v2/account-credit',
+    element: <AccountCredit />
   },
   {
     path: '/',
