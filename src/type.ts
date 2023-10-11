@@ -139,11 +139,12 @@ export enum CardReIssueEnum {
   APPLICATION_STATUS = 3
 }
 
-export type InstructionCardTypes = {
+export type PlatformAccordianTypes = {
   title: string;
-  name: string;
-  description: string;
-  subTitle: string;
+  items: {
+    name: string;
+    description: string;
+  }[];
 };
 export type CardEnterpriseTypes = {
   title: string;

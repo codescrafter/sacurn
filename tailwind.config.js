@@ -239,15 +239,7 @@ module.exports = {
       'hit-grey': '#A8A8A8',
       'grey-ghoose': '#979797',
       geyser: '#3F84AE21',
-      'transparent-blue': '#005487e6',
-      'candle-light': '#ffd600',
-      'deep-sea-blue': '#005487',
-      'mustard-yellow': '#FFD600',
-      'gray-cloud': '#B3B4B4',
-      'smoke-gray': '#525252',
-      'moon-soon': '#888888',
-      'transparent-blue': '#005487e6',
-      'muted-green': '#68A362'
+      'transparent-blue': '#005487e6'
     }
   },
   plugins: []

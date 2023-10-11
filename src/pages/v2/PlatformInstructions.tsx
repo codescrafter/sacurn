@@ -1,8 +1,8 @@
 import SearchIcon from '@mui/icons-material/Search';
 
-import { InstructionCardTypes } from '@/type';
+import { PlatformAccordianTypes } from '@/type';
 
-import PlatformCard from './PlatformCard';
+import PlatformAccordian from './PlatformAccordian';
 
 const PlatformInstructions = () => {
   return (
@@ -18,17 +18,8 @@ const PlatformInstructions = () => {
 
       <div className="overflow-y-scroll yellowScroll h-[507px] [@media(min-width:1400px)]:h-[690px]  [@media(min-width:1700px)]:h-[710px]">
         <div className="w-full p-5">
-          {INSTRUCTION_CARD_DATA.map(({ title, name, description, subTitle }: InstructionCardTypes, index) => {
-            return (
-              <PlatformCard
-                key={index}
-                currentIndex={index}
-                title={title}
-                name={name}
-                description={description}
-                subTitle={subTitle}
-              />
-            );
+          {INSTRUCTION_CARD_DATA.map(({ title, items }: PlatformAccordianTypes, index) => {
+            return <PlatformAccordian key={index} currentIndex={index} title={title} items={items} />;
           })}
         </div>
       </div>
@@ -38,26 +29,71 @@ const PlatformInstructions = () => {
 
 export default PlatformInstructions;
 
-const INSTRUCTION_CARD_DATA: InstructionCardTypes[] = [
+const INSTRUCTION_CARD_DATA: PlatformAccordianTypes[] = [
   {
     title: '平台使用說明',
-    name: ' 如何查詢舊訂單？',
-    description:
-      '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。',
-    subTitle: '如何取消訂單？'
+    items: [
+      {
+        name: '如何查詢舊訂單？',
+        description:
+          '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。'
+      },
+      {
+        name: '如何取消訂單？',
+        description:
+          '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。'
+      }
+    ]
   },
   {
     title: '權限設定說明',
-    name: ' 如何更改權限？',
-    description:
-      '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。',
-    subTitle: '權限的區分？'
+    items: [
+      {
+        name: '如何更改權限？',
+        description:
+          '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。'
+      },
+      {
+        name: '權限的區分？',
+        description:
+          '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。'
+      }
+    ]
   },
   {
     title: '帳號常見問題',
-    name: ' 如何修改會員資料？',
-    description:
-      '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。',
-    subTitle: '忘記密碼如何重新設定？'
+    items: [
+      {
+        name: '如何修改會員資料？',
+        description:
+          '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。'
+      },
+      {
+        name: '忘記密碼如何重新設定？',
+        description:
+          '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。'
+      }
+    ]
   }
+  // {
+  //   title: '平台使用說明',
+  //   name: ' 如何查詢舊訂單？',
+  //   description:
+  //     '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。',
+  //   subTitle: '如何取消訂單？'
+  // },
+  // {
+  //   title: '權限設定說明',
+  //   name: ' 如何更改權限？',
+  //   description:
+  //     '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。',
+  //   subTitle: '權限的區分？'
+  // },
+  // {
+  //   title: '帳號常見問題',
+  //   name: ' 如何修改會員資料？',
+  //   description:
+  //     '如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。如您欲查詢2020/11/29前的訂單紀錄，請點擊menu的 My Stock，可查詢到以往的訂單資訊。',
+  //   subTitle: '忘記密碼如何重新設定？'
+  // }
 ];
