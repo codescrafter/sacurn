@@ -18,8 +18,8 @@ const PlatformInstructions = () => {
 
       <div className="overflow-y-scroll yellowScroll h-[507px] [@media(min-width:1400px)]:h-[690px]  [@media(min-width:1700px)]:h-[710px]">
         <div className="w-full p-5">
-          {INSTRUCTION_CARD_DATA.map(({ title, items }: PlatformAccordianTypes, index) => {
-            return <PlatformAccordian key={index} currentIndex={index} title={title} items={items} />;
+          {INSTRUCTION_CARD_DATA.map(({ id, title, items }: PlatformAccordianTypes, index) => {
+            return <PlatformAccordian key={index} currentIndex={id} title={title} items={items} />;
           })}
         </div>
       </div>
@@ -29,8 +29,9 @@ const PlatformInstructions = () => {
 
 export default PlatformInstructions;
 
-const INSTRUCTION_CARD_DATA: PlatformAccordianTypes[] = [
+export const INSTRUCTION_CARD_DATA: PlatformAccordianTypes[] = [
   {
+    id: 1,
     title: '平台使用說明',
     items: [
       {
@@ -46,6 +47,7 @@ const INSTRUCTION_CARD_DATA: PlatformAccordianTypes[] = [
     ]
   },
   {
+    id: 2,
     title: '權限設定說明',
     items: [
       {
@@ -61,6 +63,7 @@ const INSTRUCTION_CARD_DATA: PlatformAccordianTypes[] = [
     ]
   },
   {
+    id: 3,
     title: '帳號常見問題',
     items: [
       {

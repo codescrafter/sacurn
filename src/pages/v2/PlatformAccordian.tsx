@@ -6,38 +6,51 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import classNames from 'classnames';
 import { useState } from 'react';
+
+import { INSTRUCTION_CARD_DATA } from './PlatformInstructions';
+
 interface IProps {
   currentIndex?: number;
   title: string;
   items: { name: string; description: string }[];
 }
 
-const PlatformAccordian = ({ title, currentIndex, items }: IProps) => {
-  const [showAccordion, setShowAccordion] = useState(currentIndex === 0);
+const PlatformAccordian = ({ title, items, currentIndex }: IProps) => {
+  const [accordionSlugList, setAccordionSlugList] = useState<string[]>([`${INSTRUCTION_CARD_DATA?.[0]?.id}0`]);
+
+  const handleChange = (panel: string) => {
+    if (accordionSlugList.includes(panel)) {
+      setAccordionSlugList(accordionSlugList.filter((item) => item !== panel));
+    } else setAccordionSlugList([...accordionSlugList, panel]);
+  };
+
   return (
     <div>
       <h1 className="text-3xl text-navy-blue font-bold max-[1400px]:text-xl mt-3  ">{title}</h1>
       <div>
         {items.map((item, index) => {
-          console.log('current is:', currentIndex, 'index is:', index);
           return (
             <Accordion
               key={index}
-              defaultExpanded={index === 0 ? showAccordion : false}
+              defaultExpanded={`${INSTRUCTION_CARD_DATA?.[0]?.id}0` === `${currentIndex}${index}` ? true : false}
               className={classNames('mt-5', {
-                'border-b-2 border-grey-ghoose border-dashed ': !{ showAccordion },
-                'border-b-2 border-grey-ghoose border-dashed': { showAccordion }
+                'border-b-2 border-grey-ghoose border-dashed ': !{},
+                'border-b-2 border-grey-ghoose border-dashed': {}
               })}
-              sx={{ backgroundColor: 'inherit', boxShadow: '0px 0px 0px 0px transparent', Opacity: '0.1' }}
+              onChange={() => {
+                handleChange(`${currentIndex}${index}`);
+              }}
+              sx={{
+                backgroundColor: 'inherit',
+                boxShadow: '0px 0px 0px 0px transparent',
+                Opacity: '0.1',
+                '&:before': {
+                  display: 'none'
+                }
+              }}
             >
               <AccordionSummary
-                expandIcon={
-                  showAccordion ? (
-                    <RemoveIcon onClick={() => setShowAccordion(!showAccordion)} />
-                  ) : (
-                    <AddIcon onClick={() => setShowAccordion(!showAccordion)} />
-                  )
-                }
+                expandIcon={accordionSlugList.includes(`${currentIndex}${index}`) ? <RemoveIcon /> : <AddIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >

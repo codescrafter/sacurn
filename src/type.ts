@@ -140,6 +140,7 @@ export enum CardReIssueEnum {
 }
 
 export type PlatformAccordianTypes = {
+  id: number;
   title: string;
   items: {
     name: string;
