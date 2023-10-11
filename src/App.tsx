@@ -33,6 +33,7 @@ import EnterpriseAccount from './pages/v2/EnterpriseAccount';
 import MemberCenter from './pages/v2/MemberCenter';
 import MembershipUpgrade from './pages/v2/MembershipUpgrade';
 import Permission from './pages/v2/Permission';
+import PlatformUsage from './pages/v2/PlatformUsage';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: '/v2/permission-setting',
     element: <Permission />
+  },
+  {
+    path: '/v2/platform-use',
+    element: <PlatformUsage />
   },
   {
     path: '/v2/enterprise-account',
