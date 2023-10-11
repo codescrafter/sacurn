@@ -43,10 +43,7 @@ const PlatformAccordian = ({ title, items, currentIndex }: IProps) => {
               sx={{
                 backgroundColor: 'inherit',
                 boxShadow: '0px 0px 0px 0px transparent',
-                Opacity: '0.1',
-                '&:before': {
-                  display: 'none'
-                }
+                Opacity: '0.1'
               }}
             >
               <AccordionSummary
