@@ -42,7 +42,7 @@ const Schema = yup
     password2: yup
       .string()
       .oneOf([yup.ref('password1')], '密碼必須匹配')
-      .required('password required')
+      .required('需要重新輸入密碼')
   })
   .required();
 
