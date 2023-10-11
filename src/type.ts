@@ -152,3 +152,26 @@ export type AccountInformationTypes = {
   key: string;
   value: string;
 };
+
+export type MembershipCardTableHeading = {
+  id: number;
+  heading: string;
+};
+export type MembershipCardTableBody = {
+  id: number;
+  variant: 'primary' | 'secondary' | 'tertiary';
+  memberLevel: string;
+  registrationFee: string;
+  renewalFee: string;
+  membershipPeriod: string;
+  recommendedMembership: string;
+  projectPoints: string;
+  data: MembershipCardData;
+};
+export type MembershipCardData = {
+  id: number;
+  variant: string;
+  memberLevel: string;
+  identity: string;
+  cardUpgrade: string;
+};

@@ -82,6 +82,7 @@ const Layout = ({ children, variant }: IProps) => {
               {children}
             </div>
           )}
+          {variant === 'secondary' && <div className="w-[70%]">{children}</div>}
         </div>
       </div>
     </Fragment>
