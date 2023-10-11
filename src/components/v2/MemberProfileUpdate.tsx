@@ -125,6 +125,7 @@ const MemberProfileUpdate = () => {
                   id="name"
                   type="text"
                   register={register}
+                  className="text-dark-grey min-[1400px]:!px-4 min-[1200px]:px-3 px-2.5 min-[1300px]:text-base text-sm"
                 />
                 <CustomInput<UserProfileUpdateFormValues>
                   errors={errors}
@@ -132,6 +133,7 @@ const MemberProfileUpdate = () => {
                   id="job_title"
                   type="text"
                   register={register}
+                  className="text-dark-grey min-[1400px]:!px-4 min-[1200px]:px-3 px-2.5 min-[1300px]:text-base text-sm"
                 />
                 <CustomInput<UserProfileUpdateFormValues>
                   errors={errors}
@@ -139,6 +141,7 @@ const MemberProfileUpdate = () => {
                   id="email"
                   type="text"
                   register={register}
+                  className="text-dark-grey min-[1400px]:!px-4 min-[1200px]:px-3 px-2.5 min-[1300px]:text-base text-sm"
                 />
                 <CustomInput<UserProfileUpdateFormValues>
                   errors={errors}
@@ -146,6 +149,7 @@ const MemberProfileUpdate = () => {
                   id="telephone"
                   type="text"
                   register={register}
+                  className="text-dark-grey min-[1400px]:!px-4 min-[1200px]:px-3 px-2.5 min-[1300px]:text-base text-sm"
                 />
               </div>
               <div className="flex gap-y-4.2 flex-col min-[1600px]:max-w-[415px] min-[1500px]:max-w-[375px] min-[1300px]:max-w-[325px] max-w-[265px]">
@@ -166,7 +170,7 @@ const MemberProfileUpdate = () => {
                       <div className="min-[1700px]:text-xs min-[1300px]:text-xms text-xxs min-[1700px]:w-[296px] min-[1500px]:w-[260px] min-[1300px]:w-[215px] w-[165px] px-2">
                         提示：密碼需至少有12字元，請混和使用大小寫字母、數字，使密碼更加安全。
                       </div>
-                      <PasswordInput register={register} id="password2" errors={errors} />
+                      <PasswordInput register={register} id="password2" errors={errors} placeholder="確認新密碼" />
                     </div>
                   </div>
                 )}
@@ -238,7 +242,7 @@ const CustomInfo = ({ heading, data, className }: CustomInfoIProps) => {
       </p>
       <p
         className={classNames(
-          'min-[1600px]:text-xl min-[1500px]:text-lg min-[1300px]:text-base text-sm font-bold text-smoke-gray ',
+          'min-[1600px]:text-xl min-[1500px]:text-lg min-[1300px]:text-base text-sm font-bold text-dark-grey ',
           className
         )}
       >
@@ -325,18 +329,23 @@ interface PasswordInputProps {
   id: 'password1' | 'password2';
   errors?: FieldErrors<UserProfileUpdateFormValues>;
   defaultValue?: string;
+  placeholder?: string;
 }
 
-const PasswordInput = ({ className, register, id, errors, defaultValue }: PasswordInputProps) => {
+const PasswordInput = ({ className, register, id, errors, defaultValue, placeholder }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="min-[1700px]:w-[296px] min-[1500px]:w-[260px] min-[1300px]:w-[215px] w-[165px] flex flex-col gap-0.5">
       <div className="relative rounded-full items-center !bg-white bg-opacity-100 shadow-input-field min-[1700px]:h-11.5 min-[1500px]:h-10 min-[1300px]:h-8.5 h-7 px-2 py-1  text-black flex justify-between">
         <input
           {...register(id)}
-          className={classNames('outline-none bg-white w-[85%]', className)}
+          className={classNames(
+            'outline-none bg-white w-[85%] min-[1400px]:px-2 min-[1200px]:px-1 px-0.5 min-[1300px]:text-base text-sm text-dark-grey',
+            className
+          )}
           type={showPassword ? 'text' : 'password'}
           defaultValue={defaultValue}
+          placeholder={placeholder}
         />
         <img
           src={showPassword ? '/images/operator-signup/visible.svg' : '/images/operator-signup/invisible.svg'}
