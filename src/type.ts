@@ -163,9 +163,9 @@ export type PermissionTableBodyType = {
   heading: string;
   data: {
     text: string;
-    box1: boolean;
-    box2: boolean;
-    box3: boolean;
+    administratorPermissions: boolean;
+    advancedPermissions: boolean;
+    basicPermisssions: boolean;
   }[];
 };
 export type AccountTableBodyItems = {

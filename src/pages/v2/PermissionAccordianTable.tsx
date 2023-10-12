@@ -31,18 +31,27 @@ const PermissionAccordianTable = ({ CardHeading }: IProps) => {
                 >
                   <th className="pl-5">{heading}</th>
                 </tr>
-                {data?.map(({ text, box1, box2, box3 }, itemIndex) => {
+                {data?.map(({ text, administratorPermissions, advancedPermissions, basicPermisssions }, itemIndex) => {
                   return (
                     <tr key={itemIndex} className="grid-cols-4 grid px-10 text-xs font-normal text-dark-grey">
                       <td className="font-normal text-xs py-2 text-center  ">{text}</td>
                       <td className="font-normal text-xs flex justify-center items-center py-2">
-                        {box1 && <img src="/v2/permission-instruction-setting/TickButon.svg" alt="Box1 Image" />}
+                        {administratorPermissions && (
+                          <img
+                            src="/v2/permission-instruction-setting/TickButon.svg"
+                            alt="administratorPermissions Image"
+                          />
+                        )}
                       </td>
                       <td className="font-normal text-xs  py-2 flex justify-center items-center">
-                        {box2 && <img src="/v2/permission-instruction-setting/TickButon.svg" alt="Box2 Image" />}
+                        {advancedPermissions && (
+                          <img src="/v2/permission-instruction-setting/TickButon.svg" alt="advancedPermissions Image" />
+                        )}
                       </td>
                       <td className="font-normal text-xs py-2 flex justify-center items-center">
-                        {box3 && <img src="/v2/permission-instruction-setting/TickButon.svg" alt="Box3 Image" />}
+                        {basicPermisssions && (
+                          <img src="/v2/permission-instruction-setting/TickButon.svg" alt="basicPermisssions Image" />
+                        )}
                       </td>
                     </tr>
                   );
@@ -64,33 +73,33 @@ const PERMISSION_TABLE_BODY: PermissionTableBodyType[] = [
     data: [
       {
         text: '購買結帳',
-        box1: true,
-        box2: false,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: false,
+        basicPermisssions: false
       },
       {
         text: '取消訂單',
-        box1: true,
-        box2: false,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: false,
+        basicPermisssions: false
       },
       {
         text: '販售商品',
-        box1: true,
-        box2: false,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: false,
+        basicPermisssions: false
       },
       {
         text: '下架商品',
-        box1: true,
-        box2: false,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: false,
+        basicPermisssions: false
       },
       {
         text: '預付儲值',
-        box1: true,
-        box2: false,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: false,
+        basicPermisssions: false
       }
     ]
   },
@@ -99,33 +108,33 @@ const PERMISSION_TABLE_BODY: PermissionTableBodyType[] = [
     data: [
       {
         text: '會員管理',
-        box1: true,
-        box2: false,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: false,
+        basicPermisssions: false
       },
       {
         text: '成員授權',
-        box1: true,
-        box2: false,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: false,
+        basicPermisssions: false
       },
       {
         text: '庫存檢視',
-        box1: true,
-        box2: true,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: true,
+        basicPermisssions: false
       },
       {
         text: '賣場分析',
-        box1: true,
-        box2: true,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: true,
+        basicPermisssions: false
       },
       {
         text: '交易紀錄',
-        box1: true,
-        box2: true,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: true,
+        basicPermisssions: false
       }
     ]
   },
@@ -134,21 +143,21 @@ const PERMISSION_TABLE_BODY: PermissionTableBodyType[] = [
     data: [
       {
         text: '放購物車',
-        box1: true,
-        box2: true,
-        box3: false
+        administratorPermissions: true,
+        advancedPermissions: true,
+        basicPermisssions: false
       },
       {
         text: '平台瀏覽',
-        box1: true,
-        box2: true,
-        box3: true
+        administratorPermissions: true,
+        advancedPermissions: true,
+        basicPermisssions: true
       },
       {
         text: '我的最愛',
-        box1: true,
-        box2: true,
-        box3: true
+        administratorPermissions: true,
+        advancedPermissions: true,
+        basicPermisssions: true
       }
     ]
   }

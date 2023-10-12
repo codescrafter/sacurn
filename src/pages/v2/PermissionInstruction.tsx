@@ -14,7 +14,7 @@ const PermissionInstruction = () => {
         </div>
       </div>
 
-      <div className="overflow-y-scroll yellowScroll h-[507px] [@media(min-width:1400px)]:h-[690px]  [@media(min-width:1700px)]:h-[710px]">
+      <div className=" mt-3 overflow-y-scroll yellowScroll h-[500px] [@media(min-width:1400px)]:h-[690px]  [@media(min-width:1700px)]:h-[710px]">
         <div className="w-full p-5">
           <PermissionAccordian title="權限設定說明" subTitle="權限的區分？" />
         </div>
