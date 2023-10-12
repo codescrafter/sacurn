@@ -22,18 +22,21 @@ export const MEMBERSHIPDATA = [
       {
         id: 1.1,
         source: 'white-card',
+        sourceColor: 'yellow',
         classname: 'bg-bgYellow',
         detail: 'ECOGREEN'
       },
       {
         id: 1.2,
         source: 'grey-card',
+        sourceColor: 'yellow',
         classname: 'bg-bgLimeGreen',
         detail: 'ECOLAND'
       },
       {
         id: 1.3,
         source: 'blue-card',
+        sourceColor: 'green',
         classname: 'bg-bgBlue',
         detail: 'ECOOCEAN'
       }
@@ -95,20 +98,23 @@ export const MEMBERSHIPDATA = [
     id: 8,
     title: '續卡/升級',
     variant: 'tertiary',
-    subcontent: [
+    maincontent: [
       {
         id: 8.1,
-        detail: '續會費/年',
+        detail1: '續會費/年',
+        detail2: '',
         classname: 'text-textYellow'
       },
       {
         id: 8.2,
-        detail: '200張訂單/年 積分100,000點/年',
+        detail1: '200張訂單/年',
+        detail2: '積分100,000點/年',
         classname: 'text-textGreen'
       },
       {
         id: 8.3,
-        detail: '350張訂單/年 積分300,000點/年',
+        detail1: '350張訂單/年',
+        detail2: '積分300,000點/年',
         classname: 'text-textBlue'
       }
     ]
@@ -164,20 +170,23 @@ export const MEMBERSHIPDATA = [
     subtitle2: '單月',
     variant: 'tertiary',
     variation: 'duo',
-    subcontent: [
+    maincontent: [
       {
         id: 11.1,
-        detail: '$50,000 資本額*1%',
+        detail1: '$50,000',
+        detail2: '資本額*1%',
         classname: 'text-textYellow'
       },
       {
         id: 11.2,
-        detail: '$150,000 資本額*3%',
+        detail1: '$150,000',
+        detail2: '資本額*3%',
         classname: 'text-textGreen'
       },
       {
         id: 11.3,
-        detail: '$300,000 資本額*8%',
+        detail1: '$300,000',
+        detail2: '資本額*8%',
         classname: 'text-textBlue'
       }
     ]
