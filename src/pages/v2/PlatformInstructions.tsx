@@ -16,7 +16,7 @@ const PlatformInstructions = () => {
         </div>
       </div>
 
-      <div className="overflow-y-scroll yellowScroll h-[507px] [@media(min-width:1400px)]:h-[690px]  [@media(min-width:1700px)]:h-[710px]">
+      <div className=" mt-3 overflow-y-scroll yellowScroll h-[500px] [@media(min-width:1400px)]:h-[690px]  [@media(min-width:1700px)]:h-[710px]">
         <div className="w-full p-5">
           {INSTRUCTION_CARD_DATA.map(({ id, title, items }: PlatformAccordianTypes, index) => {
             return <PlatformAccordian key={index} currentIndex={id} title={title} items={items} />;
