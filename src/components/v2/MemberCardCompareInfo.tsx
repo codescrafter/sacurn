@@ -38,9 +38,8 @@ const MemberCardCompareInfo = () => {
                         className={`${classname} relative p-3 flex flex-col flex-1 justify-center items-center`}
                       >
                         <img
-                          className="absolute mr-10 -left-[0.20px]"
+                          className="absolute mr-10 w-2 left-0 md:-left-[0.40px] md:w-2.5 lg:-left-0.5 lg:w-[14px] xl:-left-[0.20px] xl:w-4"
                           src={`/v2/cards/${sourceColor}-card-corner.svg`}
-                          width={16}
                           alt="CardCorner"
                         />
                         <img
