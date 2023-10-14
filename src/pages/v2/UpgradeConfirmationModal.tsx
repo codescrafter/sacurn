@@ -9,6 +9,8 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
+import CustomButton from '@/components/CustomButton';
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2)
@@ -32,6 +34,7 @@ const UpgradeConfirmationModal = () => {
       <Button variant="outlined" onClick={handleClickOpen}>
         Clinic
       </Button>
+
       <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <IconButton
           aria-label="close"
@@ -90,25 +93,12 @@ const UpgradeConfirmationModal = () => {
             >
               如會員地址已異動，請於申請前與客服中心聯絡，先行變更地址。
             </Typography>
-            <Button
-              autoFocus
-              onClick={handleClose}
-              sx={{
-                backgroundColor: '#005487',
-                color: 'white',
-                paddingY: '2.5',
-                fontSize: '16px',
-                paddingX: '50px',
-                borderRadius: '30px',
-                marginTop: '10px',
-                '&:hover': {
-                  color: '#005487',
-                  border: '2px solid #005487'
-                }
-              }}
+            <CustomButton
+              variant="primary"
+              className="rounded-[20px] px-12 h-12 text-lg mt-3 hover:border-2 hover:bg-white hover:text-navy-blue "
             >
               確認
-            </Button>
+            </CustomButton>
           </Box>
         </DialogContent>
       </BootstrapDialog>
