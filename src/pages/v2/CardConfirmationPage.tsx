@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
+import SignatureConfirmationModal from './SignatureConfirmationModal';
 import UpgradeConfirmationModal from './UpgradeConfirmationModal';
 const CardConfirmationPage = () => {
-  return <UpgradeConfirmationModal />;
+  return (
+    <Fragment>
+      <UpgradeConfirmationModal />
+      <SignatureConfirmationModal />
+    </Fragment>
+  );
 };
 
 export default CardConfirmationPage;

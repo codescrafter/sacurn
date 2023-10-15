@@ -188,3 +188,10 @@ export type AccountTableHeadingItems = {
   id: number;
   heading: string;
 };
+export type SignatureConfirmationModalType = {
+  title: string;
+  content: {
+    text: string;
+    isListDisc: boolean;
+  }[];
+};
