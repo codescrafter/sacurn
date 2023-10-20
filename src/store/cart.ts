@@ -17,8 +17,6 @@ type CartItem = {
 type CartState = {
   cartList: CartItem[];
   cartDetail: CartDetailResonse | null;
-  isSelectedAll: () => boolean;
-  setAllCartItemSelect: (isSelected: boolean) => void;
   getSelectedCartIdList: () => CartItem['id'][];
   getCartList: (page?: number) => void;
   getCartDetail: () => void;
@@ -26,23 +24,12 @@ type CartState = {
   updateCartItemSelected: (id: ExtendedCart['id'], index: number, isSelected: boolean) => void;
   updateCartItemQty: (...args: Parameters<typeof apiClient.trade.tradeCartPartialUpdate>) => void;
   deleteCartItem: (id: number) => void;
-  deleteSelectedCartItem: () => void;
   checkOutCart: () => Promise<CheckoutResult>;
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
   cartList: [],
   cartDetail: null,
-  isSelectedAll: () => !get().cartList.some((item) => item.selected === false),
-  setAllCartItemSelect: async (isSelected: boolean) => {
-    const newCartList = get().cartList.map((item) => ({
-      ...item,
-      selected: isSelected
-    }));
-
-    set({ cartList: newCartList });
-    await get().getCartDetail();
-  },
   getSelectedCartIdList: () =>
     get()
       .cartList.filter((item) => item.selected)
@@ -95,19 +82,6 @@ export const useCartStore = create<CartState>((set, get) => ({
       await apiClient.trade.tradeCartDestroy(id);
       const newCartList = get().cartList.filter((item) => item.id !== id);
       set({ cartList: newCartList });
-      await get().getCartDetail();
-    });
-  },
-  deleteSelectedCartItem: async () => {
-    await runTask(async () => {
-      const cartItemIdList = get()
-        .cartList.filter((item) => item.selected)
-        .map((item) => item.id);
-      if (cartItemIdList.length === 0) return;
-      await apiClient.trade.tradeCartBulkDeleteCreate({
-        cart_id_list: cartItemIdList
-      });
-      await get().getCartList();
       await get().getCartDetail();
     });
   },

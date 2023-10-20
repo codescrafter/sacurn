@@ -22,12 +22,10 @@ const Cart = () => {
   const getCartList = useCartStore((store) => store.getCartList);
   const cartDetail = useCartStore((store) => store.cartDetail);
   const updateCartItemSelected = useCartStore((store) => store.updateCartItemSelected);
-  const isSelectedAll = useCartStore((store) => store.isSelectedAll);
-  const setAllCartItemSelect = useCartStore((store) => store.setAllCartItemSelect);
-  const deleteSelectedCartItem = useCartStore((store) => store.deleteSelectedCartItem);
   const open = useModalStore((store) => store.open);
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState(false);
+  const [isSelectAll, setIsSelectAll] = useState(false);
 
   useEffect(() => {
     getCartList();
@@ -58,16 +56,13 @@ const Cart = () => {
             <input
               type="radio"
               className="ml-2.5 w-5 h-5 mt-0.5"
-              checked={isSelectedAll()}
+              checked={isSelectAll}
               onClick={() => {
-                setAllCartItemSelect(!isSelectedAll());
+                setIsSelectAll(!isSelectAll);
               }}
             />
           </div>
-          <div
-            className="flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px] cursor-pointer"
-            onClick={deleteSelectedCartItem}
-          >
+          <div className="flex gap-3 flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
             <span>刪除選取</span>
             <img src="/images/cart/ic_delete.svg" width={22} height={27} alt="sacurn" />
           </div>

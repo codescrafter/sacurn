@@ -14,6 +14,10 @@ export const INFO_MARGIN = 'INFO_MARGIN';
 export const GREEN = 'GREEN';
 export const YELLOW = 'YELLOW';
 export const BLUE = 'BLUE';
+export const PRIMARY = 'primary';
+export const SECONDARY = 'secondary';
+export const TERTIARY = 'tertiary';
+export const QUATERNARY = 'quaternary';
 
 export const NAVBAR_ITEMS: NavbarItemTypes[] = [
   {

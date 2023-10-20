@@ -73,7 +73,8 @@ module.exports = {
         mdlg: '8px',
         '2.5xl': '20px',
         'round-2.5': '10px',
-        'round-up-2.5': '10px 10px 0px 0px'
+        'round-up-2.5': '10px 10px 0px 0px',
+        tableRadius: '0px 18.143px 0px 0px'
       },
       fontSize: {
         xxs: ['8px', '12px'],
@@ -207,6 +208,9 @@ module.exports = {
       black: '#000000',
       'pale-yellow': '#FFD600',
       grey: '#888888',
+      textYellow: '#C59900',
+      textBlue: '#004B78',
+      textGreen: '#096200',
       'dark-grey': '#525252',
       'light-grey': '#D9D9D9',
       'soft-red': '#C24242',
@@ -221,7 +225,12 @@ module.exports = {
       'light-blue': '#1D70BD',
       'light-purple': '#C4B0FD',
       'light-gray': '#F1F4F5',
+      mildGrey: '#E9E8E7',
+      offwhite: '#FFFEF8',
       yellow: '#FAC91C',
+      bgYellow: '#FFF1A9',
+      bgLimeGreen: '#CFE1C8',
+      bgBlue: '#A0B8C9',
       blue: '#1076B4',
       'card-bg': '#ffffffcc',
       'silk-blue': '#5195B2',
@@ -243,11 +252,10 @@ module.exports = {
       'grey-ghoose': '#979797',
       geyser: '#3F84AE21',
       'transparent-blue': '#005487e6',
-      'grey-ghoose': '#979797',
-      geyser: '#3F84AE21',
       'vista-white': '#FAFAFB',
       aluminium: '#ABABAB',
-      'soft-green': '#60C757'
+      'soft-green': '#60C757',
+      'white-smoke': '#F5F5F5'
     }
   },
   plugins: []

@@ -32,6 +32,8 @@ const ProductDetailList = () => {
     [qty]
   );
 
+  console.log('priceList', priceList);
+
   return (
     <div className="w-full mt-8 pl-4 relative">
       <h1 className="text-[44px] font-semibold leading-10 text-white">CarbonCure Concrete Mineralization</h1>
