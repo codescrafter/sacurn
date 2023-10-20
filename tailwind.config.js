@@ -254,7 +254,8 @@ module.exports = {
       'transparent-blue': '#005487e6',
       'vista-white': '#FAFAFB',
       aluminium: '#ABABAB',
-      'soft-green': '#60C757'
+      'soft-green': '#60C757',
+      'white-smoke': '#F5F5F5'
     }
   },
   plugins: []

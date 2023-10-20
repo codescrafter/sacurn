@@ -188,7 +188,13 @@ export type AccountTableHeadingItems = {
   id: number;
   heading: string;
 };
-
+export type SignatureConfirmationModalType = {
+  title: string;
+  content: {
+    text: string;
+    isListDisc: boolean;
+  }[];
+};
 export type MembershipDataItems = {
   id: number;
   title: string;
