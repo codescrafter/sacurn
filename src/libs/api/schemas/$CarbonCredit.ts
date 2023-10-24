@@ -29,6 +29,46 @@ export const $CarbonCredit = {
             isReadOnly: true,
             isRequired: true,
         },
+        images: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        impacts: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        performances: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        project_validator: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        ccs_validator: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        additional_certifications: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        issued_credits_retired: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        project_documents: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         name: {
             type: 'string',
             isNullable: true,
@@ -39,15 +79,15 @@ export const $CarbonCredit = {
             isNullable: true,
             maxLength: 45,
         },
-        video: {
-            type: 'string',
-            isNullable: true,
-            maxLength: 45,
-        },
         image: {
             type: 'string',
             isNullable: true,
             format: 'uri',
+        },
+        video: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
         },
         price: {
             type: 'number',
@@ -69,7 +109,7 @@ export const $CarbonCredit = {
             type: 'string',
             maxLength: 50,
         },
-        rating: {
+        carbon_rating: {
             type: 'string',
             isNullable: true,
             maxLength: 8,
@@ -80,7 +120,7 @@ export const $CarbonCredit = {
             maximum: 2147483647,
             minimum: -2147483648,
         },
-        standard: {
+        certification_from: {
             type: 'string',
             isNullable: true,
             maxLength: 128,
@@ -89,6 +129,64 @@ export const $CarbonCredit = {
             type: 'string',
             isNullable: true,
             maxLength: 45,
+        },
+        project_code: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 8,
+        },
+        available_vintage_start: {
+            type: 'string',
+            isNullable: true,
+            format: 'date',
+        },
+        available_vintage_end: {
+            type: 'string',
+            isNullable: true,
+            format: 'date',
+        },
+        hectares: {
+            type: 'number',
+            isNullable: true,
+            maximum: 2147483647,
+            minimum: -2147483648,
+        },
+        developer: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        standard_methodology: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        volume_issues: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        avg_annual_emission_reduction: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        information: {
+            type: 'string',
+            isNullable: true,
+        },
+        rating_text: {
+            type: 'string',
+            isNullable: true,
+        },
+        forest_text: {
+            type: 'string',
+            isNullable: true,
+        },
+        impact_image: {
+            type: 'string',
+            isNullable: true,
+            format: 'uri',
         },
         created_at: {
             type: 'string',

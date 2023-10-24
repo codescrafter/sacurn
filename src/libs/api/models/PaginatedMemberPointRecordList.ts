@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CarbonCredit } from './CarbonCredit';
+import type { MemberPointRecord } from './MemberPointRecord';
 
-export type PaginatedCarbonCreditList = {
+export type PaginatedMemberPointRecordList = {
     count?: number;
     next?: string | null;
     previous?: string | null;
-    results?: Array<CarbonCredit>;
+    results?: Array<MemberPointRecord>;
 };
 

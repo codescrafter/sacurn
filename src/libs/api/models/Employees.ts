@@ -5,7 +5,7 @@
 
 export type Employees = {
     username?: string;
-    password1?: string;
+    password?: string;
     email?: string;
     last_name?: string;
     position?: string;

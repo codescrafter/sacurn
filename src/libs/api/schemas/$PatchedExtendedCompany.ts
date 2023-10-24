@@ -71,9 +71,12 @@ export const $PatchedExtendedCompany = {
             maxLength: 45,
         },
         contact_address: {
-            type: 'string',
+            type: 'dictionary',
+            contains: {
+                properties: {
+                },
+            },
             isNullable: true,
-            maxLength: 256,
         },
         representative_country: {
             type: 'string',

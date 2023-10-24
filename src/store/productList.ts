@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { CarbonCredit } from '@/libs/api';
+import { ExtendCarbonCredit } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 import { CarbonTag } from '@/type';
 
@@ -8,7 +8,7 @@ import { Filters } from './filterOptions';
 import { runTask } from './modal';
 
 type ProductListState = {
-  productList: CarbonCredit[];
+  productList: ExtendCarbonCredit[]; //NOTE: Type updated
   filters: Filters;
   updateProductListByFilters: (filters: Filters) => void;
   getProductList: (...args: Parameters<typeof apiClient.carbonCredit.carbonCreditList>) => void;

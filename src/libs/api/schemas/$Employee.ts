@@ -56,6 +56,11 @@ export const $Employee = {
             isNullable: true,
             format: 'date-time',
         },
+        photo: {
+            type: 'string',
+            isNullable: true,
+            format: 'uri',
+        },
         position: {
             type: 'string',
             isNullable: true,
@@ -80,6 +85,12 @@ export const $Employee = {
             type: 'all-of',
             contains: [{
                 type: 'Status1d2Enum',
+            }],
+        },
+        is_online: {
+            type: 'all-of',
+            contains: [{
+                type: 'IsOnlineEnum',
             }],
         },
         user: {

@@ -92,7 +92,20 @@ export class CompanyService {
     }
 
     /**
+     * @returns any No response body
+     * @throws ApiError
+     */
+    public companyCheckUserStatusRetrieve(): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/company/check_user_status/',
+        });
+    }
+
+    /**
      * 網址上帶的id是員工列表回傳裡的id 不是user
+     *
+     * status 0尚未驗證 1驗證 2凍結
      * @param page A page number within the paginated result set.
      * @returns PaginatedEmployeeList
      * @throws ApiError
@@ -111,6 +124,8 @@ export class CompanyService {
 
     /**
      * 網址上帶的id是員工列表回傳裡的id 不是user
+     *
+     * status 0尚未驗證 1驗證 2凍結
      * @param requestBody
      * @returns Employee
      * @throws ApiError
@@ -128,6 +143,8 @@ export class CompanyService {
 
     /**
      * 網址上帶的id是員工列表回傳裡的id 不是user
+     *
+     * status 0尚未驗證 1驗證 2凍結
      * @param id
      * @returns Employee
      * @throws ApiError
@@ -146,6 +163,8 @@ export class CompanyService {
 
     /**
      * 網址上帶的id是員工列表回傳裡的id 不是user
+     *
+     * status 0尚未驗證 1驗證 2凍結
      * @param id
      * @param requestBody
      * @returns Employee
@@ -168,6 +187,8 @@ export class CompanyService {
 
     /**
      * 網址上帶的id是員工列表回傳裡的id 不是user
+     *
+     * status 0尚未驗證 1驗證 2凍結
      * @param id
      * @returns void
      * @throws ApiError
@@ -319,10 +340,10 @@ export class CompanyService {
      * @returns any No response body
      * @throws ApiError
      */
-    public companySetCompanyStatusRetrieve(): CancelablePromise<any> {
+    public companyReviewPassReqRetrieve(): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/company/set_company_status/',
+            url: '/company/review_pass_req/',
         });
     }
 

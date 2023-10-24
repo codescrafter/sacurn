@@ -4,7 +4,7 @@
 /* eslint-disable */
 export const $PatchedEmployeesPatch = {
     properties: {
-        password1: {
+        password: {
             type: 'string',
         },
         email: {

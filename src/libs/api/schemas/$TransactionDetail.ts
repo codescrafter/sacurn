@@ -40,7 +40,7 @@ export const $TransactionDetail = {
         status: {
             type: 'all-of',
             contains: [{
-                type: 'Status1d2Enum',
+                type: 'TransactionDetailStatusEnum',
             }],
         },
         pay_at: {

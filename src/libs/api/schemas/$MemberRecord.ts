@@ -9,6 +9,31 @@ export const $MemberRecord = {
             isReadOnly: true,
             isRequired: true,
         },
+        current_member: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        next_member: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        buy_cost: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        sell_cost: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        can_upgrade: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         created_at: {
             type: 'string',
             isReadOnly: true,
@@ -31,10 +56,53 @@ export const $MemberRecord = {
             isNullable: true,
             format: 'date-time',
         },
+        start_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
+        expire_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
         status: {
-            type: 'number',
-            maximum: 2147483647,
-            minimum: -2147483648,
+            type: 'all-of',
+            contains: [{
+                type: 'Status923Enum',
+            }],
+        },
+        renewal: {
+            type: 'all-of',
+            contains: [{
+                type: 'RenewalEnum',
+            }],
+        },
+        renewal_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
+        renewal_complete_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
+        upgrade: {
+            type: 'all-of',
+            contains: [{
+                type: 'UpgradeEnum',
+            }],
+        },
+        upgrade_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
+        upgrade_complete_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
         },
         company: {
             type: 'number',

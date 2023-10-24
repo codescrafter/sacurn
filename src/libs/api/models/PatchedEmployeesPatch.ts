@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 export type PatchedEmployeesPatch = {
-    password1?: string;
+    password?: string;
     email?: string;
     last_name?: string;
     position?: string;

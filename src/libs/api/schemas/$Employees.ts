@@ -7,7 +7,7 @@ export const $Employees = {
         username: {
             type: 'string',
         },
-        password1: {
+        password: {
             type: 'string',
         },
         email: {

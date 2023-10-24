@@ -7,7 +7,7 @@ export const $ShopCartRequest = {
         quantity: {
             type: 'number',
         },
-        shop_product: {
+        shop_product_name: {
             type: 'number',
         },
     },

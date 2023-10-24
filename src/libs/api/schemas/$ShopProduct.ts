@@ -36,6 +36,11 @@ export const $ShopProduct = {
             isRequired: true,
             maxLength: 45,
         },
+        image: {
+            type: 'string',
+            isNullable: true,
+            format: 'uri',
+        },
         desc: {
             type: 'string',
             isNullable: true,
@@ -60,7 +65,7 @@ export const $ShopProduct = {
         status: {
             type: 'all-of',
             contains: [{
-                type: 'ShopProductStatusEnum',
+                type: 'Status923Enum',
             }],
         },
         company: {

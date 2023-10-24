@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $PaginatedCarbonCreditList = {
+export const $PaginatedMemberPointRecordList = {
     properties: {
         count: {
             type: 'number',
@@ -20,7 +20,7 @@ export const $PaginatedCarbonCreditList = {
         results: {
             type: 'array',
             contains: {
-                type: 'CarbonCredit',
+                type: 'MemberPointRecord',
             },
         },
     },

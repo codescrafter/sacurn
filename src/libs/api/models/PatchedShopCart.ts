@@ -8,6 +8,7 @@ import type { Status1d2Enum } from './Status1d2Enum';
 export type PatchedShopCart = {
     readonly id?: number;
     readonly name?: string;
+    readonly image?: string;
     readonly created_at?: string | null;
     readonly updated_at?: string | null;
     deleted?: boolean;

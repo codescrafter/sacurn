@@ -5,7 +5,7 @@
 import type { CarbonCredit } from '../models/CarbonCredit';
 import type { Certificate } from '../models/Certificate';
 import type { FilterList } from '../models/FilterList';
-import type { PaginatedCarbonCreditList } from '../models/PaginatedCarbonCreditList';
+import type { PaginatedExtendCarbonCreditList } from '../models/PaginatedExtendCarbonCreditList';
 import type { PaginatedWatchListList } from '../models/PaginatedWatchListList';
 import type { PatchedCarbonCredit } from '../models/PatchedCarbonCredit';
 import type { WatchList } from '../models/WatchList';
@@ -16,7 +16,7 @@ import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class CarbonCreditService {
 
-    constructor(public readonly httpRequest: BaseHttpRequest) { }
+    constructor(public readonly httpRequest: BaseHttpRequest) {}
 
     /**
      * @param desc 價格排序方式
@@ -26,7 +26,7 @@ export class CarbonCreditService {
      * @param sortBy 排序依據 price, vintage
      * @param tags 碳權種類
      * @param vintage 年份
-     * @returns PaginatedCarbonCreditList
+     * @returns PaginatedExtendCarbonCreditList
      * @throws ApiError
      */
     public carbonCreditList(
@@ -37,8 +37,7 @@ export class CarbonCreditService {
         sortBy?: string,
         tags?: string,
         vintage?: string,
-    ): CancelablePromise<PaginatedCarbonCreditList> {
-    
+    ): CancelablePromise<PaginatedExtendCarbonCreditList> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/',
@@ -138,28 +137,6 @@ export class CarbonCreditService {
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/filter_list/',
-        });
-    }
-
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditImpactRetrieve(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/impact/',
-        });
-    }
-
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditImpactCreate(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/carbon_credit/impact/',
         });
     }
 

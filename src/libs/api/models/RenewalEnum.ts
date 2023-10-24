@@ -4,10 +4,10 @@
 /* eslint-disable */
 
 /**
- * * `0` - Off Sale
- * * `1` - On Sale
+ * * `0` - Unconfirmed
+ * * `1` - Confirmed
  */
-export enum ShopProductStatusEnum {
+export enum RenewalEnum {
     '_0' = 0,
     '_1' = 1,
 }

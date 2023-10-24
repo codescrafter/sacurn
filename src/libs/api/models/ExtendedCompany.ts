@@ -19,7 +19,7 @@ export type ExtendedCompany = {
     founding_date?: string | null;
     address?: Record<string, any> | null;
     phone?: string | null;
-    contact_address?: string | null;
+    contact_address?: Record<string, any> | null;
     representative_country?: string | null;
     representative_country_type?: string | null;
     representative_id_card_number?: string | null;
