@@ -286,3 +286,12 @@ input[type='number'] {
   -webkit-background-clip: text;
   -webkit-text-fill-color: black;
 }
+
+.css-148sd3j-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
+  background-color: transparent !important;
+}
+
+.account-information-clip-path {
+  clip-path: polygon(0 0, 70% 0, 100% 100%, 0% 100%);
+}
+

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { Cart as CartItemType } from '@/libs/api';
+import { ExtendedCart as CartItemType } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
 import { OrderStatus } from '@/type';
@@ -22,7 +22,12 @@ const Cart = () => {
   const getCartList = useCartStore((store) => store.getCartList);
   const cartDetail = useCartStore((store) => store.cartDetail);
   const updateCartItemSelected = useCartStore((store) => store.updateCartItemSelected);
+  const isSelectedAll = useCartStore((store) => store.isSelectedAll);
+  const setAllCartItemSelect = useCartStore((store) => store.setAllCartItemSelect);
+  const deleteSelectedCartItem = useCartStore((store) => store.deleteSelectedCartItem);
   const open = useModalStore((store) => store.open);
+  const [isChecked, setIsChecked] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     getCartList();
@@ -35,7 +40,7 @@ const Cart = () => {
   return (
     <div className="bg-neutral-150 h-screen overflow-hidden">
       <Navbar className="pt-7 pb-2.5 !bg-navy-blue" />
-      <div className="flex justify-between my-4 pl-13 pr-10">
+      <div className="flex justify-between my-4 pl-13 w-[65%]">
         <div className="flex">
           <Link to="/">
             <button className="w-[202px] h-[46px] rounded-[3px] py-1 flex items-center justify-center border border-navy-blue text-navy-blue text-xl">
@@ -47,9 +52,25 @@ const Cart = () => {
             <p className="text-[28px] font-normal text-navy-blue">| 購物車</p>
           </div>
         </div>
-        <div className="flex items-center">
-          <p className="text-2xl font-normal text-black mr-3">全部刪除</p>
-          <img src="/images/cart/ic_delete.svg" width={28} height={34} alt="sacurn" />
+        <div className="flex items-center gap-3">
+          <div className="flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
+            <span>全選</span>
+            <input
+              type="radio"
+              className="ml-2.5 w-5 h-5 mt-0.5"
+              checked={isSelectedAll()}
+              onClick={() => {
+                setAllCartItemSelect(!isSelectedAll());
+              }}
+            />
+          </div>
+          <div
+            className="flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px] cursor-pointer"
+            onClick={deleteSelectedCartItem}
+          >
+            <span>刪除選取</span>
+            <img src="/images/cart/ic_delete.svg" width={22} height={27} alt="sacurn" />
+          </div>
         </div>
       </div>
       <div className="flex flex-row">
@@ -69,33 +90,34 @@ const Cart = () => {
             <div className="flex flex-col">
               <div className="flex flex-row justify-between pr-6.7">
                 <Heading>商品共計</Heading>
-                <p className="2xl:text-lg text-base text-black font-medium">NT$ {cartDetail.total_amount}</p>
+                <p className="2xl:text-lg text-base text-black font-medium">NT$ {cartDetail?.total_amount}</p>
               </div>
               <div className="px-6.7 mt-2.5 ">
                 <p className="text-grey 2xl:text-sm text-xs">
-                  {cartDetail.product_list?.length}項(以下含稅金${taxPercentage}%及手續費)
+                  {cartDetail && cartDetail.product_list?.length}項(以下含稅金${taxPercentage}%及手續費)
                 </p>
                 <div className="2xl:mt-5.2 mt-3">
-                  {cartDetail.product_list?.map((product) => {
-                    return (
-                      <div key={product.name} className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
-                        <p className="w-[70%] text-grey 2xl:text-lg text-sm">{product.name}</p>
-                        <p className="text-grey 2xl:text-lg text-sm">{product.amount} 噸</p>
-                      </div>
-                    );
-                  })}
+                  {cartDetail &&
+                    cartDetail.product_list?.map((product) => {
+                      return (
+                        <div key={product.name} className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
+                          <p className="w-[70%] text-grey 2xl:text-lg text-sm">{product.name}</p>
+                          <p className="text-grey 2xl:text-lg text-sm">$ {product.amount}</p>
+                        </div>
+                      );
+                    })}
                 </div>
                 <div className="flex flex-row justify-between 2xl:mb-5 mb-3">
                   <p className="text-grey 2xl:text-lg text-base">手續費</p>
-                  <p className="text-grey 2xl:text-lg text-base">$ {cartDetail.cost}</p>
+                  <p className="text-grey 2xl:text-lg text-base">$ {cartDetail?.cost}</p>
                 </div>
                 <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
                   <p className="text-grey 2xl:text-lg text-base">稅金${taxPercentage}%</p>
-                  <p className="text-grey 2xl:text-lg text-base">${cartDetail.tax}</p>
+                  <p className="text-grey 2xl:text-lg text-base">${cartDetail?.tax}</p>
                 </div>
                 <div className="flex flex-row justify-between">
                   <p className="2xl:text-lg text-base font-semibold text-black">總付款金額</p>
-                  <p className="2xl:text-lg text-base text-bright-red font-semibold">NT$ {cartDetail.total_amount}</p>
+                  <p className="2xl:text-lg text-base text-bright-red font-semibold">NT$ {cartDetail?.total_amount}</p>
                 </div>
               </div>
               <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
@@ -105,15 +127,28 @@ const Cart = () => {
                 <p className="text-navy-blue 2xl:text-base text-sm pl-3">使用優惠碼</p>
               </button>
               <Heading>服務條款</Heading>
-              <p className="ml-6.7 text-grey 2xl:text-base text-sm 2xl:mt-6 mt-2">
+              <p className="ml-6.7 2xl:text-base text-sm 2xl:mt-6 mt-2 text-navy-blue">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={(e) => {
+                    setIsChecked(!isChecked);
+                    if (e.target.checked) {
+                      setError(false);
+                    }
+                  }}
+                  className="text-[#F00] mr-2"
+                />
                 我瞭解並同意Sacurn服務條款與隱私權政策
               </p>
+              {error && <p className="text-[#f00] text-xs ml-12">請務必確認勾選此框，才能點選「前往付款」。</p>}
               <hr className="border-silverstone 2xl:mt-8 mt-4 2xl:mb-5 mb-3" />
               <p className="2xl:text-base text-xms text-black self-center mb-1">
                 點擊「前往付款」，訂單及送出，請於下一步選擇付款方式
               </p>
               <button
                 onClick={() => {
+                  if (!isChecked) return setError(true);
                   open(ModalType.CheckOutConfirm, {
                     buttons: [
                       {
@@ -129,7 +164,10 @@ const Cart = () => {
                     ]
                   });
                 }}
-                className="bg-navy-blue w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white"
+                className={classNames('w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white', {
+                  ['bg-navy-blue']: isChecked,
+                  ['bg-grey']: !isChecked
+                })}
               >
                 前往付款
               </button>
@@ -196,7 +234,7 @@ const CartItem = (props: CartItemIProps) => {
         onSelectedChange(!selected);
       }}
     >
-      <div className="flex items-center">
+      <div className="flex items-center justify-between">
         <div className="ml-7.5 mr-4">
           {selected ? (
             <img src="/images/cart/ic_check.svg" width={29} height={29} alt="sacurn" />
@@ -205,7 +243,7 @@ const CartItem = (props: CartItemIProps) => {
           )}
         </div>
         <img src={image} width={114} height={114} className="object-cover" alt="sacurn" />
-        <div className="ml-6 flex flex-col justify-between h-full">
+        <div className="ml-6 flex flex-col justify-between h-full max-w-[120px]">
           <p className="text-[10.6px] font-medium text-dark-grey">會員代號：{company_code}</p>
           <p
             className={classNames('font-bold text-xl leading-[18px] w-[316px] mr-3 mt-3 mb-3', {
@@ -246,11 +284,18 @@ const CartItem = (props: CartItemIProps) => {
             +
           </button>
         </div>
-        <div>
-          <p className="text-xl font-bold text-black">$ {qty * price}</p>
+        <div className="flex items-center">
+          <p className="text-xl font-bold text-black whitespace-nowrap">$ {qty * price}</p>
         </div>
         <button className="mr-7">
-          <img src="/images/cart/ic_delete.svg" width={23} height={27} alt="sacurn" onClick={onDeleteCartItem} />
+          <img
+            src="/images/cart/ic_delete.svg"
+            width={23}
+            height={27}
+            className="w-6 h-7"
+            alt="sacurn"
+            onClick={onDeleteCartItem}
+          />
         </button>
       </div>
     </div>

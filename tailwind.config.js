@@ -3,6 +3,12 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      screens: {
+        // '1.5lg': '1200px',
+        // '2.3xl': '1600px',
+        '2.5xl': '1780px',
+        '3xl': '1920px'
+      },
       // light mode
       tremor: {
         brand: {
@@ -65,7 +71,10 @@ module.exports = {
       },
       borderRadius: {
         mdlg: '8px',
-        '2.5xl': '20px'
+        '2.5xl': '20px',
+        'round-2.5': '10px',
+        'round-up-2.5': '10px 10px 0px 0px',
+        tableRadius: '0px 18.143px 0px 0px'
       },
       fontSize: {
         xxs: ['8px', '12px'],
@@ -96,7 +105,13 @@ module.exports = {
         'operator-signup-button':
           '1.1420453786849976px 1.1877270936965942px 8.039999008178711px 0px rgba(31, 54, 68, 0.90), -3.4744720458984375px -1.7372360229492188px 3.4744720458984375px 0px rgba(183, 215, 235, 0.60)',
         'download-btn': '0px 1.809303879737854px 4.809999942779541px 0px rgba(0, 0, 0, 0.25)',
-        'completed-box': '0px 1px 41px 0px rgba(0, 0, 0, 0.10)'
+        'completed-box': '0px 1px 41px 0px rgba(0, 0, 0, 0.10)',
+        //v2-shadows
+        'membership-nav-out': '0px 2px 4px 0px rgba(0, 0, 0, 0.25)',
+        'membership-nav-in': '0px 3px 4px 0px rgba(0, 0, 0, 0.40) inset',
+        'membership-nav-underline': '0px 3px 4px 0px rgba(0, 0, 0, 0.55)',
+        'input-field': '0px 21.89325px 63.41492px 0px #F0F0F0, 0px 6.03952px 23.40312px 0px rgba(0, 0, 0, 0.05)',
+        'account-info-box': '0px 0px 44px 0px rgba(0, 0, 0, 0.2)'
       },
       backgroundImage: {
         'login-white': 'linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)',
@@ -109,7 +124,8 @@ module.exports = {
           'linear-gradient(90deg, rgba(217, 217, 217, 0.1) 0%, rgba(217, 217, 217, 0.5) 48.44%, rgba(217, 217, 217, 0.1) 100%)',
         'multi-slide': 'linear-gradient(89.71deg, #D9D9D9 69.19%, rgba(217, 217, 217, 0) 99.76%)',
         'operator-signup': 'linear-gradient(179deg, #32769F 0%, #015588 100%)',
-        'drop-down': "url('/public/images/wishlist/dropDown.png')"
+        'drop-down': "url('/public/images/wishlist/dropDown.png')",
+        'file-select-bg': 'linear-gradient(180deg, transparent 60%, #1e191999 60%, #1e191999 80%)'
       },
       blur: {
         xxs: '0.5px'
@@ -142,6 +158,7 @@ module.exports = {
         7.7: '31px',
         8.2: '33px',
         8.5: '34px',
+        8.7: '35px',
         9.5: '38px',
         10.5: '42px',
         10.7: '43px',
@@ -157,8 +174,10 @@ module.exports = {
         17.5: '70px',
         17.7: '71px',
         18: '72px',
+        18.7: '75px',
         19: '76px',
         19.7: '79px',
+        21: '84px',
         21.7: '87px',
         22.5: '90px',
         23.2: '93px',
@@ -189,6 +208,9 @@ module.exports = {
       black: '#000000',
       'pale-yellow': '#FFD600',
       grey: '#888888',
+      textYellow: '#C59900',
+      textBlue: '#004B78',
+      textGreen: '#096200',
       'dark-grey': '#525252',
       'light-grey': '#D9D9D9',
       'soft-red': '#C24242',
@@ -203,7 +225,12 @@ module.exports = {
       'light-blue': '#1D70BD',
       'light-purple': '#C4B0FD',
       'light-gray': '#F1F4F5',
+      mildGrey: '#E9E8E7',
+      offwhite: '#FFFEF8',
       yellow: '#FAC91C',
+      bgYellow: '#FFF1A9',
+      bgLimeGreen: '#CFE1C8',
+      bgBlue: '#A0B8C9',
       blue: '#1076B4',
       'card-bg': '#ffffffcc',
       'silk-blue': '#5195B2',
@@ -215,7 +242,20 @@ module.exports = {
       'card-bg-light': '#c6c6c626',
       cyan: '#7EF1F1',
       'text-light': '#DCDCDC',
-      'trans-grey': 'rgba(255, 255, 255, 0.30)'
+      'trans-grey': 'rgba(255, 255, 255, 0.30)',
+      // v2 colors
+      ceramic: '#F9F9F9',
+      'light-white': '#ffffff4c',
+      'trans-white': '#ffffffe6',
+      'ceramic-bg': '#E0E0E0',
+      'hit-grey': '#A8A8A8',
+      'grey-ghoose': '#979797',
+      geyser: '#3F84AE21',
+      'transparent-blue': '#005487e6',
+      'vista-white': '#FAFAFB',
+      aluminium: '#ABABAB',
+      'soft-green': '#60C757',
+      'white-smoke': '#F5F5F5'
     }
   },
   plugins: []

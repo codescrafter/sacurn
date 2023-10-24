@@ -1,19 +1,19 @@
 import { create } from 'zustand';
 
-import { Inventory, Order } from '@/libs/api';
+import { ExtendedInventory, Order } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { ModalType, runTask } from './modal';
 
 export type StockItem = {
   action: string | null;
-  orderData: Order | null;
-} & Inventory;
+  orderList: Order[];
+} & ExtendedInventory;
 
 type StockListState = {
   stockList: StockItem[];
   getStockList: (page?: number) => void;
-  getStockInfo: (carbonCreditId: number) => Promise<boolean>;
+  getStockOrderList: (carbonCreditId: number) => Promise<boolean>;
   updateStockOnSale: (carbonId: number, qty: number, price: number, minUnit: number) => void;
   updateStockOffShelve: (id: number) => void;
 };
@@ -23,19 +23,19 @@ export const useStockListStore = create<StockListState>((set, get) => ({
   getStockList: async (page?: number) => {
     await runTask(async () => {
       const response = await apiClient.inventory.inventoryList(page);
-      set({ stockList: (response.results || [])?.map((item) => ({ ...item, action: null, orderData: null })) });
+      set({ stockList: (response.results || [])?.map((item) => ({ ...item, action: null, orderList: [] })) });
     });
   },
-  getStockInfo: async (carbonCreditId: number) => {
+  getStockOrderList: async (carbonCreditId: number) => {
     let isSuccess = false;
 
     await runTask(async () => {
-      const response = await apiClient.trade.tradeListCarbonOrderRetrieve(carbonCreditId.toString());
+      const response = await apiClient.trade.tradeListCarbonOrderList(carbonCreditId.toString());
       const stockIndex = get().stockList.findIndex((stock) => stock.carbon_credit === carbonCreditId);
 
       if (stockIndex >= 0) {
         const newStockList = Array.from(get().stockList);
-        newStockList[stockIndex].orderData = response.order?.[0] || null;
+        newStockList[stockIndex].orderList = response.results || [];
         set({ stockList: newStockList });
       } else {
         throw new Error('Not found stock index');
@@ -46,7 +46,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     return isSuccess;
   },
   updateStockOnSale: async (carbonId, quantity, price, minUnit) => {
-    runTask(
+    await runTask(
       async () => {
         await apiClient.trade.tradeOrderSellCreate({
           carbon_credit: carbonId,
@@ -65,6 +65,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
   updateStockOffShelve: async (id: number) => {
     await runTask(async () => {
       await apiClient.trade.tradeOrderSellDestroy(id);
+      await get().getStockList();
     });
   }
 }));

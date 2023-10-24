@@ -9,6 +9,16 @@ export const $OperationRecord = {
             isReadOnly: true,
             isRequired: true,
         },
+        username: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        total_amount: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         product_name: {
             type: 'string',
             isNullable: true,

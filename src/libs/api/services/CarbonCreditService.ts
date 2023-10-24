@@ -16,13 +16,14 @@ import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class CarbonCreditService {
 
-    constructor(public readonly httpRequest: BaseHttpRequest) {}
+    constructor(public readonly httpRequest: BaseHttpRequest) { }
 
     /**
      * @param desc 價格排序方式
      * @param location 地點
      * @param page A page number within the paginated result set.
-     * @param price 價格 ex: 100,200
+     * @param priceRange 價格區間 ex: 100,200
+     * @param sortBy 排序依據 price, vintage
      * @param tags 碳權種類
      * @param vintage 年份
      * @returns PaginatedCarbonCreditList
@@ -32,10 +33,12 @@ export class CarbonCreditService {
         desc?: boolean,
         location?: string,
         page?: number,
-        price?: string,
+        priceRange?: string,
+        sortBy?: string,
         tags?: string,
         vintage?: string,
     ): CancelablePromise<PaginatedCarbonCreditList> {
+    
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/',
@@ -43,7 +46,8 @@ export class CarbonCreditService {
                 'desc': desc,
                 'location': location,
                 'page': page,
-                'price': price,
+                'price_range': priceRange,
+                'sort_by': sortBy,
                 'tags': tags,
                 'vintage': vintage,
             },
@@ -94,18 +98,18 @@ export class CarbonCreditService {
     }
 
     /**
-     * @param carbonCreditId 碳權pk
+     * @param carbonCredit 碳權
      * @returns Certificate
      * @throws ApiError
      */
     public carbonCreditCertificateRetrieve(
-        carbonCreditId?: string,
+        carbonCredit?: string,
     ): CancelablePromise<Certificate> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/certificate/',
             query: {
-                'carbon_credit_id': carbonCreditId,
+                'carbon_credit': carbonCredit,
             },
         });
     }
@@ -182,18 +186,18 @@ export class CarbonCreditService {
     }
 
     /**
-     * @param carbonCreditId 碳權pk
+     * @param carbonCredit 碳權
      * @returns any No response body
      * @throws ApiError
      */
     public carbonCreditMailCertificateRetrieve(
-        carbonCreditId?: string,
+        carbonCredit?: string,
     ): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/mail_certificate/',
             query: {
-                'carbon_credit_id': carbonCreditId,
+                'carbon_credit': carbonCredit,
             },
         });
     }
@@ -202,7 +206,8 @@ export class CarbonCreditService {
      * @param desc 價格排序方式
      * @param location 地點
      * @param page A page number within the paginated result set.
-     * @param price 價格 ex: 100,200
+     * @param priceRange 價格 ex: 100,200
+     * @param sortBy 排序依據 price, vintage
      * @param tags 碳權種類
      * @param vintage 年份
      * @returns PaginatedWatchListList
@@ -212,7 +217,8 @@ export class CarbonCreditService {
         desc?: boolean,
         location?: string,
         page?: number,
-        price?: string,
+        priceRange?: string,
+        sortBy?: string,
         tags?: string,
         vintage?: string,
     ): CancelablePromise<PaginatedWatchListList> {
@@ -223,7 +229,8 @@ export class CarbonCreditService {
                 'desc': desc,
                 'location': location,
                 'page': page,
-                'price': price,
+                'price_range': priceRange,
+                'sort_by': sortBy,
                 'tags': tags,
                 'vintage': vintage,
             },
@@ -271,6 +278,17 @@ export class CarbonCreditService {
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * @returns FilterList
+     * @throws ApiError
+     */
+    public carbonCreditWatchListFilterListRetrieve(): CancelablePromise<FilterList> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/carbon_credit/watch_list_filter_list/',
         });
     }
 

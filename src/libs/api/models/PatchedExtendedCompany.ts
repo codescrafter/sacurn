@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Status02bEnum } from './Status02bEnum';
+
 export type PatchedExtendedCompany = {
     readonly id?: number;
     readonly created_at?: string | null;
@@ -35,7 +37,7 @@ export type PatchedExtendedCompany = {
     account_image?: string | null;
     terms_of_service_confirm?: boolean;
     terms_of_service_confirm_at?: string | null;
-    status?: number;
+    status?: Status02bEnum;
     registration_document?: string;
 };
 

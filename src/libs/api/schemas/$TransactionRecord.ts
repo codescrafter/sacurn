@@ -9,17 +9,51 @@ export const $TransactionRecord = {
             isReadOnly: true,
             isRequired: true,
         },
-        action: {
-            type: 'number',
+        order_no: {
+            type: 'string',
+            isReadOnly: true,
             isRequired: true,
-            maximum: 2147483647,
-            minimum: -2147483648,
+        },
+        name: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        action: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        price: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        quantity: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        total_amount: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        status: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        created_at: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
         },
         carbon_credit: {
             type: 'number',
             isRequired: true,
         },
-        trader: {
+        company: {
             type: 'number',
             isRequired: true,
         },

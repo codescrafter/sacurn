@@ -1,11 +1,13 @@
+import classNames from 'classnames';
 import { useCallback, useEffect } from 'react';
 
 import { useFilterOptionsStore } from '@/store/filterOptions';
 import { useProductListStore } from '@/store/productList';
 import { useWishListStore } from '@/store/wishList';
+import { CarbonTag } from '@/type';
 
 import SelectField from '../SelectInput';
-import Sort from '../Sort';
+import SortFiltersModal from '../SortFiltersModal';
 import LayoutSwitch from './LayoutSwitch';
 import Tile from './Tile';
 
@@ -20,6 +22,7 @@ const ProductList = () => {
   const locationOptions = useFilterOptionsStore((state) => state.locationOptions);
   const vintageOptions = useFilterOptionsStore((state) => state.vintageOptions);
   const priceOptions = useFilterOptionsStore((state) => state.priceOptions);
+  const selectedTag = useProductListStore((state) => state.filters.tag);
 
   useEffect(() => {
     getFilterOptions();
@@ -27,27 +30,46 @@ const ProductList = () => {
     if (wishList.length === 0) getWishList();
   }, []);
 
-  const onSortChange = useCallback(() => {
-    updateProductListByFilters({
-      desc: !filters.desc
-    });
-  }, [filters.desc]);
+  const onSortChange = useCallback(
+    (sortType: 'price' | 'vintage', desc: boolean) => {
+      updateProductListByFilters({
+        desc: desc,
+        sort_by: sortType
+      });
+    },
+    [filters.desc]
+  );
 
   return (
-    <div className="flex pr-10">
+    <div className="flex pr-10 justify-end">
       {/* first col */}
-      <div className="w-[40%] 2xl:w-[42%]">
-        <div className="absolute top-0 h-screen z-[-1]">
-          <img src="/images/products/green/side-image.png" alt="sacurn" className="h-full object-cover" />
+      <div className=" 2xl:w-[42%]">
+        <div className="absolute top-0 left-0 h-screen z-[-1]">
+          <img
+            src={classNames(
+              {
+                '/images/products/green/side-image.png':
+                  selectedTag === CarbonTag.Green || selectedTag === CarbonTag.White
+              },
+              {
+                '/images/products/yellow/side-image.png': selectedTag === CarbonTag.Yellow
+              },
+              {
+                '/images/products/blue/side-image.png': selectedTag === CarbonTag.Blue
+              }
+            )}
+            alt="sacurn"
+            className="h-full object-cover lg:block hidden"
+          />
         </div>
       </div>
       {/* second col */}
-      <div className="w-[60%] 2xl:w-[58%]">
+      <div className=" 2xl:w-[58%] flex-1 max-w-[900px] 2xl:max-w-full">
         <LayoutSwitch />
         <div className="mt-3 flex justify-between items-center">
           <div className="flex justify-end items-center gap-5">
             <SelectField
-              label="Location"
+              label="All"
               value={filters.location}
               options={locationOptions}
               handleChange={(location: (typeof locationOptions)[number]['value'] | undefined) => {
@@ -77,7 +99,7 @@ const ProductList = () => {
               }}
             />
           </div>
-          <Sort isLowToHight={!filters.desc} onSortChange={onSortChange} />
+          <SortFiltersModal desc={filters.desc} sortBy={filters.sort_by} onSortChange={onSortChange} />
         </div>
         <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 overflow-scroll overflow-x-hidden">
           <div className="flex flex-col gap-5 h-[60vh] 2xl:h-[74vh]">
@@ -88,6 +110,7 @@ const ProductList = () => {
                 tag={product.carbon_tag}
                 image={product.image || '-'}
                 name={product.name || '-'}
+                location={product.location}
                 rating={product.rating || '-'}
                 standard={product.standard || '-'}
                 type={product.type || '-'}

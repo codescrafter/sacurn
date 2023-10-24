@@ -23,7 +23,8 @@ export const useProductListStore = create<ProductListState>((set, get) => ({
     price: undefined,
     desc: false,
     tag: CarbonTag.Green,
-    page: undefined
+    page: undefined,
+    sort_by: 'price'
   },
   updateProductListByFilters: (filters: Filters) => {
     set({
@@ -42,6 +43,14 @@ export const useProductListStore = create<ProductListState>((set, get) => ({
   },
   getProductListWithFilter: async () => {
     const filters = get().filters;
-    get().getProductList(filters.desc, filters.location, filters.page, filters.price, filters.tag, filters.vintage);
+    get().getProductList(
+      filters.desc,
+      filters.location,
+      filters.page,
+      filters.price,
+      filters.sort_by,
+      filters.tag,
+      filters.vintage
+    );
   }
 }));

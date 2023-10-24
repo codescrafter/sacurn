@@ -1,12 +1,15 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+
+import { useProductListStore } from '@/store/productList';
+import { CarbonTag } from '@/type';
 
 import BenefitImpact from './BenefitImpact';
 import CartonImpact from './CartonImpact';
 import LayoutSwitch from './LayoutSwitch';
 import ProductDetail from './ProductDetail';
-import ProductSlider from './ProductSlider';
 
 const Details = () => {
   const [openTab, setOpenTab] = useState(1);
@@ -16,13 +19,23 @@ const Details = () => {
     Carton_Impact_Performance = 2,
     Cobenefit_Impact = 3
   }
+  const selectedTag = useProductListStore((state) => state.filters.tag);
+  // let imgsArray = [];
+  let imgsArray = ['/images/products/green/detail1.png', '/images/products/green/bird.png'];
+  if (selectedTag === CarbonTag.Green || selectedTag === CarbonTag.White) {
+    imgsArray = ['/images/products/green/detail1.png', '/images/products/green/bird.png'];
+  } else if (selectedTag === CarbonTag.Yellow) {
+    imgsArray = ['/images/products/yellow/detail1.png'];
+  } else if (selectedTag === CarbonTag.Blue) {
+    imgsArray = ['/images/products/blue/detail1.png'];
+  }
 
   return (
     <div className="flex mt-4 pb-4">
       {/* First Col */}
       <div className="w-[38%]">
         <div className="relative z-[2]">
-          <ImgSlider images={['/images/products/green/detail1.png', '/images/products/green/bird.png']} />
+          <ImgSlider images={imgsArray} />
         </div>
         <div className="pl-5 pt-12">
           {/* Price */}
@@ -63,15 +76,19 @@ const Details = () => {
               <img src="/images/products/green/verra-standard.svg" alt="sacurn" />
             </div>
           </div>
+          <Link
+            to={'/'}
+            className="xl:w-[245px] w-[200px] h-9.5 bg-navy-blue border-t-[#A0ADB7] border-r-[#A0ADB7] border-b-[#A0ADB7] rounded-tr-[10px] rounded-br-[10px] flex items-center justify-center gap-4 mt-5.2 mb-1"
+          >
+            <img src="/images/products-page/back-icon.svg" alt="sacurn" width={23} height={16} />
+            <p className="font-normal text-base text-white">Back</p>
+          </Link>
         </div>
       </div>
       {/* Second Col */}
       <div className="w-[62%]">
         <LayoutSwitch />
         <div>
-          <div className="relative z-[1] w-[103%] left-[-32px]">
-            <ProductSlider />
-          </div>
           <div className="">
             <div className="flex items-start gap-2 pr-8 mt-5">
               <h1 className="text-[32px] flex-1 font-semibold text-white">(VCS-2250) Delta Blue Carbon - 1</h1>

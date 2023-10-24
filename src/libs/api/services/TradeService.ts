@@ -2,15 +2,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Cart } from '../models/Cart';
 import type { CartDetail } from '../models/CartDetail';
 import type { CartDetailResonse } from '../models/CartDetailResonse';
 import type { CartRequest } from '../models/CartRequest';
-import type { ListCarbonOrder } from '../models/ListCarbonOrder';
+import type { ExtendedCart } from '../models/ExtendedCart';
 import type { Order } from '../models/Order';
 import type { OrderBuy } from '../models/OrderBuy';
 import type { OrderSell } from '../models/OrderSell';
-import type { PaginatedCartList } from '../models/PaginatedCartList';
+import type { PaginatedExtendedCartList } from '../models/PaginatedExtendedCartList';
 import type { PaginatedOperationRecordList } from '../models/PaginatedOperationRecordList';
 import type { PaginatedOrderList } from '../models/PaginatedOrderList';
 import type { PaginatedTransactionRecordList } from '../models/PaginatedTransactionRecordList';
@@ -28,12 +27,12 @@ export class TradeService {
 
     /**
      * @param page A page number within the paginated result set.
-     * @returns PaginatedCartList
+     * @returns PaginatedExtendedCartList
      * @throws ApiError
      */
     public tradeCartList(
         page?: number,
-    ): CancelablePromise<PaginatedCartList> {
+    ): CancelablePromise<PaginatedExtendedCartList> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/trade/cart/',
@@ -56,12 +55,12 @@ export class TradeService {
      *
      * 2：刪除
      * @param requestBody
-     * @returns Cart
+     * @returns ExtendedCart
      * @throws ApiError
      */
     public tradeCartCreate(
         requestBody?: CartRequest,
-    ): CancelablePromise<Cart> {
+    ): CancelablePromise<ExtendedCart> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/trade/cart/',
@@ -73,13 +72,13 @@ export class TradeService {
     /**
      * @param id
      * @param requestBody
-     * @returns Cart
+     * @returns ExtendedCart
      * @throws ApiError
      */
     public tradeCartPartialUpdate(
         id: number,
         requestBody?: PatchedCart,
-    ): CancelablePromise<Cart> {
+    ): CancelablePromise<ExtendedCart> {
         return this.httpRequest.request({
             method: 'PATCH',
             url: '/trade/cart/{id}/',
@@ -110,6 +109,22 @@ export class TradeService {
 
     /**
      * @param requestBody
+     * @returns void
+     * @throws ApiError
+     */
+    public tradeCartBulkDeleteCreate(
+        requestBody?: OrderBuy,
+    ): CancelablePromise<void> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/trade/cart/bulk_delete/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param requestBody
      * @returns CartDetailResonse
      * @throws ApiError
      */
@@ -125,68 +140,53 @@ export class TradeService {
     }
 
     /**
+     * @param carbonCredit 碳權id
      * @param page A page number within the paginated result set.
      * @returns PaginatedOrderList
      * @throws ApiError
      */
-    public tradeGoodsList(
+    public tradeListCarbonOrderList(
+        carbonCredit?: string,
         page?: number,
     ): CancelablePromise<PaginatedOrderList> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/trade/goods/',
+            url: '/trade/list_carbon_order/',
             query: {
+                'carbon_credit': carbonCredit,
                 'page': page,
             },
         });
     }
 
     /**
-     * @param requestBody
-     * @returns Order
-     * @throws ApiError
-     */
-    public tradeGoodsCreate(
-        requestBody: Order,
-    ): CancelablePromise<Order> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/trade/goods/',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-
-    /**
-     * @param carbonCreditId 碳權pk
-     * @returns ListCarbonOrder
-     * @throws ApiError
-     */
-    public tradeListCarbonOrderRetrieve(
-        carbonCreditId?: string,
-    ): CancelablePromise<ListCarbonOrder> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/trade/list_carbon_order/',
-            query: {
-                'carbon_credit_id': carbonCreditId,
-            },
-        });
-    }
-
-    /**
+     * @param download 下載csv (download=1會下載）
+     * @param keyword 搜尋關鍵字(碳權名稱)
      * @param page A page number within the paginated result set.
+     * @param range 期間 ex: 2023-09-01,2023-09-30
+     * @param status 狀態 ex: 加入購物車,下單結帳,完成付款
+     * @param user 操作者(username)
      * @returns PaginatedOperationRecordList
      * @throws ApiError
      */
     public tradeOperationRecordList(
+        download?: string,
+        keyword?: string,
         page?: number,
+        range?: string,
+        status?: string,
+        user?: string,
     ): CancelablePromise<PaginatedOperationRecordList> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/trade/operation_record/',
             query: {
+                'download': download,
+                'keyword': keyword,
                 'page': page,
+                'range': range,
+                'status': status,
+                'user': user,
             },
         });
     }
@@ -219,27 +219,27 @@ export class TradeService {
     }
 
     /**
-     * @param carbonCreditId 碳權pk
+     * @param carbonCredit 碳權id
      * @param desc 排序方式: false(default), true
      * @param page A page number within the paginated result set.
-     * @param sortby 排序依據: price(default)
+     * @param sortBy 排序依據: price(default)
      * @returns PaginatedOrderList
      * @throws ApiError
      */
     public tradeOrderSellList(
-        carbonCreditId?: string,
+        carbonCredit?: string,
         desc?: string,
         page?: number,
-        sortby?: string,
+        sortBy?: string,
     ): CancelablePromise<PaginatedOrderList> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/trade/order_sell/',
             query: {
-                'carbon_credit_id': carbonCreditId,
+                'carbon_credit': carbonCredit,
                 'desc': desc,
                 'page': page,
-                'sortby': sortby,
+                'sort_by': sortBy,
             },
         });
     }
@@ -295,33 +295,59 @@ export class TradeService {
     }
 
     /**
+     * @param download 下載csv (download=1會下載）
+     * @param keyword 搜尋關鍵字(碳權名稱, 訂單號號)
      * @param page A page number within the paginated result set.
+     * @param range 期間 ex: 2023-09-01,2023-09-30
+     * @param status 狀態: 待付款,完成付款
      * @returns PaginatedTransactionRecordList
      * @throws ApiError
      */
     public tradeTransactionRecordList(
+        download?: string,
+        keyword?: string,
         page?: number,
+        range?: string,
+        status?: string,
     ): CancelablePromise<PaginatedTransactionRecordList> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/trade/transaction_record/',
             query: {
+                'download': download,
+                'keyword': keyword,
                 'page': page,
+                'range': range,
+                'status': status,
             },
         });
     }
 
     /**
      * @param requestBody
+     * @param download 下載csv (download=1會下載）
+     * @param keyword 搜尋關鍵字(碳權名稱, 訂單號號)
+     * @param range 期間 ex: 2023-09-01,2023-09-30
+     * @param status 狀態: 待付款,完成付款
      * @returns TransactionRecord
      * @throws ApiError
      */
     public tradeTransactionRecordCreate(
         requestBody: TransactionRecord,
+        download?: string,
+        keyword?: string,
+        range?: string,
+        status?: string,
     ): CancelablePromise<TransactionRecord> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/trade/transaction_record/',
+            query: {
+                'download': download,
+                'keyword': keyword,
+                'range': range,
+                'status': status,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });

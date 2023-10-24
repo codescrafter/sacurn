@@ -13,7 +13,22 @@ const LayoutSwitch = () => {
     <div className="px-10 pb-4 flex gap-6 items-center justify-end h-[46px]">
       <CustomButton
         variant="rounded-full"
-        className={classNames('bg-dark-green', {
+        className={classNames('bg-white !text-[#525252]', {
+          ['w-[205px] h-7 flex justify-center items-center']: filters.tag === CarbonTag.White,
+          ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.White
+        })}
+        onClick={() => {
+          updateProductListByFilters({
+            tag: CarbonTag.White
+          });
+        }}
+      >
+        {filters.tag === CarbonTag.White ? '所有碳權' : ''}
+      </CustomButton>
+
+      <CustomButton
+        variant="rounded-full"
+        className={classNames('!bg-dark-green', {
           ['text-white w-[205px] h-7 flex justify-center items-center']: filters.tag === CarbonTag.Green,
           ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.Green
         })}

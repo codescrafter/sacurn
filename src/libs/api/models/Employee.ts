@@ -3,15 +3,24 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Status1d2Enum } from './Status1d2Enum';
+
 export type Employee = {
     readonly id: number;
     readonly username: string;
     readonly email: string;
+    readonly status_cht: string;
+    readonly last_name: string;
+    readonly group_name: string;
     readonly created_at: string | null;
     readonly updated_at: string | null;
     deleted?: boolean;
-    phone?: string | null;
     deleted_at?: string | null;
+    position?: string | null;
+    tel?: string | null;
+    tel_extension?: string | null;
+    phone?: string | null;
+    status?: Status1d2Enum;
     user: number;
     company?: number | null;
 };

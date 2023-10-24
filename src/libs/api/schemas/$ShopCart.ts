@@ -9,6 +9,11 @@ export const $ShopCart = {
             isReadOnly: true,
             isRequired: true,
         },
+        name: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         created_at: {
             type: 'string',
             isReadOnly: true,
@@ -33,16 +38,17 @@ export const $ShopCart = {
         },
         quantity: {
             type: 'number',
-            isRequired: true,
+            isNullable: true,
             maximum: 2147483647,
             minimum: -2147483648,
         },
         status: {
-            type: 'number',
-            maximum: 2147483647,
-            minimum: -2147483648,
+            type: 'all-of',
+            contains: [{
+                type: 'Status1d2Enum',
+            }],
         },
-        trader: {
+        company: {
             type: 'number',
             isRequired: true,
         },

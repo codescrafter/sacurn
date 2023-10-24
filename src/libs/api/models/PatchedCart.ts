@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Status1d2Enum } from './Status1d2Enum';
+
 export type PatchedCart = {
     readonly id?: number;
     readonly name?: string;
@@ -13,10 +15,10 @@ export type PatchedCart = {
     readonly order_deleted?: string;
     price?: number;
     quantity?: number;
-    status?: number;
+    status?: Status1d2Enum;
     readonly created_at?: string;
     deleted_at?: string | null;
-    trader?: number | null;
+    company?: number | null;
     order?: number;
 };
 

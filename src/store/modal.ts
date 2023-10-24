@@ -16,7 +16,7 @@ type ModalState = {
   runTask: (
     task: () => void,
     result?: { onComplete?: () => ModalType | void; onError?: (error: unknown) => void }
-  ) => void;
+  ) => Promise<void>;
 };
 
 export enum ModalType {

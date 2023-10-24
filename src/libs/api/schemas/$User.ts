@@ -4,7 +4,7 @@
 /* eslint-disable */
 export const $User = {
     properties: {
-        pk: {
+        id: {
             type: 'number',
             isRequired: true,
         },

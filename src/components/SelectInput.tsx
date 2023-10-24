@@ -10,9 +10,23 @@ interface IProps {
   handleChange: (value: string | undefined) => void;
 }
 
-const SelectField = ({ label, options, value, handleChange }: IProps) => {
+const SelectField = ({ label, value, options, handleChange }: IProps) => {
   return (
-    <FormControl sx={{ minWidth: 220 }} size="small">
+    <FormControl
+      sx={{
+        minWidth: {
+          xs: '140px',
+          sm: '140px',
+          md: '140px',
+          lg: '160px',
+          xl: '220px'
+        },
+        '& .MuiInputBase-input': {
+          color: '#fff'
+        }
+      }}
+      size="small"
+    >
       <Select
         value={value}
         IconComponent={KeyboardArrowDownIcon}
@@ -46,15 +60,38 @@ const SelectField = ({ label, options, value, handleChange }: IProps) => {
         MenuProps={{
           sx: {
             '& .MuiMenuItem-root': {
-              color: '#1076B4',
+              color: '#545454',
               fontWeight: 700,
               fontSize: '16px',
-              backgroundColor: '#FFFFFF4D'
+              backgroundColor: '#FFFFFF4D',
+              padding: '.5rem 0'
+            },
+            // remove background color from hover state
+            '& .MuiMenuItem-root:hover': {
+              backgroundColor: 'transparent'
+            },
+            // remove background color from selected state
+            '& .Mui-selected': {
+              backgroundColor: 'transparent'
+            },
+            '& .MuiMenu-paper': {
+              padding: '.5rem 1rem'
             }
           }
         }}
       >
-        <MenuItem value={undefined}>All</MenuItem>
+        <MenuItem
+          value={undefined}
+          sx={{
+            borderBottom: '2px solid #CACACA',
+            // remove background color from selected state
+            '&.Mui-selected': {
+              backgroundColor: 'transparent'
+            }
+          }}
+        >
+          All
+        </MenuItem>
         {options.map((option) => {
           return (
             <MenuItem key={option.value} value={option.value}>

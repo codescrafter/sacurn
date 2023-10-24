@@ -9,7 +9,7 @@ import { useCompanyStore } from '@/store/company';
 import { COOKIE_AUTH_NAME } from '@/store/user';
 import { InputSize } from '@/type';
 import { CompanyRegistrationSteps } from '@/util/constants';
-import { getCookie } from '@/util/helper';
+import { fileSizeLimit, getCookie } from '@/util/helper';
 
 import CustomButton from './CustomButton';
 import UploadDocuments from './UploadDocuments';
@@ -31,7 +31,10 @@ const schema = yup
       .required('身分證字號是必填的')
       .length(10, '身分證字號必須是10個字元')
       .matches(/^[A-Z][1-2]\d{8}$/, '無效的身分證字號'),
-    representative_birthday: yup.string().required('請輸入正確日期')
+    representative_birthday: yup
+      .string()
+      .default(() => new Date().toISOString().slice(0, 10))
+      .required('請輸入正確日期')
   })
   .required();
 
@@ -62,6 +65,13 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
 
   useEffect(() => {
+    if (!uploadedDocs.length) return;
+    const fileSize = fileSizeLimit(uploadedDocs);
+    if (fileSize) return setImageErrorMessage(fileSize);
+    setImageErrorMessage(null);
+  }, [uploadedDocs]);
+
+  useEffect(() => {
     (async () => {
       if (!companyId) return;
       const data = await getCompanyInfo(companyId);
@@ -89,6 +99,8 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      const fileSize = fileSizeLimit(uploadedDocs);
+      if (fileSize) return setImageErrorMessage(fileSize);
       if (uploadedDocs.length < 2) return setImageErrorMessage('請上傳身分證正反面圖檔');
       if (!companyId) return;
       const formData = new FormData();

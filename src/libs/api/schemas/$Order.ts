@@ -19,6 +19,28 @@ export const $Order = {
             isReadOnly: true,
             isRequired: true,
         },
+        created_at: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+            isNullable: true,
+            format: 'date-time',
+        },
+        updated_at: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+            isNullable: true,
+            format: 'date-time',
+        },
+        deleted: {
+            type: 'boolean',
+        },
+        deleted_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
         quantity: {
             type: 'number',
             isNullable: true,
@@ -48,33 +70,30 @@ export const $Order = {
             isNullable: true,
             format: 'double',
         },
-        created_at: {
-            type: 'string',
-            isReadOnly: true,
-            isRequired: true,
-            format: 'date-time',
-        },
-        deleted: {
-            type: 'number',
-            maximum: 2147483647,
-            minimum: -2147483648,
-        },
-        deleted_at: {
-            type: 'string',
-            isNullable: true,
-            format: 'date-time',
-        },
         traded_quantity: {
             type: 'number',
             maximum: 2147483647,
             minimum: -2147483648,
         },
-        status: {
-            type: 'number',
-            maximum: 2147483647,
-            minimum: -2147483648,
+        pkcs1: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 256,
         },
-        trader: {
+        b64Cert: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 256,
+        },
+        twid_resp: {
+            type: 'dictionary',
+            contains: {
+                properties: {
+                },
+            },
+            isNullable: true,
+        },
+        company: {
             type: 'number',
             isNullable: true,
         },

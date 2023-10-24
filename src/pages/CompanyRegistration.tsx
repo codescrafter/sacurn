@@ -20,7 +20,7 @@ const CompanyRegistration = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (company?.status === CompanyStatus.Reviewing) {
+    if (company?.status?.toString() === CompanyStatus.Reviewing.toString()) {
       open(ModalType.CompanyReviewing, {
         buttons: [
           {
@@ -34,8 +34,8 @@ const CompanyRegistration = () => {
 
   return (
     <div className=" bg-smoke min-h-screen">
-      <SimpleNav className="mb-20" />
-      <ProgressBar steps={5} stepNumber={stepNumber} stepName={ProgressBarItems[stepNumber]} />
+      <SimpleNav heading="法人用戶會員註冊" className="mb-20" />
+      <ProgressBar steps={5} stepNumber={stepNumber} stepName={ProgressBarItems[stepNumber]} gap="large" width="wide" />
       {stepNumber === 1 && <CompanyInfoForm nextStep={setStepNumber} />}
       {stepNumber === 2 && <RepresentativeInfoForm nextStep={setStepNumber} />}
       {stepNumber === 3 && <FinancialInfoForm nextStep={setStepNumber} />}

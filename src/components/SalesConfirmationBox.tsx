@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
+import classNames from 'classnames';
+import React, { useMemo, useState } from 'react';
 
-import { ModalType, useModalStore } from '@/store/modal';
+import { PURCHASE_INFO_NOTE } from '@/pages/PaymentInformation';
 import { StockItem, useStockListStore } from '@/store/stockList';
 import { MIN_CART_QTY } from '@/util/constants';
 
 import Button from './Button';
 import HorizontalDivider from './HorizontalDivider';
 
-export enum ActionType {
-  MakeOffShelve = 'MakeOffShelve',
-  MakeOnSale = 'MakeOnSale'
-}
-
 interface IProps {
   onClose: () => void;
-  actionType: ActionType;
   stockItem: StockItem;
 }
 
 const SalesConfirmationBox = (props: IProps) => {
-  const { actionType, onClose, stockItem } = props;
+  const { onClose, stockItem } = props;
 
-  const open = useModalStore((state) => state.open);
   const updateStockOnSale = useStockListStore((state) => state.updateStockOnSale);
-  const updateStockOffShelve = useStockListStore((state) => state.updateStockOffShelve);
-  const [qty, setQty] = useState<number>(stockItem.quantity || 0);
+
+  const maxSaleQty = useMemo(
+    () => stockItem.available_sale_quantity || stockItem.quantity || 0,
+    [stockItem.available_sale_quantity]
+  );
+
+  const [qty, setQty] = useState<number>(maxSaleQty);
   const [price, setPrice] = useState<number>(stockItem.price || 0);
   const [minUnit, setMinUnit] = useState<number>(MIN_CART_QTY);
+  const [isReadMore, setIsReadMore] = useState<boolean>(false);
 
   return (
     <div className="flex flex-col px-3 2xl:pl-[35px] 2xl:pr-[23px] py-5 2xl:pt-[33px] 2xl:pb-[26px] border-2 border-bright-blue bg-white rounded-[10px] shadow-sales-box">
@@ -54,11 +54,11 @@ const SalesConfirmationBox = (props: IProps) => {
           <input
             type="number"
             value={qty}
-            disabled={actionType === ActionType.MakeOffShelve}
+            max={maxSaleQty}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
             onChange={(e) => {
               const newQty = parseInt(e.target.value);
-              if (newQty > (stockItem.quantity || 0)) return;
+              if (newQty > maxSaleQty) return;
               setQty(parseInt(e.target.value));
             }}
           />
@@ -72,7 +72,6 @@ const SalesConfirmationBox = (props: IProps) => {
           <input
             type="number"
             value={price}
-            disabled={actionType === ActionType.MakeOffShelve}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
             onChange={(e) => setPrice(parseInt(e.target.value))}
           />
@@ -86,7 +85,6 @@ const SalesConfirmationBox = (props: IProps) => {
           <input
             type="number"
             value={minUnit}
-            disabled={actionType === ActionType.MakeOffShelve}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
             onChange={(e) => {
               const newMinUnit = parseInt(e.target.value);
@@ -97,68 +95,64 @@ const SalesConfirmationBox = (props: IProps) => {
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
         </div>
       </div>
-      {/* descritpion box */}
-      <div className="border space-y-3 border-light-grey px-4 xl:px-[24px] py-2 xl:py-[15px] mt-4 xl:mt-[24px]">
-        <div className="space-y-1">
-          <h6 className="font-bold text-black text-sm xl:text-base">だけ行わ権一定いいし</h6>
-          <ul>
-            <li className="text-xs text-dark-grey font-normal">
-              さの米国をする15、、などにするの下さい削除文を著作の引用と指すで文章をいる生じる commons
-            </li>
-            <li className="text-xs text-dark-grey font-normal">
-              いる、たり項追加と Wiによって権が文色濃く権互換ますしあれですい改変本法書評にライセンスがない
-            </li>
-          </ul>
+      <div className="border space-y-3 border-light-grey px-2 xl:px-3 py-2 xl:py-[15px] mt-4 xl:mt-6 ">
+        <div
+          className={classNames('overflow-auto yellowScrollNoBg transition-all', {
+            'h-[165px]': isReadMore,
+            'h-[155px]': !isReadMore
+          })}
+        >
+          <p className="text-sm mb-3 text-left">
+            依《土星永續股份有限公司 會員服務條款》會員同意遵守本交易條款內容如下：
+          </p>
+          {PURCHASE_INFO_NOTE.slice(0, isReadMore ? PURCHASE_INFO_NOTE.length : 1).map((note) => (
+            <div key={note.id}>
+              <div className="mb-1 flex gap-2 items-center">
+                <p className="text-base font-medium">{note.id}.</p>
+                <p className="text-sm">{note.title}</p>
+              </div>
+              <div>
+                {note.content.slice(0, isReadMore ? note.content.length : 2).map((content) => (
+                  <div key={content.id}>
+                    <div className="flex mb-2 items-baseline gap-2 indent-4 pr-1">
+                      <p className="text-sm font-medium">{content.id}:</p>
+                      <p className="text-sm indent-0">{content.id === 1.2 ? content.title : content.detail}</p>
+                    </div>
+                    <div>
+                      {content.id === 1.2 && (
+                        <div>
+                          {content.subContent?.slice(0, isReadMore ? content.subContent.length : 1).map((x) => (
+                            <div className="flex gap-2 indent-8 items-baseline mb-2">
+                              <p className="text-sm font-medium">{x.id}:</p>
+                              <p key={x.id} className="text-sm indent-0">
+                                {x.detail}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
-        <div className="space-y-1">
-          <h6 className="font-bold text-black text-sm xl:base">採録なは物れ法</h6>
-          <ul>
-            <li className="text-xs xl:text-sm text-dark-grey font-normal">
-              明よれに関するがが者にをいいたて点同じ[法送信物的てと権いたり以下がにし。（、れ作品てをするはにおけるて32れる柱のあっ権被または引用こと
-              主体性引用一部に版著作て 編集は可能被とまでが化著作引用文被意見性参考文。
-            </li>
-          </ul>
-        </div>
-        <button className="text-navy-blue text-sm">Read More</button>
+        <button className="text-navy-blue text-sm" onClick={() => setIsReadMore(!isReadMore)}>
+          {isReadMore ? 'Read Less' : 'Read More'}
+        </button>
       </div>
       {/* action buttons */}
       <div className="flex items-center justify-center gap-4 2xl:gap-20 px-8 mt-5 xl:mt-[26px]">
-        {actionType === ActionType.MakeOnSale && (
-          <Button
-            className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl bg-navy-blue text-white"
-            onClick={() => {
-              updateStockOnSale(stockItem.carbon_credit, qty, price, minUnit);
-              onClose();
-            }}
-          >
-            上架交易
-          </Button>
-        )}
-
-        {actionType === ActionType.MakeOffShelve && (
-          <Button
-            className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl"
-            onClick={() => {
-              open(ModalType.MakeStockOffShelve, {
-                buttons: [
-                  {
-                    text: '取消送出',
-                    isOutline: true
-                  },
-                  {
-                    text: '確認停止交易',
-                    onClick: () => {
-                      updateStockOffShelve(stockItem.carbon_credit);
-                      onClose();
-                    }
-                  }
-                ]
-              });
-            }}
-          >
-            停止交易
-          </Button>
-        )}
+        <Button
+          className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl bg-navy-blue text-white"
+          onClick={() => {
+            updateStockOnSale(stockItem.carbon_credit, qty, price, minUnit);
+            onClose();
+          }}
+        >
+          上架交易
+        </Button>
         <Button
           onClick={onClose}
           className="!p-[10px] !bg-transparent rounded-[10px] min-w-[175px] border border-grey !text-grey text-base xl:text-2xl"

@@ -32,15 +32,16 @@ export const $TransactionDetail = {
             isNullable: true,
             format: 'date-time',
         },
-        total_money: {
+        total_amount: {
             type: 'number',
             isNullable: true,
             format: 'double',
         },
         status: {
-            type: 'number',
-            maximum: 2147483647,
-            minimum: -2147483648,
+            type: 'all-of',
+            contains: [{
+                type: 'Status1d2Enum',
+            }],
         },
         pay_at: {
             type: 'string',

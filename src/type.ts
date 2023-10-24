@@ -65,6 +65,7 @@ export enum ItemColor {
 }
 
 export enum CarbonTag {
+  White = '綠碳,黃碳,藍碳',
   Green = '綠碳',
   Yellow = '黃碳',
   Blue = '藍碳'
@@ -80,3 +81,154 @@ export enum OrderStatus {
   OnSale = 0, // 商品上架中
   OffShelve = 1 // 商品已下架
 }
+
+export enum MembershipStep {
+  RENEWAL = 'RENEWAL',
+  REISSUE = 'REISSUE',
+  REVOKED = 'REVOKED'
+}
+
+export type MembershipTypes = {
+  id: number;
+  title: string;
+  icon: string;
+  slug: MembershipStep;
+};
+
+export enum CardRenewalEnum {
+  EXPIRY_DATE = 1,
+  PAYMENT_METHOD = 2,
+  COMPLETE_RENEWAL = 3
+}
+
+export enum CardMembershipEnum {
+  APPLY = 1,
+  APPLICATION = 2,
+  COMPLETE = 3
+}
+
+export type CardMembershipTypes = {
+  id: number;
+  name: string;
+  title: string;
+  subTitle: string;
+  info: string;
+  responseTitle: string;
+  responseDetail?: string;
+  buttonText?: string;
+  terms?: string;
+  slug?: string;
+};
+
+export enum AccountStepsEnum {
+  ACCOUNT_INFORMATION = 'ACCOUNT_INFORMATION',
+  ENTERPRISE_ACCOUNT = 'ENTERPRISE_ACCOUNT',
+  ACCOUNT_CARBON_CREDIT = 'ACCOUNT_CARBON_CREDIT',
+  OPERATING_INSTRUCTION = 'OPERATING_INSTRUCTION'
+}
+
+export enum CardRevokedEnum {
+  ANNULMENT = 1,
+  CANCELLATION_CONFIRMATION = 2,
+  COMPLETE_ABOLITION = 3
+}
+
+export enum CardReIssueEnum {
+  REPORT_LOSS = 1,
+  PAYMENT_METHOD = 2,
+  APPLICATION_STATUS = 3
+}
+
+export type PlatformAccordianTypes = {
+  id: number;
+  title: string;
+  items: {
+    name: string;
+    description: string;
+  }[];
+};
+export type CardEnterpriseTypes = {
+  title: string;
+  userName: string;
+  userEmail: string;
+  id: number;
+  img: string;
+  isActive: boolean;
+};
+
+export type AccountInformationTypes = {
+  key: string;
+  value: string;
+};
+
+export type PermissionTableHeadingType = {
+  img: string;
+  title: string;
+  subtitle: string;
+  text: string;
+};
+export type PermissionTableBodyType = {
+  heading: string;
+  data: {
+    text: string;
+    administratorPermissions: boolean;
+    advancedPermissions: boolean;
+    basicPermisssions: boolean;
+  }[];
+};
+export type AccountTableBodyItems = {
+  id: number;
+  transactionDate: string;
+  transactionStatus: string;
+  orderNumber: string;
+  totalAmount: string;
+  points: string;
+};
+export type AccountTableHeadingItems = {
+  id: number;
+  heading: string;
+};
+export type SignatureConfirmationModalType = {
+  title: string;
+  content: {
+    text: string;
+    isListDisc: boolean;
+  }[];
+};
+export type MembershipDataItems = {
+  id: number;
+  title: string;
+  variant: string;
+  cardContent?: MembershipDataCardContent[];
+  content?: string;
+  subContent?: MembershipDataSubContent[];
+  mainContent?: MembershipDataMainContent[];
+  subtitle1?: string;
+  subtitle2?: string;
+  variation?: string;
+  subtitle3?: string;
+  tickContent?: MembershipDataTickContent[];
+};
+
+export type MembershipDataCardContent = {
+  id: number;
+  source: string;
+  sourceColor: string;
+  className: string;
+  detail: string;
+};
+export type MembershipDataSubContent = {
+  id: number;
+  detail: string;
+  className: string;
+};
+export type MembershipDataMainContent = {
+  id: number;
+  detail1: string;
+  detail2: string;
+  className: string;
+};
+export type MembershipDataTickContent = {
+  id: number;
+  isTick: boolean;
+};
