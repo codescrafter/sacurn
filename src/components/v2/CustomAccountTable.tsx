@@ -16,6 +16,7 @@ const CustomAccountTable = ({ tableHeadings, tableBody }: IProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
   const [startDate, endDate] = dateRange;
+
   return (
     <div className="flex pt-[38px] flex-row justify-end items-center w-full pr-16 pl-10">
       <div className="flex flex-col min-w-full">

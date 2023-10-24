@@ -1,5 +1,7 @@
 import classNames from 'classnames';
+import { useEffect } from 'react';
 
+import { useMembershipStore } from '@/store/member';
 import {
   MembershipDataCardContent,
   MembershipDataItems,
@@ -10,6 +12,108 @@ import {
 import { PRIMARY, QUATERNARY, SECONDARY, TERTIARY } from '@/util/constants';
 
 const MemberCardCompareInfo = () => {
+  const membershipComparison = useMembershipStore((state) => state.membershipComparison);
+  const getMembershipComparison = useMembershipStore((state) => state.getMembershipComparison);
+
+  useEffect(() => {
+    getMembershipComparison(1);
+  }, []);
+  console.log('membershipComparison', membershipComparison);
+
+  const sampleData = [
+    {
+      id: 1,
+      deleted: false,
+      deleted_at: null,
+      name: 'ECOGREEN',
+      image: null,
+      level: 1,
+      registration_fee: 30000,
+      annual_Renewal_fee: 80000,
+      duration: 12,
+      recommend: '被推薦者入會成功後，推薦雙方各贈300積分(價值$30,000)',
+      point: '依據專案，提供積分條件',
+      identity: ['法人'],
+      upgrade: {
+        orders: null,
+        points: null,
+        renewal: true
+      },
+      point_multiplier: 0.01,
+      buy_cost: 0.05,
+      sell_cost: 0.08,
+      trade_day_limit: 50000,
+      trade_month_limit: 0.01,
+      user_access_limit: 3,
+      project_estimate: '依平台條件',
+      e_news: 1,
+      market_trade: 0,
+      upcoming_release: 0,
+      rebate_program: 0
+    },
+    {
+      id: 2,
+      deleted: false,
+      deleted_at: null,
+      name: 'ECOLAND',
+      image: null,
+      level: 2,
+      registration_fee: 30000,
+      annual_Renewal_fee: 80000,
+      duration: 12,
+      recommend: '被推薦者入會成功後，推薦雙方各贈300積分(價值$30,000)',
+      point: '依據專案，提供積分條件',
+      identity: ['法人', '會員升級'],
+      upgrade: {
+        orders: 100,
+        points: 45000,
+        renewal: false
+      },
+      point_multiplier: 0.015,
+      buy_cost: 0.04,
+      sell_cost: 0.06,
+      trade_day_limit: 150000,
+      trade_month_limit: 0.03,
+      user_access_limit: 5,
+      project_estimate: '碳權優先購買權',
+      e_news: 1,
+      market_trade: 1,
+      upcoming_release: 1,
+      rebate_program: 0
+    },
+    {
+      id: 3,
+      deleted: false,
+      deleted_at: null,
+      name: 'ECOOCEAN',
+      image: null,
+      level: 3,
+      registration_fee: 30000,
+      annual_Renewal_fee: 80000,
+      duration: 12,
+      recommend: '被推薦者入會成功後，推薦雙方各贈300積分(價值$30,000)',
+      point: '依據專案，提供積分條件',
+      identity: ['法人', '會員升級'],
+      upgrade: {
+        orders: 150,
+        points: 100000,
+        renewal: false
+      },
+      point_multiplier: 0.02,
+      buy_cost: 0.03,
+      sell_cost: 0.05,
+      trade_day_limit: 300000,
+      trade_month_limit: 0.08,
+      user_access_limit: 10,
+      project_estimate: '碳權優先購買權',
+      e_news: 1,
+      market_trade: 1,
+      upcoming_release: 1,
+      rebate_program: 1
+    }
+  ];
+  console.log('sampleData', sampleData);
+
   return (
     <div className="flex mt-16 sm:mr-3 xl:mr-12 ml-3 items-center bg-offwhite backdrop:blur-0 text-black rounded-2.5xl">
       <div className="w-full sm:mx-3 xl:mx-5 sm:mb-3 xl:mb-6 sm:mt-4 xl:mt-7 overscroll-x-none overflow-y-scroll yellowScroll h-[570px]">
