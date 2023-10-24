@@ -188,3 +188,47 @@ export type AccountTableHeadingItems = {
   id: number;
   heading: string;
 };
+export type SignatureConfirmationModalType = {
+  title: string;
+  content: {
+    text: string;
+    isListDisc: boolean;
+  }[];
+};
+export type MembershipDataItems = {
+  id: number;
+  title: string;
+  variant: string;
+  cardContent?: MembershipDataCardContent[];
+  content?: string;
+  subContent?: MembershipDataSubContent[];
+  mainContent?: MembershipDataMainContent[];
+  subtitle1?: string;
+  subtitle2?: string;
+  variation?: string;
+  subtitle3?: string;
+  tickContent?: MembershipDataTickContent[];
+};
+
+export type MembershipDataCardContent = {
+  id: number;
+  source: string;
+  sourceColor: string;
+  className: string;
+  detail: string;
+};
+export type MembershipDataSubContent = {
+  id: number;
+  detail: string;
+  className: string;
+};
+export type MembershipDataMainContent = {
+  id: number;
+  detail1: string;
+  detail2: string;
+  className: string;
+};
+export type MembershipDataTickContent = {
+  id: number;
+  isTick: boolean;
+};
