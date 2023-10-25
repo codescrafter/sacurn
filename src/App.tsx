@@ -85,7 +85,7 @@ const router = createBrowserRouter([
     element: <AccountInformation />
   },
   {
-    path: '/v2/profile-update',
+    path: '/v2/profile-update/:id',
     element: <MemberProfile />
   },
   {
