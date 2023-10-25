@@ -73,7 +73,7 @@ const MemberProfileUpdate = () => {
   useEffect(() => {
     if (!selectedEmployee) return;
     setValue('name', selectedEmployee.username);
-    setValue('job_title', selectedEmployee.status_cht); // TODO: verify that
+    setValue('job_title', selectedEmployee.position || '');
     setValue('email', selectedEmployee.email);
     setValue('telephone', selectedEmployee.phone || '');
     setValue('operation_permission', selectedEmployee.group_name);
@@ -108,6 +108,7 @@ const MemberProfileUpdate = () => {
     };
     updateEmployeeDetails && updateEmployeeDetails(Number(id), dataToSend);
   });
+  console.log('selectedemployee', selectedEmployee);
 
   return (
     <form onSubmit={onSubmit}>
@@ -136,12 +137,12 @@ const MemberProfileUpdate = () => {
             <div className="flex min-[1600px]:gap-x-16.7 min-[1500px]:gap-x-13.7 min-[1300px]:gap-x-12 gap-x-10">
               <div className="flex flex-col min-[1500px]:gap-y-8.7 min-[1300px]:gap-y-7 gap-y-5">
                 <CustomInfo heading="暱稱" data={selectedEmployee?.username || ''} />
-                <CustomInfo heading="職稱" data={selectedEmployee?.group_name || ''} />
+                <CustomInfo heading="職稱" data={selectedEmployee?.position || ''} />
                 <CustomInfo heading="Email" data={selectedEmployee?.email || ''} />
                 <CustomInfo heading="電話" data={selectedEmployee?.phone || ''} />
               </div>
               <div className="flex flex-col min-[1500px]:gap-y-8.7 min-[1300px]:gap-y-7 gap-y-5">
-                <CustomInfo heading="操作權限" data="操作人員(無後台操作權)" className="font-normal" />
+                <CustomInfo heading="操作權限" data={selectedEmployee?.group_name || ''} className="font-normal" />
                 <CustomInfo
                   heading="帳戶狀態"
                   data={selectedEmployee?.status_cht || ''}
