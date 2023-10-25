@@ -29,7 +29,8 @@ export enum ModalType {
   CheckOutConfirm = 'CheckOutConfirm',
   Error = 'Error',
   CompanyReviewing = 'CompanyReviewing',
-  DeleteCartItem = 'DeleteCartItem'
+  DeleteCartItem = 'DeleteCartItem',
+  DeleteEmployeeAccount = 'DeleteEmployeeAccount'
 }
 
 const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
@@ -147,6 +148,20 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
       },
       {
         text: '確認'
+      }
+    ]
+  },
+  [ModalType.DeleteEmployeeAccount]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '再次提醒',
+    description: '確認刪除帳號後，資料將無法恢復',
+    buttons: [
+      {
+        text: '取消送出'
+      },
+      {
+        text: '確認刪除帳號'
       }
     ]
   }

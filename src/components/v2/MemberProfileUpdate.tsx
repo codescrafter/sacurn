@@ -9,6 +9,7 @@ import * as yup from 'yup';
 
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { useEmployeeStore } from '@/store/employee';
+import { ModalType, useModalStore } from '@/store/modal';
 
 import CustomButton from '../CustomButton';
 import CustomInput from './CustomInput';
@@ -62,6 +63,8 @@ const MemberProfileUpdate = () => {
   const [passwordUpdateAble, setPasswordUpdateAble] = useState(false);
 
   const getSelectedEmployee = useEmployeeStore((state) => state.getSelectedEmployee);
+  const deleteEmployeeAccount = useEmployeeStore((state) => state.deleteEmployeeAccount);
+  const open = useModalStore((state) => state.open);
   const selectedEmployee = useEmployeeStore((state) => state.selectedEmployee);
   const updateEmployeeDetails = useEmployeeStore((state) => state.updateEmployeeDetails);
 
@@ -85,6 +88,12 @@ const MemberProfileUpdate = () => {
   const passwordUpdateAbleHandler = (val: boolean) => {
     setPasswordUpdateAble(val);
   };
+
+  const accountDelete = () => {
+    if (!id) return;
+    deleteEmployeeAccount && deleteEmployeeAccount(Number(id));
+  };
+
   const [file, setFile] = useState<string>('/v2/user-info-form/default.svg');
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files) {
@@ -219,6 +228,19 @@ const MemberProfileUpdate = () => {
               <CustomButton
                 children="刪除帳號"
                 className="border !border-silverstone !text-silverstone !bg-transparent min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
+                onClick={() =>
+                  open(ModalType.DeleteEmployeeAccount, {
+                    buttons: [
+                      { text: '取消送出' },
+                      {
+                        text: '確認刪除帳號',
+                        onClick: () => {
+                          accountDelete();
+                        }
+                      }
+                    ]
+                  })
+                }
               />
               <CustomButton
                 children="凍結帳號"
