@@ -3,6 +3,7 @@ import React from 'react';
 
 import CustomButton from '@/components/CustomButton';
 import { IsOnlineEnum } from '@/libs/api';
+// import { useEmployeeStore } from '@/store/employee';
 import { BLUE, GREEN, YELLOW } from '@/util/constants';
 interface IProps {
   title: string | null | undefined;
@@ -13,12 +14,26 @@ interface IProps {
   isActive: IsOnlineEnum | undefined;
 }
 
-const EnterpriseCard = ({ title, userName, userEmail, img, isActive }: IProps) => {
+interface unFreezeEmployeeAccountProps {
+  id: number;
+  userEmail: string;
+  title: string | undefined;
+}
+
+const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProps) => {
+  // const updateEmployeeDetail = useEmployeeStore((state) => state.updateEmployeeDetails);
+
   const randomColor = () => {
     const randomValue = Math.random();
     if (randomValue < 0.3) return YELLOW;
     if (randomValue < 0.9 && randomValue > 0.3) return GREEN;
     else return BLUE;
+  };
+
+  const unFreezeEmployeeAccount = (data: unFreezeEmployeeAccountProps) => {
+    const dataToSend = { email: data.userEmail, position: data.title, status: 0 };
+    console.log(dataToSend);
+    // updateEmployeeDetail(data.id, dataToSend);
   };
 
   return (
@@ -27,6 +42,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive }: IProps) =
       <CustomButton
         variant="rounded-full"
         className="absolute z-20 py-2.5 px-5 !bg-white !text-navy-blue font-sm font-bold hidden group-hover:block"
+        onClick={() => unFreezeEmployeeAccount({ id, userEmail, title } as unFreezeEmployeeAccountProps)}
       >
         重新激活帳號
       </CustomButton>
