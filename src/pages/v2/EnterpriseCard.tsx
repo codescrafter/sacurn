@@ -2,14 +2,15 @@ import classNames from 'classnames';
 import React from 'react';
 
 import CustomButton from '@/components/CustomButton';
+import { IsOnlineEnum } from '@/libs/api';
 import { BLUE, GREEN, YELLOW } from '@/util/constants';
 interface IProps {
-  title: string;
+  title: string | null | undefined;
   userName: string;
   userEmail: string;
   id: number;
-  img: string;
-  isActive: boolean;
+  img: string | undefined | null;
+  isActive: IsOnlineEnum | undefined;
 }
 
 const EnterpriseCard = ({ title, userName, userEmail, img, isActive }: IProps) => {
@@ -41,7 +42,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive }: IProps) =
             }
           )}
         >
-          <img src={img} alt="no Image" className="h-15 xl:h-18" />
+          <img src={img ?? '/images/enterprise-account/user-icon.svg'} alt="no Image" className="h-15 xl:h-18" />
           <div
             className={classNames(
               'h-5 w-5 rounded-full border-4 border-white shadow-sm shadow-dark-grey absolute right-1',

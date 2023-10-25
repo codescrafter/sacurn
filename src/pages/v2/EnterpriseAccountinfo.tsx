@@ -1,20 +1,44 @@
 import AddIcon from '@mui/icons-material/Add';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { IsOnlineEnum } from '@/libs/api';
 import { useEmployeeStore } from '@/store/employee';
-import { CardEnterpriseTypes } from '@/type';
 
 import EnterpriseCard from './EnterpriseCard';
+
+interface EnterpriseAccounts
+  extends Array<{
+    id: number;
+    isActive: IsOnlineEnum | undefined;
+    userName: string;
+    userEmail: string;
+    img: string | null | undefined;
+    title: string | null | undefined;
+  }> {}
 
 const EnterpriseAccountInfo = () => {
   const employeeList = useEmployeeStore((state) => state.employeeList);
   const getEmployeeList = useEmployeeStore((state) => state.getEmployeeList);
+  const [enterpriseAccounts, setEnterpriseAccounts] = useState<EnterpriseAccounts>([]);
 
   useEffect(() => {
-    getEmployeeList && getEmployeeList();
+    getEmployeeList();
+    const data = employeeList.map((employee) => {
+      return {
+        id: employee.id,
+        isActive: employee.is_online,
+        userName: employee.username,
+        userEmail: employee.email,
+        img: employee.photo,
+        title: employee.position
+      };
+    });
+    if (data) {
+      setEnterpriseAccounts(data);
+    }
   }, []);
 
-  console.log('employeeList', employeeList);
+  console.log('employeeList', enterpriseAccounts);
 
   const sampleEmployeeList = [
     {
@@ -44,7 +68,7 @@ const EnterpriseAccountInfo = () => {
   return (
     <div className="mt-8 overflow-y-scroll yellowScroll pr-5 mr-5 2xl:pr-8 2:mr-8 2.5xl:pr-12 2.5xl:mr-14 flex justify-end xl:justify-center 2xl:block">
       <div className="w-[90%] 2xl:w-auto grid place-items-end grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 xl:gap-8 2.5xl:gap-12 min-h-[600px] max-h-[690px] 2.5xl:max-h-[720px]">
-        {ENTERPRISE_CARDS.map(({ title, userName, userEmail, id, img, isActive }: CardEnterpriseTypes) => (
+        {enterpriseAccounts.map(({ title, userName, userEmail, id, img, isActive }) => (
           <EnterpriseCard
             key={id}
             title={title}
@@ -71,46 +95,3 @@ const EnterpriseAccountInfo = () => {
 };
 
 export default EnterpriseAccountInfo;
-
-const ENTERPRISE_CARDS: CardEnterpriseTypes[] = [
-  {
-    id: 1,
-    title: '主視覺-藍',
-    img: '/images/enterprise-account/user-icon.svg',
-    userName: 'Belinda',
-    userEmail: 'belinda@xholding.com',
-    isActive: false
-  },
-  {
-    id: 2,
-    title: '可挑選者',
-    img: '/images/enterprise-account/user-icon.svg',
-    userName: 'Grimes',
-    userEmail: 'grimes_musk@xholding.com',
-    isActive: true
-  },
-  {
-    id: 3,
-    title: '可挑選者',
-    img: '/images/enterprise-account/user-icon.svg',
-    userName: 'Steve Jobs',
-    userEmail: 'steve_jobs@xholding.com',
-    isActive: true
-  },
-  {
-    id: 4,
-    title: '管理者',
-    img: '/images/enterprise-account/user-icon.svg',
-    userName: 'Diana',
-    userEmail: 'diana@xholding.com',
-    isActive: false
-  },
-  {
-    id: 5,
-    title: '可下單者',
-    img: '/images/enterprise-account/user-icon.svg',
-    userName: 'Eason',
-    userEmail: 'eason@xholding.com',
-    isActive: true
-  }
-];
