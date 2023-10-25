@@ -37,8 +37,7 @@ export const useEmployeeStore = create<EmployeeState>((set) => ({
   },
   deleteEmployeeAccount: async (...args) => {
     await runTask(async () => {
-      const response = await apiClient.company.companyEmployeeDestroy(...args);
-      set({ selectedEmployee: response });
+      await apiClient.company.companyEmployeeDestroy(...args);
     });
   }
 }));
