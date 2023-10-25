@@ -177,12 +177,11 @@ export type PermissionTableBodyType = {
   }[];
 };
 export type AccountTableBodyItems = {
-  id: number;
-  transactionDate: string;
-  transactionStatus: string;
-  orderNumber: string;
-  totalAmount: string;
-  points: string;
+  created_at: string;
+  status: string;
+  tran_uuid: string;
+  amount: number;
+  point: number;
 };
 export type AccountTableHeadingItems = {
   id: number;
