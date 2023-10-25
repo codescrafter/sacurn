@@ -18,6 +18,7 @@ const MemberCardCompareInfo = () => {
   useEffect(() => {
     getMembershipComparison(1);
   }, []);
+
   console.log('membershipComparison', membershipComparison);
 
   const sampleData = [

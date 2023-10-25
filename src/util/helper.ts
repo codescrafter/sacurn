@@ -20,3 +20,24 @@ export const fileSizeLimit = (files: File[]) => {
   if (totalSize > 2097152) return '文件大小超过 2MB';
   return null;
 };
+
+export const getDaysOldDate = (days: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() - days);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${year}-${month}-${day}`;
+};
+
+export const convertDateToFormat = (date: Date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${year}-${month}-${day}`;
+};
+
+export const convertFormatToDate = (date: string) => {
+  const [year, month, day] = date.split('-');
+  return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+};
