@@ -3,7 +3,7 @@ import React from 'react';
 
 import CustomButton from '@/components/CustomButton';
 import { IsOnlineEnum } from '@/libs/api';
-// import { useEmployeeStore } from '@/store/employee';
+import { useEmployeeStore } from '@/store/employee';
 import { BLUE, GREEN, YELLOW } from '@/util/constants';
 interface IProps {
   title: string | null | undefined;
@@ -21,7 +21,7 @@ interface unFreezeEmployeeAccountProps {
 }
 
 const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProps) => {
-  // const updateEmployeeDetail = useEmployeeStore((state) => state.updateEmployeeDetails);
+  const updateEmployeeDetail = useEmployeeStore((state) => state.updateEmployeeDetails);
 
   const randomColor = () => {
     const randomValue = Math.random();
@@ -33,7 +33,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
   const unFreezeEmployeeAccount = (data: unFreezeEmployeeAccountProps) => {
     const dataToSend = { email: data.userEmail, position: data.title, status: 0 };
     console.log(dataToSend);
-    // updateEmployeeDetail(data.id, dataToSend);
+    updateEmployeeDetail(data.id, dataToSend);
   };
 
   return (

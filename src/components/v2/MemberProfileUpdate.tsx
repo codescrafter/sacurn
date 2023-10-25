@@ -89,9 +89,14 @@ const MemberProfileUpdate = () => {
     setPasswordUpdateAble(val);
   };
 
-  const accountDelete = () => {
+  const deleteAccount = () => {
     if (!id) return;
     deleteEmployeeAccount && deleteEmployeeAccount(Number(id));
+  };
+
+  const freezeAccount = () => {
+    if (!id) return;
+    updateEmployeeDetails(Number(id), { status: 2 });
   };
 
   const [file, setFile] = useState<string>('/v2/user-info-form/default.svg');
@@ -235,7 +240,7 @@ const MemberProfileUpdate = () => {
                       {
                         text: '確認刪除帳號',
                         onClick: () => {
-                          accountDelete();
+                          deleteAccount();
                         }
                       }
                     ]
@@ -245,6 +250,19 @@ const MemberProfileUpdate = () => {
               <CustomButton
                 children="凍結帳號"
                 className="border !border-silverstone !text-silverstone !bg-transparent min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
+                onClick={() =>
+                  open(ModalType.DeleteEmployeeAccount, {
+                    buttons: [
+                      { text: '取消送出' },
+                      {
+                        text: '確認凍結帳號',
+                        onClick: () => {
+                          freezeAccount();
+                        }
+                      }
+                    ]
+                  })
+                }
               />
             </div>
             <CustomButton
