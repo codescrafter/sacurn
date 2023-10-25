@@ -2,11 +2,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import classNames from 'classnames';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FieldErrors, useForm, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import * as yup from 'yup';
 
 import useOutsideClick from '@/hooks/useOutsideClick';
+import { useEmployeeStore } from '@/store/employee';
 
 import CustomButton from '../CustomButton';
 import CustomInput from './CustomInput';
@@ -17,8 +19,8 @@ export interface UserProfileUpdateFormValues {
   email: string;
   telephone: string;
   operation_permission: string;
-  password1: string;
-  password2: string;
+  password1?: string;
+  password2?: string;
 }
 
 const Schema = yup
@@ -34,15 +36,11 @@ const Schema = yup
     operation_permission: yup.string().required('需要操作權限'),
     password1: yup
       .string()
-      .required()
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{12,}$/,
         '密碼需至少有12字元，請混和使用大小寫字母、數字，使密碼更加安全。'
       ),
-    password2: yup
-      .string()
-      .oneOf([yup.ref('password1')], '密碼必須匹配')
-      .required('需要重新輸入密碼')
+    password2: yup.string().oneOf([yup.ref('password1')], '密碼必須匹配')
   })
   .required();
 
@@ -50,14 +48,37 @@ const MemberProfileUpdate = () => {
   const {
     register,
     setValue,
+    getValues,
     handleSubmit,
     formState: { errors }
   } = useForm<UserProfileUpdateFormValues>({
     resolver: yupResolver(Schema)
   });
 
+  console.log('errors', errors);
+
+  const { id } = useParams();
   const [infoUpdateAble, setInfoUpdateAble] = useState(false);
   const [passwordUpdateAble, setPasswordUpdateAble] = useState(false);
+
+  const getSelectedEmployee = useEmployeeStore((state) => state.getSelectedEmployee);
+  const selectedEmployee = useEmployeeStore((state) => state.selectedEmployee);
+  const updateEmployeeDetails = useEmployeeStore((state) => state.updateEmployeeDetails);
+
+  useEffect(() => {
+    if (!id) return;
+    getSelectedEmployee && getSelectedEmployee(Number(id));
+  }, [id]);
+
+  useEffect(() => {
+    if (!selectedEmployee) return;
+    setValue('name', selectedEmployee.username);
+    setValue('job_title', selectedEmployee.status_cht); // TODO: verify that
+    setValue('email', selectedEmployee.email);
+    setValue('telephone', selectedEmployee.phone || '');
+    setValue('operation_permission', selectedEmployee.group_name);
+  }, [selectedEmployee]);
+
   const infoUpdateAbleHandler = (val: boolean) => {
     setInfoUpdateAble(val);
   };
@@ -76,7 +97,16 @@ const MemberProfileUpdate = () => {
   }
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    console.log('data', data);
+    const dataToSend = {
+      password: data.password1,
+      email: data.email,
+      last_name: data.name,
+      position: data.job_title,
+      phone: data.telephone,
+      group_name: data.operation_permission
+    };
+    updateEmployeeDetails && updateEmployeeDetails(Number(id), dataToSend);
   });
 
   return (
@@ -105,14 +135,18 @@ const MemberProfileUpdate = () => {
           {!infoUpdateAble && (
             <div className="flex min-[1600px]:gap-x-16.7 min-[1500px]:gap-x-13.7 min-[1300px]:gap-x-12 gap-x-10">
               <div className="flex flex-col min-[1500px]:gap-y-8.7 min-[1300px]:gap-y-7 gap-y-5">
-                <CustomInfo heading="暱稱" data="Steve Jobs" />
-                <CustomInfo heading="職稱" data="專員" />
-                <CustomInfo heading="Email" data="grimes@xholding.com" />
-                <CustomInfo heading="電話" data="02-1234 5678" />
+                <CustomInfo heading="暱稱" data={selectedEmployee?.username || ''} />
+                <CustomInfo heading="職稱" data={selectedEmployee?.group_name || ''} />
+                <CustomInfo heading="Email" data={selectedEmployee?.email || ''} />
+                <CustomInfo heading="電話" data={selectedEmployee?.phone || ''} />
               </div>
               <div className="flex flex-col min-[1500px]:gap-y-8.7 min-[1300px]:gap-y-7 gap-y-5">
                 <CustomInfo heading="操作權限" data="操作人員(無後台操作權)" className="font-normal" />
-                <CustomInfo heading="帳戶狀態" data="驗證中" className="!text-light-green" />
+                <CustomInfo
+                  heading="帳戶狀態"
+                  data={selectedEmployee?.status_cht || ''}
+                  className="!text-light-green"
+                />
               </div>
             </div>
           )}
@@ -157,7 +191,7 @@ const MemberProfileUpdate = () => {
                   <p className="min-[1600px]:text-xl min-[1500px]:text-lg min-[1300px]:text-base text-sm text-navy-blue font-bold min-[1600px]:mt-2.5 min-[1500px]:mt-2 min-[1300px]:mt-1.5 min-[1200px]:mt-1 mt-0.5">
                     操作權限
                   </p>
-                  <CustomSelect setValue={setValue} />
+                  <CustomSelect setValue={setValue} selectedValue={getValues().operation_permission} />
                 </div>
 
                 {passwordUpdateAble && (
@@ -202,7 +236,14 @@ const MemberProfileUpdate = () => {
             <CustomButton
               children="刪除帳號"
               className="border !border-silverstone !text-silverstone !bg-transparent min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
-              onClick={() => passwordUpdateAbleHandler(true)}
+              onClick={() => {
+                if (!passwordUpdateAble) passwordUpdateAbleHandler(true);
+                else {
+                  passwordUpdateAbleHandler(false);
+                  setValue('password1', '');
+                  setValue('password2', '');
+                }
+              }}
               type="button"
             />
             <div className="flex gap-7.2 items-center">
@@ -214,7 +255,7 @@ const MemberProfileUpdate = () => {
               />
               <CustomButton
                 children="儲存"
-                className=" min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[122px] min-[1500px]:w-[100px] min-[1300px]:w-[85px] w-[75px] min-[1600px]:h-9 min-[1500px]:h-7.5 min-[1300px]:h-6.5 h-5.5"
+                className="min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[122px] min-[1500px]:w-[100px] min-[1300px]:w-[85px] w-[75px] min-[1600px]:h-9 min-[1500px]:h-7.5 min-[1300px]:h-6.5 h-5.5"
                 variant="primary"
                 type="submit"
               />
@@ -254,13 +295,14 @@ const CustomInfo = ({ heading, data, className }: CustomInfoIProps) => {
 
 interface CustomSelectIProps {
   setValue: UseFormSetValue<UserProfileUpdateFormValues>;
+  selectedValue?: string;
 }
 
-const CustomSelect = ({ setValue }: CustomSelectIProps) => {
+const CustomSelect = ({ setValue, selectedValue }: CustomSelectIProps) => {
   const dropDownRef = useRef(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isSelected, setIsSelected] = useState('');
+  const [isSelected, setIsSelected] = useState(selectedValue || '');
   const isOpenHandler = (val: boolean) => {
     setIsOpen((state) => {
       if (state == true && val == true) return false;

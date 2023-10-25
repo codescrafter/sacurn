@@ -1,11 +1,19 @@
 import AddIcon from '@mui/icons-material/Add';
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import { useEmployeeStore } from '@/store/employee';
 import { CardEnterpriseTypes } from '@/type';
 
 import EnterpriseCard from './EnterpriseCard';
 
 const EnterpriseAccountInfo = () => {
+  const employeeList = useEmployeeStore((state) => state.employeeList);
+  const getEmployeeList = useEmployeeStore((state) => state.getEmployeeList);
+
+  useEffect(() => {
+    getEmployeeList && getEmployeeList();
+  }, []);
+  console.log('employeeList', employeeList);
   return (
     <div className="mt-8 overflow-y-scroll yellowScroll pr-5 mr-5 2xl:pr-8 2:mr-8 2.5xl:pr-12 2.5xl:mr-14 flex justify-end xl:justify-center 2xl:block">
       <div className="w-[90%] 2xl:w-auto grid place-items-end grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 xl:gap-8 2.5xl:gap-12 min-h-[600px] max-h-[690px] 2.5xl:max-h-[720px]">
