@@ -295,10 +295,10 @@ const MemberCardCompareInfo = () => {
                       </div>
                     )}
                     {data.id == 8 && (
-                      <div className="flex flex-col flex-1 w-full justify-between">
+                      <div className="flex flex-col flex-1 w-full h-full justify-between">
                         <div
                           className={classNames(
-                            'flex flex-1 justify-center items-center text-sm lg:text-base font-bold p-3 whitespace-break-spaces',
+                            'flex flex-col flex-1 justify-center items-center text-sm lg:text-base font-bold p-3 whitespace-break-spaces',
                             {
                               ['text-textYellow']: item.level === 1,
                               ['text-textGreen']: item.level === 2,
@@ -357,10 +357,10 @@ const MemberCardCompareInfo = () => {
                       </div>
                     )}
                     {data.id == 11 && (
-                      <div className="flex flex-col flex-1 w-full justify-between">
+                      <div className="flex flex-col flex-1 w-full h-full justify-between">
                         <div
                           className={classNames(
-                            'flex flex-1 justify-center items-center text-sm lg:text-base font-bold p-3 whitespace-break-spaces',
+                            'flex flex-col flex-1 justify-center items-center text-sm lg:text-base font-bold p-3 whitespace-break-spaces',
                             {
                               ['text-textYellow']: item.level === 1,
                               ['text-textGreen']: item.level === 2,
@@ -368,9 +368,7 @@ const MemberCardCompareInfo = () => {
                             }
                           )}
                         >
-                          <span>
-                            {item.upgrade.orders}${item.trade_day_limit}
-                          </span>
+                          <span>${item.trade_day_limit}</span>
                           <span>資本額*{item.trade_month_limit}%</span>
                         </div>
                       </div>
