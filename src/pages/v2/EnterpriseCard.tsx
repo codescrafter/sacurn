@@ -14,12 +14,6 @@ interface IProps {
   isActive: IsOnlineEnum | undefined;
 }
 
-interface unFreezeEmployeeAccountProps {
-  id: number;
-  userEmail: string;
-  title: string | undefined;
-}
-
 const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProps) => {
   const updateEmployeeDetail = useEmployeeStore((state) => state.updateEmployeeDetails);
 
@@ -30,10 +24,8 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
     else return BLUE;
   };
 
-  const unFreezeEmployeeAccount = (data: unFreezeEmployeeAccountProps) => {
-    const dataToSend = { email: data.userEmail, position: data.title, status: 0 };
-    console.log(dataToSend);
-    updateEmployeeDetail(data.id, dataToSend);
+  const unFreezeEmployeeAccount = (id: number) => {
+    updateEmployeeDetail(id, { status: 1 });
   };
 
   return (
@@ -42,7 +34,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
       <CustomButton
         variant="rounded-full"
         className="absolute z-20 py-2.5 px-5 !bg-white !text-navy-blue font-sm font-bold hidden group-hover:block"
-        onClick={() => unFreezeEmployeeAccount({ id, userEmail, title } as unFreezeEmployeeAccountProps)}
+        onClick={() => unFreezeEmployeeAccount(id)}
       >
         重新激活帳號
       </CustomButton>

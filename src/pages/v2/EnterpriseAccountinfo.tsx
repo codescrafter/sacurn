@@ -38,33 +38,6 @@ const EnterpriseAccountInfo = () => {
     }
   }, []);
 
-  console.log('employeeList', enterpriseAccounts);
-
-  // const sampleEmployeeList = [
-  //   {
-  //     id: 2,
-  //     username: 'test1',
-  //     email: 'heima@lychee.tw',
-  //     status_cht: '使用中',
-  //     last_name: 'heima@lychee.tw',
-  //     group_name: '管理員',
-  //     created_at: '2023-10-20T06:35:08.663742Z',
-  //     updated_at: '2023-10-25T06:41:04.191125Z',
-  //     deleted: false,
-  //     deleted_at: null,
-  //     photo: null,
-  //     position: '使用中',
-  //     tel: '0905123457',
-  //     tel_extension: null,
-  //     phone: '0905123457',
-  //     status: 1,
-  //     is_online: 1,
-  //     user: 2,
-  //     company: 2
-  //   }
-  // ];
-
-  // console.log('sampleEmployeeList', sampleEmployeeList);
   return (
     <div className="mt-8 overflow-y-scroll yellowScroll pr-5 mr-5 2xl:pr-8 2:mr-8 2.5xl:pr-12 2.5xl:mr-14 flex justify-end xl:justify-center 2xl:block">
       {enterpriseAccounts.length > 0 && (
