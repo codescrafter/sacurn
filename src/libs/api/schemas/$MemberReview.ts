@@ -2,13 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $TransactionDetail = {
+export const $MemberReview = {
     properties: {
         id: {
-            type: 'string',
+            type: 'number',
             isReadOnly: true,
             isRequired: true,
-            format: 'uuid',
         },
         created_at: {
             type: 'string',
@@ -24,34 +23,27 @@ export const $TransactionDetail = {
             isNullable: true,
             format: 'date-time',
         },
-        deleted: {
-            type: 'boolean',
-        },
-        deleted_at: {
-            type: 'string',
-            isNullable: true,
-            format: 'date-time',
-        },
-        total_amount: {
-            type: 'number',
-            isNullable: true,
-            format: 'double',
+        action: {
+            type: 'all-of',
+            contains: [{
+                type: 'ActionEnum',
+            }],
+            isRequired: true,
         },
         status: {
             type: 'all-of',
             contains: [{
-                type: 'TransactionDetailStatusEnum',
+                type: 'Status1d2Enum',
             }],
         },
-        pay_at: {
+        pass_at: {
             type: 'string',
             isNullable: true,
             format: 'date-time',
         },
-        deadline: {
-            type: 'string',
-            isNullable: true,
-            format: 'date-time',
+        company: {
+            type: 'number',
+            isRequired: true,
         },
         twid_record: {
             type: 'number',

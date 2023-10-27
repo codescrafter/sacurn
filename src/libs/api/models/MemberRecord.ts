@@ -10,7 +10,10 @@ import type { UpgradeEnum } from './UpgradeEnum';
 export type MemberRecord = {
     readonly id: number;
     readonly current_member: string;
+    readonly current_member_annual_renewal_fee: string;
+    readonly renewal_deadline_day: string;
     readonly next_member: string;
+    readonly next_member_annual_renewal_fee: string;
     readonly buy_cost: string;
     readonly sell_cost: string;
     readonly can_upgrade: string;

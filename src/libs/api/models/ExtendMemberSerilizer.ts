@@ -13,7 +13,7 @@ export type ExtendMemberSerilizer = {
     image?: string | null;
     level?: number | null;
     registration_fee?: number | null;
-    annual_Renewal_fee?: number | null;
+    annual_renewal_fee?: number | null;
     duration?: number | null;
     recommend: string;
     point: string;

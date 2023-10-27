@@ -14,7 +14,22 @@ export const $MemberRecord = {
             isReadOnly: true,
             isRequired: true,
         },
+        current_member_annual_renewal_fee: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        renewal_deadline_day: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         next_member: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        next_member_annual_renewal_fee: {
             type: 'string',
             isReadOnly: true,
             isRequired: true,

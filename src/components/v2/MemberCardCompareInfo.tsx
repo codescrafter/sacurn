@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import { useEffect } from 'react';
 
 import { useMembershipStore } from '@/store/member';
-import { MembershipDataItems } from '@/type';
 
 const MemberCardCompareInfo = () => {
   const membershipComparison = useMembershipStore((state) => state.membershipComparison);
@@ -11,102 +10,6 @@ const MemberCardCompareInfo = () => {
   useEffect(() => {
     getMembershipComparison(1);
   }, []);
-
-  console.log('membershipComparison', membershipComparison);
-
-  const sampleData: MembershipDataItems[] = [
-    {
-      id: 1,
-      deleted: false,
-      deleted_at: null,
-      name: 'ECOGREEN',
-      image: null,
-      level: 1,
-      registration_fee: 30000,
-      annual_Renewal_fee: 80000,
-      duration: 12,
-      recommend: '被推薦者入會成功後，推薦雙方各贈300積分(價值$30,000)',
-      point: '依據專案，提供積分條件',
-      identity: ['法人'],
-      upgrade: {
-        orders: null,
-        points: null,
-        renewal: true
-      },
-      point_multiplier: 0.01,
-      buy_cost: 0.05,
-      sell_cost: 0.08,
-      trade_day_limit: 50000,
-      trade_month_limit: 0.01,
-      user_access_limit: 3,
-      project_estimate: '依平台條件',
-      e_news: 1,
-      market_trade: 0,
-      upcoming_release: 0,
-      rebate_program: 0
-    },
-    {
-      id: 2,
-      deleted: false,
-      deleted_at: null,
-      name: 'ECOLAND',
-      image: null,
-      level: 2,
-      registration_fee: 30000,
-      annual_Renewal_fee: 80000,
-      duration: 12,
-      recommend: '被推薦者入會成功後，推薦雙方各贈300積分(價值$30,000)',
-      point: '依據專案，提供積分條件',
-      identity: ['法人', '會員升級'],
-      upgrade: {
-        orders: 100,
-        points: 45000,
-        renewal: false
-      },
-      point_multiplier: 0.015,
-      buy_cost: 0.04,
-      sell_cost: 0.06,
-      trade_day_limit: 150000,
-      trade_month_limit: 0.03,
-      user_access_limit: 5,
-      project_estimate: '碳權優先購買權',
-      e_news: 1,
-      market_trade: 1,
-      upcoming_release: 1,
-      rebate_program: 0
-    },
-    {
-      id: 3,
-      deleted: false,
-      deleted_at: null,
-      name: 'ECOOCEAN',
-      image: null,
-      level: 3,
-      registration_fee: 30000,
-      annual_Renewal_fee: 80000,
-      duration: 12,
-      recommend: '被推薦者入會成功後，推薦雙方各贈300積分(價值$30,000)',
-      point: '依據專案，提供積分條件',
-      identity: ['法人', '會員升級'],
-      upgrade: {
-        orders: 150,
-        points: 100000,
-        renewal: false
-      },
-      point_multiplier: 0.02,
-      buy_cost: 0.03,
-      sell_cost: 0.05,
-      trade_day_limit: 300000,
-      trade_month_limit: 0.08,
-      user_access_limit: 10,
-      project_estimate: '碳權優先購買權',
-      e_news: 1,
-      market_trade: 1,
-      upcoming_release: 1,
-      rebate_program: 1
-    }
-  ];
-  console.log('sampleData', sampleData);
 
   return (
     <div className="flex mt-16 sm:mr-3 xl:mr-12 ml-3 items-center bg-offwhite backdrop:blur-0 text-black rounded-2.5xl">
@@ -135,7 +38,7 @@ const MemberCardCompareInfo = () => {
                 )}
               </div>
               <div key={data.id} className="flex w-full border border-mildGrey ">
-                {sampleData.map((item) => (
+                {membershipComparison.map((item) => (
                   <div className="w-full">
                     {data.id == 1 && (
                       <div>
@@ -226,7 +129,7 @@ const MemberCardCompareInfo = () => {
                             }
                           )}
                         >
-                          ${item.annual_Renewal_fee}
+                          ${item.annual_renewal_fee}
                         </div>
                       </div>
                     )}
@@ -306,17 +209,17 @@ const MemberCardCompareInfo = () => {
                             }
                           )}
                         >
-                          {item.upgrade.orders != null && (
+                          {item.upgrade && item.upgrade.orders && (
                             <span className="flex whitespace-pre justify-center items-center text-sm lg:text-base font-bold">
                               {item.upgrade.orders}張訂單/年
                             </span>
                           )}
-                          {item.upgrade.points != null && (
+                          {item.upgrade && item.upgrade.points && (
                             <span className="flex whitespace-pre justify-center items-center text-sm lg:text-base font-bold">
                               積分{item.upgrade.points}點/年
                             </span>
                           )}
-                          {item.upgrade.renewal && (
+                          {item.upgrade && item.upgrade.renewal && (
                             <span className="flex whitespace-pre justify-center items-center text-sm lg:text-base font-bold">
                               續會費/年
                             </span>
