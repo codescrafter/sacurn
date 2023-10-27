@@ -119,8 +119,4 @@ export class CancelablePromise<T> implements Promise<T> {
     this.cancelHandlers.length = 0;
     this.reject?.(new CancelError('Request aborted'));
   }
-
-  //   public get isCancelled(): boolean { // NOTE: duplicate genereated automatically
-  //     return this.isCancelled;
-  //   }
 }

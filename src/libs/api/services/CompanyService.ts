@@ -4,8 +4,8 @@
 /* eslint-disable */
 import type { Company } from '../models/Company';
 import type { Employee } from '../models/Employee';
-import type { Employees } from '../models/Employees';
 import type { ExtendedCompany } from '../models/ExtendedCompany';
+import type { ExtendEmployee } from '../models/ExtendEmployee';
 import type { PaginatedEmployeeList } from '../models/PaginatedEmployeeList';
 import type { PaginatedGroupList } from '../models/PaginatedGroupList';
 import type { PaginatedPlanList } from '../models/PaginatedPlanList';
@@ -131,7 +131,7 @@ export class CompanyService {
      * @throws ApiError
      */
     public companyEmployeeCreate(
-        requestBody?: Employees,
+        requestBody: ExtendEmployee,
     ): CancelablePromise<Employee> {
         return this.httpRequest.request({
             method: 'POST',

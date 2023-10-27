@@ -8,7 +8,7 @@ export const $ShopCartRequest = {
             type: 'number',
         },
         shop_product_name: {
-            type: 'number',
+            type: 'string',
         },
     },
 } as const;

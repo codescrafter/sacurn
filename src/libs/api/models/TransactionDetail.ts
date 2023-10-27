@@ -15,5 +15,6 @@ export type TransactionDetail = {
     status?: TransactionDetailStatusEnum;
     pay_at?: string | null;
     deadline?: string | null;
+    twid_record?: number | null;
 };
 

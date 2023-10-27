@@ -12,7 +12,19 @@ export const $PatchedMemberRecord = {
             type: 'string',
             isReadOnly: true,
         },
+        current_member_annual_renewal_fee: {
+            type: 'string',
+            isReadOnly: true,
+        },
+        renewal_deadline_day: {
+            type: 'string',
+            isReadOnly: true,
+        },
         next_member: {
+            type: 'string',
+            isReadOnly: true,
+        },
+        next_member_annual_renewal_fee: {
             type: 'string',
             isReadOnly: true,
         },

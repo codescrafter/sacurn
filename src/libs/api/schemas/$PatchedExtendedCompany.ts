@@ -167,6 +167,26 @@ export const $PatchedExtendedCompany = {
                 type: 'Status02bEnum',
             }],
         },
+        contact_person_name: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        contact_person_position: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        contact_person_email: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        contact_person_phone: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
         registration_document: {
             type: 'string',
             format: 'uri',

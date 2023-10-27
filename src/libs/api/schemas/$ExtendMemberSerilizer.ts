@@ -53,7 +53,7 @@ export const $ExtendMemberSerilizer = {
             maximum: 2147483647,
             minimum: -2147483648,
         },
-        annual_Renewal_fee: {
+        annual_renewal_fee: {
             type: 'number',
             isNullable: true,
             maximum: 2147483647,

@@ -39,5 +39,9 @@ export type Company = {
     terms_of_service_confirm?: boolean;
     terms_of_service_confirm_at?: string | null;
     readonly status: Status02bEnum;
+    contact_person_name?: string | null;
+    contact_person_position?: string | null;
+    contact_person_email?: string | null;
+    contact_person_phone?: string | null;
 };
 

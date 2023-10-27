@@ -2,11 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { MemberCard } from '../models/MemberCard';
 import type { MemberRecord } from '../models/MemberRecord';
+import type { MemberReview } from '../models/MemberReview';
 import type { PaginatedExtendMemberSerilizerList } from '../models/PaginatedExtendMemberSerilizerList';
-import type { PaginatedMemberCardList } from '../models/PaginatedMemberCardList';
 import type { PaginatedMemberPointRecordList } from '../models/PaginatedMemberPointRecordList';
-import type { PaginatedMemberRecordList } from '../models/PaginatedMemberRecordList';
 import type { PatchedMemberRecord } from '../models/PatchedMemberRecord';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -34,19 +34,29 @@ export class MemberService {
     }
 
     /**
-     * @param page A page number within the paginated result set.
-     * @returns PaginatedMemberCardList
+     * @returns MemberCard
      * @throws ApiError
      */
-    public memberCardList(
-        page?: number,
-    ): CancelablePromise<PaginatedMemberCardList> {
+    public memberCardRetrieve(): CancelablePromise<MemberCard> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/member/card/',
-            query: {
-                'page': page,
-            },
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns MemberCard
+     * @throws ApiError
+     */
+    public memberCardCreate(
+        requestBody: MemberCard,
+    ): CancelablePromise<MemberCard> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/card/',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 
@@ -58,6 +68,33 @@ export class MemberService {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/member/card/',
+        });
+    }
+
+    /**
+     * @returns MemberReview
+     * @throws ApiError
+     */
+    public memberCardReissueRetrieve(): CancelablePromise<MemberReview> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/member/card/reissue/',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns MemberReview
+     * @throws ApiError
+     */
+    public memberCardReissueCreate(
+        requestBody: MemberReview,
+    ): CancelablePromise<MemberReview> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/card/reissue/',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 
@@ -82,19 +119,13 @@ export class MemberService {
     }
 
     /**
-     * @param page A page number within the paginated result set.
-     * @returns PaginatedMemberRecordList
+     * @returns MemberRecord
      * @throws ApiError
      */
-    public memberRecordList(
-        page?: number,
-    ): CancelablePromise<PaginatedMemberRecordList> {
+    public memberRecordRetrieve(): CancelablePromise<MemberRecord> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/member/record/',
-            query: {
-                'page': page,
-            },
         });
     }
 
