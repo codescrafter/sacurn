@@ -11,5 +11,7 @@ export type PatchedEmployeesPatch = {
     tel?: string;
     tel_extension?: string;
     group_name?: string;
+    photo?: string;
+    status?: number;
 };
 

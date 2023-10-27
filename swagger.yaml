@@ -725,13 +725,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Employees'
+              $ref: '#/components/schemas/ExtendEmployee'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Employees'
+              $ref: '#/components/schemas/ExtendEmployee'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Employees'
+              $ref: '#/components/schemas/ExtendEmployee'
+        required: true
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1209,14 +1210,7 @@ paths:
           description: ''
   /member/card/:
     get:
-      operationId: member_card_list
-      parameters:
-      - name: page
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
+      operationId: member_card_retrieve
       tags:
       - member
       security:
@@ -1228,7 +1222,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedMemberCardList'
+                $ref: '#/components/schemas/MemberCard'
+          description: ''
+    post:
+      operationId: member_card_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
           description: ''
     delete:
       operationId: member_card_destroy
@@ -1241,6 +1262,49 @@ paths:
       responses:
         '204':
           description: No response body
+  /member/card/reissue/:
+    get:
+      operationId: member_card_reissue_retrieve
+      tags:
+      - member
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberReview'
+          description: ''
+    post:
+      operationId: member_card_reissue_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberReview'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberReview'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberReview'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberReview'
+          description: ''
   /member/point_record/:
     get:
       operationId: member_point_record_list
@@ -1271,14 +1335,7 @@ paths:
           description: ''
   /member/record/:
     get:
-      operationId: member_record_list
-      parameters:
-      - name: page
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
+      operationId: member_record_retrieve
       tags:
       - member
       security:
@@ -1291,7 +1348,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedMemberRecordList'
+                $ref: '#/components/schemas/MemberRecord'
           description: ''
     post:
       operationId: member_record_create
@@ -2300,6 +2357,18 @@ components:
           type: string
           format: date-time
           default: '2023-11-13T01:46:11.720159Z'
+    ActionEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: |-
+        * `1` - Upgrade
+        * `2` - Extend
+        * `3` - Reissue
+        * `4` - Revoke
     AuditLog:
       type: object
       properties:
@@ -2745,6 +2814,26 @@ components:
           title: 狀態
           minimum: -2147483648
           maximum: 2147483647
+        contact_person_name:
+          type: string
+          nullable: true
+          title: 聯絡人名稱
+          maxLength: 45
+        contact_person_position:
+          type: string
+          nullable: true
+          title: 聯絡人職稱
+          maxLength: 45
+        contact_person_email:
+          type: string
+          nullable: true
+          title: 聯絡人Email
+          maxLength: 45
+        contact_person_phone:
+          type: string
+          nullable: true
+          title: 聯絡人電話
+          maxLength: 45
       required:
       - created_at
       - id
@@ -2879,33 +2968,6 @@ components:
       - updated_at
       - user
       - username
-    Employees:
-      type: object
-      properties:
-        username:
-          type: string
-          default: new1
-        password:
-          type: string
-          default: test123456
-        email:
-          type: string
-          default: test@lychee.tw
-        last_name:
-          type: string
-          default: John
-        position:
-          type: string
-          default: CFO
-        tel:
-          type: string
-          default: 033345678
-        tel_extension:
-          type: string
-          default: '123'
-        group_name:
-          type: string
-          default: 操作人員
     ExtendCarbonCredit:
       type: object
       properties:
@@ -3097,6 +3159,41 @@ components:
       - location
       - max_price
       - min_price
+    ExtendEmployee:
+      type: object
+      properties:
+        username:
+          type: string
+          default: new1
+        password:
+          type: string
+          default: test123456
+        email:
+          type: string
+          default: test@lychee.tw
+        last_name:
+          type: string
+          default: John
+        position:
+          type: string
+          default: CFO
+        tel:
+          type: string
+          default: 033345678
+        tel_extension:
+          type: string
+          default: '123'
+        group_name:
+          type: string
+          default: 操作人員
+        photo:
+          type: string
+          format: uri
+        status:
+          type: integer
+          default: 0
+      required:
+      - photo
     ExtendMemberSerilizer:
       type: object
       properties:
@@ -3139,7 +3236,7 @@ components:
           maximum: 2147483647
           minimum: -2147483648
           nullable: true
-        annual_Renewal_fee:
+        annual_renewal_fee:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
@@ -3420,6 +3517,26 @@ components:
           title: 狀態
           minimum: -2147483648
           maximum: 2147483647
+        contact_person_name:
+          type: string
+          nullable: true
+          title: 聯絡人名稱
+          maxLength: 45
+        contact_person_position:
+          type: string
+          nullable: true
+          title: 聯絡人職稱
+          maxLength: 45
+        contact_person_email:
+          type: string
+          nullable: true
+          title: 聯絡人Email
+          maxLength: 45
+        contact_person_phone:
+          type: string
+          nullable: true
+          title: 聯絡人電話
+          maxLength: 45
         registration_document:
           type: string
           format: uri
@@ -3647,7 +3764,16 @@ components:
         current_member:
           type: string
           readOnly: true
+        current_member_annual_renewal_fee:
+          type: string
+          readOnly: true
+        renewal_deadline_day:
+          type: string
+          readOnly: true
         next_member:
+          type: string
+          readOnly: true
+        next_member_annual_renewal_fee:
           type: string
           readOnly: true
         buy_cost:
@@ -3724,10 +3850,54 @@ components:
       - company
       - created_at
       - current_member
+      - current_member_annual_renewal_fee
       - id
       - member
       - next_member
+      - next_member_annual_renewal_fee
+      - renewal_deadline_day
       - sell_cost
+      - updated_at
+    MemberReview:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        action:
+          allOf:
+          - $ref: '#/components/schemas/ActionEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        status:
+          allOf:
+          - $ref: '#/components/schemas/Status1d2Enum'
+          minimum: -2147483648
+          maximum: 2147483647
+        pass_at:
+          type: string
+          format: date-time
+          nullable: true
+        company:
+          type: integer
+        twid_record:
+          type: integer
+          nullable: true
+      required:
+      - action
+      - company
+      - created_at
+      - id
       - updated_at
     OperationRecord:
       type: object
@@ -3845,18 +4015,6 @@ components:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
-        pkcs1:
-          type: string
-          nullable: true
-          maxLength: 256
-        b64Cert:
-          type: string
-          nullable: true
-          maxLength: 256
-        twid_resp:
-          type: object
-          additionalProperties: {}
-          nullable: true
         company:
           type: integer
           nullable: true
@@ -3865,6 +4023,9 @@ components:
           nullable: true
         carbon_credit:
           type: integer
+        twid_record:
+          type: integer
+          nullable: true
       required:
       - carbon_credit
       - company_code
@@ -4042,26 +4203,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Group'
-    PaginatedMemberCardList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=2
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/MemberCard'
     PaginatedMemberPointRecordList:
       type: object
       properties:
@@ -4082,26 +4223,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MemberPointRecord'
-    PaginatedMemberRecordList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=2
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/MemberRecord'
     PaginatedOperationRecordList:
       type: object
       properties:
@@ -4530,6 +4651,12 @@ components:
         group_name:
           type: string
           default: 操作人員
+        photo:
+          type: string
+          format: uri
+        status:
+          type: integer
+          default: 0
     PatchedExtendedCompany:
       type: object
       properties:
@@ -4680,6 +4807,26 @@ components:
           title: 狀態
           minimum: -2147483648
           maximum: 2147483647
+        contact_person_name:
+          type: string
+          nullable: true
+          title: 聯絡人名稱
+          maxLength: 45
+        contact_person_position:
+          type: string
+          nullable: true
+          title: 聯絡人職稱
+          maxLength: 45
+        contact_person_email:
+          type: string
+          nullable: true
+          title: 聯絡人Email
+          maxLength: 45
+        contact_person_phone:
+          type: string
+          nullable: true
+          title: 聯絡人電話
+          maxLength: 45
         registration_document:
           type: string
           format: uri
@@ -4692,7 +4839,16 @@ components:
         current_member:
           type: string
           readOnly: true
+        current_member_annual_renewal_fee:
+          type: string
+          readOnly: true
+        renewal_deadline_day:
+          type: string
+          readOnly: true
         next_member:
+          type: string
+          readOnly: true
+        next_member_annual_renewal_fee:
           type: string
           readOnly: true
         buy_cost:
@@ -4995,7 +5151,7 @@ components:
           type: integer
           default: 100
         shop_product_name:
-          type: integer
+          type: string
           default: 碳權證書
     ShopProduct:
       type: object
@@ -5223,6 +5379,9 @@ components:
         deadline:
           type: string
           format: date-time
+          nullable: true
+        twid_record:
+          type: integer
           nullable: true
       required:
       - created_at

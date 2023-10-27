@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $Employees = {
+export const $ExtendEmployee = {
     properties: {
         username: {
             type: 'string',
@@ -27,6 +27,14 @@ export const $Employees = {
         },
         group_name: {
             type: 'string',
+        },
+        photo: {
+            type: 'string',
+            isRequired: true,
+            format: 'uri',
+        },
+        status: {
+            type: 'number',
         },
     },
 } as const;

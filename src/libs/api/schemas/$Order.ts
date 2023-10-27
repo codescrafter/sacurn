@@ -75,24 +75,6 @@ export const $Order = {
             maximum: 2147483647,
             minimum: -2147483648,
         },
-        pkcs1: {
-            type: 'string',
-            isNullable: true,
-            maxLength: 256,
-        },
-        b64Cert: {
-            type: 'string',
-            isNullable: true,
-            maxLength: 256,
-        },
-        twid_resp: {
-            type: 'dictionary',
-            contains: {
-                properties: {
-                },
-            },
-            isNullable: true,
-        },
         company: {
             type: 'number',
             isNullable: true,
@@ -104,6 +86,10 @@ export const $Order = {
         carbon_credit: {
             type: 'number',
             isRequired: true,
+        },
+        twid_record: {
+            type: 'number',
+            isNullable: true,
         },
     },
 } as const;

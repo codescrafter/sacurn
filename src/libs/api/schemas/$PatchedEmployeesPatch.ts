@@ -25,5 +25,12 @@ export const $PatchedEmployeesPatch = {
         group_name: {
             type: 'string',
         },
+        photo: {
+            type: 'string',
+            format: 'uri',
+        },
+        status: {
+            type: 'number',
+        },
     },
 } as const;
