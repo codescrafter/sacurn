@@ -9,9 +9,10 @@ import { UserInfoFormValues } from './UserInfoForm';
 
 interface CustomSelectIProps {
   setValue: UseFormSetValue<UserInfoFormValues>;
+  options: string[];
 }
 
-const CustomSelect = ({ setValue }: CustomSelectIProps) => {
+const CustomSelect = ({ setValue, options }: CustomSelectIProps) => {
   const dropDownRef = useRef(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +25,7 @@ const CustomSelect = ({ setValue }: CustomSelectIProps) => {
   };
 
   const isSelectedHandler = (val: string) => {
-    setValue('operation_permission', val);
+    setValue('group_name', val);
     setIsSelected(val);
   };
 
@@ -77,5 +78,3 @@ const CustomSelect = ({ setValue }: CustomSelectIProps) => {
 };
 
 export default CustomSelect;
-
-const options = ['管理員', '操作人員', '操作人員(無後台操作權)'];

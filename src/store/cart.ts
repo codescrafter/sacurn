@@ -122,6 +122,8 @@ export const useCartStore = create<CartState>((set, get) => ({
       });
       result.isSuccess = true;
       result.checkoutDetail = checkoutDetail;
+      await get().getCartList();
+      await get().getCartDetail();
     });
 
     return result;
