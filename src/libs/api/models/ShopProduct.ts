@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { ShopProductStatusEnum } from './ShopProductStatusEnum';
+import type { Status923Enum } from './Status923Enum';
 
 export type ShopProduct = {
     readonly id: number;
@@ -12,11 +12,12 @@ export type ShopProduct = {
     deleted?: boolean;
     deleted_at?: string | null;
     name: string;
+    image?: string | null;
     desc?: string | null;
     price?: number | null;
     quantity?: number | null;
     published_at?: string | null;
-    status?: ShopProductStatusEnum;
+    status?: Status923Enum;
     company: number;
 };
 

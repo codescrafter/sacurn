@@ -1,32 +1,53 @@
+import dateFormat from 'dateformat';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
 import Layout from '@/components/v2/Layout';
-import { CardMembershipTypes, CardRenewalEnum } from '@/type';
+import { ReissueEnum } from '@/libs/api';
+import { useMemberRecordStore } from '@/store/memberRecord';
+import { CardRenewalEnum } from '@/type';
 
 const CardRenewal = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const [cardRenewal, setCardRenewal] = useState<CardRenewalEnum>();
-  const [cardRenewalList, setCardRenewalList] = useState<CardMembershipTypes[]>([CARD_RENEWAL[0]]);
+  const [cardRenewal, setCardRenewal] = useState<CardRenewalEnum>(CardRenewalEnum.COMPLETE_RENEWAL);
+
+  const [memberRecord, getMemberRecord, applyRenewMemberRecord, renewMemberRecord] = useMemberRecordStore((state) => [
+    state.memberRecord,
+    state.getMemberRecord,
+    state.applyRenewMemberRecord,
+    state.renewMemberRecord
+  ]);
+
+  console.log('memberRecord', memberRecord);
 
   useEffect(() => {
+    if (!memberRecord) getMemberRecord();
+
     if (state && state?.step) {
       setCardRenewal(state.step);
-      setCardRenewalList(CARD_RENEWAL);
     }
   }, []);
 
-  const getCardRenewalValue = (value: number) => {
-    if (value === CardRenewalEnum.PAYMENT_METHOD) {
-      navigate('/v2/cart');
+  useEffect(() => {
+    if (memberRecord) {
+      setCardRenewal(memberRecord.renewal ? memberRecord.renewal + 1 : CardRenewalEnum.COMPLETE_RENEWAL);
+    }
+  }, [memberRecord]);
+
+  const setCardRenewalValue = async (value: number) => {
+    if (value === CardRenewalEnum.EXPIRY_DATE) {
+      const isSuccess = await applyRenewMemberRecord();
+      if (isSuccess) setCardRenewal(value + 1);
+    } else if (value === CardRenewalEnum.PAYMENT_METHOD) {
+      const isSuccess = await renewMemberRecord();
+      if (isSuccess) navigate('/v2/cart');
+      return;
+    } else if (value === CardRenewalEnum.COMPLETE_RENEWAL) {
       return;
     }
-    setCardRenewal(CardRenewalEnum.EXPIRY_DATE + value);
-    const updatedList = [...cardRenewalList, CARD_RENEWAL[value]];
-    setCardRenewalList(updatedList);
   };
 
   return (
@@ -37,23 +58,46 @@ const CardRenewal = () => {
           <CardSteps totalSteps={3} currentStep={cardRenewal} />
         </div>
         <div className="my-8 text-center grid grid-cols-3">
-          {cardRenewalList &&
-            cardRenewalList.map((item: CardMembershipTypes) => (
-              <CustomCard
-                key={item.id}
-                name={item.name}
-                title={item.title}
-                subTitle={item.subTitle}
-                info={item.info}
-                responseTitle={item.responseTitle}
-                responseDetail={item.responseDetail}
-                buttonText={item.buttonText}
-                terms={item.terms}
-                step={item.id}
-                cardRenewalNumber={cardRenewal || 1}
-                getCurrentValue={(value) => getCardRenewalValue(value)}
-              />
-            ))}
+          {memberRecord && cardRenewal >= CardRenewalEnum.EXPIRY_DATE && (
+            <CustomCard
+              name="會員到期日"
+              title={memberRecord.expire_at ? dateFormat(memberRecord.expire_at, 'yyyy/MM/dd') : '-'}
+              subTitle="離到期日剩下"
+              info={`${memberRecord.renewal_deadline_day}日`}
+              responseTitle={memberRecord.can_upgrade ? '已可以續約' : '目前無法續約'}
+              buttonText={memberRecord.can_upgrade ? '確認續約' : undefined}
+              terms="個人資料保護安全政策暨隱私權聲明同續約條款之規定"
+              step={CardRenewalEnum.EXPIRY_DATE}
+              cardRenewalNumber={cardRenewal}
+              getCurrentValue={setCardRenewalValue}
+            />
+          )}
+          {memberRecord && cardRenewal >= CardRenewalEnum.PAYMENT_METHOD && (
+            <CustomCard
+              name="繳費方式"
+              title={memberRecord.current_member}
+              subTitle="年費"
+              info={`${memberRecord.current_member_annual_renewal_fee}`}
+              responseTitle="付款方式"
+              responseDetail="點擊確認後，將新增續會費於購物車內，帶付款完成後，系統將寄發通知給您"
+              buttonText="確認付款"
+              step={CardRenewalEnum.PAYMENT_METHOD}
+              cardRenewalNumber={cardRenewal}
+              getCurrentValue={setCardRenewalValue}
+            />
+          )}
+          {memberRecord && cardRenewal >= CardRenewalEnum.COMPLETE_RENEWAL && (
+            <CustomCard
+              name="完成續卡"
+              title={memberRecord.upgrade === ReissueEnum._2 ? '已完成續卡' : '未完成續卡'}
+              subTitle="您的會員有效日期為"
+              info={memberRecord.renewal_expire_at ? dateFormat(memberRecord.renewal_expire_at, 'yyyy/MM/dd') : '-'}
+              responseTitle=""
+              step={CardRenewalEnum.COMPLETE_RENEWAL}
+              cardRenewalNumber={cardRenewal}
+              getCurrentValue={setCardRenewalValue}
+            />
+          )}
         </div>
       </div>
     </Layout>
@@ -61,34 +105,3 @@ const CardRenewal = () => {
 };
 
 export default CardRenewal;
-
-const CARD_RENEWAL: CardMembershipTypes[] = [
-  {
-    id: 1,
-    name: '會員到期日',
-    title: '2023/06/30',
-    subTitle: '離到期日剩下',
-    info: '17日',
-    responseTitle: '已可以續約',
-    buttonText: '確認續約',
-    terms: '個人資料保護安全政策暨隱私權聲明同續約條款之規定'
-  },
-  {
-    id: 2,
-    name: '繳費方式',
-    title: 'ECOGREEN',
-    subTitle: '年費',
-    info: '$20,000',
-    responseTitle: '付款方式',
-    responseDetail: '點擊確認後，將新增續會費於購物車內，帶付款完成後，系統將寄發通知給您',
-    buttonText: '確認付款'
-  },
-  {
-    id: 3,
-    name: '完成續卡',
-    title: '已完成續卡',
-    subTitle: '您的會員有效日期為',
-    info: '2024/6/30',
-    responseTitle: ''
-  }
-];

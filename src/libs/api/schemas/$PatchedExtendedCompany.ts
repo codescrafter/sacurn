@@ -71,9 +71,12 @@ export const $PatchedExtendedCompany = {
             maxLength: 45,
         },
         contact_address: {
-            type: 'string',
+            type: 'dictionary',
+            contains: {
+                properties: {
+                },
+            },
             isNullable: true,
-            maxLength: 256,
         },
         representative_country: {
             type: 'string',
@@ -161,8 +164,28 @@ export const $PatchedExtendedCompany = {
         status: {
             type: 'all-of',
             contains: [{
-                type: 'Status02bEnum',
+                type: 'ReissueEnum',
             }],
+        },
+        contact_person_name: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        contact_person_position: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        contact_person_email: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        contact_person_phone: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
         },
         registration_document: {
             type: 'string',

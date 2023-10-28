@@ -2,6 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $Status02bEnum = {
-    type: 'Enum',
-} as const;
+
+export type TrendData = {
+    series?: Record<string, any>;
+};
+

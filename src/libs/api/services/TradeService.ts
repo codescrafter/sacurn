@@ -295,6 +295,17 @@ export class TradeService {
     }
 
     /**
+     * @returns any No response body
+     * @throws ApiError
+     */
+    public tradeTransactionCancelCreate(): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/trade/transaction_cancel/',
+        });
+    }
+
+    /**
      * @param download 下載csv (download=1會下載）
      * @param keyword 搜尋關鍵字(碳權名稱, 訂單號號)
      * @param page A page number within the paginated result set.

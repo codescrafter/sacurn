@@ -80,9 +80,12 @@ export const $Company = {
             maxLength: 45,
         },
         contact_address: {
-            type: 'string',
+            type: 'dictionary',
+            contains: {
+                properties: {
+                },
+            },
             isNullable: true,
-            maxLength: 256,
         },
         representative_country: {
             type: 'string',
@@ -170,10 +173,30 @@ export const $Company = {
         status: {
             type: 'all-of',
             contains: [{
-                type: 'Status02bEnum',
+                type: 'ReissueEnum',
             }],
             isReadOnly: true,
             isRequired: true,
+        },
+        contact_person_name: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        contact_person_position: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        contact_person_email: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        contact_person_phone: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
         },
     },
 } as const;

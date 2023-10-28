@@ -2,8 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ExtendMemberRecord } from '../models/ExtendMemberRecord';
+import type { MemberCard } from '../models/MemberCard';
 import type { MemberRecord } from '../models/MemberRecord';
-import type { PaginatedMemberRecordList } from '../models/PaginatedMemberRecordList';
+import type { MemberReview } from '../models/MemberReview';
+import type { PaginatedExtendMemberSerilizerList } from '../models/PaginatedExtendMemberSerilizerList';
+import type { PaginatedMemberPointRecordList } from '../models/PaginatedMemberPointRecordList';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -14,15 +18,15 @@ export class MemberService {
 
     /**
      * @param page A page number within the paginated result set.
-     * @returns PaginatedMemberRecordList
+     * @returns PaginatedExtendMemberSerilizerList
      * @throws ApiError
      */
-    public memberRecordList(
+    public memberList(
         page?: number,
-    ): CancelablePromise<PaginatedMemberRecordList> {
+    ): CancelablePromise<PaginatedExtendMemberSerilizerList> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/member/record/',
+            url: '/member/',
             query: {
                 'page': page,
             },
@@ -30,6 +34,163 @@ export class MemberService {
     }
 
     /**
+     * revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED = 4)
+     * reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3)
+     * status(EXPIRED = 0 CURRENT = 1)
+     * @returns MemberCard
+     * @throws ApiError
+     */
+    public memberCardRetrieve(): CancelablePromise<MemberCard> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/member/card/',
+        });
+    }
+
+    /**
+     * revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED = 4)
+     * reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3)
+     * status(EXPIRED = 0 CURRENT = 1)
+     * @param requestBody
+     * @returns MemberCard
+     * @throws ApiError
+     */
+    public memberCardCreate(
+        requestBody: MemberCard,
+    ): CancelablePromise<MemberCard> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/card/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED = 4)
+     * reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3)
+     * status(EXPIRED = 0 CURRENT = 1)
+     * @returns void
+     * @throws ApiError
+     */
+    public memberCardDestroy(): CancelablePromise<void> {
+        return this.httpRequest.request({
+            method: 'DELETE',
+            url: '/member/card/',
+        });
+    }
+
+    /**
+     * @returns MemberReview
+     * @throws ApiError
+     */
+    public memberCardReissueRetrieve(): CancelablePromise<MemberReview> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/member/card/reissue/',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns MemberReview
+     * @throws ApiError
+     */
+    public memberCardReissueCreate(
+        requestBody: MemberReview,
+    ): CancelablePromise<MemberReview> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/card/reissue/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns MemberCard
+     * @throws ApiError
+     */
+    public memberCardReissueApplyCreate(
+        requestBody: MemberCard,
+    ): CancelablePromise<MemberCard> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/card/reissue_apply/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns MemberCard
+     * @throws ApiError
+     */
+    public memberCardReissueCheckCreate(
+        requestBody: MemberCard,
+    ): CancelablePromise<MemberCard> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/card/reissue_check/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns MemberCard
+     * @throws ApiError
+     */
+    public memberCardRevokeApplyCreate(
+        requestBody: MemberCard,
+    ): CancelablePromise<MemberCard> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/card/revoke_apply/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param page A page number within the paginated result set.
+     * @param range 期間 ex: 2023-09-01,2023-09-30
+     * @returns PaginatedMemberPointRecordList
+     * @throws ApiError
+     */
+    public memberPointRecordList(
+        page?: number,
+        range?: string,
+    ): CancelablePromise<PaginatedMemberPointRecordList> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/member/point_record/',
+            query: {
+                'page': page,
+                'range': range,
+            },
+        });
+    }
+
+    /**
+     * renewal(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2)
+     * upgrade(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 2 COMPLETED = 3)
+     * @returns ExtendMemberRecord
+     * @throws ApiError
+     */
+    public memberRecordRetrieve(): CancelablePromise<ExtendMemberRecord> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/member/record/',
+        });
+    }
+
+    /**
+     * renewal(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2)
+     * upgrade(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 2 COMPLETED = 3)
      * @param requestBody
      * @returns MemberRecord
      * @throws ApiError
@@ -40,6 +201,65 @@ export class MemberService {
         return this.httpRequest.request({
             method: 'POST',
             url: '/member/record/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns MemberRecord
+     * @throws ApiError
+     */
+    public memberRenewalCreate(
+        requestBody: MemberRecord,
+    ): CancelablePromise<MemberRecord> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/renewal/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @returns ExtendMemberRecord
+     * @throws ApiError
+     */
+    public memberUpgradeRetrieve(): CancelablePromise<ExtendMemberRecord> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/member/upgrade/',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns MemberRecord
+     * @throws ApiError
+     */
+    public memberUpgradeCreate(
+        requestBody: MemberRecord,
+    ): CancelablePromise<MemberRecord> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/upgrade/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns MemberRecord
+     * @throws ApiError
+     */
+    public memberUpgradeApplyCreate(
+        requestBody: MemberRecord,
+    ): CancelablePromise<MemberRecord> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/upgrade_apply/',
             body: requestBody,
             mediaType: 'application/json',
         });

@@ -14,6 +14,11 @@ export const $ShopCart = {
             isReadOnly: true,
             isRequired: true,
         },
+        image: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         created_at: {
             type: 'string',
             isReadOnly: true,

@@ -17,11 +17,9 @@ export type Order = {
     sell?: number | null;
     price?: number | null;
     traded_quantity?: number;
-    pkcs1?: string | null;
-    b64Cert?: string | null;
-    twid_resp?: Record<string, any> | null;
     company?: number | null;
     cart?: number | null;
     carbon_credit: number;
+    twid_record?: number | null;
 };
 
