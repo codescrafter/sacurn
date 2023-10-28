@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Status1d2Enum } from './Status1d2Enum';
+import type { TransactionDetailStatusEnum } from './TransactionDetailStatusEnum';
 
 export type TransactionDetail = {
     readonly id: string;
@@ -12,8 +12,9 @@ export type TransactionDetail = {
     deleted?: boolean;
     deleted_at?: string | null;
     total_amount?: number | null;
-    status?: Status1d2Enum;
+    status?: TransactionDetailStatusEnum;
     pay_at?: string | null;
     deadline?: string | null;
+    twid_record?: number | null;
 };
 

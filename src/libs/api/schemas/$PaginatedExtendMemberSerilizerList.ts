@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $PaginatedMemberRecordList = {
+export const $PaginatedExtendMemberSerilizerList = {
     properties: {
         count: {
             type: 'number',
@@ -20,7 +20,7 @@ export const $PaginatedMemberRecordList = {
         results: {
             type: 'array',
             contains: {
-                type: 'MemberRecord',
+                type: 'ExtendMemberSerilizer',
             },
         },
     },

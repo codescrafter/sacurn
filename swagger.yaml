@@ -303,7 +303,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedCarbonCreditList'
+                $ref: '#/components/schemas/PaginatedExtendCarbonCreditList'
           description: ''
   /carbon_credit/{id}/:
     patch:
@@ -423,27 +423,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/FilterList'
           description: ''
-  /carbon_credit/impact/:
-    get:
-      operationId: carbon_credit_impact_retrieve
-      tags:
-      - carbon_credit
-      security:
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-    post:
-      operationId: carbon_credit_impact_create
-      tags:
-      - carbon_credit
-      security:
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '201':
-          description: No response body
   /carbon_credit/location/:
     get:
       operationId: carbon_credit_location_retrieve
@@ -695,10 +674,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/Company'
           description: ''
+  /company/check_user_status/:
+    get:
+      operationId: company_check_user_status_retrieve
+      tags:
+      - company
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          description: No response body
   /company/employee/:
     get:
       operationId: company_employee_list
-      description: 網址上帶的id是員工列表回傳裡的id 不是user
+      description: |-
+        網址上帶的id是員工列表回傳裡的id 不是user
+
+        status 0尚未驗證 1驗證 2凍結
       parameters:
       - name: page
         required: false
@@ -721,20 +715,18 @@ paths:
           description: ''
     post:
       operationId: company_employee_create
-      description: 網址上帶的id是員工列表回傳裡的id 不是user
+      description: |-
+        網址上帶的id是員工列表回傳裡的id 不是user
+
+        status 0尚未驗證 1驗證 2凍結
       tags:
       - company
       requestBody:
         content:
-          application/json:
+          application/multi-part/form-data:
             schema:
-              $ref: '#/components/schemas/Employees'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Employees'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Employees'
+              $ref: '#/components/schemas/ExtendEmployee'
+        required: true
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -749,7 +741,10 @@ paths:
   /company/employee/{id}/:
     get:
       operationId: company_employee_retrieve
-      description: 網址上帶的id是員工列表回傳裡的id 不是user
+      description: |-
+        網址上帶的id是員工列表回傳裡的id 不是user
+
+        status 0尚未驗證 1驗證 2凍結
       parameters:
       - in: path
         name: id
@@ -771,7 +766,10 @@ paths:
           description: ''
     patch:
       operationId: company_employee_partial_update
-      description: 網址上帶的id是員工列表回傳裡的id 不是user
+      description: |-
+        網址上帶的id是員工列表回傳裡的id 不是user
+
+        status 0尚未驗證 1驗證 2凍結
       parameters:
       - in: path
         name: id
@@ -782,13 +780,7 @@ paths:
       - company
       requestBody:
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedEmployeesPatch'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedEmployeesPatch'
-          multipart/form-data:
+          application/multi-part/form-data:
             schema:
               $ref: '#/components/schemas/PatchedEmployeesPatch'
       security:
@@ -804,7 +796,10 @@ paths:
           description: ''
     delete:
       operationId: company_employee_destroy
-      description: 網址上帶的id是員工列表回傳裡的id 不是user
+      description: |-
+        網址上帶的id是員工列表回傳裡的id 不是user
+
+        status 0尚未驗證 1驗證 2凍結
       parameters:
       - in: path
         name: id
@@ -993,9 +988,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/PlanRecord'
           description: ''
-  /company/set_company_status/:
+  /company/review_pass_req/:
     get:
-      operationId: company_set_company_status_retrieve
+      operationId: company_review_pass_req_retrieve
       tags:
       - company
       security:
@@ -1099,6 +1094,54 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedExtendedInventoryList'
           description: ''
+  /inventory/accumulated_orders_information/:
+    get:
+      operationId: inventory_accumulated_orders_information_retrieve
+      tags:
+      - inventory
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AOI'
+          description: ''
+  /inventory/categories/:
+    get:
+      operationId: inventory_categories_retrieve
+      tags:
+      - inventory
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categories'
+          description: ''
+  /inventory/trend_data/:
+    get:
+      operationId: inventory_trend_data_retrieve
+      tags:
+      - inventory
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendData'
+          description: ''
   /login/:
     post:
       operationId: login_create
@@ -1129,9 +1172,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
           description: ''
-  /member/record/:
+  /member/:
     get:
-      operationId: member_record_list
+      operationId: member_list
       parameters:
       - name: page
         required: false
@@ -1151,10 +1194,353 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedMemberRecordList'
+                $ref: '#/components/schemas/PaginatedExtendMemberSerilizerList'
+          description: ''
+  /member/card/:
+    get:
+      operationId: member_card_retrieve
+      description: "revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED =\
+        \ 4) \n reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3) \n\
+        \ status(EXPIRED = 0 CURRENT = 1)"
+      tags:
+      - member
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
+          description: ''
+    post:
+      operationId: member_card_create
+      description: "revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED =\
+        \ 4) \n reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3) \n\
+        \ status(EXPIRED = 0 CURRENT = 1)"
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
+          description: ''
+    delete:
+      operationId: member_card_destroy
+      description: "revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED =\
+        \ 4) \n reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3) \n\
+        \ status(EXPIRED = 0 CURRENT = 1)"
+      tags:
+      - member
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /member/card/reissue/:
+    get:
+      operationId: member_card_reissue_retrieve
+      tags:
+      - member
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberReview'
+          description: ''
+    post:
+      operationId: member_card_reissue_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberReview'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberReview'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberReview'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberReview'
+          description: ''
+  /member/card/reissue_apply/:
+    post:
+      operationId: member_card_reissue_apply_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
+          description: ''
+  /member/card/reissue_check/:
+    post:
+      operationId: member_card_reissue_check_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
+          description: ''
+  /member/card/revoke_apply/:
+    post:
+      operationId: member_card_revoke_apply_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
+          description: ''
+  /member/point_record/:
+    get:
+      operationId: member_point_record_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: query
+        name: range
+        schema:
+          type: string
+        description: '期間 ex: 2023-09-01,2023-09-30'
+      tags:
+      - member
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMemberPointRecordList'
+          description: ''
+  /member/record/:
+    get:
+      operationId: member_record_retrieve
+      description: "renewal(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2) \n upgrade(UNCONFIRMED\
+        \ = 0 CONFIRMED = 1 REVIEWING = 2 COMPLETED = 3)"
+      tags:
+      - member
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtendMemberRecord'
           description: ''
     post:
       operationId: member_record_create
+      description: "renewal(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2) \n upgrade(UNCONFIRMED\
+        \ = 0 CONFIRMED = 1 REVIEWING = 2 COMPLETED = 3)"
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberRecord'
+          description: ''
+  /member/renewal/:
+    post:
+      operationId: member_renewal_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberRecord'
+          description: ''
+  /member/upgrade/:
+    get:
+      operationId: member_upgrade_retrieve
+      tags:
+      - member
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtendMemberRecord'
+          description: ''
+    post:
+      operationId: member_upgrade_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberRecord'
+          description: ''
+  /member/upgrade_apply/:
+    post:
+      operationId: member_upgrade_apply_create
       tags:
       - member
       requestBody:
@@ -1908,6 +2294,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/PayCallback'
           description: ''
+  /trade/transaction_cancel/:
+    post:
+      operationId: trade_transaction_cancel_create
+      tags:
+      - trade
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          description: No response body
   /trade/transaction_record/:
     get:
       operationId: trade_transaction_record_list
@@ -2095,6 +2493,44 @@ paths:
           description: ''
 components:
   schemas:
+    AOI:
+      type: object
+      properties:
+        order_count:
+          type: integer
+          default: 2
+        acc_amount:
+          type: integer
+          default: 20000
+        acc_point:
+          type: integer
+          default: 20000
+        member_name:
+          type: integer
+          default: ECOLAND
+        upgrade:
+          type: object
+          additionalProperties: {}
+          default:
+            orders: 200
+            points: 10000
+            renewal: false
+        expire_at:
+          type: string
+          format: date-time
+          default: '2023-11-13T01:46:11.720159Z'
+    ActionEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: |-
+        * `1` - Upgrade
+        * `2` - Extend
+        * `3` - Reissue
+        * `4` - Revoke
     AuditLog:
       type: object
       properties:
@@ -2160,6 +2596,30 @@ components:
         carbon_tag:
           type: string
           readOnly: true
+        images:
+          type: string
+          readOnly: true
+        impacts:
+          type: string
+          readOnly: true
+        performances:
+          type: string
+          readOnly: true
+        project_validator:
+          type: string
+          readOnly: true
+        ccs_validator:
+          type: string
+          readOnly: true
+        additional_certifications:
+          type: string
+          readOnly: true
+        issued_credits_retired:
+          type: string
+          readOnly: true
+        project_documents:
+          type: string
+          readOnly: true
         name:
           type: string
           nullable: true
@@ -2170,14 +2630,14 @@ components:
           nullable: true
           title: 描述
           maxLength: 45
-        video:
-          type: string
-          nullable: true
-          maxLength: 45
         image:
           type: string
           format: uri
           nullable: true
+        video:
+          type: string
+          nullable: true
+          maxLength: 45
         price:
           type: number
           format: double
@@ -2197,7 +2657,7 @@ components:
         serial_number:
           type: string
           maxLength: 50
-        rating:
+        carbon_rating:
           type: string
           nullable: true
           maxLength: 8
@@ -2206,7 +2666,7 @@ components:
           maximum: 2147483647
           minimum: -2147483648
           nullable: true
-        standard:
+        certification_from:
           type: string
           nullable: true
           maxLength: 128
@@ -2214,6 +2674,54 @@ components:
           type: string
           nullable: true
           maxLength: 45
+        project_code:
+          type: string
+          nullable: true
+          maxLength: 8
+        available_vintage_start:
+          type: string
+          format: date
+          nullable: true
+          title: 起始日
+        available_vintage_end:
+          type: string
+          format: date
+          nullable: true
+          title: 截止日
+        hectares:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        developer:
+          type: string
+          nullable: true
+          maxLength: 45
+        standard_methodology:
+          type: string
+          nullable: true
+          maxLength: 45
+        volume_issues:
+          type: string
+          nullable: true
+          maxLength: 45
+        avg_annual_emission_reduction:
+          type: string
+          nullable: true
+          maxLength: 45
+        information:
+          type: string
+          nullable: true
+        rating_text:
+          type: string
+          nullable: true
+        forest_text:
+          type: string
+          nullable: true
+        impact_image:
+          type: string
+          format: uri
+          nullable: true
         created_at:
           type: string
           format: date-time
@@ -2227,13 +2735,21 @@ components:
           type: integer
           title: 公司名稱
       required:
+      - additional_certifications
       - carbon_tag
+      - ccs_validator
       - company
       - created_at
       - id
+      - images
+      - impacts
+      - issued_credits_retired
       - location
       - max_price
       - min_price
+      - performances
+      - project_documents
+      - project_validator
     CartDetail:
       type: object
       properties:
@@ -2285,6 +2801,21 @@ components:
         order:
           type: integer
           default: 1
+    Categories:
+      type: object
+      properties:
+        category:
+          type: object
+          additionalProperties: {}
+          default:
+            黃碳: 0.2916
+            綠碳: 0.70833
+        location:
+          type: object
+          additionalProperties: {}
+          default:
+            TW: 0.2916
+            USA: 0.70833
     Certificate:
       type: object
       properties:
@@ -2318,6 +2849,7 @@ components:
           nullable: true
         name:
           type: string
+          title: 企業名稱
           maxLength: 45
         code:
           type: string
@@ -2325,60 +2857,74 @@ components:
         registration_number:
           type: string
           nullable: true
+          title: 統一編號
           maxLength: 45
         representative:
           type: string
           nullable: true
+          title: 代表人中文姓名
           maxLength: 45
         capital:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
           nullable: true
+          title: 實收資本額
         founding_date:
           type: string
           format: date
           nullable: true
+          title: 核准設立日期
         address:
           type: object
           additionalProperties: {}
           nullable: true
+          title: 公司登記地址
         phone:
           type: string
           nullable: true
+          title: 聯絡電話
           maxLength: 45
         contact_address:
-          type: string
+          type: object
+          additionalProperties: {}
           nullable: true
-          maxLength: 256
+          title: 聯絡地址
         representative_country:
           type: string
           nullable: true
+          title: 代表人國籍
           maxLength: 45
         representative_country_type:
           type: string
           nullable: true
+          title: 代表人國籍選項
           maxLength: 45
         representative_id_card_number:
           type: string
           nullable: true
+          title: 代表人身份證字號
           maxLength: 45
         representative_id_card_issue_date:
           type: string
           format: date-time
           nullable: true
+          title: 身份證發證日期
         representative_id_card_issue_location:
           type: string
           nullable: true
+          title: 身份證發證地點
           maxLength: 45
         representative_id_card_issue_times:
           type: string
           nullable: true
+          title: 身份證發證類別
           maxLength: 45
         representative_birthday:
           type: string
           format: date-time
           nullable: true
+          title: 出生年月日
         representative_id_card_front:
           type: string
           format: uri
@@ -2390,27 +2936,33 @@ components:
         financial_institution_type:
           type: string
           nullable: true
+          title: 選擇金融機構分類
           maxLength: 45
         financial_institution_name:
           type: string
           nullable: true
+          title: 選擇銀行或郵局
           maxLength: 45
         financial_institution_branch_name:
           type: string
           nullable: true
+          title: 選擇分行或支局
           maxLength: 45
         account_name:
           type: string
           nullable: true
+          title: 戶名
           maxLength: 45
         account_number:
           type: string
           nullable: true
+          title: 帳號
           maxLength: 45
         account_image:
           type: string
           format: uri
           nullable: true
+          title: 存摺封面
         terms_of_service_confirm:
           type: boolean
         terms_of_service_confirm_at:
@@ -2419,10 +2971,31 @@ components:
           nullable: true
         status:
           allOf:
-          - $ref: '#/components/schemas/Status02bEnum'
+          - $ref: '#/components/schemas/ReissueEnum'
           readOnly: true
+          title: 狀態
           minimum: -2147483648
           maximum: 2147483647
+        contact_person_name:
+          type: string
+          nullable: true
+          title: 聯絡人名稱
+          maxLength: 45
+        contact_person_position:
+          type: string
+          nullable: true
+          title: 聯絡人職稱
+          maxLength: 45
+        contact_person_email:
+          type: string
+          nullable: true
+          title: 聯絡人Email
+          maxLength: 45
+        contact_person_phone:
+          type: string
+          nullable: true
+          title: 聯絡人電話
+          maxLength: 45
       required:
       - created_at
       - id
@@ -2512,6 +3085,10 @@ components:
           type: string
           format: date-time
           nullable: true
+        photo:
+          type: string
+          format: uri
+          nullable: true
         position:
           type: string
           nullable: true
@@ -2533,6 +3110,11 @@ components:
           - $ref: '#/components/schemas/Status1d2Enum'
           minimum: -2147483648
           maximum: 2147483647
+        is_online:
+          allOf:
+          - $ref: '#/components/schemas/IsOnlineEnum'
+          minimum: -2147483648
+          maximum: 2147483647
         user:
           type: integer
         company:
@@ -2548,13 +3130,204 @@ components:
       - updated_at
       - user
       - username
-    Employees:
+    ExtendCarbonCredit:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        max_price:
+          type: string
+          readOnly: true
+        min_price:
+          type: string
+          readOnly: true
+        location:
+          type: string
+          readOnly: true
+        carbon_tag:
+          type: string
+          readOnly: true
+        images:
+          type: array
+          items: {}
+          default:
+          - https://image/123
+          - https://image/abc
+        impacts:
+          type: array
+          items: {}
+          default:
+          - icon: tree
+            name: Over 35,000,000
+            desc: tons of emission removals over the project’s lifetime to date.
+        performances:
+          type: array
+          items: {}
+          default:
+          - name: SDG 1 No Poverty
+            desc: Providing livelihood support to vulnerable communities
+            url: https://youtube.com
+        project_validator:
+          type: array
+          items: {}
+          default:
+          - name: SGS Global Services
+            desc: '(issue date: Feb 2013)'
+            url: https://youtube.com
+        ccs_validator:
+          type: array
+          items: {}
+          default:
+          - name: SGS Global Services
+            desc: '(issue date: Feb 2013)'
+            url: https://youtube.com
+        additional_certifications:
+          type: array
+          items: {}
+          default:
+          - name: CCB-GOLD
+        issued_credits_retired:
+          type: array
+          items: {}
+          default:
+          - year: '2016'
+            percentage: 52%
+        project_documents:
+          type: array
+          items: {}
+          default:
+          - name: PDD
+            url: https://youtube.com
+        name:
+          type: string
+          nullable: true
+          title: 名稱
+          maxLength: 45
+        about:
+          type: string
+          nullable: true
+          title: 描述
+          maxLength: 45
+        image:
+          type: string
+          format: uri
+          nullable: true
+        video:
+          type: string
+          nullable: true
+          maxLength: 45
+        price:
+          type: number
+          format: double
+          nullable: true
+          title: 價位
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 數量
+        vintage:
+          type: string
+          format: date
+          nullable: true
+          title: 製造年份
+        serial_number:
+          type: string
+          maxLength: 50
+        carbon_rating:
+          type: string
+          nullable: true
+          maxLength: 8
+        co_benefit:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        certification_from:
+          type: string
+          nullable: true
+          maxLength: 128
+        type:
+          type: string
+          nullable: true
+          maxLength: 45
+        project_code:
+          type: string
+          nullable: true
+          maxLength: 8
+        available_vintage_start:
+          type: string
+          format: date
+          nullable: true
+          title: 起始日
+        available_vintage_end:
+          type: string
+          format: date
+          nullable: true
+          title: 截止日
+        hectares:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        developer:
+          type: string
+          nullable: true
+          maxLength: 45
+        standard_methodology:
+          type: string
+          nullable: true
+          maxLength: 45
+        volume_issues:
+          type: string
+          nullable: true
+          maxLength: 45
+        avg_annual_emission_reduction:
+          type: string
+          nullable: true
+          maxLength: 45
+        information:
+          type: string
+          nullable: true
+        rating_text:
+          type: string
+          nullable: true
+        forest_text:
+          type: string
+          nullable: true
+        impact_image:
+          type: string
+          format: uri
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: 建立時間
+        carbon_credit_location:
+          type: integer
+          nullable: true
+          title: 地點
+        company:
+          type: integer
+          title: 公司名稱
+      required:
+      - carbon_tag
+      - company
+      - created_at
+      - id
+      - location
+      - max_price
+      - min_price
+    ExtendEmployee:
       type: object
       properties:
         username:
           type: string
           default: new1
-        password1:
+        password:
           type: string
           default: test123456
         email:
@@ -2575,6 +3348,243 @@ components:
         group_name:
           type: string
           default: 操作人員
+        photo:
+          type: string
+          format: uri
+        status:
+          type: integer
+          default: 0
+      required:
+      - photo
+    ExtendMemberRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        current_member:
+          type: string
+          readOnly: true
+        current_member_annual_renewal_fee:
+          type: string
+          readOnly: true
+        renewal_deadline_day:
+          type: string
+          readOnly: true
+        next_member:
+          type: string
+          readOnly: true
+        next_member_annual_renewal_fee:
+          type: string
+          readOnly: true
+        loss_card_fee:
+          type: string
+          readOnly: true
+        buy_cost:
+          type: number
+          format: double
+          default: 0.05
+        sell_cost:
+          type: number
+          format: double
+          default: 0.05
+        can_upgrade:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted:
+          type: boolean
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        start_at:
+          type: string
+          format: date-time
+          nullable: true
+        expire_at:
+          type: string
+          format: date-time
+          nullable: true
+        renewal:
+          allOf:
+          - $ref: '#/components/schemas/RenewalEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        renewal_at:
+          type: string
+          format: date-time
+          nullable: true
+        renewal_complete_at:
+          type: string
+          format: date-time
+          nullable: true
+        renewal_expire_at:
+          type: string
+          format: date-time
+          nullable: true
+        upgrade:
+          allOf:
+          - $ref: '#/components/schemas/ReissueEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        upgrade_at:
+          type: string
+          format: date-time
+          nullable: true
+        upgrade_complete_at:
+          type: string
+          format: date-time
+          nullable: true
+        company:
+          type: integer
+        member:
+          type: integer
+      required:
+      - can_upgrade
+      - company
+      - created_at
+      - current_member
+      - current_member_annual_renewal_fee
+      - id
+      - loss_card_fee
+      - member
+      - next_member
+      - next_member_annual_renewal_fee
+      - renewal_deadline_day
+      - updated_at
+    ExtendMemberSerilizer:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        identity:
+          type: array
+          items: {}
+          default:
+          - 法人
+          - 會員升級
+        upgrade:
+          type: object
+          additionalProperties: {}
+          default:
+            orders: 350
+            points: 300000
+            renewal: false
+        deleted:
+          type: boolean
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        name:
+          type: string
+          maxLength: 45
+        image:
+          type: string
+          format: uri
+          nullable: true
+        level:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        registration_fee:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        annual_renewal_fee:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        duration:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        recommend:
+          type: string
+          maxLength: 45
+        point:
+          type: string
+          maxLength: 45
+        point_multiplier:
+          type: number
+          format: double
+          nullable: true
+        upgrade_change_card_fee:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        loss_card_fee:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        buy_cost:
+          type: number
+          format: double
+          nullable: true
+        sell_cost:
+          type: number
+          format: double
+          nullable: true
+        trade_day_limit:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        trade_month_limit:
+          type: number
+          format: double
+          nullable: true
+        user_access_limit:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        project_estimate:
+          type: string
+          maxLength: 45
+        e_news:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        market_trade:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        upcoming_release:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        rebate_program:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+      required:
+      - id
+      - name
+      - point
+      - project_estimate
+      - recommend
     ExtendedCart:
       type: object
       properties:
@@ -2659,6 +3669,7 @@ components:
           nullable: true
         name:
           type: string
+          title: 企業名稱
           maxLength: 45
         code:
           type: string
@@ -2666,60 +3677,74 @@ components:
         registration_number:
           type: string
           nullable: true
+          title: 統一編號
           maxLength: 45
         representative:
           type: string
           nullable: true
+          title: 代表人中文姓名
           maxLength: 45
         capital:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
           nullable: true
+          title: 實收資本額
         founding_date:
           type: string
           format: date
           nullable: true
+          title: 核准設立日期
         address:
           type: object
           additionalProperties: {}
           nullable: true
+          title: 公司登記地址
         phone:
           type: string
           nullable: true
+          title: 聯絡電話
           maxLength: 45
         contact_address:
-          type: string
+          type: object
+          additionalProperties: {}
           nullable: true
-          maxLength: 256
+          title: 聯絡地址
         representative_country:
           type: string
           nullable: true
+          title: 代表人國籍
           maxLength: 45
         representative_country_type:
           type: string
           nullable: true
+          title: 代表人國籍選項
           maxLength: 45
         representative_id_card_number:
           type: string
           nullable: true
+          title: 代表人身份證字號
           maxLength: 45
         representative_id_card_issue_date:
           type: string
           format: date-time
           nullable: true
+          title: 身份證發證日期
         representative_id_card_issue_location:
           type: string
           nullable: true
+          title: 身份證發證地點
           maxLength: 45
         representative_id_card_issue_times:
           type: string
           nullable: true
+          title: 身份證發證類別
           maxLength: 45
         representative_birthday:
           type: string
           format: date-time
           nullable: true
+          title: 出生年月日
         representative_id_card_front:
           type: string
           format: uri
@@ -2731,27 +3756,33 @@ components:
         financial_institution_type:
           type: string
           nullable: true
+          title: 選擇金融機構分類
           maxLength: 45
         financial_institution_name:
           type: string
           nullable: true
+          title: 選擇銀行或郵局
           maxLength: 45
         financial_institution_branch_name:
           type: string
           nullable: true
+          title: 選擇分行或支局
           maxLength: 45
         account_name:
           type: string
           nullable: true
+          title: 戶名
           maxLength: 45
         account_number:
           type: string
           nullable: true
+          title: 帳號
           maxLength: 45
         account_image:
           type: string
           format: uri
           nullable: true
+          title: 存摺封面
         terms_of_service_confirm:
           type: boolean
         terms_of_service_confirm_at:
@@ -2760,9 +3791,30 @@ components:
           nullable: true
         status:
           allOf:
-          - $ref: '#/components/schemas/Status02bEnum'
+          - $ref: '#/components/schemas/ReissueEnum'
+          title: 狀態
           minimum: -2147483648
           maximum: 2147483647
+        contact_person_name:
+          type: string
+          nullable: true
+          title: 聯絡人名稱
+          maxLength: 45
+        contact_person_position:
+          type: string
+          nullable: true
+          title: 聯絡人職稱
+          maxLength: 45
+        contact_person_email:
+          type: string
+          nullable: true
+          title: 聯絡人Email
+          maxLength: 45
+        contact_person_phone:
+          type: string
+          nullable: true
+          title: 聯絡人電話
+          maxLength: 45
         registration_document:
           type: string
           format: uri
@@ -2876,6 +3928,14 @@ components:
       required:
       - id
       - name
+    IsOnlineEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      description: |-
+        * `0` - Offline
+        * `1` - Online
     Login:
       type: object
       properties:
@@ -2903,11 +3963,130 @@ components:
       required:
       - refresh
       - user
+    MemberCard:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        issue_at:
+          type: string
+          format: date-time
+          nullable: true
+        reissue:
+          allOf:
+          - $ref: '#/components/schemas/ReissueEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        reissue_at:
+          type: string
+          format: date-time
+          nullable: true
+        reissue_completed_at:
+          type: string
+          format: date-time
+          nullable: true
+        reissue_checked_at:
+          type: string
+          format: date-time
+          nullable: true
+        revoke:
+          allOf:
+          - $ref: '#/components/schemas/RevokeEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        revoke_at:
+          type: string
+          format: date-time
+          nullable: true
+        revoke_complete_at:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/Status923Enum'
+          minimum: -2147483648
+          maximum: 2147483647
+        company:
+          type: integer
+      required:
+      - company
+      - id
+    MemberPointRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+        tran_uuid:
+          type: string
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        amount:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        point:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        company:
+          type: integer
+        transaction:
+          type: integer
+      required:
+      - company
+      - created_at
+      - id
+      - status
+      - tran_uuid
+      - transaction
+      - updated_at
     MemberRecord:
       type: object
       properties:
         id:
           type: integer
+          readOnly: true
+        current_member:
+          type: string
+          readOnly: true
+        current_member_annual_renewal_fee:
+          type: string
+          readOnly: true
+        renewal_deadline_day:
+          type: string
+          readOnly: true
+        next_member:
+          type: string
+          readOnly: true
+        next_member_annual_renewal_fee:
+          type: string
+          readOnly: true
+        loss_card_fee:
+          type: string
+          readOnly: true
+        buy_cost:
+          type: string
+          readOnly: true
+        sell_cost:
+          type: string
+          readOnly: true
+        can_upgrade:
+          type: string
           readOnly: true
         created_at:
           type: string
@@ -2925,19 +4104,103 @@ components:
           type: string
           format: date-time
           nullable: true
-        status:
-          type: integer
-          maximum: 2147483647
+        start_at:
+          type: string
+          format: date-time
+          nullable: true
+        expire_at:
+          type: string
+          format: date-time
+          nullable: true
+        renewal:
+          allOf:
+          - $ref: '#/components/schemas/RenewalEnum'
           minimum: -2147483648
+          maximum: 2147483647
+        renewal_at:
+          type: string
+          format: date-time
+          nullable: true
+        renewal_complete_at:
+          type: string
+          format: date-time
+          nullable: true
+        renewal_expire_at:
+          type: string
+          format: date-time
+          nullable: true
+        upgrade:
+          allOf:
+          - $ref: '#/components/schemas/ReissueEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        upgrade_at:
+          type: string
+          format: date-time
+          nullable: true
+        upgrade_complete_at:
+          type: string
+          format: date-time
+          nullable: true
         company:
           type: integer
         member:
           type: integer
       required:
+      - buy_cost
+      - can_upgrade
+      - company
+      - created_at
+      - current_member
+      - current_member_annual_renewal_fee
+      - id
+      - loss_card_fee
+      - member
+      - next_member
+      - next_member_annual_renewal_fee
+      - renewal_deadline_day
+      - sell_cost
+      - updated_at
+    MemberReview:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        action:
+          allOf:
+          - $ref: '#/components/schemas/ActionEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        status:
+          allOf:
+          - $ref: '#/components/schemas/Status1d2Enum'
+          minimum: -2147483648
+          maximum: 2147483647
+        pass_at:
+          type: string
+          format: date-time
+          nullable: true
+        company:
+          type: integer
+        twid_record:
+          type: integer
+          nullable: true
+      required:
+      - action
       - company
       - created_at
       - id
-      - member
       - updated_at
     OperationRecord:
       type: object
@@ -3055,18 +4318,6 @@ components:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
-        pkcs1:
-          type: string
-          nullable: true
-          maxLength: 256
-        b64Cert:
-          type: string
-          nullable: true
-          maxLength: 256
-        twid_resp:
-          type: object
-          additionalProperties: {}
-          nullable: true
         company:
           type: integer
           nullable: true
@@ -3075,6 +4326,9 @@ components:
           nullable: true
         carbon_credit:
           type: integer
+        twid_record:
+          type: integer
+          nullable: true
       required:
       - carbon_credit
       - company_code
@@ -3132,26 +4386,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AuditLog'
-    PaginatedCarbonCreditList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=2
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/CarbonCredit'
     PaginatedEmployeeList:
       type: object
       properties:
@@ -3172,6 +4406,46 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Employee'
+    PaginatedExtendCarbonCreditList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtendCarbonCredit'
+    PaginatedExtendMemberSerilizerList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtendMemberSerilizer'
     PaginatedExtendedCartList:
       type: object
       properties:
@@ -3232,7 +4506,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Group'
-    PaginatedMemberRecordList:
+    PaginatedMemberPointRecordList:
       type: object
       properties:
         count:
@@ -3251,7 +4525,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/MemberRecord'
+            $ref: '#/components/schemas/MemberPointRecord'
     PaginatedOperationRecordList:
       type: object
       properties:
@@ -3469,6 +4743,30 @@ components:
         carbon_tag:
           type: string
           readOnly: true
+        images:
+          type: string
+          readOnly: true
+        impacts:
+          type: string
+          readOnly: true
+        performances:
+          type: string
+          readOnly: true
+        project_validator:
+          type: string
+          readOnly: true
+        ccs_validator:
+          type: string
+          readOnly: true
+        additional_certifications:
+          type: string
+          readOnly: true
+        issued_credits_retired:
+          type: string
+          readOnly: true
+        project_documents:
+          type: string
+          readOnly: true
         name:
           type: string
           nullable: true
@@ -3479,14 +4777,14 @@ components:
           nullable: true
           title: 描述
           maxLength: 45
-        video:
-          type: string
-          nullable: true
-          maxLength: 45
         image:
           type: string
           format: uri
           nullable: true
+        video:
+          type: string
+          nullable: true
+          maxLength: 45
         price:
           type: number
           format: double
@@ -3506,7 +4804,7 @@ components:
         serial_number:
           type: string
           maxLength: 50
-        rating:
+        carbon_rating:
           type: string
           nullable: true
           maxLength: 8
@@ -3515,7 +4813,7 @@ components:
           maximum: 2147483647
           minimum: -2147483648
           nullable: true
-        standard:
+        certification_from:
           type: string
           nullable: true
           maxLength: 128
@@ -3523,6 +4821,54 @@ components:
           type: string
           nullable: true
           maxLength: 45
+        project_code:
+          type: string
+          nullable: true
+          maxLength: 8
+        available_vintage_start:
+          type: string
+          format: date
+          nullable: true
+          title: 起始日
+        available_vintage_end:
+          type: string
+          format: date
+          nullable: true
+          title: 截止日
+        hectares:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        developer:
+          type: string
+          nullable: true
+          maxLength: 45
+        standard_methodology:
+          type: string
+          nullable: true
+          maxLength: 45
+        volume_issues:
+          type: string
+          nullable: true
+          maxLength: 45
+        avg_annual_emission_reduction:
+          type: string
+          nullable: true
+          maxLength: 45
+        information:
+          type: string
+          nullable: true
+        rating_text:
+          type: string
+          nullable: true
+        forest_text:
+          type: string
+          nullable: true
+        impact_image:
+          type: string
+          format: uri
+          nullable: true
         created_at:
           type: string
           format: date-time
@@ -3587,7 +4933,7 @@ components:
     PatchedEmployeesPatch:
       type: object
       properties:
-        password1:
+        password:
           type: string
           default: test123456
         email:
@@ -3608,6 +4954,12 @@ components:
         group_name:
           type: string
           default: 操作人員
+        photo:
+          type: string
+          format: uri
+        status:
+          type: integer
+          default: 0
     PatchedExtendedCompany:
       type: object
       properties:
@@ -3632,6 +4984,7 @@ components:
           nullable: true
         name:
           type: string
+          title: 企業名稱
           maxLength: 45
         code:
           type: string
@@ -3639,60 +4992,74 @@ components:
         registration_number:
           type: string
           nullable: true
+          title: 統一編號
           maxLength: 45
         representative:
           type: string
           nullable: true
+          title: 代表人中文姓名
           maxLength: 45
         capital:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
           nullable: true
+          title: 實收資本額
         founding_date:
           type: string
           format: date
           nullable: true
+          title: 核准設立日期
         address:
           type: object
           additionalProperties: {}
           nullable: true
+          title: 公司登記地址
         phone:
           type: string
           nullable: true
+          title: 聯絡電話
           maxLength: 45
         contact_address:
-          type: string
+          type: object
+          additionalProperties: {}
           nullable: true
-          maxLength: 256
+          title: 聯絡地址
         representative_country:
           type: string
           nullable: true
+          title: 代表人國籍
           maxLength: 45
         representative_country_type:
           type: string
           nullable: true
+          title: 代表人國籍選項
           maxLength: 45
         representative_id_card_number:
           type: string
           nullable: true
+          title: 代表人身份證字號
           maxLength: 45
         representative_id_card_issue_date:
           type: string
           format: date-time
           nullable: true
+          title: 身份證發證日期
         representative_id_card_issue_location:
           type: string
           nullable: true
+          title: 身份證發證地點
           maxLength: 45
         representative_id_card_issue_times:
           type: string
           nullable: true
+          title: 身份證發證類別
           maxLength: 45
         representative_birthday:
           type: string
           format: date-time
           nullable: true
+          title: 出生年月日
         representative_id_card_front:
           type: string
           format: uri
@@ -3704,27 +5071,33 @@ components:
         financial_institution_type:
           type: string
           nullable: true
+          title: 選擇金融機構分類
           maxLength: 45
         financial_institution_name:
           type: string
           nullable: true
+          title: 選擇銀行或郵局
           maxLength: 45
         financial_institution_branch_name:
           type: string
           nullable: true
+          title: 選擇分行或支局
           maxLength: 45
         account_name:
           type: string
           nullable: true
+          title: 戶名
           maxLength: 45
         account_number:
           type: string
           nullable: true
+          title: 帳號
           maxLength: 45
         account_image:
           type: string
           format: uri
           nullable: true
+          title: 存摺封面
         terms_of_service_confirm:
           type: boolean
         terms_of_service_confirm_at:
@@ -3733,9 +5106,30 @@ components:
           nullable: true
         status:
           allOf:
-          - $ref: '#/components/schemas/Status02bEnum'
+          - $ref: '#/components/schemas/ReissueEnum'
+          title: 狀態
           minimum: -2147483648
           maximum: 2147483647
+        contact_person_name:
+          type: string
+          nullable: true
+          title: 聯絡人名稱
+          maxLength: 45
+        contact_person_position:
+          type: string
+          nullable: true
+          title: 聯絡人職稱
+          maxLength: 45
+        contact_person_email:
+          type: string
+          nullable: true
+          title: 聯絡人Email
+          maxLength: 45
+        contact_person_phone:
+          type: string
+          nullable: true
+          title: 聯絡人電話
+          maxLength: 45
         registration_document:
           type: string
           format: uri
@@ -3746,6 +5140,9 @@ components:
           type: integer
           readOnly: true
         name:
+          type: string
+          readOnly: true
+        image:
           type: string
           readOnly: true
         created_at:
@@ -3890,6 +5287,28 @@ components:
       - access
       - refresh
       - user
+    ReissueEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      description: |-
+        * `0` - Not Reviewed
+        * `1` - Reviewing
+        * `2` - Reviewed Pass
+        * `3` - Documents Needed
+    RenewalEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `0` - Unconfirmed
+        * `1` - Confirmed
+        * `2` - Completed
     RestAuthDetail:
       type: object
       properties:
@@ -3898,6 +5317,18 @@ components:
           readOnly: true
       required:
       - detail
+    RevokeEnum:
+      enum:
+      - 0
+      - 1
+      - 3
+      - 4
+      type: integer
+      description: |-
+        * `0` - Unconfirmed
+        * `1` - Confirmed
+        * `3` - Reviewing
+        * `4` - Completed
     SellEnum:
       enum:
       - 1
@@ -3910,6 +5341,9 @@ components:
           type: integer
           readOnly: true
         name:
+          type: string
+          readOnly: true
+        image:
           type: string
           readOnly: true
         created_at:
@@ -3946,6 +5380,7 @@ components:
       - company
       - created_at
       - id
+      - image
       - name
       - shop_product
       - updated_at
@@ -3955,9 +5390,9 @@ components:
         quantity:
           type: integer
           default: 100
-        shop_product:
-          type: integer
-          default: 1
+        shop_product_name:
+          type: string
+          default: 碳權證書
     ShopProduct:
       type: object
       properties:
@@ -3983,6 +5418,10 @@ components:
         name:
           type: string
           maxLength: 45
+        image:
+          type: string
+          format: uri
+          nullable: true
         desc:
           type: string
           nullable: true
@@ -4002,7 +5441,7 @@ components:
           nullable: true
         status:
           allOf:
-          - $ref: '#/components/schemas/ShopProductStatusEnum'
+          - $ref: '#/components/schemas/Status923Enum'
           minimum: -2147483648
           maximum: 2147483647
         company:
@@ -4025,14 +5464,6 @@ components:
         quantity:
           type: integer
           default: 100
-    ShopProductStatusEnum:
-      enum:
-      - 0
-      - 1
-      type: integer
-      description: |-
-        * `0` - Off Sale
-        * `1` - On Sale
     ShopTransaction:
       type: object
       properties:
@@ -4040,6 +5471,7 @@ components:
           type: string
           format: uuid
           readOnly: true
+          title: 訂單編號
         created_at:
           type: string
           format: date-time
@@ -4060,13 +5492,16 @@ components:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
+          title: 總金額
         status:
           allOf:
-          - $ref: '#/components/schemas/Status1d2Enum'
+          - $ref: '#/components/schemas/ReissueEnum'
+          title: 狀態
           minimum: -2147483648
           maximum: 2147483647
         company:
           type: integer
+          title: 公司
         shop_order:
           type: integer
       required:
@@ -4075,18 +5510,6 @@ components:
       - id
       - shop_order
       - updated_at
-    Status02bEnum:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      description: |-
-        * `0` - Not Reviewed
-        * `1` - Reviewing
-        * `2` - Reviewed Pass
-        * `3` - Documents Needed
     Status1d2Enum:
       enum:
       - 0
@@ -4097,6 +5520,14 @@ components:
         * `0` - Verifying
         * `1` - Verified Pass
         * `2` - Suspended
+    Status923Enum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      description: |-
+        * `0` - Expired
+        * `1` - Current
     TokenObtainPair:
       type: object
       properties:
@@ -4166,7 +5597,7 @@ components:
           nullable: true
         status:
           allOf:
-          - $ref: '#/components/schemas/Status1d2Enum'
+          - $ref: '#/components/schemas/TransactionDetailStatusEnum'
           minimum: -2147483648
           maximum: 2147483647
         pay_at:
@@ -4177,10 +5608,27 @@ components:
           type: string
           format: date-time
           nullable: true
+        twid_record:
+          type: integer
+          nullable: true
       required:
       - created_at
       - id
       - updated_at
+    TransactionDetailStatusEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: |-
+        * `0` - Not Yet Pay
+        * `1` - Payed
+        * `2` - Cancel
+        * `3` - Payment Expired
+        * `4` - Complete
     TransactionRecord:
       type: object
       properties:
@@ -4237,6 +5685,69 @@ components:
       - status
       - total_amount
       - transaction_detail
+    TrendData:
+      type: object
+      properties:
+        series:
+          type: object
+          additionalProperties: {}
+          default:
+          - name: date
+            data:
+            - '11'
+            - '12'
+            - '01'
+            - '02'
+            - '03'
+            - '04'
+            - '05'
+            - '06'
+            - '07'
+            - 08
+            - 09
+            - '10'
+          - name: amount
+            data:
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 2000000.0
+          - name: order_count
+            data:
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 2000000.0
+          - name: avg_order_value
+            data:
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 2000000.0
     User:
       type: object
       properties:

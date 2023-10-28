@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Status02bEnum } from './Status02bEnum';
+import type { ReissueEnum } from './ReissueEnum';
 
 export type Company = {
     readonly id: number;
@@ -20,7 +20,7 @@ export type Company = {
     founding_date?: string | null;
     address?: Record<string, any> | null;
     phone?: string | null;
-    contact_address?: string | null;
+    contact_address?: Record<string, any> | null;
     representative_country?: string | null;
     representative_country_type?: string | null;
     representative_id_card_number?: string | null;
@@ -38,6 +38,10 @@ export type Company = {
     account_image?: string | null;
     terms_of_service_confirm?: boolean;
     terms_of_service_confirm_at?: string | null;
-    readonly status: Status02bEnum;
+    readonly status: ReissueEnum;
+    contact_person_name?: string | null;
+    contact_person_position?: string | null;
+    contact_person_email?: string | null;
+    contact_person_phone?: string | null;
 };
 

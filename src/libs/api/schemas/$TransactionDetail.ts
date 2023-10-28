@@ -40,7 +40,7 @@ export const $TransactionDetail = {
         status: {
             type: 'all-of',
             contains: [{
-                type: 'Status1d2Enum',
+                type: 'TransactionDetailStatusEnum',
             }],
         },
         pay_at: {
@@ -52,6 +52,10 @@ export const $TransactionDetail = {
             type: 'string',
             isNullable: true,
             format: 'date-time',
+        },
+        twid_record: {
+            type: 'number',
+            isNullable: true,
         },
     },
 } as const;

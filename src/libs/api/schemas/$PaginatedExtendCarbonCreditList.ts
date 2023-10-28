@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $PaginatedCartList = {
+export const $PaginatedExtendCarbonCreditList = {
     properties: {
         count: {
             type: 'number',
@@ -20,7 +20,7 @@ export const $PaginatedCartList = {
         results: {
             type: 'array',
             contains: {
-                type: 'Cart',
+                type: 'ExtendCarbonCredit',
             },
         },
     },

@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MemberRecord } from './MemberRecord';
+import type { MemberPointRecord } from './MemberPointRecord';
 
-export type PaginatedMemberRecordList = {
+export type PaginatedMemberPointRecordList = {
     count?: number;
     next?: string | null;
     previous?: string | null;
-    results?: Array<MemberRecord>;
+    results?: Array<MemberPointRecord>;
 };
 

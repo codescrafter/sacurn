@@ -5,6 +5,6 @@
 
 export type ShopCartRequest = {
     quantity?: number;
-    shop_product?: number;
+    shop_product_name?: string;
 };
 

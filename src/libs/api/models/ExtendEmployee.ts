@@ -3,14 +3,16 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Employees = {
+export type ExtendEmployee = {
     username?: string;
-    password1?: string;
+    password?: string;
     email?: string;
     last_name?: string;
     position?: string;
     tel?: string;
     tel_extension?: string;
     group_name?: string;
+    photo: string;
+    status?: number;
 };
 

@@ -2,6 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $ShopProductStatusEnum = {
+export const $ActionEnum = {
     type: 'Enum',
 } as const;

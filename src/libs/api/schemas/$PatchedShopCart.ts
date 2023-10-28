@@ -12,6 +12,10 @@ export const $PatchedShopCart = {
             type: 'string',
             isReadOnly: true,
         },
+        image: {
+            type: 'string',
+            isReadOnly: true,
+        },
         created_at: {
             type: 'string',
             isReadOnly: true,
