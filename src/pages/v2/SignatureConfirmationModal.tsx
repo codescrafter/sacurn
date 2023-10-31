@@ -120,18 +120,55 @@ const SignatureConfirmationModal = () => {
                 </CustomButton>
               </Box>
               <Box className="w-[35%] flex justify-center item-center">
-                <div className="w-[100%] flex flex-col items-center pt-12 pb-29 justify-between">
-                  <div className="text-center">
-                    <h1 className="font-bold text-4xl">會員卡升級合約 </h1>
-                    <h2 className="font-bold text-3xl">會員卡簽章程序</h2>
+                <div className="w-[100%] flex flex-col items-center pt-12 pb-29">
+                  <div className="text-center mb-9">
+                    <h1 className="font-bold text-[32px] leading-[38px]">
+                      申請合約
+                      <br /> 工商憑證簽章程序
+                    </h1>
                   </div>
-                  <p className="text-3xl text-grey">環境監測成功</p>
-                  <CustomButton
-                    variant="primary"
-                    className="rounded-[20px] px-12 h-12 text-lg mt-3 hover:border-2 hover:bg-white hover:text-navy-blue "
-                  >
-                    確認
-                  </CustomButton>
+                  <h3 className="text-[32px] font-bold text-[#888] text-center mb-5">環境監測成功</h3>
+                  <p className="mb-9 text-[26px] font-bold leading-[22px] text-[#FD1515]">請插入工商憑證並輸入密碼</p>
+                  <form className="flex flex-col items-center w-full mb-[22px]">
+                    <div className="w-4/5 bg-snowflake-grey shadow-input-box rounded-[18px] flex items-center 2xl:h-[53px] h-10">
+                      <img
+                        className="mr-3.5 ml-6 2xl:w-6 2xl:h-6 w-4 h-4"
+                        src="/images/login/user.svg"
+                        width={24}
+                        height={24}
+                        alt="user-icon"
+                      />
+                      <input
+                        className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
+                        type="text"
+                        placeholder={'username'}
+                      />
+                      {/* <div>{formState.errors?.username?.message}</div> */}
+                    </div>
+
+                    <div className="w-4/5 bg-snowflake-grey shadow-input-box rounded-[18px] flex items-center 2xl:h-[53px] h-10 mt-5 mb-[22px]">
+                      <img
+                        className="mr-3.5 ml-6 2xl:w-6 2xl:h-6 w-4 h-4"
+                        src="/images/login/key.svg"
+                        width={24}
+                        height={24}
+                        alt="key-icon"
+                      />
+                      <input
+                        className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
+                        type="password"
+                        placeholder={'password'}
+                      />
+                      {/* <div>{formState.errors?.password?.message}</div> */}
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-[180px] 2xl:h-[53px] h-10 bg-navy-blue rounded-[26px] 2xl:text-xl text-base font-bold bg-blue-btn shadow-btn text-white"
+                    >
+                      確認
+                    </button>
+                  </form>
                 </div>
               </Box>
             </div>
