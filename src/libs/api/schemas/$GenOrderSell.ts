@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $OrderSell = {
+export const $GenOrderSell = {
     properties: {
         carbon_credit: {
             type: 'number',
@@ -23,12 +23,6 @@ export const $OrderSell = {
         min_order_quantity: {
             type: 'number',
             isRequired: true,
-        },
-        pkcs1: {
-            type: 'string',
-        },
-        b64Cert: {
-            type: 'string',
         },
     },
 } as const;

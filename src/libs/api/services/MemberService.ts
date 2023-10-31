@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { ExtendMemberRecord } from '../models/ExtendMemberRecord';
 import type { MemberCard } from '../models/MemberCard';
+import type { MemberChange } from '../models/MemberChange';
 import type { MemberRecord } from '../models/MemberRecord';
 import type { MemberReview } from '../models/MemberReview';
 import type { PaginatedExtendMemberSerilizerList } from '../models/PaginatedExtendMemberSerilizerList';
@@ -48,39 +49,6 @@ export class MemberService {
     }
 
     /**
-     * revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED = 4)
-     * reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3)
-     * status(EXPIRED = 0 CURRENT = 1)
-     * @param requestBody
-     * @returns MemberCard
-     * @throws ApiError
-     */
-    public memberCardCreate(
-        requestBody: MemberCard,
-    ): CancelablePromise<MemberCard> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/member/card/',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-
-    /**
-     * revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED = 4)
-     * reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3)
-     * status(EXPIRED = 0 CURRENT = 1)
-     * @returns void
-     * @throws ApiError
-     */
-    public memberCardDestroy(): CancelablePromise<void> {
-        return this.httpRequest.request({
-            method: 'DELETE',
-            url: '/member/card/',
-        });
-    }
-
-    /**
      * @returns MemberReview
      * @throws ApiError
      */
@@ -92,16 +60,21 @@ export class MemberService {
     }
 
     /**
+     * @param id twid_record
      * @param requestBody
      * @returns MemberReview
      * @throws ApiError
      */
     public memberCardReissueCreate(
-        requestBody: MemberReview,
+        id: string,
+        requestBody?: MemberChange,
     ): CancelablePromise<MemberReview> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/member/card/reissue/',
+            query: {
+                'id': id,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -134,6 +107,30 @@ export class MemberService {
         return this.httpRequest.request({
             method: 'POST',
             url: '/member/card/reissue_check/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED = 4)
+     * reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3)
+     * status(EXPIRED = 0 CURRENT = 1)
+     * @param id twid_record
+     * @param requestBody
+     * @returns MemberCard
+     * @throws ApiError
+     */
+    public memberCardRevokeCreate(
+        id: string,
+        requestBody?: MemberChange,
+    ): CancelablePromise<MemberCard> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/member/card/revoke/',
+            query: {
+                'id': id,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -208,12 +205,12 @@ export class MemberService {
 
     /**
      * @param requestBody
-     * @returns MemberRecord
+     * @returns ExtendMemberRecord
      * @throws ApiError
      */
     public memberRenewalCreate(
         requestBody: MemberRecord,
-    ): CancelablePromise<MemberRecord> {
+    ): CancelablePromise<ExtendMemberRecord> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/member/renewal/',
@@ -234,16 +231,21 @@ export class MemberService {
     }
 
     /**
+     * @param id twid_record
      * @param requestBody
-     * @returns MemberRecord
+     * @returns ExtendMemberRecord
      * @throws ApiError
      */
     public memberUpgradeCreate(
-        requestBody: MemberRecord,
-    ): CancelablePromise<MemberRecord> {
+        id: string,
+        requestBody?: MemberChange,
+    ): CancelablePromise<ExtendMemberRecord> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/member/upgrade/',
+            query: {
+                'id': id,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -251,12 +253,12 @@ export class MemberService {
 
     /**
      * @param requestBody
-     * @returns MemberRecord
+     * @returns ExtendMemberRecord
      * @throws ApiError
      */
     public memberUpgradeApplyCreate(
         requestBody: MemberRecord,
-    ): CancelablePromise<MemberRecord> {
+    ): CancelablePromise<ExtendMemberRecord> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/member/upgrade_apply/',

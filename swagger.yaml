@@ -1215,50 +1215,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/MemberCard'
           description: ''
-    post:
-      operationId: member_card_create
-      description: "revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED =\
-        \ 4) \n reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3) \n\
-        \ status(EXPIRED = 0 CURRENT = 1)"
-      tags:
-      - member
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MemberCard'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/MemberCard'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/MemberCard'
-        required: true
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MemberCard'
-          description: ''
-    delete:
-      operationId: member_card_destroy
-      description: "revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED =\
-        \ 4) \n reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3) \n\
-        \ status(EXPIRED = 0 CURRENT = 1)"
-      tags:
-      - member
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '204':
-          description: No response body
   /member/card/reissue/:
     get:
       operationId: member_card_reissue_retrieve
@@ -1277,20 +1233,26 @@ paths:
           description: ''
     post:
       operationId: member_card_reissue_create
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        description: twid_record
+        required: true
       tags:
       - member
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MemberReview'
+              $ref: '#/components/schemas/MemberChange'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/MemberReview'
+              $ref: '#/components/schemas/MemberChange'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/MemberReview'
-        required: true
+              $ref: '#/components/schemas/MemberChange'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1353,6 +1315,43 @@ paths:
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
       - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
+          description: ''
+  /member/card/revoke/:
+    post:
+      operationId: member_card_revoke_create
+      description: "revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED =\
+        \ 4) \n reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3) \n\
+        \ status(EXPIRED = 0 CURRENT = 1)"
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        description: twid_record
+        required: true
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberChange'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberChange'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberChange'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
       responses:
         '201':
           content:
@@ -1493,7 +1492,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MemberRecord'
+                $ref: '#/components/schemas/ExtendMemberRecord'
           description: ''
   /member/upgrade/:
     get:
@@ -1513,20 +1512,26 @@ paths:
           description: ''
     post:
       operationId: member_upgrade_create
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        description: twid_record
+        required: true
       tags:
       - member
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MemberRecord'
+              $ref: '#/components/schemas/MemberChange'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/MemberRecord'
+              $ref: '#/components/schemas/MemberChange'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/MemberRecord'
-        required: true
+              $ref: '#/components/schemas/MemberChange'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1536,7 +1541,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MemberRecord'
+                $ref: '#/components/schemas/ExtendMemberRecord'
           description: ''
   /member/upgrade_apply/:
     post:
@@ -1565,7 +1570,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MemberRecord'
+                $ref: '#/components/schemas/ExtendMemberRecord'
           description: ''
   /registration/:
     post:
@@ -1714,13 +1719,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1737,13 +1742,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1787,13 +1792,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -2027,13 +2032,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/CartBulkDelete'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/CartBulkDelete'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/CartBulkDelete'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -2158,6 +2163,13 @@ paths:
           description: No response body
     post:
       operationId: trade_order_buy_create
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        description: twid_record
+        required: true
       tags:
       - trade
       requestBody:
@@ -2223,6 +2235,12 @@ paths:
     post:
       operationId: trade_order_sell_create
       description: sell=1
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        description: twid_record
       tags:
       - trade
       requestBody:
@@ -2448,22 +2466,98 @@ paths:
       responses:
         '200':
           description: No response body
-  /twid/genPkcs7Tbs/:
+  /twid/genPkcs7Tbs/order_buy/:
     post:
-      operationId: twid_genPkcs7Tbs_create
+      operationId: twid_genPkcs7Tbs_order_buy_create
       tags:
       - twid
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenPkcs7Tbs'
+              $ref: '#/components/schemas/GenOrderBuy'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/GenPkcs7Tbs'
+              $ref: '#/components/schemas/GenOrderBuy'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/GenPkcs7Tbs'
+              $ref: '#/components/schemas/GenOrderBuy'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenPkcs7TbsResponse'
+          description: ''
+  /twid/genPkcs7Tbs/order_sell/:
+    post:
+      operationId: twid_genPkcs7Tbs_order_sell_create
+      tags:
+      - twid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenOrderSell'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GenOrderSell'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GenOrderSell'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenPkcs7TbsResponse'
+          description: ''
+  /twid/genPkcs7Tbs/reissue/:
+    post:
+      operationId: twid_genPkcs7Tbs_reissue_create
+      tags:
+      - twid
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenPkcs7TbsResponse'
+          description: ''
+  /twid/genPkcs7Tbs/revoke/:
+    post:
+      operationId: twid_genPkcs7Tbs_revoke_create
+      tags:
+      - twid
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenPkcs7TbsResponse'
+          description: ''
+  /twid/genPkcs7Tbs/upgrade:
+    post:
+      operationId: twid_genPkcs7Tbs_upgrade_create
+      tags:
+      - twid
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -2750,16 +2844,18 @@ components:
       - performances
       - project_documents
       - project_validator
+    CartBulkDelete:
+      type: object
+      properties:
+        cart_id_list:
+          type: string
+          default: '[1, 2, 3]'
     CartDetail:
       type: object
       properties:
         cart_id_list:
-          type: array
-          items:
-            type: integer
-          default:
-          - 1
-          - 2
+          type: string
+          default: '[1, 2]'
     CartDetailResonse:
       type: object
       properties:
@@ -3896,22 +3992,44 @@ components:
           items:
             type: string
           default: []
-    GenPkcs7Tbs:
+    GenOrderBuy:
       type: object
       properties:
         cart_id_list:
-          type: array
-          items: {}
-          default:
-          - 1
-          - 2
+          type: string
+          default: '[1, 2, 3]'
+    GenOrderSell:
+      type: object
+      properties:
+        carbon_credit:
+          type: integer
+        price:
+          type: string
+        quantity:
+          type: integer
+        sell:
+          $ref: '#/components/schemas/SellEnum'
+        min_order_quantity:
+          type: integer
+      required:
+      - carbon_credit
+      - min_order_quantity
+      - price
+      - quantity
+      - sell
     GenPkcs7TbsResponse:
       type: object
       properties:
-        hashedContent:
+        twid_record:
+          type: integer
+        content:
+          type: string
+        hashed_content:
           type: string
       required:
-      - hashedContent
+      - content
+      - hashed_content
+      - twid_record
     Group:
       type: object
       properties:
@@ -4013,6 +4131,15 @@ components:
       required:
       - company
       - id
+    MemberChange:
+      type: object
+      properties:
+        pkcs1:
+          type: string
+          default: sacurn_test
+        b64Cert:
+          type: string
+          default: aGVsbG8gd29ybGQ
     MemberPointRecord:
       type: object
       properties:
@@ -4340,13 +4467,14 @@ components:
       type: object
       properties:
         cart_id_list:
-          type: array
-          items:
-            type: integer
-          default:
-          - 1
-          - 2
-          - 3
+          type: string
+          default: '[1, 2, 3]'
+        pkcs1:
+          type: string
+          default: sacurn_test
+        b64Cert:
+          type: string
+          default: aGVsbG8gd29ybGQ
     OrderSell:
       type: object
       properties:
@@ -4360,6 +4488,12 @@ components:
           $ref: '#/components/schemas/SellEnum'
         min_order_quantity:
           type: integer
+        pkcs1:
+          type: string
+          default: sacurn_test
+        b64Cert:
+          type: string
+          default: aGVsbG8gd29ybGQ
       required:
       - carbon_credit
       - min_order_quantity
@@ -5234,11 +5368,15 @@ components:
         unfinishedPdfs:
           type: array
           items: {}
+        semiPdfs:
+          type: array
+          items: {}
         tbsPdfs:
           type: string
         timestamp:
           type: string
       required:
+      - semiPdfs
       - tbsPdfs
       - timestamp
       - unfinishedPdfs
@@ -5393,6 +5531,12 @@ components:
         shop_product_name:
           type: string
           default: 碳權證書
+    ShopOrderBuy:
+      type: object
+      properties:
+        cart_id_list:
+          type: string
+          default: '[1, 2, 3]'
     ShopProduct:
       type: object
       properties:

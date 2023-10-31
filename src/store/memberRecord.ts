@@ -2,7 +2,9 @@ import { create } from 'zustand';
 
 import { ExtendMemberRecord, MemberRecord } from '@/libs/api';
 import apiClient from '@/libs/api/client';
+import PromiseModal from '@/pages/v2/UpgradeConfirmationModal';
 
+import { useCardStore } from './card';
 import { runTask } from './modal';
 
 type MemberRecordState = {
@@ -50,8 +52,22 @@ export const useMemberRecordStore = create<MemberRecordState>((set, get) => ({
   upgradeMember: async () => {
     let isSuccess = false;
     await runTask(async () => {
+      const isConfirm = await PromiseModal();
+      if (!isConfirm) return;
+      isSuccess = await useCardStore.getState().checkMemberCard(
+        async () => {
+          return await apiClient.twid.twidGenPkcs7TbsUpgradeCreate();
+        },
+        async (twid_record, b64Cert, pkcs1) => {
+          await apiClient.member.memberUpgradeCreate(twid_record.toString(), {
+            b64Cert,
+            pkcs1
+          });
+          isSuccess = true;
+        }
+      );
       await apiClient.member.memberUpgradeRetrieve();
-      isSuccess = true;
+      return true;
     });
     return isSuccess;
   },
@@ -76,8 +92,9 @@ export const useMemberRecordStore = create<MemberRecordState>((set, get) => ({
     const memberRecord = get().memberRecord;
     if (memberRecord) {
       await runTask(async () => {
+        isSuccess = await useCardStore.getState().checkGovernmentCard();
         await apiClient.member.memberCardReissueApplyCreate(memberRecord);
-        isSuccess = true;
+        return true;
       });
     } else {
       alert('Member Record not found');

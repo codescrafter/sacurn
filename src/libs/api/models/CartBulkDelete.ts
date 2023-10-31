@@ -3,9 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type GenPkcs7TbsResponse = {
-    twid_record: number;
-    content: string;
-    hashed_content: string;
+export type CartBulkDelete = {
+    cart_id_list?: string;
 };
 

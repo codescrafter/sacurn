@@ -25,7 +25,7 @@
   },
   "include": [
     "src"
-  ],
+, "public/idPaas/idpaas.verify.js"  ],
   "exclude": [
     "node_modules"
   ]
