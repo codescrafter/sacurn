@@ -5,7 +5,8 @@
 import type { CpntAuth } from '../models/CpntAuth';
 import type { CpntAuthResponse } from '../models/CpntAuthResponse';
 import type { DoTwdsS0S1 } from '../models/DoTwdsS0S1';
-import type { GenPkcs7Tbs } from '../models/GenPkcs7Tbs';
+import type { GenOrderBuy } from '../models/GenOrderBuy';
+import type { GenOrderSell } from '../models/GenOrderSell';
 import type { GenPkcs7TbsResponse } from '../models/GenPkcs7TbsResponse';
 import type { PreDoTwdsS0Response } from '../models/PreDoTwdsS0Response';
 
@@ -53,14 +54,63 @@ export class TwidService {
      * @returns GenPkcs7TbsResponse
      * @throws ApiError
      */
-    public twidGenPkcs7TbsCreate(
-        requestBody?: GenPkcs7Tbs,
+    public twidGenPkcs7TbsOrderBuyCreate(
+        requestBody?: GenOrderBuy,
     ): CancelablePromise<GenPkcs7TbsResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/twid/genPkcs7Tbs/',
+            url: '/twid/genPkcs7Tbs/order_buy/',
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns GenPkcs7TbsResponse
+     * @throws ApiError
+     */
+    public twidGenPkcs7TbsOrderSellCreate(
+        requestBody: GenOrderSell,
+    ): CancelablePromise<GenPkcs7TbsResponse> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/twid/genPkcs7Tbs/order_sell/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @returns GenPkcs7TbsResponse
+     * @throws ApiError
+     */
+    public twidGenPkcs7TbsReissueCreate(): CancelablePromise<GenPkcs7TbsResponse> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/twid/genPkcs7Tbs/reissue/',
+        });
+    }
+
+    /**
+     * @returns GenPkcs7TbsResponse
+     * @throws ApiError
+     */
+    public twidGenPkcs7TbsRevokeCreate(): CancelablePromise<GenPkcs7TbsResponse> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/twid/genPkcs7Tbs/revoke/',
+        });
+    }
+
+    /**
+     * @returns GenPkcs7TbsResponse
+     * @throws ApiError
+     */
+    public twidGenPkcs7TbsUpgradeCreate(): CancelablePromise<GenPkcs7TbsResponse> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/twid/genPkcs7Tbs/upgrade',
         });
     }
 

@@ -4,6 +4,8 @@
 /* eslint-disable */
 
 export type OrderBuy = {
-    cart_id_list?: Array<number>;
+    cart_id_list?: string;
+    pkcs1?: string;
+    b64Cert?: string;
 };
 
