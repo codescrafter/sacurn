@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { ExtendedInventory, Order } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
+import { useCardStore } from './card';
 import { ModalType, runTask } from './modal';
 
 export type StockItem = {
@@ -14,7 +15,7 @@ type StockListState = {
   stockList: StockItem[];
   getStockList: (page?: number) => void;
   getStockOrderList: (carbonCreditId: number) => Promise<boolean>;
-  updateStockOnSale: (carbonId: number, qty: number, price: number, minUnit: number) => void;
+  updateStockOnSale: (carbonId: number, qty: number, price: number, minUnit: number) => Promise<boolean>;
   updateStockOffShelve: (id: number) => void;
 };
 
@@ -46,21 +47,52 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     return isSuccess;
   },
   updateStockOnSale: async (carbonId, quantity, price, minUnit) => {
+    let isSuccess = false;
     await runTask(
       async () => {
-        await apiClient.trade.tradeOrderSellCreate({
-          carbon_credit: carbonId,
-          quantity,
-          price: price.toString(),
-          min_order_quantity: minUnit,
-          sell: 1
-        });
-        get().getStockList();
+        await useCardStore.getState().checkMemberCard(
+          async () => {
+            return await apiClient.twid.twidGenPkcs7TbsOrderSellCreate({
+              carbon_credit: carbonId,
+              quantity,
+              price: price.toString(),
+              min_order_quantity: minUnit,
+              sell: 1
+            });
+          },
+          async (twid_record, b64Cert, pkcs1) => {
+            await apiClient.trade.tradeOrderSellCreate(
+              {
+                carbon_credit: carbonId,
+                quantity,
+                price: price.toString(),
+                min_order_quantity: minUnit,
+                sell: 1,
+                b64Cert,
+                pkcs1
+              },
+              twid_record.toString()
+            );
+            isSuccess = true;
+          }
+        );
+
+        if (isSuccess) {
+          await get().getStockList();
+        }
+
+        console.log('isSuccess', isSuccess);
+
+        return !isSuccess;
       },
       {
-        onComplete: () => ModalType.MakeStockOnSale
+        onComplete: () => {
+          if (isSuccess) return ModalType.MakeStockOnSale;
+        }
       }
     );
+
+    return isSuccess;
   },
   updateStockOffShelve: async (id: number) => {
     await runTask(async () => {

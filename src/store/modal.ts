@@ -14,7 +14,7 @@ type ModalState = {
   open: (type: ModalType, override?: Partial<UniversalModalProps>) => void;
   close: () => void;
   runTask: (
-    task: () => void,
+    task: () => Promise<void | boolean>,
     result?: { onComplete?: () => ModalType | void; onError?: (error: unknown) => void }
   ) => Promise<void>;
 };
@@ -29,7 +29,8 @@ export enum ModalType {
   CheckOutConfirm = 'CheckOutConfirm',
   Error = 'Error',
   CompanyReviewing = 'CompanyReviewing',
-  DeleteCartItem = 'DeleteCartItem'
+  DeleteCartItem = 'DeleteCartItem',
+  CardEnvDetectError = 'CardEnvDetectError'
 }
 
 const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
@@ -149,6 +150,18 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
         text: '確認'
       }
     ]
+  },
+  [ModalType.CardEnvDetectError]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '商品購買作業',
+    description: '環境監測失敗',
+    errorText: '請下載元件',
+    buttons: [
+      {
+        text: '元件下載'
+      }
+    ]
   }
 };
 
@@ -163,17 +176,20 @@ export const useModalStore = create<ModalState>((set, get) => ({
       data: { ...ModalDataRecord[type], ...override }
     });
   },
-  close: () => set({ isOpen: false, type: null, data: null }),
+  close: () => {
+    set({ isOpen: false, type: null, data: null });
+  },
   runTask: async (task, result) => {
     try {
       get().open(ModalType.Loading);
-      await task();
+      const isNotAutoCloseModal = await task();
+
       const modalType = await result?.onComplete?.();
 
       if (modalType) {
         useModalStore.getState().open(modalType);
       } else {
-        useModalStore.getState().close();
+        if (!isNotAutoCloseModal) useModalStore.getState().close();
       }
     } catch (error) {
       console.error(error);

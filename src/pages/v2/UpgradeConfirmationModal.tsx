@@ -1,6 +1,5 @@
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -8,8 +7,12 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { createModal } from 'react-modal-promise';
+import { InstanceProps } from 'react-modal-promise/lib/types';
 
 import CustomButton from '@/components/CustomButton';
+
+type UpgradeConfirmationModalProps = InstanceProps<boolean, boolean>;
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -20,25 +23,15 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-const UpgradeConfirmationModal = () => {
-  const [open, setOpen] = React.useState(false);
+const UpgradeConfirmationModal = ({ isOpen, onResolve }: UpgradeConfirmationModalProps) => {
+  const onClose = () => onResolve(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Clinic
-      </Button>
-
-      <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+      <BootstrapDialog onClose={onClose} aria-labelledby="customized-dialog-title" open={isOpen}>
         <IconButton
           aria-label="close"
-          onClick={handleClose}
+          onClick={onClose}
           sx={{
             position: 'absolute',
             right: 0,
@@ -96,6 +89,7 @@ const UpgradeConfirmationModal = () => {
             <CustomButton
               variant="primary"
               className="rounded-[20px] px-12 h-12 text-lg mt-3 hover:border-2 hover:bg-white hover:text-navy-blue "
+              onClick={() => onResolve(true)}
             >
               確認
             </CustomButton>
@@ -106,4 +100,5 @@ const UpgradeConfirmationModal = () => {
   );
 };
 
-export default UpgradeConfirmationModal;
+const PromiseUpgradeConfirmationModal = createModal<UpgradeConfirmationModalProps>(UpgradeConfirmationModal);
+export default PromiseUpgradeConfirmationModal;

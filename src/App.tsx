@@ -1,5 +1,6 @@
 import './App.css';
 
+import ModalContainer from 'react-modal-promise';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Cart from '@/pages/Cart';
@@ -25,7 +26,6 @@ import PasswordReset from './pages/PasswordReset';
 import PaymentInformation from './pages/PaymentInformation';
 import AccountCredit from './pages/v2/AccountCredit';
 import AccountInformation from './pages/v2/AccountInformation';
-import CardConfirmationPage from './pages/v2/CardConfirmationPage';
 import CardReIssue from './pages/v2/CardReIssue';
 import CardRenewal from './pages/v2/CardRenewal';
 import CardRevoked from './pages/v2/CardRevoked';
@@ -97,10 +97,6 @@ const router = createBrowserRouter([
   {
     path: '/v2/account-credit',
     element: <AccountCredit />
-  },
-  {
-    path: '/v2/card-confirmation-page',
-    element: <CardConfirmationPage />
   },
   {
     path: '/',
@@ -237,6 +233,7 @@ export default function App() {
     <div>
       <RouterProvider router={router} />
       <Modal />
+      <ModalContainer />
     </div>
   );
 }
