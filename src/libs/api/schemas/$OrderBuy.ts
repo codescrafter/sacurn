@@ -5,10 +5,13 @@
 export const $OrderBuy = {
     properties: {
         cart_id_list: {
-            type: 'array',
-            contains: {
-                type: 'number',
-            },
+            type: 'string',
+        },
+        pkcs1: {
+            type: 'string',
+        },
+        b64Cert: {
+            type: 'string',
         },
     },
 } as const;

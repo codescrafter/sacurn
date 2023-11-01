@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type GenPkcs7Tbs = {
-    cart_id_list?: Array<any>;
+export type ShopOrderBuy = {
+    cart_id_list?: string;
 };
 

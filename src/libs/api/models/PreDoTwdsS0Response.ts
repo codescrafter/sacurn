@@ -5,6 +5,7 @@
 
 export type PreDoTwdsS0Response = {
     unfinishedPdfs: Array<any>;
+    semiPdfs: Array<any>;
     tbsPdfs: string;
     timestamp: string;
 };

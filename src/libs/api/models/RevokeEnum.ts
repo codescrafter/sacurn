@@ -6,10 +6,12 @@
 /**
  * * `0` - Unconfirmed
  * * `1` - Confirmed
- * * `2` - Completed
+ * * `3` - Reviewing
+ * * `4` - Completed
  */
-export enum RenewalEnum {
-  '_0' = 0,
-  '_1' = 1,
-  '_2' = 2
+export enum RevokeEnum {
+    '_0' = 0,
+    '_1' = 1,
+    '_3' = 3,
+    '_4' = 4,
 }

@@ -2,14 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $GenPkcs7Tbs = {
+export const $CartBulkDelete = {
     properties: {
         cart_id_list: {
-            type: 'array',
-            contains: {
-                properties: {
-                },
-            },
+            type: 'string',
         },
     },
 } as const;

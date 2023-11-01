@@ -2,9 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $CartDetail = {
+export const $MemberChange = {
     properties: {
-        cart_id_list: {
+        pkcs1: {
+            type: 'string',
+        },
+        b64Cert: {
             type: 'string',
         },
     },

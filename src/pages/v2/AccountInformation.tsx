@@ -1,13 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, IconButton } from '@mui/material';
 import classNames from 'classnames';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import * as yup from 'yup';
 
 import CustomButton from '@/components/CustomButton';
 import Layout from '@/components/v2/Layout';
+import { useCompanyStore } from '@/store/company';
 import { AccountInformationTypes } from '@/type';
 
 export interface AccountInfoValues {
@@ -36,6 +37,7 @@ const Schema = yup.object({
 
 const AccountInformation = () => {
   const [isPasswordClicked, setIsPasswordClicked] = useState<boolean>(false);
+  const [company] = useCompanyStore((state) => [state.company, state.getCompany]);
 
   const {
     register,
@@ -44,6 +46,31 @@ const AccountInformation = () => {
   } = useForm<AccountInfoValues>({ resolver: yupResolver(Schema) });
 
   const [file, setFile] = useState<string>('/v2/account-pic.svg');
+
+  const accountInfoList: AccountInformationTypes[] = useMemo(() => {
+    return [
+      {
+        key: '公司名稱',
+        value: company.name || '-'
+      },
+      {
+        key: '代表人',
+        value: company.representative || '-'
+      },
+      {
+        key: 'VAT號碼',
+        value: company.registration_number || '-'
+      },
+      {
+        key: '公司電話',
+        value: company.phone || '-'
+      },
+      {
+        key: '公司地址',
+        value: Object.values(company.address || {}).join('') || '-'
+      }
+    ];
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -55,7 +82,9 @@ const AccountInformation = () => {
     }
   };
 
-  const onSubmit = handleSubmit(() => {});
+  const onSubmit = handleSubmit(() => {
+    console.log('submit');
+  });
 
   return (
     <Layout>
@@ -83,7 +112,7 @@ const AccountInformation = () => {
                     </IconButton>
                   </div>
                   <div className="mt-10 2.5xl:mt-14">
-                    {ACCOUNT_INFORMATION.map(({ key, value }: AccountInformationTypes) => (
+                    {accountInfoList.map(({ key, value }) => (
                       <div
                         key={key}
                         className="flex gap-2 text-navy-blue font-semibold 2xl:font-bold text-base xl:text-xl 2.5xl:text-[22px] mb-4 xl:mb-8 2.5xl:mb-10 first:pr-16 w-full"
@@ -236,26 +265,3 @@ const CustomInput = ({ id, register, defaultValue, type, placeholder, label, err
     </div>
   );
 };
-
-const ACCOUNT_INFORMATION: AccountInformationTypes[] = [
-  {
-    key: '公司名稱',
-    value: '艾克斯厚定股份有限公司'
-  },
-  {
-    key: '代表人',
-    value: 'Musk'
-  },
-  {
-    key: 'VAT號碼',
-    value: '88888888'
-  },
-  {
-    key: '公司電話',
-    value: '02-1234 5678'
-  },
-  {
-    key: '公司地址',
-    value: '台北市中山區中山北路一段1號'
-  }
-];

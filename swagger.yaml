@@ -723,13 +723,7 @@ paths:
       - company
       requestBody:
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ExtendEmployee'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ExtendEmployee'
-          multipart/form-data:
+          application/multi-part/form-data:
             schema:
               $ref: '#/components/schemas/ExtendEmployee'
         required: true
@@ -786,13 +780,7 @@ paths:
       - company
       requestBody:
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedEmployeesPatch'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedEmployeesPatch'
-          multipart/form-data:
+          application/multi-part/form-data:
             schema:
               $ref: '#/components/schemas/PatchedEmployeesPatch'
       security:
@@ -1211,6 +1199,9 @@ paths:
   /member/card/:
     get:
       operationId: member_card_retrieve
+      description: "revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED =\
+        \ 4) \n reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3) \n\
+        \ status(EXPIRED = 0 CURRENT = 1)"
       tags:
       - member
       security:
@@ -1224,44 +1215,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/MemberCard'
           description: ''
-    post:
-      operationId: member_card_create
-      tags:
-      - member
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MemberCard'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/MemberCard'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/MemberCard'
-        required: true
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MemberCard'
-          description: ''
-    delete:
-      operationId: member_card_destroy
-      tags:
-      - member
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '204':
-          description: No response body
   /member/card/reissue/:
     get:
       operationId: member_card_reissue_retrieve
@@ -1280,20 +1233,26 @@ paths:
           description: ''
     post:
       operationId: member_card_reissue_create
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        description: twid_record
+        required: true
       tags:
       - member
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MemberReview'
+              $ref: '#/components/schemas/MemberChange'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/MemberReview'
+              $ref: '#/components/schemas/MemberChange'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/MemberReview'
-        required: true
+              $ref: '#/components/schemas/MemberChange'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1304,6 +1263,130 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MemberReview'
+          description: ''
+  /member/card/reissue_apply/:
+    post:
+      operationId: member_card_reissue_apply_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
+          description: ''
+  /member/card/reissue_check/:
+    post:
+      operationId: member_card_reissue_check_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
+          description: ''
+  /member/card/revoke/:
+    post:
+      operationId: member_card_revoke_create
+      description: "revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED =\
+        \ 4) \n reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3) \n\
+        \ status(EXPIRED = 0 CURRENT = 1)"
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        description: twid_record
+        required: true
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberChange'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberChange'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberChange'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
+          description: ''
+  /member/card/revoke_apply/:
+    post:
+      operationId: member_card_revoke_apply_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberCard'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberCard'
           description: ''
   /member/point_record/:
     get:
@@ -1336,6 +1419,8 @@ paths:
   /member/record/:
     get:
       operationId: member_record_retrieve
+      description: "renewal(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2) \n upgrade(UNCONFIRMED\
+        \ = 0 CONFIRMED = 1 REVIEWING = 2 COMPLETED = 3)"
       tags:
       - member
       security:
@@ -1348,10 +1433,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MemberRecord'
+                $ref: '#/components/schemas/ExtendMemberRecord'
           description: ''
     post:
       operationId: member_record_create
+      description: "renewal(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2) \n upgrade(UNCONFIRMED\
+        \ = 0 CONFIRMED = 1 REVIEWING = 2 COMPLETED = 3)"
       tags:
       - member
       requestBody:
@@ -1378,22 +1465,40 @@ paths:
               schema:
                 $ref: '#/components/schemas/MemberRecord'
           description: ''
-  /member/upgrade/:
-    patch:
-      operationId: member_upgrade_partial_update
+  /member/renewal/:
+    post:
+      operationId: member_renewal_create
       tags:
       - member
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedMemberRecord'
+              $ref: '#/components/schemas/MemberRecord'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedMemberRecord'
+              $ref: '#/components/schemas/MemberRecord'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedMemberRecord'
+              $ref: '#/components/schemas/MemberRecord'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtendMemberRecord'
+          description: ''
+  /member/upgrade/:
+    get:
+      operationId: member_upgrade_retrieve
+      tags:
+      - member
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1403,7 +1508,69 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MemberRecord'
+                $ref: '#/components/schemas/ExtendMemberRecord'
+          description: ''
+    post:
+      operationId: member_upgrade_create
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        description: twid_record
+        required: true
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberChange'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberChange'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberChange'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtendMemberRecord'
+          description: ''
+  /member/upgrade_apply/:
+    post:
+      operationId: member_upgrade_apply_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberRecord'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtendMemberRecord'
           description: ''
   /registration/:
     post:
@@ -1552,13 +1719,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1575,13 +1742,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1625,13 +1792,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/ShopOrderBuy'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1865,13 +2032,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/CartBulkDelete'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/CartBulkDelete'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/OrderBuy'
+              $ref: '#/components/schemas/CartBulkDelete'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -1996,6 +2163,13 @@ paths:
           description: No response body
     post:
       operationId: trade_order_buy_create
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        description: twid_record
+        required: true
       tags:
       - trade
       requestBody:
@@ -2061,6 +2235,12 @@ paths:
     post:
       operationId: trade_order_sell_create
       description: sell=1
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        description: twid_record
       tags:
       - trade
       requestBody:
@@ -2286,22 +2466,98 @@ paths:
       responses:
         '200':
           description: No response body
-  /twid/genPkcs7Tbs/:
+  /twid/genPkcs7Tbs/order_buy/:
     post:
-      operationId: twid_genPkcs7Tbs_create
+      operationId: twid_genPkcs7Tbs_order_buy_create
       tags:
       - twid
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenPkcs7Tbs'
+              $ref: '#/components/schemas/GenOrderBuy'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/GenPkcs7Tbs'
+              $ref: '#/components/schemas/GenOrderBuy'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/GenPkcs7Tbs'
+              $ref: '#/components/schemas/GenOrderBuy'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenPkcs7TbsResponse'
+          description: ''
+  /twid/genPkcs7Tbs/order_sell/:
+    post:
+      operationId: twid_genPkcs7Tbs_order_sell_create
+      tags:
+      - twid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenOrderSell'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GenOrderSell'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GenOrderSell'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenPkcs7TbsResponse'
+          description: ''
+  /twid/genPkcs7Tbs/reissue/:
+    post:
+      operationId: twid_genPkcs7Tbs_reissue_create
+      tags:
+      - twid
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenPkcs7TbsResponse'
+          description: ''
+  /twid/genPkcs7Tbs/revoke/:
+    post:
+      operationId: twid_genPkcs7Tbs_revoke_create
+      tags:
+      - twid
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenPkcs7TbsResponse'
+          description: ''
+  /twid/genPkcs7Tbs/upgrade:
+    post:
+      operationId: twid_genPkcs7Tbs_upgrade_create
+      tags:
+      - twid
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
@@ -2588,16 +2844,18 @@ components:
       - performances
       - project_documents
       - project_validator
+    CartBulkDelete:
+      type: object
+      properties:
+        cart_id_list:
+          type: string
+          default: '[1, 2, 3]'
     CartDetail:
       type: object
       properties:
         cart_id_list:
-          type: array
-          items:
-            type: integer
-          default:
-          - 1
-          - 2
+          type: string
+          default: '[1, 2]'
     CartDetailResonse:
       type: object
       properties:
@@ -2809,7 +3067,7 @@ components:
           nullable: true
         status:
           allOf:
-          - $ref: '#/components/schemas/Status02bEnum'
+          - $ref: '#/components/schemas/ReissueEnum'
           readOnly: true
           title: 狀態
           minimum: -2147483648
@@ -3194,6 +3452,112 @@ components:
           default: 0
       required:
       - photo
+    ExtendMemberRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        current_member:
+          type: string
+          readOnly: true
+        current_member_annual_renewal_fee:
+          type: string
+          readOnly: true
+        renewal_deadline_day:
+          type: string
+          readOnly: true
+        next_member:
+          type: string
+          readOnly: true
+        next_member_annual_renewal_fee:
+          type: string
+          readOnly: true
+        loss_card_fee:
+          type: string
+          readOnly: true
+        buy_cost:
+          type: number
+          format: double
+          default: 0.05
+        sell_cost:
+          type: number
+          format: double
+          default: 0.05
+        can_upgrade:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted:
+          type: boolean
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        start_at:
+          type: string
+          format: date-time
+          nullable: true
+        expire_at:
+          type: string
+          format: date-time
+          nullable: true
+        renewal:
+          allOf:
+          - $ref: '#/components/schemas/RenewalEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        renewal_at:
+          type: string
+          format: date-time
+          nullable: true
+        renewal_complete_at:
+          type: string
+          format: date-time
+          nullable: true
+        renewal_expire_at:
+          type: string
+          format: date-time
+          nullable: true
+        upgrade:
+          allOf:
+          - $ref: '#/components/schemas/ReissueEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        upgrade_at:
+          type: string
+          format: date-time
+          nullable: true
+        upgrade_complete_at:
+          type: string
+          format: date-time
+          nullable: true
+        company:
+          type: integer
+        member:
+          type: integer
+      required:
+      - can_upgrade
+      - company
+      - created_at
+      - current_member
+      - current_member_annual_renewal_fee
+      - id
+      - loss_card_fee
+      - member
+      - next_member
+      - next_member_annual_renewal_fee
+      - renewal_deadline_day
+      - updated_at
     ExtendMemberSerilizer:
       type: object
       properties:
@@ -3255,6 +3619,16 @@ components:
         point_multiplier:
           type: number
           format: double
+          nullable: true
+        upgrade_change_card_fee:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        loss_card_fee:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
           nullable: true
         buy_cost:
           type: number
@@ -3513,7 +3887,7 @@ components:
           nullable: true
         status:
           allOf:
-          - $ref: '#/components/schemas/Status02bEnum'
+          - $ref: '#/components/schemas/ReissueEnum'
           title: 狀態
           minimum: -2147483648
           maximum: 2147483647
@@ -3618,22 +3992,44 @@ components:
           items:
             type: string
           default: []
-    GenPkcs7Tbs:
+    GenOrderBuy:
       type: object
       properties:
         cart_id_list:
-          type: array
-          items: {}
-          default:
-          - 1
-          - 2
+          type: string
+          default: '[1, 2, 3]'
+    GenOrderSell:
+      type: object
+      properties:
+        carbon_credit:
+          type: integer
+        price:
+          type: string
+        quantity:
+          type: integer
+        sell:
+          $ref: '#/components/schemas/SellEnum'
+        min_order_quantity:
+          type: integer
+      required:
+      - carbon_credit
+      - min_order_quantity
+      - price
+      - quantity
+      - sell
     GenPkcs7TbsResponse:
       type: object
       properties:
-        hashedContent:
+        twid_record:
+          type: integer
+        content:
+          type: string
+        hashed_content:
           type: string
       required:
-      - hashedContent
+      - content
+      - hashed_content
+      - twid_record
     Group:
       type: object
       properties:
@@ -3695,6 +4091,28 @@ components:
           type: string
           format: date-time
           nullable: true
+        reissue:
+          allOf:
+          - $ref: '#/components/schemas/ReissueEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        reissue_at:
+          type: string
+          format: date-time
+          nullable: true
+        reissue_completed_at:
+          type: string
+          format: date-time
+          nullable: true
+        reissue_checked_at:
+          type: string
+          format: date-time
+          nullable: true
+        revoke:
+          allOf:
+          - $ref: '#/components/schemas/RevokeEnum'
+          minimum: -2147483648
+          maximum: 2147483647
         revoke_at:
           type: string
           format: date-time
@@ -3713,6 +4131,15 @@ components:
       required:
       - company
       - id
+    MemberChange:
+      type: object
+      properties:
+        pkcs1:
+          type: string
+          default: sacurn_test
+        b64Cert:
+          type: string
+          default: aGVsbG8gd29ybGQ
     MemberPointRecord:
       type: object
       properties:
@@ -3776,6 +4203,9 @@ components:
         next_member_annual_renewal_fee:
           type: string
           readOnly: true
+        loss_card_fee:
+          type: string
+          readOnly: true
         buy_cost:
           type: string
           readOnly: true
@@ -3809,11 +4239,6 @@ components:
           type: string
           format: date-time
           nullable: true
-        status:
-          allOf:
-          - $ref: '#/components/schemas/Status923Enum'
-          minimum: -2147483648
-          maximum: 2147483647
         renewal:
           allOf:
           - $ref: '#/components/schemas/RenewalEnum'
@@ -3827,9 +4252,13 @@ components:
           type: string
           format: date-time
           nullable: true
+        renewal_expire_at:
+          type: string
+          format: date-time
+          nullable: true
         upgrade:
           allOf:
-          - $ref: '#/components/schemas/UpgradeEnum'
+          - $ref: '#/components/schemas/ReissueEnum'
           minimum: -2147483648
           maximum: 2147483647
         upgrade_at:
@@ -3852,6 +4281,7 @@ components:
       - current_member
       - current_member_annual_renewal_fee
       - id
+      - loss_card_fee
       - member
       - next_member
       - next_member_annual_renewal_fee
@@ -4037,13 +4467,14 @@ components:
       type: object
       properties:
         cart_id_list:
-          type: array
-          items:
-            type: integer
-          default:
-          - 1
-          - 2
-          - 3
+          type: string
+          default: '[1, 2, 3]'
+        pkcs1:
+          type: string
+          default: sacurn_test
+        b64Cert:
+          type: string
+          default: aGVsbG8gd29ybGQ
     OrderSell:
       type: object
       properties:
@@ -4057,6 +4488,12 @@ components:
           $ref: '#/components/schemas/SellEnum'
         min_order_quantity:
           type: integer
+        pkcs1:
+          type: string
+          default: sacurn_test
+        b64Cert:
+          type: string
+          default: aGVsbG8gd29ybGQ
       required:
       - carbon_credit
       - min_order_quantity
@@ -4803,7 +5240,7 @@ components:
           nullable: true
         status:
           allOf:
-          - $ref: '#/components/schemas/Status02bEnum'
+          - $ref: '#/components/schemas/ReissueEnum'
           title: 狀態
           minimum: -2147483648
           maximum: 2147483647
@@ -4830,95 +5267,6 @@ components:
         registration_document:
           type: string
           format: uri
-    PatchedMemberRecord:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        current_member:
-          type: string
-          readOnly: true
-        current_member_annual_renewal_fee:
-          type: string
-          readOnly: true
-        renewal_deadline_day:
-          type: string
-          readOnly: true
-        next_member:
-          type: string
-          readOnly: true
-        next_member_annual_renewal_fee:
-          type: string
-          readOnly: true
-        buy_cost:
-          type: string
-          readOnly: true
-        sell_cost:
-          type: string
-          readOnly: true
-        can_upgrade:
-          type: string
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        deleted:
-          type: boolean
-        deleted_at:
-          type: string
-          format: date-time
-          nullable: true
-        start_at:
-          type: string
-          format: date-time
-          nullable: true
-        expire_at:
-          type: string
-          format: date-time
-          nullable: true
-        status:
-          allOf:
-          - $ref: '#/components/schemas/Status923Enum'
-          minimum: -2147483648
-          maximum: 2147483647
-        renewal:
-          allOf:
-          - $ref: '#/components/schemas/RenewalEnum'
-          minimum: -2147483648
-          maximum: 2147483647
-        renewal_at:
-          type: string
-          format: date-time
-          nullable: true
-        renewal_complete_at:
-          type: string
-          format: date-time
-          nullable: true
-        upgrade:
-          allOf:
-          - $ref: '#/components/schemas/UpgradeEnum'
-          minimum: -2147483648
-          maximum: 2147483647
-        upgrade_at:
-          type: string
-          format: date-time
-          nullable: true
-        upgrade_complete_at:
-          type: string
-          format: date-time
-          nullable: true
-        company:
-          type: integer
-        member:
-          type: integer
     PatchedShopCart:
       type: object
       properties:
@@ -5020,11 +5368,15 @@ components:
         unfinishedPdfs:
           type: array
           items: {}
+        semiPdfs:
+          type: array
+          items: {}
         tbsPdfs:
           type: string
         timestamp:
           type: string
       required:
+      - semiPdfs
       - tbsPdfs
       - timestamp
       - unfinishedPdfs
@@ -5073,14 +5425,28 @@ components:
       - access
       - refresh
       - user
+    ReissueEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      description: |-
+        * `0` - Not Reviewed
+        * `1` - Reviewing
+        * `2` - Reviewed Pass
+        * `3` - Documents Needed
     RenewalEnum:
       enum:
       - 0
       - 1
+      - 2
       type: integer
       description: |-
         * `0` - Unconfirmed
         * `1` - Confirmed
+        * `2` - Completed
     RestAuthDetail:
       type: object
       properties:
@@ -5089,6 +5455,18 @@ components:
           readOnly: true
       required:
       - detail
+    RevokeEnum:
+      enum:
+      - 0
+      - 1
+      - 3
+      - 4
+      type: integer
+      description: |-
+        * `0` - Unconfirmed
+        * `1` - Confirmed
+        * `3` - Reviewing
+        * `4` - Completed
     SellEnum:
       enum:
       - 1
@@ -5153,6 +5531,12 @@ components:
         shop_product_name:
           type: string
           default: 碳權證書
+    ShopOrderBuy:
+      type: object
+      properties:
+        cart_id_list:
+          type: string
+          default: '[1, 2, 3]'
     ShopProduct:
       type: object
       properties:
@@ -5255,7 +5639,7 @@ components:
           title: 總金額
         status:
           allOf:
-          - $ref: '#/components/schemas/Status02bEnum'
+          - $ref: '#/components/schemas/ReissueEnum'
           title: 狀態
           minimum: -2147483648
           maximum: 2147483647
@@ -5270,18 +5654,6 @@ components:
       - id
       - shop_order
       - updated_at
-    Status02bEnum:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      description: |-
-        * `0` - Not Reviewed
-        * `1` - Reviewing
-        * `2` - Reviewed Pass
-        * `3` - Documents Needed
     Status1d2Enum:
       enum:
       - 0
@@ -5520,14 +5892,6 @@ components:
             - 0
             - 0
             - 2000000.0
-    UpgradeEnum:
-      enum:
-      - 0
-      - 1
-      type: integer
-      description: |-
-        * `0` - Unconfirmed
-        * `1` - Confirmed
     User:
       type: object
       properties:
