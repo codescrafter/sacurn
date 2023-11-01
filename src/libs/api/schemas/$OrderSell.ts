@@ -24,5 +24,11 @@ export const $OrderSell = {
             type: 'number',
             isRequired: true,
         },
+        pkcs1: {
+            type: 'string',
+        },
+        b64Cert: {
+            type: 'string',
+        },
     },
 } as const;

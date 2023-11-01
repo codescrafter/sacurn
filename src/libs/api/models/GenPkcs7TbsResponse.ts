@@ -4,6 +4,8 @@
 /* eslint-disable */
 
 export type GenPkcs7TbsResponse = {
-    hashedContent: string;
+    twid_record: number;
+    content: string;
+    hashed_content: string;
 };
 

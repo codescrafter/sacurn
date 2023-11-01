@@ -164,7 +164,7 @@ export const $PatchedExtendedCompany = {
         status: {
             type: 'all-of',
             contains: [{
-                type: 'Status02bEnum',
+                type: 'ReissueEnum',
             }],
         },
         contact_person_name: {

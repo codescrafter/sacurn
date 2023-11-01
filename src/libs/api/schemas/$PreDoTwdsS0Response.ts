@@ -12,6 +12,14 @@ export const $PreDoTwdsS0Response = {
             },
             isRequired: true,
         },
+        semiPdfs: {
+            type: 'array',
+            contains: {
+                properties: {
+                },
+            },
+            isRequired: true,
+        },
         tbsPdfs: {
             type: 'string',
             isRequired: true,

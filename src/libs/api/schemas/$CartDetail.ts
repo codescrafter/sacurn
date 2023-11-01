@@ -5,10 +5,7 @@
 export const $CartDetail = {
     properties: {
         cart_id_list: {
-            type: 'array',
-            contains: {
-                type: 'number',
-            },
+            type: 'string',
         },
     },
 } as const;

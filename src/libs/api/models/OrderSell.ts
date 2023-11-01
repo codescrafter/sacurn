@@ -11,5 +11,7 @@ export type OrderSell = {
     quantity: number;
     sell: SellEnum;
     min_order_quantity: number;
+    pkcs1?: string;
+    b64Cert?: string;
 };
 

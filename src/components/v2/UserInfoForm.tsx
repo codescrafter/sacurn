@@ -1,36 +1,40 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+
+import { useEmployeeStore } from '@/store/employee';
 
 import CustomButton from '../CustomButton';
 import CustomInput from './CustomInput';
 import CustomSelect from './CustomSelect';
 
 export interface UserInfoFormValues {
-  name: string;
+  username: string;
+  last_name: string;
   job_title: string;
   email: string;
-  telephone: string;
-  extension: string;
-  operation_permission: string;
+  tel: string;
+  tel_extension: string;
+  group_name: string;
   confirm_info: boolean;
 }
 
 const Schema = yup
   .object({
-    name: yup.string().required('姓名為必填項'),
+    username: yup.string().required('姓氏為必填項'),
+    last_name: yup.string().required('名字為必填項'),
     job_title: yup.string().required('職位名稱為必填項'),
     email: yup.string().email('Enter valid address').required('電子郵件為必填項'),
-    telephone: yup
+    tel: yup
       .string()
       .required('例如：0x-000111 或 09xx-000111')
       .matches(/^09\d{8}$/, '例如：0x-000111 或 09xx-000111'),
-    extension: yup.string().required('需要延期'),
-    operation_permission: yup.string().required('需要操作權限'),
+    tel_extension: yup.string().required('需要延期'),
+    group_name: yup.string().required('需要操作權限'),
     confirm_info: yup
       .boolean()
       .required('請務必確認勾選此框。')
@@ -46,6 +50,14 @@ const UserInfoForm = () => {
     formState: { errors }
   } = useForm<UserInfoFormValues>({ resolver: yupResolver(Schema) });
 
+  const roleList = useEmployeeStore((store) => store.roleList);
+  const getRoleList = useEmployeeStore((store) => store.getRoleList);
+  const createEmployee = useEmployeeStore((store) => store.createEmployee);
+
+  useEffect(() => {
+    getRoleList();
+  }, []);
+
   const [file, setFile] = useState<string>('/v2/user-info-form/default.svg');
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files) {
@@ -57,7 +69,12 @@ const UserInfoForm = () => {
     }
   }
 
-  const onSubmit = handleSubmit(() => {});
+  const onSubmit = handleSubmit((value) => {
+    createEmployee({
+      photo: '',
+      ...value
+    });
+  });
 
   return (
     <form onSubmit={onSubmit}>
@@ -80,7 +97,20 @@ const UserInfoForm = () => {
             </IconButton>
           </div>
           <div className="flex flex-col gap-y-4.2 w-min">
-            <CustomInput<UserInfoFormValues> errors={errors} label="姓名" id="name" type="text" register={register} />
+            <CustomInput<UserInfoFormValues>
+              errors={errors}
+              label="姓氏"
+              id="username"
+              type="text"
+              register={register}
+            />
+            <CustomInput<UserInfoFormValues>
+              errors={errors}
+              label="名稱"
+              id="last_name"
+              type="text"
+              register={register}
+            />
             <CustomInput<UserInfoFormValues>
               errors={errors}
               label="職稱"
@@ -89,17 +119,11 @@ const UserInfoForm = () => {
               register={register}
             />
             <CustomInput<UserInfoFormValues> errors={errors} label="Email" id="email" type="text" register={register} />
-            <CustomInput<UserInfoFormValues>
-              errors={errors}
-              label="電話"
-              id="telephone"
-              type="text"
-              register={register}
-            />
+            <CustomInput<UserInfoFormValues> errors={errors} label="電話" id="tel" type="text" register={register} />
             <CustomInput<UserInfoFormValues>
               errors={errors}
               label="分機"
-              id="extension"
+              id="tel_extension"
               type="text"
               register={register}
               className="!w-[60%]"
@@ -110,7 +134,7 @@ const UserInfoForm = () => {
               <p className="min-[1600px]:text-lg min-[1500px]:text-base text-mdbase text-navy-blue font-bold min-[1600px]:mt-2.5 min-[1500px]:mt-2 min-[1300px]:mt-1.5 min-[1200px]:mt-1 mt-0.5">
                 操作權限
               </p>
-              <CustomSelect setValue={setValue} />
+              <CustomSelect setValue={setValue} options={roleList.map((role) => role.name)} />
             </div>
             <div className="flex flex-col">
               <div className="flex gap-2 w-[95%] self-end">

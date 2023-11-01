@@ -168,7 +168,7 @@ export const $ExtendedCompany = {
         status: {
             type: 'all-of',
             contains: [{
-                type: 'Status02bEnum',
+                type: 'ReissueEnum',
             }],
         },
         contact_person_name: {
