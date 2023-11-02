@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 
-import { Employee, Group, PatchedEmployeesPatch } from '@/libs/api';
+import { Employee, Group } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
+import { PatchedEmployeesPatch } from '../libs/api';
 import { runTask } from './modal';
 
 type EmployeeState = {
@@ -14,6 +15,7 @@ type EmployeeState = {
   selectedEmployee?: Employee;
   getSelectedEmployee: (...args: Parameters<typeof apiClient.company.companyEmployeeRetrieve>) => void;
   updateEmployeeDetails: (id: number, companyData?: FormData) => void;
+  deleteEmployeeAccount: (...args: Parameters<typeof apiClient.company.companyEmployeeDestroy>) => void;
 };
 
 export const useEmployeeStore = create<EmployeeState>((set, get) => ({
@@ -48,6 +50,11 @@ export const useEmployeeStore = create<EmployeeState>((set, get) => ({
     await runTask(async () => {
       const response = await apiClient.company.companyEmployeePartialUpdate(id, employeeData as PatchedEmployeesPatch);
       set({ selectedEmployee: response });
+    });
+  },
+  deleteEmployeeAccount: async (...args) => {
+    await runTask(async () => {
+      await apiClient.company.companyEmployeeDestroy(...args);
     });
   }
 }));
