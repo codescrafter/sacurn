@@ -25,7 +25,9 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
   };
 
   const unFreezeEmployeeAccount = (id: number) => {
-    updateEmployeeDetail(id, { status: 1 });
+    const formData = new FormData();
+    formData.append('status', '1');
+    updateEmployeeDetail(id, formData);
   };
 
   return (
