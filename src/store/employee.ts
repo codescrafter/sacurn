@@ -21,6 +21,7 @@ type EmployeeState = {
 export const useEmployeeStore = create<EmployeeState>((set, get) => ({
   roleList: [],
   employeeList: [],
+  selectedEmployee: undefined,
   getRoleList: async (page?: number) => {
     await runTask(async () => {
       const response = await apiClient.company.companyGroupList(page);
