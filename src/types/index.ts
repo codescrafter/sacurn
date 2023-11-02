@@ -25,3 +25,8 @@ export enum UniversalModalStatus {
   Loading = 'loading',
   Info = 'info'
 }
+
+export enum CardType {
+  GovernmentCard = '2',
+  MemberCard = '4'
+}

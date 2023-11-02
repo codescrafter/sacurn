@@ -40,7 +40,7 @@ export const $ShopTransaction = {
         status: {
             type: 'all-of',
             contains: [{
-                type: 'Status02bEnum',
+                type: 'ReissueEnum',
             }],
         },
         company: {

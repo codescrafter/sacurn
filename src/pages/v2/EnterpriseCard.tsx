@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import React from 'react';
 
 import CustomButton from '@/components/CustomButton';
-import { IsOnlineEnum } from '@/libs/api';
 import { useEmployeeStore } from '@/store/employee';
 import { BLUE, GREEN, YELLOW } from '@/util/constants';
 interface IProps {
@@ -11,7 +10,7 @@ interface IProps {
   userEmail: string;
   id: number;
   img: string | undefined | null;
-  isActive: IsOnlineEnum | undefined;
+  isActive: boolean;
 }
 
 const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProps) => {

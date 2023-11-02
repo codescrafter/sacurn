@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $MemberRecord = {
+export const $ExtendMemberRecord = {
     properties: {
         id: {
             type: 'number',
@@ -40,14 +40,12 @@ export const $MemberRecord = {
             isRequired: true,
         },
         buy_cost: {
-            type: 'string',
-            isReadOnly: true,
-            isRequired: true,
+            type: 'number',
+            format: 'double',
         },
         sell_cost: {
-            type: 'string',
-            isReadOnly: true,
-            isRequired: true,
+            type: 'number',
+            format: 'double',
         },
         can_upgrade: {
             type: 'string',

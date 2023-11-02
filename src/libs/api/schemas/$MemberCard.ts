@@ -14,6 +14,33 @@ export const $MemberCard = {
             isNullable: true,
             format: 'date-time',
         },
+        reissue: {
+            type: 'all-of',
+            contains: [{
+                type: 'ReissueEnum',
+            }],
+        },
+        reissue_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
+        reissue_completed_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
+        reissue_checked_at: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
+        revoke: {
+            type: 'all-of',
+            contains: [{
+                type: 'RevokeEnum',
+            }],
+        },
         revoke_at: {
             type: 'string',
             isNullable: true,

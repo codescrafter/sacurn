@@ -173,7 +173,7 @@ export const $Company = {
         status: {
             type: 'all-of',
             contains: [{
-                type: 'Status02bEnum',
+                type: 'ReissueEnum',
             }],
             isReadOnly: true,
             isRequired: true,

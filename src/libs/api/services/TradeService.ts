@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CartBulkDelete } from '../models/CartBulkDelete';
 import type { CartDetail } from '../models/CartDetail';
 import type { CartDetailResonse } from '../models/CartDetailResonse';
 import type { CartRequest } from '../models/CartRequest';
@@ -113,7 +114,7 @@ export class TradeService {
      * @throws ApiError
      */
     public tradeCartBulkDeleteCreate(
-        requestBody?: OrderBuy,
+        requestBody?: CartBulkDelete,
     ): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
@@ -203,16 +204,21 @@ export class TradeService {
     }
 
     /**
+     * @param id twid_record
      * @param requestBody
      * @returns TransactionDetail
      * @throws ApiError
      */
     public tradeOrderBuyCreate(
+        id: string,
         requestBody?: OrderBuy,
     ): CancelablePromise<TransactionDetail> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/trade/order_buy/',
+            query: {
+                'id': id,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -247,15 +253,20 @@ export class TradeService {
     /**
      * sell=1
      * @param requestBody
+     * @param id twid_record
      * @returns Order
      * @throws ApiError
      */
     public tradeOrderSellCreate(
         requestBody: OrderSell,
+        id?: string,
     ): CancelablePromise<Order> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/trade/order_sell/',
+            query: {
+                'id': id,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });

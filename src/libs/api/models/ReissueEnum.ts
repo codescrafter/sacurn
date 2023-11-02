@@ -9,7 +9,7 @@
  * * `2` - Reviewed Pass
  * * `3` - Documents Needed
  */
-export enum Status02bEnum {
+export enum ReissueEnum {
     '_0' = 0,
     '_1' = 1,
     '_2' = 2,

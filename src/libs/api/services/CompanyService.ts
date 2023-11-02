@@ -125,7 +125,7 @@ export class CompanyService {
       method: 'POST',
       url: '/company/employee/',
       body: requestBody,
-      mediaType: 'application/json'
+      mediaType: 'application/multi-part/form-data'
     });
   }
 
@@ -164,7 +164,6 @@ export class CompanyService {
         id: id
       },
       body: requestBody,
-      //   mediaType: 'application/json'
       mediaType: 'application/multi-part/form-data'
     });
   }

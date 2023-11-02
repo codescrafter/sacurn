@@ -8,7 +8,7 @@ import { Filters } from './filterOptions';
 import { runTask } from './modal';
 
 type ProductListState = {
-  productList: ExtendCarbonCredit[]; //NOTE: Type updated
+  productList: ExtendCarbonCredit[];
   filters: Filters;
   updateProductListByFilters: (filters: Filters) => void;
   getProductList: (...args: Parameters<typeof apiClient.carbonCredit.carbonCreditList>) => void;

@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { CartDetailResonse, CartRequest, ExtendedCart, TransactionDetail } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
+import { useCardStore } from './card';
 import { ModalType, runTask } from './modal';
 
 export type CheckoutResult = {
@@ -56,7 +57,9 @@ export const useCartStore = create<CartState>((set, get) => ({
   },
   getCartDetail: async () => {
     if (get().getSelectedCartIdList().length > 0) {
-      const cartDetail = await apiClient.trade.tradeCartDetailCreate({ cart_id_list: get().getSelectedCartIdList() });
+      const cartDetail = await apiClient.trade.tradeCartDetailCreate({
+        cart_id_list: JSON.stringify(get().getSelectedCartIdList())
+      });
       set({ cartDetail });
     } else {
       set({ cartDetail: null });
@@ -105,7 +108,7 @@ export const useCartStore = create<CartState>((set, get) => ({
         .map((item) => item.id);
       if (cartItemIdList.length === 0) return;
       await apiClient.trade.tradeCartBulkDeleteCreate({
-        cart_id_list: cartItemIdList
+        cart_id_list: JSON.stringify(cartItemIdList)
       });
       await get().getCartList();
       await get().getCartDetail();
@@ -117,11 +120,28 @@ export const useCartStore = create<CartState>((set, get) => ({
       checkoutDetail: null
     };
     await runTask(async () => {
-      const checkoutDetail = await apiClient.trade.tradeOrderBuyCreate({
-        cart_id_list: get().getSelectedCartIdList()
-      });
-      result.isSuccess = true;
-      result.checkoutDetail = checkoutDetail;
+      await useCardStore.getState().checkMemberCard(
+        async () => {
+          return await apiClient.twid.twidGenPkcs7TbsOrderBuyCreate({
+            cart_id_list: JSON.stringify(get().getSelectedCartIdList())
+          });
+        },
+        async (twid_record, b64Cert, pkcs1) => {
+          const checkoutDetail = await apiClient.trade.tradeOrderBuyCreate(twid_record.toString(), {
+            b64Cert,
+            pkcs1,
+            cart_id_list: JSON.stringify(get().getSelectedCartIdList())
+          });
+          result.checkoutDetail = checkoutDetail;
+          result.isSuccess = true;
+        }
+      );
+      if (result.isSuccess) {
+        await get().getCartList();
+        await get().getCartDetail();
+      }
+
+      return !result.isSuccess;
     });
 
     return result;

@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CartDetailResponse } from '../models/CartDetailResponse';
-import type { OrderBuy } from '../models/OrderBuy';
 import type { PaginatedShopCartList } from '../models/PaginatedShopCartList';
 import type { PaginatedShopProductList } from '../models/PaginatedShopProductList';
 import type { PaginatedShopTransactionList } from '../models/PaginatedShopTransactionList';
@@ -11,6 +10,7 @@ import type { PatchedShopCart } from '../models/PatchedShopCart';
 import type { PayCallback } from '../models/PayCallback';
 import type { ShopCart } from '../models/ShopCart';
 import type { ShopCartRequest } from '../models/ShopCartRequest';
+import type { ShopOrderBuy } from '../models/ShopOrderBuy';
 import type { ShopProduct } from '../models/ShopProduct';
 import type { ShopProductRequest } from '../models/ShopProductRequest';
 import type { ShopTransaction } from '../models/ShopTransaction';
@@ -104,7 +104,7 @@ export class ShopService {
      * @throws ApiError
      */
     public shopCartBulkDeleteCreate(
-        requestBody?: OrderBuy,
+        requestBody?: ShopOrderBuy,
     ): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
@@ -120,7 +120,7 @@ export class ShopService {
      * @throws ApiError
      */
     public shopCartDetailCreate(
-        requestBody?: OrderBuy,
+        requestBody?: ShopOrderBuy,
     ): CancelablePromise<CartDetailResponse> {
         return this.httpRequest.request({
             method: 'POST',
@@ -153,7 +153,7 @@ export class ShopService {
      * @throws ApiError
      */
     public shopOrderCreate(
-        requestBody?: OrderBuy,
+        requestBody?: ShopOrderBuy,
     ): CancelablePromise<ShopTransaction> {
         return this.httpRequest.request({
             method: 'POST',

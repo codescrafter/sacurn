@@ -80,6 +80,18 @@ export const $ExtendMemberSerilizer = {
             isNullable: true,
             format: 'double',
         },
+        upgrade_change_card_fee: {
+            type: 'number',
+            isNullable: true,
+            maximum: 2147483647,
+            minimum: -2147483648,
+        },
+        loss_card_fee: {
+            type: 'number',
+            isNullable: true,
+            maximum: 2147483647,
+            minimum: -2147483648,
+        },
         buy_cost: {
             type: 'number',
             isNullable: true,
