@@ -169,12 +169,11 @@ export type PermissionTableBodyType = {
   }[];
 };
 export type AccountTableBodyItems = {
-  id: number;
-  transactionDate: string;
-  transactionStatus: string;
-  orderNumber: string;
-  totalAmount: string;
-  points: string;
+  created_at: string;
+  status: string;
+  tran_uuid: string;
+  amount: number;
+  point: number;
 };
 export type AccountTableHeadingItems = {
   id: number;
@@ -189,38 +188,33 @@ export type SignatureConfirmationModalType = {
 };
 export type MembershipDataItems = {
   id: number;
-  title: string;
-  variant: string;
-  cardContent?: MembershipDataCardContent[];
-  content?: string;
-  subContent?: MembershipDataSubContent[];
-  mainContent?: MembershipDataMainContent[];
-  subtitle1?: string;
-  subtitle2?: string;
-  variation?: string;
-  subtitle3?: string;
-  tickContent?: MembershipDataTickContent[];
+  deleted: boolean;
+  deleted_at: null;
+  name: string;
+  image: null;
+  level: number;
+  registration_fee: number;
+  annual_Renewal_fee: number;
+  duration: number;
+  recommend: string;
+  point: string;
+  identity: string[];
+  upgrade: UpgradeMembershipData;
+  point_multiplier: number;
+  buy_cost: number;
+  sell_cost: number;
+  trade_day_limit: number;
+  trade_month_limit: number;
+  user_access_limit: number;
+  project_estimate: string;
+  e_news: number;
+  market_trade: number;
+  upcoming_release: number;
+  rebate_program: number;
 };
 
-export type MembershipDataCardContent = {
-  id: number;
-  source: string;
-  sourceColor: string;
-  className: string;
-  detail: string;
-};
-export type MembershipDataSubContent = {
-  id: number;
-  detail: string;
-  className: string;
-};
-export type MembershipDataMainContent = {
-  id: number;
-  detail1: string;
-  detail2: string;
-  className: string;
-};
-export type MembershipDataTickContent = {
-  id: number;
-  isTick: boolean;
+export type UpgradeMembershipData = {
+  orders: number | null;
+  points: number | null;
+  renewal: boolean;
 };

@@ -87,7 +87,9 @@ const DatePickerModal = ({ startDate, endDate, setDateRange, setOpen, open, clas
       {/* action buttons */}
       <div className="flex items-center space-x-2 mt-2 self-end pr-4 w-full justify-end">
         <Button className="!bg-neutral-150 !text-grey text-sm !rounded-xl !py-1 !px-3">取消</Button>
-        <Button className="!text-sm !rounded-xl !py-1 !px-3">查詢</Button>
+        <Button className="!text-sm !rounded-xl !py-1 !px-3" onClick={() => setOpen(false)}>
+          查詢
+        </Button>
       </div>
     </div>
   );

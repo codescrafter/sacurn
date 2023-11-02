@@ -2,22 +2,31 @@ import classNames from 'classnames';
 import React from 'react';
 
 import CustomButton from '@/components/CustomButton';
+import { useEmployeeStore } from '@/store/employee';
 import { BLUE, GREEN, YELLOW } from '@/util/constants';
 interface IProps {
-  title: string;
+  title: string | null | undefined;
   userName: string;
   userEmail: string;
   id: number;
-  img: string;
+  img: string | undefined | null;
   isActive: boolean;
 }
 
-const EnterpriseCard = ({ title, userName, userEmail, img, isActive }: IProps) => {
+const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProps) => {
+  const updateEmployeeDetail = useEmployeeStore((state) => state.updateEmployeeDetails);
+
   const randomColor = () => {
     const randomValue = Math.random();
     if (randomValue < 0.3) return YELLOW;
     if (randomValue < 0.9 && randomValue > 0.3) return GREEN;
     else return BLUE;
+  };
+
+  const unFreezeEmployeeAccount = (id: number) => {
+    const formData = new FormData();
+    formData.append('status', '1');
+    updateEmployeeDetail(id, formData);
   };
 
   return (
@@ -26,6 +35,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive }: IProps) =
       <CustomButton
         variant="rounded-full"
         className="absolute z-20 py-2.5 px-5 !bg-white !text-navy-blue font-sm font-bold hidden group-hover:block"
+        onClick={() => unFreezeEmployeeAccount(id)}
       >
         重新激活帳號
       </CustomButton>
@@ -41,7 +51,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive }: IProps) =
             }
           )}
         >
-          <img src={img} alt="no Image" className="h-15 xl:h-18" />
+          <img src={img ?? '/images/enterprise-account/user-icon.svg'} alt="no Image" className="h-15 xl:h-18" />
           <div
             className={classNames(
               'h-5 w-5 rounded-full border-4 border-white shadow-sm shadow-dark-grey absolute right-1',
