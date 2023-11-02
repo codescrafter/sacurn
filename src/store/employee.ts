@@ -11,6 +11,7 @@ type EmployeeState = {
   selectedEmployee?: Employee;
   getSelectedEmployee: (...args: Parameters<typeof apiClient.company.companyEmployeeRetrieve>) => void;
   updateEmployeeDetails: (id: number, companyData?: FormData) => void;
+  deleteEmployeeAccount: (...args: Parameters<typeof apiClient.company.companyEmployeeDestroy>) => void;
 };
 
 export const useEmployeeStore = create<EmployeeState>((set) => ({
@@ -32,6 +33,11 @@ export const useEmployeeStore = create<EmployeeState>((set) => ({
     await runTask(async () => {
       const response = await apiClient.company.companyEmployeePartialUpdate(id, employeeData as PatchedEmployeesPatch);
       set({ selectedEmployee: response });
+    });
+  },
+  deleteEmployeeAccount: async (...args) => {
+    await runTask(async () => {
+      await apiClient.company.companyEmployeeDestroy(...args);
     });
   }
 }));
