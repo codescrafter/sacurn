@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { Employee, Group } from '@/libs/api';
+import { Employee, ExtendEmployee, Group } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { PatchedEmployeesPatch } from '../libs/api';
@@ -10,7 +10,7 @@ type EmployeeState = {
   roleList: Group[];
   employeeList: Employee[];
   getRoleList: (page?: number) => void;
-  createEmployee: (...args: Parameters<typeof apiClient.company.companyEmployeeCreate>) => void;
+  createEmployee: (data: FormData) => void;
   getEmployeeList: (page?: number) => void;
   selectedEmployee?: Employee;
   getSelectedEmployee: (...args: Parameters<typeof apiClient.company.companyEmployeeRetrieve>) => void;
@@ -28,9 +28,9 @@ export const useEmployeeStore = create<EmployeeState>((set, get) => ({
       set({ roleList: response.results });
     });
   },
-  createEmployee: async (...args) => {
+  createEmployee: async (data) => {
     await runTask(async () => {
-      await apiClient.company.companyEmployeeCreate(...args);
+      await apiClient.company.companyEmployeeCreate(data as unknown as ExtendEmployee);
       await get().getEmployeeList();
     });
   },

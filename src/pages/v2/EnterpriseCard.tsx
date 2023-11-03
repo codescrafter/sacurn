@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import CustomButton from '@/components/CustomButton';
 import { useEmployeeStore } from '@/store/employee';
@@ -28,17 +29,34 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
     formData.append('status', '1');
     updateEmployeeDetail(id, formData);
   };
+  const navigate = useNavigate();
 
   return (
-    <div className="relative bg-white rounded-lg w-[100%] h-[316px] flex justify-center items-center group hover:border-4 hover:border-dark-grey transition-all">
-      <div className="w-full h-full absolute group-hover:bg-[#abababd1] rounded-sm" />
-      <CustomButton
-        variant="rounded-full"
-        className="absolute z-20 py-2.5 px-5 !bg-white !text-navy-blue font-sm font-bold hidden group-hover:block"
-        onClick={() => unFreezeEmployeeAccount(id)}
-      >
-        重新激活帳號
-      </CustomButton>
+    <div
+      className={classNames(
+        'relative bg-white rounded-lg w-[100%] h-[316px] flex justify-center items-center group hover:border-4  transition-all',
+        {
+          'hover:border-dark-grey': !isActive
+        }
+      )}
+      onClick={() => {
+        if (isActive) navigate(`/v2/profile-update/${id}`);
+      }}
+    >
+      <div
+        className={classNames('w-full h-full absolute rounded-sm', {
+          'group-hover:bg-[#abababd1]': !isActive
+        })}
+      />
+      {!isActive && (
+        <CustomButton
+          variant="rounded-full"
+          className="absolute z-20 py-2.5 px-5 !bg-white !text-navy-blue font-sm font-bold hidden group-hover:block"
+          onClick={() => unFreezeEmployeeAccount(id)}
+        >
+          重新激活帳號
+        </CustomButton>
+      )}
       <div className="flex flex-col justify-center items-center gap-4">
         <h1 className="text-navy-blue font-bold text-xl md:text-base xl:text-xl 2xl:text-2xl ">{title}</h1>
         <div
