@@ -59,10 +59,13 @@ const UserInfoForm = () => {
   }, []);
 
   const [file, setFile] = useState<string>('/v2/user-info-form/default.svg');
+  const [fileSource, setFileSource] = useState<File | null>(null);
+
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files) {
       try {
         setFile(URL.createObjectURL(event.target.files[0]));
+        setFileSource(event.target.files[0]);
       } catch (err) {
         return;
       }
@@ -70,10 +73,17 @@ const UserInfoForm = () => {
   }
 
   const onSubmit = handleSubmit((value) => {
-    createEmployee({
-      photo: '',
-      ...value
-    });
+    const formData = new FormData();
+    fileSource && formData.append('photo', fileSource);
+    formData.append('username', value.username);
+    formData.append('last_name', value.last_name);
+    formData.append('job_title', value.job_title);
+    formData.append('email', value.email);
+    formData.append('tel', value.tel);
+    formData.append('tel_extension', value.tel_extension);
+    formData.append('group_name', value.group_name);
+
+    createEmployee(formData);
   });
 
   return (
