@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useMembershipStepsStore } from '@/store/memberShipSteps';
@@ -18,6 +18,17 @@ interface IProps {
 const Layout = ({ children, variant }: IProps) => {
   const { pathname } = useLocation();
   const membership = useMembershipStepsStore((state) => state.step);
+
+  useEffect(() => {
+    const step = pathname.split('-').pop()?.toUpperCase();
+    let current_membership_step: MembershipStep | undefined = undefined;
+    if (step && step in ['RENEWAL', 'REISSUE', 'REVOKED']) {
+      current_membership_step = step as MembershipStep;
+    }
+    if (current_membership_step) {
+      useMembershipStepsStore.setState({ step: MembershipStep[current_membership_step] });
+    }
+  }, []);
 
   return (
     <Fragment>
