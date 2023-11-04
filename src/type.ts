@@ -94,7 +94,14 @@ export type MembershipTypes = {
   title: string;
   icon: string;
   slug: MembershipStep;
+  path: string;
 };
+
+export enum MembershipStepsPath {
+  RENEWAL = '/v2/card-renewal',
+  REISSUE = '/v2/card-reissue',
+  REVOKED = '/v2/card-revoked'
+}
 
 export enum CardRenewalEnum {
   EXPIRY_DATE = 1,
