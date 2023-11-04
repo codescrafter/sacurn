@@ -74,7 +74,8 @@ export enum CarbonTag {
 export enum CompanyStatus {
   NoReview = 0, // 有註冊 尚未送審
   Reviewing = 1, // 送審中
-  PassReview = 2 // 審核通過
+  PassReview = 2, // 審核通過
+  CompleteInfo = 3 // 資料填寫完成
 }
 
 export enum OrderStatus {
