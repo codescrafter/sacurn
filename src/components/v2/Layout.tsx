@@ -22,7 +22,7 @@ const Layout = ({ children, variant }: IProps) => {
   useEffect(() => {
     const step = pathname.split('-').pop()?.toUpperCase();
     let current_membership_step: MembershipStep | undefined = undefined;
-    if (step && step in ['RENEWAL', 'REISSUE', 'REVOKED']) {
+    if (step && ['RENEWAL', 'REISSUE', 'REVOKED'].includes(step)) {
       current_membership_step = step as MembershipStep;
     }
     if (current_membership_step) {
