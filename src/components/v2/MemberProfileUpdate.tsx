@@ -119,7 +119,7 @@ const MemberProfileUpdate = () => {
 
   const onSubmit = handleSubmit((data) => {
     // checks if password1 is valid
-
+    if (!infoUpdateAble) return;
     if (passwordUpdateAble) {
       if (!password1.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{12,}$/)) {
         setPassword1Error('密碼需至少有12字元，請混和使用大小寫字母、數字，使密碼更加安全。');
@@ -305,8 +305,8 @@ const MemberProfileUpdate = () => {
               <CustomButton
                 children="凍結帳號"
                 className="border !border-silverstone !text-silverstone !bg-transparent min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
-                onClick={() =>
-                  open(ModalType.DeleteEmployeeAccount, {
+                onClick={() => {
+                  open(ModalType.FreezeEmployeeAccount, {
                     buttons: [
                       { text: '取消送出' },
                       {
@@ -316,8 +316,8 @@ const MemberProfileUpdate = () => {
                         }
                       }
                     ]
-                  })
-                }
+                  });
+                }}
               />
             </div>
             <CustomButton
