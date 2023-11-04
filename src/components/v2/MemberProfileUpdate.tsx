@@ -55,12 +55,10 @@ const MemberProfileUpdate = () => {
     resolver: yupResolver(Schema)
   });
 
-  console.log('errors', errors);
-
   const { id } = useParams();
   const [infoUpdateAble, setInfoUpdateAble] = useState(false);
   const [passwordUpdateAble, setPasswordUpdateAble] = useState(false);
-
+  const roleList = useEmployeeStore((store) => store.roleList);
   const getSelectedEmployee = useEmployeeStore((state) => state.getSelectedEmployee);
   const deleteEmployeeAccount = useEmployeeStore((state) => state.deleteEmployeeAccount);
   const open = useModalStore((state) => state.open);
@@ -248,7 +246,11 @@ const MemberProfileUpdate = () => {
                   <p className="min-[1600px]:text-xl min-[1500px]:text-lg min-[1300px]:text-base text-sm text-navy-blue font-bold min-[1600px]:mt-2.5 min-[1500px]:mt-2 min-[1300px]:mt-1.5 min-[1200px]:mt-1 mt-0.5 whitespace-nowrap">
                     操作權限
                   </p>
-                  <CustomSelect setValue={setValue} selectedValue={getValues().operation_permission} />
+                  <CustomSelect
+                    setValue={setValue}
+                    selectedValue={getValues().operation_permission}
+                    options={roleList.map((role) => role.name)}
+                  />
                 </div>
 
                 {passwordUpdateAble && (
@@ -386,9 +388,10 @@ const CustomInfo = ({ heading, data, className }: CustomInfoIProps) => {
 interface CustomSelectIProps {
   setValue: UseFormSetValue<UserProfileUpdateFormValues>;
   selectedValue?: string;
+  options: string[];
 }
 
-const CustomSelect = ({ setValue, selectedValue }: CustomSelectIProps) => {
+const CustomSelect = ({ setValue, selectedValue, options }: CustomSelectIProps) => {
   const dropDownRef = useRef(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -452,8 +455,6 @@ const CustomSelect = ({ setValue, selectedValue }: CustomSelectIProps) => {
     </div>
   );
 };
-
-const options = ['管理員', '操作人員', '操作人員(無後台操作權)'];
 
 interface PasswordInputProps {
   className?: string;

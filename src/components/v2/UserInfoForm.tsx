@@ -144,7 +144,7 @@ const UserInfoForm = () => {
               <p className="min-[1600px]:text-lg min-[1500px]:text-base text-mdbase text-navy-blue font-bold min-[1600px]:mt-2.5 min-[1500px]:mt-2 min-[1300px]:mt-1.5 min-[1200px]:mt-1 mt-0.5">
                 操作權限
               </p>
-              <CustomSelect setValue={setValue} options={options} />
+              <CustomSelect setValue={setValue} options={roleList.map((role) => role.name)} />
             </div>
             <div className="flex flex-col">
               <div className="flex gap-2 w-[95%] self-end">
@@ -186,5 +186,3 @@ const UserInfoForm = () => {
 };
 
 export default UserInfoForm;
-
-const options = ['管理員', '操作人員', '操作人員(無後台操作權)', '人員(無後台操作權)'];
