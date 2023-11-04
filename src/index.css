@@ -193,6 +193,38 @@
   scrollbar-gutter: stable;
 }
 
+/* width */
+.grayScrollNoBg::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+/* Track */
+.grayScrollNoBg::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 15px 0;
+  border-radius: 4px;
+}
+
+/* Handle */
+.grayScrollNoBg::-webkit-scrollbar-thumb {
+  background: #b3b4b4;
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+.grayScrollNoBg::-webkit-scrollbar-thumb:hover {
+  background: #b3b4b4;
+}
+
+/*Fire Fox */
+
+.grayScrollNoBg {
+  scrollbar-width: thin;
+  scrollbar-color: #b3b4b4 transparent;
+  scrollbar-gutter: stable;
+}
+
 .styledDiv {
   background: transparent;
   position: relative;
