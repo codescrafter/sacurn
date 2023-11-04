@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import React, { Fragment, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useMembershipStepsStore } from '@/store/memberShipSteps';
-import { MembershipStep, MembershipTypes } from '@/type';
+import { MembershipStep, MembershipStepsPath, MembershipTypes } from '@/type';
 
 import Navbar from '../Navbar';
 import AccountSteps from './AccountSteps';
@@ -17,6 +17,7 @@ interface IProps {
 
 const Layout = ({ children, variant }: IProps) => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const membership = useMembershipStepsStore((state) => state.step);
 
   useEffect(() => {
@@ -27,6 +28,8 @@ const Layout = ({ children, variant }: IProps) => {
     }
     if (current_membership_step) {
       useMembershipStepsStore.setState({ step: MembershipStep[current_membership_step] });
+    } else {
+      useMembershipStepsStore.setState({ step: undefined });
     }
   }, []);
 
@@ -77,7 +80,7 @@ const Layout = ({ children, variant }: IProps) => {
                       'transition-none border bg-[#ffffff4d] rounded-lg px-4 py-2': membership === step.slug
                     })}
                     onClick={() => {
-                      useMembershipStepsStore.setState({ step: step.slug });
+                      navigate(step.path);
                     }}
                   >
                     <img src={step.icon} alt={step.title} className="w-[90px] h-10 object-contain" />
@@ -107,18 +110,21 @@ const MEMBERSHIP_STEPS: MembershipTypes[] = [
     id: 1,
     title: '會員卡續卡',
     slug: MembershipStep.RENEWAL,
+    path: MembershipStepsPath.RENEWAL,
     icon: '/v2/layout/card.svg'
   },
   {
     id: 2,
     title: '會員卡補發',
     slug: MembershipStep.REISSUE,
+    path: MembershipStepsPath.REISSUE,
     icon: '/v2/layout/help.svg'
   },
   {
-    id: 1,
+    id: 3,
     title: '會員卡廢止',
     slug: MembershipStep.REVOKED,
+    path: MembershipStepsPath.REVOKED,
     icon: '/v2/layout/cancel.svg'
   }
 ];
