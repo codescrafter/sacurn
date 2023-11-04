@@ -121,10 +121,10 @@ export type CardMembershipTypes = {
 };
 
 export enum AccountStepsEnum {
-  ACCOUNT_INFORMATION = 'ACCOUNT_INFORMATION',
-  ENTERPRISE_ACCOUNT = 'ENTERPRISE_ACCOUNT',
-  ACCOUNT_CARBON_CREDIT = 'ACCOUNT_CARBON_CREDIT',
-  OPERATING_INSTRUCTION = 'OPERATING_INSTRUCTION'
+  ACCOUNT_INFORMATION = '/v2/account-information',
+  ENTERPRISE_ACCOUNT = '/v2/enterprise-account',
+  ACCOUNT_CARBON_CREDIT = '/v2/account-carbon-credit',
+  OPERATING_INSTRUCTION = '/v2/operating-instruction'
 }
 
 export enum CardRevokedEnum {
