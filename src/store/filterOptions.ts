@@ -33,7 +33,8 @@ export const useFilterOptionsStore = create<FilterOptionsState>((set, get) => ({
     await runTask(async () => {
       const filterOptions = await apiClient.carbonCredit.carbonCreditFilterListRetrieve();
       const locationOptions = filterOptions.location_list?.map((item) => ({ name: item, value: item }));
-      const vintageOptions = filterOptions.vintage_list?.map((item) => ({ name: item, value: item }));
+      let vintageOptions = filterOptions.vintage_list?.map((item) => ({ name: item, value: item }));
+      vintageOptions = vintageOptions?.sort((a, b) => Number(b.value) - Number(a.value));
       // 10,100 -> 10 ~ 100
       const priceOptions = filterOptions.price_list?.map((item) => ({ name: item.replace(',', ' ~ '), value: item }));
 
