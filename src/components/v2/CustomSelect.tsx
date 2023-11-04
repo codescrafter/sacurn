@@ -56,7 +56,7 @@ const CustomSelect = ({ setValue, options }: CustomSelectIProps) => {
         <img src="/v2/user-info-form/down-arrow.svg" className="" />
       </div>
       {isOpen && (
-        <div className="relative z-40 shadow-input-field rounded-b-2.5xl bg-white py-1 flex flex-col min-[1400px]:gap-4 gap-2 min-[1400px]:pb-3 pb-2 min-[1600px]:px-10 min-[1500px]:px-8.7 min-[1300px]:px-7 px-4.5 min-[1600px]:max-h-[132px] min-[1500px]:max-h-[122px] min-[1400px]:max-h-[110px] min-[1300px]:max-h-[93px] min-[1200px]:max-h-[77px] max-h-[70px] overflow-y-scroll overflow-x-hidden  w-full">
+        <div className="relative z-40 shadow-input-field rounded-b-2.5xl bg-white py-1 flex flex-col min-[1400px]:gap-4 gap-2 min-[1400px]:pb-3 pb-2 min-[1600px]:px-10 min-[1500px]:px-8.7 min-[1300px]:px-7 px-4.5 min-[1600px]:max-h-[132px] min-[1500px]:max-h-[122px] min-[1400px]:max-h-[110px] min-[1300px]:max-h-[93px] min-[1200px]:max-h-[77px] max-h-[70px] overflow-y-scroll overflow-x-hidden grayScrollNoBg  w-full">
           {options.map((option, index) => (
             <label
               className={classNames(
