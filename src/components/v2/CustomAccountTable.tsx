@@ -36,7 +36,7 @@ const CustomAccountTable = ({ tableHeadings }: IProps) => {
 
   const startDate = recordFilters.startDate ? convertFormatToDate(recordFilters.startDate) : null;
   const endDate = recordFilters.endDate ? convertFormatToDate(recordFilters.endDate) : null;
-
+  console.log('___points', pointRecordList);
   return (
     <div className="flex pt-[38px] flex-row justify-end items-center w-full pr-16 pl-10">
       <div className="flex flex-col min-w-full">
