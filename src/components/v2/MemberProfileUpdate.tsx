@@ -55,12 +55,10 @@ const MemberProfileUpdate = () => {
     resolver: yupResolver(Schema)
   });
 
-  console.log('errors', errors);
-
   const { id } = useParams();
   const [infoUpdateAble, setInfoUpdateAble] = useState(false);
   const [passwordUpdateAble, setPasswordUpdateAble] = useState(false);
-
+  const roleList = useEmployeeStore((store) => store.roleList);
   const getSelectedEmployee = useEmployeeStore((state) => state.getSelectedEmployee);
   const deleteEmployeeAccount = useEmployeeStore((state) => state.deleteEmployeeAccount);
   const open = useModalStore((state) => state.open);
@@ -248,7 +246,11 @@ const MemberProfileUpdate = () => {
                   <p className="min-[1600px]:text-xl min-[1500px]:text-lg min-[1300px]:text-base text-sm text-navy-blue font-bold min-[1600px]:mt-2.5 min-[1500px]:mt-2 min-[1300px]:mt-1.5 min-[1200px]:mt-1 mt-0.5 whitespace-nowrap">
                     操作權限
                   </p>
-                  <CustomSelect setValue={setValue} selectedValue={getValues().operation_permission} />
+                  <CustomSelect
+                    setValue={setValue}
+                    selectedValue={getValues().operation_permission}
+                    options={roleList.map((role) => role.name)}
+                  />
                 </div>
 
                 {passwordUpdateAble && (
@@ -386,9 +388,10 @@ const CustomInfo = ({ heading, data, className }: CustomInfoIProps) => {
 interface CustomSelectIProps {
   setValue: UseFormSetValue<UserProfileUpdateFormValues>;
   selectedValue?: string;
+  options: string[];
 }
 
-const CustomSelect = ({ setValue, selectedValue }: CustomSelectIProps) => {
+const CustomSelect = ({ setValue, selectedValue, options }: CustomSelectIProps) => {
   const dropDownRef = useRef(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -432,7 +435,7 @@ const CustomSelect = ({ setValue, selectedValue }: CustomSelectIProps) => {
         <img src="/v2/user-info-form/down-arrow.svg" className="" />
       </div>
       {isOpen && (
-        <div className="absolute z-10 shadow-input-field rounded-b-2.5xl bg-white py-1 flex flex-col min-[1400px]:gap-4 gap-2 min-[1400px]:pb-3 pb-2 min-[1600px]:px-10 min-[1500px]:px-8.7 min-[1350px]:px-7 px-4.5 w-full">
+        <div className="absolute z-10 shadow-input-field rounded-b-2.5xl bg-white py-1 flex flex-col min-[1400px]:gap-4 gap-2 min-[1400px]:pb-3 pb-2 min-[1600px]:px-10 min-[1500px]:px-8.7 min-[1300px]:px-7 px-4.5 min-[1600px]:max-h-[132px] min-[1500px]:max-h-[122px] min-[1400px]:max-h-[110px] min-[1300px]:max-h-[93px] min-[1200px]:max-h-[77px] max-h-[70px] overflow-y-scroll overflow-x-hidden grayScrollNoBg w-full">
           {options.map((option, index) => (
             <label
               className={classNames(
@@ -452,8 +455,6 @@ const CustomSelect = ({ setValue, selectedValue }: CustomSelectIProps) => {
     </div>
   );
 };
-
-const options = ['管理員', '操作人員', '操作人員(無後台操作權)'];
 
 interface PasswordInputProps {
   className?: string;
