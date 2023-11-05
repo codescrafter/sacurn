@@ -29,6 +29,8 @@ const CompanyRegistration = () => {
           }
         ]
       });
+    } else if (company?.status?.toString() === CompanyStatus.CompleteInfo.toString()) {
+      setStepNumber(CompanyRegistrationSteps.COMPANY_INFO_FORM);
     }
   }, []);
 

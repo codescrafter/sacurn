@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 
 type MembershipStepsState = {
-  step: 'RENEWAL' | 'REISSUE' | 'REVOKED';
+  step: 'RENEWAL' | 'REISSUE' | 'REVOKED' | undefined;
 };
 
 export const useMembershipStepsStore = create<MembershipStepsState>((set) => ({
-  step: 'RENEWAL',
+  step: undefined,
   setMembershipStep: ({ step }: MembershipStepsState) => set({ step })
 }));
