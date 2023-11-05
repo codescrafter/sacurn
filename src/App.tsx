@@ -53,7 +53,7 @@ const router = createBrowserRouter([
     element: <Permission />
   },
   {
-    path: '/v2/platform-use',
+    path: '/v2/operating-instruction',
     element: <PlatformUsage />
   },
   {
@@ -91,11 +91,11 @@ const router = createBrowserRouter([
     )
   },
   {
-    path: '/v2/profile-update',
+    path: '/v2/profile-update/:id',
     element: <MemberProfile />
   },
   {
-    path: '/v2/account-credit',
+    path: '/v2/account-carbon-credit',
     element: <AccountCredit />
   },
   {

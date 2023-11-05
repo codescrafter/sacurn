@@ -119,7 +119,11 @@ const CustomCard = ({
           {terms && <p className="text-[10px] text-center font-normal">{terms}</p>}
         </div>
       </div>
-      {step < cardRenewalNumber && <img src="/v2/cart/left-arrow.svg" className="w-5 h-5 object-contain mx-2" />}
+      {step < cardRenewalNumber ? (
+        <img src="/v2/cart/left-arrow.svg" className="w-5 h-5 object-contain mx-2" />
+      ) : (
+        <div className="w-5 h-5 mx-2"></div>
+      )}
     </div>
   );
 };

@@ -111,8 +111,8 @@ const ProductList = () => {
                 image={product.image || '-'}
                 name={product.name || '-'}
                 location={product.location}
-                rating={product.carbon_rating || '-'}
-                standard={product.certification_from || '-'}
+                rating={product.rating_text?.slice(0, 200) || '-'} // NOTE: property name changed. TODO:adjust it later
+                standard={product.standard_methodology || '-'} // NOTE: property name changed
                 type={product.type || '-'}
                 coBenefit={product.co_benefit || 0}
                 vintage={product.vintage || '-'}

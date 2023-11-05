@@ -30,6 +30,8 @@ export enum ModalType {
   Error = 'Error',
   CompanyReviewing = 'CompanyReviewing',
   DeleteCartItem = 'DeleteCartItem',
+  DeleteEmployeeAccount = 'DeleteEmployeeAccount',
+  FreezeEmployeeAccount = 'FreezeEmployeeAccount',
   CardEnvDetectError = 'CardEnvDetectError'
 }
 
@@ -151,6 +153,20 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
       }
     ]
   },
+  [ModalType.DeleteEmployeeAccount]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '再次提醒',
+    description: '確認刪除帳號後，資料將無法恢復',
+    buttons: [
+      {
+        text: '取消送出'
+      },
+      {
+        text: '確認刪除帳號'
+      }
+    ]
+  },
   [ModalType.CardEnvDetectError]: {
     status: UniversalModalStatus.Info,
     icon: '/images/ic_error.svg',
@@ -160,6 +176,20 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
     buttons: [
       {
         text: '元件下載'
+      }
+    ]
+  },
+  [ModalType.FreezeEmployeeAccount]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '再次提醒',
+    description: '確認凍結帳號 ?',
+    buttons: [
+      {
+        text: '取消送出'
+      },
+      {
+        text: '確認凍結帳號'
       }
     ]
   }

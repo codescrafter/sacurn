@@ -14,4 +14,3 @@ export type PatchedEmployeesPatch = {
     photo?: string;
     status?: number;
 };
-

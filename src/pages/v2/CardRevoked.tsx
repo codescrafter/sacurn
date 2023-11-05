@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
 import Layout from '@/components/v2/Layout';
+import { useCardRevokeStore } from '@/store/cardRevoke';
 import { CardMembershipTypes, CardRevokedEnum } from '@/type';
 import { INFO_MARGIN } from '@/util/constants';
 
@@ -11,6 +12,33 @@ const CardRevoked = () => {
   const { state } = useLocation();
   const [cardRenewal, setCardRenewal] = useState<CardRevokedEnum>();
   const [cardReIssueList, setCardReIssueList] = useState<CardMembershipTypes[]>([CARD_REVOKED[0]]);
+  const getCardDetails = useCardRevokeStore((state) => state.getCardDetails);
+  const cardDetails = useCardRevokeStore((state) => state.cardDetails);
+  const cardRevokeApply = useCardRevokeStore((state) => state.cardRevokeApply);
+  const cardRevokeConfirm = useCardRevokeStore((state) => state.cardRevokeConfirm);
+
+  useEffect(() => {
+    getCardDetails();
+  }, []);
+
+  useEffect(() => {
+    console.log(cardDetails);
+    if (cardDetails?.revoke === 0) {
+      setCardRenewal(CardRevokedEnum.ANNULMENT);
+      setCardReIssueList([CARD_REVOKED[0]]);
+    }
+    if (cardDetails?.revoke === 1 || cardDetails?.revoke === 3) {
+      setCardRenewal(CardRevokedEnum.CANCELLATION_CONFIRMATION);
+      const updatedInfo = { ...CARD_REVOKED[1], info: cardDetails.revoke_at || '' };
+      setCardReIssueList([CARD_REVOKED[0], updatedInfo]);
+    }
+    if (cardDetails?.revoke === 4) {
+      setCardRenewal(CardRevokedEnum.COMPLETE_ABOLITION);
+      const updatedInfo1 = { ...CARD_REVOKED[1], info: cardDetails.revoke_at || '' };
+      const updatedInfo2 = { ...CARD_REVOKED[2], info: cardDetails.revoke_complete_at || '' };
+      setCardReIssueList([CARD_REVOKED[0], updatedInfo1, updatedInfo2]);
+    }
+  }, [cardDetails]);
 
   useEffect(() => {
     if (state && state?.step) {
@@ -19,13 +47,9 @@ const CardRevoked = () => {
     }
   }, []);
 
-  const getCardRenewalValue = (value: number) => {
-    if (value === CardRevokedEnum.COMPLETE_ABOLITION) {
-      return;
-    }
-    setCardRenewal(CardRevokedEnum.ANNULMENT + value);
-    const updatedList = [...cardReIssueList, CARD_REVOKED[value]];
-    setCardReIssueList(updatedList);
+  const getCardRenewalValue = () => {
+    if (cardDetails?.revoke === 0) return cardRevokeApply();
+    if (cardDetails?.revoke === 1) return cardRevokeConfirm();
   };
 
   return (
@@ -50,7 +74,7 @@ const CardRevoked = () => {
                 cardRenewalNumber={cardRenewal || 1}
                 // isStyleChanged={CardReIssueEnum.REPORT_LOSS}
                 slug={item.slug}
-                getCurrentValue={(value) => getCardRenewalValue(value)}
+                getCurrentValue={() => getCardRenewalValue()}
               />
             ))}
         </div>

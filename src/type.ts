@@ -74,7 +74,8 @@ export enum CarbonTag {
 export enum CompanyStatus {
   NoReview = 0, // 有註冊 尚未送審
   Reviewing = 1, // 送審中
-  PassReview = 2 // 審核通過
+  PassReview = 2, // 審核通過
+  CompleteInfo = 3 // 資料填寫完成
 }
 
 export enum OrderStatus {
@@ -93,7 +94,14 @@ export type MembershipTypes = {
   title: string;
   icon: string;
   slug: MembershipStep;
+  path: string;
 };
+
+export enum MembershipStepsPath {
+  RENEWAL = '/v2/card-renewal',
+  REISSUE = '/v2/card-reissue',
+  REVOKED = '/v2/card-revoked'
+}
 
 export enum CardRenewalEnum {
   EXPIRY_DATE = 1,
@@ -121,10 +129,10 @@ export type CardMembershipTypes = {
 };
 
 export enum AccountStepsEnum {
-  ACCOUNT_INFORMATION = 'ACCOUNT_INFORMATION',
-  ENTERPRISE_ACCOUNT = 'ENTERPRISE_ACCOUNT',
-  ACCOUNT_CARBON_CREDIT = 'ACCOUNT_CARBON_CREDIT',
-  OPERATING_INSTRUCTION = 'OPERATING_INSTRUCTION'
+  ACCOUNT_INFORMATION = '/v2/account-information',
+  ENTERPRISE_ACCOUNT = '/v2/enterprise-account',
+  ACCOUNT_CARBON_CREDIT = '/v2/account-carbon-credit',
+  OPERATING_INSTRUCTION = '/v2/operating-instruction'
 }
 
 export enum CardRevokedEnum {
@@ -169,12 +177,11 @@ export type PermissionTableBodyType = {
   }[];
 };
 export type AccountTableBodyItems = {
-  id: number;
-  transactionDate: string;
-  transactionStatus: string;
-  orderNumber: string;
-  totalAmount: string;
-  points: string;
+  created_at: string;
+  status: string;
+  tran_uuid: string;
+  amount: number;
+  point: number;
 };
 export type AccountTableHeadingItems = {
   id: number;
@@ -189,38 +196,33 @@ export type SignatureConfirmationModalType = {
 };
 export type MembershipDataItems = {
   id: number;
-  title: string;
-  variant: string;
-  cardContent?: MembershipDataCardContent[];
-  content?: string;
-  subContent?: MembershipDataSubContent[];
-  mainContent?: MembershipDataMainContent[];
-  subtitle1?: string;
-  subtitle2?: string;
-  variation?: string;
-  subtitle3?: string;
-  tickContent?: MembershipDataTickContent[];
+  deleted: boolean;
+  deleted_at: null;
+  name: string;
+  image: null;
+  level: number;
+  registration_fee: number;
+  annual_Renewal_fee: number;
+  duration: number;
+  recommend: string;
+  point: string;
+  identity: string[];
+  upgrade: UpgradeMembershipData;
+  point_multiplier: number;
+  buy_cost: number;
+  sell_cost: number;
+  trade_day_limit: number;
+  trade_month_limit: number;
+  user_access_limit: number;
+  project_estimate: string;
+  e_news: number;
+  market_trade: number;
+  upcoming_release: number;
+  rebate_program: number;
 };
 
-export type MembershipDataCardContent = {
-  id: number;
-  source: string;
-  sourceColor: string;
-  className: string;
-  detail: string;
-};
-export type MembershipDataSubContent = {
-  id: number;
-  detail: string;
-  className: string;
-};
-export type MembershipDataMainContent = {
-  id: number;
-  detail1: string;
-  detail2: string;
-  className: string;
-};
-export type MembershipDataTickContent = {
-  id: number;
-  isTick: boolean;
+export type UpgradeMembershipData = {
+  orders: number | null;
+  points: number | null;
+  renewal: boolean;
 };
