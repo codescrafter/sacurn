@@ -156,8 +156,7 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
                 <div className="w-[100%] flex flex-col items-center pt-12 pb-29">
                   <div className="text-center mb-9">
                     <h1 className="font-bold text-[32px] leading-[38px]">
-                      申請合約
-                      <br /> 工商憑證簽章程序
+                      {type === CardType.GovernmentCard ? '工商憑證' : '會員卡'}憑證簽章程序
                     </h1>
                   </div>
                   <h3 className="text-[32px] font-bold text-[#888] text-center mb-5">環境監測成功</h3>

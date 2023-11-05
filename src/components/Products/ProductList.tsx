@@ -26,7 +26,7 @@ const ProductList = () => {
 
   useEffect(() => {
     getFilterOptions();
-    if (productList.length === 0) getProductListWithFilter();
+    getProductListWithFilter();
     if (wishList.length === 0) getWishList();
   }, []);
 
