@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import CardSteps from '@/components/v2/CardSteps';
 import CustomCard from '@/components/v2/CustomCard';
 import Layout from '@/components/v2/Layout';
+import formatDate from '@/helpers/formatDate';
 import { useCardRevokeStore } from '@/store/cardRevoke';
 import { CardMembershipTypes, CardRevokedEnum } from '@/type';
 import { INFO_MARGIN } from '@/util/constants';
@@ -65,7 +66,7 @@ const CardRevoked = () => {
                 name={item.name}
                 title={item.title}
                 subTitle={item.subTitle}
-                info={item.info}
+                info={formatDate(item.info)}
                 responseTitle={item.responseTitle}
                 responseDetail={item.responseDetail}
                 buttonText={item.buttonText}
