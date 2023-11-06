@@ -57,26 +57,10 @@ export const $PatchedExtendedCompany = {
             isNullable: true,
             format: 'date',
         },
-        address: {
-            type: 'dictionary',
-            contains: {
-                properties: {
-                },
-            },
-            isNullable: true,
-        },
         phone: {
             type: 'string',
             isNullable: true,
             maxLength: 45,
-        },
-        contact_address: {
-            type: 'dictionary',
-            contains: {
-                properties: {
-                },
-            },
-            isNullable: true,
         },
         representative_country: {
             type: 'string',
@@ -186,6 +170,12 @@ export const $PatchedExtendedCompany = {
             type: 'string',
             isNullable: true,
             maxLength: 45,
+        },
+        address: {
+            type: 'string',
+        },
+        contact_address: {
+            type: 'string',
         },
         registration_document: {
             type: 'string',

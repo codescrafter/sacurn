@@ -61,26 +61,10 @@ export const $ExtendedCompany = {
             isNullable: true,
             format: 'date',
         },
-        address: {
-            type: 'dictionary',
-            contains: {
-                properties: {
-                },
-            },
-            isNullable: true,
-        },
         phone: {
             type: 'string',
             isNullable: true,
             maxLength: 45,
-        },
-        contact_address: {
-            type: 'dictionary',
-            contains: {
-                properties: {
-                },
-            },
-            isNullable: true,
         },
         representative_country: {
             type: 'string',
@@ -190,6 +174,14 @@ export const $ExtendedCompany = {
             type: 'string',
             isNullable: true,
             maxLength: 45,
+        },
+        address: {
+            type: 'string',
+            isRequired: true,
+        },
+        contact_address: {
+            type: 'string',
+            isRequired: true,
         },
         registration_document: {
             type: 'string',
