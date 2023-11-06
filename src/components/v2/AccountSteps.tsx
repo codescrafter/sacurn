@@ -22,12 +22,12 @@ const AccountSteps = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 w-max mt-5 ml-3">
-      <div className="flex min-[1300px]:w-[53vw] w-[50vw] h-[42px] first:rounded-s-md">
+    <div className="flex flex-col gap-5 mt-5 ml-3 w-full">
+      <div className="flex justify-center 2xl:justify-start w-full h-[42px] first:rounded-s-md">
         <CustomButton
           children="帳號資訊"
           variant="secondary"
-          className={classNames('w-[25%] 2xl:text-lg text-base font-bold rounded-s-md', {
+          className={classNames('w-[25%] max-w-[20%] 2xl:text-lg text-base font-bold rounded-s-md', {
             'shadow-membership-nav-in !bg-light-white': selected === AccountStepsEnum.ACCOUNT_INFORMATION,
             'shadow-membership-nav-out bg-white': selected != AccountStepsEnum.ACCOUNT_INFORMATION
           })}
@@ -39,7 +39,7 @@ const AccountSteps = () => {
         <CustomButton
           children="企業帳號總覽"
           variant="secondary"
-          className={classNames('w-[25%] 2xl:text-lg text-base font-bold', {
+          className={classNames('w-[25%] max-w-[20%]  2xl:text-lg text-base font-bold', {
             'shadow-membership-nav-in !bg-light-white': selected === AccountStepsEnum.ENTERPRISE_ACCOUNT,
             'shadow-membership-nav-out bg-white': selected != AccountStepsEnum.ENTERPRISE_ACCOUNT
           })}
@@ -51,7 +51,7 @@ const AccountSteps = () => {
         <CustomButton
           children="帳戶碳積分"
           variant="secondary"
-          className={classNames('w-[25%] 2xl:text-lg text-base font-bold', {
+          className={classNames('w-[25%] max-w-[20%]  2xl:text-lg text-base font-bold', {
             'shadow-membership-nav-in !bg-light-white': selected === AccountStepsEnum.ACCOUNT_CARBON_CREDIT,
             'shadow-membership-nav-out bg-white': selected != AccountStepsEnum.ACCOUNT_CARBON_CREDIT
           })}
@@ -63,7 +63,7 @@ const AccountSteps = () => {
         <CustomButton
           children="操作說明"
           variant="secondary"
-          className={classNames('w-[25%] 2xl:text-lg text-base font-bold rounded-e-md', {
+          className={classNames('w-[25%] max-w-[20%]  2xl:text-lg text-base font-bold rounded-e-md', {
             'shadow-membership-nav-in !bg-light-white': selected === AccountStepsEnum.OPERATING_INSTRUCTION,
             'shadow-membership-nav-out bg-white': selected != AccountStepsEnum.OPERATING_INSTRUCTION
           })}
@@ -73,7 +73,9 @@ const AccountSteps = () => {
           }}
         />
       </div>
-      <div className="bg-white shadow-membership-nav-underline mix-blend-soft-light h-0.5 w-full rounded-full" />
+      <div className="flex justify-center 2xl:block">
+        <div className="bg-white shadow-membership-nav-underline mix-blend-soft-light h-0.5 rounded-full w-[80%]" />
+      </div>
     </div>
   );
 };
