@@ -2,8 +2,11 @@ import classNames from 'classnames';
 import React, { Fragment, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { useCompanyStore } from '@/store/company';
 import { useMembershipStepsStore } from '@/store/memberShipSteps';
+import { COOKIE_AUTH_NAME } from '@/store/user';
 import { MembershipStep, MembershipStepsPath, MembershipTypes } from '@/type';
+import { getCookie } from '@/util/helper';
 
 import Navbar from '../Navbar';
 import AccountSteps from './AccountSteps';
@@ -19,6 +22,8 @@ const Layout = ({ children, variant }: IProps) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const membership = useMembershipStepsStore((state) => state.step);
+  const getCompanyInfo = useCompanyStore((state) => state.getCompany);
+  const [company] = useCompanyStore((state) => [state.company, state.getCompany]);
 
   useEffect(() => {
     const step = pathname.split('-').pop()?.toUpperCase();
@@ -32,6 +37,15 @@ const Layout = ({ children, variant }: IProps) => {
       useMembershipStepsStore.setState({ step: undefined });
     }
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      const companyId = getCookie(COOKIE_AUTH_NAME);
+      await getCompanyInfo(companyId);
+    })();
+  }, []);
+
+  console.log('company--------------', company);
 
   return (
     <Fragment>
@@ -54,21 +68,36 @@ const Layout = ({ children, variant }: IProps) => {
               <div className="relative w-[380px] h-[220px]">
                 <img src="/v2/cardv1.svg" alt="sacurn card" className="w-full h-full object-cover" />
                 <div className="absolute top-[34%] right-[8%] flex flex-col items-end w-full">
-                  <p className="text-[28px] font-bold tracking-[0.9px] text-white leading-[25px]">
-                    艾克斯厚定<span className="text-xs tracking-[0.39px]">股份有限公司</span>
+                  <p className="text-[26px] font-bold tracking-[0.9px] text-white leading-[25px]">
+                    {/* 艾克斯厚定<span className="text-xs tracking-[0.39px]">股份有限公司</span> */}
+                    {company?.name}
                   </p>
                   <p className="text-sm fond-bold tracking-[0.36px] text-white text-end leading-[24px]">
-                    musk_xholding
+                    {company.account_name || ''}
                   </p>
-                  <p className="text-[22px] font-bold text-white text-end drop-shadow-sm leading-[20px]">A0123456789</p>
+                  <p className="text-[22px] font-bold text-white text-end drop-shadow-sm leading-[20px]">
+                    {company.account_number || ''}
+                  </p>
                   <p className="text-sliver-sand text-xs font-bold tracking-[0.193px] text-end">會員編號</p>
                   <div className="flex gap-6 justify-end">
                     <div className="text-end">
-                      <p className="text-sm font-bold drop-shadow-lg text-white leading-[20px]">2023/05/01</p>
+                      <p className="text-sm font-bold drop-shadow-lg text-white leading-[20px]">
+                        {new Date(company.representative_id_card_issue_date || '')
+                          .toLocaleDateString()
+                          .split('/')
+                          .reverse()
+                          .join('/')}
+                      </p>
                       <p className="text-sliver-sand text-xs font-bold tracking-[0.193px] text-end">核發日期</p>
                     </div>
                     <div className="text-end">
-                      <p className="text-sm font-bold drop-shadow-lg text-white leading-[20px]">2024/05/01</p>
+                      <p className="text-sm font-bold drop-shadow-lg text-white leading-[20px]">
+                        {new Date(company.representative_id_card_issue_date || '')
+                          .toLocaleDateString()
+                          .split('/')
+                          .reverse()
+                          .join('/')}
+                      </p>
                       <p className="text-sliver-sand text-xs font-bold tracking-[0.193px] text-end">到期日期</p>
                     </div>
                   </div>
