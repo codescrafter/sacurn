@@ -1263,36 +1263,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtendMemberRecord'
           description: ''
-    post:
-      operationId: member_record_create
-      description: "renewal(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2) \n upgrade(UNCONFIRMED\
-        \ = 0 CONFIRMED = 1 REVIEWING = 2 COMPLETED = 3)"
-      tags:
-      - member
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MemberRecord'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/MemberRecord'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/MemberRecord'
-        required: true
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      - {}
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MemberRecord'
-          description: ''
   /member/renewal/:
     post:
       operationId: member_renewal_create
@@ -2381,7 +2351,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenPkcs7TbsResponse'
           description: ''
-  /twid/genPkcs7Tbs/upgrade:
+  /twid/genPkcs7Tbs/upgrade/:
     post:
       operationId: twid_genPkcs7Tbs_upgrade_create
       tags:
@@ -3900,6 +3870,9 @@ components:
           type: integer
           default: 1
         company_status:
+          type: integer
+          default: 1
+        profile:
           type: integer
           default: 1
       required:

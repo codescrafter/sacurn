@@ -110,7 +110,7 @@ export class TwidService {
     public twidGenPkcs7TbsUpgradeCreate(): CancelablePromise<GenPkcs7TbsResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/twid/genPkcs7Tbs/upgrade',
+            url: '/twid/genPkcs7Tbs/upgrade/',
         });
     }
 

@@ -186,24 +186,6 @@ export class MemberService {
     }
 
     /**
-     * renewal(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2)
-     * upgrade(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 2 COMPLETED = 3)
-     * @param requestBody
-     * @returns MemberRecord
-     * @throws ApiError
-     */
-    public memberRecordCreate(
-        requestBody: MemberRecord,
-    ): CancelablePromise<MemberRecord> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/member/record/',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-
-    /**
      * @param requestBody
      * @returns ExtendMemberRecord
      * @throws ApiError
