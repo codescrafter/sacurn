@@ -13,6 +13,7 @@ type TotalPaymentProps = {
 
 const TotalPayment = (props: TotalPaymentProps) => {
   const { totalPrice, checkoutDetail } = props;
+  const accountNumber = '4667 8249 1290 6678';
 
   const result = useMemo(() => {
     const result = {
@@ -90,10 +91,17 @@ const TotalPayment = (props: TotalPaymentProps) => {
             </div>
             <div>
               <p className="text-navy-blue text-lg font-bold mb-1">帳戶號碼：</p>
-              <p className="text-bright-red text-lg font-bold">4667 8249 1290 6678</p>
+              <p className="text-bright-red text-lg font-bold">{accountNumber}</p>
             </div>
             <div className="flex items-end">
-              <p className="text-[#61A1CB] text-lg font-bold">複製</p>
+              <p
+                className="text-[#61A1CB] text-lg font-bold cursor-copy"
+                onClick={() => {
+                  navigator.clipboard.writeText(accountNumber);
+                }}
+              >
+                複製
+              </p>
             </div>
           </div>
         </div>

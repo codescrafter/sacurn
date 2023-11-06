@@ -74,7 +74,8 @@ export enum CarbonTag {
 export enum CompanyStatus {
   NoReview = 0, // 有註冊 尚未送審
   Reviewing = 1, // 送審中
-  PassReview = 2 // 審核通過
+  PassReview = 2, // 審核通過
+  CompleteInfo = 3 // 資料填寫完成
 }
 
 export enum OrderStatus {
@@ -93,7 +94,14 @@ export type MembershipTypes = {
   title: string;
   icon: string;
   slug: MembershipStep;
+  path: string;
 };
+
+export enum MembershipStepsPath {
+  RENEWAL = '/v2/card-renewal',
+  REISSUE = '/v2/card-reissue',
+  REVOKED = '/v2/card-revoked'
+}
 
 export enum CardRenewalEnum {
   EXPIRY_DATE = 1,
@@ -121,10 +129,10 @@ export type CardMembershipTypes = {
 };
 
 export enum AccountStepsEnum {
-  ACCOUNT_INFORMATION = 'ACCOUNT_INFORMATION',
-  ENTERPRISE_ACCOUNT = 'ENTERPRISE_ACCOUNT',
-  ACCOUNT_CARBON_CREDIT = 'ACCOUNT_CARBON_CREDIT',
-  OPERATING_INSTRUCTION = 'OPERATING_INSTRUCTION'
+  ACCOUNT_INFORMATION = '/v2/account-information',
+  ENTERPRISE_ACCOUNT = '/v2/enterprise-account',
+  ACCOUNT_CARBON_CREDIT = '/v2/account-carbon-credit',
+  OPERATING_INSTRUCTION = '/v2/operating-instruction'
 }
 
 export enum CardRevokedEnum {

@@ -109,7 +109,7 @@ const Tile = ({
         </div>
         <div className="h-full flex flex-col items-center justify-evenly">
           <Link to={`/product-carbon/${id}`}>
-            <img src="/images/products/green/dollar.svg" alt="sacurn" className="w-9 h-9" width={36} height={36} />
+            <img src="/images/products/green/dollar.svg" alt="sacurn" className="w-12 h-12" width={36} height={36} />
           </Link>
           {wishItem ? (
             <button onClick={() => deleteWishList(wishItem.id)}>
