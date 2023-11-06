@@ -48,10 +48,35 @@ const Layout = ({ children, variant }: IProps) => {
         <div className="flex justify-between gap-4">
           <div className="w-[30%] mt-10 min-[1400px]:mt-[102px] min-[1700px]:mt[150px]">
             <div className="pl-12">
-              <img src="/v2/card.svg" alt="sacurn card" className="" />
-              <p className="text-ceramic text-xs font-bold relative -mt-[14px] mx-[8%] text-center 2xl:text-left xl:tracking-[1.8px] 2xl:tracking-[3.6px] ">
-                此會員憑證卡由土星永續股份有限公司認證發行
-              </p>
+              {/* <div className="bg-[url('../public/v2/cardv1.svg')] bg-no-repeat bg-contain w-[380px] h-[220px]">
+                Hlloe fjdkfldkjfld
+              </div> */}
+              <div className="relative w-[380px] h-[220px]">
+                <img src="/v2/cardv1.svg" alt="sacurn card" className="w-full h-full object-cover" />
+                <div className="absolute top-[34%] right-[8%] flex flex-col items-end w-full">
+                  <p className="text-[28px] font-bold tracking-[0.9px] text-white leading-[25px]">
+                    艾克斯厚定<span className="text-xs tracking-[0.39px]">股份有限公司</span>
+                  </p>
+                  <p className="text-sm fond-bold tracking-[0.36px] text-white text-end leading-[24px]">
+                    musk_xholding
+                  </p>
+                  <p className="text-[22px] font-bold text-white text-end drop-shadow-sm leading-[20px]">A0123456789</p>
+                  <p className="text-sliver-sand text-xs font-bold tracking-[0.193px] text-end">會員編號</p>
+                  <div className="flex gap-6 justify-end">
+                    <div className="text-end">
+                      <p className="text-sm font-bold drop-shadow-lg text-white leading-[20px]">2023/05/01</p>
+                      <p className="text-sliver-sand text-xs font-bold tracking-[0.193px] text-end">核發日期</p>
+                    </div>
+                    <div className="text-end">
+                      <p className="text-sm font-bold drop-shadow-lg text-white leading-[20px]">2024/05/01</p>
+                      <p className="text-sliver-sand text-xs font-bold tracking-[0.193px] text-end">到期日期</p>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-ceramic text-xs font-bold relative -mt-[10px] mx-[8%] text-center 2xl:text-left xl:tracking-[1.8px] flex justify-center">
+                  此會員憑證卡由土星永續股份有限公司認證發行
+                </p>
+              </div>
             </div>
             <div>
               <h4 className="text-white text-4xl font-bold text-center mt-3 min-[1400px]:mt-7 min-[1700px]:mt-10">
