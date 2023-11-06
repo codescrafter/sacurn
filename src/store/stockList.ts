@@ -50,7 +50,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     let isSuccess = false;
     await runTask(
       async () => {
-        await useCardStore.getState().checkMemberCard(
+        isSuccess = await useCardStore.getState().checkMemberCard(
           async () => {
             return await apiClient.twid.twidGenPkcs7TbsOrderSellCreate({
               carbon_credit: carbonId,
@@ -73,7 +73,6 @@ export const useStockListStore = create<StockListState>((set, get) => ({
               },
               twid_record.toString()
             );
-            isSuccess = true;
           }
         );
 
