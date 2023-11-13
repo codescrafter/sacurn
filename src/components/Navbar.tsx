@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { NavbarItemTypes } from '../type';
 import { NAVBAR_ITEMS } from '../util/constants';
+import UserOptionsDropdown from './UserOptionsDropdown';
 
 interface IProps {
   className?: string;
@@ -10,7 +11,6 @@ interface IProps {
 
 const Navbar = ({ className }: IProps) => {
   const location = useLocation();
-  const navigate = useNavigate();
 
   return (
     <div
@@ -48,14 +48,7 @@ const Navbar = ({ className }: IProps) => {
               height={34}
             />
           </Link>
-          <img
-            onClick={() => navigate('/')}
-            alt="sacurn"
-            src="/images/navbar/member.svg"
-            className="2xl:w-10.5 2xl:h-10.5 w-8 h-8 cursor-pointer pt-1"
-            width={42}
-            height={42}
-          />
+          <UserOptionsDropdown />
         </div>
       </div>
     </div>

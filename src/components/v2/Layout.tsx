@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { Fragment, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import formatDate from '@/helpers/formatDate';
 import { useCompanyStore } from '@/store/company';
 import { useMembershipStepsStore } from '@/store/memberShipSteps';
 import { COOKIE_AUTH_NAME } from '@/store/user';
@@ -45,8 +46,6 @@ const Layout = ({ children, variant }: IProps) => {
     })();
   }, []);
 
-  console.log('company--------------', company);
-
   return (
     <Fragment>
       <Navbar className="!bg-navy-blue py-4" />
@@ -82,21 +81,13 @@ const Layout = ({ children, variant }: IProps) => {
                   <div className="flex gap-6 justify-end">
                     <div className="text-end">
                       <p className="text-sm font-bold drop-shadow-lg text-white leading-[20px]">
-                        {new Date(company.representative_id_card_issue_date || '')
-                          .toLocaleDateString()
-                          .split('/')
-                          .reverse()
-                          .join('/')}
+                        {formatDate(company.representative_id_card_issue_date || '')}
                       </p>
                       <p className="text-sliver-sand text-xs font-bold tracking-[0.193px] text-end">核發日期</p>
                     </div>
                     <div className="text-end">
                       <p className="text-sm font-bold drop-shadow-lg text-white leading-[20px]">
-                        {new Date(company.representative_id_card_issue_date || '')
-                          .toLocaleDateString()
-                          .split('/')
-                          .reverse()
-                          .join('/')}
+                        {formatDate(company.representative_id_card_issue_date || '')}
                       </p>
                       <p className="text-sliver-sand text-xs font-bold tracking-[0.193px] text-end">到期日期</p>
                     </div>
