@@ -11,5 +11,6 @@ export type LoginResponse = {
     user: User;
     company?: number;
     company_status?: number;
+    profile?: number;
 };
 

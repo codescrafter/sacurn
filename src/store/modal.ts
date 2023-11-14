@@ -170,7 +170,7 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
   [ModalType.CardEnvDetectError]: {
     status: UniversalModalStatus.Info,
     icon: '/images/ic_error.svg',
-    title: '商品購買作業',
+    title: '作業錯誤',
     description: '環境監測失敗',
     errorText: '請下載元件',
     buttons: [

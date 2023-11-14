@@ -13,7 +13,6 @@ import CustomInput from './CustomInput';
 import CustomSelect from './CustomSelect';
 
 export interface UserInfoFormValues {
-  username: string;
   last_name: string;
   job_title: string;
   email: string;
@@ -25,8 +24,7 @@ export interface UserInfoFormValues {
 
 const Schema = yup
   .object({
-    username: yup.string().required('姓氏為必填項'),
-    last_name: yup.string().required('名字為必填項'),
+    last_name: yup.string().required('姓名為必填項'),
     job_title: yup.string().required('職位名稱為必填項'),
     email: yup.string().email('Enter valid address').required('電子郵件為必填項'),
     tel: yup
@@ -75,7 +73,6 @@ const UserInfoForm = () => {
   const onSubmit = handleSubmit((value) => {
     const formData = new FormData();
     fileSource && formData.append('photo', fileSource);
-    formData.append('username', value.username);
     formData.append('last_name', value.last_name);
     formData.append('job_title', value.job_title);
     formData.append('email', value.email);
@@ -109,14 +106,7 @@ const UserInfoForm = () => {
           <div className="flex flex-col gap-y-4.2 w-min">
             <CustomInput<UserInfoFormValues>
               errors={errors}
-              label="姓氏"
-              id="username"
-              type="text"
-              register={register}
-            />
-            <CustomInput<UserInfoFormValues>
-              errors={errors}
-              label="名稱"
+              label="姓名"
               id="last_name"
               type="text"
               register={register}

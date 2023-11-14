@@ -14,6 +14,7 @@ export type AuthResult = {
   isSuccess: boolean;
   companyId: LoginResponse['company'];
   redirectUrl: string;
+  profileId: number;
 };
 
 type UserState = {
@@ -28,7 +29,8 @@ export const useUserStore = create<UserState>((set) => ({
     const result: AuthResult = {
       isSuccess: false,
       companyId: undefined,
-      redirectUrl: '/'
+      redirectUrl: '/',
+      profileId: -1
     };
 
     await runTask(async () => {
@@ -42,8 +44,11 @@ export const useUserStore = create<UserState>((set) => ({
         result.redirectUrl = '/company-registration';
       }
 
-      cookies.set(COOKIE_AUTH_NAME, JSON.stringify(result), { expires: 1 });
+      if (response.profile) {
+        result.profileId = response.profile;
+      }
 
+      cookies.set(COOKIE_AUTH_NAME, JSON.stringify(result), { expires: 1 });
       set({ user: response.user });
     });
 
