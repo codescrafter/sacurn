@@ -50,7 +50,7 @@ const AccountInformation = () => {
   const accountInfoList: AccountInformationTypes[] = useMemo(() => {
     return [
       {
-        key: '公司名稱',
+        key: '名稱',
         value: company.name || '-'
       },
       {
@@ -62,11 +62,19 @@ const AccountInformation = () => {
         value: company.registration_number || '-'
       },
       {
-        key: '公司電話',
+        key: '電話',
         value: company.phone || '-'
       },
       {
-        key: '公司地址',
+        key: '地址',
+        value: Object.values(company.address || {}).join('') || '-'
+      },
+      {
+        key: '財務聯絡人',
+        value: Object.values(company.address || {}).join('') || '-'
+      },
+      {
+        key: '財務電話',
         value: Object.values(company.address || {}).join('') || '-'
       }
     ];
@@ -89,11 +97,16 @@ const AccountInformation = () => {
   return (
     <Layout>
       <form onSubmit={onSubmit} className="flex justify-end mr-4 xl:block">
-        <div className="mt-[124px] w-[90%] rounded-lg bg-transparent-blue opacity-[0.9] shadow-account-info-box min-h-[490px] 2xl:min-h-[570px] 2.5xl:min-h-[600px]">
-          <div className="flex">
+        <div className=" ml-14 mt-[124px] lg:mt-[90px] xl:mt-[100px] w-[90%] rounded-lg bg-transparent-blue opacity-[0.9] shadow-account-info-box min-h-[490px] 2xl:min-h-[560px] 2.5xl:min-h-[600px]">
+          <div className="flex ">
             <div className="w-[50%]">
-              <div className="account-information-clip-path rounded-tl-lg rounded-bl-lg bg-white min-h-[490px] xl:min-h-[570px] 2.5xl:min-h-[600px]">
-                <div className="pt-12 pl-8">
+              <div className="account-information-clip-path rounded-tl-lg rounded-bl-lg bg-white min-h-[490px] xl:min-h-[560px] 2.5xl:min-h-[600px]">
+                <div className="pt-8 pl-8">
+                  <div className="pb-2">
+                    <h2 className=" text-transparent-blue font-bold text-xl  border-b-2 border-solid w-[65%]">
+                      <span className="">公司資訊</span>
+                    </h2>
+                  </div>
                   <div className="relative">
                     <IconButton component="label" className="relative z-50 ">
                       <label
@@ -111,11 +124,11 @@ const AccountInformation = () => {
                       </div>
                     </IconButton>
                   </div>
-                  <div className="mt-10 2.5xl:mt-14">
+                  <div className="mt-5 2.5xl:mt-5">
                     {accountInfoList.map(({ key, value }) => (
                       <div
                         key={key}
-                        className="flex gap-2 text-navy-blue font-semibold 2xl:font-bold text-base xl:text-xl 2.5xl:text-[22px] mb-4 xl:mb-8 2.5xl:mb-10 first:pr-16 w-full"
+                        className="flex  text-navy-blue font-semibold 2xl:font-bold text-base xl:text-lg 2.5xl:text-xl mb-4 xl:mb-6 2.5xl:mb-8 first:pr-16 w-full"
                       >
                         <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px]">{key}:</p>
                         <p className="pr-4 w-[65%]">{value}</p>
@@ -125,10 +138,14 @@ const AccountInformation = () => {
                 </div>
               </div>
             </div>
-            <div className="w-[55%] flex flex-col gap-6 items-center pt-10 pr-6">
+
+            <div className="w-[55%] flex flex-col gap-6 items-center pt-8 pr-6">
+              <div className="pb-2 -ml-20 w-[117%] 2xl:-ml-28  2xl:w-[117%] ">
+                <h2 className=" text-white  font-bold text-xl border-b-2 border-solid w-full">個人資訊</h2>
+              </div>
               <CustomInput
                 errors={errors}
-                label="聯絡人名稱"
+                label="名稱"
                 id="name"
                 type="text"
                 register={register}
@@ -136,7 +153,7 @@ const AccountInformation = () => {
               />
               <CustomInput
                 errors={errors}
-                label="聯絡人職稱"
+                label=" 職稱"
                 id="title"
                 type="text"
                 register={register}
@@ -144,21 +161,14 @@ const AccountInformation = () => {
               />
               <CustomInput
                 errors={errors}
-                label="聯絡人Email"
+                label="Email"
                 id="email"
                 type="text"
                 register={register}
                 defaultValue="albert@xholding.com"
               />
-              <CustomInput
-                errors={errors}
-                label="聯絡人電話"
-                id="phone"
-                type="text"
-                register={register}
-                defaultValue="02-1234 5678"
-              />
-              <div className="w-full">
+
+              {/* <div className="w-full">
                 <CustomInput
                   errors={errors}
                   label="密碼"
@@ -191,6 +201,44 @@ const AccountInformation = () => {
                     </div>
                   </Fragment>
                 )}
+              </div> */}
+              <div className="flex w-full  gap-14 lg:gap-11 xl:gap-14 2xl:gap-16">
+                <div className=" flex w-[50%] 2xl:w-[60% ]">
+                  <CustomInput
+                    errors={errors}
+                    label="電話"
+                    id="phone"
+                    type="text"
+                    register={register}
+                    defaultValue="02-1234 5678"
+                    className="gap-14 lg:gap-12 2xl:gap-14"
+                  />
+                </div>
+                <div className="w-[30%] 2xl:w-[33%]">
+                  <CustomInput errors={errors} id="hash" type="text" register={register} defaultValue="#12345" />
+                </div>
+              </div>
+              <div className="w-full justify-end items-start flex gap-3">
+                <CustomButton
+                  variant="rounded"
+                  className="bg-pale-yellow border-pale-yellow !text-transparent-blue self-end !px-8 !py-2 font-bold"
+                >
+                  儲存變更
+                </CustomButton>
+                <CustomButton
+                  variant="rounded"
+                  className="border-pale-yellow !bg-grey border-2 !text-pale-yellow !py-1.5  !px-10 font-bold"
+                >
+                  取消
+                </CustomButton>
+              </div>
+              <div className="pb-2  w-[100%] ">
+                <h2 className=" text-white  font-bold text-xl border-b-2 border-solid w-full">安全性密碼</h2>
+                <div className="flex justify-end w-full">
+                  <h2 className="relative inline-block border-b-2 font-bold text-pale-yellow cursor-pointer text-xl">
+                    變更密碼
+                  </h2>
+                </div>
               </div>
             </div>
           </div>
@@ -211,37 +259,50 @@ interface CustomInputIProps {
   label?: string;
   errors: FieldErrors<AccountInfoValues>;
   callback?: () => void;
+  className?: string;
 }
 
-const CustomInput = ({ id, register, defaultValue, type, placeholder, label, errors, callback }: CustomInputIProps) => {
-  const [edit, setEdit] = useState<boolean>(false);
-  const [updateType, setUpdateType] = useState<boolean>(true);
+const CustomInput = ({
+  id,
+  register,
+  defaultValue,
+  type,
+  placeholder,
+  label,
+  errors,
+  callback,
+  className
+}: CustomInputIProps) => {
+  // const [edit, setEdit] = useState<boolean>(false);
+  // const [updateType, setUpdateType] = useState<boolean>(true);
 
   return (
     <div
-      className={classNames('flex justify-between w-full gap-7 items-center', {
+      className={classNames(`flex justify-between w-full gap-7 items-center ${className}`, {
         'mb-0.5': errors && errors[id]
       })}
     >
-      <p className="2xl:text-xl font-bold xl:text-base text-sm text-white text-right whitespace-nowrap w-[24%] tracking-[2px]">
+      <p
+        className={`2xl:text-xl font-bold xl:text-base text-sm text-white text-start whitespace-nowrap w-[10%] tracking-[2px] `}
+      >
         {label}
       </p>
-      <div className={classNames('flex flex-col relative w-[76%]', { 'gap-0.5': errors && errors[id] })}>
-        <div className="rounded-full px-4 py-1 xl:py-2 2xl:py-3 bg-white flex justify-between">
+      <div className={classNames('flex flex-col relative w-full', { 'gap-0.5': errors && errors[id] })}>
+        <div className="rounded-full px-4 py-1 xl:py-2 2xl:py-3 bg-white flex justify-between  ">
           <input
             defaultValue={defaultValue}
-            className="outline-none bg-transparent w-[90%] text-navy-blue text-lg font-semibold 2xl:text-xl 2xl:font-bold"
+            className="outline-none bg-transparent text-navy-blue text-lg font-semibold 2xl:text-xl 2xl:font-bold"
             {...register(id)}
             placeholder={placeholder}
-            type={updateType && id === 'confirmPassword' ? 'password' : type}
+            // type={updateType && id === 'confirmPassword' ? 'password' : type}
             onFocus={() => {
-              setEdit(true);
+              // setEdit(true);
               if (id === 'password' && callback) {
                 callback();
               }
             }}
           />
-          {id === 'confirmPassword' ? (
+          {/* {id === 'confirmPassword' ? (
             <img
               src="/v2/icon/eye-icon.svg"
               alt="sacurn"
@@ -250,9 +311,9 @@ const CustomInput = ({ id, register, defaultValue, type, placeholder, label, err
             />
           ) : edit ? (
             <img src="/v2/icon/tick-icon.svg" alt="sacurn" className="h-6 w-6 object-contain" />
-          ) : (
+          ) : (s
             <img src="/v2/icon/edit-icon.svg" alt="sacurn" className="h-6 w-6 object-contain" />
-          )}
+          )} */}
         </div>
         <div className="relative w-full">
           {errors && errors[id] && (
