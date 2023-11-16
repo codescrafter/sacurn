@@ -11,7 +11,7 @@ import { INFO_MARGIN } from '@/util/constants';
 
 const CardRevoked = () => {
   const { state } = useLocation();
-  const [cardRenewal, setCardRenewal] = useState<CardRevokedEnum>();
+  const [cardRenewal, setCardRenewal] = useState<CardRevokedEnum>(CardRevokedEnum.ANNULMENT);
   const [cardReIssueList, setCardReIssueList] = useState<CardMembershipTypes[]>([CARD_REVOKED[0]]);
   const getCardDetails = useCardRevokeStore((state) => state.getCardDetails);
   const cardDetails = useCardRevokeStore((state) => state.cardDetails);
@@ -72,7 +72,7 @@ const CardRevoked = () => {
                 buttonText={item.buttonText}
                 terms={item.terms}
                 step={item.id}
-                cardRenewalNumber={cardRenewal || 1}
+                cardRenewalNumber={cardRenewal}
                 // isStyleChanged={CardReIssueEnum.REPORT_LOSS}
                 slug={item.slug}
                 getCurrentValue={() => getCardRenewalValue()}

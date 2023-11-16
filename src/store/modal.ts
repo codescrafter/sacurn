@@ -175,7 +175,13 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
     errorText: '請下載元件',
     buttons: [
       {
-        text: '元件下載'
+        text: '元件下載',
+        onClick: () => {
+          const anchor = document.createElement('a');
+          anchor.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent('/idPaas/PC元件.zip'));
+          anchor.setAttribute('download', 'PC元件.zip');
+          anchor.click();
+        }
       }
     ]
   },
