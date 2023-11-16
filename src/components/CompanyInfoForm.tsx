@@ -115,7 +115,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
 
   // const companyId = useUserStore.getState().companyId;
   const companyId = getCookie(COOKIE_AUTH_NAME);
-  const createCompany = useCompanyStore((state) => state.createCompany); 
+  const createCompany = useCompanyStore((state) => state.createCompany);
   const updateCompany = useCompanyStore((state) => state.updateCompany);
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
 
