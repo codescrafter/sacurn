@@ -18,8 +18,6 @@ export interface AccountInfoValues {
   email: string;
   phone: string;
   hash: string;
-  // password: string;
-  // confirmPassword: string;
 }
 
 const Schema = yup.object({
@@ -31,15 +29,9 @@ const Schema = yup.object({
     .string()
     .required('例如：0x-000111 或 09xx-000111')
     .matches(/^09\d{8}$/, '例如：0x-000111 或 09xx-000111')
-  // password: yup.string().required('請輸入密碼'),
-  // confirmPassword: yup
-  //   .string()
-  //   .required('請再次輸入密碼')
-  //   .oneOf([yup.ref('password')], '密碼不一致')
 });
 
 const AccountInformation = () => {
-  // const [isPasswordClicked, setIsPasswordClicked] = useState<boolean>(false);
   const [company] = useCompanyStore((state) => [state.company, state.getCompany]);
 
   const {
@@ -105,6 +97,7 @@ const AccountInformation = () => {
     { key: 'Email', value: 'albert@xholding.com' },
     { key: '電話', value: '02-12345678', hash: ' # 12345' }
   ];
+
   return (
     <Layout>
       <form onSubmit={onSubmit} className="flex justify-end mr-4 xl:block">
@@ -228,7 +221,7 @@ const AccountInformation = () => {
                         變更密碼
                       </button>
                     </div>
-                    <div className="flex flex-col gap-8 w-full justify-start text-white font-semibold 2xl:font-bold text-base xl:text-xl 2.5xl:text-2xl mb-4 xl:mb-6 2.5xl:mb-8 first:pr-16 ">
+                    <div className="flex flex-col gap-7 w-full justify-start text-white font-semibold 2xl:font-bold text-base xl:text-xl 2.5xl:text-2xl mb-4 xl:mb-6 2.5xl:mb-8 first:pr-16 ">
                       {AccountInputInfo.map(({ key, value, hash }, index) => (
                         <p key={index} className="whitespace-nowrap min-w-[75px] xl:min-w-[100px] flex gap-5">
                           {key} : {value} <p>{hash}</p>
@@ -238,8 +231,10 @@ const AccountInformation = () => {
                   </div>
                 )}
               </div>
-              <div className="pb-2 w-[100%] pt-8 ">
-                <h2 className=" text-white  font-bold text-xl border-b-2 border-solid w-full">安全性密碼</h2>
+              <div className="pb-2 w-full pt-8 ">
+                <button className=" text-white text-start font-bold text-xl border-b-2 border-solid w-full">
+                  安全性密碼
+                </button>
                 <div className="flex justify-end w-full">
                   <button className="relative inline-block border-b-2 font-bold text-pale-yellow cursor-pointer text-xl">
                     變更密碼
@@ -268,20 +263,7 @@ interface CustomInputIProps {
   className?: string;
 }
 
-const CustomInput = ({
-  id,
-  register,
-  defaultValue,
-  // type,
-  placeholder,
-  label,
-  errors,
-  // callback,
-  className
-}: CustomInputIProps) => {
-  // const [edit, setEdit] = useState<boolean>(false);
-  // const [updateType, setUpdateType] = useState<boolean>(true);
-
+const CustomInput = ({ id, register, defaultValue, placeholder, label, errors, className }: CustomInputIProps) => {
   return (
     <div
       className={classNames(`flex justify-between w-full gap-7 items-center ${className}`, {
@@ -300,26 +282,7 @@ const CustomInput = ({
             className="outline-none bg-transparent text-navy-blue text-lg font-semibold 2xl:text-xl 2xl:font-bold"
             {...register(id)}
             placeholder={placeholder}
-            // type={updateType && id === 'confirmPassword' ? 'password' : type}
-            // onFocus={() => {
-            // setEdit(true);
-            // if (id === 'password' && callback) {
-            //   callback();
-            // }
-            // }}
           />
-          {/* {id === 'confirmPassword' ? (
-            <img
-              src="/v2/icon/eye-icon.svg"
-              alt="sacurn"
-              className="h-6 w-6 object-contain"
-              onClick={() => setUpdateType(!updateType)}
-            />
-          ) : edit ? (
-            <img src="/v2/icon/tick-icon.svg" alt="sacurn" className="h-6 w-6 object-contain" />
-          ) : (s
-            <img src="/v2/icon/edit-icon.svg" alt="sacurn" className="h-6 w-6 object-contain" />
-          )} */}
         </div>
         <div className="relative w-full">
           {errors && errors[id] && (
@@ -332,38 +295,3 @@ const CustomInput = ({
     </div>
   );
 };
-
-//  {/* <div className="w-full">
-//                 <CustomInput
-//                   errors={errors}
-//                   label="密碼"
-//                   id="password"
-//                   type="password"
-//                   register={register}
-//                   defaultValue="************"
-//                   callback={() => setIsPasswordClicked(true)}
-//                 />
-//                 {isPasswordClicked && (
-//                   <Fragment>
-//                     <div className="flex justify-end">
-//                       <p className="text-xs text-white w-[68%] my-1">
-//                         提示：密碼需至少有12字元，請混和使用大小寫字母、數字，使密碼更加安全。
-//                       </p>
-//                     </div>
-//                     <CustomInput
-//                       id="confirmPassword"
-//                       errors={errors}
-//                       label=""
-//                       type="text"
-//                       register={register}
-//                       defaultValue=""
-//                       placeholder="確認新密碼"
-//                     />
-//                     <div className="flex justify-end mt-4">
-//                       <CustomButton variant="rounded" className="bg-pale-yellow !text-grey">
-//                         確認變更密碼
-//                       </CustomButton>
-//                     </div>
-//                   </Fragment>
-//                 )}
-//               </div> */}

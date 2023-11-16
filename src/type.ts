@@ -160,6 +160,10 @@ export type AccountInformationTypes = {
   key: string;
   value: string;
 };
+export type AccountInputInfo = {
+  key: string;
+  value: string;
+};
 
 export type PermissionTableHeadingType = {
   img: string;
