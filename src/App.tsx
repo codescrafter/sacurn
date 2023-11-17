@@ -82,18 +82,14 @@ const router = createBrowserRouter([
   },
   {
     path: '/v2/account-information',
-    element: <AccountInformation />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <AccountInformation />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
-  // {
-  //   path: '/v2/account-information',
-  //   element: (
-  //     <ProtectedAuthRoute>
-  //       <ProtectedCompanyRegisteredRoute>
-  //         <AccountInformation />
-  //       </ProtectedCompanyRegisteredRoute>
-  //     </ProtectedAuthRoute>
-  //   )
-  // },
   {
     path: '/v2/profile-update/:id',
     element: <MemberProfile />
