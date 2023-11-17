@@ -12,6 +12,8 @@ import Layout from '@/components/v2/Layout';
 import { useCompanyStore } from '@/store/company';
 import { AccountInformationTypes } from '@/type';
 
+import AccountPasswordChangeModal from './AccountPasswordChangeModal';
+
 export interface AccountInfoValues {
   name: string;
   title: string;
@@ -236,9 +238,10 @@ const AccountInformation = () => {
                   安全性密碼
                 </button>
                 <div className="flex justify-end w-full">
-                  <button className="relative inline-block border-b-2 font-bold text-pale-yellow cursor-pointer text-xl">
+                  {/* <button className="relative inline-block border-b-2 font-bold text-pale-yellow cursor-pointer text-xl">
                     變更密碼
-                  </button>
+                  </button> */}
+                  <AccountPasswordChangeModal />
                 </div>
               </div>
             </div>
