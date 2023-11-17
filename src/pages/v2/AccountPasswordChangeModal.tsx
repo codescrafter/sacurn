@@ -43,7 +43,9 @@ const AccountPasswordChangeModal = () => {
         fullWidth={true}
         maxWidth="sm"
         sx={{
-          borderRadius: '20px'
+          '& .MuiPaper-rounded': {
+            borderRadius: '12px'
+          }
         }}
       >
         <IconButton
@@ -60,7 +62,7 @@ const AccountPasswordChangeModal = () => {
         </IconButton>
         <DialogContent
           sx={{
-            mt: '20px'
+            mt: '16px'
           }}
         >
           <Box
@@ -78,12 +80,12 @@ const AccountPasswordChangeModal = () => {
                 width: '80%',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '20px'
+                gap: '10px'
                 // pb:'20px'
               }}
             >
               <DialogTitle
-                sx={{ m: 0, p: 2, color: '#000000', fontWeight: 700, fontSize: '38px', textAlign: 'center' }}
+                sx={{ m: 0, p: 2, color: '#000000', fontWeight: 700, fontSize: '32px', textAlign: 'center' }}
                 id="customized-dialog-title"
               >
                 變更密碼
@@ -91,8 +93,8 @@ const AccountPasswordChangeModal = () => {
               <Typography sx={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 {ACCOUNT_PASSWORD_CHANGE_DATA.map(({ label }, index) => {
                   return (
-                    <div key={index}>
-                      <p className="font-semibold text-dark-grey text-2xl">{label}</p>
+                    <div key={index} className="flex flex-col gap-3">
+                      <p className="font-semibold text-dark-grey text-xl">{label}</p>
                       <input
                         type="text"
                         className="w-full p-2 outline-none rounded-md border-[1px] shadow border-solid border-dark-grey "
@@ -101,7 +103,7 @@ const AccountPasswordChangeModal = () => {
                   );
                 })}
               </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', px: '10px' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', px: '10px', paddingTop: '10px' }}>
                 <CustomButton
                   variant="primary"
                   className="rounded-full px-12 h-12 text-lg mt-3 !text-navy-blue bg-white border-2 hover:border-2 hover:bg-navy-blue hover:!text-white"
