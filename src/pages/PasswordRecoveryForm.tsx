@@ -2,6 +2,8 @@ import React from 'react';
 
 import CustomButton from '@/components/CustomButton';
 
+import PasswordRecoveryTermsModal from './PasswordRecoveryTermsModal';
+
 const PasswordRecoveryForm = () => {
   return (
     <div className=" w-[90%] mx-auto flex flex-col gap-7 py-5">
@@ -66,9 +68,10 @@ const PasswordRecoveryForm = () => {
           >
             取消申請
           </CustomButton>
-          <CustomButton variant="primary" className="rounded-xl px-18 h-13 text-xl mt-3 border-2">
+          {/* <CustomButton variant="primary" className="rounded-xl px-18 h-13 text-xl mt-3 border-2">
             下一步
-          </CustomButton>
+          </CustomButton> */}
+          <PasswordRecoveryTermsModal />
         </div>
       </div>
     </div>
