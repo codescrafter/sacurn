@@ -22,7 +22,7 @@ const WishList = () => {
       <Navbar className="mb-8" />
       <WishlistSwitch />
       <FilterBar />
-      <div className="grid grid-cols-2 gap-6.5 h-[72vh] overflow-y-auto yellowScroll overflow-x-hidden pr-5 3xl:max-w-full mx-auto 3xl:mx-2">
+      <div className="grid grid-cols-2 gap-6.5 max-h-[72vh] overflow-y-auto yellowScroll overflow-x-hidden pr-5 3xl:max-w-full mx-auto 3xl:mx-2">
         {wishList.map((product: WatchList) => {
           return <WishListProdCard key={product.id} product={product} />;
         })}
