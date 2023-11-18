@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useFilterOptionsStore } from '@/store/filterOptions';
 import { useProductListStore } from '@/store/productList';
@@ -23,6 +23,7 @@ const ProductList = () => {
   const vintageOptions = useFilterOptionsStore((state) => state.vintageOptions);
   const priceOptions = useFilterOptionsStore((state) => state.priceOptions);
   const selectedTag = useProductListStore((state) => state.filters.tag);
+  const [searchByCode, setSearchByCode] = useState<string>('');
 
   useEffect(() => {
     getFilterOptions();
@@ -98,6 +99,21 @@ const ProductList = () => {
                 });
               }}
             />
+            <div className="bg-white-smoke-2 w-[254px] h-[34px] rounded-[10px] flex justify-between items-center">
+              <input
+                type="text"
+                value={searchByCode}
+                onChange={(e) => setSearchByCode(e.target.value)}
+                placeholder="輸入會員代號"
+                className="bg-transparent pl-4 h-full outline-none text-white text-[17px] tracking-[1.19px] placeholder-white"
+              />
+              <div className="flex gap-[14px]">
+                <div className="bg-white w-[1.5px] rounded-md" />
+                <span className="mr-[9px] cursor-pointer">
+                  <img src="/images/products/search-icon.svg" alt="search" className="w-5 h-5 object-contain" />
+                </span>
+              </div>
+            </div>
           </div>
           <SortFiltersModal desc={filters.desc} sortBy={filters.sort_by} onSortChange={onSortChange} />
         </div>

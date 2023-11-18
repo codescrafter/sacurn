@@ -33,6 +33,7 @@ const SelectField = ({ label, value, options, handleChange }: IProps) => {
           borderRadius: '10px',
           fontSize: '17px',
           fontWeight: 700,
+          height: '34px',
           '& .MuiSvgIcon-root': { color: '#fff' },
           '.MuiOutlinedInput-notchedOutline': { border: 0 },
           '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
