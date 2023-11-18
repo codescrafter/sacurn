@@ -17,7 +17,7 @@ const WishListProdCard = ({ product }: IProps) => {
   };
   return (
     <>
-      <div className="flex flex-row px-5.7 py-3.2 min-[1700px]:w-[810px] min-[1500px]:min-w-[700px] min-[630px] w-auto bg-milky rounded-lg max-h-[190px] 3xl:w-full 3xl:h-[260px] 3xl:max-h-full">
+      <div className="flex flex-row px-5.7 py-3.2 min-[1500px]:min-w-[700px] min-[630px] w-auto bg-milky rounded-lg max-h-[190px] 3xl:w-full 3xl:h-[260px] 3xl:max-h-full">
         <img
           src={product.image}
           className={classNames(

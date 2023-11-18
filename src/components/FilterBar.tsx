@@ -21,7 +21,7 @@ const FilterBar = () => {
   }, []);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between items-center">
       <div className="flex flex-row gap-[20px] items-center justify-end mb-7">
         <Searchbar value={searchByCode} setValue={(e) => setSearchByCode(e.target.value)} />
         <SelectField
@@ -55,14 +55,16 @@ const FilterBar = () => {
           }}
         />
       </div>
-      <Sort
-        isLowToHight={!filters.desc}
-        onSortChange={() => {
-          updateWishListByFilters({
-            desc: !filters.desc
-          });
-        }}
-      />
+      <div className="mr-6">
+        <Sort
+          isLowToHight={!filters.desc}
+          onSortChange={() => {
+            updateWishListByFilters({
+              desc: !filters.desc
+            });
+          }}
+        />
+      </div>
     </div>
   );
 };
