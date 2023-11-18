@@ -60,14 +60,14 @@ const ProductList = () => {
               }
             )}
             alt="sacurn"
-            className="h-full object-cover lg:block hidden"
+            className="h-full object-cover hidden lg:block"
           />
         </div>
       </div>
       {/* second col */}
       <div className=" 2xl:w-[58%] flex-1 max-w-[900px] 2xl:max-w-full">
         <LayoutSwitch />
-        <div className="mt-3 flex justify-between items-center">
+        <div className="mt-2 flex justify-between items-end pl-4 pr-8">
           <div className="flex justify-end items-center gap-5">
             <SelectField
               label="Location"
@@ -115,9 +115,14 @@ const ProductList = () => {
               </div>
             </div>
           </div>
+          <div className="hidden 2.5xl:block">
+            <SortFiltersModal desc={filters.desc} sortBy={filters.sort_by} onSortChange={onSortChange} />
+          </div>
+        </div>
+        <div className="flex justify-end pr-8 mt-2 2.5xl:hidden">
           <SortFiltersModal desc={filters.desc} sortBy={filters.sort_by} onSortChange={onSortChange} />
         </div>
-        <div className="yellowScrollNoBg mr-1 pr-5.5 mt-13 overflow-scroll overflow-x-hidden">
+        <div className="yellowScrollNoBg mr-1 pr-5.5 mt-5 overflow-scroll overflow-x-hidden">
           <div className="flex flex-col gap-5 h-[60vh] 2xl:h-[74vh]">
             {productList.map((product) => (
               <Tile
