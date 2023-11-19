@@ -24,7 +24,7 @@ export const useWishListStore = create<WishListState>((set, get) => ({
     vintage: undefined,
     price: undefined,
     desc: false,
-    tag: CarbonTag.Green,
+    tag: CarbonTag.White,
     page: undefined,
     sortBy: undefined
   },
