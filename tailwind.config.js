@@ -111,7 +111,8 @@ module.exports = {
         'membership-nav-in': '0px 3px 4px 0px rgba(0, 0, 0, 0.40) inset',
         'membership-nav-underline': '0px 3px 4px 0px rgba(0, 0, 0, 0.55)',
         'input-field': '0px 21.89325px 63.41492px 0px #F0F0F0, 0px 6.03952px 23.40312px 0px rgba(0, 0, 0, 0.05)',
-        'account-info-box': '0px 0px 44px 0px rgba(0, 0, 0, 0.2)'
+        'account-info-box': '0px 0px 44px 0px rgba(0, 0, 0, 0.2)',
+        'certificate-shadow': '0px 0px 24px 0px rgba(0, 0, 0, 0.25)'
       },
       backgroundImage: {
         'login-white': 'linear-gradient(158.08deg, #F1F3F3 8.75%, rgba(241, 243, 243, 0.94) 91.6%)',
@@ -256,7 +257,8 @@ module.exports = {
       aluminium: '#ABABAB',
       'soft-green': '#60C757',
       'white-smoke': '#F5F5F5',
-      'sliver-sand': '#BEBEBE'
+      'sliver-sand': '#BEBEBE',
+      'white-smoke-2': '#FFFFFF4D'
     }
   },
   plugins: []

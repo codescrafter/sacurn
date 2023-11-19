@@ -47,7 +47,7 @@ const Tile = ({
     <div className="bg-card-bg py-[20px] px-[24px] rounded-2xl flex justify-between items-center">
       <div className="flex gap-5">
         {/* first col */}
-        <div className="w-[340px] h-[240px]">
+        <div className="w-[310px] h-[215px]">
           <img
             src={image}
             alt="sacurn"
@@ -67,59 +67,75 @@ const Tile = ({
           </div>
           {rating && (
             <>
-              <div className="inline-block bg-white rounded-full px-5 py-1 text-blue text-sm font-bold mb-2">
+              <div className="inline-block bg-white rounded-full px-4 py-0.5 text-blue text-sm font-bold mb-2">
                 Rating {rating}
               </div>
               <br />
-              <div className="inline-flex items-center bg-white gap-1 bg-red-200 rounded-full px-5 py-1 text-blue text-sm font-bold">
+              <div className="inline-flex items-center bg-white gap-1.5 bg-red-200 rounded-full px-4 py-0.5 text-blue text-sm font-bold">
                 Co-Benefit
                 <CustomRating count={coBenefit} />
               </div>
             </>
           )}
 
-          <div className="mt-7">
+          <div className="mt-6">
             {standard && (
-              <div className="flex gap-10 items-center">
-                <p className="font-xs text-grey min-w-[100px]">Standard</p>
-                <p className="text-sm text-black flex-1">{standard}</p>
+              <div className="flex gap-[41px] items-center">
+                <p className="font-[13px] text-grey min-w-[66px]">Standard</p>
+                <p className="font-[13px] text-black flex-1">{standard}</p>
               </div>
             )}
             {type && (
-              <div className="flex gap-10 items-center">
-                <p className="font-xs text-grey min-w-[100px]">Type</p>
-                <p className="text-sm text-black flex-1">{type}</p>
+              <div className="flex gap-[41px] items-center">
+                <p className="font-[13px] text-grey min-w-[66px]">Type</p>
+                <p className="font-[13px] text-black flex-1">{type}</p>
               </div>
             )}
-            <div className="flex gap-10 items-center">
-              <p className="font-xs text-grey min-w-[100px]">Vintage</p>
-              <p className="text-sm text-black flex-1">{dateFormat(vintage, 'yyyy')}</p>
+            <div className="flex gap-[41px] items-center">
+              <p className="font-[13px] text-grey min-w-[66px]">Vintage</p>
+              <p className="font-[13px] text-black flex-1">{dateFormat(vintage, 'yyyy')}</p>
             </div>
           </div>
         </div>
       </div>
       {/* third col */}
       <div className="flex flex-1 flex-col justify-between items-end h-full py-2">
-        <div className="flex items-center gap-1 whitespace-nowrap">
-          <p className="text-sm text-black">USD</p>
-          <p className="text-xl font-bold text-black">
-            {minPrice} ~ {maxPrice}
-          </p>
-          <p className="text-[10px] text-black">/Tonne</p>
-        </div>
-        <div className="h-full flex flex-col items-center justify-evenly">
-          <Link to={`/product-carbon/${id}`}>
-            <img src="/images/products/green/dollar.svg" alt="sacurn" className="w-12 h-12" width={36} height={36} />
-          </Link>
-          {wishItem ? (
-            <button onClick={() => deleteWishList(wishItem.id)}>
-              <img src="/images/wishlist/favicon.svg" alt="sacurn" />
-            </button>
-          ) : (
-            <button onClick={() => addToWhishList(id)}>
-              <img src="/images/wishlist/unfavicon.svg" alt="sacurn" className="w-13 h-13 relative left-0.5" />
-            </button>
-          )}
+        <div>
+          <div className="flex items-center gap-1 whitespace-nowrap">
+            <p className="text-sm text-black">USD</p>
+            <p className="text-xl font-bold text-black">
+              {minPrice} ~ {maxPrice}
+            </p>
+            <p className="text-[10px] text-black">/Tonne</p>
+          </div>
+          <div className="h-full flex flex-col items-end gap-3 pt-2 pr-1">
+            <Link to={`/product-carbon/${id}`}>
+              <img
+                src="/images/products/green/dollar2.svg"
+                alt="sacurn"
+                className="w-9 h-9 object-contain"
+                width={36}
+                height={36}
+              />
+            </Link>
+            {wishItem ? (
+              <button onClick={() => deleteWishList(wishItem.id)}>
+                <img
+                  src="/images/wishlist/favicon.svg"
+                  alt="sacurn"
+                  className="w-[56px] h-[46px] object-contain relative left-3.5"
+                />
+              </button>
+            ) : (
+              <button onClick={() => addToWhishList(id)}>
+                <img
+                  src="/images/wishlist/unfavicon.svg"
+                  alt="sacurn"
+                  className="w-[56px] h-[46px] object-contain relative left-3.5"
+                />
+              </button>
+            )}
+          </div>
         </div>
         <Link to={`/product-detail/${id}`} className="w-full max-w-[152px]">
           <CustomButton variant="primary" className="w-full flex items-center gap-2 justify-center">

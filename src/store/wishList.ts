@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 import { WatchList } from '@/libs/api';
 import apiClient from '@/libs/api/client';
+import { CarbonTag } from '@/type';
 
 import { Filters } from './filterOptions';
 import { runTask } from './modal';
@@ -23,8 +24,9 @@ export const useWishListStore = create<WishListState>((set, get) => ({
     vintage: undefined,
     price: undefined,
     desc: false,
-    tag: undefined,
-    page: undefined
+    tag: CarbonTag.White,
+    page: undefined,
+    sortBy: undefined
   },
   getWishList: async (...args) => {
     await runTask(async () => {
@@ -34,7 +36,15 @@ export const useWishListStore = create<WishListState>((set, get) => ({
   },
   getWishListWithFilter: async () => {
     const filters = get().filters;
-    get().getWishList(filters.desc, filters.location, filters.page, filters.price, filters.tag, filters.vintage);
+    get().getWishList(
+      filters.desc,
+      filters.location,
+      filters.page,
+      filters.price,
+      filters.sort_by,
+      filters.tag,
+      filters.vintage
+    );
   },
   updateWishListByFilters: (filters: Filters) => {
     set({

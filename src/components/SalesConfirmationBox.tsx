@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { PURCHASE_INFO_NOTE } from '@/pages/PaymentInformation';
 import { StockItem, useStockListStore } from '@/store/stockList';
 import { MIN_CART_QTY } from '@/util/constants';
+import { formatNumberByComma } from '@/util/helper';
 
 import Button from './Button';
 import HorizontalDivider from './HorizontalDivider';
@@ -23,9 +24,9 @@ const SalesConfirmationBox = (props: IProps) => {
     [stockItem.available_sale_quantity]
   );
 
-  const [qty, setQty] = useState<number>(maxSaleQty);
-  const [price, setPrice] = useState<number>(stockItem.price || 0);
-  const [minUnit, setMinUnit] = useState<number>(MIN_CART_QTY);
+  const [qty, setQty] = useState<number | string>(maxSaleQty);
+  const [price, setPrice] = useState<number | string>(stockItem.price || 0);
+  const [minUnit, setMinUnit] = useState<number | string>(MIN_CART_QTY);
   const [isReadMore, setIsReadMore] = useState<boolean>(false);
 
   return (
@@ -38,12 +39,14 @@ const SalesConfirmationBox = (props: IProps) => {
       </div>
       <div className="flex items-center justify-between mt-6 xl:mt-[30px]">
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">單價</span>
-        <span className="text-lg xl:text-xl text-black font-bold">{stockItem.price}</span>
+        <span className="text-lg xl:text-xl text-black font-bold">${stockItem.price}</span>
       </div>
       {/* no of goods */}
       <div className="flex items-center justify-between mt-6 mb-5 xl:my-[30px]">
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">商品擁有數量</span>
-        <span className="text-lg xl:text-xl text-black font-bold">{stockItem.quantity}</span>
+        <span className="text-lg xl:text-xl text-black font-bold">
+          {stockItem.quantity} <span className="font-normal tracking-[0.6px]">噸</span>
+        </span>
       </div>
       {/* divider */}
       <HorizontalDivider />
@@ -52,14 +55,17 @@ const SalesConfirmationBox = (props: IProps) => {
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">設定可交易數量</span>
         <div className="flex items-center gap-2">
           <input
-            type="number"
-            value={qty}
+            type="text"
+            value={formatNumberByComma(qty)}
             max={maxSaleQty}
-            className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
+            className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-normal"
             onChange={(e) => {
+              const { value } = e.target;
               const newQty = parseInt(e.target.value);
               if (newQty > maxSaleQty) return;
-              setQty(parseInt(e.target.value));
+              if (value.match(/[a-z]/i)) return;
+              const formattedValue = formatNumberByComma(value);
+              setQty(formattedValue);
             }}
           />
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
@@ -70,10 +76,15 @@ const SalesConfirmationBox = (props: IProps) => {
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">設定交易價格</span>
         <div className="flex items-center gap-2">
           <input
-            type="number"
-            value={price}
-            className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
-            onChange={(e) => setPrice(parseInt(e.target.value))}
+            type="text"
+            value={formatNumberByComma(price)}
+            className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-normal"
+            onChange={(e) => {
+              const { value } = e.target;
+              if (value.match(/[a-z]/i)) return;
+              const formattedValue = formatNumberByComma(value);
+              setPrice(formattedValue);
+            }}
           />
           <span className="text-black font-normal text-base xl:text-xl">元</span>
         </div>
@@ -83,13 +94,16 @@ const SalesConfirmationBox = (props: IProps) => {
         <span className=" text-lg xl:text-xl font-normal text-dark-grey">設定交易最小單位</span>
         <div className="flex items-center gap-2">
           <input
-            type="number"
-            value={minUnit}
-            className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-bold"
+            type="text"
+            value={formatNumberByComma(minUnit)}
+            className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-normal"
             onChange={(e) => {
+              const { value } = e.target;
               const newMinUnit = parseInt(e.target.value);
               if (newMinUnit > (stockItem.quantity || 0)) return;
-              setMinUnit(parseInt(e.target.value));
+              if (value.match(/[a-z]/i)) return;
+              const formattedValue = formatNumberByComma(value);
+              setMinUnit(formattedValue);
             }}
           />
           <span className="text-black font-normal text-base xl:text-xl">噸</span>
@@ -145,13 +159,18 @@ const SalesConfirmationBox = (props: IProps) => {
       {/* action buttons */}
       <div className="flex items-center justify-center gap-4 2xl:gap-20 px-8 mt-5 xl:mt-[26px]">
         <Button
-          className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl bg-navy-blue text-white"
+          className="!p-[10px] rounded-[10px] min-w-[175px] text-2xl font-bold bg-pale-yellow !text-navy-blue"
           onClick={async () => {
-            const isSuccess = await updateStockOnSale(stockItem.carbon_credit, qty, price, minUnit);
+            const isSuccess = await updateStockOnSale(
+              stockItem.carbon_credit,
+              Number(qty.toLocaleString()),
+              Number(price.toLocaleString()),
+              Number(minUnit.toLocaleString())
+            );
             if (isSuccess) onClose();
           }}
         >
-          上架交易
+          確認上架
         </Button>
         <Button
           onClick={onClose}

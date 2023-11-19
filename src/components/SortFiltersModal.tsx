@@ -42,7 +42,7 @@ export default function SortFiltersModal({ desc, onSortChange, sortBy }: IProps)
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <div className="relative text-white">
+      <div className="relative text-white flex gap-2.5 items-center">
         <span className="cursor-pointer" onClick={() => setOpenSortModal(true)}>
           {textToShow()}
         </span>
