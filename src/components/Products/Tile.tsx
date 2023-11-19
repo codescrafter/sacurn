@@ -100,26 +100,42 @@ const Tile = ({
       </div>
       {/* third col */}
       <div className="flex flex-1 flex-col justify-between items-end h-full py-2">
-        <div className="flex items-center gap-1 whitespace-nowrap">
-          <p className="text-sm text-black">USD</p>
-          <p className="text-xl font-bold text-black">
-            {minPrice} ~ {maxPrice}
-          </p>
-          <p className="text-[10px] text-black">/Tonne</p>
-        </div>
-        <div className="h-full flex flex-col items-center justify-evenly">
-          <Link to={`/product-carbon/${id}`}>
-            <img src="/images/products/green/dollar.svg" alt="sacurn" className="w-12 h-12" width={36} height={36} />
-          </Link>
-          {wishItem ? (
-            <button onClick={() => deleteWishList(wishItem.id)}>
-              <img src="/images/wishlist/favicon.svg" alt="sacurn" />
-            </button>
-          ) : (
-            <button onClick={() => addToWhishList(id)}>
-              <img src="/images/wishlist/unfavicon.svg" alt="sacurn" className="w-13 h-13 relative left-0.5" />
-            </button>
-          )}
+        <div>
+          <div className="flex items-center gap-1 whitespace-nowrap">
+            <p className="text-sm text-black">USD</p>
+            <p className="text-xl font-bold text-black">
+              {minPrice} ~ {maxPrice}
+            </p>
+            <p className="text-[10px] text-black">/Tonne</p>
+          </div>
+          <div className="h-full flex flex-col items-end gap-3 pt-2 pr-1">
+            <Link to={`/product-carbon/${id}`}>
+              <img
+                src="/images/products/green/dollar2.svg"
+                alt="sacurn"
+                className="w-9 h-9 object-contain"
+                width={36}
+                height={36}
+              />
+            </Link>
+            {wishItem ? (
+              <button onClick={() => deleteWishList(wishItem.id)}>
+                <img
+                  src="/images/wishlist/favicon.svg"
+                  alt="sacurn"
+                  className="w-[56px] h-[46px] object-contain relative left-3.5"
+                />
+              </button>
+            ) : (
+              <button onClick={() => addToWhishList(id)}>
+                <img
+                  src="/images/wishlist/unfavicon.svg"
+                  alt="sacurn"
+                  className="w-[56px] h-[46px] object-contain relative left-3.5"
+                />
+              </button>
+            )}
+          </div>
         </div>
         <Link to={`/product-detail/${id}`} className="w-full max-w-[152px]">
           <CustomButton variant="primary" className="w-full flex items-center gap-2 justify-center">
