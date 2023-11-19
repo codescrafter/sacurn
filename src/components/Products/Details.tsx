@@ -21,13 +21,13 @@ const Details = () => {
   }
   const selectedTag = useProductListStore((state) => state.filters.tag);
   // let imgsArray = [];
-  let imgsArray = ['/images/products/green/detail1.png', '/images/products/green/bird.png'];
+  let imgsArray = ['/images/products/green/detail1.png'];
   if (selectedTag === CarbonTag.Green || selectedTag === CarbonTag.White) {
-    imgsArray = ['/images/products/green/detail1.png', '/images/products/green/bird.png'];
+    imgsArray = ['/images/products/green/detail1.png'];
   } else if (selectedTag === CarbonTag.Yellow) {
     imgsArray = ['/images/products/yellow/detail1.png'];
   } else if (selectedTag === CarbonTag.Blue) {
-    imgsArray = ['/images/products/blue/detail1.png'];
+    imgsArray = ['/images/products/blue/detail1.svg'];
   }
 
   return (
@@ -93,7 +93,7 @@ const Details = () => {
         <div>
           <div className="">
             <div className="flex items-start gap-2 pr-8 mt-5">
-              <h1 className="text-[32px] flex-1 font-semibold text-white pl-[19px]">
+              <h1 className="text-[32px] flex-1 font-semibold text-white pl-[17px]">
                 (VCS-2250) Delta Blue Carbon - 1
               </h1>
               <img src="/images/products/green/start-gold.svg" alt="sacurn" />
@@ -175,7 +175,7 @@ const Details = () => {
                     </a>
                   </li>
                 </ul>
-                <div className="bg-transparent-black p-4 pb-2 overflow-hidden rounded-[5px] h-[67vh]">
+                <div className="bg-transparent-black p-4 pb-2 overflow-hidden rounded-[5px] h-[68vh] 2.5xl:h-[70vh] 3xl:h-[64vh]">
                   {openTab === Tabs.Product_Details && (
                     <div
                       className={classNames('block', {
@@ -237,7 +237,7 @@ const ImgSlider = ({ images }: SliderIProps) => {
     afterChange: (currSlide: number) => setCurrentSlide(currSlide)
   };
   return (
-    <div className="relative h-[285px]">
+    <div className="relative h-[306px]">
       <div className="absolute z-20 left-0 bottom-4 right-0 gap-1.5 flex pr-[30%] pl-6">
         {['01', '02', '03'].map((item, index) => (
           <div
@@ -255,7 +255,7 @@ const ImgSlider = ({ images }: SliderIProps) => {
       </div>
       <Slider {...settings} ref={sliderRef}>
         {images.map((image, index) => (
-          <div key={index} className="product-clip-path h-[285px] bg-card-bg">
+          <div key={index} className="product-clip-path w-full h-[306px] bg-card-bg">
             <img className="w-full h-full object-cover" src={image} alt="sacurn" />
           </div>
         ))}

@@ -15,25 +15,23 @@ const ProductDetail = () => {
         </div>
         <div className="border border-white rounded grid grid-cols-3">
           <div className="border-r border-white col-span-2">
-            <div className="grid grid-cols-3 gap-4 p-4">
+            <div className="grid grid-cols-3 gap-4 p-4 pb-6">
               {BASIC_DETAILS.map((item) => (
                 <Item key={item.title} title={item.title} value={item.value} />
               ))}
             </div>
             <Divider />
-            <div className="">
-              <div className="grid grid-cols-2 gap-4 p-4">
-                {STANDARD_DETAILS.map((item) => (
-                  <Item key={item.title} title={item.title} value={item.value} description={item.description} />
-                ))}
-              </div>
+            <div className="grid grid-cols-2 gap-6 p-4 pt-3">
+              {STANDARD_DETAILS.map((item) => (
+                <Item key={item.title} title={item.title} value={item.value} description={item.description} />
+              ))}
             </div>
           </div>
 
           <div className="">
             <div className="pt-4 px-6">
               <Item title="Volume Issued(2016+)" value="12,285,949" className="pb-4" />
-              <Item title="Avg. Annual Emission Reduction" value="1,575,268" className="pb-4" />
+              <Item title="Avg. Annual Emission Reduction" value="1,575,268" className="pb-4 w-[170px]" />
               <Item
                 title="% of Issued credits Retired (2016+)"
                 value="2016 - 52%  2017 - 04%  2018 - 68%  2019 - 25%  2020 - 75%"
@@ -113,8 +111,8 @@ interface ItemTypes {
 const Item = ({ title, value, description, className }: ItemTypes) => {
   return (
     <div className={classNames(className)}>
-      <h6 className="font-akaya text-cyan">{title}</h6>
-      <p className="text-lg font-semibold text-white">{value}</p>
+      <h6 className="font-akaya text-cyan tracking-[]0.51px] leading-5">{title}</h6>
+      <p className="text-lg font-semibold text-white tracking-[0.54px]">{value}</p>
       {description && <p className="text-lg font-semibold text-white">{description}</p>}
     </div>
   );
