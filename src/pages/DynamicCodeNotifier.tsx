@@ -12,8 +12,8 @@ const DynamicCodeNotifier = () => {
 
   return (
     <div className="w-[90%]  mx-auto flex flex-col gap-5 py-5 ">
-      <div className="w-full box-shadow bg-white rounded-[20px] px-18 py-4 flex flex-col gap-9">
-        <div className="flex gap-5  justify-center items-center px-2">
+      <div className="w-full card-shadow bg-white rounded-[20px] px-18 py-6 flex flex-col gap-9">
+        <div className="flex gap-5  justify-between items-center ">
           <h2 className="text-navy-blue font-bold text-base lg:text-lg xl:text-2xl 2xl:text-3xl">
             寄送通知信動態驗證碼
           </h2>
@@ -27,7 +27,6 @@ const DynamicCodeNotifier = () => {
           <CustomButton
             onClick={handleSendVerification}
             variant="primary"
-            // className="rounded-xl px-11 py-2 h-12 text-sm xl:text-lg mt-3 "
             className={`rounded-xl px-11 py-2 h-12 text-sm xl:text-lg mt-3 ${
               buttonClicked ? '!bg-white-smoke !text-grey border-gainsbro border' : ''
             }`}
@@ -37,7 +36,7 @@ const DynamicCodeNotifier = () => {
         </div>
         <div className="flex flex-col gap-1 text-black  text-sm md:text-base lg:text-lg xl:text-xl ">
           <h2 className="">注意事項</h2>
-          <ul className="list-disc pl-9">
+          <ul className="list-disc pl-9 ">
             <li>若您的電子信箱已變更，請洽平台客服專線(02)2221-7000，或email至客服信箱 service@sacurn.com 。</li>
             <li>
               重新產生通知信驗證碼每日上限 <span className="text-bright-red">5</span>
@@ -50,8 +49,8 @@ const DynamicCodeNotifier = () => {
         </div>
       </div>
       {showVerification && (
-        <div className="w-full box-shadow bg-white rounded-[20px] px-18 py-4 flex flex-col gap-9">
-          <div className="flex gap-5 justify-center items-center px-2">
+        <div className="w-full card-shadow bg-white rounded-[20px] px-18 py-7 flex flex-col gap-10">
+          <div className="flex gap-5 justify-between items-center">
             <h2 className="text-navy-blue font-bold text-base lg:text-lg xl:text-2xl 2xl:text-3xl">
               寄送通知信動態驗證碼
             </h2>
