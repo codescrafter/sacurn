@@ -27,7 +27,7 @@ const PasswordRecoveryTermsModal = () => {
     setOpen(false);
   };
   return (
-    <div className="border-2">
+    <div>
       <CustomButton onClick={handleClickOpen} variant="primary" className="rounded-xl px-18 h-13 text-xl mt-3 border-2">
         下一步
       </CustomButton>
