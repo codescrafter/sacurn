@@ -109,7 +109,7 @@ const ProductList = () => {
         <div className="flex justify-end pr-8 mt-2 2.5xl:hidden">
           <SortFiltersModal desc={filters.desc} sortBy={filters.sort_by} onSortChange={onSortChange} />
         </div>
-        <div className="yellowScrollNoBg mr-1 pr-5.5 mt-5 overflow-scroll overflow-x-hidden">
+        <div className="yellowScrollNoBg mr-1 pr-5.5 mt-5 overflow-auto overflow-x-hidden">
           <div className="flex flex-col gap-5 h-[60vh] 2xl:h-[74vh]">
             {productList.map((product) => (
               <Tile

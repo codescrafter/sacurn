@@ -47,7 +47,7 @@ const Tile = ({
     <div className="bg-card-bg py-[20px] px-[24px] rounded-2xl flex justify-between items-center">
       <div className="flex gap-5">
         {/* first col */}
-        <div className="w-[340px] h-[240px]">
+        <div className="w-[310px] h-[215px]">
           <img
             src={image}
             alt="sacurn"
@@ -67,33 +67,33 @@ const Tile = ({
           </div>
           {rating && (
             <>
-              <div className="inline-block bg-white rounded-full px-5 py-1 text-blue text-sm font-bold mb-2">
+              <div className="inline-block bg-white rounded-full px-4 py-0.5 text-blue text-sm font-bold mb-2">
                 Rating {rating}
               </div>
               <br />
-              <div className="inline-flex items-center bg-white gap-1 bg-red-200 rounded-full px-5 py-1 text-blue text-sm font-bold">
+              <div className="inline-flex items-center bg-white gap-1.5 bg-red-200 rounded-full px-4 py-0.5 text-blue text-sm font-bold">
                 Co-Benefit
                 <CustomRating count={coBenefit} />
               </div>
             </>
           )}
 
-          <div className="mt-7">
+          <div className="mt-6">
             {standard && (
-              <div className="flex gap-10 items-center">
-                <p className="font-xs text-grey min-w-[100px]">Standard</p>
-                <p className="text-sm text-black flex-1">{standard}</p>
+              <div className="flex gap-[41px] items-center">
+                <p className="font-[13px] text-grey min-w-[66px]">Standard</p>
+                <p className="font-[13px] text-black flex-1">{standard}</p>
               </div>
             )}
             {type && (
-              <div className="flex gap-10 items-center">
-                <p className="font-xs text-grey min-w-[100px]">Type</p>
-                <p className="text-sm text-black flex-1">{type}</p>
+              <div className="flex gap-[41px] items-center">
+                <p className="font-[13px] text-grey min-w-[66px]">Type</p>
+                <p className="font-[13px] text-black flex-1">{type}</p>
               </div>
             )}
-            <div className="flex gap-10 items-center">
-              <p className="font-xs text-grey min-w-[100px]">Vintage</p>
-              <p className="text-sm text-black flex-1">{dateFormat(vintage, 'yyyy')}</p>
+            <div className="flex gap-[41px] items-center">
+              <p className="font-[13px] text-grey min-w-[66px]">Vintage</p>
+              <p className="font-[13px] text-black flex-1">{dateFormat(vintage, 'yyyy')}</p>
             </div>
           </div>
         </div>
