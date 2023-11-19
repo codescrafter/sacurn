@@ -54,6 +54,14 @@ const SelectField = ({ label, value, options, handleChange }: IProps) => {
         }}
         // changed menu item color
         MenuProps={{
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left'
+          },
+          transformOrigin: {
+            vertical: 'top',
+            horizontal: 'left'
+          },
           sx: {
             marginTop: '10px',
             '& .MuiMenuItem-root': {
