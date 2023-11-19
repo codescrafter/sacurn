@@ -175,7 +175,7 @@ const Details = () => {
                     </a>
                   </li>
                 </ul>
-                <div className="bg-transparent-black p-4 overflow-hidden rounded-[5px]">
+                <div className="bg-transparent-black p-4 pb-2 overflow-hidden rounded-[5px] h-[67vh]">
                   {openTab === Tabs.Product_Details && (
                     <div
                       className={classNames('block', {
