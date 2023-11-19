@@ -256,7 +256,8 @@ module.exports = {
       aluminium: '#ABABAB',
       'soft-green': '#60C757',
       'white-smoke': '#F5F5F5',
-      'sliver-sand': '#BEBEBE'
+      'sliver-sand': '#BEBEBE',
+      gainsbro: '#DFDFDF'
     }
   },
   plugins: []
