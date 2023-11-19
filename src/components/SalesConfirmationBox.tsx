@@ -159,7 +159,7 @@ const SalesConfirmationBox = (props: IProps) => {
       {/* action buttons */}
       <div className="flex items-center justify-center gap-4 2xl:gap-20 px-8 mt-5 xl:mt-[26px]">
         <Button
-          className="!p-[10px] rounded-[10px] min-w-[175px] text-base xl:text-2xl bg-navy-blue text-white"
+          className="!p-[10px] rounded-[10px] min-w-[175px] text-2xl font-bold bg-pale-yellow !text-navy-blue"
           onClick={async () => {
             const isSuccess = await updateStockOnSale(
               stockItem.carbon_credit,
@@ -170,7 +170,7 @@ const SalesConfirmationBox = (props: IProps) => {
             if (isSuccess) onClose();
           }}
         >
-          上架交易
+          確認上架
         </Button>
         <Button
           onClick={onClose}
