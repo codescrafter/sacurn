@@ -92,7 +92,7 @@ const Details = () => {
         <LayoutSwitch />
         <div>
           <div className="">
-            <div className="flex items-start gap-2 pr-8 mt-5">
+            <div className="flex items-start gap-2 pr-8 mt-5 min-h-[90px]">
               <h1 className="text-[32px] flex-1 font-semibold text-white pl-[17px]">
                 (VCS-2250) Delta Blue Carbon - 1
               </h1>
@@ -175,7 +175,7 @@ const Details = () => {
                     </a>
                   </li>
                 </ul>
-                <div className="bg-transparent-black p-4 pb-2 overflow-hidden rounded-[5px] h-[68vh] 2.5xl:h-[70vh] 3xl:h-[64vh]">
+                <div className="bg-transparent-black p-4 pb-2 overflow-hidden rounded-[5px] h-[100%] 3xl:max-h-[820px]">
                   {openTab === Tabs.Product_Details && (
                     <div
                       className={classNames('block', {

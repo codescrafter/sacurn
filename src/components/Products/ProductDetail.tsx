@@ -58,12 +58,12 @@ const ProductDetail = () => {
         </div>
         {/* Information */}
         <div>
-          <div className="flex items-center gap-7 pt-5 pb-4">
+          <div className="flex items-center gap-7 pt-5 pb-1">
             <Divider color={ItemColor.CYAN} />
-            <h6 className="font-akaya text-cyan">Information</h6>
+            <h6 className="font-akaya text-cyan text-[17px] tracking-[0.51px]">Information</h6>
             <Divider color={ItemColor.CYAN} />
           </div>
-          <p className="font-medium text-white">
+          <p className="text-white tracking-[1.12px] font-bold">
             The Delta Blue Carbon –1 Project (DBC-1)is a mangroves and wetlands afforestation andrestoration project,
             located in the Indus River Delta area in Pakistan. The project covers an areaof 350,000 hectares and is
             estimated to remove over 142,000,000 tCO2e of carbon throughoutits project lifetime of 60 years, from 19

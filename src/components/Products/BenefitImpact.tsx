@@ -8,7 +8,7 @@ const BenefitImpact = () => {
         <img src="/images/products/green/co-benefit.png" alt="sacurn" className="w-[466px] h-[350px] object-none" />
         <div>
           {DATA.map((item) => (
-            <div key={item.title} className="bg-card-bg-light p-3 mt-3 rounded-[5px]">
+            <div key={item.title} className="bg-card-bg-light p-3 mt-5 rounded-[5px]">
               <div className="flex gap-4 items-center">
                 <img src="/images/products/green/tree.svg" />
                 <h5 className="text-xl font-semibold text-white">{item.value}</h5>
