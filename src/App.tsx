@@ -21,6 +21,7 @@ import Modal from './components/Modal/UniversalModal';
 import ProductDetail from './components/ProductDetail';
 import { ProtectedAuthRoute } from './components/ProtectedAuthRoute';
 import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRegisteredRoute';
+import AuthenticationPasswordRecovery from './pages/AuthenticationPasswordRecovery';
 import DynamicCodeNotifier from './pages/DynamicCodeNotifier';
 import PasswordRecoveryForm from './pages/PasswordRecoveryForm';
 import PasswordReset from './pages/PasswordReset';
@@ -235,6 +236,10 @@ const router = createBrowserRouter([
   {
     path: '/dynamic-code',
     element: <DynamicCodeNotifier />
+  },
+  {
+    path: '/authentication-password-recovery',
+    element: <AuthenticationPasswordRecovery />
   }
 ]);
 
