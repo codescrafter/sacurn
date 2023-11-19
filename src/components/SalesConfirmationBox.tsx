@@ -56,8 +56,8 @@ const SalesConfirmationBox = (props: IProps) => {
         <div className="flex items-center gap-2">
           <input
             type="text"
-            value={qty}
-            max={formatNumberByComma(maxSaleQty)}
+            value={formatNumberByComma(qty)}
+            max={maxSaleQty}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-normal"
             onChange={(e) => {
               const { value } = e.target;

@@ -11,6 +11,7 @@ import { useCartStore } from '@/store/cart';
 import { useCompanyStore } from '@/store/company';
 import { usePriceListStore } from '@/store/priceList';
 import { MIN_CART_QTY } from '@/util/constants';
+import { formatNumberByComma } from '@/util/helper';
 
 import Navbar from '../components/Navbar';
 
@@ -80,11 +81,15 @@ const ProductDetailList = () => {
                 className=" border-b-[2px] border-white-smoke-2 dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl"
               >
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {item.price}
+                  ${formatNumberByComma(item.price || '')}
                 </th>
                 <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.remaining_quantity} 噸</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.min_order_quantity} 噸</td>
+                <td className="px-6 py-4 whitespace-nowrap text-center">
+                  {formatNumberByComma(item.remaining_quantity || '')} 噸
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-center">
+                  {formatNumberByComma(item.min_order_quantity || '')} 噸
+                </td>
                 <td className="px-6 py-4 items-center whitespace-nowrap">
                   <div className="flex justify-center items-center gap-1.5">
                     <button

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import StockItemBar from '@/components/StockItemBar';
 import { StockItem, useStockListStore } from '@/store/stockList';
 import { CarbonTag } from '@/type';
+import { formatNumberByComma } from '@/util/helper';
 
 import Button from '../components/Button';
 import Navbar from '../components/Navbar';
@@ -183,7 +184,8 @@ const Sales = () => {
                                 {stockItem.vintage}
                               </td>
                               <td className="py-2 px-2 font-bold text-dark-grey text-sm 2xl:text-lg">
-                                {stockItem.quantity} <span className="!font-medium text-dark-grey">噸</span>
+                                {formatNumberByComma(stockItem.quantity || '')}
+                                <span className="!font-medium text-dark-grey">噸</span>
                               </td>
                               <td className="py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]">
                                 <div className="w-full flex justify-center">

@@ -3,6 +3,7 @@ import React from 'react';
 import { Order } from '@/libs/api';
 import { ModalType, useModalStore } from '@/store/modal';
 import { useStockListStore } from '@/store/stockList';
+import { formatNumberByComma } from '@/util/helper';
 
 import Button from './Button';
 
@@ -26,21 +27,21 @@ const StockItemBar = ({ order, number }: StockItemProps) => {
             <div className="flex items-center xl:gap-2.5 gap-1 2xl:gap-2">
               <span className="font-medium text-sm xl:text-lg text-grey whitespace-nowrap">單價/噸</span>
               <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                $ {order.price || '-'}
+                $ {formatNumberByComma(order.price || '') || '-'}
               </span>
             </div>
             {/* member id */}
             <div className="flex items-center xl:gap-2.5 gap-1 2xl:gap-2">
               <span className="font-medium text-sm xl:text-lg text-grey leading-[1px] whitespace-nowrap">最低單位</span>
               <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                {order.min_order_quantity || '-'} 噸
+                {formatNumberByComma(order.min_order_quantity || '') || '-'} 噸
               </span>
             </div>
             {/* transaction status */}
             <div className="flex items-center xl:gap-2.5 gap-1 2xl:gap-2">
               <span className="font-medium text-sm xl:text-lg text-grey leading-[1px] whitespace-nowrap">數量</span>
               <span className="text-dark-grey text-base 2xl:text-lg font-bold leading-[1px] whitespace-nowrap">
-                {order.quantity || '-'} 噸
+                {formatNumberByComma(order.quantity || '') || '-'} 噸
               </span>
             </div>
           </div>
