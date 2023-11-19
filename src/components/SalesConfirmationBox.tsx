@@ -57,7 +57,7 @@ const SalesConfirmationBox = (props: IProps) => {
           <input
             type="text"
             value={qty}
-            max={maxSaleQty}
+            max={formatNumberByComma(maxSaleQty)}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-normal"
             onChange={(e) => {
               const { value } = e.target;
@@ -73,11 +73,11 @@ const SalesConfirmationBox = (props: IProps) => {
       </div>
       {/* transaction price */}
       <div className="flex items-center justify-between mt-4 xl:mt-[22px]">
-        <span className=" text-lg xl:text-xl font-normal text-dark-grey">設定交易價格22</span>
+        <span className=" text-lg xl:text-xl font-normal text-dark-grey">設定交易價格</span>
         <div className="flex items-center gap-2">
           <input
             type="text"
-            value={price}
+            value={formatNumberByComma(price)}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-normal"
             onChange={(e) => {
               const { value } = e.target;
@@ -95,7 +95,7 @@ const SalesConfirmationBox = (props: IProps) => {
         <div className="flex items-center gap-2">
           <input
             type="text"
-            value={minUnit}
+            value={formatNumberByComma(minUnit)}
             className="border border-light-grey p-[10px] text-right text-lg xl:text-xl text-navy-blue font-normal"
             onChange={(e) => {
               const { value } = e.target;

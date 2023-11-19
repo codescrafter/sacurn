@@ -99,7 +99,8 @@ const Sales = () => {
                               className={classNames('text-left whitespace-nowrap pb-4', {
                                 'pl-[11px] sr-only': index === 0,
                                 'pr-2': index === 1,
-                                'px-2': index !== 0 && index !== 1
+                                'px-2': index !== 0 && index !== 1,
+                                '!w-[40%]': index === 1
                               })}
                             >
                               <span
@@ -107,6 +108,7 @@ const Sales = () => {
                                   'text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer',
                                   {
                                     'justify-center': index === 4 || index === 5
+                                    // increase first child width
                                   }
                                 )}
                               >
