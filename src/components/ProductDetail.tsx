@@ -58,7 +58,7 @@ const ProductDetailList = () => {
                 單價
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
-                會員編號
+                會員代號
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
                 可交易數量
