@@ -64,6 +64,7 @@ const PasswordRecoveryForm = () => {
                 <CustomButton
                   variant="primary"
                   className="rounded-full px-8 lg:px-10 xl:px-15 h-12 text-sm lg:text-base xl:text-xl mt-3 border-2 bg-white !text-navy-blue "
+                  onClick={() => isCheckedHandler(false)}
                 >
                   我不同意
                 </CustomButton>
