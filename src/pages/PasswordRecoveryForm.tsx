@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import CustomButton from '@/components/CustomButton';
+import ProgressBar from '@/components/ProgressBar';
 import SimpleNav from '@/components/SimpleNav';
 
 import PasswordRecoveryTermsModal from './PasswordRecoveryTermsModal';
@@ -13,7 +14,7 @@ const PasswordRecoveryForm = () => {
   return (
     <div className="w-full  bg-neutral-150 min-h-[100vh]">
       <SimpleNav heading="忘記密碼" className="relative mb-20 z-50" />
-
+      <ProgressBar steps={3} stepNumber={1} stepName="申請填寫" gap="small" width="normal" />
       <div className=" w-[90%] mx-auto flex flex-col gap-7 py-5 border">
         <div className="w-full px-24 flex  justify-between rounded-2.5xl py-8 bg-white box-shadow">
           {INPUT_DATA.map(({ label, placeholder }) => {
