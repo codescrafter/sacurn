@@ -2,17 +2,19 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import CustomButton from '@/components/CustomButton';
+import SimpleNav from '@/components/SimpleNav';
 
 import PasswordRecoveryTermsModal from './PasswordRecoveryTermsModal';
-
 const PasswordRecoveryForm = () => {
   const [isChecked, setIsChecked] = useState(false);
   const isCheckedHandler = (value: boolean) => {
     setIsChecked(value);
   };
   return (
-    <div className="w-full  bg-neutral-150">
-      <div className=" w-[90%] mx-auto flex flex-col gap-7 py-5">
+    <div className="w-full  bg-neutral-150 min-h-[100vh]">
+      <SimpleNav heading="忘記密碼" className="relative mb-20 z-50" />
+
+      <div className=" w-[90%] mx-auto flex flex-col gap-7 py-5 border">
         <div className="w-full px-24 flex  justify-between rounded-2.5xl py-8 bg-white box-shadow">
           {INPUT_DATA.map(({ label, placeholder }) => {
             return (
