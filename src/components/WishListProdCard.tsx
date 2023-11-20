@@ -17,7 +17,7 @@ const WishListProdCard = ({ product }: IProps) => {
   };
   return (
     <>
-      <div className="flex flex-row px-5.7 py-3.2 min-[1700px]:w-[810px] min-[1500px]:min-w-[700px] min-[630px] w-auto bg-milky rounded-lg max-h-[190px] 3xl:w-full 3xl:h-[260px] 3xl:max-h-full">
+      <div className="flex flex-row px-5.7 py-3.2 min-[1500px]:min-w-[700px] min-[630px] w-auto bg-milky rounded-lg max-h-[190px] 3xl:w-full 3xl:h-[260px] 3xl:max-h-full">
         <img
           src={product.image}
           className={classNames(
@@ -30,25 +30,23 @@ const WishListProdCard = ({ product }: IProps) => {
             }
           )}
         />
-        <div className="flex flex-col w-full">
-          <h1 className="min-[1500px]:text-lg min-[1200px]:text-base text-sm text-navy-blue font-bold">
-            {product.name}
-          </h1>
+        <div className="flex flex-col w-full pt-1">
+          <h1 className="text-lg text-navy-blue font-bold">{product.name}</h1>
           <div className="flex flex-row">
-            <p className="self-start min-[1500px]:text-xms text-xxs font-bold text-black">USD</p>
-            <p className="self-center font-bold text-black min-[1500px]:text-lg min-[1200px]:text-base text-sm mx-0.5">
+            <p className="self-start text-xms font-bold text-black">USD</p>
+            <p className="self-center font-bold text-black text-lg mx-0.5">
               {`$${product.min_price}~${product.max_price}`}
             </p>
-            <p className="self-end min-[1500px]:text-xms text-xxs font-bold text-black">/Tonne</p>
+            <p className="self-end text-xms font-bold text-black">/Tonne</p>
           </div>
           <div className="flex flex-col w-full justify-end h-full items-end">
-            <p className="text-grey min[1500px]:text-[13px] text-xxs">
+            <p className="text-grey text-[13px] font-bold leading-5 mb-1">
               Item added {new Date(product.created_at).toDateString()}
             </p>
             <div className="flex flex-row gap-2 w-max">
               <Link to={`/product-carbon/${product.id}`}>
-                <button className="bg-pale-yellow h-full rounded-lg min-[1500px]:px-8 px-5 mx-auto min-[1500px]:py-0.7 py-0.5">
-                  <img src="/images/wishlist/dollar.svg" className="min-[1500px]:w-3.2 w-2.5 min-[1500px]:h-5.5 h-4" />
+                <button className="flex justify-center items-center w-[83px] h-8 rounded-[10px] border-[1.5px] border-grey">
+                  <img src="/images/wishlist/dollar.svg" className="w-3 h-5 object-contain" />
                 </button>
               </Link>
               <button

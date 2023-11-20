@@ -21,64 +21,66 @@ const Details = () => {
   }
   const selectedTag = useProductListStore((state) => state.filters.tag);
   // let imgsArray = [];
-  let imgsArray = ['/images/products/green/detail1.png', '/images/products/green/bird.png'];
+  let imgsArray = ['/images/products/green/detail1.png'];
   if (selectedTag === CarbonTag.Green || selectedTag === CarbonTag.White) {
-    imgsArray = ['/images/products/green/detail1.png', '/images/products/green/bird.png'];
+    imgsArray = ['/images/products/green/detail1.png'];
   } else if (selectedTag === CarbonTag.Yellow) {
     imgsArray = ['/images/products/yellow/detail1.png'];
   } else if (selectedTag === CarbonTag.Blue) {
-    imgsArray = ['/images/products/blue/detail1.png'];
+    imgsArray = ['/images/products/blue/detail1.svg'];
   }
 
   return (
     <div className="flex mt-4 pb-4">
       {/* First Col */}
       <div className="w-[38%]">
-        <div className="relative z-[2]">
-          <ImgSlider images={imgsArray} />
-        </div>
-        <div className="pl-5 pt-12">
-          {/* Price */}
-          <h5 className="text-lg font-bold text-white mb-4 pl-3">Price</h5>
-          <div className="bg-transparent-grey rounded p-5 flex justify-center items-center">
-            <div className="flex justify-between items-center gap-4">
-              <div>
-                <div className="flex items-baseline text-white">
-                  <span className="text-2xl">USD</span>
-                  <b className="text-5xl font-semibold">5.00~5.00</b>
-                  <span className="text-2xl">/Tonne</span>
+        <div>
+          <div className="relative z-[2]">
+            <ImgSlider images={imgsArray} />
+          </div>
+          <div className="pl-5 pt-12">
+            {/* Price */}
+            <h5 className="text-lg font-bold text-white mb-4 pl-3">Price</h5>
+            <div className="bg-transparent-grey rounded p-5 flex justify-center items-center">
+              <div className="flex justify-between items-center gap-4">
+                <div>
+                  <div className="flex items-baseline text-white">
+                    <span className="text-2xl">USD</span>
+                    <b className="text-5xl font-semibold">5.00~5.00</b>
+                    <span className="text-2xl">/Tonne</span>
+                  </div>
+                  <p className="text-sm text-white">Ranges from vintage 2017</p>
                 </div>
-                <p className="text-sm text-white">Ranges from vintage 2017</p>
-              </div>
-              <div>
-                <img src="/images/products/green/dollar-2.svg" alt="sacurn" />
-              </div>
-            </div>
-          </div>
-          {/* Ratings Breakdown */}
-          <div className="mt-7">
-            <h5 className="text-lg font-bold text-white mb-4 pl-3">Ratings Breakdown</h5>
-            <div className="grid grid-cols-2 gap-6">
-              <div className="bg-transparent-grey rounded flex flex-col justify-center items-center p-4">
-                <p className="text-xl font-bold text-white">Carbon Rating</p>
-                <p className="text-xl font-bold text-white">A</p>
-              </div>
-              <div className="bg-transparent-grey rounded flex flex-col justify-center items-center p-4">
-                <p className="text-xl font-bold text-white">Co-benefit</p>
-                <p className="text-xl font-bold text-white">4/5</p>
+                <div>
+                  <img src="/images/products/green/dollar-2.svg" alt="sacurn" />
+                </div>
               </div>
             </div>
-          </div>
-          {/* Certification From */}
-          <div className="mt-7">
-            <h5 className="text-lg font-bold text-white mb-4 pl-3">Certification From</h5>
-            <div className="bg-transparent-grey rounded p-8 flex justify-center items-center">
-              <img src="/images/products/green/verra-standard.svg" alt="sacurn" />
+            {/* Ratings Breakdown */}
+            <div className="mt-7">
+              <h5 className="text-lg font-bold text-white mb-4 pl-3">Ratings Breakdown</h5>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="bg-transparent-grey rounded flex flex-col justify-center items-center p-4">
+                  <p className="text-xl font-bold text-white">Carbon Rating</p>
+                  <p className="text-xl font-bold text-white">A</p>
+                </div>
+                <div className="bg-transparent-grey rounded flex flex-col justify-center items-center p-4">
+                  <p className="text-xl font-bold text-white">Co-benefit</p>
+                  <p className="text-xl font-bold text-white">4/5</p>
+                </div>
+              </div>
+            </div>
+            {/* Certification From */}
+            <div className="mt-7">
+              <h5 className="text-lg font-bold text-white mb-4 pl-3">Certification From</h5>
+              <div className="bg-transparent-grey rounded p-8 flex justify-center items-center">
+                <img src="/images/products/green/verra-standard.svg" alt="sacurn" />
+              </div>
             </div>
           </div>
           <Link
             to={'/'}
-            className="xl:w-[245px] w-[200px] h-9.5 bg-navy-blue border-t-[#A0ADB7] border-r-[#A0ADB7] border-b-[#A0ADB7] rounded-tr-[10px] rounded-br-[10px] flex items-center justify-center gap-4 mt-5.2 mb-1"
+            className="xl:w-[245px] w-[200px] h-9.5 bg-navy-blue border-t border-r border-b border-[#A0ADB7] rounded-tr-[10px] rounded-br-[10px] flex items-center justify-center gap-4 mt-5.2 mb-1"
           >
             <img src="/images/products-page/back-icon.svg" alt="sacurn" width={23} height={16} />
             <p className="font-normal text-base text-white">Back</p>
@@ -90,8 +92,10 @@ const Details = () => {
         <LayoutSwitch />
         <div>
           <div className="">
-            <div className="flex items-start gap-2 pr-8 mt-5">
-              <h1 className="text-[32px] flex-1 font-semibold text-white">(VCS-2250) Delta Blue Carbon - 1</h1>
+            <div className="flex items-start gap-2 pr-8 mt-5 min-h-[90px]">
+              <h1 className="text-[32px] flex-1 font-semibold text-white pl-[17px]">
+                (VCS-2250) Delta Blue Carbon - 1
+              </h1>
               <img src="/images/products/green/start-gold.svg" alt="sacurn" />
             </div>
             {/* Product Details Tabs */}
@@ -105,7 +109,7 @@ const Details = () => {
                   >
                     <a
                       className={classNames(
-                        'flex justify-center items-center rounded-full h-full py-2 text-xl font-medium',
+                        'flex justify-center items-center rounded-full h-full py-2 text-xl font-bold tracking-[0.6px]',
                         {
                           'text-dark-grey': openTab === Tabs.Product_Details,
                           'text-white underline': openTab !== Tabs.Product_Details
@@ -129,7 +133,7 @@ const Details = () => {
                   >
                     <a
                       className={classNames(
-                        'flex justify-center items-center rounded-full h-full py-2 text-xl font-medium',
+                        'flex justify-center items-center rounded-full h-full py-2 text-xl font-bold tracking-[0.6px]',
                         {
                           'text-dark-grey': openTab === Tabs.Carton_Impact_Performance,
                           'text-white underline': openTab !== Tabs.Carton_Impact_Performance
@@ -153,7 +157,7 @@ const Details = () => {
                   >
                     <a
                       className={classNames(
-                        'flex justify-center items-center rounded-full h-full py-2 text-xl font-medium',
+                        'flex justify-center items-center rounded-full h-full py-2 text-xl font-bold tracking-[0.6px]',
                         {
                           'text-dark-grey': openTab === Tabs.Cobenefit_Impact,
                           'text-white underline': openTab !== Tabs.Cobenefit_Impact
@@ -171,7 +175,7 @@ const Details = () => {
                     </a>
                   </li>
                 </ul>
-                <div className="bg-transparent-black p-4 overflow-hidden">
+                <div className="bg-transparent-black p-4 pb-2 overflow-hidden rounded-[5px] h-[100%] 3xl:max-h-[820px]">
                   {openTab === Tabs.Product_Details && (
                     <div
                       className={classNames('block', {
@@ -233,7 +237,7 @@ const ImgSlider = ({ images }: SliderIProps) => {
     afterChange: (currSlide: number) => setCurrentSlide(currSlide)
   };
   return (
-    <div className="relative h-[285px]">
+    <div className="relative h-[306px]">
       <div className="absolute z-20 left-0 bottom-4 right-0 gap-1.5 flex pr-[30%] pl-6">
         {['01', '02', '03'].map((item, index) => (
           <div
@@ -251,7 +255,7 @@ const ImgSlider = ({ images }: SliderIProps) => {
       </div>
       <Slider {...settings} ref={sliderRef}>
         {images.map((image, index) => (
-          <div key={index} className="product-clip-path h-[285px] bg-card-bg">
+          <div key={index} className="product-clip-path w-full h-[306px] bg-card-bg">
             <img className="w-full h-full object-cover" src={image} alt="sacurn" />
           </div>
         ))}

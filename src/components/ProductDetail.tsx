@@ -11,6 +11,7 @@ import { useCartStore } from '@/store/cart';
 import { useCompanyStore } from '@/store/company';
 import { usePriceListStore } from '@/store/priceList';
 import { MIN_CART_QTY } from '@/util/constants';
+import { formatNumberByComma } from '@/util/helper';
 
 import Navbar from '../components/Navbar';
 
@@ -33,7 +34,7 @@ const ProductDetailList = () => {
   );
 
   return (
-    <div className="w-full mt-8 pl-4 relative">
+    <div className="w-full mt-13.7 pl-7 relative">
       <h1 className="text-[44px] font-semibold leading-10 text-white">CarbonCure Concrete Mineralization</h1>
       <div className="flex justify-between w-full mb-6">
         <h3 className="text-[26px] leading-9 text-[#ffffffcc]">Project developed by CarbonCure Technologies</h3>
@@ -51,13 +52,13 @@ const ProductDetailList = () => {
 
       <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white text-lg 2xl:text-xl">
+          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white text-lg 2xl:text-xl border-b-2 border-light-grey">
             <tr>
               <th scope="col" className="px-6 py-3 whitespace-nowrap">
                 單價
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
-                會員編號
+                會員代號
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
                 可交易數量
@@ -77,14 +78,18 @@ const ProductDetailList = () => {
             {priceList?.map((item) => (
               <tr
                 key={item.id}
-                className=" border-b dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl"
+                className=" border-b-[2px] border-white-smoke-2 dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl"
               >
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {item.price}
+                  ${formatNumberByComma(item.price || '')}
                 </th>
                 <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.remaining_quantity} 噸</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.min_order_quantity} 噸</td>
+                <td className="px-6 py-4 whitespace-nowrap text-center">
+                  {formatNumberByComma(item.remaining_quantity || '')} 噸
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-center">
+                  {formatNumberByComma(item.min_order_quantity || '')} 噸
+                </td>
                 <td className="px-6 py-4 items-center whitespace-nowrap">
                   <div className="flex justify-center items-center gap-1.5">
                     <button
@@ -122,13 +127,13 @@ const ProductDetailList = () => {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex justify-center">
                     <img
-                      src="/images/products-page/ic_add_to_cart.svg"
+                      src="/images/products-page/cart01.svg"
                       alt="arrow-down"
                       width={50}
                       height={42}
                       className="cursor-pointer"
                       style={{
-                        filter: item.company && company.id && item.company === company.id ? 'brightness(0.2)' : 'none'
+                        filter: item.company && company.id && item.company === company.id ? '' : 'none'
                       }}
                       onClick={() => {
                         const isMyOrder = item.company && company.id && item.company === company.id ? true : false;

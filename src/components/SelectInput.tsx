@@ -2,6 +2,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { Box } from '@mui/system';
 
 interface IProps {
   label: string;
@@ -14,13 +15,7 @@ const SelectField = ({ label, value, options, handleChange }: IProps) => {
   return (
     <FormControl
       sx={{
-        minWidth: {
-          xs: '140px',
-          sm: '140px',
-          md: '140px',
-          lg: '160px',
-          xl: '220px'
-        },
+        width: '147px',
         '& .MuiInputBase-input': {
           color: '#fff'
         }
@@ -35,9 +30,10 @@ const SelectField = ({ label, value, options, handleChange }: IProps) => {
         }}
         sx={{
           backgroundColor: '#FFFFFF4D',
-          borderRadius: '5px',
-          fontSize: '16px',
+          borderRadius: '10px',
+          fontSize: '17px',
           fontWeight: 700,
+          height: '34px',
           '& .MuiSvgIcon-root': { color: '#fff' },
           '.MuiOutlinedInput-notchedOutline': { border: 0 },
           '&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
@@ -52,19 +48,30 @@ const SelectField = ({ label, value, options, handleChange }: IProps) => {
             content: `"${label || 'Location'}"`,
             opacity: 1,
             color: '#fff',
-            fontWeight: 600,
-            fontSize: '14px'
+            fontWeight: 700,
+            fontSize: '17px'
           }
         }}
         // changed menu item color
         MenuProps={{
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left'
+          },
+          transformOrigin: {
+            vertical: 'top',
+            horizontal: 'left'
+          },
           sx: {
+            marginTop: '10px',
             '& .MuiMenuItem-root': {
+              left: '0 !important',
+              width: '200px',
               color: '#545454',
               fontWeight: 700,
-              fontSize: '16px',
+              fontSize: '14px',
               backgroundColor: '#FFFFFF4D',
-              padding: '.5rem 0'
+              padding: '5px 0'
             },
             // remove background color from hover state
             '& .MuiMenuItem-root:hover': {
@@ -75,7 +82,9 @@ const SelectField = ({ label, value, options, handleChange }: IProps) => {
               backgroundColor: 'transparent'
             },
             '& .MuiMenu-paper': {
-              padding: '.5rem 1rem'
+              padding: '0 1rem',
+              border: '2px solid #DFDFDF',
+              borderRadius: '5px'
             }
           }
         }}
@@ -83,18 +92,25 @@ const SelectField = ({ label, value, options, handleChange }: IProps) => {
         <MenuItem
           value={undefined}
           sx={{
-            borderBottom: '2px solid #CACACA',
-            // remove background color from selected state
-            '&.Mui-selected': {
+            '&.MuiMenuItem-root.Mui-selected': {
               backgroundColor: 'transparent'
             }
           }}
         >
           All
         </MenuItem>
+        <Box sx={{ height: '2px', backgroundColor: '#CACACA', margin: '5px 0', borderRadius: '5px' }} />
         {options.map((option) => {
           return (
-            <MenuItem key={option.value} value={option.value}>
+            <MenuItem
+              key={option.value}
+              value={option.value}
+              sx={{
+                '&.MuiMenuItem-root.Mui-selected': {
+                  backgroundColor: 'transparent'
+                }
+              }}
+            >
               {option.name}
             </MenuItem>
           );

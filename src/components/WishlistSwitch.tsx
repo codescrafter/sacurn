@@ -1,16 +1,16 @@
 import classNames from 'classnames';
 
-import { useProductListStore } from '@/store/productList';
+import { useWishListStore } from '@/store/wishList';
 import { CarbonTag } from '@/type';
 
-import CustomButton from '../CustomButton';
+import CustomButton from './CustomButton';
 
-const LayoutSwitch = () => {
-  const filters = useProductListStore((state) => state.filters);
-  const updateProductListByFilters = useProductListStore((state) => state.updateProductListByFilters);
+const WishlistSwitch = () => {
+  const filters = useWishListStore((state) => state.filters);
+  const updateWishListByFilters = useWishListStore((state) => state.updateWishListByFilters);
 
   return (
-    <div className="px-10 py-4 flex gap-6 items-center justify-end h-[46px]">
+    <div className="px-10 pb-7 flex gap-6 items-center justify-end h-[46px]">
       <CustomButton
         variant="rounded-full"
         className={classNames('bg-white !text-[#525252]', {
@@ -18,7 +18,7 @@ const LayoutSwitch = () => {
           ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.White
         })}
         onClick={() => {
-          updateProductListByFilters({
+          updateWishListByFilters({
             tag: CarbonTag.White
           });
         }}
@@ -33,7 +33,7 @@ const LayoutSwitch = () => {
           ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.Green
         })}
         onClick={() => {
-          updateProductListByFilters({
+          updateWishListByFilters({
             tag: CarbonTag.Green
           });
         }}
@@ -47,7 +47,7 @@ const LayoutSwitch = () => {
           ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.Yellow
         })}
         onClick={() => {
-          updateProductListByFilters({
+          updateWishListByFilters({
             tag: CarbonTag.Yellow
           });
         }}
@@ -61,7 +61,7 @@ const LayoutSwitch = () => {
           ['w-[90px] h-[18px]']: filters.tag !== CarbonTag.Blue
         })}
         onClick={() => {
-          updateProductListByFilters({
+          updateWishListByFilters({
             tag: CarbonTag.Blue
           });
         }}
@@ -72,4 +72,4 @@ const LayoutSwitch = () => {
   );
 };
 
-export default LayoutSwitch;
+export default WishlistSwitch;
