@@ -1,13 +1,20 @@
+import classNames from 'classnames';
 import React from 'react';
 
 interface Props {
   value: string;
   setValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
-const Searchbar = ({ value, setValue }: Props) => {
+const Searchbar = ({ value, setValue, className }: Props) => {
   return (
-    <div className="bg-white-smoke-2 w-[254px] h-[34px] rounded-[10px] flex justify-between items-center">
+    <div
+      className={classNames(
+        'bg-white-smoke-2 w-[254px] h-[34px] rounded-[10px] flex justify-between items-center',
+        className
+      )}
+    >
       <input
         type="text"
         value={value}
