@@ -66,7 +66,7 @@ export const useMemberRecordStore = create<MemberRecordState>((set, get) => ({
           isSuccess = true;
         }
       );
-      await apiClient.member.memberUpgradeRetrieve();
+      if (isSuccess) await apiClient.member.memberUpgradeRetrieve();
       return true;
     });
     return isSuccess;
@@ -93,7 +93,7 @@ export const useMemberRecordStore = create<MemberRecordState>((set, get) => ({
     if (memberRecord) {
       await runTask(async () => {
         isSuccess = await useCardStore.getState().checkGovernmentCard();
-        await apiClient.member.memberCardReissueApplyCreate(memberRecord);
+        if (isSuccess) await apiClient.member.memberCardReissueApplyCreate(memberRecord);
         return true;
       });
     } else {
