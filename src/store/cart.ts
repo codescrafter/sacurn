@@ -120,7 +120,7 @@ export const useCartStore = create<CartState>((set, get) => ({
       checkoutDetail: null
     };
     await runTask(async () => {
-      await useCardStore.getState().checkMemberCard(
+      result.isSuccess = await useCardStore.getState().checkMemberCard(
         async () => {
           return await apiClient.twid.twidGenPkcs7TbsOrderBuyCreate({
             cart_id_list: JSON.stringify(get().getSelectedCartIdList())
@@ -133,9 +133,9 @@ export const useCartStore = create<CartState>((set, get) => ({
             cart_id_list: JSON.stringify(get().getSelectedCartIdList())
           });
           result.checkoutDetail = checkoutDetail;
-          result.isSuccess = true;
         }
       );
+
       if (result.isSuccess) {
         await get().getCartList();
         await get().getCartDetail();

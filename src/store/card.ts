@@ -95,8 +95,8 @@ const validServerAuthCode = function (serverAuthCode: string, type: CardType) {
 const signXmlPkc = function (pwd: string, hash: string) {
   return new Promise<{ b64Cert: string; signature: string }>((resolve, reject) => {
     window.twcaVerifyLibSS.IDPaaSXmlSignPKCS1(pwd, hash, (code, msg, reserved, data) => {
+      console.log('data', msg, data);
       if (code === '0') {
-        console.log('data', msg, data);
         resolve(data);
       }
       reject(code);
@@ -107,14 +107,16 @@ const signXmlPkc = function (pwd: string, hash: string) {
 const signMonicaPkc = function (pwd: string, hash: string) {
   return new Promise<{ b64Cert: string; signature: string }>((resolve, reject) => {
     window.twcaVerifyLibSS.IDPaaSMoicaSignPKCS1(pwd, hash, (code, msg, reserved, data) => {
+      console.log('data', msg, data);
       if (code === '0') {
-        console.log('data', msg, data);
         resolve(data);
       }
       reject(code);
     });
   });
 };
+
+export const ModalCloseError = 'modal-close';
 
 export const useCardStore = create<CardState>((set, get) => ({
   checkMemberCard: async (
@@ -158,7 +160,7 @@ export const useCardStore = create<CardState>((set, get) => ({
     }
     return isSuccess;
   },
-  // taxID: 統編
+
   checkGovernmentCard: async () => {
     let isSuccess = false;
     try {
@@ -179,7 +181,7 @@ export const useCardStore = create<CardState>((set, get) => ({
       }
       console.log('E.signMonicaPkc');
       const data = await PromiseModal({
-        type: CardType.MemberCard
+        type: CardType.GovernmentCard
       });
       console.log(data);
       const { b64Cert, signature } = await signMonicaPkc(data.password, tbsPdfs);
@@ -192,6 +194,7 @@ export const useCardStore = create<CardState>((set, get) => ({
         pkcs1s: signature,
         timestamp,
         b64Cert,
+        // memberNo & username: 統編
         memberNo: data.username
       });
       console.log('H.ok');
@@ -206,7 +209,10 @@ export const useCardStore = create<CardState>((set, get) => ({
     return isSuccess;
   },
   errorHandler: (error: unknown) => {
-    if ((error as string) in IdPassError) {
+    if (error === ModalCloseError) {
+      return;
+    }
+    if (Object.values(IdPassError).includes(error as IdPassError)) {
       if (error === IdPassError.ClientSideNotFound) {
         useModalStore.getState().open(ModalType.CardEnvDetectError);
       } else {

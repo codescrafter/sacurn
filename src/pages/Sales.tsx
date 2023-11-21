@@ -29,7 +29,7 @@ const Sales = () => {
   const getStockOrderList = useStockListStore((store) => store.getStockOrderList);
 
   useEffect(() => {
-    if (stockList.length === 0) getStockList();
+    getStockList();
   }, []);
 
   return (

@@ -22,21 +22,6 @@ interface ProductDetailProps {
 
 const ProductDetailList = ({ isSort, setIsSort }: ProductDetailProps) => {
   const priceList = usePriceListStore((state) => state.priceList);
-  const company = useCompanyStore((state) => state.company);
-  const addToCart = useCartStore((state) => state.addToCart);
-  const [qty, setQty] = useState(MIN_CART_QTY);
-
-  const onQuantityAdjust = useCallback(
-    (value: number, item: Order) => {
-      if (!priceList.length) return;
-      const newQty = qty + value;
-      const minQty = item.min_order_quantity || MIN_CART_QTY;
-      if (newQty >= minQty && newQty <= parseInt(item.remaining_quantity)) {
-        setQty(newQty);
-      }
-    },
-    [qty]
-  );
 
   return (
     <div className="w-full mt-13.7 pl-7 relative">
@@ -89,85 +74,87 @@ const ProductDetailList = ({ isSort, setIsSort }: ProductDetailProps) => {
               </th>
             </tr>
           </thead>
-          <tbody>
-            {priceList?.map((item) => (
-              <tr
-                key={item.id}
-                className=" border-b-[2px] border-white-smoke-2 dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl"
-              >
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  ${formatNumberByComma(item.price || '')}
-                </th>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">
-                  {formatNumberByComma(item.remaining_quantity || '')} 噸
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">
-                  {formatNumberByComma(item.min_order_quantity || '')} 噸
-                </td>
-                <td className="px-6 py-4 items-center whitespace-nowrap">
-                  <div className="flex justify-center items-center gap-1.5">
-                    <button
-                      onClick={() => onQuantityAdjust(-1, item)}
-                      className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
-                    >
-                      <img
-                        src="/images/products-page/ic_minus.svg"
-                        className="mx-auto"
-                        alt="arrow-down"
-                        width={13}
-                        height={2}
-                      />
-                    </button>
-                    <input
-                      className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
-                      type="number"
-                      value={qty}
-                      readOnly
-                    />
-                    <button
-                      onClick={() => onQuantityAdjust(+1, item)}
-                      className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
-                    >
-                      <img
-                        src="/images/products-page/ic_plus.svg"
-                        className="mx-auto"
-                        alt="arrow-down"
-                        width={13}
-                        height={13}
-                      />
-                    </button>
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex justify-center">
-                    <img
-                      src="/images/products-page/cart01.svg"
-                      alt="arrow-down"
-                      width={50}
-                      height={42}
-                      className="cursor-pointer"
-                      style={{
-                        filter: item.company && company.id && item.company === company.id ? '' : 'none'
-                      }}
-                      onClick={() => {
-                        const isMyOrder = item.company && company.id && item.company === company.id ? true : false;
-
-                        if (isMyOrder) return;
-                        addToCart({
-                          order: item.id,
-                          quantity: qty
-                        });
-                      }}
-                    />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          <tbody>{priceList?.map((item) => <PriceListItem key={item.id} item={item} />)}</tbody>
         </table>
       </div>
     </div>
+  );
+};
+
+const PriceListItem = ({ item }: { item: Order }) => {
+  const [qty, setQty] = useState(item.min_order_quantity || MIN_CART_QTY);
+  const addToCart = useCartStore((state) => state.addToCart);
+  const company = useCompanyStore((state) => state.company);
+
+  const onQuantityAdjust = useCallback(
+    (value: number, item: Order) => {
+      const newQty = qty + value;
+      const minQty = item.min_order_quantity || MIN_CART_QTY;
+      if (newQty >= minQty && newQty <= parseInt(item.remaining_quantity)) {
+        setQty(newQty);
+      }
+    },
+    [qty]
+  );
+
+  return (
+    <tr className=" border-b-[2px] border-white-smoke-2 dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl">
+      <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        ${formatNumberByComma(item.price || '')}
+      </th>
+      <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-center">
+        {formatNumberByComma(item.remaining_quantity || '')} 噸
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-center">
+        {formatNumberByComma(item.min_order_quantity || '')} 噸
+      </td>
+      <td className="px-6 py-4 items-center whitespace-nowrap">
+        <div className="flex justify-center items-center gap-1.5">
+          <button
+            onClick={() => onQuantityAdjust(-1, item)}
+            className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
+          >
+            <img src="/images/products-page/ic_minus.svg" className="mx-auto" alt="arrow-down" width={13} height={2} />
+          </button>
+          <input
+            className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
+            type="number"
+            value={qty}
+            readOnly
+          />
+          <button
+            onClick={() => onQuantityAdjust(+1, item)}
+            className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
+          >
+            <img src="/images/products-page/ic_plus.svg" className="mx-auto" alt="arrow-down" width={13} height={13} />
+          </button>
+        </div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="flex justify-center">
+          <img
+            src="/images/products-page/cart01.svg"
+            alt="arrow-down"
+            width={50}
+            height={42}
+            className="cursor-pointer"
+            style={{
+              filter: item.company && company.id && item.company === company.id ? '' : 'none'
+            }}
+            onClick={() => {
+              const isMyOrder = item.company && company.id && item.company === company.id ? true : false;
+
+              if (isMyOrder) return;
+              addToCart({
+                order: item.id,
+                quantity: qty
+              });
+            }}
+          />
+        </div>
+      </td>
+    </tr>
   );
 };
 

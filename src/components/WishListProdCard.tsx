@@ -44,7 +44,7 @@ const WishListProdCard = ({ product }: IProps) => {
               Item added {new Date(product.created_at).toDateString()}
             </p>
             <div className="flex flex-row gap-2 w-max">
-              <Link to={`/product-carbon/${product.id}`}>
+              <Link to={`/product-carbon/${product.carbon_credit}`}>
                 <button className="flex justify-center items-center w-[83px] h-8 rounded-[10px] border-[1.5px] border-grey">
                   <img src="/images/wishlist/dollar.svg" className="w-3 h-5 object-contain" />
                 </button>
