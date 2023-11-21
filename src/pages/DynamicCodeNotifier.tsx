@@ -7,9 +7,11 @@ import SimpleNav from '@/components/SimpleNav';
 const DynamicCodeNotifier = () => {
   const [showVerification, setShowVerification] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [buttonText, setButtonText] = useState('寄送驗證碼');
   const handleSendVerification = () => {
     setShowVerification(true);
     setButtonClicked(true);
+    setButtonText('120秒後重寄');
   };
 
   return (
@@ -37,7 +39,7 @@ const DynamicCodeNotifier = () => {
                 buttonClicked ? '!bg-white-smoke !text-grey border-gainsbro border' : ''
               }`}
             >
-              寄送驗證碼
+              {buttonText}
             </CustomButton>
           </div>
           <div className="flex flex-col gap-1 text-black  text-sm md:text-base lg:text-lg xl:text-xl ">

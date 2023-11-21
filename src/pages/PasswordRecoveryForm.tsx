@@ -16,7 +16,7 @@ import SimpleNav from '@/components/SimpleNav';
 // import { ModalType, useModalStore } from '@/store/modal';
 // import { CompanyStatus } from '@/type';
 // import { CompanyRegistrationSteps, ProgressBarItems } from '@/util/constants';
-// import PasswordRecoveryFilling from './PasswordRecoveryFilling';
+import PasswordRecoveryFilling from './PasswordRecoveryFilling';
 
 const PasswordRecoveryForm = () => {
   // const [stepNumber, setStepNumber] = useState(CompanyRegistrationSteps.COMPANY_INFO_FORM);
@@ -46,8 +46,8 @@ const PasswordRecoveryForm = () => {
       {/* {stepNumber === 2 && <RepresentativeInfoForm nextStep={setStepNumber} />}
       {stepNumber === 3 && <FinancialInfoForm nextStep={setStepNumber} />}
       {stepNumber === 4 && <TermsConfirmation nextStep={setStepNumber} />}
-      {stepNumber === 5 && <RegistrationCompleted />}
-      <PasswordRecoveryFilling /> */}
+      {stepNumber === 5 && <RegistrationCompleted />}*/}
+      <PasswordRecoveryFilling />
     </div>
   );
 };
