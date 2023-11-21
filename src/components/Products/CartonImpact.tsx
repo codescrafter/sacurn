@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const CartonImpact = () => {
   return (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid grid-cols-2 gap-6 h-[695px]">
       {/* First col */}
       <div>
         <h3 className="text-xl font-bold text-white mb-4">Carbon Risk Rating</h3>
@@ -15,7 +15,7 @@ const CartonImpact = () => {
             Sylvera finds that Cordillera Azul has met 97% of its emissions reductions claims.
           </p>
         </div>
-        <div className="p-2 py-5 bg-[#c6c6c659] rounded  mt-3">
+        <div className="p-2 py-5 bg-[#c6c6c659] rounded  mt-4">
           <div className="scroll-right  p-2 h-[310px] ">
             <p className="direction-ltr text-lg text-white text-justify px-2 tracking-[0.54px]">
               The risk of the ‘net-zero’ commitment accelerating runaway climate change is aggravated when companies
@@ -29,7 +29,7 @@ const CartonImpact = () => {
             </p>
           </div>
         </div>
-        <div className="mt-5 border-l-[3px] border-[#c6c6c659] p-2">
+        <div className="mt-5 border-l-[3px] border-[#c6c6c659] p-2 py-3">
           <p className="text-white text-justify pl-4 pb-2 tracking-[0.48px]">
             An article recently published in the academic journal Science shows that in “some dryland regions, the
             albedo warming effect of afforestation may strongly outweigh the cooling effect of carbon sequestration
