@@ -15,7 +15,12 @@ import { formatNumberByComma } from '@/util/helper';
 
 import Navbar from '../components/Navbar';
 
-const ProductDetailList = () => {
+interface ProductDetailProps {
+  isSort: boolean;
+  setIsSort: (isSort: boolean) => void;
+}
+
+const ProductDetailList = ({ isSort, setIsSort }: ProductDetailProps) => {
   const priceList = usePriceListStore((state) => state.priceList);
 
   return (
@@ -23,15 +28,25 @@ const ProductDetailList = () => {
       <h1 className="text-[44px] font-semibold leading-10 text-white">CarbonCure Concrete Mineralization</h1>
       <div className="flex justify-between w-full mb-6">
         <h3 className="text-[26px] leading-9 text-[#ffffffcc]">Project developed by CarbonCure Technologies</h3>
-        <p className="text-xl font-light text-white">
-          Sort: Low to High
-          <img
-            src="/images/products-page/ic_arrow_down.svg"
-            alt="arrow-down"
-            width={30}
-            height={30}
-            className="inline-block ml-2.5 w-7.5 h-7.5"
-          />
+        <p className="text-xl font-light text-white cursor-pointer" onClick={() => setIsSort(!isSort)}>
+          Sort: {isSort ? 'Low to High' : 'High to Low'}
+          {isSort ? (
+            <img
+              src="/images/products-page/ic_arrow_down.svg"
+              alt="arrow-up"
+              width={30}
+              height={30}
+              className="inline-block ml-2.5 w-7.5 h-7.5"
+            />
+          ) : (
+            <img
+              src="/images/products-page/ic_arrow_down.svg"
+              alt="arrow-down"
+              width={30}
+              height={30}
+              className="inline-block ml-2.5 w-7.5 h-7.5"
+            />
+          )}
         </p>
       </div>
 
@@ -147,12 +162,14 @@ function ProductDetail() {
   const { carbonId } = useParams();
 
   const getPriceList = usePriceListStore((state) => state.getPriceList);
+  const [isSort, setIsSort] = useState(false);
 
   useEffect(() => {
     getPriceList({
-      carbonCreditId: carbonId?.toString()
+      carbonCreditId: carbonId?.toString(),
+      desc: isSort ? 'true' : 'false'
     });
-  }, []);
+  }, [isSort]);
 
   return (
     <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
@@ -165,7 +182,12 @@ function ProductDetail() {
         </div>
         <div className="flex-1 pr-5 overflow-scroll xl:overflow-hidden">
           <div className="flex flex-col max-h-[973px] items-end mr-9.5 relative z-50 flex-1 w-full">
-            <ProductDetailList />
+            <ProductDetailList
+              isSort={isSort}
+              setIsSort={(v) => {
+                setIsSort(v);
+              }}
+            />
           </div>
         </div>
       </div>

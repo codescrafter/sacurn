@@ -7,7 +7,7 @@ import Card from './Card';
 const ProductDetail = () => {
   return (
     <div className="yellowScrollNoBg mr-1 pr-5.5  overflow-auto overflow-x-hidden">
-      <div className="h-[65vh]">
+      <div className="h-[695px]">
         <div className="flex gap-5 mb-5">
           {['1', '2', '3'].map((x) => (
             <Card key={x} />

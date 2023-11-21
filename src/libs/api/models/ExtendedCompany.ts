@@ -40,8 +40,8 @@ export type ExtendedCompany = {
     contact_person_position?: string | null;
     contact_person_email?: string | null;
     contact_person_phone?: string | null;
-    address: string;
-    contact_address: string;
+    address?: Record<string, any>;
+    contact_address?: Record<string, any>;
     registration_document: string;
 };
 
