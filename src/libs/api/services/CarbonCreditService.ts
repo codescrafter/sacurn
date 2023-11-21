@@ -55,6 +55,23 @@ export class CarbonCreditService {
 
     /**
      * @param id
+     * @returns CarbonCredit
+     * @throws ApiError
+     */
+    public carbonCreditRetrieve(
+        id: number,
+    ): CancelablePromise<CarbonCredit> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/carbon_credit/{id}/',
+            path: {
+                'id': id,
+            },
+        });
+    }
+
+    /**
+     * @param id
      * @param requestBody
      * @returns CarbonCredit
      * @throws ApiError

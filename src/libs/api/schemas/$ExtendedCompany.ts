@@ -176,12 +176,18 @@ export const $ExtendedCompany = {
             maxLength: 45,
         },
         address: {
-            type: 'string',
-            isRequired: true,
+            type: 'dictionary',
+            contains: {
+                properties: {
+                },
+            },
         },
         contact_address: {
-            type: 'string',
-            isRequired: true,
+            type: 'dictionary',
+            contains: {
+                properties: {
+                },
+            },
         },
         registration_document: {
             type: 'string',
