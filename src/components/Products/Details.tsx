@@ -59,8 +59,8 @@ const Details = () => {
                   <div className="flex items-baseline text-white">
                     <span className="text-2xl">USD</span>
                     <b className="text-5xl font-semibold">
-                      {formatNumberByComma(carbonCredit?.max_price || '')}~
-                      {formatNumberByComma(carbonCredit?.min_price || '')}
+                      {formatNumberByComma(carbonCredit?.min_price || '')}~
+                      {formatNumberByComma(carbonCredit?.max_price || '')}
                     </b>
                     <span className="text-2xl">/Tonne</span>
                   </div>
@@ -270,7 +270,7 @@ const ImgSlider = ({ images, location }: SliderIProps) => {
             }}
             className={classNames('cursor-pointer flex-1 h-1 w-full rounded-[20px]', {
               'bg-white': currentSlide === index,
-              'bg-light-grey': currentSlide !== index
+              'bg-white-smoke-3': currentSlide !== index
             })}
           />
         ))}
