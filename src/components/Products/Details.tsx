@@ -66,9 +66,10 @@ const Details = () => {
                   </div>
                   <p className="text-sm text-white">Ranges from vintage 2017</p>
                 </div>
-                <div>
+                <div className="min-w-[58px] min-h-[58px]">
                   <img
                     src="/images/products/green/dollar-2.svg"
+                    className="cursor-pointer relative z-20"
                     alt="sacurn"
                     onClick={() => navigate(`/product-carbon/${carbonCredit?.id}`)}
                   />
