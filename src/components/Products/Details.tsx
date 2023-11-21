@@ -1,26 +1,36 @@
 import classNames from 'classnames';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
+import { useCarbonCreditStore } from '@/store/carbonCredit';
 import { useProductListStore } from '@/store/productList';
 import { CarbonTag } from '@/type';
+import { formatNumberByComma } from '@/util/helper';
 
 import BenefitImpact from './BenefitImpact';
 import CartonImpact from './CartonImpact';
 import LayoutSwitch from './LayoutSwitch';
 import ProductDetail from './ProductDetail';
 
+enum Tabs {
+  Product_Details = 1,
+  Carton_Impact_Performance = 2,
+  Cobenefit_Impact = 3
+}
+
 const Details = () => {
   const navigate = useNavigate();
   const param = useParams();
   const [openTab, setOpenTab] = useState(1);
+  const carbonCredit = useCarbonCreditStore((state) => state.carbonCredit);
+  const getCarbonCredit = useCarbonCreditStore((state) => state.getCarbonCredit);
 
-  enum Tabs {
-    Product_Details = 1,
-    Carton_Impact_Performance = 2,
-    Cobenefit_Impact = 3
-  }
+  useEffect(() => {
+    if (!param) return;
+    getCarbonCredit(Number(param.id));
+  }, []);
+
   const selectedTag = useProductListStore((state) => state.filters.tag);
   // let imgsArray = [];
   let imgsArray = ['/images/products/green/detail1.png'];
@@ -38,7 +48,7 @@ const Details = () => {
       <div className="w-[38%]">
         <div>
           <div className="relative z-[2]">
-            <ImgSlider images={imgsArray} />
+            <ImgSlider images={imgsArray} location={carbonCredit?.location || ''} />
           </div>
           <div className="pl-5 pt-12">
             {/* Price */}
@@ -48,7 +58,10 @@ const Details = () => {
                 <div>
                   <div className="flex items-baseline text-white">
                     <span className="text-2xl">USD</span>
-                    <b className="text-5xl font-semibold">5.00~5.00</b>
+                    <b className="text-5xl font-semibold">
+                      {formatNumberByComma(carbonCredit?.max_price || '')}~
+                      {formatNumberByComma(carbonCredit?.min_price || '')}
+                    </b>
                     <span className="text-2xl">/Tonne</span>
                   </div>
                   <p className="text-sm text-white">Ranges from vintage 2017</p>
@@ -57,7 +70,7 @@ const Details = () => {
                   <img
                     src="/images/products/green/dollar-2.svg"
                     alt="sacurn"
-                    onClick={() => navigate(`/product-carbon/${param.id}`)}
+                    onClick={() => navigate(`/product-carbon/${carbonCredit?.id}`)}
                   />
                 </div>
               </div>
@@ -68,11 +81,11 @@ const Details = () => {
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-transparent-grey rounded flex flex-col justify-center items-center p-4">
                   <p className="text-xl font-bold text-white">Carbon Rating</p>
-                  <p className="text-xl font-bold text-white">A</p>
+                  <p className="text-xl font-bold text-white">{carbonCredit?.carbon_rating}</p>
                 </div>
                 <div className="bg-transparent-grey rounded flex flex-col justify-center items-center p-4">
                   <p className="text-xl font-bold text-white">Co-benefit</p>
-                  <p className="text-xl font-bold text-white">4/5</p>
+                  <p className="text-xl font-bold text-white">{carbonCredit?.co_benefit}/5</p>
                 </div>
               </div>
             </div>
@@ -99,9 +112,7 @@ const Details = () => {
         <div>
           <div className="">
             <div className="flex items-start gap-2 pr-8 mt-5 min-h-[90px]">
-              <h1 className="text-[32px] flex-1 font-semibold text-white pl-[17px]">
-                (VCS-2250) Delta Blue Carbon - 1
-              </h1>
+              <h1 className="text-[32px] flex-1 font-semibold text-white pl-[17px]">{carbonCredit?.name}</h1>
               <img src="/images/products/green/start-gold.svg" alt="sacurn" />
             </div>
             {/* Product Details Tabs */}
@@ -224,8 +235,9 @@ export default Details;
 
 interface SliderIProps {
   images: string[];
+  location: string;
 }
-const ImgSlider = ({ images }: SliderIProps) => {
+const ImgSlider = ({ images, location }: SliderIProps) => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const sliderRef = useRef<Slider>(null);
   const settings = {
@@ -244,6 +256,10 @@ const ImgSlider = ({ images }: SliderIProps) => {
   };
   return (
     <div className="relative h-[306px]">
+      <div className="absolute z-20 left-0 bottom-6 right-0 gap-1.5 flex items-center pr-[30%] pl-6">
+        <img src="/images/products/location-icon.svg" alt="location" className="w-[12px] h-[19px] object-contain" />
+        <span className="text-white text-base font-bold">{location}</span>
+      </div>
       <div className="absolute z-20 left-0 bottom-4 right-0 gap-1.5 flex pr-[30%] pl-6">
         {['01', '02', '03'].map((item, index) => (
           <div
@@ -253,8 +269,8 @@ const ImgSlider = ({ images }: SliderIProps) => {
               sliderRef?.current?.slickGoTo(index);
             }}
             className={classNames('cursor-pointer flex-1 h-1 w-full rounded-[20px]', {
-              'bg-light-grey': currentSlide === index,
-              'bg-white': currentSlide !== index
+              'bg-white': currentSlide === index,
+              'bg-light-grey': currentSlide !== index
             })}
           />
         ))}
