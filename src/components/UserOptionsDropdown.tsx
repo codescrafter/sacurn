@@ -69,18 +69,22 @@ const UserMenu = () => {
             會員中心
           </MenuItem>
         </Link>
-        <MenuItem
-          sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
-          className="text-black hover:text-navy-blue active:text-navy-blue"
-        >
-          歷史訂單
-        </MenuItem>
-        <MenuItem
-          sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
-          className="text-black hover:text-navy-blue active:text-navy-blue"
-        >
-          操作記錄
-        </MenuItem>
+        <Link to="/historical-order">
+          <MenuItem
+            sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
+            className="text-black hover:text-navy-blue active:text-navy-blue"
+          >
+            歷史訂單
+          </MenuItem>
+        </Link>
+        <Link to="/operation-record">
+          <MenuItem
+            sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
+            className="text-black hover:text-navy-blue active:text-navy-blue"
+          >
+            操作記錄
+          </MenuItem>
+        </Link>
         <MenuItem
           sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
           className="text-black hover:text-navy-blue active:text-navy-blue"

@@ -306,6 +306,28 @@ paths:
                 $ref: '#/components/schemas/PaginatedExtendCarbonCreditList'
           description: ''
   /carbon_credit/{id}/:
+    get:
+      operationId: carbon_credit_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - carbon_credit
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarbonCredit'
+          description: ''
     patch:
       operationId: carbon_credit_partial_update
       parameters:
@@ -2936,12 +2958,6 @@ components:
         b64Cert:
           type: string
           default: b64Cert
-        timestamp:
-          type: string
-          default: '20230828172612650'
-        memberNo:
-          type: string
-          default: customer_tax_id
     Employee:
       type: object
       properties:
@@ -3285,6 +3301,9 @@ components:
         can_upgrade:
           type: string
           readOnly: true
+        level:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -3350,6 +3369,7 @@ components:
       - current_member
       - current_member_annual_renewal_fee
       - id
+      - level
       - loss_card_fee
       - member
       - next_member
@@ -3700,15 +3720,23 @@ components:
           title: 聯絡人電話
           maxLength: 45
         address:
-          type: string
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
         contact_address:
-          type: string
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
         registration_document:
           type: string
           format: uri
       required:
-      - address
-      - contact_address
       - created_at
       - id
       - name
@@ -4012,6 +4040,9 @@ components:
         can_upgrade:
           type: string
           readOnly: true
+        level:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -4078,6 +4109,7 @@ components:
       - current_member
       - current_member_annual_renewal_fee
       - id
+      - level
       - loss_card_fee
       - member
       - next_member
@@ -5012,9 +5044,19 @@ components:
           title: 聯絡人電話
           maxLength: 45
         address:
-          type: string
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
         contact_address:
-          type: string
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
         registration_document:
           type: string
           format: uri

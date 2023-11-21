@@ -17,6 +17,7 @@ export type MemberRecord = {
     readonly buy_cost: string;
     readonly sell_cost: string;
     readonly can_upgrade: string;
+    readonly level: string;
     readonly created_at: string | null;
     readonly updated_at: string | null;
     deleted?: boolean;

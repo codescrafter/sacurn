@@ -100,7 +100,7 @@ const ProductList = () => {
                 });
               }}
             />
-            <Searchbar value={searchByCode} setValue={(e) => setSearchByCode(e.target.value)} />
+            <Searchbar value={searchByCode} setValue={(e) => setSearchByCode(e.target.value)} className="hidden" />
           </div>
           <div className="hidden 2.5xl:block">
             <SortFiltersModal desc={filters.desc} sortBy={filters.sort_by} onSortChange={onSortChange} />
