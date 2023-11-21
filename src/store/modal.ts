@@ -178,8 +178,8 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
         text: '元件下載',
         onClick: () => {
           const anchor = document.createElement('a');
-          anchor.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent('/idPaas/PC元件.zip'));
-          anchor.setAttribute('download', 'PC元件.zip');
+          anchor.setAttribute('href', `${window.location.origin}/idPaas/PC元件.zip`);
+          anchor.setAttribute('target', '_blank');
           anchor.click();
         }
       }
