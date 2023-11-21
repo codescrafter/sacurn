@@ -5,7 +5,7 @@ import CustomButton from '@/components/CustomButton';
 const AuthenticationPasswordRecovery = () => {
   return (
     <div className="w-[90%]  mx-auto flex flex-col gap-5 py-5  ">
-      <div className="card-shadow bg-white rounded-[20px] py-28 px-10 flex gap-5 justify-center items-center">
+      <div className="shadow-completed-box bg-white rounded-[20px] py-28 px-10 flex gap-5 justify-center items-center">
         <div className="flex gap-7 items-center ">
           <div className="rounded-full h-13 w-13 border-4 border-pale-yellow flex items-center justify-center">
             <img src="/v2/icon/tick.svg" alt="" className="h-8 w-8 " />
@@ -16,7 +16,7 @@ const AuthenticationPasswordRecovery = () => {
           </div>
         </div>
       </div>
-      <div className="card-shadow bg-white rounded-[20px] pt-10 flex gap-5 justify-start items-start px-16 pb-24">
+      <div className="shadow-completed-box bg-white rounded-[20px] pt-10 flex gap-5 justify-start items-start px-16 pb-24">
         <div className="flex flex-col gap-5 text-sm md:text-base lg:text-lg 2xl:text-xl">
           <h2 className="">提醒您</h2>
           <ul className="list-disc pl-9">

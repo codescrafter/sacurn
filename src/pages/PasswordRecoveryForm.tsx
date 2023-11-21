@@ -16,7 +16,7 @@ const PasswordRecoveryForm = () => {
       <SimpleNav heading="忘記密碼" className="relative mb-20 z-50" />
       <ProgressBar steps={3} stepNumber={1} stepName="申請填寫" gap="small" width="normal" />
       <div className=" w-[90%] mx-auto flex flex-col gap-7 py-5 border">
-        <div className="w-full px-24 flex  justify-between rounded-2.5xl py-8 bg-white box-shadow">
+        <div className="w-full px-24 flex  justify-between rounded-2.5xl py-8 bg-white shadow-completed-box">
           {INPUT_DATA.map(({ label, placeholder }) => {
             return (
               <>
@@ -37,7 +37,7 @@ const PasswordRecoveryForm = () => {
         </div>
         <div className="flex flex-col gap-8">
           <div className="flex gap-8">
-            <div className="box-shadow rounded-2.5xl bg-white py-11 px-7 w-[50%]">
+            <div className="shadow-completed-box rounded-2.5xl bg-white py-11 px-7 w-[50%]">
               <div>
                 <p className="text-xl pb-20 text-dark-grey">
                   <span className="text-bright-red font-bold">*</span> 本人已於合理期間(至少五日)詳細審閱個人

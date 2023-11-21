@@ -97,7 +97,7 @@ const PasswordRecoveryTermsModal = () => {
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '95%' }}>
               <CustomButton
                 variant="secondary"
-                className="rounded-md bg-white-smoke font-bold shadow-md text-lg mt-3 px-10 self-end flex gap-2 items-center "
+                className="rounded-md bg-white-smoke font-bold shadow-download-btn text-lg mt-3 px-10 self-end flex gap-2 items-center "
               >
                 Download
                 <img src="/v2/icon/download-icon.svg" alt="" />

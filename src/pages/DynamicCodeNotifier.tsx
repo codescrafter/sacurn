@@ -12,7 +12,7 @@ const DynamicCodeNotifier = () => {
 
   return (
     <div className="w-[90%]  mx-auto flex flex-col gap-5 py-5 ">
-      <div className="w-full card-shadow bg-white rounded-[20px] px-18 py-6 flex flex-col gap-9">
+      <div className="w-full shadow-completed-box bg-white rounded-[20px] px-18 py-6 flex flex-col gap-9">
         <div className="flex gap-5  justify-between items-center ">
           <h2 className="text-navy-blue font-bold text-base lg:text-lg xl:text-2xl 2xl:text-3xl">
             寄送通知信動態驗證碼
@@ -49,7 +49,7 @@ const DynamicCodeNotifier = () => {
         </div>
       </div>
       {showVerification && (
-        <div className="w-full card-shadow bg-white rounded-[20px] px-18 py-7 flex flex-col gap-10">
+        <div className="w-full shadow-completed-box bg-white rounded-[20px] px-18 py-7 flex flex-col gap-10">
           <div className="flex gap-5 justify-between items-center">
             <h2 className="text-navy-blue font-bold text-base lg:text-lg xl:text-2xl 2xl:text-3xl">
               寄送通知信動態驗證碼
