@@ -9,12 +9,10 @@ import { useWishListStore } from '@/store/wishList';
 
 const WishList = () => {
   const wishList = useWishListStore((state) => state.wishList);
-  // const getWishList = useWishListStore((state) => state.getWishList);
   const getWishListWithFilter = useWishListStore((state) => state.getWishListWithFilter);
 
   useEffect(() => {
     getWishListWithFilter();
-    // if (wishList.length === 0) getWishList();
   }, []);
 
   return (
