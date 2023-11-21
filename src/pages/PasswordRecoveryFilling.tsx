@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 import CustomButton from '@/components/CustomButton';
 
 import PasswordRecoveryTermsModal from './PasswordRecoveryTermsModal';
-
+// interface IProps {
+//   nextStep: (val: number) => void;
+// }
 const PasswordRecoveryFilling = () => {
   const [isChecked, setIsChecked] = useState(false);
   const isCheckedHandler = (value: boolean) => {
