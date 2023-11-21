@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import { useProductListStore } from '@/store/productList';
@@ -12,6 +12,8 @@ import LayoutSwitch from './LayoutSwitch';
 import ProductDetail from './ProductDetail';
 
 const Details = () => {
+  const navigate = useNavigate();
+  const param = useParams();
   const [openTab, setOpenTab] = useState(1);
 
   enum Tabs {
@@ -52,7 +54,11 @@ const Details = () => {
                   <p className="text-sm text-white">Ranges from vintage 2017</p>
                 </div>
                 <div>
-                  <img src="/images/products/green/dollar-2.svg" alt="sacurn" />
+                  <img
+                    src="/images/products/green/dollar-2.svg"
+                    alt="sacurn"
+                    onClick={() => navigate(`/product-carbon/${param.id}`)}
+                  />
                 </div>
               </div>
             </div>
