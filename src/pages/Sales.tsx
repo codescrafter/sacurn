@@ -114,13 +114,15 @@ const Sales = () => {
                                 )}
                               >
                                 {item}
-                                <img
-                                  src="/images/sales/filter_arrows.png"
-                                  width={15}
-                                  height={23}
-                                  alt="filters arrows"
-                                  className="min-w-[15px] h-auto"
-                                />
+                                {index !== 4 && index !== 5 && (
+                                  <img
+                                    src="/images/sales/filter_arrows.png"
+                                    width={15}
+                                    height={23}
+                                    alt="filters arrows"
+                                    className="min-w-[15px] h-auto"
+                                  />
+                                )}
                               </span>
                             </th>
                           ))}
