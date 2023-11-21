@@ -58,7 +58,10 @@ const PasswordRecoveryTermsModal = () => {
             >
               <p> 本網站之《服務條款》、《隱私政策》和《Cookie 政策》</p>
             </Typography>
-            <Box className="yellowScroll" sx={{ overflowY: 'scroll', height: '350px', width: '100%' }}>
+            <div
+              className="yellowScroll overflow-y-scroll h-[350px] min-[1400px]:h-[600px]  w-full"
+              // sx={{ overflowY: 'scroll', height: '350px', width: '100%' }}
+            >
               <Box sx={{ background: '#F5F5F5', width: '98%', p: '11px', color: '#525252' }}>
                 {PURCHASE_INFO_NOTE.map((note) => (
                   <div key={note.id}>
@@ -93,7 +96,7 @@ const PasswordRecoveryTermsModal = () => {
                   </div>
                 ))}
               </Box>
-            </Box>
+            </div>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '95%' }}>
               <CustomButton
                 variant="secondary"

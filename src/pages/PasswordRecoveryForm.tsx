@@ -15,12 +15,12 @@ const PasswordRecoveryForm = () => {
     <div className="w-full  bg-neutral-150 min-h-[100vh]">
       <SimpleNav heading="忘記密碼" className="relative mb-20 z-50" />
       <ProgressBar steps={3} stepNumber={1} stepName="申請填寫" gap="small" width="normal" />
-      <div className=" w-[90%] mx-auto flex flex-col gap-7 py-5 border">
-        <div className="w-full px-24 flex  justify-between rounded-2.5xl py-8 bg-white shadow-completed-box">
+      <div className=" w-[90%] mx-auto flex flex-col gap-7  min-[1700px]:gap-10 py-5 ">
+        <div className="w-full px-20 py-8 min-[1700px]:py-12 flex  justify-center gap-18 min-[1400px]:gap-44 rounded-2.5xl bg-white shadow-completed-box">
           {INPUT_DATA.map(({ label, placeholder }) => {
             return (
               <>
-                <div className="flex gap-5 text-sm lg:text-base xl:text-xl items-center">
+                <div className="flex gap-5 text-  sm lg:text-base xl:text-xl items-center">
                   <label htmlFor="" className="text-navy-blue font-bold">
                     <span className="text-bright-red"> *</span>
                     {label}
@@ -35,11 +35,11 @@ const PasswordRecoveryForm = () => {
             );
           })}
         </div>
-        <div className="flex flex-col gap-8">
-          <div className="flex gap-8">
-            <div className="shadow-completed-box rounded-2.5xl bg-white py-11 px-7 w-[50%]">
-              <div>
-                <p className="text-xl pb-20 text-dark-grey">
+        <div className="flex flex-col gap-8  ">
+          <div className="flex gap-12 h-[400px] min-[1400px]:h-[430px] min-[1700px]:h-[480px] ">
+            <div className="shadow-completed-box rounded-2.5xl bg-white py-13 px-7 w-[50%]  flex flex-col justify-between">
+              <div className="">
+                <p className="pb-20 text-justify text-dark-grey text-sm md:text-base xl:text-xl 2xl:text-3xl leading-[34px] ">
                   <span className="text-bright-red font-bold">*</span> 本人已於合理期間(至少五日)詳細審閱個人
                   <span className="text-bright-red font-bold relative inline-block border-b">「Sacurn服務條款」</span>
                   內容，並充分瞭解且確認同意遵守，並已詳閱Sacurn服務條款中以顯著字體表示之重要約定事項，有疑問之處業經本人向貴司提出詢問並業經貴司說明及解答，對重要約定事項已充分理解並同意其內容。
