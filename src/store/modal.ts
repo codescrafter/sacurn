@@ -235,7 +235,7 @@ export const useModalStore = create<ModalState>((set, get) => ({
 
       if (err1.status === HttpStatusCode.Unauthorized) {
         cookies.remove(COOKIE_AUTH_NAME);
-        window.location.reload();
+        window.location.href = `${window.location.origin}/login`;
         return;
       }
 
