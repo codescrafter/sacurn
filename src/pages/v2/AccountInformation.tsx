@@ -106,7 +106,7 @@ const AccountInformation = () => {
         <div className=" ml-14 mt-[124px] lg:mt-[90px] xl:mt-[100px] w-[90%] rounded-lg bg-transparent-blue opacity-[0.9] shadow-account-info-box min-h-[490px] 2xl:min-h-[560px] 2.5xl:min-h-[600px]">
           <div className="flex ">
             <div className="w-[50%]">
-              <div className="account-information-clip-path rounded-tl-lg rounded-bl-lg bg-white min-h-[490px] xl:min-h-[560px] 2.5xl:min-h-[600px]">
+              <div className="account-information-clip-path rounded-tl-lg rounded-bl-lg bg-white min-h-[536px] xl:min-h-[560px] 2.5xl:min-h-[600px]">
                 <div className="pt-8 pl-8">
                   <div className="pb-2">
                     <h2 className=" text-transparent-blue font-bold text-xl  border-b-2 border-solid w-[65%]">
@@ -134,10 +134,9 @@ const AccountInformation = () => {
                     {accountInfoList.map(({ key, value }) => (
                       <div
                         key={key}
-                        className="flex  text-navy-blue font-semibold 2xl:font-bold text-base xl:text-lg 2.5xl:text-xl mb-4 xl:mb-6 2.5xl:mb-8 first:pr-16 w-full"
+                        className="flex gap-1 text-navy-blue font-semibold 2xl:font-bold text-base xl:text-lg 2.5xl:text-xl mb-4 xl:mb-6 2.5xl:mb-8 first:pr-16 w-full"
                       >
-                        <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px]">{key}:</p>
-                        <p className="pr-4 w-[65%]">{value}</p>
+                        <p className="whitespace-nowrap">{key}</p>:<p className="pr-4 w-[65%]">{value}</p>
                       </div>
                     ))}
                   </div>
@@ -145,7 +144,7 @@ const AccountInformation = () => {
               </div>
             </div>
 
-            <div className="w-[55%]  flex flex-col gap-6 items-center pt-8 pr-6 ">
+            <div className="w-[50%]  flex flex-col gap-6 items-center pt-8 pr-6 ">
               <div className=" pb-2 -ml-20 w-[117%] 2xl:-ml-28  2xl:w-[117%] ">
                 <button className=" text-white text-left  font-bold text-xl border-b-2 border-solid w-full">
                   個人資訊
