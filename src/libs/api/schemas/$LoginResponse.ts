@@ -21,5 +21,8 @@ export const $LoginResponse = {
         company_status: {
             type: 'number',
         },
+        profile: {
+            type: 'number',
+        },
     },
 } as const;

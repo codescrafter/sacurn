@@ -11,53 +11,54 @@ import { useCartStore } from '@/store/cart';
 import { useCompanyStore } from '@/store/company';
 import { usePriceListStore } from '@/store/priceList';
 import { MIN_CART_QTY } from '@/util/constants';
+import { formatNumberByComma } from '@/util/helper';
 
 import Navbar from '../components/Navbar';
 
-const ProductDetailList = () => {
-  const priceList = usePriceListStore((state) => state.priceList);
-  const company = useCompanyStore((state) => state.company);
-  const addToCart = useCartStore((state) => state.addToCart);
-  const [qty, setQty] = useState(MIN_CART_QTY);
+interface ProductDetailProps {
+  isSort: boolean;
+  setIsSort: (isSort: boolean) => void;
+}
 
-  const onQuantityAdjust = useCallback(
-    (value: number, item: Order) => {
-      if (!priceList.length) return;
-      const newQty = qty + value;
-      const minQty = item.min_order_quantity || MIN_CART_QTY;
-      if (newQty >= minQty && newQty <= parseInt(item.remaining_quantity)) {
-        setQty(newQty);
-      }
-    },
-    [qty]
-  );
+const ProductDetailList = ({ isSort, setIsSort }: ProductDetailProps) => {
+  const priceList = usePriceListStore((state) => state.priceList);
 
   return (
-    <div className="w-full mt-8 pl-4 relative">
+    <div className="w-full mt-13.7 pl-7 relative">
       <h1 className="text-[44px] font-semibold leading-10 text-white">CarbonCure Concrete Mineralization</h1>
       <div className="flex justify-between w-full mb-6">
         <h3 className="text-[26px] leading-9 text-[#ffffffcc]">Project developed by CarbonCure Technologies</h3>
-        <p className="text-xl font-light text-white">
-          Sort: Low to High
-          <img
-            src="/images/products-page/ic_arrow_down.svg"
-            alt="arrow-down"
-            width={30}
-            height={30}
-            className="inline-block ml-2.5 w-7.5 h-7.5"
-          />
+        <p className="text-xl font-light text-white cursor-pointer" onClick={() => setIsSort(!isSort)}>
+          Sort: {isSort ? 'Low to High' : 'High to Low'}
+          {isSort ? (
+            <img
+              src="/images/products-page/ic_arrow_down.svg"
+              alt="arrow-up"
+              width={30}
+              height={30}
+              className="inline-block ml-2.5 w-7.5 h-7.5"
+            />
+          ) : (
+            <img
+              src="/images/products-page/ic_arrow_down.svg"
+              alt="arrow-down"
+              width={30}
+              height={30}
+              className="inline-block ml-2.5 w-7.5 h-7.5"
+            />
+          )}
         </p>
       </div>
 
       <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white text-lg 2xl:text-xl">
+          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white text-lg 2xl:text-xl border-b-2 border-light-grey">
             <tr>
               <th scope="col" className="px-6 py-3 whitespace-nowrap">
                 單價
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
-                會員編號
+                會員代號
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
                 可交易數量
@@ -73,81 +74,87 @@ const ProductDetailList = () => {
               </th>
             </tr>
           </thead>
-          <tbody>
-            {priceList?.map((item) => (
-              <tr
-                key={item.id}
-                className=" border-b dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl"
-              >
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {item.price}
-                </th>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.remaining_quantity} 噸</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.min_order_quantity} 噸</td>
-                <td className="px-6 py-4 items-center whitespace-nowrap">
-                  <div className="flex justify-center items-center gap-1.5">
-                    <button
-                      onClick={() => onQuantityAdjust(-1, item)}
-                      className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
-                    >
-                      <img
-                        src="/images/products-page/ic_minus.svg"
-                        className="mx-auto"
-                        alt="arrow-down"
-                        width={13}
-                        height={2}
-                      />
-                    </button>
-                    <input
-                      className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
-                      type="number"
-                      value={qty}
-                      readOnly
-                    />
-                    <button
-                      onClick={() => onQuantityAdjust(+1, item)}
-                      className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
-                    >
-                      <img
-                        src="/images/products-page/ic_plus.svg"
-                        className="mx-auto"
-                        alt="arrow-down"
-                        width={13}
-                        height={13}
-                      />
-                    </button>
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex justify-center">
-                    <img
-                      src="/images/products-page/ic_add_to_cart.svg"
-                      alt="arrow-down"
-                      width={50}
-                      height={42}
-                      className="cursor-pointer"
-                      style={{
-                        filter: item.company && company.id && item.company === company.id ? 'brightness(0.2)' : 'none'
-                      }}
-                      onClick={() => {
-                        const isMyOrder = item.company && company.id && item.company === company.id ? true : false;
-
-                        if (isMyOrder) return;
-                        addToCart({
-                          order: item.id,
-                          quantity: qty
-                        });
-                      }}
-                    />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          <tbody>{priceList?.map((item) => <PriceListItem key={item.id} item={item} />)}</tbody>
         </table>
       </div>
     </div>
+  );
+};
+
+const PriceListItem = ({ item }: { item: Order }) => {
+  const [qty, setQty] = useState(item.min_order_quantity || MIN_CART_QTY);
+  const addToCart = useCartStore((state) => state.addToCart);
+  const company = useCompanyStore((state) => state.company);
+
+  const onQuantityAdjust = useCallback(
+    (value: number, item: Order) => {
+      const newQty = qty + value;
+      const minQty = item.min_order_quantity || MIN_CART_QTY;
+      if (newQty >= minQty && newQty <= parseInt(item.remaining_quantity)) {
+        setQty(newQty);
+      }
+    },
+    [qty]
+  );
+
+  return (
+    <tr className=" border-b-[2px] border-white-smoke-2 dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl">
+      <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        ${formatNumberByComma(item.price || '')}
+      </th>
+      <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-center">
+        {formatNumberByComma(item.remaining_quantity || '')} 噸
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-center">
+        {formatNumberByComma(item.min_order_quantity || '')} 噸
+      </td>
+      <td className="px-6 py-4 items-center whitespace-nowrap">
+        <div className="flex justify-center items-center gap-1.5">
+          <button
+            onClick={() => onQuantityAdjust(-1, item)}
+            className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
+          >
+            <img src="/images/products-page/ic_minus.svg" className="mx-auto" alt="arrow-down" width={13} height={2} />
+          </button>
+          <input
+            className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
+            type="number"
+            value={qty}
+            readOnly
+          />
+          <button
+            onClick={() => onQuantityAdjust(+1, item)}
+            className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
+          >
+            <img src="/images/products-page/ic_plus.svg" className="mx-auto" alt="arrow-down" width={13} height={13} />
+          </button>
+        </div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="flex justify-center">
+          <img
+            src="/images/products-page/cart01.svg"
+            alt="arrow-down"
+            width={50}
+            height={42}
+            className="cursor-pointer"
+            style={{
+              filter: item.company && company.id && item.company === company.id ? '' : 'none'
+            }}
+            onClick={() => {
+              const isMyOrder = item.company && company.id && item.company === company.id ? true : false;
+
+              if (isMyOrder) return;
+              addToCart({
+                order: item.id,
+                quantity: qty
+              });
+            }}
+          />
+        </div>
+      </td>
+    </tr>
   );
 };
 
@@ -155,12 +162,14 @@ function ProductDetail() {
   const { carbonId } = useParams();
 
   const getPriceList = usePriceListStore((state) => state.getPriceList);
+  const [isSort, setIsSort] = useState(false);
 
   useEffect(() => {
     getPriceList({
-      carbonCreditId: carbonId?.toString()
+      carbonCreditId: carbonId?.toString(),
+      desc: isSort ? 'true' : 'false'
     });
-  }, []);
+  }, [isSort]);
 
   return (
     <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
@@ -173,7 +182,12 @@ function ProductDetail() {
         </div>
         <div className="flex-1 pr-5 overflow-scroll xl:overflow-hidden">
           <div className="flex flex-col max-h-[973px] items-end mr-9.5 relative z-50 flex-1 w-full">
-            <ProductDetailList />
+            <ProductDetailList
+              isSort={isSort}
+              setIsSort={(v) => {
+                setIsSort(v);
+              }}
+            />
           </div>
         </div>
       </div>

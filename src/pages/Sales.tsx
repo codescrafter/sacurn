@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import StockItemBar from '@/components/StockItemBar';
 import { StockItem, useStockListStore } from '@/store/stockList';
 import { CarbonTag } from '@/type';
+import { formatNumberByComma } from '@/util/helper';
 
 import Button from '../components/Button';
 import Navbar from '../components/Navbar';
@@ -28,7 +29,7 @@ const Sales = () => {
   const getStockOrderList = useStockListStore((store) => store.getStockOrderList);
 
   useEffect(() => {
-    if (stockList.length === 0) getStockList();
+    getStockList();
   }, []);
 
   return (
@@ -99,7 +100,8 @@ const Sales = () => {
                               className={classNames('text-left whitespace-nowrap pb-4', {
                                 'pl-[11px] sr-only': index === 0,
                                 'pr-2': index === 1,
-                                'px-2': index !== 0 && index !== 1
+                                'px-2': index !== 0 && index !== 1,
+                                '!w-[40%]': index === 1
                               })}
                             >
                               <span
@@ -107,17 +109,20 @@ const Sales = () => {
                                   'text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer',
                                   {
                                     'justify-center': index === 4 || index === 5
+                                    // increase first child width
                                   }
                                 )}
                               >
                                 {item}
-                                <img
-                                  src="/images/sales/filter_arrows.png"
-                                  width={15}
-                                  height={23}
-                                  alt="filters arrows"
-                                  className="min-w-[15px] h-auto"
-                                />
+                                {index !== 4 && index !== 5 && (
+                                  <img
+                                    src="/images/sales/filter_arrows.png"
+                                    width={15}
+                                    height={23}
+                                    alt="filters arrows"
+                                    className="min-w-[15px] h-auto"
+                                  />
+                                )}
                               </span>
                             </th>
                           ))}
@@ -181,7 +186,8 @@ const Sales = () => {
                                 {stockItem.vintage}
                               </td>
                               <td className="py-2 px-2 font-bold text-dark-grey text-sm 2xl:text-lg">
-                                {stockItem.quantity} <span className="!font-medium text-dark-grey">噸</span>
+                                {formatNumberByComma(stockItem.quantity || '')}
+                                <span className="!font-medium text-dark-grey">噸</span>
                               </td>
                               <td className="py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]">
                                 <div className="w-full flex justify-center">

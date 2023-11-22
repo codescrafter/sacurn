@@ -306,6 +306,28 @@ paths:
                 $ref: '#/components/schemas/PaginatedExtendCarbonCreditList'
           description: ''
   /carbon_credit/{id}/:
+    get:
+      operationId: carbon_credit_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - carbon_credit
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarbonCredit'
+          description: ''
     patch:
       operationId: carbon_credit_partial_update
       parameters:
@@ -839,181 +861,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedGroupList'
           description: ''
-  /company/level/:
-    get:
-      operationId: company_level_retrieve
-      description: List all snippets, or create a new snippet.
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-    post:
-      operationId: company_level_create
-      description: List all snippets, or create a new snippet.
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-  /company/level_set/:
-    get:
-      operationId: company_level_set_retrieve
-      description: List all snippets, or create a new snippet.
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-    post:
-      operationId: company_level_set_create
-      description: List all snippets, or create a new snippet.
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-  /company/plan/:
-    get:
-      operationId: company_plan_list
-      parameters:
-      - name: page
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedPlanList'
-          description: ''
-    post:
-      operationId: company_plan_create
-      tags:
-      - company
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Plan'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Plan'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Plan'
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Plan'
-          description: ''
-  /company/plan_record/:
-    get:
-      operationId: company_plan_record_list
-      parameters:
-      - name: page
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedPlanRecordList'
-          description: ''
-    post:
-      operationId: company_plan_record_create
-      tags:
-      - company
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PlanRecord'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PlanRecord'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PlanRecord'
-        required: true
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PlanRecord'
-          description: ''
   /company/review_pass_req/:
     get:
       operationId: company_review_pass_req_retrieve
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-  /company/user/:
-    get:
-      operationId: company_user_retrieve
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-    post:
-      operationId: company_user_create
       tags:
       - company
       security:
@@ -1434,36 +1284,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExtendMemberRecord'
-          description: ''
-    post:
-      operationId: member_record_create
-      description: "renewal(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2) \n upgrade(UNCONFIRMED\
-        \ = 0 CONFIRMED = 1 REVIEWING = 2 COMPLETED = 3)"
-      tags:
-      - member
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MemberRecord'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/MemberRecord'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/MemberRecord'
-        required: true
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      - {}
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MemberRecord'
           description: ''
   /member/renewal/:
     post:
@@ -2553,7 +2373,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenPkcs7TbsResponse'
           description: ''
-  /twid/genPkcs7Tbs/upgrade:
+  /twid/genPkcs7Tbs/upgrade/:
     post:
       operationId: twid_genPkcs7Tbs_upgrade_create
       tags:
@@ -3138,12 +2958,6 @@ components:
         b64Cert:
           type: string
           default: b64Cert
-        timestamp:
-          type: string
-          default: '20230828172612650'
-        memberNo:
-          type: string
-          default: customer_tax_id
     Employee:
       type: object
       properties:
@@ -3487,6 +3301,9 @@ components:
         can_upgrade:
           type: string
           readOnly: true
+        level:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -3552,6 +3369,7 @@ components:
       - current_member
       - current_member_annual_renewal_fee
       - id
+      - level
       - loss_card_fee
       - member
       - next_member
@@ -3791,21 +3609,11 @@ components:
           format: date
           nullable: true
           title: 核准設立日期
-        address:
-          type: object
-          additionalProperties: {}
-          nullable: true
-          title: 公司登記地址
         phone:
           type: string
           nullable: true
           title: 聯絡電話
           maxLength: 45
-        contact_address:
-          type: object
-          additionalProperties: {}
-          nullable: true
-          title: 聯絡地址
         representative_country:
           type: string
           nullable: true
@@ -3911,6 +3719,20 @@ components:
           nullable: true
           title: 聯絡人電話
           maxLength: 45
+        address:
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
+        contact_address:
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
         registration_document:
           type: string
           format: uri
@@ -4078,6 +3900,9 @@ components:
         company_status:
           type: integer
           default: 1
+        profile:
+          type: integer
+          default: 1
       required:
       - refresh
       - user
@@ -4215,6 +4040,9 @@ components:
         can_upgrade:
           type: string
           readOnly: true
+        level:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -4281,6 +4109,7 @@ components:
       - current_member
       - current_member_annual_renewal_fee
       - id
+      - level
       - loss_card_fee
       - member
       - next_member
@@ -4700,46 +4529,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Order'
-    PaginatedPlanList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=2
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Plan'
-    PaginatedPlanRecordList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=2
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlanRecord'
     PaginatedShopCartList:
       type: object
       properties:
@@ -5144,21 +4933,11 @@ components:
           format: date
           nullable: true
           title: 核准設立日期
-        address:
-          type: object
-          additionalProperties: {}
-          nullable: true
-          title: 公司登記地址
         phone:
           type: string
           nullable: true
           title: 聯絡電話
           maxLength: 45
-        contact_address:
-          type: object
-          additionalProperties: {}
-          nullable: true
-          title: 聯絡地址
         representative_country:
           type: string
           nullable: true
@@ -5264,6 +5043,20 @@ components:
           nullable: true
           title: 聯絡人電話
           maxLength: 45
+        address:
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
+        contact_address:
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
         registration_document:
           type: string
           format: uri
@@ -5316,52 +5109,6 @@ components:
           type: string
       required:
       - tran_uuid
-    Plan:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        title:
-          type: string
-          nullable: true
-          maxLength: 45
-      required:
-      - id
-    PlanRecord:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        status:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        deadline:
-          type: string
-          format: date-time
-          nullable: true
-        company:
-          type: integer
-        plan:
-          type: integer
-      required:
-      - company
-      - created_at
-      - id
-      - plan
-      - updated_at
     PreDoTwdsS0Response:
       type: object
       properties:

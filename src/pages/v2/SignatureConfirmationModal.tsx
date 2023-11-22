@@ -14,6 +14,7 @@ import { InstanceProps } from 'react-modal-promise/lib/types';
 import * as yup from 'yup';
 
 import CustomButton from '@/components/CustomButton';
+import { ModalCloseError } from '@/store/card';
 import { SignatureConfirmationModalType } from '@/type';
 import { CardType } from '@/types';
 
@@ -44,10 +45,7 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
       type: yup.mixed<CardType>().oneOf(Object.values(CardType)).required(),
       username: yup.string().test('is-valid', '無效的統一編號', function (value) {
         if (type === CardType.MemberCard) return true;
-        if (value) {
-          return !!value?.match(/^\d{8}$/); // 統一編號必須是8位數
-        }
-        return true;
+        return !!value?.match(/^\d{8}$/); // 統一編號必須是8位數
       }),
       password: yup.string().required('卡片密碼是必填的')
     })
@@ -66,7 +64,7 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
     <div>
       <BootstrapDialog
         onClose={() => {
-          if (onReject) onReject('close');
+          if (onReject) onReject(ModalCloseError);
         }}
         aria-labelledby="customized-dialog-title"
         open={isOpen}
@@ -77,7 +75,7 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
           <IconButton
             aria-label="close"
             onClick={() => {
-              if (onReject) onReject('close');
+              if (onReject) onReject(ModalCloseError);
             }}
             sx={{
               position: 'absolute',
@@ -182,7 +180,7 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
                         <input
                           className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
                           type="text"
-                          placeholder="username"
+                          placeholder="公司統一編號"
                           {...register('username')}
                         />
                         <div>{formState.errors?.username?.message}</div>

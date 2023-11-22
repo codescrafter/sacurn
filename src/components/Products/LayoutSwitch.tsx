@@ -10,7 +10,7 @@ const LayoutSwitch = () => {
   const updateProductListByFilters = useProductListStore((state) => state.updateProductListByFilters);
 
   return (
-    <div className="px-10 pb-4 flex gap-6 items-center justify-end h-[46px]">
+    <div className="px-10 py-4 flex gap-6 items-center justify-end h-[46px]">
       <CustomButton
         variant="rounded-full"
         className={classNames('bg-white !text-[#525252]', {
