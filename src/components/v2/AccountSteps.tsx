@@ -22,7 +22,7 @@ const AccountSteps = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 mt-5 ml-3 w-full">
+    <div className="flex flex-col gap-5 mt-5 w-full">
       <div className="flex justify-center 2xl:justify-start w-full h-[42px] first:rounded-s-md">
         <CustomButton
           children="帳號資訊"
