@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { useUserStore } from '@/store/user';
@@ -93,7 +93,7 @@ const Login = () => {
           </button>
         </form>
         <p className="text-slate-blue-grey text-center font-bold text-sm leading-[22px]">
-          Forgot password? <span className="text-black">or</span>{' '}
+          <Link to="/password-reset">Forgot password?</Link> <span className="text-black">or</span>{' '}
           <span>
             <button onClick={() => navigate('/sign-up')}>Sign Up</button>
           </span>

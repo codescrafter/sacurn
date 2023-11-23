@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import Button from './Button';
 import GraphCard from './GraphCard';
 
@@ -10,7 +12,7 @@ const ProgressBarChart = () => {
           您目前是VVIP銀卡等級
           <sup>
             <Button className="border border-light-grey rounded !py-[8px] !px-2 !bg-transparent !text-silverstone font-semibold 2xl:text-[9px]">
-              查看升等方式
+              <Link to="/v2/membership-card-comparison-info">查看升等方式</Link>
             </Button>
           </sup>
         </h5>
@@ -66,9 +68,11 @@ const ProgressBarChart = () => {
           <span className="text-silverstone text-xs 2xl:text-sm font-semibold w-64 2xl:w-auto">
             2023/06/30將重新計算，會籍依前6個月消費予對應等級
           </span>
-          <Button className="!bg-transparent whitespace-nowrap flex items-center font-semibold text-xs 2xl:text-sm !text-silverstone">
-            看紀錄 <img width={6} height={12} src="/images/sales/chervon_right.png" alt="arrow" className="ml-1" />
-          </Button>
+          <Link to="/v2/account-carbon-credit">
+            <Button className="!bg-transparent whitespace-nowrap flex items-center font-semibold text-xs 2xl:text-sm !text-silverstone">
+              看紀錄 <img width={6} height={12} src="/images/sales/chervon_right.png" alt="arrow" className="ml-1" />
+            </Button>
+          </Link>
         </div>
       </div>
     </GraphCard>
