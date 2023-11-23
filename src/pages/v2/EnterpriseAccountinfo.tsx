@@ -1,5 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { useEmployeeStore } from '@/store/employee';
 
@@ -30,11 +31,13 @@ const EnterpriseAccountInfo = () => {
         ))}
         <div className="bg-white rounded-lg w-[100%] h-[316px] flex justify-center items-center">
           <div className="flex flex-col items-center gap-11 mt-10">
-            <div className="border-2 border-dashed border-navy-blue rounded-full h-24 w-24  xl:h-28 xl:w-28">
-              <div className="h-20 w-20 border-4 border-white rounded-full bg-navy-blue my-1.5 mx-1.5 flex justify-center items-center hover:cursor-pointer md:h-20 md:w-20 xl:h-24 xl:w-24">
-                <AddIcon className="text-white" />
+            <Link to="/v2">
+              <div className="border-2 border-dashed border-navy-blue rounded-full h-24 w-24  xl:h-28 xl:w-28">
+                <div className="h-20 w-20 border-4 border-white rounded-full bg-navy-blue my-1.5 mx-1.5 flex justify-center items-center hover:cursor-pointer md:h-20 md:w-20 xl:h-24 xl:w-24">
+                  <AddIcon className="text-white" />
+                </div>
               </div>
-            </div>
+            </Link>
             <h1 className="text-navy-blue font-bold text-sm xl:text-base">新增使用者</h1>
           </div>
         </div>

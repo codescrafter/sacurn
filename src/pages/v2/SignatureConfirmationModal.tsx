@@ -142,13 +142,15 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
                     </Typography>
                   </Box>
                 </Box>
-                <CustomButton
-                  variant="secondary"
-                  className="rounded-md bg-white-smoke font-bold shadow-md text-lg mt-3 px-10 self-end flex gap-2 items-center "
-                >
-                  Download
-                  <img src="/v2/icon/download-icon.svg" alt="" />
-                </CustomButton>
+                <a href={`${window.location.origin}/pdf/Membership_Terms_Service.pdf`} target="_blank" download>
+                  <CustomButton
+                    variant="secondary"
+                    className="rounded-md bg-white-smoke font-bold shadow-md text-lg mt-3 px-10 self-end flex gap-2 items-center "
+                  >
+                    Download
+                    <img src="/v2/icon/download-icon.svg" alt="" />
+                  </CustomButton>
+                </a>
               </Box>
               <Box className="w-[35%] flex justify-center item-center">
                 <div className="w-[100%] flex flex-col items-center pt-12 pb-29">
