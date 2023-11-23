@@ -378,7 +378,12 @@ export enum CompanyRegistrationSteps {
   TERMS_CONFIRMATION,
   REGISTRATION_COMPLETED
 }
-
+export const ForgotPasswordProgressBarItems: string[] = ['申請填寫', '身分驗證', '申請完成'];
+export enum ForgotPasswordFillingSteps {
+  PASSWORD_RECOVERY_FILLING = 1,
+  DYNAMIC_CODE_NOTIFIER,
+  AUTHENTICATION_PASSWORD_RECOVERY
+}
 export const Policy: string = `非常歡迎您光臨「○○網站」（以下簡稱本網站），為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
 一、隱私權保護政策的適用範圍
 隱私權保護政策內容，包括本網站如何處理在您使用網站服務時收集到的個人識別資料。隱私權保護政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。

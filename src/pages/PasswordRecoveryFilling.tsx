@@ -2,16 +2,15 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import CustomButton from '@/components/CustomButton';
+import { useForgotPasswordStore } from '@/store/forgotPassword';
 
-import PasswordRecoveryTermsModal from './PasswordRecoveryTermsModal';
-// interface IProps {
-//   nextStep: (val: number) => void;
-// }
 const PasswordRecoveryFilling = () => {
   const [isChecked, setIsChecked] = useState(false);
   const isCheckedHandler = (value: boolean) => {
     setIsChecked(value);
   };
+
+  const setIsTermsModalOpen = useForgotPasswordStore((state) => state.setIsTermsModalOpen);
   return (
     <div>
       <div className=" w-[90%] mx-auto flex flex-col gap-7  min-[1700px]:gap-10 py-5 ">
@@ -86,10 +85,13 @@ const PasswordRecoveryFilling = () => {
             >
               取消申請
             </CustomButton>
-            {/* <CustomButton variant="primary" className="rounded-xl px-18 h-13 text-xl mt-3 border-2">
-            下一步
-          </CustomButton> */}
-            <PasswordRecoveryTermsModal />
+            <CustomButton
+              variant="primary"
+              className="rounded-xl px-18 h-13 text-xl mt-3 border-2 "
+              onClick={() => setIsTermsModalOpen(true)}
+            >
+              下一步
+            </CustomButton>
           </div>
         </div>
       </div>

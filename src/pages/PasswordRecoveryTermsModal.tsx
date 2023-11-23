@@ -3,9 +3,9 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
 
 import CustomButton from '@/components/CustomButton';
+import { useForgotPasswordStore } from '@/store/forgotPassword';
 
 import { PURCHASE_INFO_NOTE } from './PaymentInformation';
 
@@ -18,23 +18,18 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   }
 }));
 const PasswordRecoveryTermsModal = () => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const setCurrentStep = useForgotPasswordStore((state) => state.setCurrentStep);
+  const isTermsModalOpen = useForgotPasswordStore((state) => state.isTermsModalOpen);
+  const setIsTermsModalOpen = useForgotPasswordStore((state) => state.setIsTermsModalOpen);
   const handleClose = () => {
-    setOpen(false);
+    setIsTermsModalOpen(false);
   };
   return (
     <div>
-      <CustomButton onClick={handleClickOpen} variant="primary" className="rounded-xl px-18 h-13 text-xl mt-3 border-2">
-        下一步
-      </CustomButton>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={isTermsModalOpen}
         fullWidth={true}
         maxWidth="md"
         sx={{
@@ -58,10 +53,7 @@ const PasswordRecoveryTermsModal = () => {
             >
               <p> 本網站之《服務條款》、《隱私政策》和《Cookie 政策》</p>
             </Typography>
-            <div
-              className="yellowScroll overflow-y-scroll h-[350px] min-[1400px]:h-[600px]  w-full"
-              // sx={{ overflowY: 'scroll', height: '350px', width: '100%' }}
-            >
+            <div className="yellowScroll overflow-y-scroll h-[350px] min-[1400px]:h-[600px]  w-full">
               <Box sx={{ background: '#F5F5F5', width: '98%', p: '11px', color: '#525252' }}>
                 {PURCHASE_INFO_NOTE.map((note) => (
                   <div key={note.id}>
@@ -124,6 +116,10 @@ const PasswordRecoveryTermsModal = () => {
               <CustomButton
                 variant="primary"
                 className="rounded-full px-15 h-12 text-lg mt-3 !text-navy-blue bg-white border-2 "
+                onClick={() => {
+                  setCurrentStep(2);
+                  setIsTermsModalOpen(false);
+                }}
               >
                 不同意
               </CustomButton>
