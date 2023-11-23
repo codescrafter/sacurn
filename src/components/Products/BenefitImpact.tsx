@@ -10,7 +10,7 @@ const BenefitImpact = () => {
           {DATA.map((item) => (
             <div key={item.title} className="bg-card-bg-light p-3 mt-5 rounded-[5px]">
               <div className="flex gap-4 items-center">
-                <img src="/images/products/green/tree.svg" />
+                <img src={item.image} alt={item.description} className="max-w-[33px] max-h-[24px] object-contain" />
                 <h5 className="text-xl font-semibold text-white">{item.value}</h5>
               </div>
               <p className="text-white leading-[18px]">{item.title}</p>
@@ -60,7 +60,7 @@ const DATA = [
     title: 'Hectares of mangrove land peotected',
     description:
       'The projects activities aim to provide local communities with the means to make a living sustainably in the fields of handicrafts, tourism associations, forestry, beekeeping, and more.',
-    image: '/images/products/green/bird.png'
+    image: '/images/products/bird-icon.svg'
   }
 ];
 
