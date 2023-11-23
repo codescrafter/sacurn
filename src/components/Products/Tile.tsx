@@ -108,14 +108,14 @@ const Tile = ({
             </p>
             <p className="text-[10px] text-black">/Tonne</p>
           </div>
-          <div className="h-full flex flex-col items-end gap-3 pt-2 pr-1">
+          <div className="h-full flex flex-col items-end gap-1 pt-2 pr-1">
             <Link to={`/product-carbon/${id}`}>
               <img
                 src="/images/products/green/dollar2.svg"
                 alt="sacurn"
-                className="w-9 h-9 object-contain"
-                width={36}
-                height={36}
+                className="w-11 h-11 object-contain relative left-2"
+                width={44}
+                height={44}
               />
             </Link>
             {wishItem ? (
@@ -123,7 +123,7 @@ const Tile = ({
                 <img
                   src="/images/wishlist/favicon.svg"
                   alt="sacurn"
-                  className="w-[56px] h-[46px] object-contain relative left-3.5"
+                  className="w-[50px] h-[50px] object-contain relative left-3.5"
                 />
               </button>
             ) : (
@@ -131,7 +131,7 @@ const Tile = ({
                 <img
                   src="/images/wishlist/unfavicon.svg"
                   alt="sacurn"
-                  className="w-[56px] h-[46px] object-contain relative left-3.5"
+                  className="w-[50px] h-[50px] object-contain relative left-3.5"
                 />
               </button>
             )}
