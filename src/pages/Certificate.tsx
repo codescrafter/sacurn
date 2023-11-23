@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import CustomButton from '@/components/CustomButton';
 import Navbar from '@/components/Navbar';
+import { BASE_URL } from '@/constant';
 import { useCertificateStore } from '@/store/certificate';
 import { ModalType, useModalStore } from '@/store/modal';
 
@@ -23,9 +24,8 @@ const Certificate = () => {
         </div>
         <div className="flex flex-col justify-center items-center mt-2">
           <div className="w-[1033px] h-[730px] shadow-certificate-shadow">
-            {/* {pdf && <Document file={pdf} onLoadSuccess={() => setIsPdfLoaded(true)} className="w-full h-full" />} */}
             <iframe
-              src={`https://platform-api2.sacurn-dev.com/carbon_credit/certificate/?carbon_credit_id=${carbonId}#toolbar=0&navpanes=0&statusbar=0&view=FitH`}
+              src={`${BASE_URL}/carbon_credit/certificate/?carbon_credit=${carbonId}#toolbar=0&navpanes=0&statusbar=0&view=FitH`}
               onLoad={() => setIsPdfLoaded(true)}
               className="w-full h-full"
             >

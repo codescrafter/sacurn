@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
+import { BASE_URL } from '@/constant';
 import formatDate from '@/helpers/formatDate';
 import { useMembershipStore } from '@/store/member';
 import { AccountTableHeadingItems } from '@/type';
@@ -121,14 +121,18 @@ const CustomAccountTable = ({ tableHeadings }: IProps) => {
         </div>
         <button className="px-8 py-0.5 self-end bg-smoke shadow-download-btn rounded-lg ml-10 mt-3">
           <div className="flex gap-2 items-center">
-            <Link
-              to="/download.docx"
-              target="_blank"
-              download="土星_平台條款內容"
-              className="text-mdbase font-bold text-navy-blue"
-            >
-              Download
-            </Link>
+            {startDate && endDate && (
+              <a
+                href={`${BASE_URL}/member/point_record/?range=${formatDate(startDate).replaceAll(
+                  '/',
+                  '-'
+                )},${formatDate(endDate).replaceAll('/', '-')}&download=1`}
+                target="_blank"
+                className="text-mdbase font-bold text-navy-blue"
+              >
+                Download
+              </a>
+            )}
             <img src="/images/company-registration/download.svg" />
           </div>
         </button>
