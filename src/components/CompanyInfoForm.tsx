@@ -180,15 +180,36 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
+    let _addressError = false;
+    let _contactAddressError = false;
+    let _imageError = false;
     if (!firstAddress || !secondAddress || !thirdAddress || !fourthAddress) {
-      return setAddressError(true);
+      _addressError = true;
     }
     if (!contactFirstAddress || !contactSecondAddress || !contactThirdAddress || !contactFourthAddress) {
-      return setContactAddressError(true);
+      _contactAddressError = true;
     }
+
+    setAddressError(_addressError);
+    setContactAddressError(_contactAddressError);
+
     const fileSize = fileSizeLimit(uploadedDocs);
-    if (fileSize) return setImageErrorMessage(fileSize);
-    if (!uploadedDocs.length) return setImageErrorMessage('請上傳營業登記文件');
+    if (fileSize) {
+      setImageErrorMessage(fileSize);
+      _imageError = true;
+    } else {
+      setImageErrorMessage(null);
+    }
+
+    if (!uploadedDocs.length) {
+      setImageErrorMessage('請上傳營業登記文件');
+      _imageError = true;
+    } else {
+      setImageErrorMessage(null);
+    }
+
+    if (_addressError || _contactAddressError || _imageError) return;
+
     const dataToSubmit = {
       id: 0,
       name: data.name,
@@ -399,6 +420,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'w-[286px] h-9 px-2 py-3.5': InputSize.MEDIUM,
                         'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-7  px-2 py-1':
                           InputSize.SMALL
+                      },
+                      {
+                        'border border-[#FF0000]': addressError
                       }
                     )}
                     value={fourthAddress}
@@ -464,6 +488,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               const postalCode = REGION_AREA_LIST?.find((item) => item.slug === urbanArea?.value[0]);
                               setContactThirdAddress(postalCode?.value || '');
                             }}
+                            disabled={isChecked}
                           >
                             {countyList?.map((county) => (
                               <option value={county.value} className="text-black">
@@ -483,6 +508,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               const postalCode = REGION_AREA_LIST?.find((item) => item.slug === e.target.value);
                               setContactThirdAddress(postalCode?.value || '');
                             }}
+                            disabled={isChecked}
                           >
                             {contactUrbanAreaList
                               ?.filter((item) => item.slug === contactFirstAddress)
@@ -510,12 +536,16 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               'w-[286px] h-9 px-2 py-3.5': InputSize.MEDIUM,
                               'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-7  px-2 py-1':
                                 InputSize.SMALL
+                            },
+                            {
+                              'border border-[#FF0000]': contactAddressError
                             }
                           )}
                           value={contactFourthAddress}
                           onChange={(e) => {
                             setContactFourthAddress(e.target.value);
                           }}
+                          disabled={isChecked}
                         />
                         {contactAddressError && (
                           <p className="text-[#FF0000] text-xs font-normal pt-1">( 紅色框格請務必填寫 )</p>
