@@ -1,6 +1,10 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Box, SxProps } from '@mui/material';
 import classNames from 'classnames';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -10,6 +14,7 @@ import { Order } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
 import { useCompanyStore } from '@/store/company';
 import { usePriceListStore } from '@/store/priceList';
+import { FilledRadio, UnFilledRadio } from '@/svg';
 import { MIN_CART_QTY } from '@/util/constants';
 import { formatNumberByComma } from '@/util/helper';
 
@@ -17,59 +22,81 @@ import Navbar from '../components/Navbar';
 
 interface ProductDetailProps {
   isSort: boolean;
+  sortOption: 'asc' | 'desc';
+  setSortOption: (isOption: 'asc' | 'desc') => void;
   setIsSort: (isSort: boolean) => void;
 }
 
-const ProductDetailList = ({ isSort, setIsSort }: ProductDetailProps) => {
+const ProductDetailList = ({ isSort, sortOption, setSortOption, setIsSort }: ProductDetailProps) => {
   const priceList = usePriceListStore((state) => state.priceList);
 
   return (
     <div className="w-full mt-13.7 pl-7 relative">
-      <h1 className="text-[44px] font-semibold leading-10 text-white">{priceList[0] && priceList[0].carbon_name}</h1>
-      <div className="flex justify-between w-full mb-6">
-        <h3 className="text-[26px] leading-9 text-[#ffffffcc]">{priceList[0] && priceList[0].carbon_about}</h3>
-        <p className="text-xl font-light text-white cursor-pointer" onClick={() => setIsSort(!isSort)}>
-          Sort: {isSort ? 'Low to High' : 'High to Low'}
-          {isSort ? (
-            <img
-              src="/images/products-page/ic_arrow_down.svg"
-              alt="arrow-up"
-              width={30}
-              height={30}
-              className="inline-block ml-2.5 w-7.5 h-7.5"
-            />
-          ) : (
-            <img
-              src="/images/products-page/ic_arrow_down.svg"
-              alt="arrow-down"
-              width={30}
-              height={30}
-              className="inline-block ml-2.5 w-7.5 h-7.5"
-            />
-          )}
-        </p>
+      <h1 className="text-[44px] font-semibold leading-10 text-white">CarbonCure Concrete Mineralization</h1>
+      <h3 className="text-[26px] leading-9 text-[#ffffffcc]">Project developed by CarbonCure Technologies</h3>
+      <div className="flex justify-end">
+        <ClickAwayListener onClickAway={() => setIsSort(false)}>
+          <div>
+            <p
+              className="whitespace-nowrap text-[17px] tracking-[0.51px] leading-normal font-normal text-white cursor-pointer"
+              onClick={() => setIsSort(!isSort)}
+            >
+              Sort: Low to High
+              {isSort ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+            </p>
+            <div>
+              {isSort ? (
+                <Box sx={styles}>
+                  <div className="p-2">
+                    <h6 className="text-dark-grey text-[17px] tracking-[0.51px] font-bold mb-4">Price</h6>
+                    <div
+                      onClick={() => {
+                        setSortOption('asc');
+                        setIsSort(false);
+                      }}
+                      className="flex cursor-pointer justify-between items-center mb-4"
+                    >
+                      <span className="text-dark-grey text-[17px] tracking-[0.51px] font-normal">Low to High</span>
+                      {sortOption === 'asc' ? <FilledRadio /> : <UnFilledRadio />}
+                    </div>
+                    <div
+                      onClick={() => {
+                        setSortOption('desc');
+                        setIsSort(false);
+                      }}
+                      className="flex cursor-pointer justify-between items-center"
+                    >
+                      <span className="text-dark-grey text-[17px] tracking-[0.51px] font-normal">High to Low</span>
+                      {sortOption === 'desc' ? <FilledRadio /> : <UnFilledRadio />}
+                    </div>
+                  </div>
+                </Box>
+              ) : null}
+            </div>
+          </div>
+        </ClickAwayListener>
       </div>
 
       <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white text-lg 2xl:text-xl border-b-2 border-light-grey">
+          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white border-b-2 border-light-grey">
             <tr>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px]">
                 單價
               </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
                 會員代號
               </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
                 可交易數量
               </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
                 交易最小單位
               </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
                 訂購數量
               </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
                 加入購物車
               </th>
             </tr>
@@ -163,13 +190,14 @@ function ProductDetail() {
 
   const getPriceList = usePriceListStore((state) => state.getPriceList);
   const [isSort, setIsSort] = useState(false);
+  const [sortOption, setSortOption] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     getPriceList({
       carbonCreditId: carbonId?.toString(),
-      desc: isSort ? 'true' : 'false'
+      desc: sortOption === 'desc' ? 'true' : 'false'
     });
-  }, [isSort]);
+  }, [sortOption]);
 
   return (
     <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
@@ -184,6 +212,10 @@ function ProductDetail() {
           <div className="flex flex-col max-h-[973px] items-end mr-9.5 relative z-50 flex-1 w-full">
             <ProductDetailList
               isSort={isSort}
+              sortOption={sortOption}
+              setSortOption={(v) => {
+                setSortOption(v);
+              }}
               setIsSort={(v) => {
                 setIsSort(v);
               }}
@@ -238,4 +270,18 @@ const ImgSlider = () => {
       </Slider>
     </div>
   );
+};
+
+const styles: SxProps = {
+  position: 'absolute',
+  top: 108,
+  right: 0,
+  zIndex: 1,
+  p: 1,
+  border: '2px solid #DFDFDF',
+  bgcolor: 'background.paper',
+  boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+  color: 'black',
+  width: '205px',
+  borderRadius: '5px'
 };

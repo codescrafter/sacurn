@@ -193,6 +193,11 @@
   scrollbar-gutter: stable;
 }
 
+/* horizontal scroll */
+.yellowScrollHorizontal::-webkit-scrollbar {
+  height: 5px;
+}
+
 /* width */
 .grayScrollNoBg::-webkit-scrollbar {
   width: 4px;
