@@ -16,7 +16,7 @@ export type Company = {
     code?: string;
     registration_number?: string | null;
     representative?: string | null;
-    capital?: number | null;
+    capital?: string | null;
     founding_date?: string | null;
     address?: Record<string, any> | null;
     phone?: string | null;

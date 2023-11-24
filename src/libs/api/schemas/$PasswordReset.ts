@@ -2,18 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $Login = {
+export const $PasswordReset = {
+    description: `Serializer for requesting a password reset e-mail.`,
     properties: {
-        username: {
-            type: 'string',
-        },
         email: {
             type: 'string',
-            format: 'email',
-        },
-        password: {
-            type: 'string',
             isRequired: true,
+            format: 'email',
         },
     },
 } as const;

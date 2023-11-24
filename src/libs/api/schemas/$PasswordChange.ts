@@ -2,18 +2,17 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $Login = {
+export const $PasswordChange = {
     properties: {
-        username: {
-            type: 'string',
-        },
-        email: {
-            type: 'string',
-            format: 'email',
-        },
-        password: {
+        new_password1: {
             type: 'string',
             isRequired: true,
+            maxLength: 128,
+        },
+        new_password2: {
+            type: 'string',
+            isRequired: true,
+            maxLength: 128,
         },
     },
 } as const;

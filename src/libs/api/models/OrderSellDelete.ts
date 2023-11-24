@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Login = {
-    username?: string;
-    email?: string;
-    password: string;
+export type OrderSellDelete = {
+    order?: number;
+    pkcs1?: string;
+    b64Cert?: string;
 };
 

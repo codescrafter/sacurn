@@ -2,17 +2,19 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $Login = {
+export const $JWT = {
+    description: `Serializer for JWT authentication.`,
     properties: {
-        username: {
+        access: {
             type: 'string',
+            isRequired: true,
         },
-        email: {
+        refresh: {
             type: 'string',
-            format: 'email',
+            isRequired: true,
         },
-        password: {
-            type: 'string',
+        user: {
+            type: 'UserDetails',
             isRequired: true,
         },
     },

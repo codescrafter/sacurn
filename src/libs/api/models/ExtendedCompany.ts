@@ -15,7 +15,7 @@ export type ExtendedCompany = {
     code?: string;
     registration_number?: string | null;
     representative?: string | null;
-    capital?: number | null;
+    capital?: string | null;
     founding_date?: string | null;
     phone?: string | null;
     representative_country?: string | null;

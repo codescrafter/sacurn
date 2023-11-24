@@ -2,18 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $Login = {
+export const $OrderSellDelete = {
     properties: {
-        username: {
+        order: {
+            type: 'number',
+        },
+        pkcs1: {
             type: 'string',
         },
-        email: {
+        b64Cert: {
             type: 'string',
-            format: 'email',
-        },
-        password: {
-            type: 'string',
-            isRequired: true,
         },
     },
 } as const;

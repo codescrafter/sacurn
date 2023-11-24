@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Login = {
-    username?: string;
-    email?: string;
-    password: string;
+export type PasswordChange = {
+    new_password1: string;
+    new_password2: string;
 };
 
