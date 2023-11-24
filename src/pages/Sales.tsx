@@ -192,7 +192,7 @@ const Sales = () => {
                               <td className="py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]">
                                 <div className="w-full flex justify-center">
                                   <div className="w-[35px] 2xl:w-[45px] 2xl:h-[45px]">
-                                    <Link to={`/certificate/${stockItem.id}`}>
+                                    <Link to={`/certificate/${stockItem.carbon_credit}`}>
                                       <img
                                         src="/images/sales/file_icon.png"
                                         width={45}

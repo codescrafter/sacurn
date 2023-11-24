@@ -192,10 +192,7 @@ export const useCardStore = create<CardState>((set, get) => ({
         semiPdfs,
         unfinishedPdfs,
         pkcs1s: signature,
-        timestamp,
-        b64Cert,
-        // memberNo & username: 統編
-        memberNo: data.username
+        b64Cert
       });
       console.log('H.ok');
       isSuccess = true;

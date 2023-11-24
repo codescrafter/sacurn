@@ -60,20 +60,20 @@ export class MemberService {
     }
 
     /**
-     * @param id twid_record
+     * @param twid twid_record
      * @param requestBody
      * @returns MemberReview
      * @throws ApiError
      */
     public memberCardReissueCreate(
-        id: string,
+        twid: string,
         requestBody?: MemberChange,
     ): CancelablePromise<MemberReview> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/member/card/reissue/',
             query: {
-                'id': id,
+                'twid': twid,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -116,20 +116,20 @@ export class MemberService {
      * revoke(UNCONFIRMED = 0 CONFIRMED = 1 REVIEWING = 3 COMPLETED = 4)
      * reissue(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2 CHECKED = 3)
      * status(EXPIRED = 0 CURRENT = 1)
-     * @param id twid_record
+     * @param twid twid_record
      * @param requestBody
      * @returns MemberCard
      * @throws ApiError
      */
     public memberCardRevokeCreate(
-        id: string,
+        twid: string,
         requestBody?: MemberChange,
     ): CancelablePromise<MemberCard> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/member/card/revoke/',
             query: {
-                'id': id,
+                'twid': twid,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -213,20 +213,20 @@ export class MemberService {
     }
 
     /**
-     * @param id twid_record
+     * @param twid twid_record
      * @param requestBody
      * @returns ExtendMemberRecord
      * @throws ApiError
      */
     public memberUpgradeCreate(
-        id: string,
+        twid: string,
         requestBody?: MemberChange,
     ): CancelablePromise<ExtendMemberRecord> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/member/upgrade/',
             query: {
-                'id': id,
+                'twid': twid,
             },
             body: requestBody,
             mediaType: 'application/json',

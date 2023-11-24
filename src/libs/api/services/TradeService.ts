@@ -10,6 +10,7 @@ import type { ExtendedCart } from '../models/ExtendedCart';
 import type { Order } from '../models/Order';
 import type { OrderBuy } from '../models/OrderBuy';
 import type { OrderSell } from '../models/OrderSell';
+import type { OrderSellDelete } from '../models/OrderSellDelete';
 import type { PaginatedExtendedCartList } from '../models/PaginatedExtendedCartList';
 import type { PaginatedOperationRecordList } from '../models/PaginatedOperationRecordList';
 import type { PaginatedOrderList } from '../models/PaginatedOrderList';
@@ -204,20 +205,20 @@ export class TradeService {
     }
 
     /**
-     * @param id twid_record
+     * @param twid twid_record
      * @param requestBody
      * @returns TransactionDetail
      * @throws ApiError
      */
     public tradeOrderBuyCreate(
-        id: string,
+        twid: string,
         requestBody?: OrderBuy,
     ): CancelablePromise<TransactionDetail> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/trade/order_buy/',
             query: {
-                'id': id,
+                'twid': twid,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -253,19 +254,19 @@ export class TradeService {
     /**
      * sell=1
      * @param requestBody
-     * @param id twid_record
+     * @param twid twid_record
      * @returns Order
      * @throws ApiError
      */
     public tradeOrderSellCreate(
         requestBody: OrderSell,
-        id?: string,
+        twid?: string,
     ): CancelablePromise<Order> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/trade/order_sell/',
             query: {
-                'id': id,
+                'twid': twid,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -273,19 +274,23 @@ export class TradeService {
     }
 
     /**
-     * @param id
-     * @returns void
+     * @param twid twid_record
+     * @param requestBody
+     * @returns Order
      * @throws ApiError
      */
-    public tradeOrderSellDestroy(
-        id: number,
-    ): CancelablePromise<void> {
+    public tradeOrderSellTakeOffCreate(
+        twid?: string,
+        requestBody?: OrderSellDelete,
+    ): CancelablePromise<Order> {
         return this.httpRequest.request({
-            method: 'DELETE',
-            url: '/trade/order_sell/{id}/',
-            path: {
-                'id': id,
+            method: 'POST',
+            url: '/trade/order_sell/take_off/',
+            query: {
+                'twid': twid,
             },
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

@@ -47,10 +47,9 @@ export const $PatchedExtendedCompany = {
             maxLength: 45,
         },
         capital: {
-            type: 'number',
+            type: 'string',
             isNullable: true,
-            maximum: 2147483647,
-            minimum: -2147483648,
+            maxLength: 45,
         },
         founding_date: {
             type: 'string',

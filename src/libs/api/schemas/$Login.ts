@@ -7,6 +7,10 @@ export const $Login = {
         username: {
             type: 'string',
         },
+        email: {
+            type: 'string',
+            format: 'email',
+        },
         password: {
             type: 'string',
             isRequired: true,

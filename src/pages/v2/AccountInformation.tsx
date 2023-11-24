@@ -4,13 +4,12 @@ import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
 import * as yup from 'yup';
 
 import CustomButton from '@/components/CustomButton';
 import Layout from '@/components/v2/Layout';
 import { useCompanyStore } from '@/store/company';
-import { useEmployeeStore } from '@/store/employee';
+// import { useEmployeeStore } from '@/store/employee';
 import { AccountInformationTypes } from '@/type';
 
 import AccountPasswordChangeModal from './AccountPasswordChangeModal';
@@ -35,28 +34,37 @@ const Schema = yup.object({
 });
 
 const AccountInformation = () => {
-  const { id } = useParams<{ id: string }>();
-  const [company] = useCompanyStore((state) => [state.company, state.getCompany]);
-  const selectedEmployee = useEmployeeStore((state) => state.selectedEmployee);
-  const getSelectedEmployee = useEmployeeStore((state) => state.getSelectedEmployee);
-  const updateEmployeeDetails = useEmployeeStore((state) => state.updateEmployeeDetails);
-  const createEmployee = useEmployeeStore((state) => state.createEmployee);
-  const [file, setFile] = useState<string>('/v2/account-pic.svg');
-  const [isFormActive, setIsFormActive] = useState(false);
+  // const selectedEmployee = useEmployeeStore((state) => state.selectedEmployee);
+  // const getSelectedEmployee = useEmployeeStore((state) => state.getSelectedEmployee);
+  // const updateEmployeeDetails = useEmployeeStore((state) => state.updateEmployeeDetails);
+  const [company, employee, getCompanyEmployee, updateCompanyEmployee] = useCompanyStore((state) => [
+    state.company,
+    state.employee,
+    state.getCompanyEmployee,
+    state.updateCompanyEmployee
+  ]);
 
   useEffect(() => {
-    if (id) {
-      getSelectedEmployee(2);
-    }
-  }, [id]);
+    if (!employee) getCompanyEmployee();
+  }, []);
 
-  console.log('selectedEmployee-', selectedEmployee);
+  const [file, setFile] = useState<string>('/v2/account-pic.svg');
+  const [isFormActive, setIsFormActive] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<AccountInfoValues>({ resolver: yupResolver(Schema) });
+  } = useForm<AccountInfoValues>({
+    resolver: yupResolver(Schema),
+    values: {
+      name: employee?.last_name || '',
+      title: employee?.position || '',
+      email: employee?.email || '',
+      phone: employee?.tel || '',
+      hash: employee?.tel_extension || ''
+    }
+  });
 
   const accountInfoList: AccountInformationTypes[] = useMemo(() => {
     return [
@@ -101,17 +109,16 @@ const AccountInformation = () => {
     }
   };
 
-  const onSubmit = handleSubmit(async (params) => {
-    const formData = new FormData();
-    formData.append('last_name', params.name);
-    formData.append('position', params.title);
-    formData.append('email', params.email);
-    formData.append('tel', params.phone);
-    formData.append('tel_extension', params.hash);
-    if (id) {
-      await updateEmployeeDetails(2, formData);
-    } else {
-      await createEmployee(formData);
+  const onSubmit = handleSubmit(async (values) => {
+    const isSuccess = await updateCompanyEmployee({
+      last_name: values.name,
+      position: values.title,
+      email: values.email,
+      tel: values.phone,
+      tel_extension: values.hash
+    });
+    if (isSuccess) {
+      setIsFormActive(false);
     }
   });
 
@@ -166,30 +173,9 @@ const AccountInformation = () => {
               {isFormActive ? (
                 <form onSubmit={onSubmit} className="flex justify-end mr-4 xl:block">
                   <div className="w-full flex flex-col gap-6 items-center ">
-                    <CustomInput
-                      errors={errors}
-                      label="名稱"
-                      id="name"
-                      type="text"
-                      register={register}
-                      defaultValue={selectedEmployee?.last_name || 'Albert'}
-                    />
-                    <CustomInput
-                      errors={errors}
-                      label="職稱"
-                      id="title"
-                      type="text"
-                      register={register}
-                      defaultValue={selectedEmployee?.position || 'CFO'}
-                    />
-                    <CustomInput
-                      errors={errors}
-                      label="Email"
-                      id="email"
-                      type="text"
-                      register={register}
-                      defaultValue={selectedEmployee?.email || 'albert@xholding.com'}
-                    />
+                    <CustomInput errors={errors} label="名稱" id="name" type="text" register={register} />
+                    <CustomInput errors={errors} label="職稱" id="title" type="text" register={register} />
+                    <CustomInput errors={errors} label="Email" id="email" type="text" register={register} />
 
                     <div className="flex w-full gap-4">
                       <div className=" flex w-[70%]">
@@ -199,18 +185,11 @@ const AccountInformation = () => {
                           id="phone"
                           type="text"
                           register={register}
-                          defaultValue={selectedEmployee?.tel || '02 - 12345678'}
                           className="gap-14 lg:gap-12 2xl:gap-14"
                         />
                       </div>
                       <div className="w-[30%]">
-                        <CustomInput
-                          errors={errors}
-                          id="hash"
-                          type="text"
-                          register={register}
-                          defaultValue={selectedEmployee?.tel_extension || '12345'}
-                        />
+                        <CustomInput errors={errors} id="hash" type="text" register={register} />
                       </div>
                     </div>
 
@@ -246,28 +225,22 @@ const AccountInformation = () => {
                   <div className="flex flex-col gap-11 w-full justify-start text-white font-semibold 2xl:font-bold text-base xl:text-xl 2.5xl:text-2xl mb-4 xl:mb-6 2.5xl:mb-8 first:pr-16 ">
                     <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px] flex gap-5">
                       <span className="text-xl font-bold tracking-[4px]">名稱</span>:
-                      <span className="text-xl font-bold tracking-[0.6px]">
-                        {selectedEmployee?.last_name || 'Albert'}
-                      </span>
+                      <span className="text-xl font-bold tracking-[0.6px]">{employee?.last_name || ''}</span>
                     </p>
                     <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px] flex gap-5">
                       <span className="text-xl font-bold tracking-[4px]">職稱</span>:
-                      <span className="text-xl font-bold tracking-[0.6px]">{selectedEmployee?.position || 'CFO'}</span>
+                      <span className="text-xl font-bold tracking-[0.6px]">{employee?.position || ''}</span>
                     </p>
                     <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px] flex gap-5">
                       <span className="text-xl font-bold tracking-[0.6px]">Email</span>:
                       <span className="text-xl font-bold tracking-[0.6px]">
-                        {selectedEmployee?.email || 'albert@xholding.com'}
+                        {employee?.email || 'albert@xholding.com'}
                       </span>
                     </p>
                     <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px] flex gap-5">
                       <span className="text-xl font-bold tracking-[4px]">電話</span>:
-                      <span className="text-xl font-bold tracking-[0.6px]">
-                        {selectedEmployee?.tel || '02 - 12345678'}
-                      </span>
-                      <span className="text-xl font-bold tracking-[0.6px]">
-                        #{selectedEmployee?.tel_extension || '12345'}
-                      </span>
+                      <span className="text-xl font-bold tracking-[0.6px]">{employee?.tel || ''}</span>
+                      <span className="text-xl font-bold tracking-[0.6px]">#{employee?.tel_extension || ''}</span>
                     </p>
                   </div>
                 </div>

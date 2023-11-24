@@ -23,7 +23,7 @@ const WishlistSwitch = () => {
           });
         }}
       >
-        {filters.tag === CarbonTag.White ? '所有碳權' : ''}
+        {filters.tag === CarbonTag.White ? '碳權總覽' : ''}
       </CustomButton>
 
       <CustomButton

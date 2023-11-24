@@ -137,7 +137,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       // update form value
       if (data.name) setValue('name', data.name);
       if (data.registration_number) setValue('registration_number', data.registration_number);
-      if (data.capital) setValue('capital', data.capital);
+      if (data.capital) setValue('capital', parseInt(data.capital));
       if (data.phone) setValue('phone', data.phone);
       if (data.founding_date) setValue('founding_date', data.founding_date);
       if (data.representative) setValue('representative', data.representative);
