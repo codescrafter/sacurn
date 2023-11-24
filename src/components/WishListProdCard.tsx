@@ -45,12 +45,12 @@ const WishListProdCard = ({ product }: IProps) => {
             </p>
             <div className="flex flex-row gap-2 w-max">
               <Link to={`/product-carbon/${product.carbon_credit}`}>
-                <button className="flex justify-center items-center w-[83px] h-8 rounded-[10px] border-[1.5px] border-grey">
+                <button className="shadow-button-box-shadow flex justify-center items-center w-[82px] h-8 rounded-[10px] bg-pale-yellow">
                   <img src="/images/wishlist/dollar.svg" className="w-3 h-5 object-contain" />
                 </button>
               </Link>
               <button
-                className="border border-grey rounded-mdlg mx-auto min-[1500px]:px-4 px-2 min-[1500px]:py-0.7 py-0.5 hover:bg-[#f3dddd]"
+                className="shadow-button-delete-shadow border border-grey rounded-mdlg mx-auto min-[1500px]:px-4 px-2 min-[1500px]:py-0.7 py-0.5 hover:bg-[#f3dddd]"
                 onClick={deleteWishlistItemHandler}
               >
                 <img src="/images/wishlist/delete.svg" />
