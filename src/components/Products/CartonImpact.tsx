@@ -17,25 +17,27 @@ const CartonImpact = () => {
         </div>
         <div className="p-2 py-5 bg-[#c6c6c659] rounded  mt-4">
           <div className="scroll-right  p-2 h-[310px] ">
-            <p className="direction-ltr text-lg text-white text-justify px-2 tracking-[0.54px]">
+            <p className="direction-ltr text-lg text-white text-justify px-2 tracking-[0.54px] indent-5">
               The risk of the ‘net-zero’ commitment accelerating runaway climate change is aggravated when companies
               rely on carbon credits from so-called ‘nature-based solutions’ projects – storage of carbon in soils,
-              trees and other vegetation – to cancel out their fossil carbon emissions. Many climate scientists dismiss
-              the potential of ‘nature-based solutions’ as a serious response to climate change, including because as
-              offset projects, they cannot guarantee storage of carbon over the hundreds, let alone thousands of years
-              that fossil carbon will interfere with the climate. Recent research also underscores major gaps in Western
-              scientific knowledge that may materially affect the calculation of alleged additional carbon storage in
-              trees.
+              trees and other vegetation – to cancel out their fossil carbon emissions.
+            </p>
+            <p className="direction-ltr text-lg text-white text-justify px-2 tracking-[0.54px] indent-5">
+              Many climate scientists dismiss the potential of ‘nature-based solutions’ as a serious response to climate
+              change, including because as offset projects, they cannot guarantee storage of carbon over the hundreds,
+              let alone thousands of years that fossil carbon will interfere with the climate. Recent research also
+              underscores major gaps in Western scientific knowledge that may materially affect the calculation of
+              alleged additional carbon storage in trees.
             </p>
           </div>
         </div>
         <div className="mt-5 border-l-[3px] border-[#c6c6c659] p-2 py-3">
-          <p className="text-white text-justify pl-4 pb-2 tracking-[0.48px]">
+          <p className="text-white text-justify pl-4 pb-2 tracking-[0.48px] indent-5">
             An article recently published in the academic journal Science shows that in “some dryland regions, the
             albedo warming effect of afforestation may strongly outweigh the cooling effect of carbon sequestration
             owing to the change from bright desert land to darker dense forest cover.”
           </p>
-          <Link to="/" className="text-pale-yellow text-sm pl-4">
+          <Link to="/" className="text-pale-yellow text-sm pl-4 underline underline-offset-[3px]">
             Learn More About Project Risk Rating &gt;
           </Link>
         </div>
