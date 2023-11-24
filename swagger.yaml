@@ -4607,6 +4607,12 @@ components:
         company_code:
           type: string
           readOnly: true
+        carbon_name:
+          type: string
+          readOnly: true
+        carbon_about:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -4663,7 +4669,9 @@ components:
           type: integer
           nullable: true
       required:
+      - carbon_about
       - carbon_credit
+      - carbon_name
       - company_code
       - created_at
       - id
