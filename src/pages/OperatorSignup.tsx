@@ -148,22 +148,24 @@ const OperatorSignUp = () => {
               <Heading heading="再次輸入密碼" />
               <PasswordInput register={register} id="password2" error={formState?.errors?.password2?.message} />
               <div className="ml-5.5">
-                <div className="flex mt-2 w-[100%] justify-start items-center gap-1">
-                  <Checkbox
-                    sx={{
-                      width: '20px',
-                      height: '20px',
-                      color: formState?.errors?.check?.message ? '#FF0000' : '#005487',
-                      '&.Mui-checked': {
-                        color: '#005487'
-                      },
-                      '& .MuiSvgIcon-root': {
+                <div className="flex mt-2 w-[100%] justify-start items-baseline gap-1">
+                  <div>
+                    <Checkbox
+                      sx={{
                         width: '20px',
-                        height: '20px'
-                      }
-                    }}
-                    {...register('check')}
-                  />
+                        height: '20px',
+                        color: formState?.errors?.check?.message ? '#FF0000' : '#005487',
+                        '&.Mui-checked': {
+                          color: '#005487'
+                        },
+                        '& .MuiSvgIcon-root': {
+                          width: '20px',
+                          height: '20px'
+                        }
+                      }}
+                      {...register('check')}
+                    />
+                  </div>
                   <p className="text-navy-blue min-[1500px]:text-base min-[1200px]:text-sm text-[12px] font-bold">
                     我已知悉並同意個人資料將被平台搜集、處理及利用。
                   </p>

@@ -115,7 +115,7 @@ const FinancialInfoForm = ({ nextStep }: IProps) => {
     <form onSubmit={onSubmit}>
       <div className="mx-auto px-5 w-[570px]">
         <div className="flex flex-row mb-13.7">
-          <h1 className="text-navy-blue text-2.5xl flex flex-row">
+          <h1 className="text-navy-blue text-[28px] tracking-[0.84px] flex flex-row">
             <div className="bg-navy-blue px-0.5 h-full" />
             &nbsp;請填寫金融機構帳戶資料
           </h1>
