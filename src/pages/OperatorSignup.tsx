@@ -81,7 +81,8 @@ const OperatorSignUp = () => {
             src="/images/operator-signup/background.png"
           />
           <p className="text-silverstone min-[1550px]:text-xl min-[1200px]:text-lg text-base text-center font-bold min-[1500px]:w-[70%] w-[80%]">
-            Adventure Comes with you! Join With Us!
+            Adventure Comes with you! <br />
+            Join With Us!
           </p>
         </div>
         <form onSubmit={onSubmit} className="flex flex-col w-[70vw] min-[1550px]:px-21.7 min-[1200px]:px-18 px-13">
@@ -199,7 +200,7 @@ interface HeadingProps {
 }
 const Heading = ({ heading }: HeadingProps) => {
   return (
-    <label className="text-navy-blue min-[1550px]:text-xl min-[1200px]:text-lg text-base font-semibold self-start ml-8 mb-2">
+    <label className="text-navy-blue min-[1550px]:text-xl min-[1200px]:text-lg text-base font-semibold self-start ml-5 mb-2">
       {heading}
     </label>
   );
@@ -227,7 +228,7 @@ const Field = ({ heading, type, className, downText, register, id, error }: Fiel
     <div className={classNames('relative flex flex-col w-[45%]', className)}>
       <Heading heading={heading} />
       <input disabled={!id} {...registeringObject} type={type} className={classNames(Style, 'w-full')} />
-      {error && <p className="text-bright-red text-xs mt-1 ml-2">{error}</p>}
+      {error && <p className="text-bright-red text-xs mt-1 ml-5">{error}</p>}
       <p className="text-grey ml-5.5 mt-2 w-[100%] min-[1500px]:text-base min-[1200px]:text-sm text-[12px] input-no-bg">
         {downText}
       </p>
@@ -253,7 +254,7 @@ const PasswordInput = ({ className, register, id, error }: PasswordInputProps) =
           onClick={() => setShowPassword((prev) => !prev)}
         />
       </div>
-      {error && <p className="text-bright-red text-xs mt-1 ml-2">{error}</p>}
+      {error && <p className="text-bright-red text-xs mt-1 ml-5">{error}</p>}
     </>
   );
 };
