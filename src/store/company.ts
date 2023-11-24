@@ -16,7 +16,7 @@ type CompanyState = {
   updateCompany: (id: number, companyData?: FormData) => void;
   getProfileId: () => number | null;
   getCompanyEmployee: () => void;
-  updateCompanyEmployee: (data: PatchedEmployeesPatch) => void;
+  updateCompanyEmployee: (data: PatchedEmployeesPatch) => Promise<boolean>;
 };
 
 export const useCompanyStore = create<CompanyState>((set, get) => ({
@@ -91,12 +91,15 @@ export const useCompanyStore = create<CompanyState>((set, get) => ({
     }
   },
   async updateCompanyEmployee(data: PatchedEmployeesPatch) {
+    let isSuccess = false;
     const profileId = get().getProfileId();
     if (profileId) {
       await runTask(async () => {
         const employee = await apiClient.company.companyEmployeePartialUpdate(profileId, data);
         set({ employee });
+        isSuccess = true;
       });
     }
+    return isSuccess;
   }
 }));
