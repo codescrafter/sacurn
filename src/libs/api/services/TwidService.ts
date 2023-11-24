@@ -8,6 +8,7 @@ import type { DoTwdsS0S1 } from '../models/DoTwdsS0S1';
 import type { GenOrderBuy } from '../models/GenOrderBuy';
 import type { GenOrderSell } from '../models/GenOrderSell';
 import type { GenPkcs7TbsResponse } from '../models/GenPkcs7TbsResponse';
+import type { GenTakeOff } from '../models/GenTakeOff';
 import type { PreDoTwdsS0Response } from '../models/PreDoTwdsS0Response';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -44,6 +45,22 @@ export class TwidService {
         return this.httpRequest.request({
             method: 'POST',
             url: '/twid/doTwdsS0S1/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns GenPkcs7TbsResponse
+     * @throws ApiError
+     */
+    public twidGenPkcs7TbsOrderTakeOffCreate(
+        requestBody: GenTakeOff,
+    ): CancelablePromise<GenPkcs7TbsResponse> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/twid/genPkcs7Tbs/order/take_off/',
             body: requestBody,
             mediaType: 'application/json',
         });

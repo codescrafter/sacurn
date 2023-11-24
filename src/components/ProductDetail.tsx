@@ -25,9 +25,9 @@ const ProductDetailList = ({ isSort, setIsSort }: ProductDetailProps) => {
 
   return (
     <div className="w-full mt-13.7 pl-7 relative">
-      <h1 className="text-[44px] font-semibold leading-10 text-white">CarbonCure Concrete Mineralization</h1>
+      <h1 className="text-[44px] font-semibold leading-10 text-white">{priceList[0] && priceList[0].carbon_name}</h1>
       <div className="flex justify-between w-full mb-6">
-        <h3 className="text-[26px] leading-9 text-[#ffffffcc]">Project developed by CarbonCure Technologies</h3>
+        <h3 className="text-[26px] leading-9 text-[#ffffffcc]">{priceList[0] && priceList[0].carbon_about}</h3>
         <p className="text-xl font-light text-white cursor-pointer" onClick={() => setIsSort(!isSort)}>
           Sort: {isSort ? 'Low to High' : 'High to Low'}
           {isSort ? (
