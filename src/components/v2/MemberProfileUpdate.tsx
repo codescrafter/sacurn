@@ -330,7 +330,7 @@ const MemberProfileUpdate = () => {
         {infoUpdateAble && (
           <div className="flex justify-between w-full">
             <CustomButton
-              children="刪除帳號"
+              children="密碼重置"
               className="border !border-silverstone !text-silverstone !bg-transparent min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
               onClick={() => {
                 if (!passwordUpdateAble) passwordUpdateAbleHandler(true);
