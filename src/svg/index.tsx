@@ -1,3 +1,19 @@
+export const UnFilledRadio = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="19" viewBox="0 0 17 19" fill="none">
+    <path
+      d="M15.9219 9.2998C15.9219 13.7336 12.542 17.2213 8.50049 17.2213C4.45899 17.2213 1.07903 13.7336 1.07903 9.2998C1.07903 4.86599 4.45899 1.37835 8.50049 1.37835C12.542 1.37835 15.9219 4.86599 15.9219 9.2998Z"
+      stroke="#525252"
+      stroke-width="2.15709"
+    />
+  </svg>
+);
+export const FilledRadio = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
+    <circle cx="9" cy="9.2998" r="7.92145" stroke="#525252" stroke-width="2.15709" />
+    <circle cx="8.99947" cy="9.29977" r="5.04" fill="#525252" />
+  </svg>
+);
+
 export const RatingStar = ({ color }: { color: string }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="none">
