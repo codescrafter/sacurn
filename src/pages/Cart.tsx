@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ExtendedCart as CartItemType } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
+import { DeleteCart, MinusRounded, PlusRounded } from '@/svg';
 import { OrderStatus } from '@/type';
 import { MIN_CART_QTY } from '@/util/constants';
 
@@ -74,7 +75,7 @@ const Cart = () => {
         </div>
       </div>
       <div className="flex flex-row">
-        <div className="w-[65%] max-h-[85vh] px-4 pb-4 ml-7 overflow-scroll flex flex-col gap-5.5 yellowScrollNoBg scroll-left">
+        <div className="w-[65%] max-h-[85vh] px-4 pb-4 ml-7 overflow-auto flex flex-col gap-5.5 yellowScroll scroll-left yellowScrollHorizontal mr-4 rounded-[10px]">
           {cartList.map((item, index) => (
             <CartItem
               key={item.id}
@@ -225,25 +226,30 @@ const CartItem = (props: CartItemIProps) => {
 
   return (
     <div
-      className={classNames('flex items-center py-4.5 border-2 rounded-[10px] direction-ltr shadow-cart-item', {
-        'border-bright-blue bg-slight-blue': selected,
-        'border-white bg-white': !selected
-      })}
+      className={classNames(
+        'flex items-center justify-between py-4.5 border-2 rounded-[10px] direction-ltr shadow-cart-item min-w-[1020px] px-7',
+        {
+          'border-bright-blue bg-slight-blue': selected,
+          'border-white bg-white': !selected
+        }
+      )}
       onClick={() => {
         if (isOffShelve) return;
         onSelectedChange(!selected);
       }}
     >
       <div className="flex items-center justify-between">
-        <div className="ml-7.5 mr-4">
+        <div>
           {selected ? (
             <img src="/images/cart/ic_check.svg" width={29} height={29} alt="sacurn" />
           ) : (
             <img src="/images/cart/ic_uncheck.svg" width={29} height={29} alt="sacurn" />
           )}
         </div>
-        <img src={image} width={114} height={114} className="object-cover" alt="sacurn" />
-        <div className="ml-6 flex flex-col justify-between h-full max-w-[120px]">
+        <div className="w-[114px] h-[114px] ml-4">
+          <img src={image} className="w-full h-full object-cover rounded-[10px]" alt="sacurn" />
+        </div>
+        <div className="ml-[23px] flex flex-col justify-between h-full max-w-[316px]">
           <p className="text-[10.6px] font-medium text-dark-grey">會員代號：{company_code}</p>
           <p
             className={classNames('font-bold text-xl leading-[18px] w-[316px] mr-3 mt-3 mb-3', {
@@ -256,38 +262,29 @@ const CartItem = (props: CartItemIProps) => {
           <p className="text-lg font-bold text-black">${price}/噸</p>
         </div>
       </div>
-      <div className="flex flex-1 justify-between">
+      <div className="flex justify-between items-center gap-14">
         <p
           className={classNames('text-[15px] font-medium text-black leading-9', {
-            'text-bright-red': isOffShelve
+            'text-bright-red': isOffShelve,
+            '!text-dark-grey': !selected
           })}
         >
           {isOffShelve ? '剩下 0 噸無法交易' : `剩下 ${remaining_quantity} 噸可購`}
         </p>
-        <div className="flex items-center gap-1.2" onClick={(e) => e.stopPropagation()}>
-          <button
-            onClick={() => onQuantityAdjust(-1)}
-            className="w-6 h-6 rounded-full border border-[#B3B4B4] text-black text-xl flex items-center justify-center"
-          >
-            -
-          </button>
-          <input
-            className="w-17 h-9 rounded-md border border-[#B3B4B4] bg-transparent text-right pr-3.5 text-bright-blue text-2xl font-medium flex items-center justify-center"
-            type="number"
-            value={qty}
-            disabled
-          />
-          <button
-            onClick={() => onQuantityAdjust(+1)}
-            className="w-6 h-6 rounded-full border border-[#B3B4B4] text-black text-xl flex items-center justify-center"
-          >
-            +
-          </button>
-        </div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-7">
+          <div className="flex items-center gap-1.2" onClick={(e) => e.stopPropagation()}>
+            <MinusRounded onClick={() => onQuantityAdjust(-1)} />
+            <input
+              className="w-17 h-9 rounded-md border border-[#B3B4B4] bg-transparent text-right pr-3.5 text-bright-blue text-2xl leading-normal tracking-[0.695px] font-bold flex items-center justify-center"
+              type="number"
+              value={qty}
+              disabled
+            />
+            <PlusRounded onClick={() => onQuantityAdjust(+1)} />
+          </div>
           <p className="text-xl font-bold text-black whitespace-nowrap">$ {qty * price}</p>
         </div>
-        <button className="mr-7">
+        {/* <button className="mr-7">
           <img
             src="/images/cart/ic_delete.svg"
             width={23}
@@ -296,7 +293,8 @@ const CartItem = (props: CartItemIProps) => {
             alt="sacurn"
             onClick={onDeleteCartItem}
           />
-        </button>
+        </button> */}
+        <DeleteCart onClick={onDeleteCartItem} />
       </div>
     </div>
   );
