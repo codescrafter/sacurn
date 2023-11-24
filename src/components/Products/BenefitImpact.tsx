@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import BenefitAccordion from './Accordion';
 
 const BenefitImpact = () => {
   return (
@@ -26,19 +26,7 @@ const BenefitImpact = () => {
         </h1>
         <div>
           {IMPACT_DATA.map((item) => (
-            <div key={item.title} className="flex gap-4 mt-3">
-              <img src={item.image} alt={item.title} className="object-contain" />
-              <div className="w-full">
-                <h5 className="text-xl font-semibold text-white">{item.title}</h5>
-                <p className="text-lg text-white">{item.description}</p>
-                <div className="flex justify-end">
-                  <Link to={item.link} className="text-pale-yellow font-bold text-sm flex items-center gap-1">
-                    View more
-                    <img src="/images/products/green/share.svg" alt="sacurn" />
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <BenefitAccordion key={item.title} title={item.title} description={item.description} image={item.image} />
           ))}
         </div>
       </div>
