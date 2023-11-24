@@ -8,6 +8,7 @@ import { ModalType, useModalStore } from '@/store/modal';
 import { DeleteCart, MinusRounded, PlusRounded } from '@/svg';
 import { OrderStatus } from '@/type';
 import { MIN_CART_QTY } from '@/util/constants';
+import { formatNumberByComma } from '@/util/helper';
 
 import Navbar from '../components/Navbar';
 
@@ -250,7 +251,7 @@ const CartItem = (props: CartItemIProps) => {
           <img src={image} className="w-full h-full object-cover rounded-[10px]" alt="sacurn" />
         </div>
         <div className="ml-[23px] flex flex-col justify-between h-full max-w-[316px]">
-          <p className="text-[10.6px] font-medium text-dark-grey">會員代號：{company_code}</p>
+          <p className="text-[10.6px] font-bold text-dark-grey">會員代號 : {company_code}</p>
           <p
             className={classNames('font-bold text-xl leading-[18px] w-[316px] mr-3 mt-3 mb-3', {
               'text-bright-blue': selected,
@@ -282,7 +283,7 @@ const CartItem = (props: CartItemIProps) => {
             />
             <PlusRounded onClick={() => onQuantityAdjust(+1)} />
           </div>
-          <p className="text-xl font-bold text-black whitespace-nowrap">$ {qty * price}</p>
+          <p className="text-xl font-bold text-black whitespace-nowrap">$ {formatNumberByComma(qty * price)}</p>
         </div>
         {/* <button className="mr-7">
           <img
