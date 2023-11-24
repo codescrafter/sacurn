@@ -28,8 +28,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export type ResolveResponse = {
-  type: CardType;
-  username?: string;
   password: string;
 };
 
@@ -42,11 +40,6 @@ type SignatureConfirmationModalProps = {
 const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: SignatureConfirmationModalProps) => {
   const schema = yup
     .object({
-      type: yup.mixed<CardType>().oneOf(Object.values(CardType)).required(),
-      username: yup.string().test('is-valid', '無效的統一編號', function (value) {
-        if (type === CardType.MemberCard) return true;
-        return !!value?.match(/^\d{8}$/); // 統一編號必須是8位數
-      }),
       password: yup.string().required('卡片密碼是必填的')
     })
     .required();
@@ -54,8 +47,6 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
   const { register, handleSubmit, formState } = useForm<ResolveResponse>({
     resolver: yupResolver(schema),
     values: {
-      type,
-      username: '',
       password: ''
     }
   });
@@ -164,31 +155,6 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
                     請插入 {type === CardType.GovernmentCard ? '工商憑證' : '會員卡'}並輸入密碼
                   </p>
                   <form className="flex flex-col items-center w-full mb-[22px]" onSubmit={handleSubmit(onResolve)}>
-                    {type === CardType.GovernmentCard && (
-                      <div className="w-4/5 bg-snowflake-grey shadow-input-box rounded-[18px] flex items-center 2xl:h-[53px] h-10">
-                        <img
-                          className="mr-3.5 ml-6 2xl:w-6 2xl:h-6 w-4 h-4"
-                          src="/images/login/user.svg"
-                          width={24}
-                          height={24}
-                          alt="user-icon"
-                        />
-                        <input
-                          className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
-                          type="hidden"
-                          {...register('type')}
-                        />
-
-                        <input
-                          className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
-                          type="text"
-                          placeholder="公司統一編號"
-                          {...register('username')}
-                        />
-                        <div>{formState.errors?.username?.message}</div>
-                      </div>
-                    )}
-
                     <div className="w-4/5 bg-snowflake-grey shadow-input-box rounded-[18px] flex items-center 2xl:h-[53px] h-10 mt-5 mb-[22px]">
                       <img
                         className="mr-3.5 ml-6 2xl:w-6 2xl:h-6 w-4 h-4"
