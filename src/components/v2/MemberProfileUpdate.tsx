@@ -59,6 +59,7 @@ const MemberProfileUpdate = () => {
   const [infoUpdateAble, setInfoUpdateAble] = useState(false);
   const [passwordUpdateAble, setPasswordUpdateAble] = useState(false);
   const roleList = useEmployeeStore((store) => store.roleList);
+  const getRoleList = useEmployeeStore((store) => store.getRoleList);
   const getSelectedEmployee = useEmployeeStore((state) => state.getSelectedEmployee);
   const deleteEmployeeAccount = useEmployeeStore((state) => state.deleteEmployeeAccount);
   const open = useModalStore((state) => state.open);
@@ -84,6 +85,10 @@ const MemberProfileUpdate = () => {
 
     setFileURL(selectedEmployee.photo || '');
   }, [selectedEmployee]);
+
+  useEffect(() => {
+    getRoleList();
+  }, []);
 
   const infoUpdateAbleHandler = (val: boolean) => {
     setInfoUpdateAble(val);
@@ -445,7 +450,10 @@ const CustomSelect = ({ setValue, selectedValue, options }: CustomSelectIProps) 
                 }
               )}
               key={index}
-              onClick={() => isSelectedHandler(option)}
+              onClick={() => {
+                isSelectedHandler(option);
+                setIsOpen(false);
+              }}
             >
               {option}
             </label>

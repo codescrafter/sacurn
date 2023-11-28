@@ -1,16 +1,86 @@
 import classNames from 'classnames';
 
+import { useCarbonCreditStore } from '@/store/carbonCredit';
 import { ItemColor } from '@/type';
 
 import Card from './Card';
 
 const ProductDetail = () => {
+  const carbonCredit = useCarbonCreditStore((state) => state.carbonCredit);
+
+  const BASIC_DETAILS: ItemTypes[] = [
+    {
+      title: 'Project Code',
+      value: carbonCredit?.project_code as string
+    },
+    {
+      title: 'Location',
+      value: carbonCredit.location
+    },
+    {
+      title: 'Type',
+      value: carbonCredit.type as string
+    },
+    {
+      title: 'Available Vintages',
+      value: `${carbonCredit.available_vintage_start}-${carbonCredit.available_vintage_end}`
+    },
+    {
+      title: 'Hectares',
+      value: carbonCredit.hectares?.toString() as string
+    },
+    {
+      title: 'Developer',
+      value: carbonCredit.developer as string
+    }
+  ];
+  const STANDARD_DETAILS: ItemTypes[] = [
+    {
+      title: 'Standards & Methodology',
+      value: carbonCredit.standard_methodology as string
+    },
+    {
+      title: 'Project Validator',
+      value: carbonCredit.project_validator?.[0].name,
+      description: carbonCredit.project_validator?.[0].desc,
+      url: carbonCredit.project_validator?.[0].url
+    },
+    {
+      title: 'CCS Validator',
+      value: carbonCredit.ccs_validator?.[0].name,
+      description: carbonCredit.ccs_validator?.[0].desc,
+      url: carbonCredit.ccs_validator?.[0].url
+    },
+    {
+      title: 'Additional Certifications',
+      value: carbonCredit.additional_certifications?.[0].name,
+      description: carbonCredit.additional_certifications?.[0].desc
+    }
+  ];
+
+  const CARDS_DATA = [
+    {
+      title: 'Over 3,550,000',
+      desc: 'tons of emission removals over the project’s lifetime to date.',
+      img: '/images/products/green/tree.svg'
+    },
+    {
+      title: '198,465',
+      desc: 'hectares of mangrove land prote-cted.',
+      img: '/images/products/green/parrot.svg'
+    },
+    {
+      title: '10,274',
+      desc: 'people directly employed for project activit-ies.',
+      img: '/images/products/green/users.svg'
+    }
+  ];
   return (
     <div className="yellowScrollNoBg mr-1 pr-5.5  overflow-auto overflow-x-hidden">
       <div className="h-[695px]">
         <div className="flex gap-5 mb-5">
-          {['1', '2', '3'].map((x) => (
-            <Card key={x} />
+          {CARDS_DATA.map((x, i) => (
+            <Card key={i} title={x.title} desc={x.desc} img={x.img} />
           ))}
         </div>
         <div className="border border-white rounded grid grid-cols-3">
@@ -106,6 +176,7 @@ interface ItemTypes {
   value: string;
   description?: string;
   className?: string;
+  url?: string;
 }
 
 const Item = ({ title, value, description, className }: ItemTypes) => {
@@ -128,52 +199,3 @@ const Divider = ({ color = ItemColor.WHITE }: { color?: ItemColor }) => {
     />
   );
 };
-
-const BASIC_DETAILS: ItemTypes[] = [
-  {
-    title: 'Project Code',
-    value: 'VCS-985'
-  },
-  {
-    title: 'Location',
-    value: 'Peru'
-  },
-  {
-    title: 'Type',
-    value: 'ARR, REDD+, WRC'
-  },
-  {
-    title: 'Available Vintages',
-    value: '2018-2020'
-  },
-  {
-    title: 'Hectares',
-    value: '350,000'
-  },
-  {
-    title: 'Developer',
-    value: 'Multiple Proponents'
-  }
-];
-
-const STANDARD_DETAILS: ItemTypes[] = [
-  {
-    title: 'Standards & Methodology',
-    value: 'VM0007'
-  },
-  {
-    title: 'Project Validator',
-    value: 'SCS Global Services',
-    description: '(Issue date: Feb 2013)'
-  },
-  {
-    title: 'CCS Validator',
-    value: 'SCS Global Services',
-    description: '(Issue date: Feb 2013)'
-  },
-  {
-    title: 'Additional Certifications',
-    value: 'CCB-Biodiversity Gold',
-    description: 'CCB-Gold'
-  }
-];

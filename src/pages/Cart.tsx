@@ -76,7 +76,14 @@ const Cart = () => {
         </div>
       </div>
       <div className="flex flex-row">
-        <div className="w-[65%] max-h-[85vh] px-4 pb-4 ml-7 overflow-auto flex flex-col gap-5.5 yellowScroll scroll-left yellowScrollHorizontal mr-4 rounded-[10px]">
+        <div
+          className={classNames(
+            'max-h-[85vh] px-4 pb-4 ml-7 overflow-auto flex flex-col gap-5.5 yellowScroll scroll-left yellowScrollHorizontal mr-4 rounded-[10px]',
+            {
+              cartDetail: 'w-[65%]'
+            }
+          )}
+        >
           {cartList.map((item, index) => (
             <CartItem
               key={item.id}

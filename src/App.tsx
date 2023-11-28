@@ -22,7 +22,6 @@ import ProductDetail from './components/ProductDetail';
 import { ProtectedAuthRoute } from './components/ProtectedAuthRoute';
 import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRegisteredRoute';
 import PasswordRecoveryForm from './pages/PasswordRecoveryForm';
-import PasswordReset from './pages/PasswordReset';
 // import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
 import AccountCredit from './pages/v2/AccountCredit';
@@ -219,10 +218,6 @@ const router = createBrowserRouter([
         </ProtectedCompanyRegisteredRoute>
       </ProtectedAuthRoute>
     )
-  },
-  {
-    path: '/password-reset',
-    element: <PasswordReset />
   },
   {
     path: '/v2/membership-card-comparison-info',
