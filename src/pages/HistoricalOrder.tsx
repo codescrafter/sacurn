@@ -13,10 +13,10 @@ function HistoricalOrder() {
   const [startDate, endDate] = dateRange;
 
   return (
-    <div className="w-screen relative h-screen overflow-hidden bg-neutral-150">
+    <div className="w-screen h-screen relative overflow-hidden bg-neutral-150">
       {/* navbar */}
       <Navbar className="relative z-30 !bg-navy-blue h-[70px]" />
-      <section className="pt-[27px] px-3 2xl:pl-[34px] 2xl:pr-[27px]">
+      <section className="pt-[27px] px-3 2xl:pl-[34px] 2xl:pr-[27px] flex flex-col max-h-[93vh]">
         <h1 className="text-xl xl:text-[28px] text-navy-blue font-normal leading-8">| 歷史訂單</h1>
         {/* filters */}
         <div className="flex justify-end mt-[9px] mb-[47px]">
@@ -85,9 +85,15 @@ function HistoricalOrder() {
           </div>
         </div>
         {/* order table */}
-        <div className="yellowScroll h-[75vh] pr-3 2xl:pr-[22px] overflow-auto overflow-x-hidden">
+        <div className="yellowScroll pr-3 2xl:pr-[22px] overflow-y-scroll overflow-x-hidden flex-1">
           <CustomTable tableHeadings={TABLE_HEAD} tableBody={TABLE_BODY} name="historical_order" />
         </div>
+        <button className="px-7 py-0.3 self-end bg-smoke shadow-download-btn rounded-lg mt-4 mr-2">
+          <div className="flex gap-2 items-center">
+            <p className="text-mdbase font-bold text-navy-blue">Download</p>
+            <img src="/images/company-registration/download.svg" />
+          </div>
+        </button>
       </section>
     </div>
   );
