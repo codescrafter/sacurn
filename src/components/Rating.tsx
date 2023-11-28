@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 
-import { RatingStar } from './Star';
+import { RatingStar } from '@/svg';
 
 type CustomRatingProps = {
   count: number;

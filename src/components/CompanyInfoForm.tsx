@@ -487,8 +487,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               const urbanArea = URBAN_AREA_LIST?.find((item) => item.slug === e.target.value);
                               const postalCode = REGION_AREA_LIST?.find((item) => item.slug === urbanArea?.value[0]);
                               setContactThirdAddress(postalCode?.value || '');
+                              setIsChecked(false);
                             }}
-                            disabled={isChecked}
                           >
                             {countyList?.map((county) => (
                               <option value={county.value} className="text-black">
@@ -508,7 +508,6 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               const postalCode = REGION_AREA_LIST?.find((item) => item.slug === e.target.value);
                               setContactThirdAddress(postalCode?.value || '');
                             }}
-                            disabled={isChecked}
                           >
                             {contactUrbanAreaList
                               ?.filter((item) => item.slug === contactFirstAddress)
@@ -544,8 +543,8 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                           value={contactFourthAddress}
                           onChange={(e) => {
                             setContactFourthAddress(e.target.value);
+                            setIsChecked(false);
                           }}
-                          disabled={isChecked}
                         />
                         {contactAddressError && (
                           <p className="text-[#FF0000] text-xs font-normal pt-1">( 紅色框格請務必填寫 )</p>
