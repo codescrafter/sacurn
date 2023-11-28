@@ -6,6 +6,7 @@ import formatDate from '@/helpers/formatDate';
 import { useCompanyStore } from '@/store/company';
 import { useInventoryStore } from '@/store/inventory';
 import { useMembershipStepsStore } from '@/store/memberShipSteps';
+import { usePlatformStore } from '@/store/platform';
 import { COOKIE_AUTH_NAME } from '@/store/user';
 import { MembershipStep, MembershipStepsPath, MembershipTypes } from '@/type';
 import { getCookie } from '@/util/helper';
@@ -27,6 +28,7 @@ const Layout = ({ children, variant }: IProps) => {
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
   const [company] = useCompanyStore((state) => [state.company, state.getCompany]);
   const ordersInfo = useInventoryStore((state) => state.ordersInfo);
+  const toggleCardComparison = usePlatformStore((state) => state.toggleCardComparison);
 
   useEffect(() => {
     const step = pathname.split('-').pop()?.toUpperCase();
@@ -63,16 +65,10 @@ const Layout = ({ children, variant }: IProps) => {
         <div className="flex justify-between gap-4">
           <div className="w-[30%] mt-10 min-[1400px]:mt-[102px] min-[1700px]:mt[150px]">
             <div className="pl-12">
-              {/* <div className="bg-[url('../public/v2/cardv1.svg')] bg-no-repeat bg-contain w-[380px] h-[220px]">
-                Hlloe fjdkfldkjfld
-              </div> */}
               <div className="relative w-[380px] h-[220px]">
                 <img src="/v2/cardv1.svg" alt="sacurn card" className="w-full h-full object-cover" />
                 <div className="absolute top-[34%] right-[8%] flex flex-col items-end w-full">
-                  <p className="text-[26px] font-bold tracking-[0.9px] text-white leading-[25px]">
-                    {/* 艾克斯厚定<span className="text-xs tracking-[0.39px]">股份有限公司</span> */}
-                    {company?.name}
-                  </p>
+                  <p className="text-[26px] font-bold tracking-[0.9px] text-white leading-[25px]">{company?.name}</p>
                   <p className="text-sm fond-bold tracking-[0.36px] text-white text-end leading-[24px]">
                     {company.account_name || ''}
                   </p>
@@ -101,15 +97,23 @@ const Layout = ({ children, variant }: IProps) => {
               </div>
             </div>
             <div>
-              <h4 className="text-white text-4xl font-bold text-center mt-3 min-[1400px]:mt-7 min-[1700px]:mt-10">
-                ECOGREEN
+              <h4 className="text-white text-4xl font-bold text-center mt-3 min-[1400px]:mt-7 min-[1700px]:mt-10 relative max-w-fit mx-auto">
+                {ordersInfo.member_name}
+                <img
+                  src="/v2/icon/circularI.svg"
+                  width={16}
+                  height={16}
+                  alt="i-icon"
+                  className="absolute top-[0px] right-[-20px] cursor-pointer"
+                  onClick={() => toggleCardComparison()}
+                />
               </h4>
               <div className="flex justify-center my-3 min-[1400px]:my-7">
                 <div className="w-0.5 h-10 min-[1400px]:h-[55px] bg-white" />
               </div>
               <div className="px-[20%]">
                 <p className="text-sm font-normal text-white">
-                  目前累積訂單 <b className="text-pale-yellow text-2xl font-bold">${ordersInfo.order_count}</b>
+                  目前累積訂單 <b className="text-pale-yellow text-2xl font-bold">{ordersInfo.order_count}</b>
                   <b className="text-lg font-bold text-white">/20</b>
                 </p>
                 <RangeSlider value={(ordersInfo.order_count || 0 / 20) * 100} />

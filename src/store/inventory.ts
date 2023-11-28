@@ -1,13 +1,17 @@
 import { create } from 'zustand';
 
-import { AOI } from '@/libs/api';
+import { AOI, Categories, TrendData } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { runTask } from './modal';
 
 type InventoryState = {
   ordersInfo: AOI;
+  trendData: TrendData;
+  categoriesData: Categories;
   getOrdersInfo: () => void;
+  getTrendData: () => void;
+  getCategoriesData: () => void;
 };
 
 export const useInventoryStore = create<InventoryState>((set) => ({
@@ -19,10 +23,24 @@ export const useInventoryStore = create<InventoryState>((set) => ({
     upgrade: {},
     expire_at: ''
   },
+  trendData: {},
+  categoriesData: {},
   getOrdersInfo: async () => {
     await runTask(async () => {
       const response = await apiClient.inventory.inventoryAccumulatedOrdersInformationRetrieve();
       set({ ordersInfo: response });
+    });
+  },
+  getTrendData: async () => {
+    await runTask(async () => {
+      const response = await apiClient.inventory.inventoryTrendDataRetrieve();
+      set({ trendData: response });
+    });
+  },
+  getCategoriesData: async () => {
+    await runTask(async () => {
+      const response = await apiClient.inventory.inventoryCategoriesRetrieve();
+      set({ categoriesData: response });
     });
   }
 }));

@@ -55,7 +55,7 @@ const Cart = () => {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
+          <div className="flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px] cursor-pointer">
             <span>全選</span>
             <input
               type="radio"
@@ -80,8 +80,10 @@ const Cart = () => {
           className={classNames(
             'max-h-[85vh] px-4 pb-4 ml-7 overflow-auto flex flex-col gap-5.5 yellowScroll scroll-left yellowScrollHorizontal mr-4 rounded-[10px]',
             {
-              cartDetail: 'w-[65%]'
+              'w-[65%]': cartDetail,
+              'w-full': !cartDetail
             }
+            // if cartDetails exist, then make width 65%, else 100%
           )}
         >
           {cartList.map((item, index) => (

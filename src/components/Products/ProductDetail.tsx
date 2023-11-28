@@ -23,7 +23,7 @@ const ProductDetail = () => {
     },
     {
       title: 'Available Vintages',
-      value: `${carbonCredit.available_vintage_start}-${carbonCredit.available_vintage_end}`
+      value: `${carbonCredit.available_vintage_start || 0}-${carbonCredit.available_vintage_end || 0}`
     },
     {
       title: 'Hectares',
