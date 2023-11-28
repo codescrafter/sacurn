@@ -1,5 +1,7 @@
 import ProgressBar from '@/components/ProgressBar';
 import SimpleNav from '@/components/SimpleNav';
+import DoNotAgreeTermsModal from '@/components/v2/DoNotAgreeTermsModal';
+import RequireTermsReadModal from '@/components/v2/RequireTermsReadModal';
 import { useForgotPasswordStore } from '@/store/forgotPassword';
 import { ForgotPasswordProgressBarItems } from '@/util/constants';
 
@@ -10,7 +12,6 @@ import PasswordRecoveryTermsModal from './PasswordRecoveryTermsModal';
 
 const PasswordRecoveryForm = () => {
   const currentStep = useForgotPasswordStore((state) => state.currentStep);
-  console.log(currentStep, 'current step');
   return (
     <div className="w-full  bg-neutral-150 min-h-[100vh]">
       <SimpleNav heading="忘記密碼" className="relative mb-20 z-50" />
@@ -26,6 +27,8 @@ const PasswordRecoveryForm = () => {
       {currentStep === 3 && <AuthenticationPasswordRecovery />}
 
       <PasswordRecoveryTermsModal />
+      <RequireTermsReadModal />
+      <DoNotAgreeTermsModal />
     </div>
   );
 };

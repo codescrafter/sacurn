@@ -93,7 +93,7 @@ const Login = () => {
           </button>
         </form>
         <p className="text-slate-blue-grey text-center font-bold text-sm leading-[22px]">
-          <Link to="/password-reset">Forgot password?</Link> <span className="text-black">or</span>{' '}
+          <Link to="/password-recovery">Forgot password?</Link> <span className="text-black">or</span>{' '}
           <span>
             <button onClick={() => navigate('/sign-up')}>Sign Up</button>
           </span>

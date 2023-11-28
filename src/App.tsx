@@ -36,6 +36,7 @@ import MemberCenter from './pages/v2/MemberCenter';
 import MemberProfile from './pages/v2/MemberProfile';
 import MembershipCardInfo from './pages/v2/MembershipCardInfo';
 import MembershipUpgrade from './pages/v2/MembershipUpgrade';
+import PasswordResetNewPass from './pages/v2/PasswordResetNewPass';
 import Permission from './pages/v2/Permission';
 import PlatformUsage from './pages/v2/PlatformUsage';
 
@@ -230,6 +231,10 @@ const router = createBrowserRouter([
   {
     path: '/password-recovery',
     element: <PasswordRecoveryForm />
+  },
+  {
+    path: '/password-recovery/new-password',
+    element: <PasswordResetNewPass />
   }
 ]);
 

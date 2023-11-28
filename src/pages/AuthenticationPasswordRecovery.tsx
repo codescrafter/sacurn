@@ -1,6 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 import CustomButton from '@/components/CustomButton';
+import { useForgotPasswordStore } from '@/store/forgotPassword';
 
 const AuthenticationPasswordRecovery = () => {
+  const setCurrentStep = useForgotPasswordStore((state) => state.setCurrentStep);
+
+  const navigate = useNavigate();
   return (
     <div className="w-[90%]  mx-auto flex flex-col gap-5 py-5  ">
       <div className="shadow-completed-box bg-white rounded-[20px] py-28 px-10 flex gap-5 justify-center items-center min-[1700px]:h-[450px]">
@@ -24,7 +30,14 @@ const AuthenticationPasswordRecovery = () => {
         </div>
       </div>
       <div className="flex justify-center items-center">
-        <CustomButton variant="primary" className="rounded-xl px-17 py-0 h-12 text-base lg:text-xl font-bold">
+        <CustomButton
+          variant="primary"
+          className="rounded-xl px-17 py-0 h-12 text-base lg:text-xl font-bold"
+          onClick={() => {
+            setCurrentStep(1);
+            navigate('/');
+          }}
+        >
           回到首頁
         </CustomButton>
       </div>

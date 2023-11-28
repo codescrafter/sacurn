@@ -18,16 +18,15 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   }
 }));
 const PasswordRecoveryTermsModal = () => {
-  const setCurrentStep = useForgotPasswordStore((state) => state.setCurrentStep);
   const isTermsModalOpen = useForgotPasswordStore((state) => state.isTermsModalOpen);
   const setIsTermsModalOpen = useForgotPasswordStore((state) => state.setIsTermsModalOpen);
-  const handleClose = () => {
-    setIsTermsModalOpen(false);
-  };
+  const setIsAgreedToTerms = useForgotPasswordStore((state) => state.setIsAgreedToTerms);
+  const setIsDoNotAgreeTermsModalOpen = useForgotPasswordStore((state) => state.setIsDoNotAgreeTermsModalOpen);
+
   return (
     <div>
       <BootstrapDialog
-        onClose={handleClose}
+        onClose={() => setIsTermsModalOpen(false)}
         aria-labelledby="customized-dialog-title"
         open={isTermsModalOpen}
         fullWidth={true}
@@ -110,14 +109,21 @@ const PasswordRecoveryTermsModal = () => {
                 width: '100%'
               }}
             >
-              <CustomButton variant="primary" className="rounded-full px-17 h-12 text-lg mt-3 ">
+              <CustomButton
+                variant="primary"
+                className="rounded-full px-17 h-12 text-lg mt-3"
+                onClick={() => {
+                  setIsAgreedToTerms(true);
+                  setIsTermsModalOpen(false);
+                }}
+              >
                 同意
               </CustomButton>
               <CustomButton
                 variant="primary"
                 className="rounded-full px-15 h-12 text-lg mt-3 !text-navy-blue bg-white border-2 "
                 onClick={() => {
-                  setCurrentStep(2);
+                  setIsDoNotAgreeTermsModalOpen(true);
                   setIsTermsModalOpen(false);
                 }}
               >
