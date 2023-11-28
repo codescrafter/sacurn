@@ -197,6 +197,17 @@ export class TradeService {
      * @returns any No response body
      * @throws ApiError
      */
+    public tradeOperationRecordFilterListRetrieve(): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/trade/operation_record_filter_list/',
+        });
+    }
+
+    /**
+     * @returns any No response body
+     * @throws ApiError
+     */
     public tradeOrderBuyRetrieve(): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'GET',

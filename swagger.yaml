@@ -2281,6 +2281,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedOperationRecordList'
           description: ''
+  /trade/operation_record_filter_list/:
+    get:
+      operationId: trade_operation_record_filter_list_retrieve
+      tags:
+      - trade
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          description: No response body
   /trade/order_buy/:
     get:
       operationId: trade_order_buy_retrieve
@@ -5908,6 +5920,7 @@ components:
           type: string
           format: uuid
           readOnly: true
+          title: 訂單號碼
         created_at:
           type: string
           format: date-time
@@ -5928,19 +5941,23 @@ components:
           type: number
           format: double
           nullable: true
+          title: 總金額
         status:
           allOf:
           - $ref: '#/components/schemas/TransactionDetailStatusEnum'
+          title: 狀態
           minimum: -2147483648
           maximum: 2147483647
         pay_at:
           type: string
           format: date-time
           nullable: true
+          title: 付款時間
         deadline:
           type: string
           format: date-time
           nullable: true
+          title: 付款期限
         twid_record:
           type: integer
           nullable: true
@@ -6001,6 +6018,7 @@ components:
         transaction_detail:
           type: string
           format: uuid
+          title: 訂單號碼
         transaction_group:
           type: integer
           nullable: true
