@@ -90,6 +90,8 @@ const MemberProfileUpdate = () => {
     getRoleList();
   }, []);
 
+  console.log('operation_permission', getValues().operation_permission);
+
   const infoUpdateAbleHandler = (val: boolean) => {
     setInfoUpdateAble(val);
   };
@@ -416,7 +418,7 @@ const CustomSelect = ({ setValue, selectedValue, options }: CustomSelectIProps) 
   useOutsideClick(dropDownRef, () => {
     if (isOpen) isOpenHandler(false);
   });
-
+  console.log('selectedvalue', selectedValue);
   return (
     <div
       className={classNames({
@@ -435,7 +437,7 @@ const CustomSelect = ({ setValue, selectedValue, options }: CustomSelectIProps) 
         onClick={() => isOpenHandler(true)}
       >
         <p className="min-[1700px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm min-[1200px]:text-xs text-xms">
-          可挑選碳權
+          {selectedValue ? selectedValue : '可挑選碳權'}
         </p>
         <img src="/v2/user-info-form/down-arrow.svg" className="" />
       </div>

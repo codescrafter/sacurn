@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import formatDate from '@/helpers/formatDate';
 import { useCompanyStore } from '@/store/company';
+import { useInventoryStore } from '@/store/inventory';
 import { useMembershipStepsStore } from '@/store/memberShipSteps';
 import { COOKIE_AUTH_NAME } from '@/store/user';
 import { MembershipStep, MembershipStepsPath, MembershipTypes } from '@/type';
@@ -25,6 +26,7 @@ const Layout = ({ children, variant }: IProps) => {
   const membership = useMembershipStepsStore((state) => state.step);
   const getCompanyInfo = useCompanyStore((state) => state.getCompany);
   const [company] = useCompanyStore((state) => [state.company, state.getCompany]);
+  const ordersInfo = useInventoryStore((state) => state.ordersInfo);
 
   useEffect(() => {
     const step = pathname.split('-').pop()?.toUpperCase();
@@ -87,7 +89,7 @@ const Layout = ({ children, variant }: IProps) => {
                     </div>
                     <div className="text-end">
                       <p className="text-sm font-bold drop-shadow-lg text-white leading-[20px]">
-                        {formatDate(company.representative_id_card_issue_date || '')}
+                        {formatDate(ordersInfo?.expire_at || '')}
                       </p>
                       <p className="text-sliver-sand text-xs font-bold tracking-[0.193px] text-end">到期日期</p>
                     </div>
@@ -107,15 +109,15 @@ const Layout = ({ children, variant }: IProps) => {
               </div>
               <div className="px-[20%]">
                 <p className="text-sm font-normal text-white">
-                  目前累積訂單 <b className="text-pale-yellow text-2xl font-bold">19</b>
+                  目前累積訂單 <b className="text-pale-yellow text-2xl font-bold">${ordersInfo.order_count}</b>
                   <b className="text-lg font-bold text-white">/20</b>
                 </p>
-                <RangeSlider value={90} />
+                <RangeSlider value={(ordersInfo.order_count || 0 / 20) * 100} />
                 <p className="text-sm font-normal text-white mt-4 min-[1400px]:mt-10">
-                  目前累積消費 <b className="text-pale-yellow text-2xl font-bold">$99,000</b>
+                  目前累積消費 <b className="text-pale-yellow text-2xl font-bold">${ordersInfo.acc_amount}</b>
                   <b className="text-lg font-bold text-white">/100,000</b>
                 </p>
-                <RangeSlider value={95} />
+                <RangeSlider value={(ordersInfo.acc_amount || 0 / 100000) * 1000} />
               </div>
               <div className="flex gap-6 items-center px-[20%] mt-6 min-[1400px]:mt-12">
                 {MEMBERSHIP_STEPS.map((step) => (
