@@ -8,7 +8,7 @@ const RangeSlider = ({ value }: RangeSliderProps) => {
   return (
     <Slider
       disabled
-      defaultValue={value || 90}
+      defaultValue={value}
       aria-label="Default"
       valueLabelDisplay="auto"
       sx={{
