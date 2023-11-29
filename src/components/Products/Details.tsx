@@ -5,6 +5,7 @@ import Slider from 'react-slick';
 
 import { useCarbonCreditStore } from '@/store/carbonCredit';
 import { useProductListStore } from '@/store/productList';
+import { useWishListStore } from '@/store/wishList';
 import { CarbonTag } from '@/type';
 import { formatNumberByComma } from '@/util/helper';
 
@@ -23,12 +24,24 @@ const Details = () => {
   const navigate = useNavigate();
   const param = useParams();
   const [openTab, setOpenTab] = useState(1);
+  const [idInWishlist, setIdInWishlist] = useState<number>(0);
+
   const carbonCredit = useCarbonCreditStore((state) => state.carbonCredit);
   const getCarbonCredit = useCarbonCreditStore((state) => state.getCarbonCredit);
+  const addToWhishList = useWishListStore((store) => store.addToWhishList);
+  const deleteWishList = useWishListStore((store) => store.deleteWishList);
+  const wishList = useWishListStore((store) => store.wishList);
+  const getWishList = useWishListStore((store) => store.getWishList);
+
+  useEffect(() => {
+    const idInWishlist = wishList.find((item) => param?.id && item.carbon_credit === +param?.id)?.id || 0;
+    setIdInWishlist(idInWishlist);
+  }, [wishList]);
 
   useEffect(() => {
     if (!param) return;
     getCarbonCredit(Number(param.id));
+    getWishList();
   }, []);
 
   const selectedTag = useProductListStore((state) => state.filters.tag);
@@ -114,7 +127,29 @@ const Details = () => {
           <div className="">
             <div className="flex items-start gap-2 pr-8 mt-5 min-h-[90px]">
               <h1 className="text-[32px] flex-1 font-semibold text-white pl-[17px]">{carbonCredit?.name}</h1>
-              <img src="/images/products/green/start-gold.svg" alt="sacurn" />
+              {idInWishlist > 0 ? (
+                <img
+                  src="/images/products/green/favourited-yellow.svg"
+                  alt="sacurn"
+                  onClick={() => {
+                    deleteWishList(+idInWishlist);
+                  }}
+                  width={65}
+                  height={58}
+                  className="cursor-pointer"
+                />
+              ) : (
+                <img
+                  src="/images/products/green/start-gold.svg"
+                  alt="sacurn"
+                  width={65}
+                  height={58}
+                  onClick={() => {
+                    param.id && addToWhishList(+param?.id);
+                  }}
+                  className="cursor-pointer"
+                />
+              )}
             </div>
             {/* Product Details Tabs */}
             <div className="px-5">

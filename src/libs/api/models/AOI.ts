@@ -4,11 +4,10 @@
 /* eslint-disable */
 
 export type AOI = {
-    order_count?: number;
-    acc_amount?: number;
-    acc_point?: number;
-    member_name?: number;
-    upgrade?: Record<string, any>;
-    expire_at?: string;
+  order_count?: number;
+  acc_amount?: number;
+  acc_point?: number;
+  member_name?: string;
+  upgrade?: Record<string, any>;
+  expire_at?: string;
 };
-

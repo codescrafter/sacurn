@@ -234,7 +234,9 @@ const AccountInformation = () => {
                     <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px] flex gap-5">
                       <span className="text-xl font-bold tracking-[0.6px]">Email</span>:
                       <span className="text-xl font-bold tracking-[0.6px]">
-                        {employee?.email || 'albert@xholding.com'}
+                        {employee?.email && employee?.email.length < 22
+                          ? employee?.email
+                          : `${employee?.email.slice(0, 10)}...${employee?.email.slice(-6)}`}
                       </span>
                     </p>
                     <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px] flex gap-5">
