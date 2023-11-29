@@ -28,7 +28,7 @@
 
 /* product-clip-path */
 .product-clip-path {
-  clip-path: polygon(100% 0, 91% 100%, 0 100%, 0 0);
+  clip-path: polygon(98% 0, 91% 100%, 0 100%, 0 0);
 }
 /* product list slider */
 .product-list-slider {
@@ -193,6 +193,11 @@
   scrollbar-gutter: stable;
 }
 
+/* horizontal scroll */
+.yellowScrollHorizontal::-webkit-scrollbar {
+  height: 5px;
+}
+
 /* width */
 .grayScrollNoBg::-webkit-scrollbar {
   width: 4px;
@@ -326,4 +331,3 @@ input[type='number'] {
 .account-information-clip-path {
   clip-path: polygon(0 0, 70% 0, 100% 100%, 0% 100%);
 }
-

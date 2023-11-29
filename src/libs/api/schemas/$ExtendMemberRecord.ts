@@ -52,6 +52,11 @@ export const $ExtendMemberRecord = {
             isReadOnly: true,
             isRequired: true,
         },
+        level: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         created_at: {
             type: 'string',
             isReadOnly: true,

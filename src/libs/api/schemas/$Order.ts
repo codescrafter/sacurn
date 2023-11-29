@@ -19,6 +19,16 @@ export const $Order = {
             isReadOnly: true,
             isRequired: true,
         },
+        carbon_name: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
+        carbon_about: {
+            type: 'string',
+            isReadOnly: true,
+            isRequired: true,
+        },
         created_at: {
             type: 'string',
             isReadOnly: true,

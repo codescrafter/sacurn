@@ -4,6 +4,8 @@ import Tooltip, { tooltipClasses, TooltipProps } from '@mui/material/Tooltip';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
+import { useInventoryStore } from '@/store/inventory';
+
 const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))({
@@ -29,6 +31,12 @@ const BorderLinearProgress = styled(LinearProgress)(() => ({
 }));
 
 export default function UserOptionsDropdown() {
+  const getOrdersInfo = useInventoryStore((state) => state.getOrdersInfo);
+
+  React.useEffect(() => {
+    getOrdersInfo();
+  }, []);
+
   return (
     <CustomWidthTooltip title={<UserMenu />} arrow>
       <img
@@ -43,6 +51,8 @@ export default function UserOptionsDropdown() {
 }
 
 const UserMenu = () => {
+  const ordersInfo = useInventoryStore((state) => state.ordersInfo);
+
   return (
     <div className="pt-5 flex flex-col items-center gap-2">
       <p className="text-lg font-normal text-black">X Holdings・Musk</p>
@@ -56,9 +66,9 @@ const UserMenu = () => {
         />
       </div>
       <div className="relative p-0.7 rounded-[20px] flex items-center bg-pale-yellow">
-        <BorderLinearProgress variant="determinate" value={50} />
+        <BorderLinearProgress variant="determinate" value={(ordersInfo.acc_amount || 0 / 100000) * 100} />
       </div>
-      <p className="text-sm font-normal text-black">15,000/50,000</p>
+      <p className="text-sm font-normal text-black">{ordersInfo.acc_amount}/100,000</p>
       <p className="text-navy-blue text-sm"> 管理者</p>
       <div>
         <Link to="/v2/account-information">
@@ -69,18 +79,22 @@ const UserMenu = () => {
             會員中心
           </MenuItem>
         </Link>
-        <MenuItem
-          sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
-          className="text-black hover:text-navy-blue active:text-navy-blue"
-        >
-          歷史訂單
-        </MenuItem>
-        <MenuItem
-          sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
-          className="text-black hover:text-navy-blue active:text-navy-blue"
-        >
-          操作記錄
-        </MenuItem>
+        <Link to="/historical-order">
+          <MenuItem
+            sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
+            className="text-black hover:text-navy-blue active:text-navy-blue"
+          >
+            歷史訂單
+          </MenuItem>
+        </Link>
+        <Link to="/operation-record">
+          <MenuItem
+            sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
+            className="text-black hover:text-navy-blue active:text-navy-blue"
+          >
+            操作記錄
+          </MenuItem>
+        </Link>
         <MenuItem
           sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
           className="text-black hover:text-navy-blue active:text-navy-blue"

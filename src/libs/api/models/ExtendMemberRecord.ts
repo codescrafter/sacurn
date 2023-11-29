@@ -17,6 +17,7 @@ export type ExtendMemberRecord = {
     buy_cost?: number;
     sell_cost?: number;
     readonly can_upgrade: string;
+    readonly level: string;
     readonly created_at: string | null;
     readonly updated_at: string | null;
     deleted?: boolean;

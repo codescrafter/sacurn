@@ -378,7 +378,12 @@ export enum CompanyRegistrationSteps {
   TERMS_CONFIRMATION,
   REGISTRATION_COMPLETED
 }
-
+export const ForgotPasswordProgressBarItems: string[] = ['申請填寫', '身分驗證', '申請完成'];
+export enum ForgotPasswordFillingSteps {
+  PASSWORD_RECOVERY_FILLING = 1,
+  DYNAMIC_CODE_NOTIFIER,
+  AUTHENTICATION_PASSWORD_RECOVERY
+}
 export const Policy: string = `非常歡迎您光臨「○○網站」（以下簡稱本網站），為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
 一、隱私權保護政策的適用範圍
 隱私權保護政策內容，包括本網站如何處理在您使用網站服務時收集到的個人識別資料。隱私權保護政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。
@@ -533,29 +538,29 @@ export const URBAN_AREA_LIST = [
       '汐止區',
       '深坑區',
       '石碇區',
-      '瑞芳',
-      '平溪',
-      '雙溪',
-      '貢寮',
-      '新店',
-      '坪林',
-      '烏來',
-      '永和',
-      '中和',
-      '土城',
-      '三峽',
-      '樹林',
-      '鶯歌',
-      '三重',
-      '新莊',
-      '泰山',
-      '林口',
-      '蘆洲',
-      '五股',
-      '八里',
-      '淡水',
-      '三芝',
-      '石門'
+      '瑞芳區',
+      '平溪區',
+      '雙溪區',
+      '貢寮區',
+      '新店區',
+      '坪林區',
+      '烏來區',
+      '永和區',
+      '中和區',
+      '土城區',
+      '三峽區',
+      '樹林區',
+      '鶯歌區',
+      '三重區',
+      '新莊區',
+      '泰山區',
+      '林口區',
+      '蘆洲區',
+      '五股區',
+      '八里區',
+      '淡水區',
+      '三芝區',
+      '石門區'
     ],
     slug: '新北市'
   },
@@ -602,7 +607,7 @@ export const URBAN_AREA_LIST = [
   {
     value: [
       '竹南鎮',
-      '頭份市',
+      '頭份鎮',
       '三灣鄉',
       '南庄鄉',
       '獅潭鄉',
@@ -677,7 +682,7 @@ export const URBAN_AREA_LIST = [
       '田中鎮',
       '北斗鎮',
       '田尾鄉',
-      '埤頭香',
+      '埤頭鄉',
       '溪州鄉',
       '竹塘鄉',
       '二林鎮',
@@ -750,7 +755,7 @@ export const URBAN_AREA_LIST = [
       '六腳鄉',
       '新港鄉',
       '民雄鄉',
-      '大林鄉',
+      '大林鎮',
       '溪口鄉',
       '義竹鄉',
       '布袋鎮'
@@ -933,7 +938,7 @@ export const URBAN_AREA_LIST = [
       '冬山鄉',
       '蘇澳鎮',
       '南澳鄉',
-      '釣魚臺'
+      '釣魚台列嶼'
     ],
     slug: '宜蘭縣'
   },

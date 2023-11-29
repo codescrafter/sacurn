@@ -59,6 +59,7 @@ const MemberProfileUpdate = () => {
   const [infoUpdateAble, setInfoUpdateAble] = useState(false);
   const [passwordUpdateAble, setPasswordUpdateAble] = useState(false);
   const roleList = useEmployeeStore((store) => store.roleList);
+  const getRoleList = useEmployeeStore((store) => store.getRoleList);
   const getSelectedEmployee = useEmployeeStore((state) => state.getSelectedEmployee);
   const deleteEmployeeAccount = useEmployeeStore((state) => state.deleteEmployeeAccount);
   const open = useModalStore((state) => state.open);
@@ -84,6 +85,12 @@ const MemberProfileUpdate = () => {
 
     setFileURL(selectedEmployee.photo || '');
   }, [selectedEmployee]);
+
+  useEffect(() => {
+    getRoleList();
+  }, []);
+
+  console.log('operation_permission', getValues().operation_permission);
 
   const infoUpdateAbleHandler = (val: boolean) => {
     setInfoUpdateAble(val);
@@ -330,7 +337,7 @@ const MemberProfileUpdate = () => {
         {infoUpdateAble && (
           <div className="flex justify-between w-full">
             <CustomButton
-              children="刪除帳號"
+              children="密碼重置"
               className="border !border-silverstone !text-silverstone !bg-transparent min-[1600px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm text-xms font-bold rounded-mdlg min-[1600px]:w-[154px] min-[1500px]:w-[125px] min-[1300px]:w-[105px] w-[95px]  min-[1600px]:h-10.5 min-[1500px]:h-9 min-[1300px]:h-8 h-7"
               onClick={() => {
                 if (!passwordUpdateAble) passwordUpdateAbleHandler(true);
@@ -411,7 +418,7 @@ const CustomSelect = ({ setValue, selectedValue, options }: CustomSelectIProps) 
   useOutsideClick(dropDownRef, () => {
     if (isOpen) isOpenHandler(false);
   });
-
+  console.log('selectedvalue', selectedValue);
   return (
     <div
       className={classNames({
@@ -430,7 +437,7 @@ const CustomSelect = ({ setValue, selectedValue, options }: CustomSelectIProps) 
         onClick={() => isOpenHandler(true)}
       >
         <p className="min-[1700px]:text-lg min-[1500px]:text-base min-[1300px]:text-sm min-[1200px]:text-xs text-xms">
-          可挑選碳權
+          {isSelected ? isSelected : '可挑選碳權'}
         </p>
         <img src="/v2/user-info-form/down-arrow.svg" className="" />
       </div>
@@ -445,7 +452,10 @@ const CustomSelect = ({ setValue, selectedValue, options }: CustomSelectIProps) 
                 }
               )}
               key={index}
-              onClick={() => isSelectedHandler(option)}
+              onClick={() => {
+                isSelectedHandler(option);
+                setIsOpen(false);
+              }}
             >
               {option}
             </label>

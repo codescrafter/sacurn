@@ -306,6 +306,28 @@ paths:
                 $ref: '#/components/schemas/PaginatedExtendCarbonCreditList'
           description: ''
   /carbon_credit/{id}/:
+    get:
+      operationId: carbon_credit_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - carbon_credit
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarbonCredit'
+          description: ''
     patch:
       operationId: carbon_credit_partial_update
       parameters:
@@ -839,155 +861,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedGroupList'
           description: ''
-  /company/level/:
-    get:
-      operationId: company_level_retrieve
-      description: List all snippets, or create a new snippet.
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-    post:
-      operationId: company_level_create
-      description: List all snippets, or create a new snippet.
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-  /company/level_set/:
-    get:
-      operationId: company_level_set_retrieve
-      description: List all snippets, or create a new snippet.
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-    post:
-      operationId: company_level_set_create
-      description: List all snippets, or create a new snippet.
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-  /company/plan/:
-    get:
-      operationId: company_plan_list
-      parameters:
-      - name: page
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedPlanList'
-          description: ''
-    post:
-      operationId: company_plan_create
-      tags:
-      - company
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Plan'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Plan'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Plan'
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Plan'
-          description: ''
-  /company/plan_record/:
-    get:
-      operationId: company_plan_record_list
-      parameters:
-      - name: page
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedPlanRecordList'
-          description: ''
-    post:
-      operationId: company_plan_record_create
-      tags:
-      - company
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PlanRecord'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PlanRecord'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PlanRecord'
-        required: true
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PlanRecord'
-          description: ''
   /company/review_pass_req/:
     get:
       operationId: company_review_pass_req_retrieve
@@ -1000,32 +873,171 @@ paths:
       responses:
         '200':
           description: No response body
-  /company/user/:
-    get:
-      operationId: company_user_retrieve
-      tags:
-      - company
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
+  /dj-rest-auth/login/:
     post:
-      operationId: company_user_create
+      operationId: dj_rest_auth_login_create
+      description: |-
+        Check the credentials and return the REST Token
+        if the credentials are valid and authenticated.
+        Calls Django Auth login method to register User ID
+        in Django session framework
+
+        Accept the following POST parameters: username, password
+        Return the REST Framework Token Object's key.
       tags:
-      - company
+      - dj-rest-auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Login'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWT'
+          description: ''
+  /dj-rest-auth/logout/:
+    post:
+      operationId: dj_rest_auth_logout_create
+      description: |-
+        Calls Django logout method and delete the Token object
+        assigned to the current User object.
+
+        Accepts/Returns nothing.
+      tags:
+      - dj-rest-auth
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /dj-rest-auth/password/change/:
+    post:
+      operationId: dj_rest_auth_password_change_create
+      description: |-
+        Calls Django Auth SetPasswordForm save method.
+
+        Accepts the following POST parameters: new_password1, new_password2
+        Returns the success/fail message.
+      tags:
+      - dj-rest-auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+        required: true
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
       responses:
         '200':
-          description: No response body
-  /dj-rest-auth/password/reset/confirm/{uidb64}/{token}/:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /dj-rest-auth/password/reset/:
+    post:
+      operationId: dj_rest_auth_password_reset_create
+      description: |-
+        Calls Django Auth PasswordResetForm save method.
+
+        Accepts the following POST parameters: email
+        Returns the success/fail message.
+      tags:
+      - dj-rest-auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordReset'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordReset'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordReset'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /dj-rest-auth/password/reset/confirm/:
     post:
       operationId: dj_rest_auth_password_reset_confirm_create
+      description: |-
+        Password reset e-mail link is confirmed, therefore
+        this resets the user's password.
+
+        Accepts the following POST parameters: token, uid,
+            new_password1, new_password2
+        Returns the success/fail message.
+      tags:
+      - dj-rest-auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /dj-rest-auth/password/reset/confirm/{uidb64}/{token}/:
+    post:
+      operationId: dj_rest_auth_password_reset_confirm_create_2
       description: |-
         Password reset e-mail link is confirmed, therefore
         this resets the user's password.
@@ -1069,6 +1081,156 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /dj-rest-auth/token/refresh/:
+    post:
+      operationId: dj_rest_auth_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - dj-rest-auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /dj-rest-auth/token/verify/:
+    post:
+      operationId: dj_rest_auth_token_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - dj-rest-auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenVerify'
+          description: ''
+  /dj-rest-auth/user/:
+    get:
+      operationId: dj_rest_auth_user_retrieve
+      description: |-
+        Reads and updates UserModel fields
+        Accepts GET, PUT, PATCH methods.
+
+        Default accepted fields: username, first_name, last_name
+        Default display fields: pk, username, email, first_name, last_name
+        Read-only fields: pk, email
+
+        Returns UserModel fields.
+      tags:
+      - dj-rest-auth
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+          description: ''
+    put:
+      operationId: dj_rest_auth_user_update
+      description: |-
+        Reads and updates UserModel fields
+        Accepts GET, PUT, PATCH methods.
+
+        Default accepted fields: username, first_name, last_name
+        Default display fields: pk, username, email, first_name, last_name
+        Read-only fields: pk, email
+
+        Returns UserModel fields.
+      tags:
+      - dj-rest-auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserDetails'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+          description: ''
+    patch:
+      operationId: dj_rest_auth_user_partial_update
+      description: |-
+        Reads and updates UserModel fields
+        Accepts GET, PUT, PATCH methods.
+
+        Default accepted fields: username, first_name, last_name
+        Default display fields: pk, username, email, first_name, last_name
+        Read-only fields: pk, email
+
+        Returns UserModel fields.
+      tags:
+      - dj-rest-auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserDetails'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
           description: ''
   /inventory/:
     get:
@@ -1235,7 +1397,7 @@ paths:
       operationId: member_card_reissue_create
       parameters:
       - in: query
-        name: id
+        name: twid
         schema:
           type: string
         description: twid_record
@@ -1330,7 +1492,7 @@ paths:
         \ status(EXPIRED = 0 CURRENT = 1)"
       parameters:
       - in: query
-        name: id
+        name: twid
         schema:
           type: string
         description: twid_record
@@ -1435,36 +1597,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtendMemberRecord'
           description: ''
-    post:
-      operationId: member_record_create
-      description: "renewal(UNCONFIRMED = 0 CONFIRMED = 1 COMPLETED = 2) \n upgrade(UNCONFIRMED\
-        \ = 0 CONFIRMED = 1 REVIEWING = 2 COMPLETED = 3)"
-      tags:
-      - member
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MemberRecord'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/MemberRecord'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/MemberRecord'
-        required: true
-      security:
-      - jwtAuth: []
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      - {}
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MemberRecord'
-          description: ''
   /member/renewal/:
     post:
       operationId: member_renewal_create
@@ -1514,7 +1646,7 @@ paths:
       operationId: member_upgrade_create
       parameters:
       - in: query
-        name: id
+        name: twid
         schema:
           type: string
         description: twid_record
@@ -2149,6 +2281,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedOperationRecordList'
           description: ''
+  /trade/operation_record_filter_list/:
+    get:
+      operationId: trade_operation_record_filter_list_retrieve
+      tags:
+      - trade
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          description: No response body
   /trade/order_buy/:
     get:
       operationId: trade_order_buy_retrieve
@@ -2165,7 +2309,7 @@ paths:
       operationId: trade_order_buy_create
       parameters:
       - in: query
-        name: id
+        name: twid
         schema:
           type: string
         description: twid_record
@@ -2237,7 +2381,7 @@ paths:
       description: sell=1
       parameters:
       - in: query
-        name: id
+        name: twid
         schema:
           type: string
         description: twid_record
@@ -2266,24 +2410,39 @@ paths:
               schema:
                 $ref: '#/components/schemas/Order'
           description: ''
-  /trade/order_sell/{id}/:
-    delete:
-      operationId: trade_order_sell_destroy
+  /trade/order_sell/take_off/:
+    post:
+      operationId: trade_order_sell_take_off_create
       parameters:
-      - in: path
-        name: id
+      - in: query
+        name: twid
         schema:
-          type: integer
-        required: true
+          type: string
+        description: twid_record
       tags:
       - trade
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderSellDelete'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderSellDelete'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderSellDelete'
       security:
       - jwtAuth: []
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
       responses:
-        '204':
-          description: No response body
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
   /trade/pay_callback/:
     post:
       operationId: trade_pay_callback_create
@@ -2466,6 +2625,34 @@ paths:
       responses:
         '200':
           description: No response body
+  /twid/genPkcs7Tbs/order/take_off/:
+    post:
+      operationId: twid_genPkcs7Tbs_order_take_off_create
+      tags:
+      - twid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenTakeOff'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GenTakeOff'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GenTakeOff'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenPkcs7TbsResponse'
+          description: ''
   /twid/genPkcs7Tbs/order_buy/:
     post:
       operationId: twid_genPkcs7Tbs_order_buy_create
@@ -2553,7 +2740,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenPkcs7TbsResponse'
           description: ''
-  /twid/genPkcs7Tbs/upgrade:
+  /twid/genPkcs7Tbs/upgrade/:
     post:
       operationId: twid_genPkcs7Tbs_upgrade_create
       tags:
@@ -2961,11 +3148,10 @@ components:
           title: 代表人中文姓名
           maxLength: 45
         capital:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
+          type: string
           nullable: true
           title: 實收資本額
+          maxLength: 45
         founding_date:
           type: string
           format: date
@@ -3138,12 +3324,6 @@ components:
         b64Cert:
           type: string
           default: b64Cert
-        timestamp:
-          type: string
-          default: '20230828172612650'
-        memberNo:
-          type: string
-          default: customer_tax_id
     Employee:
       type: object
       properties:
@@ -3487,6 +3667,9 @@ components:
         can_upgrade:
           type: string
           readOnly: true
+        level:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -3552,6 +3735,7 @@ components:
       - current_member
       - current_member_annual_renewal_fee
       - id
+      - level
       - loss_card_fee
       - member
       - next_member
@@ -3781,31 +3965,20 @@ components:
           title: 代表人中文姓名
           maxLength: 45
         capital:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
+          type: string
           nullable: true
           title: 實收資本額
+          maxLength: 45
         founding_date:
           type: string
           format: date
           nullable: true
           title: 核准設立日期
-        address:
-          type: object
-          additionalProperties: {}
-          nullable: true
-          title: 公司登記地址
         phone:
           type: string
           nullable: true
           title: 聯絡電話
           maxLength: 45
-        contact_address:
-          type: object
-          additionalProperties: {}
-          nullable: true
-          title: 聯絡地址
         representative_country:
           type: string
           nullable: true
@@ -3911,6 +4084,20 @@ components:
           nullable: true
           title: 聯絡人電話
           maxLength: 45
+        address:
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
+        contact_address:
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
         registration_document:
           type: string
           format: uri
@@ -4030,6 +4217,13 @@ components:
       - content
       - hashed_content
       - twid_record
+    GenTakeOff:
+      type: object
+      properties:
+        order:
+          type: integer
+      required:
+      - order
     Group:
       type: object
       properties:
@@ -4054,11 +4248,28 @@ components:
       description: |-
         * `0` - Offline
         * `1` - Online
+    JWT:
+      type: object
+      description: Serializer for JWT authentication.
+      properties:
+        access:
+          type: string
+        refresh:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserDetails'
+      required:
+      - access
+      - refresh
+      - user
     Login:
       type: object
       properties:
         username:
           type: string
+        email:
+          type: string
+          format: email
         password:
           type: string
       required:
@@ -4076,6 +4287,9 @@ components:
           type: integer
           default: 1
         company_status:
+          type: integer
+          default: 1
+        profile:
           type: integer
           default: 1
       required:
@@ -4215,6 +4429,9 @@ components:
         can_upgrade:
           type: string
           readOnly: true
+        level:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -4281,6 +4498,7 @@ components:
       - current_member
       - current_member_annual_renewal_fee
       - id
+      - level
       - loss_card_fee
       - member
       - next_member
@@ -4401,6 +4619,12 @@ components:
         company_code:
           type: string
           readOnly: true
+        carbon_name:
+          type: string
+          readOnly: true
+        carbon_about:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -4457,7 +4681,9 @@ components:
           type: integer
           nullable: true
       required:
+      - carbon_about
       - carbon_credit
+      - carbon_name
       - company_code
       - created_at
       - id
@@ -4500,6 +4726,18 @@ components:
       - price
       - quantity
       - sell
+    OrderSellDelete:
+      type: object
+      properties:
+        order:
+          type: integer
+          default: 1
+        pkcs1:
+          type: string
+          default: sacurn_test
+        b64Cert:
+          type: string
+          default: aGVsbG8gd29ybGQ
     PaginatedAuditLogList:
       type: object
       properties:
@@ -4700,46 +4938,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Order'
-    PaginatedPlanList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=2
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Plan'
-    PaginatedPlanRecordList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=2
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlanRecord'
     PaginatedShopCartList:
       type: object
       properties:
@@ -4840,6 +5038,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/WatchList'
+    PasswordChange:
+      type: object
+      properties:
+        new_password1:
+          type: string
+          maxLength: 128
+        new_password2:
+          type: string
+          maxLength: 128
+      required:
+      - new_password1
+      - new_password2
+    PasswordReset:
+      type: object
+      description: Serializer for requesting a password reset e-mail.
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
     PasswordResetConfirm:
       type: object
       description: Serializer for confirming a password reset attempt.
@@ -5134,31 +5353,20 @@ components:
           title: 代表人中文姓名
           maxLength: 45
         capital:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
+          type: string
           nullable: true
           title: 實收資本額
+          maxLength: 45
         founding_date:
           type: string
           format: date
           nullable: true
           title: 核准設立日期
-        address:
-          type: object
-          additionalProperties: {}
-          nullable: true
-          title: 公司登記地址
         phone:
           type: string
           nullable: true
           title: 聯絡電話
           maxLength: 45
-        contact_address:
-          type: object
-          additionalProperties: {}
-          nullable: true
-          title: 聯絡地址
         representative_country:
           type: string
           nullable: true
@@ -5264,6 +5472,20 @@ components:
           nullable: true
           title: 聯絡人電話
           maxLength: 45
+        address:
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
+        contact_address:
+          type: object
+          additionalProperties: {}
+          default:
+            city: 台北市
+            area: 內湖區
+            road: 內湖路一段
         registration_document:
           type: string
           format: uri
@@ -5309,6 +5531,31 @@ components:
           type: integer
         shop_product:
           type: integer
+    PatchedUserDetails:
+      type: object
+      description: User model w/o password
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+          title: ID
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          readOnly: true
+          title: Email address
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
     PayCallback:
       type: object
       properties:
@@ -5316,52 +5563,6 @@ components:
           type: string
       required:
       - tran_uuid
-    Plan:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        title:
-          type: string
-          nullable: true
-          maxLength: 45
-      required:
-      - id
-    PlanRecord:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        status:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        deadline:
-          type: string
-          format: date-time
-          nullable: true
-        company:
-          type: integer
-        plan:
-          type: integer
-      required:
-      - company
-      - created_at
-      - id
-      - plan
-      - updated_at
     PreDoTwdsS0Response:
       type: object
       properties:
@@ -5719,6 +5920,7 @@ components:
           type: string
           format: uuid
           readOnly: true
+          title: 訂單號碼
         created_at:
           type: string
           format: date-time
@@ -5739,19 +5941,23 @@ components:
           type: number
           format: double
           nullable: true
+          title: 總金額
         status:
           allOf:
           - $ref: '#/components/schemas/TransactionDetailStatusEnum'
+          title: 狀態
           minimum: -2147483648
           maximum: 2147483647
         pay_at:
           type: string
           format: date-time
           nullable: true
+          title: 付款時間
         deadline:
           type: string
           format: date-time
           nullable: true
+          title: 付款期限
         twid_record:
           type: integer
           nullable: true
@@ -5812,6 +6018,7 @@ components:
         transaction_detail:
           type: string
           format: uuid
+          title: 訂單號碼
         transaction_group:
           type: integer
           nullable: true
@@ -5911,6 +6118,35 @@ components:
       - first_name
       - id
       - last_name
+      - username
+    UserDetails:
+      type: object
+      description: User model w/o password
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+          title: ID
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          readOnly: true
+          title: Email address
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+      required:
+      - email
+      - pk
       - username
     WatchList:
       type: object

@@ -1,14 +1,19 @@
 import { ApexOptions } from 'apexcharts';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
+
+import { useInventoryStore } from '@/store/inventory';
 
 import Button from './Button';
 import GraphCard from './GraphCard';
 
 const SalesAreaGraph = () => {
-  const [series] = useState<number[]>([20, 30, 90, 7]);
+  const [series, setSeries] = useState<number[]>([20, 30, 90, 7]);
+  const [labels, setLabels] = useState<string[]>(['A', 'B', 'C', 'D']);
   const [activeButton, setActiveButton] = useState<number>(1);
+  const getCategoriesData = useInventoryStore((state) => state.getCategoriesData);
+  const categoriesData = useInventoryStore((state) => state.categoriesData);
 
   const handleButtonClick = (buttonIndex: number) => {
     setActiveButton(buttonIndex);
@@ -20,7 +25,7 @@ const SalesAreaGraph = () => {
         customScale: 1
       }
     },
-    labels: ['A', 'B', 'C', 'D'],
+    labels: labels,
     colors: ['#1D70BD', '#FFD600', '#68A362', '#C4B0FD'],
     chart: {
       type: 'pie',
@@ -56,6 +61,25 @@ const SalesAreaGraph = () => {
       }
     ]
   };
+
+  useEffect(() => {
+    getCategoriesData();
+  }, []);
+  useEffect(() => {
+    if (categoriesData?.category && activeButton === 1) {
+      const categoriesDataKeys = Object.keys(categoriesData.category);
+      const categoriesDataValues = Object.values(categoriesData.category);
+
+      setSeries(categoriesDataValues.map((value) => Math.round(Number(value * 100))));
+      setLabels(categoriesDataKeys);
+    }
+    if (categoriesData?.location && activeButton === 2) {
+      const categoriesDataKeys = Object.keys(categoriesData.location);
+      const categoriesDataValues = Object.values(categoriesData.location);
+      setSeries(categoriesDataValues.map((value) => Math.round(Number(value * 100))));
+      setLabels(categoriesDataKeys);
+    }
+  }, [categoriesData, activeButton]);
 
   return (
     <GraphCard className="h-[347px] flex items-center justify-center relative z-40">

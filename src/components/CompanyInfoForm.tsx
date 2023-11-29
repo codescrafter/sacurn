@@ -137,40 +137,30 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       // update form value
       if (data.name) setValue('name', data.name);
       if (data.registration_number) setValue('registration_number', data.registration_number);
-      if (data.capital) setValue('capital', data.capital);
+      if (data.capital) setValue('capital', parseInt(data.capital));
       if (data.phone) setValue('phone', data.phone);
       if (data.founding_date) setValue('founding_date', data.founding_date);
       if (data.representative) setValue('representative', data.representative);
       if (data.contact_address) {
-        const contactAddress = data.contact_address.split(',');
-        if (contactAddress?.length) {
-          setContactFirstAddress(contactAddress?.[0]?.trim());
-          setContactSecondAddress(contactAddress?.[1]?.trim());
-          setContactThirdAddress(contactAddress?.[2]?.trim());
-          setContactFourthAddress(contactAddress?.[3]?.trim());
-        }
+        setContactFirstAddress(data?.contact_address?.area.trim());
+        setContactSecondAddress(data?.contact_address?.city.trim());
+        setContactThirdAddress(data?.contact_address?.postCode.trim());
+        setContactFourthAddress(data?.contact_address?.road.trim());
       }
 
       if (data?.address) {
-        const address1 = data?.address?.additionalProp1?.split(',');
-        const address2 = data?.address?.additionalProp2?.split(',');
-        const address3 = data?.address?.additionalProp3?.split(',');
-        setFirstAddress(address1?.[0]?.trim());
-        setSecondAddress(address1?.[1]?.trim());
-        setThirdAddress(address2?.[0]?.trim());
-        setFourthAddress(address3?.[0]?.trim());
+        setFirstAddress(data?.address?.area.trim());
+        setSecondAddress(data?.address?.city.trim());
+        setThirdAddress(data?.address?.postCode.trim());
+        setFourthAddress(data?.address?.road.trim());
       }
       if (data?.registration_document.length) setUploadedDocs(data.registration_document);
       if (data?.address && data.contact_address) {
-        const address1 = data?.address?.additionalProp1?.split(',');
-        const address2 = data?.address?.additionalProp2?.split(',');
-        const address3 = data?.address?.additionalProp3?.split(',');
-        const contactAddress = data?.contact_address?.split(',');
         if (
-          address1?.[0]?.trim() === contactAddress[0]?.trim() &&
-          address1?.[1]?.trim() === contactAddress[1]?.trim() &&
-          address2?.[0]?.trim() === contactAddress[2]?.trim() &&
-          address3?.[0]?.trim() === contactAddress[3]?.trim()
+          data.contact_address.area.trim() === data.address.area.trim() &&
+          data.contact_address.city.trim() === data.address.city.trim() &&
+          data.contact_address.postCode.trim() === data.address.postCode.trim() &&
+          data.contact_address.road.trim() === data.address.road.trim()
         ) {
           setIsChecked(true);
         }
@@ -190,15 +180,36 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
+    let _addressError = false;
+    let _contactAddressError = false;
+    let _imageError = false;
     if (!firstAddress || !secondAddress || !thirdAddress || !fourthAddress) {
-      return setAddressError(true);
+      _addressError = true;
     }
     if (!contactFirstAddress || !contactSecondAddress || !contactThirdAddress || !contactFourthAddress) {
-      return setContactAddressError(true);
+      _contactAddressError = true;
     }
+
+    setAddressError(_addressError);
+    setContactAddressError(_contactAddressError);
+
     const fileSize = fileSizeLimit(uploadedDocs);
-    if (fileSize) return setImageErrorMessage(fileSize);
-    if (!uploadedDocs.length) return setImageErrorMessage('請上傳營業登記文件');
+    if (fileSize) {
+      setImageErrorMessage(fileSize);
+      _imageError = true;
+    } else {
+      setImageErrorMessage(null);
+    }
+
+    if (!uploadedDocs.length) {
+      setImageErrorMessage('請上傳營業登記文件');
+      _imageError = true;
+    } else {
+      setImageErrorMessage(null);
+    }
+
+    if (_addressError || _contactAddressError || _imageError) return;
+
     const dataToSubmit = {
       id: 0,
       name: data.name,
@@ -207,11 +218,17 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
       representative: data.representative,
       capital: Number(data.capital),
       founding_date: data.founding_date,
-      contact_address: `${contactFirstAddress}, ${contactSecondAddress}, ${contactThirdAddress}, ${contactFourthAddress}`,
+      contact_address: {
+        city: contactSecondAddress,
+        area: contactFirstAddress,
+        postCode: contactThirdAddress,
+        road: contactFourthAddress
+      },
       address: {
-        additionalProp1: `${firstAddress}, ${secondAddress}`,
-        additionalProp2: `${thirdAddress}`,
-        additionalProp3: `${fourthAddress}`
+        city: secondAddress,
+        area: firstAddress,
+        postCode: thirdAddress,
+        road: fourthAddress
       },
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
@@ -225,7 +242,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     formData.append('representative', dataToSubmit.representative);
     formData.append('capital', dataToSubmit.capital.toString());
     formData.append('founding_date', dataToSubmit.founding_date);
-    formData.append('contact_address', dataToSubmit.contact_address);
+    formData.append('contact_address', JSON.stringify(dataToSubmit.contact_address));
     formData.append('address', JSON.stringify(dataToSubmit.address));
     formData.append('created_at', dataToSubmit.created_at);
     formData.append('updated_at', dataToSubmit.updated_at);
@@ -247,7 +264,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
     <form onSubmit={onSubmit}>
       <div className="w-max mx-auto">
         <div className="flex flex-row mb-7">
-          <h1 className="text-navy-blue text-2.5xl flex flex-row">
+          <h1 className="text-navy-blue text-[28px] tracking-[0.84px] flex flex-row">
             <div className="bg-navy-blue px-0.5 h-full" />
             &nbsp;請填寫企業資料
           </h1>
@@ -403,6 +420,9 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         'w-[286px] h-9 px-2 py-3.5': InputSize.MEDIUM,
                         'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-7  px-2 py-1':
                           InputSize.SMALL
+                      },
+                      {
+                        'border border-[#FF0000]': addressError
                       }
                     )}
                     value={fourthAddress}
@@ -467,6 +487,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               const urbanArea = URBAN_AREA_LIST?.find((item) => item.slug === e.target.value);
                               const postalCode = REGION_AREA_LIST?.find((item) => item.slug === urbanArea?.value[0]);
                               setContactThirdAddress(postalCode?.value || '');
+                              setIsChecked(false);
                             }}
                           >
                             {countyList?.map((county) => (
@@ -501,9 +522,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                           <input
                             type="text"
                             placeholder="郵遞區號"
-                            className={classNames('w-24 px-3', Style, {
-                              // 'border-bright-red border': errors.contact_address?.additionalProp3
-                            })}
+                            className={classNames('w-24 px-3', Style)}
                             value={contactThirdAddress}
                           />
                         </div>
@@ -516,11 +535,15 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                               'w-[286px] h-9 px-2 py-3.5': InputSize.MEDIUM,
                               'min-[1700px]:w-[368px] min-[1500px]:w-[320px] min-[1200px]:w-[270px] w-[220px] min-[1550px]:h-9.5 min-[1200px]:h-7.5 h-7  px-2 py-1':
                                 InputSize.SMALL
+                            },
+                            {
+                              'border border-[#FF0000]': contactAddressError
                             }
                           )}
                           value={contactFourthAddress}
                           onChange={(e) => {
                             setContactFourthAddress(e.target.value);
+                            setIsChecked(false);
                           }}
                         />
                         {contactAddressError && (
