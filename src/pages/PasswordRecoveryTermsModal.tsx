@@ -3,6 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 import CustomButton from '@/components/CustomButton';
 import { useForgotPasswordStore } from '@/store/forgotPassword';
@@ -89,13 +90,15 @@ const PasswordRecoveryTermsModal = () => {
               </Box>
             </div>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '95%' }}>
-              <CustomButton
-                variant="secondary"
-                className="rounded-md bg-white-smoke font-bold shadow-download-btn text-lg mt-3 px-10 self-end flex gap-2 items-center "
+              <Link
+                className="rounded-md bg-white-smoke font-bold shadow-download-btn text-lg mt-3 px-10 self-end flex gap-2 items-center"
+                to="/download.docx"
+                target="_blank"
+                download="土星_平台條款內容"
               >
                 Download
                 <img src="/v2/icon/download-icon.svg" alt="" />
-              </CustomButton>
+              </Link>
             </Box>
 
             <Box

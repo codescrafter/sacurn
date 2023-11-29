@@ -140,28 +140,20 @@ const SalesLineChart = () => {
   useEffect(() => {
     if (trendData?.series) {
       if (activeButton === 0) {
-        const amountSeries = trendData.series.find((item: seriesType) => item.name === 'date')?.data;
-        const sumOfAmountSeries = amountSeries?.reduce((a: string, b: string) => Number(a) + Number(b), 0);
-
-        const average = Math.round(sumOfAmountSeries! / amountSeries!.length);
-        const averageSeries = amountSeries?.map(() => average);
-        setAverageSeries(averageSeries!);
-        setAmountSeries(amountSeries);
-      } else if (activeButton === 1) {
         const amountSeries = trendData.series.find((item: seriesType) => item.name === 'amount')?.data;
         const sumOfAmountSeries = amountSeries?.reduce((a: number, b: number) => a + b, 0);
         const average = Math.round(sumOfAmountSeries! / amountSeries!.length);
         const averageSeries = amountSeries?.map(() => average);
         setAverageSeries(averageSeries!);
         setAmountSeries(amountSeries);
-      } else if (activeButton === 2) {
+      } else if (activeButton === 1) {
         const amountSeries = trendData.series.find((item: seriesType) => item.name === 'order_count')?.data;
         const sumOfAmountSeries = amountSeries?.reduce((a: number, b: number) => a + b, 0);
         const average = Math.round(sumOfAmountSeries! / amountSeries!.length);
         const averageSeries = amountSeries?.map(() => average);
         setAverageSeries(averageSeries!);
         setAmountSeries(amountSeries);
-      } else if (activeButton === 3) {
+      } else if (activeButton === 2) {
         const amountSeries = trendData.series.find((item: seriesType) => item.name === 'avg_order_value')?.data;
         const sumOfAmountSeries = amountSeries?.reduce((a: number, b: number) => a + b, 0);
         const average = Math.round(sumOfAmountSeries! / amountSeries!.length);
@@ -214,8 +206,7 @@ const SalesLineChart = () => {
 export default SalesLineChart;
 
 const buttonData = [
-  { label: 'Date', value: 'date' },
-  { label: 'Amount', value: 'amount' },
+  { label: '銷售額', value: 'amount' },
   { label: '訂單數', value: 'orders' },
   { label: '平均客單價', value: 'averagePrice' }
 ];
