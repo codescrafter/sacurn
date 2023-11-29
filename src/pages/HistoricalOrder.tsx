@@ -1,16 +1,80 @@
-import { useState } from 'react';
+import dateFormat from 'dateformat';
+import _ from 'lodash';
+import { useEffect, useMemo, useState } from 'react';
+import * as yup from 'yup';
+
+import { BASE_URL } from '@/constant';
+import { TransactionRecord } from '@/libs/api';
+import { useHistoryStore } from '@/store/history';
+import { TableBodyItem } from '@/types';
 
 import CustomSelect from '../components/CustomSelect';
 import CustomTable from '../components/CustomTable';
 import DatePickerModal from '../components/DatePickerModal';
 import Navbar from '../components/Navbar';
 import formatDate from '../helpers/formatDate';
-import { OPTIONS_LIST } from '../util/constants';
+
+const schema = yup
+  .object({
+    keyword: yup.string().optional(),
+    page: yup.number().positive().integer().min(1).optional(),
+    range: yup.string().optional(),
+    status: yup.string().optional()
+  })
+  .required();
 
 function HistoricalOrder() {
   const [open, setOpen] = useState<boolean>(false);
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
   const [startDate, endDate] = dateRange;
+  const [txnRecordList, setTxnRecordList] = useState<TransactionRecord[]>([]);
+
+  const [data, setData] = useState<yup.InferType<typeof schema>>({
+    keyword: '',
+    page: 1,
+    range: '',
+    status: ''
+  });
+
+  const [statusOptions, getHistoryOptions, getOrderHistoryList] = useHistoryStore((state) => [
+    state.statusOptions,
+    state.getHistoryOptions,
+    state.getOrderHistoryList
+  ]);
+
+  useEffect(() => {
+    getHistoryOptions();
+  }, []);
+
+  const onSubmit = async (args: yup.InferType<typeof schema>) => {
+    const newData = {
+      ...data,
+      ...args
+    };
+    setData(newData);
+
+    const txnRecordList = await getOrderHistoryList(
+      '0',
+      newData.keyword ? newData.keyword : undefined,
+      newData.page,
+      newData.range ? newData.range : undefined,
+      newData.status ? newData.status : undefined
+    );
+    setTxnRecordList(txnRecordList);
+  };
+
+  const tableBody: TableBodyItem[] = useMemo(() => {
+    return txnRecordList.map((record) => ({
+      id: record.id,
+      orderNumber: record.order_no,
+      prodName: record.name,
+      buysell: record.action,
+      unitPrice: `$${record.price}`,
+      quant: record.quantity.toString(),
+      lumpsum: `$${record.total_amount}`,
+      orderStatus: record.status
+    }));
+  }, [txnRecordList]);
 
   return (
     <div className="w-screen h-screen relative overflow-hidden bg-neutral-150">
@@ -28,7 +92,16 @@ function HistoricalOrder() {
                 <DatePickerModal
                   startDate={startDate}
                   endDate={endDate}
-                  setDateRange={setDateRange}
+                  setDateRange={(dateList) => {
+                    if (dateList[0] && dateList[1]) {
+                      const startDate = dateFormat(dateList[0], 'yyyy-mm-dd');
+                      const endDate = dateFormat(dateList[1], 'yyyy-mm-dd');
+                      onSubmit({
+                        range: `${startDate},${endDate}`
+                      });
+                    }
+                    setDateRange(dateList);
+                  }}
                   setOpen={setOpen}
                   open={open}
                 />
@@ -61,10 +134,16 @@ function HistoricalOrder() {
             {/* state */}
             <div className="flex items-center relative">
               <label htmlFor="state" className="block text-base xl:text-lg font-medium leading-6 text-grey">
-                期間:
+                狀態:
               </label>
               <div className="ml-[15px]">
-                <CustomSelect options={OPTIONS_LIST} defaultValue="完成付款" />
+                <CustomSelect
+                  options={statusOptions}
+                  defaultValue=""
+                  callback={(status) => {
+                    onSubmit({ status });
+                  }}
+                />
               </div>
             </div>
             {/* search */}
@@ -76,6 +155,7 @@ function HistoricalOrder() {
                   id="search"
                   className="block bg-white w-full xl:w-[347px] py-2 pl-3 rounded-[26px] border border-light-grey pr-12 text-grey text-sm"
                   placeholder="輸入想要搜尋的碳權名稱,代號或是關鍵字"
+                  onChange={(e) => onSubmit({ keyword: e.target.value })}
                 />
                 <div className="pointer-events-none border border-r-0 border-t-0 border-b-0 border-l-light-grey py-2 absolute inset-y-1 right-0 flex items-center pl-2 pr-3">
                   <img src="/images/operation-record/search_icon.svg" width={20} height={20} alt="search" />
@@ -85,15 +165,23 @@ function HistoricalOrder() {
           </div>
         </div>
         {/* order table */}
-        <div className="yellowScroll pr-3 2xl:pr-[22px] overflow-y-scroll overflow-x-hidden flex-1">
-          <CustomTable tableHeadings={TABLE_HEAD} tableBody={TABLE_BODY} name="historical_order" />
+        <div className="yellowScroll h-[75vh] pr-3 2xl:pr-[22px] overflow-auto overflow-x-hidden">
+          <CustomTable tableHeadings={TABLE_HEAD} tableBody={tableBody} name="historical_order" />
         </div>
-        <button className="px-7 py-0.3 self-end bg-smoke shadow-download-btn rounded-lg mt-4 mr-2">
+        <a
+          className="px-7 py-0.3 self-end bg-smoke shadow-download-btn rounded-lg mt-4 mr-2"
+          href={`${BASE_URL}/trade/transaction_record/?${new URLSearchParams({
+            ..._.omitBy(data, _.isEmpty),
+            download: '1'
+          }).toString()}`}
+          target="_blank"
+          download
+        >
           <div className="flex gap-2 items-center">
             <p className="text-mdbase font-bold text-navy-blue">Download</p>
             <img src="/images/company-registration/download.svg" />
           </div>
-        </button>
+        </a>
       </section>
     </div>
   );
@@ -102,76 +190,3 @@ function HistoricalOrder() {
 export default HistoricalOrder;
 
 const TABLE_HEAD = ['訂單號碼', '商品名稱', '買入/賣出', '單價', '數量(噸)', '總金額', '訂單狀態'];
-
-const TABLE_BODY = [
-  {
-    id: 1,
-    orderNumber: 'A123456789',
-    prodName: 'Andes Inorganic Soil Carbon',
-    buysell: '賣出',
-    unitPrice: '$100',
-    quant: '10',
-    lumpsum: '$99,900',
-    orderStatus: '未完成'
-  },
-  {
-    id: 2,
-    orderNumber: 'B123456789',
-    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
-    buysell: '賣出',
-    unitPrice: '$13',
-    quant: '50',
-    lumpsum: '$12,000',
-    orderStatus: '已完成'
-  },
-  {
-    id: 3,
-    orderNumber: 'C123456789',
-    prodName: 'CarbonCure Concrete Mineralization',
-    buysell: '買入',
-    unitPrice: '$1,327',
-    quant: '999',
-    lumpsum: '$23,132,700',
-    orderStatus: '未付款'
-  },
-  {
-    id: 4,
-    orderNumber: 'D123456789',
-    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
-    buysell: '買入',
-    unitPrice: '$345',
-    quant: '400',
-    lumpsum: '$12,700',
-    orderStatus: '待付款'
-  },
-  {
-    id: 5,
-    orderNumber: 'E123456789',
-    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
-    buysell: '賣出',
-    unitPrice: '$99',
-    quant: '43',
-    lumpsum: '$12,700',
-    orderStatus: '交易中'
-  },
-  {
-    id: 6,
-    orderNumber: 'F123456789',
-    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
-    buysell: '賣出',
-    unitPrice: '$234',
-    quant: '30',
-    lumpsum: '$12,700',
-    orderStatus: '交易中'
-  },
-  {
-    id: 7,
-    orderNumber: 'F123456789',
-    prodName: 'Kasigau Corridor II REDD+ Forest Conservation Carbon avoidance',
-    buysell: '賣出',
-    unitPrice: '$234',
-    quant: '30',
-    lumpsum: '$12,700',
-    orderStatus: '交易中'
-  }
-];
