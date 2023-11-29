@@ -4,6 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { NavbarItemTypes } from '../type';
 import { NAVBAR_ITEMS } from '../util/constants';
 import UserOptionsDropdown from './UserOptionsDropdown';
+import MemberCardCompareInfo from './v2/MemberCardCompareInfo';
+import PermissionSettingModal from './v2/PermissionSettingModal';
 
 interface IProps {
   className?: string;
@@ -51,6 +53,8 @@ const Navbar = ({ className }: IProps) => {
           <UserOptionsDropdown />
         </div>
       </div>
+      <MemberCardCompareInfo />
+      <PermissionSettingModal />
     </div>
   );
 };

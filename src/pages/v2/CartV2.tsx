@@ -35,7 +35,7 @@ const CartV2 = () => {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
+          <div className="flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px] cursor-pointer">
             <span>全選</span>
             <input type="radio" className="ml-2.5 w-5 h-5 mt-0.5" />
           </div>

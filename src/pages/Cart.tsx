@@ -78,12 +78,11 @@ const Cart = () => {
       <div className="flex flex-row">
         <div
           className={classNames(
-            'max-h-[85vh] px-4 pb-4 ml-7 overflow-auto flex flex-col gap-5.5 yellowScroll scroll-left yellowScrollHorizontal mr-4 rounded-[10px]',
-            {
-              'w-[65%]': cartDetail,
-              'w-full': !cartDetail
-            }
-            // if cartDetails exist, then make width 65%, else 100%
+            'w-[65%] max-h-[85vh] px-4 pb-4 ml-7 overflow-auto flex flex-col gap-5.5 yellowScroll scroll-left yellowScrollHorizontal mr-4 rounded-[10px]'
+            // {
+            //   'w-[65%]': cartDetail,
+            //   'w-full': !cartDetail
+            // }
           )}
         >
           {cartList.map((item, index) => (
