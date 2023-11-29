@@ -3324,6 +3324,9 @@ components:
         b64Cert:
           type: string
           default: b64Cert
+        timestamp:
+          type: string
+          default: '20230828172612650'
     Employee:
       type: object
       properties:

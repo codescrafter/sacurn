@@ -24,5 +24,8 @@ export const $DoTwdsS0S1 = {
         b64Cert: {
             type: 'string',
         },
+        timestamp: {
+            type: 'string',
+        },
     },
 } as const;
