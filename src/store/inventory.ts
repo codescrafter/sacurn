@@ -19,7 +19,7 @@ export const useInventoryStore = create<InventoryState>((set) => ({
     order_count: 0,
     acc_amount: 0,
     acc_points: 0,
-    member_name: '',
+    member_name: 0,
     upgrade: {},
     expire_at: ''
   },
