@@ -21,6 +21,7 @@ type UserState = {
   user: User | null;
   login: (arg: Login) => Promise<AuthResult>;
   signup: (arg: Registration) => Promise<boolean>;
+  logout: () => void;
 };
 
 export const useUserStore = create<UserState>((set) => ({
@@ -62,5 +63,12 @@ export const useUserStore = create<UserState>((set) => ({
       set({ user: response.user });
     });
     return isSuccess;
+  },
+  logout: async () => {
+    runTask(async () => {
+      await apiClient.djRestAuth.djRestAuthLogoutCreate();
+      cookies.remove(COOKIE_AUTH_NAME);
+      set({ user: null });
+    });
   }
 }));

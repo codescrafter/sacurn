@@ -48,6 +48,6 @@ export const formatDate = (date: string) => {
 
 export const formatNumberByComma = (value: string | number) => {
   const updatedValue = value?.toString();
-  const sanitizedValue = updatedValue.replace(/,/g, '');
-  return Number(sanitizedValue).toLocaleString();
+  const sanitizedValue = updatedValue?.replace(/,/g, '');
+  return Number(sanitizedValue)?.toLocaleString();
 };

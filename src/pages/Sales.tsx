@@ -81,7 +81,7 @@ const Sales = () => {
               </div>
             </div>
             {/* sales table */}
-            <div className="yellowScroll w-full h-[81vh] pr-2 xl:pr-[22px] overflow-auto overflow-x-hidden">
+            <div className="yellowScroll w-full h-[81vh] pr-2 xl:pr-[22px] overflow-auto overflow-x-hidden flex-1 max-h-[730px]">
               <div className="flow-root">
                 <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
                   <div className="inline-block min-w-full align-middle sm:px-6 lg:px-8">
@@ -128,7 +128,7 @@ const Sales = () => {
                           ))}
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody className="">
                         {stockList?.map((stockItem) => (
                           <Fragment key={stockItem.id}>
                             <tr
@@ -164,20 +164,6 @@ const Sales = () => {
                                     <div className="flex items-center gap-1">
                                       <span className="text-xs whitespace-nowrap font-medium text-grey">序號:</span>
                                       <span className="text-sm font-medium text-grey">{stockItem.serial_number}</span>
-                                    </div>
-                                    {/* location */}
-                                    <div className="flex items-center gap-1">
-                                      <span className="text-xs font-medium text-grey">
-                                        <img
-                                          src="/images/sales/location-marker.png"
-                                          width={10}
-                                          height={14}
-                                          alt="location marker"
-                                        />
-                                      </span>
-                                      <span className="text-sm whitespace-nowrap font-medium text-grey">
-                                        {stockItem.location}
-                                      </span>
                                     </div>
                                   </div>
                                 </div>
@@ -284,6 +270,15 @@ const Sales = () => {
                 </div>
               </div>
             </div>
+            <Link
+              className="rounded-md bg-white-smoke text-navy-blue font-bold shadow-download-btn text-[15px] mt-5 px-10 self-end flex gap-2.5 items-center max-w-[160px] h-[22px] ml-auto mr-8 mb-7"
+              to="/pdf/Membership_Terms_Service.pdf"
+              target="_blank"
+              download="土星_平台條款內容"
+            >
+              Download
+              <img src="/v2/icon/download-icon.svg" alt="" />
+            </Link>
           </div>
         </div>
       </main>

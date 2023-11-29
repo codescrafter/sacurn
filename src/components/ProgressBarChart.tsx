@@ -2,14 +2,17 @@ import { Link } from 'react-router-dom';
 
 import formatDate from '@/helpers/formatDate';
 import { useInventoryStore } from '@/store/inventory';
+import { usePlatformStore } from '@/store/platform';
+import { formatNumberByComma } from '@/util/helper';
 
 import Button from './Button';
 import GraphCard from './GraphCard';
 
 const ProgressBarChart = () => {
   const ordersInfo = useInventoryStore((state) => state.ordersInfo);
-  const ordersPercent = ((ordersInfo.order_count || 0) / 20) * 100;
-  const amountPercent = ((ordersInfo.acc_amount || 0) / 100000) * 100;
+  const toggleCardComparison = usePlatformStore((state) => state.toggleCardComparison);
+  const ordersPercent = (ordersInfo.order_count || 0 / ordersInfo.upgrade?.orders) * 100;
+  const amountPercent = (ordersInfo.acc_point || 0 / ordersInfo?.upgrade?.points) * 100;
 
   return (
     <GraphCard className="h-[206px] p-4">
@@ -18,8 +21,11 @@ const ProgressBarChart = () => {
         <h5 className="text-grey text-sm 2xl:text-xl font-semibold">
           您目前是VVIP銀卡等級
           <sup>
-            <Button className="border border-light-grey rounded !py-[8px] !px-2 !bg-transparent !text-silverstone font-semibold 2xl:text-[9px]">
-              <Link to="/v2/membership-card-comparison-info">查看升等方式</Link>
+            <Button
+              onClick={toggleCardComparison}
+              className="border border-light-grey rounded !py-[8px] !px-2 !bg-transparent !text-silverstone font-semibold 2xl:text-[9px]"
+            >
+              查看升等方式
             </Button>
           </sup>
         </h5>
@@ -40,7 +46,9 @@ const ProgressBarChart = () => {
             {/* numbers */}
             <h6 className="text-navy-blue font-bold text-xl 2xl:text-3xl">
               {ordersInfo.order_count}
-              <span className="text-silverstone text-xs 2xl:text-lg font-semibold">/20</span>
+              <span className="text-silverstone text-xs 2xl:text-lg font-semibold">
+                /{ordersInfo.upgrade?.orders || 0}
+              </span>
             </h6>
             {/* profressbar */}
             <div className="w-full bg-pale-yellow rounded-[5px] h-2.5 shadow-progress-bar">
@@ -61,8 +69,10 @@ const ProgressBarChart = () => {
             </div>
             {/* numbers */}
             <h6 className="text-navy-blue font-bold text-xl 2xl:text-3xl">
-              ${ordersInfo.acc_amount}
-              <span className="text-silverstone text-xs 2xl:text-lg font-semibold">/100,000</span>
+              ${formatNumberByComma(ordersInfo.acc_point || 0)}
+              <span className="text-silverstone text-xs 2xl:text-lg font-semibold">
+                /{formatNumberByComma(ordersInfo?.upgrade?.points || 0)}
+              </span>
             </h6>
             {/* profressbar */}
             <div className="w-full bg-pale-yellow rounded-[5px] h-2.5 shadow-progress-bar">

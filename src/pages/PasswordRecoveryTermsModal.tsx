@@ -91,8 +91,8 @@ const PasswordRecoveryTermsModal = () => {
             </div>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '95%' }}>
               <Link
-                className="rounded-md bg-white-smoke font-bold shadow-download-btn text-lg mt-3 px-10 self-end flex gap-2 items-center"
-                to="/download.docx"
+                className="rounded-md bg-white-smoke font-bold shadow-download-btn text-lg mt-3 px-10 self-end flex gap-2 items-center text-navy-blue"
+                to="/pdf/Membership_Terms_Service.pdf"
                 target="_blank"
                 download="土星_平台條款內容"
               >

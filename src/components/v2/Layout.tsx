@@ -9,7 +9,7 @@ import { useMembershipStepsStore } from '@/store/memberShipSteps';
 import { usePlatformStore } from '@/store/platform';
 import { COOKIE_AUTH_NAME } from '@/store/user';
 import { MembershipStep, MembershipStepsPath, MembershipTypes } from '@/type';
-import { getCookie } from '@/util/helper';
+import { formatNumberByComma, getCookie } from '@/util/helper';
 
 import Navbar from '../Navbar';
 import AccountSteps from './AccountSteps';
@@ -96,48 +96,55 @@ const Layout = ({ children, variant }: IProps) => {
                 </p>
               </div>
             </div>
-            <div>
-              <h4 className="text-white text-4xl font-bold text-center mt-3 min-[1400px]:mt-7 min-[1700px]:mt-10 relative max-w-fit mx-auto">
-                {ordersInfo.member_name}
-                <img
-                  src="/v2/icon/circularI.svg"
-                  width={16}
-                  height={16}
-                  alt="i-icon"
-                  className="absolute top-[0px] right-[-20px] cursor-pointer"
-                  onClick={() => toggleCardComparison()}
-                />
-              </h4>
-              <div className="flex justify-center my-3 min-[1400px]:my-7">
-                <div className="w-0.5 h-10 min-[1400px]:h-[55px] bg-white" />
-              </div>
-              <div className="px-[20%]">
-                <p className="text-sm font-normal text-white">
-                  目前累積訂單 <b className="text-pale-yellow text-2xl font-bold">{ordersInfo.order_count}</b>
-                  <b className="text-lg font-bold text-white">/20</b>
-                </p>
-                <RangeSlider value={(ordersInfo.order_count || 0 / 20) * 100} />
-                <p className="text-sm font-normal text-white mt-4 min-[1400px]:mt-10">
-                  目前累積消費 <b className="text-pale-yellow text-2xl font-bold">${ordersInfo.acc_amount}</b>
-                  <b className="text-lg font-bold text-white">/100,000</b>
-                </p>
-                <RangeSlider value={(ordersInfo.acc_amount || 0 / 100000) * 1000} />
-              </div>
-              <div className="flex gap-6 items-center px-[20%] mt-6 min-[1400px]:mt-12">
-                {MEMBERSHIP_STEPS.map((step) => (
-                  <div
-                    key={step.id}
-                    className={classNames('text-ceramic font-bold cursor-pointer flex flex-col gap-3', {
-                      'transition-none border bg-[#ffffff4d] rounded-lg px-4 py-2': membership === step.slug
-                    })}
-                    onClick={() => {
-                      navigate(step.path);
-                    }}
-                  >
-                    <img src={step.icon} alt={step.title} className="w-[90px] h-10 object-contain" />
-                    <span className="text-center whitespace-nowrap">{step.title}</span>
-                  </div>
-                ))}
+            <div className="flex flex-col items-start">
+              <div className="max-w-[400px] w-full ml-16">
+                <h4 className="text-white text-4xl font-bold text-center mt-3 min-[1400px]:mt-7 min-[1700px]:mt-10 relative max-w-fit mx-auto">
+                  {ordersInfo.member_name}
+                  <img
+                    src="/v2/icon/circularI.svg"
+                    width={16}
+                    height={16}
+                    alt="i-icon"
+                    className="absolute top-[0px] right-[-20px] cursor-pointer"
+                    onClick={() => toggleCardComparison()}
+                  />
+                </h4>
+                <div className="flex justify-center my-3 min-[1400px]:my-7">
+                  <div className="w-0.5 h-10 min-[1400px]:h-[55px] bg-white" />
+                </div>
+                <div className="max-w-[380px] px-[15px]">
+                  <p className="text-sm font-normal text-white">
+                    目前累積訂單 <b className="text-pale-yellow text-2xl font-bold">{ordersInfo.order_count}</b>
+                    <b className="text-lg font-bold text-white">/{ordersInfo.upgrade?.orders || 0}</b>
+                  </p>
+                  <RangeSlider value={(ordersInfo.order_count || 0 / ordersInfo.upgrade?.orders) * 100} />
+                  <p className="text-sm font-normal text-white mt-4 min-[1400px]:mt-10">
+                    目前累積消費{' '}
+                    <b className="text-pale-yellow text-2xl font-bold">
+                      ${formatNumberByComma(ordersInfo.acc_point || 0)}
+                    </b>
+                    <b className="text-lg font-bold text-white">
+                      /{formatNumberByComma(ordersInfo?.upgrade?.points || 0)}
+                    </b>
+                  </p>
+                  <RangeSlider value={(ordersInfo.acc_point || 0 / ordersInfo?.upgrade?.points) * 100} />
+                </div>
+                <div className="flex gap-[31px] items-center mt-6 min-[1400px]:mt-12">
+                  {MEMBERSHIP_STEPS.map((step) => (
+                    <div
+                      key={step.id}
+                      className={classNames('text-ceramic font-bold cursor-pointer flex flex-col gap-3 px-3 py-2', {
+                        'transition-none border bg-[#ffffff4d] rounded-lg': membership === step.slug
+                      })}
+                      onClick={() => {
+                        navigate(step.path);
+                      }}
+                    >
+                      <img src={step.icon} alt={step.title} className="w-[90px] h-10 object-contain" />
+                      <span className="text-center whitespace-nowrap">{step.title}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

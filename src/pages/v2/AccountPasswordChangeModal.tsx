@@ -157,7 +157,7 @@ const AccountPasswordChangeModal = () => {
                   <CustomButton
                     onClick={handleClose}
                     variant="primary"
-                    className="rounded-full px-12 h-12 text-lg mt-3 !text-navy-blue bg-white border-2 hover:border-2 hover:bg-navy-blue hover:!text-white"
+                    className="rounded-full px-12 h-12 text-lg mt-3 !text-navy-blue bg-white border-2"
                   >
                     取消
                   </CustomButton>
