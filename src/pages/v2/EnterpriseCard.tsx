@@ -34,7 +34,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
   return (
     <div
       className={classNames(
-        'relative bg-white rounded-lg w-[100%] h-[316px] flex justify-center items-center group hover:border-4  transition-all',
+        'relative bg-white rounded-lg w-[100%] h-[316px] flex justify-center items-center group hover:border-4  transition-all cursor-pointer',
         {
           'hover:border-dark-grey': !isActive
         }

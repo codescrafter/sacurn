@@ -7,7 +7,8 @@ interface RangeSliderProps {
 const RangeSlider = ({ value }: RangeSliderProps) => {
   return (
     <Slider
-      defaultValue={value || 90}
+      disabled
+      defaultValue={value}
       aria-label="Default"
       valueLabelDisplay="auto"
       sx={{

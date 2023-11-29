@@ -1,20 +1,20 @@
-import { Link } from 'react-router-dom';
+import BenefitAccordion from './Accordion';
 
 const BenefitImpact = () => {
   return (
-    <div className="grid grid-cols-5 gap-3 h-[650px]">
+    <div className="grid grid-cols-5 gap-3 h-[695px]">
       {/* First col */}
       <div className="col-span-2">
-        <img src="/images/products/green/co-benefit.png" alt="sacurn" className="w-full h-[310px] object-cover" />
+        <img src="/images/products/green/co-benefit.png" alt="sacurn" className="w-[466px] h-[380px] object-center" />
         <div>
           {DATA.map((item) => (
-            <div key={item.title} className="bg-card-bg-light p-3 mt-3">
+            <div key={item.title} className="bg-card-bg-light p-3 mt-5 rounded-[5px]">
               <div className="flex gap-4 items-center">
-                <img src="/images/products/green/tree.svg" />
+                <img src={item.image} alt={item.description} className="max-w-[33px] max-h-[24px] object-contain" />
                 <h5 className="text-xl font-semibold text-white">{item.value}</h5>
               </div>
-              <p className="text-white">{item.title}</p>
-              <p className="text-sm text-text-light">{item.description}</p>
+              <p className="text-white leading-[18px]">{item.title}</p>
+              <p className="text-[15px] text-text-light leading-4">{item.description}</p>
             </div>
           ))}
         </div>
@@ -26,19 +26,7 @@ const BenefitImpact = () => {
         </h1>
         <div>
           {IMPACT_DATA.map((item) => (
-            <div key={item.title} className="flex gap-4 mt-3">
-              <img src={item.image} alt={item.title} className="object-contain" />
-              <div className="w-full">
-                <h5 className="text-xl font-semibold text-white">{item.title}</h5>
-                <p className="text-lg text-white">{item.description}</p>
-                <div className="flex justify-end">
-                  <Link to={item.link} className="text-pale-yellow font-bold text-sm flex items-center gap-1">
-                    View more
-                    <img src="/images/products/green/share.svg" alt="sacurn" />
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <BenefitAccordion key={item.title} title={item.title} description={item.description} image={item.image} />
           ))}
         </div>
       </div>
@@ -60,7 +48,7 @@ const DATA = [
     title: 'Hectares of mangrove land peotected',
     description:
       'The projects activities aim to provide local communities with the means to make a living sustainably in the fields of handicrafts, tourism associations, forestry, beekeeping, and more.',
-    image: '/images/products/green/bird.png'
+    image: '/images/products/bird-icon.svg'
   }
 ];
 
@@ -103,6 +91,18 @@ const IMPACT_DATA = [
   },
   {
     title: 'SDG 7 Gender Equality',
+    description: 'Achieve gender equality and empower all women and girls.',
+    link: '/',
+    image: '/images/products/green/impact1.png'
+  },
+  {
+    title: 'SDG 8 Gender Equality',
+    description: 'Achieve gender equality and empower all women and girls.',
+    link: '/',
+    image: '/images/products/green/impact1.png'
+  },
+  {
+    title: 'SDG 9 Gender Equality',
     description: 'Achieve gender equality and empower all women and girls.',
     link: '/',
     image: '/images/products/green/impact1.png'

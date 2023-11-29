@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <div className="bg-[url('../public/images/login/login-bg.png')] bg-no-repeat bg-center bg-cover w-screen min-h-screen 2xl:pt-[136px] pt-24 relative lg:pb-32 pb-20">
-      <div className="2xl:w-[402px] 2xl:h-[660px] w-80 h-[500px] bg-login-white shadow-login-box rounded-[28px] 2xl:ml-60 ml-20 2xl:pt-3">
+      <div className="2xl:w-[402px] 2xl:h-[660px] w-80 h-[500px] bg-login-white shadow-login-box rounded-[28px] 2xl:ml-60 ml-20 2xl:pt-3 relative z-40">
         <img
           className="2xl:w-[150px] 2xl:h-[150px] w-28 h-28 mx-auto mb-3"
           src="/images/login/login-logo.svg"
@@ -93,7 +93,10 @@ const Login = () => {
           </button>
         </form>
         <p className="text-slate-blue-grey text-center font-bold text-sm leading-[22px]">
-          Forgot password? <span className="text-black">or</span> <Link to="/sign-up">Sign Up</Link>
+          <Link to="/password-recovery">Forgot password?</Link> <span className="text-black">or</span>{' '}
+          <span>
+            <button onClick={() => navigate('/sign-up')}>Sign Up</button>
+          </span>
         </p>
       </div>
       <div className="bg-[url('../public/images/login/bg-bottom.png')] bg-cover bg-right absolute bottom-0 left-0 2xl:h-72 lg:h-60 h-40 w-full" />

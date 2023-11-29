@@ -31,9 +31,7 @@ const ProductLayout = ({ children }: IProps) => {
       )}
     >
       <Navbar className="pt-4 relative z-30" />
-      <div className="pt-4">
-        <div>{children}</div>
-      </div>
+      <div>{children}</div>
     </div>
   );
 };

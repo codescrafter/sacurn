@@ -51,36 +51,19 @@ export const $ExtendedCompany = {
             maxLength: 45,
         },
         capital: {
-            type: 'number',
+            type: 'string',
             isNullable: true,
-            maximum: 2147483647,
-            minimum: -2147483648,
+            maxLength: 45,
         },
         founding_date: {
             type: 'string',
             isNullable: true,
             format: 'date',
         },
-        address: {
-            type: 'dictionary',
-            contains: {
-                properties: {
-                },
-            },
-            isNullable: true,
-        },
         phone: {
             type: 'string',
             isNullable: true,
             maxLength: 45,
-        },
-        contact_address: {
-            type: 'dictionary',
-            contains: {
-                properties: {
-                },
-            },
-            isNullable: true,
         },
         representative_country: {
             type: 'string',
@@ -190,6 +173,20 @@ export const $ExtendedCompany = {
             type: 'string',
             isNullable: true,
             maxLength: 45,
+        },
+        address: {
+            type: 'dictionary',
+            contains: {
+                properties: {
+                },
+            },
+        },
+        contact_address: {
+            type: 'dictionary',
+            contains: {
+                properties: {
+                },
+            },
         },
         registration_document: {
             type: 'string',
