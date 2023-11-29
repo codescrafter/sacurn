@@ -35,7 +35,7 @@ const WishListProdCard = ({ product }: IProps) => {
           <div className="flex flex-row">
             <p className="self-start text-xms font-bold text-black">USD</p>
             <p className="self-center font-bold text-black text-lg mx-0.5">
-              {`$${product.min_price}~${product.max_price}`}
+              {`$${product.min_price || 0}~${product.max_price || 0}`}
             </p>
             <p className="self-end text-xms font-bold text-black">/Tonne</p>
           </div>

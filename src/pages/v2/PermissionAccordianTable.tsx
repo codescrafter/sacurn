@@ -1,10 +1,22 @@
+import { Box } from '@mui/material';
+
 import { PermissionTableBodyType, PermissionTableHeadingType } from '@/type';
 interface IProps {
   CardHeading: PermissionTableHeadingType[];
 }
 const PermissionAccordianTable = ({ CardHeading }: IProps) => {
   return (
-    <div className="bg-vista-white p-3 rounded-lg shadow">
+    <Box
+      className="bg-vista-white p-3 rounded-lg shadow"
+      sx={{
+        boxShadow: '2.67939px 3.57253px 12.50384px 0px rgba(0, 0, 0, 0.25), 0px 0px 12.50384px 0px rgba(0, 0, 0, 0.05)',
+
+        backdropFilter: 'blur(2.232828378677368px)',
+        '-webkit-backdrop-filter': 'blur(2.232828378677368px)',
+
+        Opacity: '0.1'
+      }}
+    >
       <div className="px-4 ">
         <table className="grid grid-rows-1 ">
           <tr className="grid-cols-4 grid px-10">
@@ -61,7 +73,7 @@ const PermissionAccordianTable = ({ CardHeading }: IProps) => {
           })}
         </table>
       </div>
-    </div>
+    </Box>
   );
 };
 

@@ -1,22 +1,33 @@
 import { ApexOptions } from 'apexcharts';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
+
+import { useInventoryStore } from '@/store/inventory';
 
 import Button from './Button';
 import GraphCard from './GraphCard';
 
+type seriesType = {
+  name: string;
+  data: string[];
+};
+
 const SalesLineChart = () => {
   const [activeButton, setActiveButton] = useState<number>(0);
+  const getTrendData = useInventoryStore((state) => state.getTrendData);
+  const trendData = useInventoryStore((state) => state.trendData);
+  const [amountSeries, setAmountSeries] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [averageSeries, setAverageSeries] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
   const series = [
     {
       name: 'Amount',
-      data: [1500, 9000, 1000, 12000, 0, 0, 10500, 12000]
+      data: amountSeries
     },
     {
       name: '平均',
-      data: [7000, 7000, 7000, 7000, 7000, 7000, 7000, 7000]
+      data: averageSeries
     }
   ];
 
@@ -121,6 +132,45 @@ const SalesLineChart = () => {
   const handleButtonClick = (index: number) => {
     setActiveButton(index);
   };
+  useEffect(() => {
+    getTrendData();
+  }, []);
+  console.log('trendData', trendData);
+
+  useEffect(() => {
+    if (trendData?.series) {
+      if (activeButton === 0) {
+        const amountSeries = trendData.series.find((item: seriesType) => item.name === 'date')?.data;
+        const sumOfAmountSeries = amountSeries?.reduce((a: string, b: string) => Number(a) + Number(b), 0);
+
+        const average = Math.round(sumOfAmountSeries! / amountSeries!.length);
+        const averageSeries = amountSeries?.map(() => average);
+        setAverageSeries(averageSeries!);
+        setAmountSeries(amountSeries);
+      } else if (activeButton === 1) {
+        const amountSeries = trendData.series.find((item: seriesType) => item.name === 'amount')?.data;
+        const sumOfAmountSeries = amountSeries?.reduce((a: number, b: number) => a + b, 0);
+        const average = Math.round(sumOfAmountSeries! / amountSeries!.length);
+        const averageSeries = amountSeries?.map(() => average);
+        setAverageSeries(averageSeries!);
+        setAmountSeries(amountSeries);
+      } else if (activeButton === 2) {
+        const amountSeries = trendData.series.find((item: seriesType) => item.name === 'order_count')?.data;
+        const sumOfAmountSeries = amountSeries?.reduce((a: number, b: number) => a + b, 0);
+        const average = Math.round(sumOfAmountSeries! / amountSeries!.length);
+        const averageSeries = amountSeries?.map(() => average);
+        setAverageSeries(averageSeries!);
+        setAmountSeries(amountSeries);
+      } else if (activeButton === 3) {
+        const amountSeries = trendData.series.find((item: seriesType) => item.name === 'avg_order_value')?.data;
+        const sumOfAmountSeries = amountSeries?.reduce((a: number, b: number) => a + b, 0);
+        const average = Math.round(sumOfAmountSeries! / amountSeries!.length);
+        const averageSeries = amountSeries?.map(() => average);
+        setAverageSeries(averageSeries!);
+        setAmountSeries(amountSeries);
+      }
+    }
+  }, [trendData, activeButton]);
 
   return (
     <GraphCard className="h-[271px] flex flex-col items-center justify-center relative line-graph px-4 2xl:px-0 pb-4">
@@ -164,9 +214,8 @@ const SalesLineChart = () => {
 export default SalesLineChart;
 
 const buttonData = [
-  { label: '銷售額', value: 'sales' },
-  { label: '訪客數', value: 'visitors' },
-  { label: '瀏覽數', value: 'views' },
+  { label: 'Date', value: 'date' },
+  { label: 'Amount', value: 'amount' },
   { label: '訂單數', value: 'orders' },
   { label: '平均客單價', value: 'averagePrice' }
 ];

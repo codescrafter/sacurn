@@ -261,7 +261,8 @@ module.exports = {
       'white-smoke': '#F5F5F5',
       'sliver-sand': '#BEBEBE',
       'white-smoke-2': '#FFFFFF4D',
-      'white-smoke-3': '#B4B4B4'
+      'white-smoke-3': '#B4B4B4',
+      gainsbro: '#DFDFDF'
     }
   },
   plugins: []
