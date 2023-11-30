@@ -101,22 +101,11 @@ const CartV2 = () => {
               <p className="text-navy-blue 2xl:text-base text-sm pl-3">使用優惠碼</p>
             </button>
             <Heading>服務條款</Heading>
-            <p className="ml-7 text-base text-grey">我瞭解並同意Sacurn服務條款與隱私權政策</p>
-            {/* <p className="ml-6.7 2xl:text-base text-sm 2xl:mt-6 mt-2 text-navy-blue">
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={(e) => {
-                  setIsChecked(!isChecked);
-                  if (e.target.checked) {
-                    setError(false);
-                  }
-                }}
-                className="text-[#F00] mr-2"
-              />
-              我瞭解並同意Sacurn服務條款與隱私權政策
-            </p> */}
-            {/* {error && <p className="text-[#f00] text-xs ml-12">請務必確認勾選此框，才能點選「前往付款」。</p>} */}
+            <p className="ml-7 text-base text-grey">
+              我瞭解並同意Sacurn
+              <span className="hover:underline">服務條款</span>與<span className="hover:underline">隱私權政策</span>
+            </p>
+
             <hr className="border-silverstone 2xl:mt-8 mt-4 2xl:mb-5 mb-3" />
             <div className="flex flex-col items-center justify-end h-[20vh]">
               <p className="2xl:text-base text-xms text-black self-center mb-1 font-istok-web">
