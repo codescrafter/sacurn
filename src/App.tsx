@@ -1,5 +1,3 @@
-import './App.css';
-
 import ModalContainer from 'react-modal-promise';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 

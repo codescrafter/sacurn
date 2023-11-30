@@ -80,7 +80,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
             )}
           />
         </div>
-        <h1 className="font-bold text-xl md:text-base xl:text-xl 2xl:text-2xl">{userName}</h1>
+        <h1 className="font-bold text-xl md:text-base xl:text-xl 2xl:text-2xl font-istok-web">{userName}</h1>
         <p className="font-normal text-dark-grey text-base 2xl:text-xl">{userEmail}</p>
       </div>
     </div>
