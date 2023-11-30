@@ -1248,6 +1248,11 @@ paths:
     get:
       operationId: inventory_list
       parameters:
+      - in: query
+        name: keyword
+        schema:
+          type: string
+        description: 搜尋關鍵字
       - name: page
         required: false
         in: query
