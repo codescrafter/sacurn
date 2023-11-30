@@ -50,10 +50,10 @@ const PasswordRecoveryTermsModal = () => {
               sx={{ m: 0, color: '#525252', fontWeight: 700, fontSize: '18px', textAlign: 'center', pb: '15px' }}
               id="customized-dialog-title"
             >
-              <p> 本網站之《服務條款》、《隱私政策》和《Cookie 政策》</p>
+              本網站之《服務條款》、《隱私政策》和《Cookie 政策》
             </Typography>
             <div className="yellowScroll overflow-y-scroll h-[350px] min-[1400px]:h-[600px]  w-full">
-              <Box sx={{ background: '#F5F5F5', width: '98%', p: '11px', color: '#525252' }}>
+              <Box sx={{ background: '#F5F5F5', width: '98%', p: '11px' }}>
                 <div className="text-dark-grey font-bold leading-5">
                   <p className="text-sm">
                     非常歡迎您光臨「○○網站」（以下簡稱本網站），為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
