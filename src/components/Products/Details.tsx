@@ -200,7 +200,7 @@ const Details = () => {
                       href="past campaigns"
                       role="tablist"
                     >
-                      Carton Impact & Performance
+                      Carbon Impact & Performance
                     </a>
                   </li>
                   <li

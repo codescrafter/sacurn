@@ -3,7 +3,7 @@ import Checkbox from '@mui/material/Checkbox';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { useForm, UseFormRegister } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
@@ -187,7 +187,34 @@ const OperatorSignUp = () => {
             註冊
           </button>
           <p className=" text-dark-grey text-center min-[1550px]:text-base min-[1200px]:text-sm text-[12px] font-semibold mt-3 ml-5">
-            點擊「註冊」即表示你同意我們的《服務條款》、《隱私政策》和《Cookie政策》。
+            點擊「註冊」即表示你同意我們的
+            <Link
+              to="/pdf/Membership_Terms_Service.pdf"
+              target="_blank"
+              download="土星_平台條款內容"
+              className="hover:underline"
+            >
+              《服務條款》
+            </Link>
+            、
+            <Link
+              to="/pdf/Membership_Terms_Service.pdf"
+              target="_blank"
+              download="土星_平台條款內容"
+              className="hover:underline"
+            >
+              《隱私政策》
+            </Link>
+            和
+            <Link
+              to="/pdf/Membership_Terms_Service.pdf"
+              target="_blank"
+              download="土星_平台條款內容"
+              className="hover:underline"
+            >
+              《Cookie政策》
+            </Link>
+            。
           </p>
         </form>
       </div>

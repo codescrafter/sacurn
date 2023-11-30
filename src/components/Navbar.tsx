@@ -33,7 +33,7 @@ const Navbar = ({ className }: IProps) => {
                   'border-b border-white': location.pathname === item.path
                 })}
               >
-                <Link to={item.path} className="text-white xl:text-xl 2xl:text-2xl font-normal">
+                <Link to={item.path} className="text-white xl:text-xl 2xl:text-[27px] font-normal">
                   {item.name}
                 </Link>
               </li>

@@ -47,17 +47,20 @@ const CustomCard = ({
         >
           {title && (
             <h6
-              className={classNames('text-lg xl:text-2xl 2.5xl:text-[30px] font-bold text-black pt-12 pb-8', {
-                'text-navy-blue': step === 3,
-                'text-hit-grey': step < cardRenewalNumber,
-                'pt-5 pb-3': slug === 'REPORT_LOSS'
-              })}
+              className={classNames(
+                'text-lg xl:text-2xl 2.5xl:text-[30px] font-bold text-black pt-12 pb-8 font-istok-web',
+                {
+                  'text-navy-blue': step === 3,
+                  'text-hit-grey': step < cardRenewalNumber,
+                  'pt-5 pb-3': slug === 'REPORT_LOSS'
+                }
+              )}
             >
               {title}
             </h6>
           )}
           <p
-            className={classNames('text-xl xl:text-2xl', {
+            className={classNames('text-xl xl:text-[26px]', {
               ['text-base xl:text-lg pb-4']: slug === 'REPORT_LOSS'
             })}
           >
@@ -75,7 +78,7 @@ const CustomCard = ({
           {responseTitle && (
             <div className="flex flex-col gap-4 min-h-[220px] justify-between items-center">
               <p
-                className={classNames('text-xl xl:text-2xl', {
+                className={classNames('text-xl xl:text-[26px]', {
                   'text-navy-blue': step === CardMembershipEnum.APPLICATION || step === CardMembershipEnum.COMPLETE,
                   '!text-hit-grey': step < cardRenewalNumber,
                   'text-base xl:text-lg': slug === 'REPORT_LOSS'

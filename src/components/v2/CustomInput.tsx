@@ -30,7 +30,7 @@ const CustomInput = <TFormValues extends FieldValues>({
         }
       )}
     >
-      <p className="min-[1600px]:text-xl min-[1500px]:text-lg min-[1300px]:text-base text-sm text-navy-blue text-right font-bold min-[1600px]:min-w-[54px] min-[1500px]:min-w-[52px] min-[1300px]:min-w-[51px] min-w-[50px]">
+      <p className="min-[1600px]:text-xl min-[1500px]:text-lg min-[1300px]:text-base text-sm text-navy-blue text-right font-bold min-[1600px]:min-w-[54px] min-[1500px]:min-w-[52px] min-[1300px]:min-w-[51px] min-w-[50px] font-istok-web">
         {label}
       </p>
       <div className={classNames('flex flex-col relative', { 'gap-0.5': errors && errors[id] })}>
