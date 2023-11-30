@@ -136,7 +136,7 @@ const RepresentativeInfoForm = ({ nextStep }: IProps) => {
         <div className="flex flex-row mb-7">
           <h1 className="text-navy-blue text-[28px] tracking-[0.84px] flex flex-row">
             <div className="bg-navy-blue px-0.5 h-full" />
-            &nbsp;請填寫企業資料
+            &nbsp;請填寫企業代表人資料
           </h1>
         </div>
         <div>
