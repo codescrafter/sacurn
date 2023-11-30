@@ -23,7 +23,7 @@ const CustomButton = ({ variant = 'primary', children, className, type, onClick,
   const [isClicked, setIsClicked] = useState<boolean>(false);
   return (
     <button
-      className={classNames('text-base', className, {
+      className={classNames('text-base font-istok-web', className, {
         'bg-navy-blue text-white': variant === 'primary',
         'bg-transparent text-navy-blue': variant === 'secondary',
         'rounded-lg text-white bg-navy-blue py-2.5 px-8': variant === 'rounded',

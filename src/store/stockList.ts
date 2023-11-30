@@ -23,7 +23,7 @@ export const useStockListStore = create<StockListState>((set, get) => ({
   stockList: [],
   getStockList: async (page?: number) => {
     await runTask(async () => {
-      const response = await apiClient.inventory.inventoryList(page);
+      const response = await apiClient.inventory.inventoryList(page?.toString(), undefined); // TODO: add dilteration according to params later
       set({ stockList: (response.results || [])?.map((item) => ({ ...item, action: null, orderList: [] })) });
     });
   },

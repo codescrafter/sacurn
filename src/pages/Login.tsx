@@ -61,7 +61,7 @@ const Login = () => {
             />
             <input
               {...register('username')}
-              className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
+              className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg font-istok-web"
               type="text"
               placeholder={t('username')}
             />
@@ -78,7 +78,7 @@ const Login = () => {
             />
             <input
               {...register('password')}
-              className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
+              className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg font-istok-web"
               type="password"
               placeholder={t('password')}
             />
@@ -92,7 +92,7 @@ const Login = () => {
             {t('login')}
           </button>
         </form>
-        <p className="text-slate-blue-grey text-center font-bold text-sm leading-[22px]">
+        <p className="text-slate-blue-grey text-center font-bold text-sm leading-[22px] font-istok-web">
           <Link to="/password-recovery">Forgot password?</Link> <span className="text-black">or</span>{' '}
           <span>
             <button onClick={() => navigate('/sign-up')}>Sign Up</button>

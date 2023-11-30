@@ -36,11 +36,11 @@ const CartV2 = () => {
         </div>
         <div className="flex items-center gap-3">
           <div className="flex gap-1 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px] cursor-pointer">
-            <span>全選</span>
+            <span className="text-xl font-bold">全選</span>
             <input type="radio" className="ml-2.5 w-5 h-5 mt-0.5" />
           </div>
           <div className="flex gap-3 px-2 pt-1.5 pb-1 shadow-sm bg-white rounded-[10px]">
-            <span>刪除選取</span>
+            <span className="text-xl font-bold">刪除選取</span>
             <img src="/images/cart/ic_delete.svg" width={22} height={27} alt="sacurn" />
           </div>
         </div>
@@ -62,10 +62,12 @@ const CartV2 = () => {
           <div>
             <div className="flex flex-row justify-between pr-6.7">
               <Heading>商品共計</Heading>
-              <p className="2xl:text-lg text-base text-black font-medium">NT$ {cartDetail?.total_amount}</p>
+              <p className="2xl:text-lg text-base text-black font-bold font-istok-web">
+                NT$ {cartDetail?.total_amount}
+              </p>
             </div>
             <div className="px-6.7 mt-2.5 ">
-              <p className="text-grey 2xl:text-sm text-xs">
+              <p className="text-grey 2xl:text-sm text-xs font-bold font-istok-web">
                 {cartDetail && cartDetail.product_list?.length}項(以下含稅金${5}%及手續費)
               </p>
               <div className="2xl:mt-5.2 mt-3">
@@ -73,23 +75,23 @@ const CartV2 = () => {
                   cartDetail.product_list?.map((product) => {
                     return (
                       <div key={product.name} className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
-                        <p className="w-[70%] text-grey 2xl:text-lg text-sm">{product.name}</p>
-                        <p className="text-grey 2xl:text-lg text-sm">$ {product.amount}</p>
+                        <p className="w-[70%] text-grey 2xl:text-lg font-bold font-istok-web">{product.name}</p>
+                        <p className="text-grey 2xl:text-xl text-base font-bold font-istok-web">$ {product.amount}</p>
                       </div>
                     );
                   })}
               </div>
               <div className="flex flex-row justify-between 2xl:mb-5 mb-3">
-                <p className="text-grey 2xl:text-lg text-base">手續費</p>
-                <p className="text-grey 2xl:text-lg text-base">$ {cartDetail?.cost}</p>
+                <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">手續費</p>
+                <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">$ {cartDetail?.cost}</p>
               </div>
               <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
-                <p className="text-grey 2xl:text-lg text-base">稅金${5}%</p>
-                <p className="text-grey 2xl:text-lg text-base">${cartDetail?.tax}</p>
+                <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金${5}%</p>
+                <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">${cartDetail?.tax}</p>
               </div>
               <div className="flex flex-row justify-between">
-                <p className="2xl:text-lg text-base font-semibold text-black">總付款金額</p>
-                <p className="2xl:text-lg text-base text-bright-red font-semibold">NT$ {cartDetail?.total_amount}</p>
+                <p className="2xl:text-lg text-base font-bold text-black">總付款金額</p>
+                <p className="2xl:text-xl text-base text-bright-red font-bold">NT$ {cartDetail?.total_amount}</p>
               </div>
             </div>
             <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
@@ -117,7 +119,7 @@ const CartV2 = () => {
             {/* {error && <p className="text-[#f00] text-xs ml-12">請務必確認勾選此框，才能點選「前往付款」。</p>} */}
             <hr className="border-silverstone 2xl:mt-8 mt-4 2xl:mb-5 mb-3" />
             <div className="flex flex-col items-center justify-end h-[20vh]">
-              <p className="2xl:text-base text-xms text-black self-center mb-1">
+              <p className="2xl:text-base text-xms text-black self-center mb-1 font-istok-web">
                 點擊「前往付款」，訂單及送出，請於下一步選擇付款方式
               </p>
               <button
@@ -238,7 +240,7 @@ const CartItem = (props: CartItemIProps) => {
             -
           </button>
           <input
-            className="w-17 h-9 rounded-md border border-[#B3B4B4] bg-transparent text-right pr-3.5 text-bright-blue text-2xl font-medium flex items-center justify-center"
+            className="w-17 h-9 rounded-md border border-[#B3B4B4] bg-transparent text-right pr-3.5 text-bright-blue text-2xl flex items-center justify-center text-[24px] font-bold font-istok-web"
             type="number"
             value={qty}
             disabled
@@ -270,9 +272,7 @@ const CartItem = (props: CartItemIProps) => {
 
 const Heading: FC<HeadingIProps> = ({ children }) => {
   return (
-    <div className="border-l-8  border-l-pale-yellow pl-5 text-black 2xl:text-lg text-base font-semibold">
-      {children}
-    </div>
+    <div className="border-l-8  border-l-pale-yellow pl-5 text-black 2xl:text-lg text-base font-bold">{children}</div>
   );
 };
 

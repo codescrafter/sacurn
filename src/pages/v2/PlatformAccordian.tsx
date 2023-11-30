@@ -37,14 +37,14 @@ const PlatformAccordian = ({ title, items, currentIndex }: IProps) => {
   };
   return (
     <div>
-      <h1 className="text-3xl text-navy-blue font-bold max-[1400px]:text-xl mt-3  ">{title}</h1>
+      <h1 className="!text-3xl text-navy-blue font-bold max-[1400px]:text-xl mt-3  ">{title}</h1>
       <div>
         {items.map((item, index) => {
           return (
             <Accordion
               key={index}
               defaultExpanded={`${INSTRUCTION_CARD_DATA?.[0]?.id}0` === `${currentIndex}${index}` ? true : false}
-              className={classNames('mt-5', {
+              className={classNames('mt-5 font=', {
                 'border-b-2 border-grey-ghoose border-dashed ': !{},
                 'border-b-2 border-grey-ghoose border-dashed': {}
               })}
@@ -69,10 +69,10 @@ const PlatformAccordian = ({ title, items, currentIndex }: IProps) => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
-                <Typography className="px-4 text-xl font-bold max-[1400px]:text-base ">{item.name}</Typography>
+                <Typography className="px-4 !text-xl font-bold max-[1400px]:text-base">{item.name}</Typography>
               </AccordionSummary>
               <AccordionDetails className="pl-10 border-l-4 border-pale-yellow w-full bg-geyser ">
-                <Typography className="px-4 text-xl text-left font-normal max-[1400px]:text-base py-3">
+                <Typography className="px-4 !text-xl text-left max-[1400px]:text-base py-3 font-normal">
                   {item.description}
                 </Typography>
               </AccordionDetails>

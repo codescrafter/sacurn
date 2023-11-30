@@ -41,20 +41,18 @@ const ProductDetail = () => {
     },
     {
       title: 'Project Validator',
-      value: carbonCredit.project_validator?.[0].name,
-      description: carbonCredit.project_validator?.[0].desc,
-      url: carbonCredit.project_validator?.[0].url
+      value: carbonCredit.name || '',
+      description: carbonCredit.about || ''
     },
     {
       title: 'CCS Validator',
-      value: carbonCredit.ccs_validator?.[0].name,
-      description: carbonCredit.ccs_validator?.[0].desc,
-      url: carbonCredit.ccs_validator?.[0].url
+      value: carbonCredit.name || '',
+      description: carbonCredit.about || ''
     },
     {
       title: 'Additional Certifications',
-      value: carbonCredit.additional_certifications?.[0].name,
-      description: carbonCredit.additional_certifications?.[0].desc
+      value: carbonCredit.name || '',
+      description: carbonCredit.about || ''
     }
   ];
 

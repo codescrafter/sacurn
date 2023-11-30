@@ -2,30 +2,23 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $DoTwdsS0S1 = {
+export const $OperationRecordFilter = {
     properties: {
-        semiPdfs: {
+        action_list: {
             type: 'array',
             contains: {
                 properties: {
                 },
             },
+            isRequired: true,
         },
-        unfinishedPdfs: {
+        user_list: {
             type: 'array',
             contains: {
                 properties: {
                 },
             },
-        },
-        pkcs1s: {
-            type: 'string',
-        },
-        b64Cert: {
-            type: 'string',
-        },
-        timestamp: {
-            type: 'string',
+            isRequired: true,
         },
     },
 } as const;

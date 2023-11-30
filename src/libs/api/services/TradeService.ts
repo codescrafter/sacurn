@@ -7,6 +7,7 @@ import type { CartDetail } from '../models/CartDetail';
 import type { CartDetailResonse } from '../models/CartDetailResonse';
 import type { CartRequest } from '../models/CartRequest';
 import type { ExtendedCart } from '../models/ExtendedCart';
+import type { OperationRecordFilter } from '../models/OperationRecordFilter';
 import type { Order } from '../models/Order';
 import type { OrderBuy } from '../models/OrderBuy';
 import type { OrderSell } from '../models/OrderSell';
@@ -194,10 +195,10 @@ export class TradeService {
     }
 
     /**
-     * @returns any No response body
+     * @returns OperationRecordFilter
      * @throws ApiError
      */
-    public tradeOperationRecordFilterListRetrieve(): CancelablePromise<any> {
+    public tradeOperationRecordFilterListRetrieve(): CancelablePromise<OperationRecordFilter> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/trade/operation_record_filter_list/',
