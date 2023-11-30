@@ -745,7 +745,13 @@ paths:
       - company
       requestBody:
         content:
-          application/multi-part/form-data:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtendEmployee'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ExtendEmployee'
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/ExtendEmployee'
         required: true
@@ -802,7 +808,13 @@ paths:
       - company
       requestBody:
         content:
-          application/multi-part/form-data:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeesPatch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeesPatch'
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/PatchedEmployeesPatch'
       security:
@@ -2292,7 +2304,11 @@ paths:
       - jwtCookieAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationRecordFilter'
+          description: ''
   /trade/order_buy/:
     get:
       operationId: trade_order_buy_retrieve
@@ -4610,6 +4626,18 @@ components:
       - id
       - total_amount
       - username
+    OperationRecordFilter:
+      type: object
+      properties:
+        action_list:
+          type: array
+          items: {}
+        user_list:
+          type: array
+          items: {}
+      required:
+      - action_list
+      - user_list
     Order:
       type: object
       properties:
