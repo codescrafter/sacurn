@@ -1,24 +1,30 @@
+import cloneDeep from 'lodash/cloneDeep';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import CustomButton from '@/components/CustomButton';
 import LightLayout from '@/components/LightLayout';
 import TotalPayment from '@/components/TotalPayment';
+import { CartDetailResonse } from '@/libs/api';
 import { CheckoutResult, useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
 
 const PaymentInformation = () => {
   const navigate = useNavigate();
-  const cartDetail = useCartStore((store) => store.cartDetail);
+  // clone it when entry this page
+  const originalCartDetail = useCartStore((store) => store.cartDetail);
   const checkOutCart = useCartStore((store) => store.checkOutCart);
   const open = useModalStore((state) => state.open);
 
+  const [cartDetail, setCartDetail] = useState<CartDetailResonse | null>(null);
   const [checkoutDetail, setCheckoutDetail] = useState<CheckoutResult['checkoutDetail']>(null);
 
   const isCheckout = useMemo(() => checkoutDetail !== null, [checkoutDetail]);
 
   useEffect(() => {
-    if (!cartDetail) navigate('/cart');
+    console.log(originalCartDetail);
+    if (!originalCartDetail) navigate('/cart');
+    else setCartDetail(cloneDeep(originalCartDetail));
   }, []);
 
   const onCheckOut = useCallback(() => {
@@ -118,9 +124,9 @@ const PaymentInformation = () => {
             </div>
           </div>
           {/* Third col */}
-          {isCheckout && (
+          {isCheckout && cartDetail?.total_amount && (
             <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
-              <TotalPayment checkoutDetail={checkoutDetail} totalPrice={cartDetail?.total_amount || 0} />
+              <TotalPayment checkoutDetail={checkoutDetail} totalPrice={cartDetail?.total_amount} />
             </div>
           )}
         </div>

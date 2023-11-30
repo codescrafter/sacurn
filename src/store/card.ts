@@ -192,7 +192,8 @@ export const useCardStore = create<CardState>((set, get) => ({
         semiPdfs,
         unfinishedPdfs,
         pkcs1s: signature,
-        b64Cert
+        b64Cert,
+        timestamp
       });
       console.log('H.ok');
       isSuccess = true;

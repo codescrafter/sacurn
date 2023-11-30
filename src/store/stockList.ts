@@ -13,7 +13,7 @@ export type StockItem = {
 
 type StockListState = {
   stockList: StockItem[];
-  getStockList: (page?: number) => void;
+  getStockList: (keyword?: string, page?: number) => void;
   getStockOrderList: (carbonCreditId: number) => Promise<boolean>;
   updateStockOnSale: (carbonId: number, qty: number, price: number, minUnit: number) => Promise<boolean>;
   updateStockOffShelve: (id: number) => void;
@@ -21,9 +21,9 @@ type StockListState = {
 
 export const useStockListStore = create<StockListState>((set, get) => ({
   stockList: [],
-  getStockList: async (page?: number) => {
+  getStockList: async (keyword?: string, page?: number) => {
     await runTask(async () => {
-      const response = await apiClient.inventory.inventoryList(page?.toString(), undefined); // TODO: add dilteration according to params later
+      const response = await apiClient.inventory.inventoryList(keyword, page);
       set({ stockList: (response.results || [])?.map((item) => ({ ...item, action: null, orderList: [] })) });
     });
   },

@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import StockItemBar from '@/components/StockItemBar';
+import { BASE_URL } from '@/constant';
 import { StockItem, useStockListStore } from '@/store/stockList';
 import { CarbonTag } from '@/type';
 import { formatNumberByComma } from '@/util/helper';
@@ -24,6 +25,7 @@ const Sales = () => {
   const [stockItemDetailId, setStockItemDetailId] = useState<StockItem['id'] | null>(null);
   const [selectStockItem, setSelectStockItem] = useState<StockItem | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [keyword, setKeyword] = useState<string>('');
 
   const stockList = useStockListStore((store) => store.stockList);
   const getStockList = useStockListStore((store) => store.getStockList);
@@ -74,6 +76,11 @@ const Sales = () => {
                     id="search"
                     className="block bg-white w-full xl:w-[347px] py-2 pl-3 rounded-[26px] border border-light-grey pr-12 text-silverstone text-xs font-normal"
                     placeholder="輸入想要搜尋的碳權名稱,代號或是關鍵字"
+                    onChange={(e) => {
+                      const keyword = e.target.value;
+                      getStockList(e.target.value);
+                      setKeyword(keyword);
+                    }}
                   />
                   <div className="pointer-events-none border border-r-0 border-t-0 border-b-0 border-l-light-grey py-2 absolute inset-y-1 right-0 flex items-center pl-2 pr-3">
                     <img src="/images/operation-record/search_icon.svg" width={20} height={20} alt="search" />
@@ -277,15 +284,15 @@ const Sales = () => {
                 </div>
               </div>
             </div>
-            <Link
+            <a
               className="rounded-md bg-white-smoke text-navy-blue font-bold shadow-download-btn text-[15px] mt-5 px-10 self-end flex gap-2.5 items-center max-w-[160px] h-[22px] ml-auto mr-8 mb-7"
-              to="/pdf/Membership_Terms_Service.pdf"
+              href={`${BASE_URL}/inventory?download=1${keyword === '' ? '' : `&keyword=${keyword}`}`}
               target="_blank"
-              download="土星_平台條款內容"
+              download
             >
               Download
               <img src="/v2/icon/download-icon.svg" alt="" />
-            </Link>
+            </a>
           </div>
         </div>
       </main>
