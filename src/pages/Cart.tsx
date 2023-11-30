@@ -217,6 +217,7 @@ const CartItem = (props: CartItemIProps) => {
   }, [id]);
 
   const isOffShelve = useMemo(() => order_deleted === OrderStatus.OffShelve, []);
+  const isCannotBuy = remaining_quantity === '0';
 
   const onQuantityAdjust = useCallback(
     (value: number) => {
@@ -274,11 +275,11 @@ const CartItem = (props: CartItemIProps) => {
       <div className="flex justify-between items-center gap-14">
         <p
           className={classNames('text-[15px] font-medium text-black leading-9', {
-            'text-bright-red': isOffShelve,
-            '!text-dark-grey': !selected
+            'text-bright-red': isCannotBuy,
+            '!text-dark-grey': !isCannotBuy && !selected
           })}
         >
-          {isOffShelve ? '剩下 0 噸無法交易' : `剩下 ${remaining_quantity} 噸可購`}
+          {isCannotBuy ? '剩下 0 噸無法交易' : `剩下 ${remaining_quantity} 噸可購`}
         </p>
         <div className="flex items-center gap-7">
           <div className="flex items-center gap-1.2" onClick={(e) => e.stopPropagation()}>
