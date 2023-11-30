@@ -198,6 +198,7 @@ export type SignatureConfirmationModalType = {
     isListDisc: boolean;
   }[];
 };
+
 export type MembershipDataItems = {
   id: number;
   deleted: boolean;

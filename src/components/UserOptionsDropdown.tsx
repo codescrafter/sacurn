@@ -5,6 +5,8 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useInventoryStore } from '@/store/inventory';
+import { useUserStore } from '@/store/user';
+import { formatNumberByComma } from '@/util/helper';
 
 const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -32,7 +34,6 @@ const BorderLinearProgress = styled(LinearProgress)(() => ({
 
 export default function UserOptionsDropdown() {
   const getOrdersInfo = useInventoryStore((state) => state.getOrdersInfo);
-
   React.useEffect(() => {
     getOrdersInfo();
   }, []);
@@ -52,6 +53,12 @@ export default function UserOptionsDropdown() {
 
 const UserMenu = () => {
   const ordersInfo = useInventoryStore((state) => state.ordersInfo);
+  const logout = useUserStore((state) => state.logout);
+
+  const logoutHandler = async () => {
+    await logout();
+    window.location.replace('/login');
+  };
 
   return (
     <div className="pt-5 flex flex-col items-center gap-2">
@@ -66,9 +73,14 @@ const UserMenu = () => {
         />
       </div>
       <div className="relative p-0.7 rounded-[20px] flex items-center bg-pale-yellow">
-        <BorderLinearProgress variant="determinate" value={(ordersInfo.acc_amount || 0 / 100000) * 100} />
+        <BorderLinearProgress
+          variant="determinate"
+          value={(ordersInfo.acc_amount || 0 / ordersInfo?.upgrade?.points) * 100}
+        />
       </div>
-      <p className="text-sm font-normal text-black">{ordersInfo.acc_amount}/100,000</p>
+      <p className="text-sm font-normal text-black">
+        {formatNumberByComma(ordersInfo.acc_point as number)}/{formatNumberByComma(ordersInfo?.upgrade?.points)}
+      </p>
       <p className="text-navy-blue text-sm"> 管理者</p>
       <div>
         <Link to="/v2/account-information">
@@ -96,6 +108,7 @@ const UserMenu = () => {
           </MenuItem>
         </Link>
         <MenuItem
+          onClick={logoutHandler}
           sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
           className="text-black hover:text-navy-blue active:text-navy-blue"
         >
