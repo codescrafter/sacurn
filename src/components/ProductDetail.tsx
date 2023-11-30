@@ -124,6 +124,8 @@ const PriceListItem = ({ item }: { item: Order }) => {
     [qty]
   );
 
+  const isMyOrder = item.company && company.id && item.company === company.id ? true : false;
+
   return (
     <tr className=" border-b-[2px] border-white-smoke-2 dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl">
       <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -167,11 +169,9 @@ const PriceListItem = ({ item }: { item: Order }) => {
             height={42}
             className="cursor-pointer"
             style={{
-              filter: item.company && company.id && item.company === company.id ? '' : 'none'
+              filter: isMyOrder ? 'brightness(0.3)' : 'none'
             }}
             onClick={() => {
-              const isMyOrder = item.company && company.id && item.company === company.id ? true : false;
-
               if (isMyOrder) return;
               addToCart({
                 order: item.id,
