@@ -28,7 +28,7 @@ const ProgressBar = ({ steps, stepNumber, stepName, gap, width }: ProgressBarPro
           return (
             <div className="flex flex-col relative items-center">
               {stepNumber === index + 1 && (
-                <p className="text-navy-blue text-[28px] absolute w-max font-bold tracking-[0.84px] -mt-12">
+                <p className="text-navy-blue text-[28px] absolute w-max font-bold tracking-[0.84px] -mt-12 font-istok-web">
                   {stepName}
                 </p>
               )}

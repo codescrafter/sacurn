@@ -225,7 +225,11 @@ const AccountInformation = () => {
                   <div className="flex flex-col gap-11 w-full justify-start text-white font-semibold 2xl:font-bold text-base xl:text-xl 2.5xl:text-2xl mb-4 xl:mb-6 2.5xl:mb-8 first:pr-16 ">
                     <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px] flex gap-5">
                       <span className="text-xl font-bold tracking-[4px]">名稱</span>:
-                      <span className="text-xl font-bold tracking-[0.6px]">{employee?.last_name || ''}</span>
+                      <span className="text-xl font-bold tracking-[0.6px]">
+                        {employee?.last_name && employee?.last_name.length < 22
+                          ? employee?.last_name
+                          : `${employee?.last_name.slice(0, 10)}...${employee?.last_name.slice(-6)}`}
+                      </span>
                     </p>
                     <p className="whitespace-nowrap min-w-[75px] xl:min-w-[100px] flex gap-5">
                       <span className="text-xl font-bold tracking-[4px]">職稱</span>:
