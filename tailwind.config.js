@@ -230,7 +230,7 @@ module.exports = {
       'light-gray': '#F1F4F5',
       mildGrey: '#E9E8E7',
       offwhite: '#FFFEF8',
-      yellow: '#doC91C',
+      yellow: '#FAC91C',
       bgYellow: '#FFF1A9',
       bgLimeGreen: '#CFE1C8',
       bgBlue: '#A0B8C9',

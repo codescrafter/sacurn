@@ -67,16 +67,13 @@ const OperatorSignUp = () => {
       }
     }
   });
-  const goToLogin = () => {
-    navigate('/login');
-  };
 
   return (
     <div>
       <div className="flex items-center gap-4 pl-13 pt-11 ">
         <button
           className="flex justify-center items-center border-navy-blue border py-2 px-17 gap-2 text-xl text-navy-blue rounded-[3px]"
-          onClick={goToLogin}
+          onClick={() => navigate('/login')}
         >
           <img src="images/login/🦆 icon _log in_.svg" alt="" />
           回到登入
