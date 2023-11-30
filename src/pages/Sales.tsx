@@ -73,6 +73,7 @@ const Sales = () => {
                     id="search"
                     className="block bg-white w-full xl:w-[347px] py-2 pl-3 rounded-[26px] border border-light-grey pr-12 text-silverstone text-xs font-normal"
                     placeholder="輸入想要搜尋的碳權名稱,代號或是關鍵字"
+                    onChange={(e) => getStockList(e.target.value)}
                   />
                   <div className="pointer-events-none border border-r-0 border-t-0 border-b-0 border-l-light-grey py-2 absolute inset-y-1 right-0 flex items-center pl-2 pr-3">
                     <img src="/images/operation-record/search_icon.svg" width={20} height={20} alt="search" />
