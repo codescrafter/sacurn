@@ -27,8 +27,5 @@ export const $DoTwdsS0S1 = {
         timestamp: {
             type: 'string',
         },
-        memberNo: {
-            type: 'string',
-        },
     },
 } as const;

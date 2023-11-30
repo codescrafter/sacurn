@@ -3,8 +3,10 @@ import { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import StockItemBar from '@/components/StockItemBar';
+import { BASE_URL } from '@/constant';
 import { StockItem, useStockListStore } from '@/store/stockList';
 import { CarbonTag } from '@/type';
+import { formatNumberByComma } from '@/util/helper';
 
 import Button from '../components/Button';
 import Navbar from '../components/Navbar';
@@ -22,13 +24,15 @@ enum SaleItemStatus {
 const Sales = () => {
   const [stockItemDetailId, setStockItemDetailId] = useState<StockItem['id'] | null>(null);
   const [selectStockItem, setSelectStockItem] = useState<StockItem | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [keyword, setKeyword] = useState<string>('');
 
   const stockList = useStockListStore((store) => store.stockList);
   const getStockList = useStockListStore((store) => store.getStockList);
   const getStockOrderList = useStockListStore((store) => store.getStockOrderList);
 
   useEffect(() => {
-    if (stockList.length === 0) getStockList();
+    getStockList();
   }, []);
 
   return (
@@ -72,6 +76,11 @@ const Sales = () => {
                     id="search"
                     className="block bg-white w-full xl:w-[347px] py-2 pl-3 rounded-[26px] border border-light-grey pr-12 text-silverstone text-xs font-normal"
                     placeholder="輸入想要搜尋的碳權名稱,代號或是關鍵字"
+                    onChange={(e) => {
+                      const keyword = e.target.value;
+                      getStockList(e.target.value);
+                      setKeyword(keyword);
+                    }}
                   />
                   <div className="pointer-events-none border border-r-0 border-t-0 border-b-0 border-l-light-grey py-2 absolute inset-y-1 right-0 flex items-center pl-2 pr-3">
                     <img src="/images/operation-record/search_icon.svg" width={20} height={20} alt="search" />
@@ -80,7 +89,7 @@ const Sales = () => {
               </div>
             </div>
             {/* sales table */}
-            <div className="yellowScroll w-full h-[81vh] pr-2 xl:pr-[22px] overflow-auto overflow-x-hidden">
+            <div className="yellowScroll w-full h-[81vh] pr-2 xl:pr-[22px] overflow-auto overflow-x-hidden flex-1 max-h-[730px]">
               <div className="flow-root">
                 <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
                   <div className="inline-block min-w-full align-middle sm:px-6 lg:px-8">
@@ -91,7 +100,7 @@ const Sales = () => {
                         borderSpacing: stockItemDetailId === null ? '0 11px' : '0 0'
                       }}
                     >
-                      <thead className="sticky -top-1 z-10">
+                      <thead className="sticky z-10">
                         <tr className="!bg-neutral-250">
                           {TABLE_HEAD?.map((item, index) => (
                             <th
@@ -99,7 +108,8 @@ const Sales = () => {
                               className={classNames('text-left whitespace-nowrap pb-4', {
                                 'pl-[11px] sr-only': index === 0,
                                 'pr-2': index === 1,
-                                'px-2': index !== 0 && index !== 1
+                                'px-2': index !== 0 && index !== 1,
+                                '!w-[40%]': index === 1
                               })}
                             >
                               <span
@@ -107,29 +117,38 @@ const Sales = () => {
                                   'text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer',
                                   {
                                     'justify-center': index === 4 || index === 5
+                                    // increase first child width
                                   }
                                 )}
                               >
                                 {item}
-                                <img
-                                  src="/images/sales/filter_arrows.png"
-                                  width={15}
-                                  height={23}
-                                  alt="filters arrows"
-                                  className="min-w-[15px] h-auto"
-                                />
+                                {index !== 4 && index !== 5 && (
+                                  <img
+                                    src="/images/sales/filter_arrows.png"
+                                    width={15}
+                                    height={23}
+                                    alt="filters arrows"
+                                    className="min-w-[15px] h-auto"
+                                  />
+                                )}
                               </span>
                             </th>
                           ))}
                         </tr>
                       </thead>
-                      <tbody>
-                        {stockList?.map((stockItem) => (
+                      <tbody className="">
+                        {stockList?.map((stockItem, idx) => (
                           <Fragment key={stockItem.id}>
                             <tr
-                              className={classNames('bg-white sales-row h-auto hover:shadow-sales-row', {
-                                '!bg-light-gray': stockItemDetailId === stockItem.id
-                              })}
+                              onClick={() => setActiveIndex(idx)}
+                              className={classNames(
+                                'bg-white sales-row h-auto hover:shadow-sales-row border-2 cursor-pointer',
+                                {
+                                  '!bg-light-gray': stockItemDetailId === stockItem.id,
+                                  'border-bright-blue': idx === activeIndex,
+                                  'border-white': idx !== activeIndex
+                                }
+                              )}
                             >
                               <td className="2xl:pl-[11px] pl-2 w-[0px] pr-2 2xl:pr-4 text-center">
                                 {/* badge */}
@@ -160,20 +179,6 @@ const Sales = () => {
                                       <span className="text-xs whitespace-nowrap font-medium text-grey">序號:</span>
                                       <span className="text-sm font-medium text-grey">{stockItem.serial_number}</span>
                                     </div>
-                                    {/* location */}
-                                    <div className="flex items-center gap-1">
-                                      <span className="text-xs font-medium text-grey">
-                                        <img
-                                          src="/images/sales/location-marker.png"
-                                          width={10}
-                                          height={14}
-                                          alt="location marker"
-                                        />
-                                      </span>
-                                      <span className="text-sm whitespace-nowrap font-medium text-grey">
-                                        {stockItem.location}
-                                      </span>
-                                    </div>
                                   </div>
                                 </div>
                               </td>
@@ -181,12 +186,13 @@ const Sales = () => {
                                 {stockItem.vintage}
                               </td>
                               <td className="py-2 px-2 font-bold text-dark-grey text-sm 2xl:text-lg">
-                                {stockItem.quantity} <span className="!font-medium text-dark-grey">噸</span>
+                                {formatNumberByComma(stockItem.quantity || '')}
+                                <span className="!font-medium text-dark-grey">噸</span>
                               </td>
                               <td className="py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]">
                                 <div className="w-full flex justify-center">
                                   <div className="w-[35px] 2xl:w-[45px] 2xl:h-[45px]">
-                                    <Link to={`/certificate/${stockItem.id}`}>
+                                    <Link to={`/certificate/${stockItem.carbon_credit}`}>
                                       <img
                                         src="/images/sales/file_icon.png"
                                         width={45}
@@ -278,6 +284,15 @@ const Sales = () => {
                 </div>
               </div>
             </div>
+            <a
+              className="rounded-md bg-white-smoke text-navy-blue font-bold shadow-download-btn text-[15px] mt-5 px-10 self-end flex gap-2.5 items-center max-w-[160px] h-[22px] ml-auto mr-8 mb-7"
+              href={`${BASE_URL}/inventory?download=1${keyword === '' ? '' : `&keyword=${keyword}`}`}
+              target="_blank"
+              download
+            >
+              Download
+              <img src="/v2/icon/download-icon.svg" alt="" />
+            </a>
           </div>
         </div>
       </main>

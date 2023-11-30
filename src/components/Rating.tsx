@@ -1,4 +1,6 @@
-import Rating from '@mui/material/Rating';
+import { Fragment } from 'react';
+
+import { RatingStar } from '@/svg';
 
 type CustomRatingProps = {
   count: number;
@@ -6,8 +8,23 @@ type CustomRatingProps = {
 
 const CustomRating = (props: CustomRatingProps) => {
   const { count } = props;
+  const rating = Array.from({ length: count }, (_, i) => i + 1);
+  const findLength = 5 - rating.length;
+  let newRating: number[] = [];
+  if (findLength > 0) {
+    newRating = Array.from({ length: findLength }, (_, i) => i + 1);
+  }
 
-  return <Rating value={count} size="small" readOnly />;
+  return (
+    <Fragment>
+      {rating.map((_, index) => {
+        return <RatingStar key={index} color="#FACF10" />;
+      })}
+      {newRating.map((_, index) => {
+        return <RatingStar key={index} color="#E5E5E5" />;
+      })}
+    </Fragment>
+  );
 };
 
 export default CustomRating;

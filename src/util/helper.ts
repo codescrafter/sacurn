@@ -45,3 +45,9 @@ export const convertFormatToDate = (date: string) => {
 export const formatDate = (date: string) => {
   return new Date(date || '').toLocaleDateString().split('/').reverse().join('/');
 };
+
+export const formatNumberByComma = (value: string | number) => {
+  const updatedValue = value?.toString();
+  const sanitizedValue = updatedValue?.replace(/,/g, '');
+  return Number(sanitizedValue)?.toLocaleString();
+};

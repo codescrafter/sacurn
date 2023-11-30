@@ -1,6 +1,10 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Box, SxProps } from '@mui/material';
 import classNames from 'classnames';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -10,19 +14,107 @@ import { Order } from '@/libs/api';
 import { useCartStore } from '@/store/cart';
 import { useCompanyStore } from '@/store/company';
 import { usePriceListStore } from '@/store/priceList';
+import { FilledRadio, UnFilledRadio } from '@/svg';
 import { MIN_CART_QTY } from '@/util/constants';
+import { formatNumberByComma } from '@/util/helper';
 
 import Navbar from '../components/Navbar';
 
-const ProductDetailList = () => {
+interface ProductDetailProps {
+  isSort: boolean;
+  sortOption: 'asc' | 'desc';
+  setSortOption: (isOption: 'asc' | 'desc') => void;
+  setIsSort: (isSort: boolean) => void;
+}
+
+const ProductDetailList = ({ isSort, sortOption, setSortOption, setIsSort }: ProductDetailProps) => {
   const priceList = usePriceListStore((state) => state.priceList);
-  const company = useCompanyStore((state) => state.company);
+
+  return (
+    <div className="w-full mt-13.7 pl-7 relative">
+      <h1 className="text-[44px] font-semibold leading-10 text-white">{priceList[0] && priceList[0].carbon_name}</h1>
+      <h3 className="text-[26px] leading-9 text-[#ffffffcc]">{priceList[0] && priceList[0].carbon_about}</h3>
+      <div className="flex justify-end">
+        <ClickAwayListener onClickAway={() => setIsSort(false)}>
+          <div>
+            <p
+              className="whitespace-nowrap text-[17px] tracking-[0.51px] leading-normal font-normal text-white cursor-pointer"
+              onClick={() => setIsSort(!isSort)}
+            >
+              Sort: Low to High
+              {isSort ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+            </p>
+            <div>
+              {isSort ? (
+                <Box sx={styles}>
+                  <div className="p-2">
+                    <h6 className="text-dark-grey text-[17px] tracking-[0.51px] font-bold mb-4">Price</h6>
+                    <div
+                      onClick={() => {
+                        setSortOption('asc');
+                        setIsSort(false);
+                      }}
+                      className="flex cursor-pointer justify-between items-center mb-4"
+                    >
+                      <span className="text-dark-grey text-[17px] tracking-[0.51px] font-normal">Low to High</span>
+                      {sortOption === 'asc' ? <FilledRadio /> : <UnFilledRadio />}
+                    </div>
+                    <div
+                      onClick={() => {
+                        setSortOption('desc');
+                        setIsSort(false);
+                      }}
+                      className="flex cursor-pointer justify-between items-center"
+                    >
+                      <span className="text-dark-grey text-[17px] tracking-[0.51px] font-normal">High to Low</span>
+                      {sortOption === 'desc' ? <FilledRadio /> : <UnFilledRadio />}
+                    </div>
+                  </div>
+                </Box>
+              ) : null}
+            </div>
+          </div>
+        </ClickAwayListener>
+      </div>
+
+      <div className="relative overflow-x-auto">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white border-b-2 border-light-grey">
+            <tr>
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px]">
+                單價
+              </th>
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
+                會員代號
+              </th>
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
+                可交易數量
+              </th>
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
+                交易最小單位
+              </th>
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
+                訂購數量
+              </th>
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
+                加入購物車
+              </th>
+            </tr>
+          </thead>
+          <tbody>{priceList?.map((item) => <PriceListItem key={item.id} item={item} />)}</tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+const PriceListItem = ({ item }: { item: Order }) => {
+  const [qty, setQty] = useState(item.min_order_quantity || MIN_CART_QTY);
   const addToCart = useCartStore((state) => state.addToCart);
-  const [qty, setQty] = useState(MIN_CART_QTY);
+  const company = useCompanyStore((state) => state.company);
 
   const onQuantityAdjust = useCallback(
     (value: number, item: Order) => {
-      if (!priceList.length) return;
       const newQty = qty + value;
       const minQty = item.min_order_quantity || MIN_CART_QTY;
       if (newQty >= minQty && newQty <= parseInt(item.remaining_quantity)) {
@@ -32,122 +124,64 @@ const ProductDetailList = () => {
     [qty]
   );
 
+  const isMyOrder = item.company && company.id && item.company === company.id ? true : false;
+
   return (
-    <div className="w-full mt-8 pl-4 relative">
-      <h1 className="text-[44px] font-semibold leading-10 text-white">CarbonCure Concrete Mineralization</h1>
-      <div className="flex justify-between w-full mb-6">
-        <h3 className="text-[26px] leading-9 text-[#ffffffcc]">Project developed by CarbonCure Technologies</h3>
-        <p className="text-xl font-light text-white">
-          Sort: Low to High
-          <img
-            src="/images/products-page/ic_arrow_down.svg"
-            alt="arrow-down"
-            width={30}
-            height={30}
-            className="inline-block ml-2.5 w-7.5 h-7.5"
+    <tr className=" border-b-[2px] border-white-smoke-2 dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl">
+      <th scope="row" align="right" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        ${formatNumberByComma(item.price || '')}
+      </th>
+      <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-center">
+        {formatNumberByComma(item.remaining_quantity || '')} 噸
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-center">
+        {formatNumberByComma(item.min_order_quantity || '')} 噸
+      </td>
+      <td className="px-6 py-4 items-center whitespace-nowrap">
+        <div className="flex justify-center items-center gap-1.5">
+          <button
+            onClick={() => onQuantityAdjust(-1, item)}
+            className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
+          >
+            <img src="/images/products-page/ic_minus.svg" className="mx-auto" alt="arrow-down" width={13} height={2} />
+          </button>
+          <input
+            className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
+            type="number"
+            value={qty}
+            readOnly
           />
-        </p>
-      </div>
-
-      <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white text-lg 2xl:text-xl">
-            <tr>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                單價
-              </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
-                會員編號
-              </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
-                可交易數量
-              </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
-                交易最小單位
-              </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
-                訂購數量
-              </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center">
-                加入購物車
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {priceList?.map((item) => (
-              <tr
-                key={item.id}
-                className=" border-b dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl"
-              >
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {item.price}
-                </th>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.remaining_quantity} 噸</td>
-                <td className="px-6 py-4 whitespace-nowrap text-center">{item.min_order_quantity} 噸</td>
-                <td className="px-6 py-4 items-center whitespace-nowrap">
-                  <div className="flex justify-center items-center gap-1.5">
-                    <button
-                      onClick={() => onQuantityAdjust(-1, item)}
-                      className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
-                    >
-                      <img
-                        src="/images/products-page/ic_minus.svg"
-                        className="mx-auto"
-                        alt="arrow-down"
-                        width={13}
-                        height={2}
-                      />
-                    </button>
-                    <input
-                      className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
-                      type="number"
-                      value={qty}
-                      readOnly
-                    />
-                    <button
-                      onClick={() => onQuantityAdjust(+1, item)}
-                      className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
-                    >
-                      <img
-                        src="/images/products-page/ic_plus.svg"
-                        className="mx-auto"
-                        alt="arrow-down"
-                        width={13}
-                        height={13}
-                      />
-                    </button>
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex justify-center">
-                    <img
-                      src="/images/products-page/ic_add_to_cart.svg"
-                      alt="arrow-down"
-                      width={50}
-                      height={42}
-                      className="cursor-pointer"
-                      style={{
-                        filter: item.company && company.id && item.company === company.id ? 'brightness(0.2)' : 'none'
-                      }}
-                      onClick={() => {
-                        const isMyOrder = item.company && company.id && item.company === company.id ? true : false;
-
-                        if (isMyOrder) return;
-                        addToCart({
-                          order: item.id,
-                          quantity: qty
-                        });
-                      }}
-                    />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+          <button
+            onClick={() => onQuantityAdjust(+1, item)}
+            className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
+          >
+            <img src="/images/products-page/ic_plus.svg" className="mx-auto" alt="arrow-down" width={13} height={13} />
+          </button>
+        </div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="flex justify-center">
+          <img
+            src="/images/products-page/cart01.svg"
+            alt="arrow-down"
+            width={50}
+            height={42}
+            className="cursor-pointer"
+            style={{
+              filter: isMyOrder ? 'brightness(0.3)' : 'none'
+            }}
+            onClick={() => {
+              if (isMyOrder) return;
+              addToCart({
+                order: item.id,
+                quantity: qty
+              });
+            }}
+          />
+        </div>
+      </td>
+    </tr>
   );
 };
 
@@ -155,12 +189,15 @@ function ProductDetail() {
   const { carbonId } = useParams();
 
   const getPriceList = usePriceListStore((state) => state.getPriceList);
+  const [isSort, setIsSort] = useState(false);
+  const [sortOption, setSortOption] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     getPriceList({
-      carbonCreditId: carbonId?.toString()
+      carbonCreditId: carbonId?.toString(),
+      desc: sortOption === 'desc' ? 'true' : 'false'
     });
-  }, []);
+  }, [sortOption]);
 
   return (
     <div className="w-screen relative bg-no-repeat bg-cover bg-[url('../public/images/products-page/cover.png')] h-screen overflow-hidden">
@@ -173,7 +210,16 @@ function ProductDetail() {
         </div>
         <div className="flex-1 pr-5 overflow-scroll xl:overflow-hidden">
           <div className="flex flex-col max-h-[973px] items-end mr-9.5 relative z-50 flex-1 w-full">
-            <ProductDetailList />
+            <ProductDetailList
+              isSort={isSort}
+              sortOption={sortOption}
+              setSortOption={(v) => {
+                setSortOption(v);
+              }}
+              setIsSort={(v) => {
+                setIsSort(v);
+              }}
+            />
           </div>
         </div>
       </div>
@@ -224,4 +270,18 @@ const ImgSlider = () => {
       </Slider>
     </div>
   );
+};
+
+const styles: SxProps = {
+  position: 'absolute',
+  top: 108,
+  right: 0,
+  zIndex: 1,
+  p: 1,
+  border: '2px solid #DFDFDF',
+  bgcolor: 'background.paper',
+  boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+  color: 'black',
+  width: '205px',
+  borderRadius: '5px'
 };

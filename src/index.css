@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Akaya+Telivigala&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Istok+Web:wght@400;700&family=Akaya+Telivigala&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -22,13 +22,24 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
 .font-akaya {
   font-family: 'Akaya Telivigala', cursive;
+}
+.font-istok-web {
+  font-family: 'Istok Web', sans-serif;
+}
+.font-inter {
+  font-family: 'Inter', sans-serif;
 }
 
 /* product-clip-path */
 .product-clip-path {
-  clip-path: polygon(100% 0, 91% 100%, 0 100%, 0 0);
+  clip-path: polygon(98% 0, 91% 100%, 0 100%, 0 0);
 }
 /* product list slider */
 .product-list-slider {
@@ -193,6 +204,11 @@
   scrollbar-gutter: stable;
 }
 
+/* horizontal scroll */
+.yellowScrollHorizontal::-webkit-scrollbar {
+  height: 5px;
+}
+
 /* width */
 .grayScrollNoBg::-webkit-scrollbar {
   width: 4px;
@@ -326,4 +342,3 @@ input[type='number'] {
 .account-information-clip-path {
   clip-path: polygon(0 0, 70% 0, 100% 100%, 0% 100%);
 }
-

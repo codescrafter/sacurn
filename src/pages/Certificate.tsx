@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import CustomButton from '@/components/CustomButton';
 import Navbar from '@/components/Navbar';
+import { BASE_URL } from '@/constant';
 import { useCertificateStore } from '@/store/certificate';
 import { ModalType, useModalStore } from '@/store/modal';
 
@@ -17,12 +18,14 @@ const Certificate = () => {
     <div>
       <Navbar className="relative z-30 !bg-navy-blue h-[70px]" />
       <div className="my-7 px-8">
-        <h2 className="border-l-4 border-navy-blue text-navy-blue text-[28px] pl-4">憑證認證書</h2>
+        <div className="flex items-center gap-2">
+          <img src="/images/certificate/bar.svg" alt="certificate-title" className="" />
+          <h2 className="text-navy-blue text-[28px]">憑證認證書</h2>
+        </div>
         <div className="flex flex-col justify-center items-center mt-2">
-          <div className="w-[1033px] h-[730px]">
-            {/* {pdf && <Document file={pdf} onLoadSuccess={() => setIsPdfLoaded(true)} className="w-full h-full" />} */}
+          <div className="w-[1033px] h-[730px] shadow-certificate-shadow">
             <iframe
-              src={`https://platform-api2.sacurn-dev.com/carbon_credit/certificate/?carbon_credit_id=${carbonId}#toolbar=0&navpanes=0&statusbar=0&view=FitH`}
+              src={`${BASE_URL}/carbon_credit/certificate/?carbon_credit=${carbonId}#toolbar=0&navpanes=0&statusbar=0&view=FitH`}
               onLoad={() => setIsPdfLoaded(true)}
               className="w-full h-full"
             >

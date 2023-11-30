@@ -170,7 +170,7 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
   [ModalType.CardEnvDetectError]: {
     status: UniversalModalStatus.Info,
     icon: '/images/ic_error.svg',
-    title: '商品購買作業',
+    title: '作業錯誤',
     description: '環境監測失敗',
     errorText: '請下載元件',
     buttons: [
@@ -178,8 +178,8 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
         text: '元件下載',
         onClick: () => {
           const anchor = document.createElement('a');
-          anchor.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent('/idPaas/PC元件.zip'));
-          anchor.setAttribute('download', 'PC元件.zip');
+          anchor.setAttribute('href', `${window.location.origin}/idPaas/PC元件.zip`);
+          anchor.setAttribute('target', '_blank');
           anchor.click();
         }
       }
@@ -235,7 +235,7 @@ export const useModalStore = create<ModalState>((set, get) => ({
 
       if (err1.status === HttpStatusCode.Unauthorized) {
         cookies.remove(COOKIE_AUTH_NAME);
-        window.location.reload();
+        window.location.href = `${window.location.origin}/login`;
         return;
       }
 

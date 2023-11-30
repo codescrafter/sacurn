@@ -30,7 +30,7 @@ function UniversalModal() {
   return (
     <>
       {isOpen && (
-        <div className="fixed top-0 left-0 z-50 w-full h-full bg-[#3D3D3D99] flex justify-center items-center">
+        <div className="fixed top-0 left-0 z-[1500] w-full h-full bg-[#3D3D3D99] flex justify-center items-center">
           <div className="relative p-[60px] bg-white max-w-[600px] rounded-[10px] flex flex-col items-center">
             {!isLoading && (
               <img

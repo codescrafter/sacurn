@@ -10,7 +10,7 @@ type EmployeeState = {
   roleList: Group[];
   employeeList: Employee[];
   getRoleList: (page?: number) => void;
-  createEmployee: (data: FormData) => void;
+  createEmployee: (data: FormData) => Promise<boolean>;
   getEmployeeList: (page?: number) => void;
   selectedEmployee?: Employee;
   getSelectedEmployee: (...args: Parameters<typeof apiClient.company.companyEmployeeRetrieve>) => void;
@@ -23,16 +23,20 @@ export const useEmployeeStore = create<EmployeeState>((set, get) => ({
   employeeList: [],
   selectedEmployee: undefined,
   getRoleList: async (page?: number) => {
+    console.log('getRoleList');
     await runTask(async () => {
       const response = await apiClient.company.companyGroupList(page);
       set({ roleList: response.results });
     });
   },
   createEmployee: async (data) => {
+    let isSuccess = false;
     await runTask(async () => {
       await apiClient.company.companyEmployeeCreate(data as unknown as ExtendEmployee);
       await get().getEmployeeList();
+      isSuccess = true;
     });
+    return isSuccess;
   },
   getEmployeeList: async (page?: number) => {
     await runTask(async () => {

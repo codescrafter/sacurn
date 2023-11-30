@@ -9,6 +9,5 @@ export type DoTwdsS0S1 = {
     pkcs1s?: string;
     b64Cert?: string;
     timestamp?: string;
-    memberNo?: string;
 };
 

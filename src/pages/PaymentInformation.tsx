@@ -1,24 +1,30 @@
+import cloneDeep from 'lodash/cloneDeep';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import CustomButton from '@/components/CustomButton';
 import LightLayout from '@/components/LightLayout';
 import TotalPayment from '@/components/TotalPayment';
+import { CartDetailResonse } from '@/libs/api';
 import { CheckoutResult, useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
 
 const PaymentInformation = () => {
   const navigate = useNavigate();
-  const cartDetail = useCartStore((store) => store.cartDetail);
+  // clone it when entry this page
+  const originalCartDetail = useCartStore((store) => store.cartDetail);
   const checkOutCart = useCartStore((store) => store.checkOutCart);
   const open = useModalStore((state) => state.open);
 
+  const [cartDetail, setCartDetail] = useState<CartDetailResonse | null>(null);
   const [checkoutDetail, setCheckoutDetail] = useState<CheckoutResult['checkoutDetail']>(null);
 
   const isCheckout = useMemo(() => checkoutDetail !== null, [checkoutDetail]);
 
   useEffect(() => {
-    if (!cartDetail) navigate('/cart');
+    console.log(originalCartDetail);
+    if (!originalCartDetail) navigate('/cart');
+    else setCartDetail(cloneDeep(originalCartDetail));
   }, []);
 
   const onCheckOut = useCallback(() => {
@@ -49,10 +55,10 @@ const PaymentInformation = () => {
             <div>
               <div className="flex justify-between mb-2.5">
                 <p className="border-l-[7px] border-pale-yellow pl-[20px] text-lg font-bold">商品共計</p>
-                <p className="text-lg font-bold pr-7">NT$ {cartDetail?.total_amount}</p>
+                <p className="text-lg font-bold pr-7 font-istok-web">NT$ {cartDetail?.total_amount}</p>
               </div>
               <div className="px-7">
-                <p className="text-grey text-sm font-bold mb-5">3項(以下含稅金5%及手續費)</p>
+                <p className="text-grey text-sm font-bold mb-5 font-istok-web">3項(以下含稅金5%及手續費)</p>
                 {cartDetail?.product_list?.map((product) => (
                   <TextRow key={product.name} title={product.name} value={`$ ${product.amount}`} />
                 ))}
@@ -69,29 +75,29 @@ const PaymentInformation = () => {
           </div>
           {/* Second col */}
           <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
-            <h4 className="text-xl font-bold text-navy-blue text-center">購買須知</h4>
+            <h4 className="text-xl font-bold text-navy-blue text-center font-istok-web">購買須知</h4>
             <div className="yellowScrollNoBg mr-2 overflow-scroll overflow-x-hidden mt-4">
               <div className="bg-neutral-150 m-4 rounded py-4 pl-1 pr-2">
                 {PURCHASE_INFO_NOTE.map((note) => (
-                  <div key={note.id}>
+                  <div key={note.id} className="font-istok-web text-sm font-bold">
                     <div className="mb-1 flex gap-2 items-center px-2">
-                      <p className="text-base font-medium">{note.id}.</p>
-                      <p className="text-sm">{note.title}</p>
+                      <p className="text-sm font-bold">{note.id}.</p>
+                      <p className="text-sm font-bold">{note.title}</p>
                     </div>
                     <div>
                       {note.content.map((content) => (
                         <div key={content.id}>
                           <div className="flex mb-2 items-baseline gap-2 indent-8">
-                            <p className="text-sm font-medium">{content.id}:</p>
-                            <p className="text-sm indent-0">{content.id === 1.2 ? content.title : content.detail}</p>
+                            <p className="font-bold">{content.id}:</p>
+                            <p className="indent-0 font-bold">{content.id === 1.2 ? content.title : content.detail}</p>
                           </div>
                           <div>
                             {content.id === 1.2 && (
                               <div>
                                 {content.subContent?.map((x) => (
                                   <div className="flex gap-2 indent-16 items-baseline mb-2">
-                                    <p className="text-sm font-medium">{x.id}:</p>
-                                    <p key={x.id} className="text-sm indent-0">
+                                    <p>{x.id}:</p>
+                                    <p key={x.id} className="indent-0">
                                       {x.detail}
                                     </p>
                                   </div>
@@ -107,15 +113,20 @@ const PaymentInformation = () => {
               </div>
             </div>
             <div className="flex justify-center mt-6">
-              <CustomButton onClick={onCheckOut} variant="rounded" isDisabled={isCheckout}>
+              <CustomButton
+                onClick={onCheckOut}
+                variant="rounded"
+                isDisabled={isCheckout}
+                className="text-xl font-bold"
+              >
                 {isCheckout ? '已確認' : '確認付款'}
               </CustomButton>
             </div>
           </div>
           {/* Third col */}
-          {isCheckout && (
+          {isCheckout && cartDetail?.total_amount && (
             <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
-              <TotalPayment checkoutDetail={checkoutDetail} totalPrice={cartDetail?.total_amount || 0} />
+              <TotalPayment checkoutDetail={checkoutDetail} totalPrice={cartDetail?.total_amount} />
             </div>
           )}
         </div>
@@ -142,8 +153,8 @@ interface TextRowProps {
 const TextRow = ({ title, value }: TextRowProps) => {
   return (
     <div className="flex gap-4 justify-between mb-5">
-      <p className="text-lg font-bold text-grey w-[72%]">{title}</p>
-      <p className="text-lg font-bold text-grey  w-[28%] whitespace-nowrap text-end">{value}</p>
+      <p className="text-lg font-bold text-grey w-[72%] font-istok-web">{title}</p>
+      <p className="text-xl font-bold text-grey  w-[28%] whitespace-nowrap text-end font-istok-web">{value}</p>
     </div>
   );
 };

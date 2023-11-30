@@ -7,6 +7,8 @@ export type Order = {
     readonly id: number;
     readonly remaining_quantity: string;
     readonly company_code: string;
+    readonly carbon_name: string;
+    readonly carbon_about: string;
     readonly created_at: string | null;
     readonly updated_at: string | null;
     deleted?: boolean;

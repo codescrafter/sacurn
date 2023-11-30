@@ -1,5 +1,3 @@
-import './App.css';
-
 import ModalContainer from 'react-modal-promise';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -21,7 +19,7 @@ import Modal from './components/Modal/UniversalModal';
 import ProductDetail from './components/ProductDetail';
 import { ProtectedAuthRoute } from './components/ProtectedAuthRoute';
 import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRegisteredRoute';
-import PasswordReset from './pages/PasswordReset';
+import PasswordRecoveryForm from './pages/PasswordRecoveryForm';
 // import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
 import AccountCredit from './pages/v2/AccountCredit';
@@ -33,9 +31,8 @@ import CartV2 from './pages/v2/CartV2';
 import EnterpriseAccount from './pages/v2/EnterpriseAccount';
 import MemberCenter from './pages/v2/MemberCenter';
 import MemberProfile from './pages/v2/MemberProfile';
-import MembershipCardInfo from './pages/v2/MembershipCardInfo';
 import MembershipUpgrade from './pages/v2/MembershipUpgrade';
-import Permission from './pages/v2/Permission';
+import PasswordResetNewPass from './pages/v2/PasswordResetNewPass';
 import PlatformUsage from './pages/v2/PlatformUsage';
 
 const router = createBrowserRouter([
@@ -47,10 +44,6 @@ const router = createBrowserRouter([
   {
     path: '/v2',
     element: <MemberCenter />
-  },
-  {
-    path: '/v2/permission-setting',
-    element: <Permission />
   },
   {
     path: '/v2/operating-instruction',
@@ -218,13 +211,14 @@ const router = createBrowserRouter([
       </ProtectedAuthRoute>
     )
   },
+
   {
-    path: '/password-reset',
-    element: <PasswordReset />
+    path: '/password-recovery',
+    element: <PasswordRecoveryForm />
   },
   {
-    path: '/v2/membership-card-comparison-info',
-    element: <MembershipCardInfo />
+    path: '/password-recovery/new-password',
+    element: <PasswordResetNewPass />
   }
 ]);
 

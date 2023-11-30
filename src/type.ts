@@ -160,6 +160,10 @@ export type AccountInformationTypes = {
   key: string;
   value: string;
 };
+export type AccountInputInfo = {
+  key: string;
+  value: string;
+};
 
 export type PermissionTableHeadingType = {
   img: string;
@@ -194,6 +198,7 @@ export type SignatureConfirmationModalType = {
     isListDisc: boolean;
   }[];
 };
+
 export type MembershipDataItems = {
   id: number;
   deleted: boolean;

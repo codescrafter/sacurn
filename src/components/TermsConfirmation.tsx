@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
+import { useCardStore } from '@/store/card';
 import { useCompanyStore } from '@/store/company';
 import { COOKIE_AUTH_NAME } from '@/store/user';
 import { CompanyRegistrationSteps, MEMBERS_TERMS } from '@/util/constants';
@@ -14,6 +15,7 @@ interface IProps {
 const TermsConfirmation = ({ nextStep }: IProps) => {
   const companyId = getCookie(COOKIE_AUTH_NAME);
   const updateCompany = useCompanyStore((state) => state.updateCompany);
+  const checkGovernmentCard = useCardStore((state) => state.checkGovernmentCard);
 
   const {
     register,
@@ -23,11 +25,16 @@ const TermsConfirmation = ({ nextStep }: IProps) => {
 
   const onSubmit = handleSubmit(async () => {
     if (!companyId) return;
-    const formData = new FormData();
-    formData.append('status', '1');
-    await updateCompany(companyId, formData);
-    const isSuccess = useCompanyStore.getState().isSuccess;
-    if (isSuccess) nextStep(CompanyRegistrationSteps.REGISTRATION_COMPLETED);
+
+    const isOk = await checkGovernmentCard();
+
+    if (isOk) {
+      const formData = new FormData();
+      formData.append('status', '1');
+      await updateCompany(companyId, formData);
+      const isSuccess = useCompanyStore.getState().isSuccess;
+      if (isSuccess) nextStep(CompanyRegistrationSteps.REGISTRATION_COMPLETED);
+    }
   });
 
   return (

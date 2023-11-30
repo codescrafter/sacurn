@@ -34,7 +34,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
   return (
     <div
       className={classNames(
-        'relative bg-white rounded-lg w-[100%] h-[316px] flex justify-center items-center group hover:border-4  transition-all',
+        'relative bg-white rounded-lg w-[100%] h-[316px] flex justify-center items-center group hover:border-4  transition-all cursor-pointer',
         {
           'hover:border-dark-grey': !isActive
         }
@@ -80,7 +80,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
             )}
           />
         </div>
-        <h1 className="font-bold text-xl md:text-base xl:text-xl 2xl:text-2xl">{userName}</h1>
+        <h1 className="font-bold text-xl md:text-base xl:text-xl 2xl:text-2xl font-istok-web">{userName}</h1>
         <p className="font-normal text-dark-grey text-base 2xl:text-xl">{userEmail}</p>
       </div>
     </div>

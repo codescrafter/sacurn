@@ -15,17 +15,20 @@ export class InventoryService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
 
     /**
+     * @param keyword 搜尋關鍵字
      * @param page A page number within the paginated result set.
      * @returns PaginatedExtendedInventoryList
      * @throws ApiError
      */
     public inventoryList(
+        keyword?: string,
         page?: number,
     ): CancelablePromise<PaginatedExtendedInventoryList> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/inventory/',
             query: {
+                'keyword': keyword,
                 'page': page,
             },
         });

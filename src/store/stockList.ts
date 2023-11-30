@@ -13,7 +13,7 @@ export type StockItem = {
 
 type StockListState = {
   stockList: StockItem[];
-  getStockList: (page?: number) => void;
+  getStockList: (keyword?: string, page?: number) => void;
   getStockOrderList: (carbonCreditId: number) => Promise<boolean>;
   updateStockOnSale: (carbonId: number, qty: number, price: number, minUnit: number) => Promise<boolean>;
   updateStockOffShelve: (id: number) => void;
@@ -21,9 +21,9 @@ type StockListState = {
 
 export const useStockListStore = create<StockListState>((set, get) => ({
   stockList: [],
-  getStockList: async (page?: number) => {
+  getStockList: async (keyword?: string, page?: number) => {
     await runTask(async () => {
-      const response = await apiClient.inventory.inventoryList(page);
+      const response = await apiClient.inventory.inventoryList(keyword, page);
       set({ stockList: (response.results || [])?.map((item) => ({ ...item, action: null, orderList: [] })) });
     });
   },
@@ -80,8 +80,6 @@ export const useStockListStore = create<StockListState>((set, get) => ({
           await get().getStockList();
         }
 
-        console.log('isSuccess', isSuccess);
-
         return !isSuccess;
       },
       {
@@ -93,10 +91,38 @@ export const useStockListStore = create<StockListState>((set, get) => ({
 
     return isSuccess;
   },
-  updateStockOffShelve: async (id: number) => {
-    await runTask(async () => {
-      await apiClient.trade.tradeOrderSellDestroy(id);
+  updateStockOffShelve: async (orderId: number) => {
+    let isSuccess = false;
+    await runTask(
+      async () => {
+        isSuccess = await useCardStore.getState().checkMemberCard(
+          async () => {
+            return await apiClient.twid.twidGenPkcs7TbsOrderTakeOffCreate({
+              order: orderId
+            });
+          },
+          async (twid_record, b64Cert, pkcs1) => {
+            await apiClient.trade.tradeOrderSellTakeOffCreate(twid_record.toString(), {
+              order: orderId,
+              b64Cert,
+              pkcs1
+            });
+          }
+        );
+
+        return !isSuccess;
+      },
+      {
+        onComplete: () => {
+          if (isSuccess) return ModalType.MakeStockOnSale;
+        }
+      }
+    );
+
+    if (isSuccess) {
       await get().getStockList();
-    });
+    }
+
+    return isSuccess;
   }
 }));
