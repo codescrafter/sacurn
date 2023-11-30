@@ -10,7 +10,7 @@ import GraphCard from './GraphCard';
 
 const SalesAreaGraph = () => {
   const [series, setSeries] = useState<number[]>([20, 30, 90, 7]);
-  const [labels, setLabels] = useState<string[]>(['A', 'B', 'C', 'D']);
+  const [labels, setLabels] = useState<string[]>(['A', 'B', 'C']);
   const [activeButton, setActiveButton] = useState<number>(1);
   const getCategoriesData = useInventoryStore((state) => state.getCategoriesData);
   const categoriesData = useInventoryStore((state) => state.categoriesData);
@@ -20,14 +20,25 @@ const SalesAreaGraph = () => {
   };
 
   const options: ApexOptions = {
+    states: {
+      active: {
+        filter: {
+          type: 'none' /* none, lighten, darken */
+        }
+      }
+    },
     plotOptions: {
       pie: {
         customScale: 1
       }
     },
     labels: labels,
-    colors: ['#1D70BD', '#FFD600', '#68A362', '#C4B0FD'],
+    colors: ['#FFD600', '#68A362', '#1D70BD'],
+
     chart: {
+      selection: {
+        enabled: false
+      },
       type: 'pie',
       width: 440,
       events: {

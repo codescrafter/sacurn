@@ -86,7 +86,9 @@ const UserInfoForm = () => {
   return (
     <form onSubmit={onSubmit}>
       <div className="rounded-mdlg bg-trans-white min-[1400px]:py-6.2 min-[1200px]:py-4.7 py-3 min-[1400px]:px-8 min-[1200px]:px-6 px-4 mt-[146px] w-max flex flex-col bg-blend-lighten min-[1400px]:gap-4.5 gap-3 ml-10">
-        <p className="text-navy-blue min-[1500px]:text-lg min-[1300px]:text-base text-mdbase font-bold">| 新增使用者</p>
+        <p className="text-navy-blue min-[1500px]:text-lg min-[1300px]:text-base text-mdbase font-bold font-istok-web">
+          | 新增使用者
+        </p>
         <div className="flex min-[1500px]:gap-8 min-[1300px]:gap-6.5 gap-5 mt-2.5">
           <div className="relative mt-[65px]">
             <IconButton component="label" className="relative z-50 ">
@@ -131,7 +133,7 @@ const UserInfoForm = () => {
           </div>
           <div className="flex flex-col justify-between min-[1600px]:max-w-[415px] min-[1500px]:max-w-[375px] min-[1300px]:max-w-[325px] max-w-[265px]">
             <div className="flex  min-[1600px]:gap-7.5 min-[1500px]:gap-6 min-[1300px]:gap-5.5 gap-5 self-end">
-              <p className="min-[1600px]:text-lg min-[1500px]:text-base text-mdbase text-navy-blue font-bold min-[1600px]:mt-2.5 min-[1500px]:mt-2 min-[1300px]:mt-1.5 min-[1200px]:mt-1 mt-0.5">
+              <p className="min-[1600px]:text-lg min-[1500px]:text-base text-mdbase text-navy-blue font-bold min-[1600px]:mt-2.5 min-[1500px]:mt-2 min-[1300px]:mt-1.5 min-[1200px]:mt-1 mt-0.5 font-istok-web">
                 操作權限
               </p>
               <CustomSelect setValue={setValue} options={roleList.map((role) => role.name)} />
@@ -144,7 +146,7 @@ const UserInfoForm = () => {
                   {...register('confirm_info')}
                 />
                 <div className="flex flex-col">
-                  <p className="text-navy-blue min-[1600px]:text-base min-[1500px]:text-sm min-[1300px]:text-xs text-xms font-bold break-normal">
+                  <p className="text-navy-blue min-[1600px]:text-base min-[1500px]:text-sm min-[1300px]:text-xs text-xms font-bold break-normal font-istok-web">
                     確認後無法修改, 系統將自動寄送email至指定信箱進行身分驗證。
                   </p>
                   {errors && errors.confirm_info && (

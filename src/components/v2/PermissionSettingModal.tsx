@@ -16,7 +16,7 @@ const PermissionSettingModal = () => {
           <Backdrop open={isPermissionModalOpen} onClick={() => togglePermissionModal()} sx={{ zIndex: '20' }} />
 
           <div className="w-[80vw] max-w-[1035px] left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] absolute bg-white h-[76vh] rounded-[20px] pt-[56px] pl-[42px] pr-[25px] pb-6 z-20 flex flex-col">
-            <h1 className="text-3xl text-navy-blue font-bold max-[1400px]:text-xl mb-5">權限設定說明</h1>
+            <h1 className="!text-3xl text-navy-blue font-bold max-[1400px]:text-xl mb-5">權限設定說明</h1>
             <div className="relative">
               <p className="text-xl font-bold ml-9 mb-5">權限的區分？</p>
               <img
