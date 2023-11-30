@@ -141,25 +141,6 @@ const UserInfoForm = () => {
               </p>
               <CustomSelect setValue={setValue} options={roleList.map((role) => role.name)} />
             </div>
-            <div className="flex flex-col">
-              <div className="flex gap-2 w-[95%] self-end">
-                <input
-                  type="checkbox"
-                  className="min-[1600px]:h-7 min-[1500px]:h-6 min-[1300px]:h-5 h-3.5 min-[1600px]:w-7 min-[1500px]:w-6 min-[1300px]:w-5"
-                  {...register('confirm_info')}
-                />
-                <div className="flex flex-col">
-                  <p className="text-navy-blue min-[1600px]:text-base min-[1500px]:text-sm min-[1300px]:text-xs text-xms font-bold break-normal font-istok-web">
-                    確認後無法修改, 系統將自動寄送email至指定信箱進行身分驗證。
-                  </p>
-                  {errors && errors.confirm_info && (
-                    <p className="min-[1500px]:text-xs min-[1300px]:text-xms text-xxs text-bright-red">
-                      {errors.confirm_info?.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div className="flex min-[1600px]:gap-7.5 min-[1500px]:gap-6.5 min-[1300px]:gap-5 gap-4.5 self-end">
