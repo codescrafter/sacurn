@@ -158,7 +158,7 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
                   </div>
                   <h3 className="text-[32px] font-bold text-[#888] text-center mb-5">環境監測成功</h3>
                   <p className="mb-9 text-[26px] font-bold leading-[22px] text-[#FD1515]">
-                    請插入 {type === CardType.GovernmentCard ? '工商憑證' : '會員卡'}並輸入密碼
+                    請插入{type === CardType.GovernmentCard ? '工商憑證' : '會員卡'}並輸入密碼
                   </p>
                   <form className="flex flex-col items-center w-full mb-[22px]" onSubmit={handleSubmit(onResolve)}>
                     <div className="w-4/5 bg-snowflake-grey shadow-input-box rounded-[18px] flex items-center 2xl:h-[53px] h-10 mt-5 mb-[22px]">

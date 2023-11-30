@@ -24,7 +24,11 @@ const Schema = yup
       .required('例如：0x-000111 或 09xx-000111')
       .matches(/^09\d{8}$/, '例如：0x-000111 或 09xx-000111'),
     tel_extension: yup.string().optional(),
-    group_name: yup.string().required('需要操作權限')
+    group_name: yup.string().required('需要操作權限'),
+    confirm: yup
+      .boolean()
+      .required('請務必確認勾選此框。')
+      .test('is-true', '請務必確認勾選此框。', (value) => value === true)
   })
   .required();
 
@@ -140,6 +144,25 @@ const UserInfoForm = () => {
                 操作權限
               </p>
               <CustomSelect setValue={setValue} options={roleList.map((role) => role.name)} />
+            </div>
+            <div className="flex flex-col">
+              <div className="flex gap-2 w-[95%] self-end">
+                <input
+                  type="checkbox"
+                  className="min-[1600px]:h-7 min-[1500px]:h-6 min-[1300px]:h-5 h-3.5 min-[1600px]:w-7 min-[1500px]:w-6 min-[1300px]:w-5"
+                  {...register('confirm')}
+                />
+                <div className="flex flex-col">
+                  <p className="text-navy-blue min-[1600px]:text-base min-[1500px]:text-sm min-[1300px]:text-xs text-xms font-bold break-normal font-istok-web">
+                    請確認帳號資料填寫無誤，完成新增作業後，系統將自動寄送密碼設定至指定信箱。
+                  </p>
+                  {errors && errors.confirm && (
+                    <p className="min-[1500px]:text-xs min-[1300px]:text-xms text-xxs text-bright-red">
+                      {errors.confirm?.message}
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>

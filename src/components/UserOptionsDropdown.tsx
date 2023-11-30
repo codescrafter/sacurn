@@ -112,7 +112,7 @@ const UserMenu = () => {
           sx={{ color: 'black', display: 'flex', justifyContent: 'center', fontSize: '18px' }}
           className="text-black hover:text-navy-blue active:text-navy-blue"
         >
-          設定
+          登出
         </MenuItem>
       </div>
     </div>
