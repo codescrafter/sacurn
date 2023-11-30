@@ -129,7 +129,7 @@ const Layout = ({ children, variant }: IProps) => {
                   </p>
                   <RangeSlider value={(ordersInfo.acc_point || 0 / ordersInfo?.upgrade?.points) * 100} />
                 </div>
-                <div className="flex gap-[31px] items-center mt-6 min-[1400px]:mt-12">
+                <div className="flex gap-[31px] items-center mt-6 min-[1400px]:mt-12 relative z-10">
                   {MEMBERSHIP_STEPS.map((step) => (
                     <div
                       key={step.id}

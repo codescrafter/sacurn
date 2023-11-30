@@ -23,6 +23,7 @@ enum SaleItemStatus {
 const Sales = () => {
   const [stockItemDetailId, setStockItemDetailId] = useState<StockItem['id'] | null>(null);
   const [selectStockItem, setSelectStockItem] = useState<StockItem | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const stockList = useStockListStore((store) => store.stockList);
   const getStockList = useStockListStore((store) => store.getStockList);
@@ -92,7 +93,7 @@ const Sales = () => {
                         borderSpacing: stockItemDetailId === null ? '0 11px' : '0 0'
                       }}
                     >
-                      <thead className="sticky -top-1 z-10">
+                      <thead className="sticky z-10">
                         <tr className="!bg-neutral-250">
                           {TABLE_HEAD?.map((item, index) => (
                             <th
@@ -129,12 +130,18 @@ const Sales = () => {
                         </tr>
                       </thead>
                       <tbody className="">
-                        {stockList?.map((stockItem) => (
+                        {stockList?.map((stockItem, idx) => (
                           <Fragment key={stockItem.id}>
                             <tr
-                              className={classNames('bg-white sales-row h-auto hover:shadow-sales-row', {
-                                '!bg-light-gray': stockItemDetailId === stockItem.id
-                              })}
+                              onClick={() => setActiveIndex(idx)}
+                              className={classNames(
+                                'bg-white sales-row h-auto hover:shadow-sales-row border-2 cursor-pointer',
+                                {
+                                  '!bg-light-gray': stockItemDetailId === stockItem.id,
+                                  'border-bright-blue': idx === activeIndex,
+                                  'border-white': idx !== activeIndex
+                                }
+                              )}
                             >
                               <td className="2xl:pl-[11px] pl-2 w-[0px] pr-2 2xl:pr-4 text-center">
                                 {/* badge */}
