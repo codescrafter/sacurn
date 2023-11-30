@@ -366,7 +366,7 @@ export const WISHLIST_DATA: WishlistTypes[] = [
 export const ProgressBarItems: string[] = [
   '填寫企業資料',
   '填寫企業代表人資料',
-  '填寫寫金融機構帳戶資料',
+  '填寫金融機構帳戶資料',
   '服務條款確認',
   '註冊完成'
 ];

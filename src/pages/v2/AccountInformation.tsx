@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Avatar, IconButton } from '@mui/material';
+// import { Avatar, IconButton } from '@mui/material';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -34,9 +34,6 @@ const Schema = yup.object({
 });
 
 const AccountInformation = () => {
-  // const selectedEmployee = useEmployeeStore((state) => state.selectedEmployee);
-  // const getSelectedEmployee = useEmployeeStore((state) => state.getSelectedEmployee);
-  // const updateEmployeeDetails = useEmployeeStore((state) => state.updateEmployeeDetails);
   const [company, employee, getCompanyEmployee, updateCompanyEmployee] = useCompanyStore((state) => [
     state.company,
     state.employee,
@@ -48,7 +45,7 @@ const AccountInformation = () => {
     if (!employee) getCompanyEmployee();
   }, []);
 
-  const [file, setFile] = useState<string>('/v2/account-pic.svg');
+  // const [file, setFile] = useState<string>('/v2/account-pic.svg');
   const [isFormActive, setIsFormActive] = useState(false);
 
   const {
@@ -99,15 +96,15 @@ const AccountInformation = () => {
     ];
   }, []);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      try {
-        setFile(URL.createObjectURL(event.target.files[0]));
-      } catch (err) {
-        return;
-      }
-    }
-  };
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files) {
+  //     try {
+  //       setFile(URL.createObjectURL(event.target.files[0]));
+  //     } catch (err) {
+  //       return;
+  //     }
+  //   }
+  // };
 
   const onSubmit = handleSubmit(async (values) => {
     const isSuccess = await updateCompanyEmployee({
@@ -134,7 +131,7 @@ const AccountInformation = () => {
                     <span className="">公司資訊</span>
                   </h2>
                 </div>
-                <div className="relative">
+                {/* <div className="relative">
                   <IconButton component="label" className="relative z-50 ">
                     <label
                       className="absolute min-[1600px]:text-sm min-[1500px]:text-xs text-xms z-40 text-white cursor-pointer"
@@ -150,7 +147,7 @@ const AccountInformation = () => {
                       />
                     </div>
                   </IconButton>
-                </div>
+                </div> */}
                 <div className="mt-5 2.5xl:mt-5">
                   {accountInfoList.map(({ key, value }) => (
                     <div
