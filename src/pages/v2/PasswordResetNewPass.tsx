@@ -45,7 +45,7 @@ const PasswordResetNewPass = () => {
       <div className="flex-1 bg-smoke flex justify-center items-center">
         <div className="bg-white w-[867px] h-[487px] px-11 py-9 max-w-[90%] mx-auto rounded-[20px]">
           <div className="flex items-center gap-[34px]">
-            <h3 className="text-[32px] font-bold text-navy-blue">會員密碼重設</h3>
+            <h3 className="text-[32px] font-bold text-navy-blue">會員密碼設定</h3>
             <hr className="border-navy-blue border flex-1" />
           </div>
           <div className="w-full flex flex-col flex-1 max-w-[377px] mx-auto gap-[18px] mt-16">

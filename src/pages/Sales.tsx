@@ -89,7 +89,7 @@ const Sales = () => {
               </div>
             </div>
             {/* sales table */}
-            <div className="yellowScroll w-full h-[81vh] pr-2 xl:pr-[22px] overflow-auto overflow-x-hidden flex-1 max-h-[730px]">
+            <div className="yellowScroll w-full h-[81vh] pr-2 xl:pr-[22px] overflow-auto overflow-x-hidden flex-1 max-h-[780px]">
               <div className="flow-root">
                 <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
                   <div className="inline-block min-w-full align-middle sm:px-6 lg:px-8">
@@ -280,19 +280,21 @@ const Sales = () => {
                         ))}
                       </tbody>
                     </table>
+                    {stockList.length > 0 && (
+                      <a
+                        className="rounded-md bg-white-smoke text-navy-blue font-bold shadow-download-btn text-[15px] mt-5 px-10 self-end flex gap-2.5 items-center max-w-[160px] h-[22px] ml-auto mr-8 mb-7"
+                        href={`${BASE_URL}/inventory?download=1${keyword === '' ? '' : `&keyword=${keyword}`}`}
+                        target="_blank"
+                        download
+                      >
+                        Download
+                        <img src="/v2/icon/download-icon.svg" alt="" />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-            <a
-              className="rounded-md bg-white-smoke text-navy-blue font-bold shadow-download-btn text-[15px] mt-5 px-10 self-end flex gap-2.5 items-center max-w-[160px] h-[22px] ml-auto mr-8 mb-7"
-              href={`${BASE_URL}/inventory?download=1${keyword === '' ? '' : `&keyword=${keyword}`}`}
-              target="_blank"
-              download
-            >
-              Download
-              <img src="/v2/icon/download-icon.svg" alt="" />
-            </a>
           </div>
         </div>
       </main>

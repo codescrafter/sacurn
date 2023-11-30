@@ -101,7 +101,7 @@ const TermsConfirmation = ({ nextStep }: IProps) => {
           </button>
         </div>
 
-        <h3 className="font-bold mb-5.5 text-dark-grey">下滑至文章底部即可勾選同意</h3>
+        <h3 className="font-bold mb-5.5 text-dark-grey relative z-10">下滑至文章底部即可勾選同意</h3>
         <div className="mb-5.5">
           <div className="flex gap-2 items-center">
             <input type="checkbox" {...register('terms-and-conditions', { required: true })} />

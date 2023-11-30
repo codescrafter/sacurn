@@ -32,15 +32,14 @@ const PasswordRecoveryCodeNotifier = () => {
     <div className="w-[90%]  mx-auto flex flex-col gap-5 py-5 ">
       <div className="w-full shadow-completed-box bg-white rounded-[20px] px-18 py-6 2xl:py-10 flex flex-col gap-9 2xl:gap-15 min-[1700px]:h-[470px]">
         <div className="flex gap-5  justify-between items-center ">
-          <h2 className="text-navy-blue font-bold text-base lg:text-lg xl:text-2xl 2xl:text-3xl">
-            寄送通知信動態驗證碼
-          </h2>
+          <h2 className="text-navy-blue font-bold text-base lg:text-lg xl:text-2xl 2xl:text-3xl">寄送密碼變更連結</h2>
           <hr className="border-navy-blue border w-[75%]" />
         </div>
         <div className="flex justify-between items-center ">
-          <p className="w-[500px] text-black font-normal leading-8 text-base lg:text-lg xl:text-xl ">
-            系統將寄送驗證通知信至您留存於本行的電子郵件信箱
-            <span className="text-bright-red">{userEmail}</span>，請確認電子信箱是否正確
+          <p className="w-[500px] lg:w-[550px] xl:w-[600px]  text-black font-normal leading-8 text-base lg:text-lg xl:text-xl ">
+            系統將寄送密碼變更連結至您的電子郵件信箱
+            <span className="text-bright-red whitespace-nowrap">{userEmail}</span>
+            ,請確認電子信箱是否正確。
           </p>
           <CustomButton
             onClick={handleSendVerification}
@@ -49,7 +48,7 @@ const PasswordRecoveryCodeNotifier = () => {
               buttonClicked && secondsFromLastCode < 120 ? '!bg-white-smoke !text-grey border-gainsbro border' : ''
             }`}
           >
-            {!buttonClicked || secondsFromLastCode > 120 ? '寄送驗證碼' : `${120 - secondsFromLastCode}秒後重寄`}
+            {!buttonClicked || secondsFromLastCode > 120 ? '寄送密碼變更連結' : `${120 - secondsFromLastCode}秒後重寄`}
           </CustomButton>
         </div>
         <div className="flex flex-col gap-1 text-black  text-sm md:text-base lg:text-lg xl:text-xl ">
