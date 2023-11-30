@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { useEmployeeStore } from '@/store/employee';
@@ -12,33 +13,22 @@ import CustomButton from '../CustomButton';
 import CustomInput from './CustomInput';
 import CustomSelect from './CustomSelect';
 
-export interface UserInfoFormValues {
-  last_name: string;
-  job_title: string;
-  email: string;
-  tel: string;
-  tel_extension: string;
-  group_name: string;
-  confirm_info: boolean;
-}
-
 const Schema = yup
   .object({
     last_name: yup.string().required('姓名為必填項'),
     job_title: yup.string().required('職位名稱為必填項'),
+    username: yup.string().required('帳號名稱為必填項'),
     email: yup.string().email('Enter valid address').required('電子郵件為必填項'),
     tel: yup
       .string()
       .required('例如：0x-000111 或 09xx-000111')
       .matches(/^09\d{8}$/, '例如：0x-000111 或 09xx-000111'),
-    tel_extension: yup.string().required('需要延期'),
-    group_name: yup.string().required('需要操作權限'),
-    confirm_info: yup
-      .boolean()
-      .required('請務必確認勾選此框。')
-      .test('is-true', '請務必確認勾選此框。', (value) => value === true)
+    tel_extension: yup.string().optional(),
+    group_name: yup.string().required('需要操作權限')
   })
   .required();
+
+export type UserInfoFormValues = yup.InferType<typeof Schema>;
 
 const UserInfoForm = () => {
   const {
@@ -51,6 +41,7 @@ const UserInfoForm = () => {
   const roleList = useEmployeeStore((store) => store.roleList);
   const getRoleList = useEmployeeStore((store) => store.getRoleList);
   const createEmployee = useEmployeeStore((store) => store.createEmployee);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getRoleList();
@@ -70,17 +61,22 @@ const UserInfoForm = () => {
     }
   }
 
-  const onSubmit = handleSubmit((value) => {
+  const onSubmit = handleSubmit(async (value) => {
     const formData = new FormData();
     fileSource && formData.append('photo', fileSource);
     formData.append('last_name', value.last_name);
     formData.append('job_title', value.job_title);
+    formData.append('username', value.username);
     formData.append('email', value.email);
     formData.append('tel', value.tel);
-    formData.append('tel_extension', value.tel_extension);
+    if (value.tel_extension) formData.append('tel_extension', value.tel_extension);
     formData.append('group_name', value.group_name);
 
-    createEmployee(formData);
+    const isSuccess = await createEmployee(formData);
+
+    if (isSuccess) {
+      navigate('/v2/enterprise-account');
+    }
   });
 
   return (
@@ -118,7 +114,16 @@ const UserInfoForm = () => {
               type="text"
               register={register}
             />
+            <CustomInput<UserInfoFormValues>
+              errors={errors}
+              label="帳號"
+              id="username"
+              type="text"
+              register={register}
+            />
             <CustomInput<UserInfoFormValues> errors={errors} label="Email" id="email" type="text" register={register} />
+          </div>
+          <div className="flex flex-col gap-y-4.2 min-[1600px]:max-w-[415px] min-[1500px]:max-w-[375px] min-[1300px]:max-w-[325px] max-w-[265px]">
             <CustomInput<UserInfoFormValues> errors={errors} label="電話" id="tel" type="text" register={register} />
             <CustomInput<UserInfoFormValues>
               errors={errors}
@@ -128,41 +133,22 @@ const UserInfoForm = () => {
               register={register}
               className="!w-[60%]"
             />
-          </div>
-          <div className="flex flex-col justify-between min-[1600px]:max-w-[415px] min-[1500px]:max-w-[375px] min-[1300px]:max-w-[325px] max-w-[265px]">
             <div className="flex  min-[1600px]:gap-7.5 min-[1500px]:gap-6 min-[1300px]:gap-5.5 gap-5 self-end">
               <p className="min-[1600px]:text-lg min-[1500px]:text-base text-mdbase text-navy-blue font-bold min-[1600px]:mt-2.5 min-[1500px]:mt-2 min-[1300px]:mt-1.5 min-[1200px]:mt-1 mt-0.5">
                 操作權限
               </p>
               <CustomSelect setValue={setValue} options={roleList.map((role) => role.name)} />
             </div>
-            <div className="flex flex-col">
-              <div className="flex gap-2 w-[95%] self-end">
-                <input
-                  type="checkbox"
-                  className="min-[1600px]:h-7 min-[1500px]:h-6 min-[1300px]:h-5 h-3.5 min-[1600px]:w-7 min-[1500px]:w-6 min-[1300px]:w-5"
-                  {...register('confirm_info')}
-                />
-                <div className="flex flex-col">
-                  <p className="text-navy-blue min-[1600px]:text-base min-[1500px]:text-sm min-[1300px]:text-xs text-xms font-bold break-normal">
-                    確認後無法修改, 系統將自動寄送email至指定信箱進行身分驗證。
-                  </p>
-                  {errors && errors.confirm_info && (
-                    <p className="min-[1500px]:text-xs min-[1300px]:text-xms text-xxs text-bright-red">
-                      {errors.confirm_info?.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div className="flex min-[1600px]:gap-7.5 min-[1500px]:gap-6.5 min-[1300px]:gap-5 gap-4.5 self-end">
-          <CustomButton
-            children="取消"
-            variant="secondary"
-            className="min-[1600px]:w-31 min-[1600px]:h-8.7 min-[1500px]:w-26.7 min-[1500px]:h-7.5 w-23.2 h-6.7   border rounded-mdlg min-[1600px]:text-lg min-[1500px]:text-base text-sm font-bold"
-          />
+          <Link to="/v2/enterprise-account">
+            <CustomButton
+              children="取消"
+              variant="secondary"
+              className="min-[1600px]:w-31 min-[1600px]:h-8.7 min-[1500px]:w-26.7 min-[1500px]:h-7.5 w-23.2 h-6.7   border rounded-mdlg min-[1600px]:text-lg min-[1500px]:text-base text-sm font-bold"
+            />
+          </Link>
           <CustomButton
             children="確認"
             variant="primary"
