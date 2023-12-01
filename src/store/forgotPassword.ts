@@ -26,7 +26,7 @@ type ForgotPasswordState = {
 export const useForgotPasswordStore = create<ForgotPasswordState>((set, get) => ({
   userEmail: '',
   isTermsModalOpen: false,
-  currentStep: ForgotPasswordFillingSteps.DYNAMIC_CODE_NOTIFIER,
+  currentStep: ForgotPasswordFillingSteps.PASSWORD_RECOVERY_FILLING,
   isRequireTermsReadModalOpen: false,
   isDoNotAgreeTermsModalOpen: false,
   isAgreedToTerms: false,
