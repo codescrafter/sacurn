@@ -350,7 +350,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                   <div className="flex flex-row my-1">
                     <select
                       className={classNames(
-                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
+                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xsb border-r-8 border-white',
                         Style
                       )}
                       value={firstAddress}
@@ -379,7 +379,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                     </select>
                     <select
                       className={classNames(
-                        'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
+                        'min-[1700px]:w-23.2 min-[1550px]:w-25 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs border-r-8 border-white',
                         Style
                       )}
                       id="selectCompanyArea"
@@ -478,7 +478,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                         <div className="flex flex-row my-1">
                           <select
                             className={classNames(
-                              'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
+                              'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs border-r-8 border-white',
                               Style
                             )}
                             value={contactFirstAddress}
@@ -498,7 +498,7 @@ const CompanyInfoForm = ({ nextStep }: IProps) => {
                           </select>
                           <select
                             className={classNames(
-                              'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs',
+                              'min-[1700px]:w-23.2 min-[1550px]:w-20 w-19 min-[1550px]:text-mdbase min-[1200px]:text-xs text-xs border-r-8 border-white',
                               Style
                             )}
                             value={contactSecondAddress}
