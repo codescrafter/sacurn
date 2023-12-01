@@ -153,7 +153,24 @@ const Cart = () => {
                   }}
                   className="text-[#F00] mr-2"
                 />
-                我瞭解並同意Sacurn服務條款與隱私權政策
+                我瞭解並同意Sacurn
+                <Link
+                  to="/pdf/Membership_Terms_Service.pdf"
+                  target="_blank"
+                  download="土星_平台條款內容"
+                  className="hover:underline cursor-pointer"
+                >
+                  服務條款
+                </Link>
+                與
+                <Link
+                  to="/pdf/Membership_Terms_Service.pdf"
+                  target="_blank"
+                  download="土星_平台條款內容"
+                  className="hover:underline cursor-pointer"
+                >
+                  隱私權政策
+                </Link>
               </p>
               {error && <p className="text-[#f00] text-xs ml-12">請務必確認勾選此框，才能點選「前往付款」。</p>}
               <hr className="border-silverstone 2xl:mt-8 mt-4 2xl:mb-5 mb-3" />
