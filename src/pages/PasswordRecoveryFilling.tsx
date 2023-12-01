@@ -46,8 +46,8 @@ const PasswordRecoveryFilling = () => {
   return (
     <form onSubmit={onSubmit}>
       <div className=" w-[90%] mx-auto flex flex-col gap-7  min-[1700px]:gap-10 py-5 ">
-        <div className="w-full px-20 py-8 min-[1700px]:py-12 flex  justify-left gap-18 min-[1400px]:gap-44 rounded-2.5xl bg-white shadow-completed-box">
-          <div className="flex gap-5 text-  sm lg:text-base xl:text-xl items-center">
+        <div className="w-full px-20 py-8 min-[1700px]:py-12 flex justify-center gap-18 min-[1400px]:gap-44 rounded-2.5xl bg-white shadow-completed-box border">
+          <div className="flex gap-5 text-  sm lg:text-base xl:text-xl items-center ">
             <label htmlFor="" className="text-navy-blue font-bold">
               <span className="text-bright-red"> *</span>
               email
@@ -56,7 +56,7 @@ const PasswordRecoveryFilling = () => {
               <input
                 type="text"
                 placeholder={'請輸入完整email'}
-                className=" text-grey border border-navy-blue py-2 pl-2 w-[355px]  lg:w-[290px] xl:w-[355px] rounded-md"
+                className=" text-grey border border-navy-blue py-2 pl-2 w-[355px]  lg:w-[290px] xl:w-[355px] rounded-md "
                 {...register('email')}
               />
               {errors.email && (
