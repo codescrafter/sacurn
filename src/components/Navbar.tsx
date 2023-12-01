@@ -20,7 +20,7 @@ const Navbar = ({ className }: IProps) => {
         [`${className}`]: className
       })}
     >
-      <Link to="/">
+      <Link to="/login">
         <img src="/images/navbar/sacurn-logo.svg" width={192} height={39} alt="sacurn" />
       </Link>
       <div className="flex items-center">
