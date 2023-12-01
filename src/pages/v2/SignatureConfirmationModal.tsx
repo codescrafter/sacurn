@@ -11,7 +11,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { createModal } from 'react-modal-promise';
 import { InstanceProps } from 'react-modal-promise/lib/types';
-import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
 import CustomButton from '@/components/CustomButton';
@@ -138,15 +137,15 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
                   variant="secondary"
                   className="rounded-md bg-white-smoke font-bold shadow-md text-lg mt-3 px-10 self-end flex gap-2.5 items-center "
                 >
-                  <Link
+                  <a
                     className="rounded-md bg-white-smoke text-navy-blue font-bold shadow-download-btn text-[15px] mt-3 px-10 self-end flex gap-2.5 items-center max-w-[160px] h-[22px] ml-auto mr-8"
-                    to="/pdf/Membership_Terms_Service.pdf"
+                    href="/pdf/Membership_Terms_Service.pdf"
                     target="_blank"
                     download="土星_平台條款內容"
                   >
                     Download
                     <img src="/v2/icon/download-icon.svg" alt="" />
-                  </Link>
+                  </a>
                 </CustomButton>
               </Box>
               <Box className="w-[35%] flex justify-center item-center">
