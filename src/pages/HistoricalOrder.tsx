@@ -1,4 +1,4 @@
-import dateFormat from 'dateformat';
+import dayjs from 'dayjs';
 import _ from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import * as yup from 'yup';
@@ -7,6 +7,7 @@ import { BASE_URL } from '@/constant';
 import { TransactionRecord } from '@/libs/api';
 import { useHistoryStore } from '@/store/history';
 import { TableBodyItem } from '@/types';
+import calcRange from '@/util/calcRange';
 
 import CustomSelect from '../components/CustomSelect';
 import CustomTable from '../components/CustomTable';
@@ -22,6 +23,8 @@ const schema = yup
     status: yup.string().optional()
   })
   .required();
+
+const TABLE_HEAD = ['訂單號碼', '商品名稱', '買入/賣出', '單價', '數量(噸)', '總金額', '訂單狀態'];
 
 function HistoricalOrder() {
   const [open, setOpen] = useState<boolean>(false);
@@ -42,10 +45,6 @@ function HistoricalOrder() {
     state.getOrderHistoryList
   ]);
 
-  useEffect(() => {
-    getHistoryOptions();
-  }, []);
-
   const onSubmit = async (args: yup.InferType<typeof schema>) => {
     const newData = {
       ...data,
@@ -62,6 +61,17 @@ function HistoricalOrder() {
     );
     setTxnRecordList(txnRecordList);
   };
+
+  useEffect(() => {
+    getHistoryOptions();
+
+    const startDate = dayjs().subtract(6, 'month').toDate();
+    const endDate = dayjs().toDate();
+    onSubmit({
+      range: calcRange(startDate, endDate)
+    });
+    setDateRange([startDate, endDate]);
+  }, []);
 
   const tableBody: TableBodyItem[] = useMemo(() => {
     return txnRecordList.map((record) => ({
@@ -94,10 +104,8 @@ function HistoricalOrder() {
                   endDate={endDate}
                   setDateRange={(dateList) => {
                     if (dateList[0] && dateList[1]) {
-                      const startDate = dateFormat(dateList[0], 'yyyy-mm-dd');
-                      const endDate = dateFormat(dateList[1], 'yyyy-mm-dd');
                       onSubmit({
-                        range: `${startDate},${endDate}`
+                        range: calcRange(dateList[0], dateList[1])
                       });
                     }
                     setDateRange(dateList);
@@ -188,5 +196,3 @@ function HistoricalOrder() {
 }
 
 export default HistoricalOrder;
-
-const TABLE_HEAD = ['訂單號碼', '商品名稱', '買入/賣出', '單價', '數量(噸)', '總金額', '訂單狀態'];
