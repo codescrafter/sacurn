@@ -4,7 +4,7 @@ import { ExtendedInventory, Order } from '@/libs/api';
 import apiClient from '@/libs/api/client';
 
 import { useCardStore } from './card';
-import { ModalType, runTask } from './modal';
+import { ModalType, runTask, useModalStore } from './modal';
 
 export type StockItem = {
   action: string | null;
@@ -50,6 +50,8 @@ export const useStockListStore = create<StockListState>((set, get) => ({
     let isSuccess = false;
     await runTask(
       async () => {
+        // TODO: refactor the modal workflow
+        useModalStore.getState().close();
         isSuccess = await useCardStore.getState().checkMemberCard(
           async () => {
             return await apiClient.twid.twidGenPkcs7TbsOrderSellCreate({
@@ -76,10 +78,6 @@ export const useStockListStore = create<StockListState>((set, get) => ({
           }
         );
 
-        if (isSuccess) {
-          await get().getStockList();
-        }
-
         return !isSuccess;
       },
       {
@@ -88,6 +86,10 @@ export const useStockListStore = create<StockListState>((set, get) => ({
         }
       }
     );
+
+    if (isSuccess) {
+      await get().getStockList();
+    }
 
     return isSuccess;
   },
