@@ -84,6 +84,9 @@ export default function EnvironmentalModal({ open, setOpen }: IProps) {
             <div>
               <p className="text-grey text-3xl">環境監測成功</p>
               <p className="text-bright-red text-2xl  ">請插入會員卡並登入驗證</p>
+              <CustomButton variant="primary" className="rounded-full px-17 h-12 text-lg mt-3">
+                登入驗證
+              </CustomButton>
             </div>
           </div>
         </div>
