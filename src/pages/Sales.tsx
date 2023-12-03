@@ -68,7 +68,7 @@ const Sales = () => {
               {/* filters */}
               <EnvironmentalModal open={isEnvModalOpen} setOpen={() => setIsEnvModalOpen(false)} />
               <button onClick={() => setIsEnvModalOpen(true)}>Env </button>
-              <div className="rounded-full border border-light-grey w-[34px] h-[34px] flex items-center justify-center cursor-pointer">
+              <div className="rounded-full border border-light-grey bg-white w-[44px] h-[34px] flex items-center justify-center cursor-pointer">
                 <img src="/images/sales/filters.png" width={19} height={19} alt="filters" />
               </div>
               {/* search */}
