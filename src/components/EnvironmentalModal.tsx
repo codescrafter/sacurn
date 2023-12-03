@@ -9,7 +9,7 @@ interface IProps {
   setOpen: (isOpen: boolean) => void;
 }
 
-export default function EnvironmentalModal({ open, setOpen }: IProps) {
+const EnvironmentalModal = ({ open, setOpen }: IProps) => {
   const handleClose = () => {
     setOpen(false);
   };
@@ -94,7 +94,9 @@ export default function EnvironmentalModal({ open, setOpen }: IProps) {
       </div>
     </Dialog>
   );
-}
+};
+
+export default EnvironmentalModal;
 const data = [
   {
     section: 'Vintage',
