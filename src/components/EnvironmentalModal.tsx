@@ -76,7 +76,7 @@ const EnvironmentalModal = ({ open, setOpen }: IProps) => {
         </div>
         <div className="w-[50%]  flex flex-col justify-center items-center">
           <div className="font-bold flex flex-col gap-9 text-center ">
-            <div className="text-black ">
+            <div className="text-black flex flex-col gap-2">
               <h2 className="text-4xl ">商品上架作業</h2>
               <h2 className="text-3xl">會員卡認證程序</h2>
             </div>
