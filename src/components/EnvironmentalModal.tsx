@@ -52,10 +52,43 @@ export default function EnvironmentalModal({ open, setOpen }: IProps) {
             </h1>
           </div>
 
-          <div className="pb-10">{/* map data */}</div>
+          <div className="pb-10">
+            {data.map((sectionData, index) => {
+              return (
+                <div key={index}>
+                  <div className=" flex justify-between pt-10 pb-15">
+                    <div className="flex flex-col gap-4 text-dark-grey ">
+                      <p className="">{sectionData.section} </p>
+                      {sectionData.details.map((detail, i) => (
+                        <p key={i}>{detail.label}</p>
+                      ))}
+                    </div>
+                    <div className="flex flex-col gap-4 text-right text-xl font-bold text- black">
+                      {sectionData.values.map((val, i) => (
+                        <p key={i}>{val.value}</p>
+                      ))}
+                    </div>
+                  </div>
+                  {index !== data.length - 1 && <hr className="border-silverstone" />}
+                </div>
+              );
+            })}
+          </div>
         </div>
         <div className="w-[50%] border"></div>
       </div>
     </Dialog>
   );
 }
+const data = [
+  {
+    section: 'Vintage',
+    details: [{ label: '平均單價' }, { label: '持有數量' }],
+    values: [{ value: '1991/10/30' }, { value: '$500' }, { value: '99,999 噸' }]
+  },
+  {
+    section: '上架數量',
+    details: [{ label: '每噸單價' }, { label: '最低下單量' }],
+    values: [{ value: '99,999 噸' }, { value: '999,999,999 元' }, { value: '99,999 噸' }]
+  }
+];
