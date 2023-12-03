@@ -46,12 +46,12 @@ const EnvironmentalModal = ({ open, setOpen }: IProps) => {
       <div className="w-full px-18 flex pb-7">
         <div className="w-[50%] border-2 border-bright-blue rounded-[10px] py-5  px-5">
           <div>
-            <h1 className="text-3xl text-black font-bold">
+            <h1 className="text-base lg:text-2.5xl xl:text-3xl text-black font-bold">
               Andes Inorganic Soil ACR Emission Reduction Tonnes Spot ProductCarbon
             </h1>
           </div>
 
-          <div className="pb-10">
+          <div className="pb-15">
             {data.map((sectionData, index) => {
               return (
                 <div key={index}>
@@ -82,7 +82,7 @@ const EnvironmentalModal = ({ open, setOpen }: IProps) => {
             </div>
             <div className="flex flex-col gap-5">
               <p className="text-grey text-3xl">環境監測成功</p>
-              <p className="text-bright-red text-2xl  ">請插入會員卡並登入驗證</p>
+              <p className="text-bright-red text-2xl ">請插入會員卡並登入驗證</p>
             </div>
             <div>
               <CustomButton variant="primary" className="rounded-full px-10 h-12 text-lg mt-3">
