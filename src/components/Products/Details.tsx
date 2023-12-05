@@ -70,7 +70,7 @@ const Details = () => {
               <div className="flex justify-between items-center gap-4">
                 <div>
                   <div className="flex items-baseline text-white">
-                    <span className="text-2xl">USD</span>
+                    <span className="text-2xl">NT$</span>
                     <b className="text-5xl font-semibold">
                       {formatNumberByComma(carbonCredit?.min_price || '')}~
                       {formatNumberByComma(carbonCredit?.max_price || '')}

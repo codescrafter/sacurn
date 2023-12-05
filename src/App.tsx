@@ -118,11 +118,11 @@ const router = createBrowserRouter([
   {
     path: '/product-detail/:id',
     element: (
-      <ProtectedAuthRoute>
-        <ProtectedCompanyRegisteredRoute>
-          <ProductDetails />
-        </ProtectedCompanyRegisteredRoute>
-      </ProtectedAuthRoute>
+      // <ProtectedAuthRoute>
+      // <ProtectedCompanyRegisteredRoute>
+      <ProductDetails />
+      // </ProtectedCompanyRegisteredRoute>
+      // </ProtectedAuthRoute>
     )
   },
   // {
