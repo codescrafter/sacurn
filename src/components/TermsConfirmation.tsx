@@ -26,7 +26,7 @@ const TermsConfirmation = ({ nextStep }: IProps) => {
   const onSubmit = handleSubmit(async () => {
     if (!companyId) return;
 
-    const isOk = await checkGovernmentCard();
+    const isOk = await checkGovernmentCard({ title: '申請合約' });
 
     if (isOk) {
       const formData = new FormData();

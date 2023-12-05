@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { create } from 'zustand';
 
 import { CartDetailResonse, CartRequest, ExtendedCart, TransactionDetail } from '@/libs/api';
@@ -28,7 +29,7 @@ type CartState = {
   updateCartItemQty: (...args: Parameters<typeof apiClient.trade.tradeCartPartialUpdate>) => void;
   deleteCartItem: (id: number) => void;
   deleteSelectedCartItem: () => void;
-  checkOutCart: () => Promise<CheckoutResult>;
+  checkOutCart: (cartDetailUi: ReactNode) => Promise<CheckoutResult>;
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -114,13 +115,14 @@ export const useCartStore = create<CartState>((set, get) => ({
       await get().getCartDetail();
     });
   },
-  checkOutCart: async () => {
+  checkOutCart: async (cartDetailUi) => {
     const result: CheckoutResult = {
       isSuccess: false,
       checkoutDetail: null
     };
     await runTask(async () => {
       result.isSuccess = await useCardStore.getState().checkMemberCard(
+        { title: '商品購買作業', component: cartDetailUi },
         async () => {
           return await apiClient.twid.twidGenPkcs7TbsOrderBuyCreate({
             cart_id_list: JSON.stringify(get().getSelectedCartIdList())

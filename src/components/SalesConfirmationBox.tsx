@@ -29,6 +29,47 @@ const SalesConfirmationBox = (props: IProps) => {
   const [minUnit, setMinUnit] = useState<number | string>(MIN_CART_QTY);
   const [isReadMore, setIsReadMore] = useState<boolean>(false);
 
+  const productInfo = useMemo(
+    () => (
+      <div className="border-2 border-bright-blue rounded-[10px] py-5  px-5">
+        <div>
+          <h1 className="text-base lg:text-2.5xl xl:text-3xl text-black font-bold">{stockItem.name}</h1>
+        </div>
+
+        <div className="pb-15">
+          <div>
+            <div className="flex justify-between pt-10 pb-15">
+              <div className="flex flex-col gap-4 text-dark-grey">
+                <p>Vintage</p>
+                <p>平均單價</p>
+                <p>持有數量</p>
+              </div>
+              <div className="flex flex-col gap-4 text-right text-xl font-bold text-black">
+                <p>{stockItem.vintage}</p>
+                <p>$ {stockItem.price}</p>
+                <p>{stockItem.quantity} 噸</p>
+              </div>
+            </div>
+            <hr className="border-silverstone" />
+            <div className="flex justify-between pt-10 pb-15">
+              <div className="flex flex-col gap-4 text-dark-grey">
+                <p>上架數量</p>
+                <p>每噸單價</p>
+                <p>最低下單量</p>
+              </div>
+              <div className="flex flex-col gap-4 text-right text-xl font-bold text-black">
+                <p>{qty} 噸</p>
+                <p>{price} 元</p>
+                <p>{minUnit} 噸</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    []
+  );
+
   return (
     <div className="flex flex-col px-3 2xl:pl-[35px] 2xl:pr-[23px] py-5 2xl:pt-[33px] 2xl:pb-[26px] border-2 border-bright-blue bg-white rounded-[10px] shadow-sales-box">
       <h5 className="font-bold text-xl xl:text-[32]px text-black">{stockItem.name}</h5>
@@ -165,7 +206,8 @@ const SalesConfirmationBox = (props: IProps) => {
               stockItem.carbon_credit,
               Number(qty.toLocaleString()),
               Number(price.toLocaleString()),
-              Number(minUnit.toLocaleString())
+              Number(minUnit.toLocaleString()),
+              productInfo
             );
             if (isSuccess) onClose();
           }}

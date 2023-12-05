@@ -1,9 +1,11 @@
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
 import { BASE_URL } from '@/constant';
 import formatDate from '@/helpers/formatDate';
 import { useMembershipStore } from '@/store/member';
 import { AccountTableHeadingItems } from '@/type';
+import calcRange from '@/util/calcRange';
 import { convertDateToFormat, convertFormatToDate } from '@/util/helper';
 
 import DatePickerModal from '../DatePickerModal';
@@ -31,12 +33,18 @@ const CustomAccountTable = ({ tableHeadings }: IProps) => {
   };
 
   useEffect(() => {
-    getPointRecordList && getPointRecordList();
-  }, [recordFilters]);
+    const startDate = dayjs().subtract(14, 'day').toDate();
+    const endDate = dayjs().toDate();
+    getPointRecordList(undefined, calcRange(startDate, endDate));
+    setRecordFilters({
+      startDate: convertDateToFormat(startDate),
+      endDate: convertDateToFormat(endDate)
+    });
+  }, []);
 
   const startDate = recordFilters.startDate ? convertFormatToDate(recordFilters.startDate) : null;
   const endDate = recordFilters.endDate ? convertFormatToDate(recordFilters.endDate) : null;
-  // console.log('___points', pointRecordList);
+
   return (
     <div className="flex pt-[38px] flex-row justify-end items-center w-full pr-16 pl-10">
       <div className="flex flex-col min-w-full">
