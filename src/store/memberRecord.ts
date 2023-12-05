@@ -55,6 +55,7 @@ export const useMemberRecordStore = create<MemberRecordState>((set, get) => ({
       const isConfirm = await PromiseModal();
       if (!isConfirm) return;
       isSuccess = await useCardStore.getState().checkMemberCard(
+        { title: '會員卡升級合約' },
         async () => {
           return await apiClient.twid.twidGenPkcs7TbsUpgradeCreate();
         },
@@ -92,7 +93,7 @@ export const useMemberRecordStore = create<MemberRecordState>((set, get) => ({
     const memberRecord = get().memberRecord;
     if (memberRecord) {
       await runTask(async () => {
-        isSuccess = await useCardStore.getState().checkGovernmentCard();
+        isSuccess = await useCardStore.getState().checkGovernmentCard({ title: '申請合約' });
         if (isSuccess) await apiClient.member.memberCardReissueApplyCreate(memberRecord);
         return true;
       });
