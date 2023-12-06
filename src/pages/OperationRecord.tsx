@@ -77,7 +77,7 @@ const OperationRecordPage = () => {
   const tableBody: TableBodyItem[] = useMemo(() => {
     return operationRecordList.map((record) => ({
       id: record.id,
-      time: dateFormat(record.created_at, 'yyyy/mm/dd HH:MM:SS'),
+      time: dateFormat(record.created_at, 'yyyy/mm/dd HH:MM:ss'),
       prodName: record.product_name || '-',
       operator: record.username,
       unitPrice: `$${record.price}` || '-',
