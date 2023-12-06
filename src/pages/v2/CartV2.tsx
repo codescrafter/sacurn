@@ -59,7 +59,7 @@ const CartV2 = () => {
         </div>
 
         <div className="2xl:h-[82vh] h-[78vh] flex-1 mr-7 rounded-[10px] shadow-cart-item py-6">
-          <div>
+          <div className="flex flex-col h-full overflow-y-auto yellowScroll">
             <div className="flex flex-row justify-between pr-6.7">
               <Heading>商品共計</Heading>
               <p className="2xl:text-lg text-base text-black font-bold font-istok-web">
@@ -130,7 +130,7 @@ const CartV2 = () => {
                   // });
                 }}
                 className={classNames(
-                  'w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white bg-navy-blue'
+                  'w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white bg-navy-blue mb-3'
                 )}
               >
                 前往付款

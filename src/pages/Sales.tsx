@@ -118,9 +118,10 @@ const Sales = () => {
                             >
                               <span
                                 className={classNames(
-                                  'text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer',
+                                  'text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer tracking-[0.54px]',
                                   {
-                                    'justify-center': index === 3 || index === 4 || index === 5
+                                    'justify-center': index === 3 || index === 4 || index === 5,
+                                    '!font-bold': index === 4 || index === 5
                                     // increase first child width
                                   }
                                 )}
@@ -129,10 +130,10 @@ const Sales = () => {
                                 {index !== 4 && index !== 5 && (
                                   <img
                                     src="/images/sales/filter_arrows.png"
-                                    width={15}
+                                    width={16}
                                     height={23}
                                     alt="filters arrows"
-                                    className="min-w-[15px] h-auto"
+                                    className="min-w-[16px] h-auto"
                                   />
                                 )}
                               </span>
