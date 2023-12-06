@@ -302,7 +302,7 @@ const CartItem = (props: CartItemIProps) => {
         >
           {isCannotBuy ? '剩下 0 噸無法交易' : `剩下 ${remaining_quantity} 噸可購`}
         </p>
-        <div className="flex items-center gap-7">
+        <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.2" onClick={(e) => e.stopPropagation()}>
             <MinusRounded onClick={() => onQuantityAdjust(-1)} />
             <input
@@ -313,7 +313,9 @@ const CartItem = (props: CartItemIProps) => {
             />
             <PlusRounded onClick={() => onQuantityAdjust(+1)} />
           </div>
-          <p className="text-xl font-bold text-black whitespace-nowrap">$ {formatNumberByComma(qty * price)}</p>
+          <p className="text-xl font-bold text-black whitespace-nowrap min-w-[120px] text-right">
+            $ {formatNumberByComma(qty * price)}
+          </p>
         </div>
         {/* <button className="mr-7">
           <img

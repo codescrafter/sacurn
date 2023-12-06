@@ -242,7 +242,7 @@ const CartItem = (props: CartItemIProps) => {
           </button>
         </div>
         <div className="flex items-center">
-          <p className="text-xl font-bold text-black whitespace-nowrap min-w-[100px]">${qty * price}</p>
+          <p className="text-xl font-bold text-black whitespace-nowrap min-w-[120px] text-right">${qty * price}</p>
         </div>
         <button className="mr-7">
           <img
