@@ -152,11 +152,11 @@ const router = createBrowserRouter([
   {
     path: '/cart',
     element: (
-      // <ProtectedAuthRoute>
-      // <ProtectedCompanyRegis/teredRoute>
-      <Cart />
-      // </ProtectedCompanyRegisteredRoute>
-      // </ProtectedAuthRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <Cart />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
