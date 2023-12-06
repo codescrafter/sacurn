@@ -8,6 +8,12 @@ import { CompanyStatus } from '@/type';
 
 import { runTask } from './modal';
 
+if (!process.env.REACT_APP_COOKIE_EXPIRE_DAY) {
+  throw new Error('REACT_APP_COOKIE_EXPIRE_DAY not found');
+}
+
+const cookieExpireDay = parseInt(process.env.REACT_APP_COOKIE_EXPIRE_DAY);
+
 export const COOKIE_AUTH_NAME = 'auth';
 
 export type AuthResult = {
@@ -49,7 +55,7 @@ export const useUserStore = create<UserState>((set) => ({
         result.profileId = response.profile;
       }
 
-      cookies.set(COOKIE_AUTH_NAME, JSON.stringify(result), { expires: 1 });
+      cookies.set(COOKIE_AUTH_NAME, JSON.stringify(result), { expires: cookieExpireDay });
       set({ user: response.user });
     });
 
