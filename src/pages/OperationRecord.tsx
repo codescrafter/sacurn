@@ -54,11 +54,11 @@ const OperationRecordPage = () => {
     setData(newData);
     const operationRecordList = await getOperationHistoryList(
       '0',
-      newData.keyword ? newData.keyword : undefined,
+      newData.keyword,
       newData.page,
-      newData.range ? newData.range : undefined,
-      newData.status ? newData.status : undefined,
-      newData.user ? newData.user : undefined
+      newData.range,
+      newData.status,
+      newData.user
     );
     setOperationRecordList(operationRecordList);
   };

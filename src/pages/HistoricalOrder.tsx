@@ -53,11 +53,12 @@ function HistoricalOrder() {
     setData(newData);
 
     const txnRecordList = await getOrderHistoryList(
+      undefined,
       '0',
-      newData.keyword ? newData.keyword : undefined,
+      newData.keyword,
       newData.page,
-      newData.range ? newData.range : undefined,
-      newData.status ? newData.status : undefined
+      newData.range,
+      newData.status
     );
     setTxnRecordList(txnRecordList);
   };
