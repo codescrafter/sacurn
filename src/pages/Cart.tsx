@@ -138,7 +138,7 @@ const Cart = () => {
               <Heading>優惠折扣</Heading>
               <button className="border-navy-blue ml-6.7 2xl:mt-5 mt-3 flex flex-row rounded-lg border-solid border 2xl:px-5 px-4 2xl:py-3 py-2 max-w-max 2xl:mb-8 mb-5">
                 {/* <img src="/images/cart/promocode.svg" width={25} height={25} alt="sacurn" /> */}
-                <p className="text-navy-blue 2xl:text-base text-sm pl-3">使用優惠碼</p>
+                <p className="text-navy-blue 2xl:text-base text-sm">使用優惠碼</p>
               </button>
               <Heading>服務條款</Heading>
               <p className="ml-6.7 2xl:text-base text-sm 2xl:mt-6 mt-2 text-navy-blue">
