@@ -151,6 +151,7 @@ const PriceListItem = ({ item }: { item: Order }) => {
             value={qty}
             onChange={(e) => {
               console.log(e.target.value);
+              // only accept number
               if (/^\d+$/.test(e.target.value)) {
                 onQuantityAdjust(parseInt(e.target.value), item);
               }
