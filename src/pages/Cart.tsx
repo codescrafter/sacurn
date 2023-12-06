@@ -106,7 +106,7 @@ const Cart = () => {
               </div>
               <div className="px-6.7 mt-2.5 ">
                 <p className="text-grey 2xl:text-sm text-xs font-bold font-istok-web">
-                  {cartDetail && cartDetail.product_list?.length}項(以下含稅金${taxPercentage}%及手續費)
+                  {cartDetail && cartDetail.product_list?.length}項(以下含稅金{taxPercentage}%及手續費)
                 </p>
                 <div className="2xl:mt-5.2 mt-3">
                   {cartDetail &&
@@ -126,7 +126,7 @@ const Cart = () => {
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">$ {cartDetail?.cost}</p>
                 </div>
                 <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
-                  <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金${taxPercentage}%</p>
+                  <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金{taxPercentage}%</p>
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">${cartDetail?.tax}</p>
                 </div>
                 <div className="flex flex-row justify-between">
