@@ -114,8 +114,7 @@ const PriceListItem = ({ item }: { item: Order }) => {
   const company = useCompanyStore((state) => state.company);
 
   const onQuantityAdjust = useCallback(
-    (value: number, item: Order) => {
-      const newQty = qty + value;
+    (newQty: number, item: Order) => {
       const minQty = item.min_order_quantity || MIN_CART_QTY;
       if (newQty >= minQty && newQty <= parseInt(item.remaining_quantity)) {
         setQty(newQty);
@@ -141,19 +140,24 @@ const PriceListItem = ({ item }: { item: Order }) => {
       <td className="px-6 py-4 items-center whitespace-nowrap">
         <div className="flex justify-center items-center gap-1.5">
           <button
-            onClick={() => onQuantityAdjust(-1, item)}
+            onClick={() => onQuantityAdjust(qty - 1, item)}
             className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
           >
             <img src="/images/products-page/ic_minus.svg" className="mx-auto" alt="arrow-down" width={13} height={2} />
           </button>
           <input
             className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
-            type="number"
+            type="text"
             value={qty}
-            readOnly
+            onChange={(e) => {
+              console.log(e.target.value);
+              if (/^\d+$/.test(e.target.value)) {
+                onQuantityAdjust(parseInt(e.target.value), item);
+              }
+            }}
           />
           <button
-            onClick={() => onQuantityAdjust(+1, item)}
+            onClick={() => onQuantityAdjust(qty + 1, item)}
             className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
           >
             <img src="/images/products-page/ic_plus.svg" className="mx-auto" alt="arrow-down" width={13} height={13} />
