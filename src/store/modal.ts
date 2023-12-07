@@ -28,6 +28,7 @@ export enum ModalType {
   FinishedApplyCertificate = 'FinishedApplyCertificate',
   MakeStockOnSale = 'MakeStockOnSale',
   MakeStockOffShelve = 'MakeStockOffShelve',
+  NotPassMinOrderThreshold = 'NotPassMinOrderThreshold',
   CheckOutConfirm = 'CheckOutConfirm',
   Error = 'Error',
   CompanyReviewing = 'CompanyReviewing',
@@ -110,6 +111,17 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
       },
       {
         text: '確認停止交易'
+      }
+    ]
+  },
+  [ModalType.NotPassMinOrderThreshold]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '購物車金額不足',
+    description: '最低訂購金額NT$30,000 ',
+    buttons: [
+      {
+        text: '我知道了'
       }
     ]
   },
