@@ -295,9 +295,9 @@ const CartItem = (props: CartItemIProps) => {
           <img
             src={image}
             className={classNames('w-full h-full object-cover rounded-[10px]', {
-              'border-[6px] border-light-green': carbon_tag === '綠碳',
-              'border-[6px] border-light-blue': carbon_tag === '藍碳',
-              'border-[6px] border-pale-yellow': carbon_tag === '黃碳'
+              'border-[3.408px] border-light-green': carbon_tag === '綠碳',
+              'border-[3.408px] border-light-blue': carbon_tag === '藍碳',
+              'border-[3.408px] border-pale-yellow': carbon_tag === '黃碳'
             })}
             alt="sacurn"
           />
