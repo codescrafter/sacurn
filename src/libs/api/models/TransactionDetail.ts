@@ -15,6 +15,11 @@ export type TransactionDetail = {
     status?: TransactionDetailStatusEnum;
     pay_at?: string | null;
     deadline?: string | null;
+    pay_bank_name?: string | null;
+    pay_bank_code?: string | null;
+    pay_bank_account?: string | null;
+    pay_bank_account_image?: string | null;
+    pay_bank_date?: string | null;
     twid_record?: number | null;
 };
 

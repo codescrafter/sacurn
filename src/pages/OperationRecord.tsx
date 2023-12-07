@@ -54,11 +54,11 @@ const OperationRecordPage = () => {
     setData(newData);
     const operationRecordList = await getOperationHistoryList(
       '0',
-      newData.keyword ? newData.keyword : undefined,
+      newData.keyword,
       newData.page,
-      newData.range ? newData.range : undefined,
-      newData.status ? newData.status : undefined,
-      newData.user ? newData.user : undefined
+      newData.range,
+      newData.status,
+      newData.user
     );
     setOperationRecordList(operationRecordList);
   };
@@ -77,7 +77,7 @@ const OperationRecordPage = () => {
   const tableBody: TableBodyItem[] = useMemo(() => {
     return operationRecordList.map((record) => ({
       id: record.id,
-      time: dateFormat(record.created_at, 'yyyy/mm/dd HH:MM:SS'),
+      time: dateFormat(record.created_at, 'yyyy/mm/dd HH:MM:ss'),
       prodName: record.product_name || '-',
       operator: record.username,
       unitPrice: `$${record.price}` || '-',

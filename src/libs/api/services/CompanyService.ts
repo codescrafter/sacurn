@@ -6,6 +6,7 @@ import type { Company } from '../models/Company';
 import type { Employee } from '../models/Employee';
 import type { ExtendedCompany } from '../models/ExtendedCompany';
 import type { ExtendEmployee } from '../models/ExtendEmployee';
+import type { Forgot } from '../models/Forgot';
 import type { PaginatedEmployeeList } from '../models/PaginatedEmployeeList';
 import type { PaginatedGroupList } from '../models/PaginatedGroupList';
 import type { PatchedEmployeesPatch } from '../models/PatchedEmployeesPatch';
@@ -198,6 +199,22 @@ export class CompanyService {
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns any No response body
+     * @throws ApiError
+     */
+    public companyForgotPasswordCreate(
+        requestBody?: Forgot,
+    ): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/company/forgot_password/',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 
