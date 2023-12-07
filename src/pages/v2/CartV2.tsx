@@ -59,7 +59,7 @@ const CartV2 = () => {
         </div>
 
         <div className="2xl:h-[82vh] h-[78vh] flex-1 mr-7 rounded-[10px] shadow-cart-item py-6">
-          <div>
+          <div className="flex flex-col h-full overflow-y-auto yellowScroll">
             <div className="flex flex-row justify-between pr-6.7">
               <Heading>商品共計</Heading>
               <p className="2xl:text-lg text-base text-black font-bold font-istok-web">
@@ -68,7 +68,7 @@ const CartV2 = () => {
             </div>
             <div className="px-6.7 mt-2.5 ">
               <p className="text-grey 2xl:text-sm text-xs font-bold font-istok-web">
-                {cartDetail && cartDetail.product_list?.length}項(以下含稅金${5}%及手續費)
+                {cartDetail && cartDetail.product_list?.length}項(以下含稅金{5}%及手續費)
               </p>
               <div className="2xl:mt-5.2 mt-3">
                 {cartDetail &&
@@ -86,7 +86,7 @@ const CartV2 = () => {
                 <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">$ {cartDetail?.cost}</p>
               </div>
               <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
-                <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金${5}%</p>
+                <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金{5}%</p>
                 <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">${cartDetail?.tax}</p>
               </div>
               <div className="flex flex-row justify-between">
@@ -97,8 +97,8 @@ const CartV2 = () => {
             <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
             <Heading>優惠折扣</Heading>
             <button className="border-navy-blue ml-6.7 2xl:mt-5 mt-3 flex flex-row rounded-lg border-solid border 2xl:px-5 px-4 2xl:py-3 py-2 max-w-max 2xl:mb-8 mb-5">
-              <img src="/images/cart/promocode.svg" width={25} height={25} alt="sacurn" />
-              <p className="text-navy-blue 2xl:text-base text-sm pl-3">使用優惠碼</p>
+              {/* <img src="/images/cart/promocode.svg" width={25} height={25} alt="sacurn" /> */}
+              <p className="text-navy-blue 2xl:text-base text-sm">使用優惠碼</p>
             </button>
             <Heading>服務條款</Heading>
             <p className="ml-7 text-base text-grey">
@@ -130,7 +130,7 @@ const CartV2 = () => {
                   // });
                 }}
                 className={classNames(
-                  'w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white bg-navy-blue'
+                  'w-[80%] py-2 self-center rounded-md 2xl:text-base text-sm text-white bg-navy-blue mb-3'
                 )}
               >
                 前往付款
@@ -242,7 +242,7 @@ const CartItem = (props: CartItemIProps) => {
           </button>
         </div>
         <div className="flex items-center">
-          <p className="text-xl font-bold text-black whitespace-nowrap min-w-[100px]">${qty * price}</p>
+          <p className="text-xl font-bold text-black whitespace-nowrap min-w-[120px] text-right">${qty * price}</p>
         </div>
         <button className="mr-7">
           <img

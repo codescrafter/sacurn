@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 import apiClient from '@/libs/api/client';
+import { formatNumberByComma } from '@/util/helper';
 
 import { runTask } from './modal';
 
@@ -36,7 +37,10 @@ export const useFilterOptionsStore = create<FilterOptionsState>((set, get) => ({
       let vintageOptions = filterOptions.vintage_list?.map((item) => ({ name: item, value: item }));
       vintageOptions = vintageOptions?.sort((a, b) => Number(b.value) - Number(a.value));
       // 10,100 -> 10 ~ 100
-      const priceOptions = filterOptions.price_list?.map((item) => ({ name: item.replace(',', ' ~ '), value: item }));
+      const priceOptions = filterOptions.price_list?.map((item) => ({
+        name: formatNumberByComma(item.split(',')?.[0]) + ' ~ ' + formatNumberByComma(item.split(',')?.[1]),
+        value: item
+      }));
 
       set({ locationOptions, vintageOptions, priceOptions });
     });

@@ -118,9 +118,10 @@ const Sales = () => {
                             >
                               <span
                                 className={classNames(
-                                  'text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer',
+                                  'text-sm flex items-center 2xl:text-lg font-normal text-grey cursor-pointer tracking-[0.54px]',
                                   {
-                                    'justify-center': index === 4 || index === 5
+                                    'justify-center': index === 3 || index === 4 || index === 5,
+                                    '!font-bold': index === 4 || index === 5
                                     // increase first child width
                                   }
                                 )}
@@ -129,10 +130,10 @@ const Sales = () => {
                                 {index !== 4 && index !== 5 && (
                                   <img
                                     src="/images/sales/filter_arrows.png"
-                                    width={15}
+                                    width={16}
                                     height={23}
                                     alt="filters arrows"
-                                    className="min-w-[15px] h-auto"
+                                    className="min-w-[16px] h-auto"
                                   />
                                 )}
                               </span>
@@ -190,8 +191,9 @@ const Sales = () => {
                                 {stockItem.vintage}
                               </td>
                               <td className="py-2 px-2 font-bold text-dark-grey text-sm 2xl:text-lg">
-                                {formatNumberByComma(stockItem.quantity || '')}
-                                <span className="!font-medium text-dark-grey">噸</span>
+                                <span className="block text-end max-w-[65px] break-keep">
+                                  {formatNumberByComma(stockItem.quantity || '')}噸
+                                </span>
                               </td>
                               <td className="py-2 text-dark-grey text-sm 2xl:text-lg 2xl:w-[140px]">
                                 <div className="w-full flex justify-center">
