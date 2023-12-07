@@ -221,7 +221,18 @@ interface CartItemIProps extends CartItemType {
 }
 
 const CartItem = (props: CartItemIProps) => {
-  const { selected, id, name, image, remaining_quantity, order, order_deleted, company_code, onSelectedChange } = props;
+  const {
+    selected,
+    id,
+    name,
+    image,
+    remaining_quantity,
+    order,
+    order_deleted,
+    company_code,
+    carbon_tag,
+    onSelectedChange
+  } = props;
 
   const [qty, setQty] = useState(props.quantity || MIN_CART_QTY);
 
@@ -281,7 +292,15 @@ const CartItem = (props: CartItemIProps) => {
           )}
         </div>
         <div className="w-[114px] h-[114px] ml-4">
-          <img src={image} className="w-full h-full object-cover rounded-[10px]" alt="sacurn" />
+          <img
+            src={image}
+            className={classNames('w-full h-full object-cover rounded-[10px]', {
+              'border-[6px] border-light-green': carbon_tag === '綠碳',
+              'border-[6px] border-light-blue': carbon_tag === '藍碳',
+              'border-[6px] border-pale-yellow': carbon_tag === '黃碳'
+            })}
+            alt="sacurn"
+          />
         </div>
         <div className="ml-[23px] flex flex-col justify-between h-full max-w-[316px]">
           <p className="text-[10.6px] font-bold text-dark-grey">會員代號 : {company_code}</p>
