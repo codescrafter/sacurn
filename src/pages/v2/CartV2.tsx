@@ -151,7 +151,7 @@ interface CartItemIProps extends CartItemType {
 }
 
 const CartItem = (props: CartItemIProps) => {
-  const { selected, id, name, image, remaining_quantity, order, order_deleted, carbon_tag, onSelectedChange } = props;
+  const { selected, id, name, image, remaining_quantity, order, order_deleted, onSelectedChange } = props;
 
   const [qty, setQty] = useState(props.quantity || MIN_CART_QTY);
 
@@ -209,17 +209,7 @@ const CartItem = (props: CartItemIProps) => {
             <img src="/images/cart/ic_uncheck.svg" width={29} height={29} alt="sacurn" />
           )}
         </div>
-        <img
-          src={image}
-          width={114}
-          height={114}
-          alt="sacurn"
-          className={classNames('w-full h-full object-cover rounded-[10px]', {
-            'border-[6px] border-light-green': carbon_tag === '綠碳',
-            'border-[6px] border-light-blue': carbon_tag === '藍碳',
-            'border-[6px] border-pale-yellow': carbon_tag === '黃碳'
-          })}
-        />
+        <img src={image} width={114} height={114} className="object-cover" alt="sacurn" />
         <p
           className={classNames('font-bold text-xl leading-[18px] mr-3 mt-3 mb-3', {
             'text-bright-blue': selected,
