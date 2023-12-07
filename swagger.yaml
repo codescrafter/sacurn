@@ -2169,6 +2169,33 @@ paths:
       responses:
         '204':
           description: No response body
+  /trade/cart/total_amount_thr_check/:
+    post:
+      operationId: trade_cart_total_amount_thr_check_create
+      tags:
+      - trade
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TotalAmountThrCheck'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TotalAmountThrCheck'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TotalAmountThrCheck'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TotalAmountThrCheckResp'
+          description: ''
   /trade/cart_detail/:
     post:
       operationId: trade_cart_detail_create
@@ -5947,6 +5974,19 @@ components:
           writeOnly: true
       required:
       - token
+    TotalAmountThrCheck:
+      type: object
+      properties:
+        cart_id_list:
+          type: string
+          default: '[1, 2, 3]'
+    TotalAmountThrCheckResp:
+      type: object
+      properties:
+        status:
+          type: boolean
+      required:
+      - status
     TransactionDetail:
       type: object
       properties:

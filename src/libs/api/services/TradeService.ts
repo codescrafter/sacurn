@@ -18,6 +18,8 @@ import type { PaginatedOrderList } from '../models/PaginatedOrderList';
 import type { PaginatedTransactionRecordList } from '../models/PaginatedTransactionRecordList';
 import type { PatchedCart } from '../models/PatchedCart';
 import type { PayCallback } from '../models/PayCallback';
+import type { TotalAmountThrCheck } from '../models/TotalAmountThrCheck';
+import type { TotalAmountThrCheckResp } from '../models/TotalAmountThrCheckResp';
 import type { TransactionDetail } from '../models/TransactionDetail';
 import type { TransactionRecord } from '../models/TransactionRecord';
 
@@ -121,6 +123,22 @@ export class TradeService {
         return this.httpRequest.request({
             method: 'POST',
             url: '/trade/cart/bulk_delete/',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param requestBody
+     * @returns TotalAmountThrCheckResp
+     * @throws ApiError
+     */
+    public tradeCartTotalAmountThrCheckCreate(
+        requestBody?: TotalAmountThrCheck,
+    ): CancelablePromise<TotalAmountThrCheckResp> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/trade/cart/total_amount_thr_check/',
             body: requestBody,
             mediaType: 'application/json',
         });
