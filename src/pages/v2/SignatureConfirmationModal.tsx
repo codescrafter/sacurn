@@ -144,7 +144,7 @@ const SignatureConfirmationModal = (props: SignatureConfirmationModalProps) => {
                     </Box>
                     <CustomButton
                       variant="secondary"
-                      className="rounded-md bg-white-smoke font-bold shadow-md text-lg mt-3 px-10 self-end flex gap-2.5 items-center "
+                      className="rounded-md font-bold text-lg mt-3 px-10 self-end flex gap-2.5 items-center "
                     >
                       <a
                         className="rounded-md bg-white-smoke text-navy-blue font-bold shadow-download-btn text-[15px] mt-3 px-10 self-end flex gap-2.5 items-center max-w-[160px] h-[22px] ml-auto mr-8"
