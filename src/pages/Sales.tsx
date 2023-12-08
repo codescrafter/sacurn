@@ -263,7 +263,7 @@ const Sales = () => {
                             {stockItem.id === stockItemDetailId && (
                               <>
                                 {stockItem.orderList.map((order, index) => (
-                                  <StockItemBar key={order.id} order={order} number={index + 1} />
+                                  <StockItemBar key={order.id} stockItem={stockItem} order={order} number={index + 1} />
                                 ))}
 
                                 <tr className="bg-light-gray dropdown-row h-[70px]">

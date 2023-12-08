@@ -24,5 +24,12 @@ export const $LoginResponse = {
         profile: {
             type: 'number',
         },
+        groups: {
+            type: 'array',
+            contains: {
+                properties: {
+                },
+            },
+        },
     },
 } as const;

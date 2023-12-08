@@ -24,6 +24,7 @@ export const useCardRevokeStore = create<CardRevokeState>((set, get) => ({
   cardRevokeApply: async () => {
     await runTask(async () => {
       const isSuccess = await useCardStore.getState().checkMemberCard(
+        { title: '會員卡廢止合約' },
         async () => {
           return await apiClient.twid.twidGenPkcs7TbsRevokeCreate();
         },

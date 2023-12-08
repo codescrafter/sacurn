@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { create } from 'zustand';
 
 import { ExtendedInventory, Order } from '@/libs/api';
@@ -15,8 +16,14 @@ type StockListState = {
   stockList: StockItem[];
   getStockList: (keyword?: string, page?: number) => void;
   getStockOrderList: (carbonCreditId: number) => Promise<boolean>;
-  updateStockOnSale: (carbonId: number, qty: number, price: number, minUnit: number) => Promise<boolean>;
-  updateStockOffShelve: (id: number) => void;
+  updateStockOnSale: (
+    carbonId: number,
+    qty: number,
+    price: number,
+    minUnit: number,
+    productInfo: ReactNode
+  ) => Promise<boolean>;
+  updateStockOffShelve: (id: number, productInfo: ReactNode) => void;
 };
 
 export const useStockListStore = create<StockListState>((set, get) => ({
@@ -46,11 +53,12 @@ export const useStockListStore = create<StockListState>((set, get) => ({
 
     return isSuccess;
   },
-  updateStockOnSale: async (carbonId, quantity, price, minUnit) => {
+  updateStockOnSale: async (carbonId, quantity, price, minUnit, productInfo) => {
     let isSuccess = false;
     await runTask(
       async () => {
         isSuccess = await useCardStore.getState().checkMemberCard(
+          { title: '商品上架作業', component: productInfo },
           async () => {
             return await apiClient.twid.twidGenPkcs7TbsOrderSellCreate({
               carbon_credit: carbonId,
@@ -75,12 +83,6 @@ export const useStockListStore = create<StockListState>((set, get) => ({
             );
           }
         );
-
-        if (isSuccess) {
-          await get().getStockList();
-        }
-
-        return !isSuccess;
       },
       {
         onComplete: () => {
@@ -89,13 +91,18 @@ export const useStockListStore = create<StockListState>((set, get) => ({
       }
     );
 
+    if (isSuccess) {
+      await get().getStockList();
+    }
+
     return isSuccess;
   },
-  updateStockOffShelve: async (orderId: number) => {
+  updateStockOffShelve: async (orderId: number, productInfo) => {
     let isSuccess = false;
     await runTask(
       async () => {
         isSuccess = await useCardStore.getState().checkMemberCard(
+          { title: '商品下架作業', component: productInfo },
           async () => {
             return await apiClient.twid.twidGenPkcs7TbsOrderTakeOffCreate({
               order: orderId
@@ -109,8 +116,6 @@ export const useStockListStore = create<StockListState>((set, get) => ({
             });
           }
         );
-
-        return !isSuccess;
       },
       {
         onComplete: () => {

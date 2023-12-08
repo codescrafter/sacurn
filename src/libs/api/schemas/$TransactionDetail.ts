@@ -53,6 +53,31 @@ export const $TransactionDetail = {
             isNullable: true,
             format: 'date-time',
         },
+        pay_bank_name: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        pay_bank_code: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        pay_bank_account: {
+            type: 'string',
+            isNullable: true,
+            maxLength: 45,
+        },
+        pay_bank_account_image: {
+            type: 'string',
+            isNullable: true,
+            format: 'uri',
+        },
+        pay_bank_date: {
+            type: 'string',
+            isNullable: true,
+            format: 'date-time',
+        },
         twid_record: {
             type: 'number',
             isNullable: true,

@@ -7,14 +7,14 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import classNames from 'classnames';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { createModal } from 'react-modal-promise';
 import { InstanceProps } from 'react-modal-promise/lib/types';
 import * as yup from 'yup';
 
 import CustomButton from '@/components/CustomButton';
-import { ModalCloseError } from '@/store/card';
+import { ModalCloseError } from '@/error';
 import { SignatureConfirmationModalType } from '@/type';
 import { CardType } from '@/types';
 
@@ -34,10 +34,13 @@ export type ResolveResponse = {
 type RejectResponse = string;
 
 type SignatureConfirmationModalProps = {
+  title: string;
   type: CardType;
+  component?: ReactNode;
 } & InstanceProps<ResolveResponse, RejectResponse>;
 
-const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: SignatureConfirmationModalProps) => {
+const SignatureConfirmationModal = (props: SignatureConfirmationModalProps) => {
+  const { isOpen, title, type, component, onResolve, onReject } = props;
   const schema = yup
     .object({
       password: yup.string().required('卡片密碼是必填的')
@@ -84,75 +87,85 @@ const SignatureConfirmationModal = ({ isOpen, type, onResolve, onReject }: Signa
               flexDirection: 'column'
             }}
           >
-            <div className="flex">
-              <Box className="flex flex-col w-[65%]">
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-                    // width: '98%',
-                    borderRadius: '20px',
-                    mt: '-13px',
-                    paddingY: '20px',
-                    paddingX: '10px'
-                  }}
-                >
-                  <Box className="yellowScroll " sx={{ overflowY: 'scroll', height: '440px' }}>
-                    <Typography
-                      gutterBottom
+            <div className="flex gap-4">
+              <Box className="flex flex-col w-[60%]">
+                {component ? (
+                  component
+                ) : (
+                  <>
+                    <Box
                       sx={{
-                        color: '#525252',
-                        fontWeight: '400',
-                        fontSize: '15px',
-                        textAlign: 'justify',
-                        paddingRight: '15px',
-                        colorAdjust: '#525252'
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+                        // width: '98%',
+                        borderRadius: '20px',
+                        mt: '-13px',
+                        paddingY: '20px',
+                        paddingX: '10px'
                       }}
                     >
-                      <p>
-                        非常歡迎您光臨「sacrun網站」（以下簡稱本網站），為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
-                      </p>
+                      <Box className="yellowScroll " sx={{ overflowY: 'scroll', height: '440px' }}>
+                        <Typography
+                          gutterBottom
+                          sx={{
+                            color: '#525252',
+                            fontWeight: '400',
+                            fontSize: '15px',
+                            textAlign: 'justify',
+                            paddingRight: '15px',
+                            colorAdjust: '#525252'
+                          }}
+                        >
+                          <p>
+                            非常歡迎您光臨「sacrun網站」（以下簡稱本網站），為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
+                          </p>
 
-                      {SIGNATURE_CONFIRMATION_MODAL.map(({ title, content }: SignatureConfirmationModalType, index) => (
-                        <div key={index}>
-                          <h1 className="text-lg font-bold text-dark-grey">{title}</h1>
-                          <ul
-                            className={classNames(' ml-[24px]', {
-                              'list-disc': content.some((item) => item.isListDisc)
-                            })}
-                          >
-                            {content.map((item, itemIndex) => (
-                              <li key={itemIndex}>{item.text}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </Typography>
-                  </Box>
-                </Box>
-                <CustomButton
-                  variant="secondary"
-                  className="rounded-md bg-white-smoke font-bold shadow-md text-lg mt-3 px-10 self-end flex gap-2.5 items-center "
-                >
-                  <a
-                    className="rounded-md bg-white-smoke text-navy-blue font-bold shadow-download-btn text-[15px] mt-3 px-10 self-end flex gap-2.5 items-center max-w-[160px] h-[22px] ml-auto mr-8"
-                    href="/pdf/Membership_Terms_Service.pdf"
-                    target="_blank"
-                    download="土星_平台條款內容"
-                  >
-                    Download
-                    <img src="/v2/icon/download-icon.svg" alt="" />
-                  </a>
-                </CustomButton>
+                          {SIGNATURE_CONFIRMATION_MODAL.map(
+                            ({ title, content }: SignatureConfirmationModalType, index) => (
+                              <div key={index}>
+                                <h1 className="text-lg font-bold text-dark-grey">{title}</h1>
+                                <ul
+                                  className={classNames(' ml-[24px]', {
+                                    'list-disc': content.some((item) => item.isListDisc)
+                                  })}
+                                >
+                                  {content.map((item, itemIndex) => (
+                                    <li key={itemIndex}>{item.text}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )
+                          )}
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <CustomButton
+                      variant="secondary"
+                      className="rounded-md font-bold text-lg mt-3 px-10 self-end flex gap-2.5 items-center "
+                    >
+                      <a
+                        className="rounded-md bg-white-smoke text-navy-blue font-bold shadow-download-btn text-[15px] mt-3 px-10 self-end flex gap-2.5 items-center max-w-[160px] h-[22px] ml-auto mr-8"
+                        href="/pdf/Membership_Terms_Service.pdf"
+                        target="_blank"
+                        download="土星_平台條款內容"
+                      >
+                        Download
+                        <img src="/v2/icon/download-icon.svg" alt="" />
+                      </a>
+                    </CustomButton>
+                  </>
+                )}
               </Box>
-              <Box className="w-[35%] flex justify-center item-center">
+              <Box className="w-[40%] flex justify-center item-center">
                 <div className="w-[100%] flex flex-col items-center pt-12 pb-29">
                   <div className="text-center mb-9">
                     <h1 className="font-bold text-[32px] leading-[38px]">
-                      {type === CardType.GovernmentCard ? '工商憑證' : '會員卡'}憑證簽章程序
+                      {title}
+                      <br />
+                      {type === CardType.GovernmentCard ? '工商憑證憑證簽章程序' : '會員卡認證程序'}
                     </h1>
                   </div>
                   <h3 className="text-[32px] font-bold text-[#888] text-center mb-5">環境監測成功</h3>

@@ -308,12 +308,12 @@ export class TradeService {
 
     /**
      * @param requestBody
-     * @returns PayCallback
+     * @returns TransactionDetail
      * @throws ApiError
      */
     public tradePayCallbackCreate(
         requestBody: PayCallback,
-    ): CancelablePromise<PayCallback> {
+    ): CancelablePromise<TransactionDetail> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/trade/pay_callback/',
@@ -334,6 +334,7 @@ export class TradeService {
     }
 
     /**
+     * @param action 買單: 1 賣單: 0
      * @param download 下載csv (download=1會下載）
      * @param keyword 搜尋關鍵字(碳權名稱, 訂單號號)
      * @param page A page number within the paginated result set.
@@ -343,6 +344,7 @@ export class TradeService {
      * @throws ApiError
      */
     public tradeTransactionRecordList(
+        action?: string,
         download?: string,
         keyword?: string,
         page?: number,
@@ -353,6 +355,7 @@ export class TradeService {
             method: 'GET',
             url: '/trade/transaction_record/',
             query: {
+                'action': action,
                 'download': download,
                 'keyword': keyword,
                 'page': page,
@@ -364,6 +367,7 @@ export class TradeService {
 
     /**
      * @param requestBody
+     * @param action 買單: 1 賣單: 0
      * @param download 下載csv (download=1會下載）
      * @param keyword 搜尋關鍵字(碳權名稱, 訂單號號)
      * @param range 期間 ex: 2023-09-01,2023-09-30
@@ -373,6 +377,7 @@ export class TradeService {
      */
     public tradeTransactionRecordCreate(
         requestBody: TransactionRecord,
+        action?: string,
         download?: string,
         keyword?: string,
         range?: string,
@@ -382,6 +387,7 @@ export class TradeService {
             method: 'POST',
             url: '/trade/transaction_record/',
             query: {
+                'action': action,
                 'download': download,
                 'keyword': keyword,
                 'range': range,

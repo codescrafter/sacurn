@@ -92,28 +92,6 @@ export class CarbonCreditService {
     }
 
     /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditCarbonLocationRetrieve(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/carbon_location/',
-        });
-    }
-
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditCarbonLocationCreate(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/carbon_credit/carbon_location/',
-        });
-    }
-
-    /**
      * @param carbonCredit 碳權
      * @returns Certificate
      * @throws ApiError
@@ -154,28 +132,6 @@ export class CarbonCreditService {
         return this.httpRequest.request({
             method: 'GET',
             url: '/carbon_credit/filter_list/',
-        });
-    }
-
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditLocationRetrieve(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/carbon_credit/location/',
-        });
-    }
-
-    /**
-     * @returns any No response body
-     * @throws ApiError
-     */
-    public carbonCreditLocationCreate(): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/carbon_credit/location/',
         });
     }
 
