@@ -26,7 +26,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 const ACCOUNT_PASSWORD_CHANGE_DATA: { label: string; name: keyof FormType }[] = [
   {
     label: '目前的密碼：',
-    name: 'currentPassword'
+    name: 'oldPassword'
   },
   {
     label: '選擇新密碼：',
@@ -39,7 +39,7 @@ const ACCOUNT_PASSWORD_CHANGE_DATA: { label: string; name: keyof FormType }[] = 
 ];
 
 const Schema = yup.object({
-  currentPassword: yup.string().required('請輸入新密碼'),
+  oldPassword: yup.string().required('請輸入新密碼'),
   newPassword: yup.string().required('請輸入新密碼'),
   confirmNewPassword: yup
     .string()
@@ -54,12 +54,15 @@ const AccountPasswordChangeModal = () => {
   const updateCompanyEmployee = useCompanyStore((state) => state.updateCompanyEmployee);
 
   const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    reset();
+  };
 
-  const { register, handleSubmit, formState } = useForm<FormType>({
+  const { register, handleSubmit, formState, reset } = useForm<FormType>({
     resolver: yupResolver(Schema),
     values: {
-      currentPassword: '*****************',
+      oldPassword: '',
       newPassword: '',
       confirmNewPassword: ''
     }
@@ -67,6 +70,7 @@ const AccountPasswordChangeModal = () => {
 
   const onSubmit = handleSubmit(async (values) => {
     const isSuccess = await updateCompanyEmployee({
+      old_password: values.oldPassword,
       password: values.confirmNewPassword
     });
     if (isSuccess) handleClose();
@@ -142,7 +146,7 @@ const AccountPasswordChangeModal = () => {
                       <div key={index} className="flex flex-col gap-3">
                         <p className="font-semibold text-dark-grey text-xl">{item.label}</p>
                         <input
-                          type="text"
+                          type="password"
                           className="w-full p-2 outline-none rounded-md border-[1px] shadow border-solid border-dark-grey"
                           {...register(item.name)}
                         />
@@ -158,6 +162,7 @@ const AccountPasswordChangeModal = () => {
                     onClick={handleClose}
                     variant="primary"
                     className="rounded-full px-12 h-12 text-lg mt-3 !text-navy-blue bg-white border-2"
+                    type="button"
                   >
                     取消
                   </CustomButton>

@@ -7,6 +7,12 @@ import apiClient from '@/libs/api/client';
 import { ModalType, runTask, useModalStore } from './modal';
 import { AuthResult, COOKIE_AUTH_NAME } from './user';
 
+if (!process.env.REACT_APP_COOKIE_EXPIRE_DAY) {
+  throw new Error('REACT_APP_COOKIE_EXPIRE_DAY not found');
+}
+
+const cookieExpireDay = parseInt(process.env.REACT_APP_COOKIE_EXPIRE_DAY);
+
 type CompanyState = {
   company: Partial<Company>;
   employee: Employee | null;
@@ -32,7 +38,9 @@ export const useCompanyStore = create<CompanyState>((set, get) => ({
       if (auth) {
         const authData = JSON.parse(auth);
         authData.companyId = company.id;
-        cookies.set(COOKIE_AUTH_NAME, JSON.stringify(authData), { expires: 1 });
+        cookies.set(COOKIE_AUTH_NAME, JSON.stringify(authData), {
+          expires: cookieExpireDay
+        });
       }
       set({ company, isSuccess: true });
       useModalStore.getState().close();
