@@ -81,7 +81,10 @@ const ProductDetailList = ({ isSort, sortOption, setSortOption, setIsSort }: Pro
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white border-b-2 border-light-grey">
             <tr>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px]">
+              <th
+                scope="col"
+                className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px] first:w-[50px] first:text-center"
+              >
                 單價
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
