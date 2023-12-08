@@ -96,11 +96,11 @@ const Cart = () => {
           ))}
         </div>
         {cartDetail && (
-          <div className="2xl:h-[82vh] h-[78vh] flex-1 mr-7 rounded-[10px] shadow-cart-item py-6">
+          <div className=" h-[78vh] 2xl:h-[82vh] flex-1 mr-7 rounded-[10px] shadow-cart-item py-6">
             <div className="flex flex-col h-full overflow-y-auto yellowScroll">
               <div className="flex flex-row justify-between pr-6.7">
                 <Heading>商品共計</Heading>
-                <p className="2xl:text-lg text-base text-black  font-bold font-istok-web">
+                <p className="2xl:text-lg text-base text-black font-bold font-istok-web">
                   NT$ {cartDetail?.total_amount}
                 </p>
               </div>
