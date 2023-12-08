@@ -81,7 +81,10 @@ const ProductDetailList = ({ isSort, sortOption, setSortOption, setIsSort }: Pro
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white border-b-2 border-light-grey">
             <tr>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px]">
+              <th
+                scope="col"
+                className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px] first:w-[50px] first:text-center"
+              >
                 單價
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
@@ -127,11 +130,7 @@ const PriceListItem = ({ item }: { item: Order }) => {
 
   return (
     <tr className=" border-b-[2px] border-white-smoke-2 dark:bg-gray-800 dark:border-gray-700 text-white text-lg 2xl:text-2xl">
-      <th
-        scope="row"
-        align="right"
-        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white first:text-left"
-      >
+      <th scope="row" align="right" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
         ${formatNumberByComma(item.price || '')}
       </th>
       <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
