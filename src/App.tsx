@@ -333,7 +333,8 @@ export default function App() {
           PromiseModal({
             title: 'test',
             component: productInfo,
-            type: CardType.MemberCard
+            type: CardType.MemberCard,
+            requiresLoginVerification: true
           });
         }}
       >

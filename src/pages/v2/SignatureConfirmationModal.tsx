@@ -37,10 +37,11 @@ type SignatureConfirmationModalProps = {
   title: string;
   type: CardType;
   component?: ReactNode;
+  requiresLoginVerification?: boolean;
 } & InstanceProps<ResolveResponse, RejectResponse>;
 
 const SignatureConfirmationModal = (props: SignatureConfirmationModalProps) => {
-  const { isOpen, title, type, component, onResolve, onReject } = props;
+  const { isOpen, title, type, component, requiresLoginVerification, onResolve, onReject } = props;
   const schema = yup
     .object({
       password: yup.string().required('卡片密碼是必填的')
@@ -160,7 +161,12 @@ const SignatureConfirmationModal = (props: SignatureConfirmationModalProps) => {
                 )}
               </Box>
               <Box className="w-[40%] flex justify-center item-center">
-                <div className="w-[100%] flex flex-col items-center pt-12 pb-29">
+                <div
+                  className={classNames('w-[100%] flex flex-col items-center', {
+                    'pt-12 pb-29': !requiresLoginVerification,
+                    'justify-center': requiresLoginVerification
+                  })}
+                >
                   <div className="text-center mb-9">
                     <h1 className="font-bold text-[32px] leading-[38px]">
                       {title}
@@ -173,22 +179,24 @@ const SignatureConfirmationModal = (props: SignatureConfirmationModalProps) => {
                     請插入{type === CardType.GovernmentCard ? '工商憑證' : '會員卡'}並輸入密碼
                   </p>
                   <form className="flex flex-col items-center w-full mb-[22px]" onSubmit={handleSubmit(onResolve)}>
-                    <div className="w-4/5 bg-snowflake-grey shadow-input-box rounded-[18px] flex items-center 2xl:h-[53px] h-10 mt-5 mb-[22px]">
-                      <img
-                        className="mr-3.5 ml-6 2xl:w-6 2xl:h-6 w-4 h-4"
-                        src="/images/login/key.svg"
-                        width={24}
-                        height={24}
-                        alt="key-icon"
-                      />
-                      <input
-                        className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
-                        type="password"
-                        placeholder="password"
-                        {...register('password')}
-                      />
-                      <div>{formState.errors?.password?.message}</div>
-                    </div>
+                    {!requiresLoginVerification && (
+                      <div className="w-4/5 bg-snowflake-grey shadow-input-box rounded-[18px] flex items-center 2xl:h-[53px] h-10 mt-5 mb-[22px]">
+                        <img
+                          className="mr-3.5 ml-6 2xl:w-6 2xl:h-6 w-4 h-4"
+                          src="/images/login/key.svg"
+                          width={24}
+                          height={24}
+                          alt="key-icon"
+                        />
+                        <input
+                          className="text-navy-blue !bg-transparent flex-1 h-full outline-none 2xl:text-xl text-base input-no-bg"
+                          type="password"
+                          placeholder="password"
+                          {...register('password')}
+                        />
+                        <div>{formState.errors?.password?.message}</div>
+                      </div>
+                    )}
 
                     <button
                       type="submit"
