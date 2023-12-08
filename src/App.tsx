@@ -222,11 +222,11 @@ const router = createBrowserRouter([
   {
     path: '/sales',
     element: (
-      // <ProtectedAuthRoute>
-      // <ProtectedCompanyRegisteredRoute>
-      <Sales />
-      // </ProtectedCompanyRegisteredRoute>
-      // </ProtectedAuthRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <Sales />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
