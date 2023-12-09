@@ -332,7 +332,7 @@ export default function App() {
 
           PromiseModal({
             title: 'test',
-            component: productInfo,
+            componentFull: productInfo,
             type: CardType.MemberCard
           });
         }}
