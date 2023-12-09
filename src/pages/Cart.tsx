@@ -27,6 +27,7 @@ const Cart = () => {
   const isSelectedAll = useCartStore((store) => store.isSelectedAll);
   const setAllCartItemSelect = useCartStore((store) => store.setAllCartItemSelect);
   const deleteSelectedCartItem = useCartStore((store) => store.deleteSelectedCartItem);
+  const checkPassMinOrderThreshold = useCartStore((store) => store.checkPassMinOrderThreshold);
   const open = useModalStore((store) => store.open);
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState(false);
@@ -178,22 +179,29 @@ const Cart = () => {
                 點擊「前往付款」，訂單及送出，請於下一步選擇付款方式
               </p>
               <button
-                onClick={() => {
+                onClick={async () => {
                   if (!isChecked) return setError(true);
-                  open(ModalType.CheckOutConfirm, {
-                    buttons: [
-                      {
-                        text: '返回商品列表',
-                        isOutline: true
-                      },
-                      {
-                        text: '確認結帳',
-                        onClick: () => {
-                          navigate('/payment-information');
+
+                  const isPass = await checkPassMinOrderThreshold();
+
+                  if (isPass) {
+                    open(ModalType.CheckOutConfirm, {
+                      buttons: [
+                        {
+                          text: '返回商品列表',
+                          isOutline: true
+                        },
+                        {
+                          text: '確認結帳',
+                          onClick: () => {
+                            navigate('/payment-information');
+                          }
                         }
-                      }
-                    ]
-                  });
+                      ]
+                    });
+                  } else {
+                    open(ModalType.NotPassMinOrderThreshold);
+                  }
                 }}
                 className={classNames(
                   'w-[80%] py-2 self-center rounded-md 2xl:text-xl text-lg font-bold text-white mb-3',
