@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import EnvironmentalModal from '@/components/EnvironmentalModal';
 import StockItemBar from '@/components/StockItemBar';
 import { BASE_URL } from '@/constant';
 import { StockItem, useStockListStore } from '@/store/stockList';
@@ -27,7 +26,6 @@ const Sales = () => {
   const [selectStockItem, setSelectStockItem] = useState<StockItem | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [keyword, setKeyword] = useState<string>('');
-  const [isEnvModalOpen, setIsEnvModalOpen] = useState<boolean>(false);
 
   const stockList = useStockListStore((store) => store.stockList);
   const getStockList = useStockListStore((store) => store.getStockList);
@@ -66,7 +64,6 @@ const Sales = () => {
           <div className="flex flex-col items-end w-full">
             <div className="flex items-center mb-8 gap-3 xl:mr-0 mr-7">
               {/* filters */}
-              <EnvironmentalModal open={isEnvModalOpen} setOpen={() => setIsEnvModalOpen(false)} />
               <div className="rounded-full border border-light-grey bg-white w-[44px] h-[34px] flex items-center justify-center cursor-pointer">
                 <img src="/images/sales/filters.png" width={19} height={19} alt="filters" />
               </div>
