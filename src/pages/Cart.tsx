@@ -97,17 +97,17 @@ const Cart = () => {
           ))}
         </div>
         {cartDetail && (
-          <div className="2xl:h-[82vh] h-[78vh] flex-1 mr-7 rounded-[10px] shadow-cart-item py-6">
-            <div className="flex flex-col">
+          <div className=" h-[78vh] 2xl:h-[82vh] flex-1 mr-7 rounded-[10px] shadow-cart-item py-6">
+            <div className="flex flex-col h-full overflow-y-auto yellowScroll">
               <div className="flex flex-row justify-between pr-6.7">
                 <Heading>商品共計</Heading>
-                <p className="2xl:text-lg text-base text-black  font-bold font-istok-web">
+                <p className="2xl:text-lg text-base text-black font-bold font-istok-web">
                   NT$ {cartDetail?.total_amount}
                 </p>
               </div>
               <div className="px-6.7 mt-2.5 ">
                 <p className="text-grey 2xl:text-sm text-xs font-bold font-istok-web">
-                  {cartDetail && cartDetail.product_list?.length}項(以下含稅金${taxPercentage}%及手續費)
+                  {cartDetail && cartDetail.product_list?.length}項(以下含稅金{taxPercentage}%及手續費)
                 </p>
                 <div className="2xl:mt-5.2 mt-3">
                   {cartDetail &&
@@ -127,7 +127,7 @@ const Cart = () => {
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">$ {cartDetail?.cost}</p>
                 </div>
                 <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
-                  <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金${taxPercentage}%</p>
+                  <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金{taxPercentage}%</p>
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">${cartDetail?.tax}</p>
                 </div>
                 <div className="flex flex-row justify-between">
@@ -138,8 +138,8 @@ const Cart = () => {
               <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
               <Heading>優惠折扣</Heading>
               <button className="border-navy-blue ml-6.7 2xl:mt-5 mt-3 flex flex-row rounded-lg border-solid border 2xl:px-5 px-4 2xl:py-3 py-2 max-w-max 2xl:mb-8 mb-5">
-                <img src="/images/cart/promocode.svg" width={25} height={25} alt="sacurn" />
-                <p className="text-navy-blue 2xl:text-base text-sm pl-3">使用優惠碼</p>
+                {/* <img src="/images/cart/promocode.svg" width={25} height={25} alt="sacurn" /> */}
+                <p className="text-navy-blue 2xl:text-base text-sm">使用優惠碼</p>
               </button>
               <Heading>服務條款</Heading>
               <p className="ml-6.7 2xl:text-base text-sm 2xl:mt-6 mt-2 text-navy-blue">
@@ -203,10 +203,13 @@ const Cart = () => {
                     open(ModalType.NotPassMinOrderThreshold);
                   }
                 }}
-                className={classNames('w-[80%] py-2 self-center rounded-md 2xl:text-xl text-lg font-bold text-white', {
-                  ['bg-navy-blue']: isChecked,
-                  ['bg-grey']: !isChecked
-                })}
+                className={classNames(
+                  'w-[80%] py-2 self-center rounded-md 2xl:text-xl text-lg font-bold text-white mb-3',
+                  {
+                    ['bg-navy-blue']: isChecked,
+                    ['bg-grey']: !isChecked
+                  }
+                )}
               >
                 前往付款
               </button>
@@ -226,7 +229,18 @@ interface CartItemIProps extends CartItemType {
 }
 
 const CartItem = (props: CartItemIProps) => {
-  const { selected, id, name, image, remaining_quantity, order, order_deleted, company_code, onSelectedChange } = props;
+  const {
+    selected,
+    id,
+    name,
+    image,
+    remaining_quantity,
+    order,
+    order_deleted,
+    company_code,
+    carbon_tag,
+    onSelectedChange
+  } = props;
 
   const [qty, setQty] = useState(props.quantity || MIN_CART_QTY);
 
@@ -286,7 +300,15 @@ const CartItem = (props: CartItemIProps) => {
           )}
         </div>
         <div className="w-[114px] h-[114px] ml-4">
-          <img src={image} className="w-full h-full object-cover rounded-[10px]" alt="sacurn" />
+          <img
+            src={image}
+            className={classNames('w-full h-full object-cover rounded-[10px]', {
+              'border-[3.408px] border-light-green': carbon_tag === '綠碳',
+              'border-[3.408px] border-light-blue': carbon_tag === '藍碳',
+              'border-[3.408px] border-pale-yellow': carbon_tag === '黃碳'
+            })}
+            alt="sacurn"
+          />
         </div>
         <div className="ml-[23px] flex flex-col justify-between h-full max-w-[316px]">
           <p className="text-[10.6px] font-bold text-dark-grey">會員代號 : {company_code}</p>
@@ -310,7 +332,7 @@ const CartItem = (props: CartItemIProps) => {
         >
           {isCannotBuy ? '剩下 0 噸無法交易' : `剩下 ${remaining_quantity} 噸可購`}
         </p>
-        <div className="flex items-center gap-7">
+        <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.2" onClick={(e) => e.stopPropagation()}>
             <MinusRounded onClick={() => onQuantityAdjust(-1)} />
             <input
@@ -321,7 +343,9 @@ const CartItem = (props: CartItemIProps) => {
             />
             <PlusRounded onClick={() => onQuantityAdjust(+1)} />
           </div>
-          <p className="text-xl font-bold text-black whitespace-nowrap">$ {formatNumberByComma(qty * price)}</p>
+          <p className="text-xl font-bold text-black whitespace-nowrap min-w-[120px] text-right">
+            $ {formatNumberByComma(qty * price)}
+          </p>
         </div>
         {/* <button className="mr-7">
           <img
