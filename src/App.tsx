@@ -13,14 +13,12 @@ import OperatorSignUp from '@/pages/OperatorSignup';
 import ProductDetails from '@/pages/ProductDetails';
 import Products from '@/pages/Products';
 import Sales from '@/pages/Sales';
-import PromiseModal from '@/pages/v2/SignatureConfirmationModal';
 import WishList from '@/pages/Wishlist';
 
 import Modal from './components/Modal/UniversalModal';
 import ProductDetail from './components/ProductDetail';
 import { ProtectedAuthRoute } from './components/ProtectedAuthRoute';
 import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRegisteredRoute';
-import SalesConfirmationModal from './components/SalesConfirmationModal';
 import PasswordRecoveryForm from './pages/PasswordRecoveryForm';
 // import AllProducts from './pages/AllProducts';
 import PaymentInformation from './pages/PaymentInformation';
@@ -36,7 +34,6 @@ import MemberProfile from './pages/v2/MemberProfile';
 import MembershipUpgrade from './pages/v2/MembershipUpgrade';
 import PasswordResetNewPass from './pages/v2/PasswordResetNewPass';
 import PlatformUsage from './pages/v2/PlatformUsage';
-import { CardType } from './types';
 
 const router = createBrowserRouter([
   {
@@ -225,11 +222,11 @@ const router = createBrowserRouter([
   {
     path: '/sales',
     element: (
-      // <ProtectedAuthRoute>
-      // <ProtectedCompanyRegisteredRoute>
-      <Sales />
-      // </ProtectedCompanyRegisteredRoute>
-      // </ProtectedAuthRoute>
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <Sales />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
     )
   },
   {
@@ -289,20 +286,7 @@ export default function App() {
   return (
     <div>
       <RouterProvider router={router} />
-      {/* TODO: Remove this modal after testing */}
       <Modal />
-      <button
-        style={{ position: 'fixed', zIndex: 100, top: 0 }}
-        onClick={() => {
-          PromiseModal({
-            title: 'test',
-            componentFull: <SalesConfirmationModal />,
-            type: CardType.MemberCard
-          });
-        }}
-      >
-        點我
-      </button>
       <ModalContainer />
     </div>
   );
