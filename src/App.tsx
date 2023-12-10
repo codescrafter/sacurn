@@ -293,43 +293,43 @@ export default function App() {
       <button
         style={{ position: 'fixed', zIndex: 100, top: 0 }}
         onClick={() => {
-          const productInfo = (
-            <div className="border-2 border-bright-blue rounded-[10px] py-5  px-5">
-              <div>
-                <h1 className="text-base lg:text-2.5xl xl:text-3xl text-black font-bold">NameHere</h1>
-              </div>
+          // const productInfo = (
+          //   <div className="border-2 border-bright-blue rounded-[10px] py-5  px-5">
+          //     <div>
+          //       <h1 className="text-base lg:text-2.5xl xl:text-3xl text-black font-bold">NameHere</h1>
+          //     </div>
 
-              <div className="pb-15">
-                <div>
-                  <div className="flex justify-between pt-10 pb-15">
-                    <div className="flex flex-col gap-4 text-dark-grey">
-                      <p>Vintage</p>
-                      <p>平均單價</p>
-                      <p>持有數量</p>
-                    </div>
-                    <div className="flex flex-col gap-4 text-right text-xl font-bold text-black">
-                      <p>2023/12/11</p>
-                      <p>$ 123</p>
-                      <p>123 噸</p>
-                    </div>
-                  </div>
-                  <hr className="border-silverstone" />
-                  <div className="flex justify-between pt-10 pb-15">
-                    <div className="flex flex-col gap-4 text-dark-grey">
-                      <p>上架數量</p>
-                      <p>每噸單價</p>
-                      <p>最低下單量</p>
-                    </div>
-                    <div className="flex flex-col gap-4 text-right text-xl font-bold text-black">
-                      <p>123 噸</p>
-                      <p>123 元</p>
-                      <p>123 噸</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
+          //     <div className="pb-15">
+          //       <div>
+          //         <div className="flex justify-between pt-10 pb-15">
+          //           <div className="flex flex-col gap-4 text-dark-grey">
+          //             <p>Vintage</p>
+          //             <p>平均單價</p>
+          //             <p>持有數量</p>
+          //           </div>
+          //           <div className="flex flex-col gap-4 text-right text-xl font-bold text-black">
+          //             <p>2023/12/11</p>
+          //             <p>$ 123</p>
+          //             <p>123 噸</p>
+          //           </div>
+          //         </div>
+          //         <hr className="border-silverstone" />
+          //         <div className="flex justify-between pt-10 pb-15">
+          //           <div className="flex flex-col gap-4 text-dark-grey">
+          //             <p>上架數量</p>
+          //             <p>每噸單價</p>
+          //             <p>最低下單量</p>
+          //           </div>
+          //           <div className="flex flex-col gap-4 text-right text-xl font-bold text-black">
+          //             <p>123 噸</p>
+          //             <p>123 元</p>
+          //             <p>123 噸</p>
+          //           </div>
+          //         </div>
+          //       </div>
+          //     </div>
+          //   </div>
+          // );
 
           PromiseModal({
             title: 'test',
