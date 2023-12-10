@@ -102,7 +102,7 @@ const Tile = ({
       <div className="flex flex-1 flex-col justify-between items-end h-full py-2">
         <div>
           <div className="flex items-center gap-1 whitespace-nowrap">
-            <p className="text-sm text-black">USD</p>
+            <p className="text-sm text-black">TWD</p>
             <p className="text-xl font-bold text-black">
               {minPrice} ~ {maxPrice}
             </p>
