@@ -83,17 +83,17 @@ const ProductDetailList = ({ isSort, sortOption, setSortOption, setIsSort }: Pro
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px] first:w-[50px] first:text-center"
+                className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px] first:w-[50px] first:text-right"
               >
                 單價
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
                 會員代號
               </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px] text-right">
                 可交易數量
               </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-right text-lg font-normal tracking-[0.51px]">
                 交易最小單位
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
@@ -134,10 +134,10 @@ const PriceListItem = ({ item }: { item: Order }) => {
         ${formatNumberByComma(item.price || '')}
       </th>
       <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
-      <td className="px-6 py-4 whitespace-nowrap text-center">
+      <td className="px-6 py-4 whitespace-nowrap text-right">
         {formatNumberByComma(item.remaining_quantity || '')} 噸
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-center">
+      <td className="px-6 py-4 whitespace-nowrap text-right">
         {formatNumberByComma(item.min_order_quantity || '')} 噸
       </td>
       <td className="px-6 py-4 items-center whitespace-nowrap">

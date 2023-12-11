@@ -8,6 +8,7 @@ import { useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
 import { CardRenewalEnum, OrderStatus } from '@/type';
 import { MIN_CART_QTY } from '@/util/constants';
+import { formatNumberByComma } from '@/util/helper';
 
 interface HeadingIProps {
   children: React.ReactNode;
@@ -63,7 +64,7 @@ const CartV2 = () => {
             <div className="flex flex-row justify-between pr-6.7">
               <Heading>商品共計</Heading>
               <p className="2xl:text-lg text-base text-black font-bold font-istok-web">
-                NT$ {cartDetail?.total_amount}
+                NT$ {formatNumberByComma(cartDetail?.total_amount)}
               </p>
             </div>
             <div className="px-6.7 mt-2.5 ">
@@ -76,22 +77,30 @@ const CartV2 = () => {
                     return (
                       <div key={product.name} className="flex flex-row justify-between text-grey 2xl:mb-5 mb-3">
                         <p className="w-[70%] text-grey 2xl:text-lg font-bold font-istok-web">{product.name}</p>
-                        <p className="text-grey 2xl:text-xl text-base font-bold font-istok-web">$ {product.amount}</p>
+                        <p className="text-grey 2xl:text-xl text-base font-bold font-istok-web">
+                          $ {formatNumberByComma(product.amount.toString() as string)}
+                        </p>
                       </div>
                     );
                   })}
               </div>
               <div className="flex flex-row justify-between 2xl:mb-5 mb-3">
                 <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">手續費</p>
-                <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">$ {cartDetail?.cost}</p>
+                <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">
+                  $ {formatNumberByComma(cartDetail?.cost.toString() as string)}
+                </p>
               </div>
               <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
                 <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金{5}%</p>
-                <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">${cartDetail?.tax}</p>
+                <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">
+                  ${formatNumberByComma(cartDetail?.tax.toString() as string)}
+                </p>
               </div>
               <div className="flex flex-row justify-between">
                 <p className="2xl:text-lg text-base font-bold text-black">總付款金額</p>
-                <p className="2xl:text-xl text-base text-bright-red font-bold">NT$ {cartDetail?.total_amount}</p>
+                <p className="2xl:text-xl text-base text-bright-red font-bold">
+                  NT$ {formatNumberByComma(cartDetail?.total_amount.toString() as string)}
+                </p>
               </div>
             </div>
             <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
@@ -238,7 +247,9 @@ const CartItem = (props: CartItemIProps) => {
           </button>
         </div>
         <div className="flex items-center">
-          <p className="text-xl font-bold text-black whitespace-nowrap min-w-[120px] text-right">${qty * price}</p>
+          <p className="text-xl font-bold text-black whitespace-nowrap min-w-[120px] text-right">
+            ${formatNumberByComma(qty * price).toString() as string}
+          </p>
         </div>
         <button className="mr-7">
           <img

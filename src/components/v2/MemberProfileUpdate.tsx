@@ -77,6 +77,7 @@ const MemberProfileUpdate = () => {
 
   useEffect(() => {
     if (!selectedEmployee) return;
+    console.log('selectedEmployee', selectedEmployee);
     setValue('name', selectedEmployee.username);
     setValue('job_title', selectedEmployee.position || '');
     setValue('email', selectedEmployee.email);
@@ -123,8 +124,9 @@ const MemberProfileUpdate = () => {
       }
     }
   }
-
+  console.log('errors', errors);
   const onSubmit = handleSubmit((data) => {
+    console.log('data', data);
     // checks if password1 is valid
     if (!infoUpdateAble) return;
     if (passwordUpdateAble) {
@@ -175,7 +177,7 @@ const MemberProfileUpdate = () => {
     <form onSubmit={onSubmit}>
       <div className="rounded-mdlg bg-trans-white min-[1400px]:py-6.2 py-3.5 min-[1400px]:px-8 px-6 mt-[146px] flex flex-col bg-blend-lighten min-[1400px]:gap-4.5 gap-3 ml-10 w-[89%] max-w-[1035px]">
         <div
-          className={classNames('flex min-[1600px]:my-21 min-[1500px]:my-18 min-[1300px]:my-14 my-10', {
+          className={classNames('flex min-[1600px]:my-21 min-[1500px]:my-18 min-[1300px]:my-14 my-10 overflow-hidden', {
             'min-[1600px]:gap-x-16.7 min-[1500px]:gap-x-13.7 min-[1300px]:gap-x-12 gap-x-10': !infoUpdateAble
           })}
         >
