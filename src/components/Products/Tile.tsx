@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { useWishListStore } from '@/store/wishList';
 import { CarbonTag } from '@/type';
+import { formatNumberByComma } from '@/util/helper';
 
 import CustomButton from '../CustomButton';
 import CustomRating from '../Rating';
@@ -104,7 +105,7 @@ const Tile = ({
           <div className="flex items-center gap-1 whitespace-nowrap">
             <p className="text-sm text-black">TWD</p>
             <p className="text-xl font-bold text-black">
-              {minPrice} ~ {maxPrice}
+              {formatNumberByComma(minPrice || '0')} ~ {formatNumberByComma(maxPrice || '0')}
             </p>
             <p className="text-[10px] text-black">/Tonne</p>
           </div>

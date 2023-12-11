@@ -11,7 +11,7 @@ type EmployeeState = {
   employeeList: Employee[];
   getRoleList: (page?: number) => void;
   createEmployee: (data: FormData) => Promise<boolean>;
-  getEmployeeList: (page?: number) => void;
+  getEmployeeList: (page?: number) => Promise<void>;
   selectedEmployee?: Employee;
   getSelectedEmployee: (...args: Parameters<typeof apiClient.company.companyEmployeeRetrieve>) => void;
   updateEmployeeDetails: (id: number, companyData?: FormData) => void;
@@ -53,6 +53,7 @@ export const useEmployeeStore = create<EmployeeState>((set, get) => ({
   updateEmployeeDetails: async (id, employeeData) => {
     await runTask(async () => {
       const response = await apiClient.company.companyEmployeePartialUpdate(id, employeeData as PatchedEmployeesPatch);
+      await get().getEmployeeList();
       set({ selectedEmployee: response });
     });
   },

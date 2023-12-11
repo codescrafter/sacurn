@@ -36,7 +36,7 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
       className={classNames(
         'relative bg-white rounded-lg w-[100%] h-[316px] flex justify-center items-center group hover:border-4  transition-all cursor-pointer',
         {
-          'hover:border-dark-grey': !isActive
+          'border-dark-grey': !isActive
         }
       )}
       onClick={() => {
@@ -45,13 +45,13 @@ const EnterpriseCard = ({ title, userName, userEmail, img, isActive, id }: IProp
     >
       <div
         className={classNames('w-full h-full absolute rounded-sm', {
-          'group-hover:bg-[#abababd1]': !isActive
+          'bg-[#abababd1]': !isActive
         })}
       />
       {!isActive && (
         <CustomButton
           variant="rounded-full"
-          className="absolute z-20 py-2.5 px-5 !bg-white !text-navy-blue font-sm font-bold hidden group-hover:block"
+          className={classNames('absolute z-20 py-2.5 px-5 !bg-white !text-navy-blue font-sm font-bold')}
           onClick={() => unFreezeEmployeeAccount(id)}
         >
           重新激活帳號
