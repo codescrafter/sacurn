@@ -35,7 +35,6 @@ const PasswordResetNewPass = () => {
   }, []);
 
   const submitHandler = async () => {
-    console.log(uid, token, password, confirmPassword);
     await createNewPassword({ uid, token, new_password1: password, new_password2: confirmPassword });
     navigate('/password-recovery');
   };

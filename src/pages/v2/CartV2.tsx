@@ -64,7 +64,7 @@ const CartV2 = () => {
             <div className="flex flex-row justify-between pr-6.7">
               <Heading>商品共計</Heading>
               <p className="2xl:text-lg text-base text-black font-bold font-istok-web">
-                NT$ {formatNumberByComma(cartDetail?.total_amount)}
+                TWD {formatNumberByComma(cartDetail?.total_amount)}
               </p>
             </div>
             <div className="px-6.7 mt-2.5 ">
@@ -99,7 +99,7 @@ const CartV2 = () => {
               <div className="flex flex-row justify-between">
                 <p className="2xl:text-lg text-base font-bold text-black">總付款金額</p>
                 <p className="2xl:text-xl text-base text-bright-red font-bold">
-                  NT$ {formatNumberByComma(cartDetail?.total_amount.toString() as string)}
+                  TWD {formatNumberByComma(cartDetail?.total_amount.toString() as string)}
                 </p>
               </div>
             </div>
