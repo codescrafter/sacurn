@@ -102,7 +102,7 @@ const Cart = () => {
               <div className="flex flex-row justify-between pr-6.7">
                 <Heading>商品共計</Heading>
                 <p className="2xl:text-lg text-base text-black font-bold font-istok-web">
-                  TWD {formatNumberByComma(cartDetail?.total_amount?.toString() as string)}
+                  TWD {formatNumberByComma(cartDetail?.product_amount?.toString() as string)}
                 </p>
               </div>
               <div className="px-6.7 mt-2.5 ">
@@ -127,18 +127,20 @@ const Cart = () => {
                 <div className="flex flex-row justify-between 2xl:mb-5 mb-3">
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">手續費</p>
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">
-                    $ {formatNumberByComma(cartDetail?.total_amount?.toString() as string)}
+                    $ {formatNumberByComma(cartDetail?.cost?.toString() as string)}
                   </p>
                 </div>
                 <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金{taxPercentage}%</p>
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">
-                    $ {formatNumberByComma((cartDetail?.tax?.toString() as string) || '0')}
+                    $ {formatNumberByComma(cartDetail?.tax?.toString() as string)}
                   </p>
                 </div>
                 <div className="flex flex-row justify-between">
                   <p className="2xl:text-lg text-base font-bold text-black">總付款金額</p>
-                  <p className="2xl:text-xl text-base text-bright-red font-bold">TWD {formatNumberByComma('220000')}</p>
+                  <p className="2xl:text-xl text-base text-bright-red font-bold">
+                    TWD {formatNumberByComma(cartDetail?.total_amount?.toString() as string)}
+                  </p>
                 </div>
               </div>
               <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
