@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import Countdown, { CountdownRenderProps } from 'react-countdown';
 
 import { CheckoutResult } from '@/store/cart';
+import { formatNumberByComma } from '@/util/helper';
 
 import CustomButton from './CustomButton';
 
@@ -52,7 +53,7 @@ const TotalPayment = (props: TotalPaymentProps) => {
       <div className="pt-4">
         <div className="border rounded-[10px] border-silverstone p-4 flex justify-between mb-4">
           <p className="text-navy-blue text-lg font-bold">付款總額：</p>
-          <p className="text-bright-red text-lg font-bold">$ {totalPrice}</p>
+          <p className="text-bright-red text-lg font-bold">$ {formatNumberByComma(totalPrice.toString() as string)}</p>
         </div>
         <div className="border rounded-[10px] border-silverstone p-4 flex justify-between mb-4">
           <p className="text-navy-blue text-lg font-bold">付款期限：</p>

@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Fragment, useState } from 'react';
 
 import { TableBodyItem } from '@/types';
+import { formatNumberByComma } from '@/util/helper';
 
 interface IProps {
   name: string;
@@ -37,7 +38,9 @@ const CustomTable = ({ tableHeadings, tableBody, name }: IProps) => {
                       'pb-3 pt-1 text-left whitespace-nowrap text-base xl:text-lg font-normal text-grey',
                       {
                         'pl-2 2xl:pl-[33px]': index === 0,
-                        'px-2 2xl:px-8': index !== 0
+                        'px-2 2xl:px-8': index !== 0,
+                        '!text-right pr-8': item === '單價' || item === '數量(噸)',
+                        'text-center': item === '總金額'
                       }
                     )}
                     key={item}
@@ -100,28 +103,28 @@ const CustomTable = ({ tableHeadings, tableBody, name }: IProps) => {
                       {('operator' in item && item.operator) || ('buysell' in item && item.buysell)}
                     </td>
                     <td
-                      className={classNames('py-3 px-2 2xl:px-8 text-base 2xl:text-xl', {
+                      className={classNames('py-3 px-2 2xl:px-8 pr-8 text-right text-base 2xl:text-xl', {
                         'text-black font-medium': name === 'historical_order',
                         'text-dark-grey': name !== 'historical_order'
                       })}
                     >
-                      {item.unitPrice}
+                      {'$'.concat(formatNumberByComma(item.unitPrice.slice(1)))}
                     </td>
                     <td
-                      className={classNames('py-3 px-2 2xl:px-8 text-base 2xl:text-xl', {
+                      className={classNames('py-3 px-2 2xl:px-8 text-base 2xl:text-xl pr-8 text-right', {
                         'text-black font-medium': name === 'historical_order',
                         'text-dark-grey': name !== 'historical_order'
                       })}
                     >
-                      {item.quant}
+                      {formatNumberByComma(item.quant)}
                     </td>
                     <td
-                      className={classNames('py-3 px-2 2xl:px-8 text-base 2xl:text-xl', {
+                      className={classNames('py-3 px-2 2xl:px-8 text-base 2xl:text-xl text-center', {
                         'text-black font-medium': name === 'historical_order',
                         '': name !== 'historical_order'
                       })}
                     >
-                      {item.lumpsum}
+                      {'$'.concat(formatNumberByComma(item.lumpsum.slice(1)))}
                     </td>
                     <td
                       className={classNames(

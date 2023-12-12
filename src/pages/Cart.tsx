@@ -102,11 +102,11 @@ const Cart = () => {
               <div className="flex flex-row justify-between pr-6.7">
                 <Heading>商品共計</Heading>
                 <p className="2xl:text-lg text-base text-black font-bold font-istok-web">
-                  NT$ {cartDetail?.total_amount}
+                  TWD {formatNumberByComma(cartDetail?.total_amount?.toString() as string)}
                 </p>
               </div>
               <div className="px-6.7 mt-2.5 ">
-                <p className="text-grey 2xl:text-sm text-xs font-bold font-istok-web">
+                <p className="text-grey 2xl:text-sm font-bold font-istok-web text-sm">
                   {cartDetail && cartDetail.product_list?.length}項(以下含稅金{taxPercentage}%及手續費)
                 </p>
                 <div className="2xl:mt-5.2 mt-3">
@@ -117,30 +117,31 @@ const Cart = () => {
                           <p className="w-[70%] text-grey 2xl:text-lg text-lg font-bold font-istok-web">
                             {product.name}
                           </p>
-                          <p className="text-grey 2xl:text-lg text-sm">$ {product.amount}</p>
+                          <p className={classNames('text-grey 2xl:text-xl text-sm font-bold')}>
+                            $ {formatNumberByComma(product.amount.toString() as string)}
+                          </p>
                         </div>
                       );
                     })}
                 </div>
                 <div className="flex flex-row justify-between 2xl:mb-5 mb-3">
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">手續費</p>
-                  <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">$ {cartDetail?.cost}</p>
+                  <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">
+                    $ {formatNumberByComma(cartDetail?.total_amount?.toString() as string)}
+                  </p>
                 </div>
                 <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金{taxPercentage}%</p>
-                  <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">${cartDetail?.tax}</p>
+                  <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">
+                    $ {formatNumberByComma((cartDetail?.tax?.toString() as string) || '0')}
+                  </p>
                 </div>
                 <div className="flex flex-row justify-between">
                   <p className="2xl:text-lg text-base font-bold text-black">總付款金額</p>
-                  <p className="2xl:text-xl text-base text-bright-red font-bold">NT$ {cartDetail?.total_amount}</p>
+                  <p className="2xl:text-xl text-base text-bright-red font-bold">TWD {formatNumberByComma('220000')}</p>
                 </div>
               </div>
               <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
-              <Heading>優惠折扣</Heading>
-              <button className="border-navy-blue ml-6.7 2xl:mt-5 mt-3 flex flex-row rounded-lg border-solid border 2xl:px-5 px-4 2xl:py-3 py-2 max-w-max 2xl:mb-8 mb-5">
-                {/* <img src="/images/cart/promocode.svg" width={25} height={25} alt="sacurn" /> */}
-                <p className="text-navy-blue 2xl:text-base text-sm">使用優惠碼</p>
-              </button>
               <Heading>服務條款</Heading>
               <p className="ml-6.7 2xl:text-base text-sm 2xl:mt-6 mt-2 text-navy-blue">
                 <input
@@ -320,7 +321,7 @@ const CartItem = (props: CartItemIProps) => {
           >
             {name}
           </p>
-          <p className="text-lg font-bold text-black">${price}/噸</p>
+          <p className="text-lg font-bold text-black">$ {formatNumberByComma(price.toString() as string)}/噸</p>
         </div>
       </div>
       <div className="flex justify-between items-center gap-14">

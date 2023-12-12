@@ -9,7 +9,7 @@ import Button from './Button';
 import GraphCard from './GraphCard';
 
 const SalesAreaGraph = () => {
-  const [series, setSeries] = useState<number[]>([20, 30, 90, 7]);
+  const [series, setSeries] = useState<number[]>([20, 30, 90]);
   const [labels, setLabels] = useState<string[]>(['A', 'B', 'C']);
   const [activeButton, setActiveButton] = useState<number>(1);
   const getCategoriesData = useInventoryStore((state) => state.getCategoriesData);
@@ -70,12 +70,20 @@ const SalesAreaGraph = () => {
           }
         }
       }
-    ]
+    ],
+    tooltip: {
+      y: {
+        formatter: function (val: number) {
+          return val.toFixed(0) + '%';
+        }
+      }
+    }
   };
 
   useEffect(() => {
     getCategoriesData();
   }, []);
+
   useEffect(() => {
     if (categoriesData?.category && activeButton === 1) {
       const categoriesDataKeys = Object.keys(categoriesData.category);
