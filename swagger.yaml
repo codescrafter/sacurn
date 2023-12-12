@@ -805,6 +805,31 @@ paths:
       responses:
         '204':
           description: No response body
+  /company/employee/{id}/upload_photo/:
+    post:
+      operationId: company_employee_upload_photo_create
+      description: id是Profile id
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - company
+      requestBody:
+        content:
+          application/multi-part/form-data:
+            schema:
+              $ref: '#/components/schemas/EmployeesPhoto'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          description: No response body
   /company/forgot_password/:
     post:
       operationId: company_forgot_password_create
@@ -3414,8 +3439,8 @@ components:
           maxLength: 12
         phone:
           type: string
+          format: uri
           nullable: true
-          maxLength: 45
         status:
           allOf:
           - $ref: '#/components/schemas/Status1d2Enum'
@@ -3441,6 +3466,14 @@ components:
       - updated_at
       - user
       - username
+    EmployeesPhoto:
+      type: object
+      properties:
+        photo:
+          type: string
+          format: uri
+      required:
+      - photo
     ExtendCarbonCredit:
       type: object
       properties:

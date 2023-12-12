@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { Company } from '../models/Company';
 import type { Employee } from '../models/Employee';
+import type { EmployeesPhoto } from '../models/EmployeesPhoto';
 import type { ExtendedCompany } from '../models/ExtendedCompany';
 import type { ExtendEmployee } from '../models/ExtendEmployee';
 import type { Forgot } from '../models/Forgot';
@@ -199,6 +200,28 @@ export class CompanyService {
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * id是Profile id
+     * @param id
+     * @param requestBody
+     * @returns any No response body
+     * @throws ApiError
+     */
+    public companyEmployeeUploadPhotoCreate(
+        id: number,
+        requestBody: EmployeesPhoto,
+    ): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/company/employee/{id}/upload_photo/',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/multi-part/form-data',
         });
     }
 
