@@ -9,6 +9,7 @@ import { DeleteCart, MinusRounded, PlusRounded } from '@/svg';
 import { OrderStatus } from '@/type';
 import { MIN_CART_QTY } from '@/util/constants';
 import { formatNumberByComma } from '@/util/helper';
+import isValidNumber from '@/util/isValidNumber';
 
 import Navbar from '../components/Navbar';
 
@@ -266,9 +267,8 @@ const CartItem = (props: CartItemIProps) => {
   const isCannotBuy = remaining_quantity === '0';
 
   const onQuantityAdjust = useCallback(
-    (value: number) => {
+    (newQty: number) => {
       if (isOffShelve) return;
-      const newQty = qty + value;
       if (newQty >= MIN_CART_QTY && newQty <= parseInt(remaining_quantity)) {
         setQty(newQty);
         updateCartItemQty(id, {
@@ -337,14 +337,20 @@ const CartItem = (props: CartItemIProps) => {
         </p>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.2" onClick={(e) => e.stopPropagation()}>
-            <MinusRounded onClick={() => onQuantityAdjust(-1)} />
+            <MinusRounded onClick={() => onQuantityAdjust(qty - 1)} />
             <input
               className="w-17 h-9 rounded-md border border-[#B3B4B4] bg-transparent text-right pr-3.5 text-bright-blue text-2xl leading-normal tracking-[0.695px] font-bold flex items-center justify-center"
               type="number"
               value={qty}
-              disabled
+              onChange={(e) => {
+                console.log(e.target.value);
+                if (isValidNumber(e.target.value)) {
+                  console.log('is valid number');
+                  onQuantityAdjust(parseInt(e.target.value));
+                }
+              }}
             />
-            <PlusRounded onClick={() => onQuantityAdjust(+1)} />
+            <PlusRounded onClick={() => onQuantityAdjust(qty + 1)} />
           </div>
           <p className="text-xl font-bold text-black whitespace-nowrap min-w-[120px] text-right">
             $ {formatNumberByComma(qty * price)}
