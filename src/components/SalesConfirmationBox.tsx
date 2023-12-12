@@ -202,13 +202,10 @@ const SalesConfirmationBox = (props: IProps) => {
         <Button
           className="!p-[10px] rounded-[10px] min-w-[175px] text-2xl font-bold bg-pale-yellow !text-navy-blue"
           onClick={async () => {
-            const isSuccess = await updateStockOnSale(
-              stockItem.carbon_credit,
-              Number(qty.toLocaleString()),
-              Number(price.toLocaleString()),
-              Number(minUnit.toLocaleString()),
-              productInfo
-            );
+            const _qty = Number(qty.toString().replace(/,/g, ''));
+            const _price = Number(price.toString().replace(/,/g, ''));
+            const _minUnit = Number(minUnit.toString().replace(/,/g, ''));
+            const isSuccess = await updateStockOnSale(stockItem.carbon_credit, _qty, _price, _minUnit, productInfo);
             if (isSuccess) onClose();
           }}
         >
