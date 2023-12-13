@@ -37,7 +37,7 @@ const NewProductDetails = () => {
             </h2>
             <div className="flex border border-white h-[145px] mt-3">
               <div className="border-r border-white h-full w-[20%] 3xl:w-[254px]"></div>
-              <div className="border-x border-white h-full w-[26%] 3xl:w-[338px]"></div>
+              <div className="border-x border-white h-full w-[26%] 3xl:w-[339px]"></div>
               <div className="border-x border-white h-full w-[31%] 3xl:w-[445px]"></div>
               <div className="border-l border-white h-full"></div>
             </div>
@@ -73,7 +73,7 @@ const ImgSlider = ({ images, location }: SliderIProps) => {
     afterChange: (currSlide: number) => setCurrentSlide(currSlide)
   };
   return (
-    <div className="relative w-[460px] h-[316px]">
+    <div className="relative h-[316px]">
       <div className="absolute z-20 left-0 bottom-8 right-0 gap-1.5 flex items-center pr-[30%] pl-6">
         <img src="/images/products/location-icon.svg" alt="location" className="w-[12px] h-[19px] object-contain" />
         <span className="text-white text-base font-bold">{location}</span>
@@ -95,8 +95,8 @@ const ImgSlider = ({ images, location }: SliderIProps) => {
       </div>
       <Slider {...settings} ref={sliderRef}>
         {images.map((image, index) => (
-          <div key={index} className="product-clip-path w-full h-[306px] bg-card-bg">
-            <img className="w-full h-full object-cover" src={image} alt="sacurn" />
+          <div key={index} className="product-clip-path bg-card-bg">
+            <img className="w-[658px] h-[316px] object-cover" src={image} alt="sacurn" />
           </div>
         ))}
       </Slider>
