@@ -55,7 +55,14 @@ const NewProductDetails = () => {
                   </div>
                 </div>
               </div>
-              <div className="border-x border-white h-full w-[26%] 3xl:w-[339px]"></div>
+              <div className="border-x border-white h-full w-[26%] 3xl:w-[339px]">
+                <div>
+                  <p className="text-lg font-bold leading-normal text-white mt-[13px] pl-6">Certification From</p>
+                  <div>
+                    <img src="/images/products/carbon-credit-icon.svg" alt="carbon credit icon" className="" />
+                  </div>
+                </div>
+              </div>
               <div className="border-x border-white h-full w-[31%] 3xl:w-[445px]"></div>
               <div className="border-l border-white h-full"></div>
             </div>
