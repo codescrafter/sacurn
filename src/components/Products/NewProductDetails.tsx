@@ -28,7 +28,21 @@ const NewProductDetails = () => {
         <Navbar />
       </div>
       <div className="px-5">
-        <ImgSlider images={imgsArray} location={carbonCredit?.location || ''} />
+        <div className="flex items-center gap-[50px]">
+          <ImgSlider images={imgsArray} location={carbonCredit?.location || ''} />
+          <div className="font-istok-web">
+            <h2 className="text-[30px] font-normal text-white leading-normal font-istok-web">
+              (VCS-985)Cordillera Azul REDD+ ProductCordillera Azul REDD+ Product (VCS-985)Cordillera Azul REDD+
+              ProductCordillera Azul REDD+ Product
+            </h2>
+            <div className="flex border border-white h-[145px] mt-3">
+              <div className="border-r border-white h-full w-[20%] 3xl:w-[254px]"></div>
+              <div className="border-x border-white h-full w-[26%] 3xl:w-[338px]"></div>
+              <div className="border-x border-white h-full w-[31%] 3xl:w-[445px]"></div>
+              <div className="border-l border-white h-full"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
