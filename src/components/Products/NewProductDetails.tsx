@@ -36,7 +36,25 @@ const NewProductDetails = () => {
               ProductCordillera Azul REDD+ Product
             </h2>
             <div className="flex border border-white h-[145px] mt-3">
-              <div className="border-r border-white h-full w-[20%] 3xl:w-[254px]"></div>
+              <div className="border-r border-white h-full w-[20%] 3xl:w-[254px]">
+                <div className="flex justify-center">
+                  <div className="w-[166px]">
+                    <p className="text-lg font-bold leading-normal text-white text-center mt-[13px]">
+                      Ratings Breakdown
+                    </p>
+                    <div className="flex gap-2 justify-between items-center mt-1">
+                      <p className="text-white text-sm font-bold leading-normal tracking-[0.98px]">Carbon Rating</p>
+                      <p className="text-pale-yellow text-[30px] font-bold leading-normal tracking-[2.153px]">A</p>
+                    </div>
+                    <div className="flex gap-2 justify-between items-center">
+                      <p className="text-white text-sm font-bold leading-normal tracking-[0.98px]">Co-benefit</p>
+                      <p className="text-pale-yellow text-[30px] font-bold leading-normal tracking-[2.153px]">
+                        4<span className="text-white text-[13px] font-bold leading-normal tracking-[0.904px]">/5</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="border-x border-white h-full w-[26%] 3xl:w-[339px]"></div>
               <div className="border-x border-white h-full w-[31%] 3xl:w-[445px]"></div>
               <div className="border-l border-white h-full"></div>
