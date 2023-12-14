@@ -34,7 +34,7 @@ const ProgressBarChart = () => {
           {/* left progress bar */}
           <div className="flex flex-col w-full pr-1 2xl:pr-6">
             <div className="flex items-center justify-between w-full">
-              <span className="text-silverstone text-xs 2xl:text-sm font-semibold">本期累積訂單</span>
+              <span className="text-silverstone text-xs 2xl:text-sm font-semibold">目前累積訂單</span>
               <img
                 src="/images/sales/report_icon.png"
                 width={33}
@@ -58,7 +58,7 @@ const ProgressBarChart = () => {
           {/* right progressbar */}
           <div className="flex flex-col w-full pl-1 2xl:pl-6">
             <div className="flex items-center justify-between w-full">
-              <span className="text-silverstone text-xs 2xl:text-sm font-semibold">本期累積消費</span>
+              <span className="text-silverstone text-xs 2xl:text-sm font-semibold">目前累積消費</span>
               <img
                 src="/images/sales/dollar_icon.png"
                 width={33}

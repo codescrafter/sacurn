@@ -23,9 +23,7 @@ const Login = () => {
   const navigate = useNavigate();
   const login = useUserStore((state) => state.login);
 
-  const { register, handleSubmit, formState } = useForm<LoginFormType>({ resolver: yupResolver(schema) });
-
-  console.log(formState);
+  const { register, handleSubmit } = useForm<LoginFormType>({ resolver: yupResolver(schema) });
 
   const onSubmit = handleSubmit(async (data) => {
     const result = await login(data);

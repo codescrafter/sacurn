@@ -17,6 +17,7 @@ import { usePriceListStore } from '@/store/priceList';
 import { FilledRadio, UnFilledRadio } from '@/svg';
 import { MIN_CART_QTY } from '@/util/constants';
 import { formatNumberByComma } from '@/util/helper';
+import isValidNumber from '@/util/isValidNumber';
 
 import Navbar from '../components/Navbar';
 
@@ -153,9 +154,7 @@ const PriceListItem = ({ item }: { item: Order }) => {
             type="text"
             value={qty}
             onChange={(e) => {
-              console.log(e.target.value);
-              // only accept number
-              if (/^\d+$/.test(e.target.value)) {
+              if (isValidNumber(e.target.value)) {
                 onQuantityAdjust(parseInt(e.target.value), item);
               }
             }}
