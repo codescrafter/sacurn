@@ -44,11 +44,11 @@ const Tile = ({
 
   const wishItem = wishList.find((wishItem) => wishItem.carbon_credit === id);
 
-  let linkToRedirect = `/new-product-details?type=green`;
+  let linkToRedirect = `/new-product-details/${id}?type=green`;
 
-  if (tag === CarbonTag.Green) linkToRedirect = `/new-product-details?type=green`;
-  if (tag === CarbonTag.Yellow) linkToRedirect = `/new-product-details?type=yellow`;
-  if (tag === CarbonTag.Blue) linkToRedirect = `/new-product-details?type=blue`;
+  if (tag === CarbonTag.Green) linkToRedirect = `/new-product-details/${id}?type=green`;
+  if (tag === CarbonTag.Yellow) linkToRedirect = `/new-product-details/${id}?type=yellow`;
+  if (tag === CarbonTag.Blue) linkToRedirect = `/new-product-details/${id}?type=blue`;
 
   return (
     <div className="bg-card-bg py-[20px] px-[24px] rounded-2xl flex justify-between items-center">

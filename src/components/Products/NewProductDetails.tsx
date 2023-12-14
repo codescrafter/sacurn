@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 
 import { useCarbonCreditStore } from '@/store/carbonCredit';
+import { useWishListStore } from '@/store/wishList';
 import { formatNumberByComma } from '@/util/helper';
 
 import Navbar from '../Navbar';
@@ -12,9 +13,26 @@ import ImgSlider from './ImgSlider';
 import NavigationTabs from './NavigationTabs';
 
 const NewProductDetails = () => {
+  const [idInWishlist, setIdInWishlist] = useState<number>(0);
+  const param = useParams();
   const carbonCredit = useCarbonCreditStore((state) => state.carbonCredit);
+  const getCarbonCredit = useCarbonCreditStore((state) => state.getCarbonCredit);
+  const addToWhishList = useWishListStore((store) => store.addToWhishList);
+  const deleteWishList = useWishListStore((store) => store.deleteWishList);
+  const wishList = useWishListStore((store) => store.wishList);
+  const getWishList = useWishListStore((store) => store.getWishList);
 
-  const [fvrtState, setFvrtState] = useState<boolean>(false);
+  useEffect(() => {
+    const idInWishlist = wishList.find((item) => param?.id && item.carbon_credit === +param?.id)?.id || 0;
+    setIdInWishlist(idInWishlist);
+  }, [wishList]);
+
+  useEffect(() => {
+    if (!param) return;
+    getCarbonCredit(Number(param.id));
+    getWishList();
+  }, []);
+
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const type = params.get('type');
@@ -85,7 +103,8 @@ const NewProductDetails = () => {
                   <p className="font-bold text-pale-yellow font-istok-web ml-3.5">
                     <span className="min-[1775px]:text-[19.2px] 2xl:text-base text-sm">TWD</span>
                     <span className="min-[1770px]:text-[43px] 2xl:text-[36px] text-[28px]">
-                      {formatNumberByComma(55500)}~{formatNumberByComma(55500)}
+                      {formatNumberByComma(carbonCredit?.min_price || '')}~
+                      {formatNumberByComma(carbonCredit?.max_price || '')}
                     </span>
                     <span className="text-[12.3px]">/Tonne</span>
                   </p>
@@ -94,22 +113,31 @@ const NewProductDetails = () => {
                 <div className="border-l border-white h-full pl-3.2 pt-3.2 flex min-w-[230px]">
                   <div className="flex flex-col gap-1.2 items-center relative">
                     <p className="min-[1775px]:text-lg 2xl:text-base font-bold font-istok-web text-white">
-                      Add to Wish List
+                      {idInWishlist > 0 ? 'Delete Wishlist' : 'Add to Wish List'}
                     </p>
 
                     <img
-                      src={fvrtState ? '/images/products/favor_add.svg' : '/images/products/favor_remove.svg'}
+                      src={idInWishlist > 0 ? '/images/products/favor_add.svg' : '/images/products/favor_remove.svg'}
                       alt="favourite-icon"
                       width={78}
                       height={69}
-                      onClick={() => setFvrtState(!fvrtState)}
+                      onClick={() =>
+                        idInWishlist > 0 ? deleteWishList(idInWishlist) : addToWhishList(carbonCredit?.id)
+                      }
                     />
                     <div className="absolute w-0.5 h-[26px] bg-white right-[-3px] top-12"></div>
                   </div>
 
                   <div className="flex flex-col gap-1.2 items-center ml-3">
                     <p className="min-[1775px]:text-lg 2xl:text-base font-bold font-istok-web text-white">Prices</p>
-                    <img src="/images/products/dollar.svg" alt="dollar-icon" width={77} height={77} />
+
+                    <img
+                      src="/images/products/dollar.svg"
+                      alt="dollar-icon"
+                      width={77}
+                      height={77}
+                      onClick={() => navigate(`/product-carbon/${carbonCredit?.id}`)}
+                    />
                   </div>
                 </div>
               </div>
