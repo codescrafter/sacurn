@@ -55,7 +55,7 @@ const StockItemBar = (props: StockItemProps) => {
         </div>
       </div>
     ),
-    [order]
+    [stockItem, order]
   );
 
   return (

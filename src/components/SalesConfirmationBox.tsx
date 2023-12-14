@@ -67,7 +67,7 @@ const SalesConfirmationBox = (props: IProps) => {
         </div>
       </div>
     ),
-    []
+    [stockItem, qty, price, minUnit]
   );
 
   return (
