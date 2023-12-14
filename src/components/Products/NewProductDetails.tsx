@@ -1,9 +1,8 @@
+import classNames from 'classnames';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useCarbonCreditStore } from '@/store/carbonCredit';
-import { useProductListStore } from '@/store/productList';
-import { CarbonTag } from '@/type';
 import { formatNumberByComma } from '@/util/helper';
 
 import Navbar from '../Navbar';
@@ -15,21 +14,28 @@ import NavigationTabs from './NavigationTabs';
 const NewProductDetails = () => {
   const carbonCredit = useCarbonCreditStore((state) => state.carbonCredit);
 
-  const selectedTag = useProductListStore((state) => state.filters.tag);
   const [fvrtState, setFvrtState] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get('type');
 
   let imgsArray = ['/images/products/green/detail1.png'];
-  if (selectedTag === CarbonTag.Green || selectedTag === CarbonTag.White) {
+  if (type === 'green' || !type) {
     imgsArray = ['/images/products/green/detail1.png'];
-  } else if (selectedTag === CarbonTag.Yellow) {
+  } else if (type === 'yellow') {
     imgsArray = ['/images/products/yellow/detail1.png'];
-  } else if (selectedTag === CarbonTag.Blue) {
+  } else if (type === 'blue') {
     imgsArray = ['/images/products/blue/detail1.svg'];
   }
-  const navigate = useNavigate();
 
   return (
-    <div className="bg-[url('../public/images/products/green/bg-green.png')] bg-no-repeat bg-cover bg-center h-screen min-h-[700px]">
+    <div
+      className={classNames('bg-no-repeat bg-cover bg-center h-screen min-h-[700px]', {
+        "bg-[url('../public/images/products/green/bg-green.png')]": type === 'green' || !type,
+        "bg-[url('../public/images/products/yellow/bg-yellow.png')]": type === 'yellow',
+        "bg-[url('../public/images/products/blue/bg-blue.png')]": type === 'blue'
+      })}
+    >
       <div className="py-4">
         <Navbar />
       </div>
