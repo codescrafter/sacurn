@@ -22,7 +22,7 @@ export const useProductListStore = create<ProductListState>((set, get) => ({
     vintage: undefined,
     price: undefined,
     desc: false,
-    tag: CarbonTag.Green,
+    tag: CarbonTag.White,
     page: undefined,
     sort_by: 'price'
   },
