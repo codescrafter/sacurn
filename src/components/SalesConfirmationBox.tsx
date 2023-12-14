@@ -79,12 +79,12 @@ const SalesConfirmationBox = (props: IProps) => {
         <span className="text-lg xl:text-xl text-black font-bold">{stockItem.vintage}</span>
       </div>
       <div className="flex items-center justify-between mt-6 xl:mt-[30px]">
-        <span className=" text-lg xl:text-xl font-normal text-dark-grey">單價</span>
+        <span className=" text-lg xl:text-xl font-normal text-dark-grey">平均單價</span>
         <span className="text-lg xl:text-xl text-black font-bold">${stockItem.price}</span>
       </div>
       {/* no of goods */}
       <div className="flex items-center justify-between mt-6 mb-5 xl:my-[30px]">
-        <span className=" text-lg xl:text-xl font-normal text-dark-grey">商品擁有數量</span>
+        <span className=" text-lg xl:text-xl font-normal text-dark-grey">持有數量</span>
         <span className="text-lg xl:text-xl text-black font-bold">
           {stockItem.quantity} <span className="font-normal tracking-[0.6px]">噸</span>
         </span>
