@@ -79,7 +79,7 @@ export const $Employee = {
         phone: {
             type: 'string',
             isNullable: true,
-            maxLength: 45,
+            format: 'uri',
         },
         status: {
             type: 'all-of',

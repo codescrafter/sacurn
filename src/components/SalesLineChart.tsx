@@ -135,7 +135,6 @@ const SalesLineChart = () => {
   useEffect(() => {
     getTrendData();
   }, []);
-  console.log('trendData', trendData);
 
   useEffect(() => {
     if (trendData?.series) {

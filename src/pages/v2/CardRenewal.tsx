@@ -21,8 +21,6 @@ const CardRenewal = () => {
     state.renewMemberRecord
   ]);
 
-  console.log('memberRecord', memberRecord);
-
   useEffect(() => {
     if (!memberRecord) getMemberRecord();
 

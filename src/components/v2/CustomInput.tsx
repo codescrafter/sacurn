@@ -21,8 +21,6 @@ const CustomInput = <TFormValues extends FieldValues>({
   className,
   errors
 }: CustomInputIProps<TFormValues>) => {
-  console.log('errors123', errors && errors[id]);
-  console.log('errorMessage', errors && errors[id]?.message);
   return (
     <div
       className={classNames(

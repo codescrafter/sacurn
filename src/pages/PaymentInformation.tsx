@@ -27,16 +27,18 @@ const PaymentInformation = () => {
     else setCartDetail(cloneDeep(originalCartDetail));
   }, []);
 
-  const cartDetailComponent = useMemo(
-    () => (
+  const cartDetailComponent = useMemo(() => {
+    return (
       <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
         <div>
-          <div className="flex justify-between mb-2.5">
-            <p className="border-l-[7px] border-pale-yellow pl-[20px] text-lg font-bold">商品共計</p>
-            <p className="text-lg font-bold pr-7 font-istok-web">
-              TWD {formatNumberByComma(cartDetail?.total_amount?.toString() as string)}
-            </p>
-          </div>
+          {cartDetail?.product_amount && (
+            <div className="flex justify-between mb-2.5">
+              <p className="border-l-[7px] border-pale-yellow pl-[20px] text-lg font-bold">商品共計</p>
+              <p className="text-lg font-bold pr-7 font-istok-web">
+                TWD {formatNumberByComma(cartDetail.product_amount.toString())}
+              </p>
+            </div>
+          )}
           <div className="px-7">
             <p className="text-grey text-sm font-bold mb-5 font-istok-web">3項(以下含稅金5%及手續費)</p>
             {cartDetail?.product_list?.map((product) => (
@@ -59,9 +61,8 @@ const PaymentInformation = () => {
           </div>
         </div>
       </div>
-    ),
-    [cartDetail]
-  );
+    );
+  }, [cartDetail]);
 
   const onCheckOut = useCallback(() => {
     open(ModalType.CheckOutConfirm, {
@@ -79,7 +80,7 @@ const PaymentInformation = () => {
         }
       ]
     });
-  }, []);
+  }, [cartDetailComponent]);
 
   return (
     <LightLayout>
