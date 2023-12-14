@@ -27,10 +27,7 @@ const PaymentInformation = () => {
     else setCartDetail(cloneDeep(originalCartDetail));
   }, []);
 
-  console.log('cartDetail', cartDetail);
-
   const cartDetailComponent = useMemo(() => {
-    console.log('xx', cartDetail);
     return (
       <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
         <div>

@@ -343,9 +343,7 @@ const CartItem = (props: CartItemIProps) => {
               type="number"
               value={qty}
               onChange={(e) => {
-                console.log(e.target.value);
                 if (isValidNumber(e.target.value)) {
-                  console.log('is valid number');
                   onQuantityAdjust(parseInt(e.target.value));
                 }
               }}
