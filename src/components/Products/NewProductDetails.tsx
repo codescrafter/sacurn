@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import { useCarbonCreditStore } from '@/store/carbonCredit';
 import { useProductListStore } from '@/store/productList';
@@ -25,6 +26,7 @@ const NewProductDetails = () => {
   } else if (selectedTag === CarbonTag.Blue) {
     imgsArray = ['/images/products/blue/detail1.svg'];
   }
+  const navigate = useNavigate();
 
   return (
     <div className="bg-[url('../public/images/products/green/bg-green.png')] bg-no-repeat bg-cover bg-center h-screen min-h-[700px]">
@@ -109,7 +111,10 @@ const NewProductDetails = () => {
           </div>
         </div>
 
-        <div className="xl:w-[217px] w-[180px] h-9.5 border border-[#A0ADB7] rounded-[10px] flex items-center justify-center gap-2.5 ml-auto shadow-[0px 1.788px 8.342px 0px rgba(0, 0, 0, 0.45), 0px 0px 10.726px 0px rgba(0, 84, 135, 0.20)] mr-4.2 my-2.5 hover:bg-[#dfdfdf41] cursor-pointer active:translate-y-0.5">
+        <div
+          className="xl:w-[217px] w-[180px] h-9.5 border border-[#A0ADB7] rounded-[10px] flex items-center justify-center gap-2.5 ml-auto shadow-[0px 1.788px 8.342px 0px rgba(0, 0, 0, 0.45), 0px 0px 10.726px 0px rgba(0, 84, 135, 0.20)] mr-4.2 my-2.5 hover:bg-[#dfdfdf41] cursor-pointer active:translate-y-0.5"
+          onClick={() => navigate(-1)}
+        >
           <p className="font-normal text-base text-white">Back</p>
           <img src="/images/products-page/back-icon.svg" alt="sacurn" width={23} height={16} />
         </div>
