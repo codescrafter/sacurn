@@ -44,6 +44,12 @@ const Tile = ({
 
   const wishItem = wishList.find((wishItem) => wishItem.carbon_credit === id);
 
+  let linkToRedirect = `/new-product-details/${id}?type=green`;
+
+  if (tag === CarbonTag.Green) linkToRedirect = `/new-product-details/${id}?type=green`;
+  if (tag === CarbonTag.Yellow) linkToRedirect = `/new-product-details/${id}?type=yellow`;
+  if (tag === CarbonTag.Blue) linkToRedirect = `/new-product-details/${id}?type=blue`;
+
   return (
     <div className="bg-card-bg py-[20px] px-[24px] rounded-2xl flex justify-between items-center">
       <div className="flex gap-5">
@@ -138,7 +144,7 @@ const Tile = ({
             )}
           </div>
         </div>
-        <Link to={`/product-detail/${id}`} className="w-full max-w-[152px]">
+        <Link to={linkToRedirect} className="w-full max-w-[152px]">
           <CustomButton variant="primary" className="w-full flex items-center gap-2 justify-center">
             details
             <img src="/images/products/green/arrow.svg" alt="arrow-right" className="ml-2" />
