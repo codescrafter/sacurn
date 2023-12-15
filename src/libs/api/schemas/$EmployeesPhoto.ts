@@ -1,0 +1,13 @@
+/* generated using openapi-typescript-codegen -- do no edit */
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+export const $EmployeesPhoto = {
+    properties: {
+        photo: {
+            type: 'string',
+            isRequired: true,
+            format: 'uri',
+        },
+    },
+} as const;

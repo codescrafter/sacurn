@@ -9,6 +9,7 @@ import { DeleteCart, MinusRounded, PlusRounded } from '@/svg';
 import { OrderStatus } from '@/type';
 import { MIN_CART_QTY } from '@/util/constants';
 import { formatNumberByComma } from '@/util/helper';
+import isValidNumber from '@/util/isValidNumber';
 
 import Navbar from '../components/Navbar';
 
@@ -102,7 +103,11 @@ const Cart = () => {
               <div className="flex flex-row justify-between pr-6.7">
                 <Heading>商品共計</Heading>
                 <p className="2xl:text-lg text-base text-black font-bold font-istok-web">
+<<<<<<< HEAD
                   TWD {formatNumberByComma(cartDetail?.total_amount?.toString() as string)}
+=======
+                  TWD {formatNumberByComma(cartDetail?.product_amount?.toString() as string)}
+>>>>>>> 34f34e584c41ea680d2a19ff2b13e1451c54b8d5
                 </p>
               </div>
               <div className="px-6.7 mt-2.5 ">
@@ -127,18 +132,32 @@ const Cart = () => {
                 <div className="flex flex-row justify-between 2xl:mb-5 mb-3">
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">手續費</p>
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">
+<<<<<<< HEAD
                     $ {formatNumberByComma(cartDetail?.total_amount?.toString() as string)}
+=======
+                    $ {formatNumberByComma(cartDetail?.cost?.toString() as string)}
+>>>>>>> 34f34e584c41ea680d2a19ff2b13e1451c54b8d5
                   </p>
                 </div>
                 <div className="flex flex-row justify-between 2xl:mb-6.2 mb-3">
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">稅金{taxPercentage}%</p>
                   <p className="text-grey 2xl:text-lg text-base font-bold font-istok-web">
+<<<<<<< HEAD
                     $ {formatNumberByComma((cartDetail?.tax?.toString() as string) || '0')}
+=======
+                    $ {formatNumberByComma(cartDetail?.tax?.toString() as string)}
+>>>>>>> 34f34e584c41ea680d2a19ff2b13e1451c54b8d5
                   </p>
                 </div>
                 <div className="flex flex-row justify-between">
                   <p className="2xl:text-lg text-base font-bold text-black">總付款金額</p>
+<<<<<<< HEAD
                   <p className="2xl:text-xl text-base text-bright-red font-bold">TWD {formatNumberByComma('220000')}</p>
+=======
+                  <p className="2xl:text-xl text-base text-bright-red font-bold">
+                    TWD {formatNumberByComma(cartDetail?.total_amount?.toString() as string)}
+                  </p>
+>>>>>>> 34f34e584c41ea680d2a19ff2b13e1451c54b8d5
                 </div>
               </div>
               <hr className="border-silverstone 2xl:mt-13.2 mt-4 2xl:mb-6 mb-4" />
@@ -264,9 +283,8 @@ const CartItem = (props: CartItemIProps) => {
   const isCannotBuy = remaining_quantity === '0';
 
   const onQuantityAdjust = useCallback(
-    (value: number) => {
+    (newQty: number) => {
       if (isOffShelve) return;
-      const newQty = qty + value;
       if (newQty >= MIN_CART_QTY && newQty <= parseInt(remaining_quantity)) {
         setQty(newQty);
         updateCartItemQty(id, {
@@ -335,14 +353,18 @@ const CartItem = (props: CartItemIProps) => {
         </p>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.2" onClick={(e) => e.stopPropagation()}>
-            <MinusRounded onClick={() => onQuantityAdjust(-1)} />
+            <MinusRounded onClick={() => onQuantityAdjust(qty - 1)} />
             <input
               className="w-17 h-9 rounded-md border border-[#B3B4B4] bg-transparent text-right pr-3.5 text-bright-blue text-2xl leading-normal tracking-[0.695px] font-bold flex items-center justify-center"
               type="number"
               value={qty}
-              disabled
+              onChange={(e) => {
+                if (isValidNumber(e.target.value)) {
+                  onQuantityAdjust(parseInt(e.target.value));
+                }
+              }}
             />
-            <PlusRounded onClick={() => onQuantityAdjust(+1)} />
+            <PlusRounded onClick={() => onQuantityAdjust(qty + 1)} />
           </div>
           <p className="text-xl font-bold text-black whitespace-nowrap min-w-[120px] text-right">
             $ {formatNumberByComma(qty * price)}

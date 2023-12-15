@@ -117,7 +117,7 @@ export const useCartStore = create<CartState>((set, get) => ({
   checkPassMinOrderThreshold: async () => {
     let isPass = false;
     const cartItemIdList = get().getSelectedCartIdList();
-    if (cartItemIdList.length > 0) {
+    if (cartItemIdList.length === 0) {
       isPass = false;
     } else {
       await runTask(async () => {

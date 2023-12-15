@@ -17,6 +17,7 @@ import WishList from '@/pages/Wishlist';
 
 import Modal from './components/Modal/UniversalModal';
 import ProductDetail from './components/ProductDetail';
+import NewProductDetails from './components/Products/NewProductDetails';
 import { ProtectedAuthRoute } from './components/ProtectedAuthRoute';
 import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRegisteredRoute';
 import PasswordRecoveryForm from './pages/PasswordRecoveryForm';
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />
+  },
+  {
+    path: '/new-product-details',
+    element: <NewProductDetails />
   },
   // routes for v2
   {
