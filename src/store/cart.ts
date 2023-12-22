@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { create } from 'zustand';
 
 import { CartDetailResonse, CartRequest, ExtendedCart, TransactionDetail } from '@/libs/api';
@@ -28,7 +29,8 @@ type CartState = {
   updateCartItemQty: (...args: Parameters<typeof apiClient.trade.tradeCartPartialUpdate>) => void;
   deleteCartItem: (id: number) => void;
   deleteSelectedCartItem: () => void;
-  checkOutCart: () => Promise<CheckoutResult>;
+  checkPassMinOrderThreshold: () => Promise<boolean>;
+  checkOutCart: (cartDetailUi: ReactNode) => Promise<CheckoutResult>;
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -103,24 +105,38 @@ export const useCartStore = create<CartState>((set, get) => ({
   },
   deleteSelectedCartItem: async () => {
     await runTask(async () => {
-      const cartItemIdList = get()
-        .cartList.filter((item) => item.selected)
-        .map((item) => item.id);
+      const cartItemIdList = get().getSelectedCartIdList();
       if (cartItemIdList.length === 0) return;
       await apiClient.trade.tradeCartBulkDeleteCreate({
-        cart_id_list: JSON.stringify(cartItemIdList)
+        cart_id_list: JSON.stringify(get().getSelectedCartIdList())
       });
       await get().getCartList();
       await get().getCartDetail();
     });
   },
-  checkOutCart: async () => {
+  checkPassMinOrderThreshold: async () => {
+    let isPass = false;
+    const cartItemIdList = get().getSelectedCartIdList();
+    if (cartItemIdList.length === 0) {
+      isPass = false;
+    } else {
+      await runTask(async () => {
+        const result = await apiClient.trade.tradeCartTotalAmountThrCheckCreate({
+          cart_id_list: JSON.stringify(cartItemIdList)
+        });
+        isPass = result.status;
+      });
+    }
+    return isPass;
+  },
+  checkOutCart: async (cartDetailUi) => {
     const result: CheckoutResult = {
       isSuccess: false,
       checkoutDetail: null
     };
     await runTask(async () => {
       result.isSuccess = await useCardStore.getState().checkMemberCard(
+        { title: '商品購買作業', component: cartDetailUi },
         async () => {
           return await apiClient.twid.twidGenPkcs7TbsOrderBuyCreate({
             cart_id_list: JSON.stringify(get().getSelectedCartIdList())

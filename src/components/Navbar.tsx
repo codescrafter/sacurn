@@ -21,7 +21,7 @@ const Navbar = ({ className }: IProps) => {
       })}
     >
       <Link to="/login">
-        <img src="/images/navbar/sacurn-logo.svg" width={192} height={39} alt="sacurn" />
+        <img src="/images/navbar/sacurn-logo.svg" width={213} height={43} alt="sacurn" />
       </Link>
       <div className="flex items-center">
         <nav>

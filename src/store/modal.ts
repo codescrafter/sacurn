@@ -1,8 +1,10 @@
-import { HttpStatusCode } from 'axios';
+import axios, { AxiosError, HttpStatusCode } from 'axios';
 import cookies from 'js-cookie';
 import { create } from 'zustand';
 
 import { UniversalModalProps } from '@/components/Modal/UniversalModal';
+import { ErrorType, SacurnExchangeError } from '@/error';
+import { ApiError } from '@/libs/api';
 import { UniversalModalStatus } from '@/types';
 
 import { COOKIE_AUTH_NAME } from './user';
@@ -14,7 +16,7 @@ type ModalState = {
   open: (type: ModalType, override?: Partial<UniversalModalProps>) => void;
   close: () => void;
   runTask: (
-    task: () => Promise<void | boolean>,
+    task: () => void,
     result?: { onComplete?: () => ModalType | void; onError?: (error: unknown) => void }
   ) => Promise<void>;
 };
@@ -26,6 +28,7 @@ export enum ModalType {
   FinishedApplyCertificate = 'FinishedApplyCertificate',
   MakeStockOnSale = 'MakeStockOnSale',
   MakeStockOffShelve = 'MakeStockOffShelve',
+  NotPassMinOrderThreshold = 'NotPassMinOrderThreshold',
   CheckOutConfirm = 'CheckOutConfirm',
   Error = 'Error',
   CompanyReviewing = 'CompanyReviewing',
@@ -108,6 +111,17 @@ const ModalDataRecord: Record<ModalType, UniversalModalProps> = {
       },
       {
         text: '確認停止交易'
+      }
+    ]
+  },
+  [ModalType.NotPassMinOrderThreshold]: {
+    status: UniversalModalStatus.Info,
+    icon: '/images/ic_error.svg',
+    title: '購物車金額不足',
+    description: '最低訂購金額NT$30,000 ',
+    buttons: [
+      {
+        text: '我知道了'
       }
     ]
   },
@@ -218,55 +232,63 @@ export const useModalStore = create<ModalState>((set, get) => ({
   runTask: async (task, result) => {
     try {
       get().open(ModalType.Loading);
-      const isNotAutoCloseModal = await task();
+      await task();
 
       const modalType = await result?.onComplete?.();
 
       if (modalType) {
         useModalStore.getState().open(modalType);
       } else {
-        if (!isNotAutoCloseModal) useModalStore.getState().close();
+        useModalStore.getState().close();
       }
     } catch (error) {
       console.error(error);
       await result?.onError?.(error);
 
-      const err1 = error as APIError;
+      console.dir(error);
 
-      if (err1.status === HttpStatusCode.Unauthorized) {
-        cookies.remove(COOKIE_AUTH_NAME);
-        window.location.href = `${window.location.origin}/login`;
-        return;
-      }
+      if (error instanceof ApiError) {
+        const apiError = error as ApiError;
 
-      if (err1?.body?.msg) {
+        if (apiError.status === HttpStatusCode.Unauthorized) {
+          cookies.remove(COOKIE_AUTH_NAME);
+          window.location.href = `${window.location.origin}/login`;
+          return;
+        }
+
         useModalStore.getState().open(ModalType.Error, {
-          errorText: err1?.body?.msg
+          errorText: apiError.body.msg
         });
         return;
       }
-      const err2 = error as Error;
+
+      if (error instanceof SacurnExchangeError) {
+        const sacurnExchangeError = error as SacurnExchangeError;
+
+        if (sacurnExchangeError.type === ErrorType.IGNORE_ERROR) {
+          return;
+        }
+
+        useModalStore.getState().open(ModalType.Error, {
+          errorText: `[${sacurnExchangeError.code}]${sacurnExchangeError.msg}`
+        });
+        return;
+      }
+
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        useModalStore.getState().open(ModalType.Error, {
+          errorText: axiosError.message
+        });
+        return;
+      }
+
+      const err = error as Error;
       useModalStore.getState().open(ModalType.Error, {
-        errorText: `[${err2.name}] ${err2.message}`
+        errorText: `[${err.name}] ${err.message}`
       });
     }
   }
 }));
 
 export const runTask = useModalStore.getState().runTask;
-
-type APIError = {
-  url: string;
-  status: number;
-  statusText: string;
-  body: {
-    msg: string;
-  };
-  request: {
-    method: string;
-    url: string;
-    body: Record<string, string>;
-    mediaType: string;
-  };
-  name: string;
-};

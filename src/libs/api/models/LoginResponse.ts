@@ -12,5 +12,6 @@ export type LoginResponse = {
     company?: number;
     company_status?: number;
     profile?: number;
+    groups?: Array<any>;
 };
 

@@ -137,8 +137,12 @@ const Layout = ({ children, variant }: IProps) => {
                 <div className="max-w-[380px] px-[15px]">
                   <p className="text-sm text-white font-bold">
                     目前累積訂單{' '}
-                    <b className="text-pale-yellow text-[32px] font-bold font-inter">{ordersInfo.order_count}</b>
-                    <b className="text-lg font-bold text-white">/{ordersInfo.upgrade?.orders || 0}</b>
+                    <b className="text-pale-yellow text-[32px] font-bold font-inter">
+                      {formatNumberByComma(ordersInfo.order_count?.toString() as string)}
+                    </b>
+                    <b className="text-lg font-bold text-white">
+                      /{formatNumberByComma((ordersInfo.upgrade?.orders?.toString() as string) || '0')}
+                    </b>
                   </p>
                   <RangeSlider value={(ordersInfo.order_count || 0 / ordersInfo.upgrade?.orders) * 100} />
                   <p className="text-sm font-normal text-white mt-4 min-[1400px]:mt-10">

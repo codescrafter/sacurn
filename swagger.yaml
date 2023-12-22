@@ -297,7 +297,6 @@ paths:
       - jwtAuth: []
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
-      - {}
       responses:
         '200':
           content:
@@ -320,7 +319,6 @@ paths:
       - jwtAuth: []
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
-      - {}
       responses:
         '200':
           content:
@@ -359,27 +357,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/CarbonCredit'
           description: ''
-  /carbon_credit/carbon_location/:
-    get:
-      operationId: carbon_credit_carbon_location_retrieve
-      tags:
-      - carbon_credit
-      security:
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-    post:
-      operationId: carbon_credit_carbon_location_create
-      tags:
-      - carbon_credit
-      security:
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
   /carbon_credit/certificate/:
     get:
       operationId: carbon_credit_certificate_retrieve
@@ -445,27 +422,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/FilterList'
           description: ''
-  /carbon_credit/location/:
-    get:
-      operationId: carbon_credit_location_retrieve
-      tags:
-      - carbon_credit
-      security:
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
-    post:
-      operationId: carbon_credit_location_create
-      tags:
-      - carbon_credit
-      security:
-      - jwtHeaderAuth: []
-      - jwtCookieAuth: []
-      responses:
-        '200':
-          description: No response body
   /carbon_credit/mail_certificate/:
     get:
       operationId: carbon_credit_mail_certificate_retrieve
@@ -848,6 +804,54 @@ paths:
       - jwtCookieAuth: []
       responses:
         '204':
+          description: No response body
+  /company/employee/{id}/upload_photo/:
+    post:
+      operationId: company_employee_upload_photo_create
+      description: id是Profile id
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - company
+      requestBody:
+        content:
+          application/multi-part/form-data:
+            schema:
+              $ref: '#/components/schemas/EmployeesPhoto'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /company/forgot_password/:
+    post:
+      operationId: company_forgot_password_create
+      tags:
+      - company
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forgot'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Forgot'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Forgot'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
           description: No response body
   /company/group/:
     get:
@@ -1265,7 +1269,6 @@ paths:
       - jwtAuth: []
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
-      - {}
       responses:
         '200':
           content:
@@ -2073,7 +2076,6 @@ paths:
       - jwtAuth: []
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
-      - {}
       responses:
         '200':
           content:
@@ -2112,7 +2114,6 @@ paths:
       - jwtAuth: []
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
-      - {}
       responses:
         '201':
           content:
@@ -2146,7 +2147,6 @@ paths:
       - jwtAuth: []
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
-      - {}
       responses:
         '200':
           content:
@@ -2168,7 +2168,6 @@ paths:
       - jwtAuth: []
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
-      - {}
       responses:
         '204':
           description: No response body
@@ -2195,6 +2194,33 @@ paths:
       responses:
         '204':
           description: No response body
+  /trade/cart/total_amount_thr_check/:
+    post:
+      operationId: trade_cart_total_amount_thr_check_create
+      tags:
+      - trade
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TotalAmountThrCheck'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TotalAmountThrCheck'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TotalAmountThrCheck'
+      security:
+      - jwtAuth: []
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TotalAmountThrCheckResp'
+          description: ''
   /trade/cart_detail/:
     post:
       operationId: trade_cart_detail_create
@@ -2490,7 +2516,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PayCallback'
+                $ref: '#/components/schemas/TransactionDetail'
           description: ''
   /trade/transaction_cancel/:
     post:
@@ -2508,6 +2534,11 @@ paths:
     get:
       operationId: trade_transaction_record_list
       parameters:
+      - in: query
+        name: action
+        schema:
+          type: string
+        description: '買單: 1 賣單: 0'
       - in: query
         name: download
         schema:
@@ -2550,6 +2581,11 @@ paths:
     post:
       operationId: trade_transaction_record_create
       parameters:
+      - in: query
+        name: action
+        schema:
+          type: string
+        description: '買單: 1 賣單: 0'
       - in: query
         name: download
         schema:
@@ -3403,8 +3439,8 @@ components:
           maxLength: 12
         phone:
           type: string
+          format: uri
           nullable: true
-          maxLength: 45
         status:
           allOf:
           - $ref: '#/components/schemas/Status1d2Enum'
@@ -3430,6 +3466,14 @@ components:
       - updated_at
       - user
       - username
+    EmployeesPhoto:
+      type: object
+      properties:
+        photo:
+          type: string
+          format: uri
+      required:
+      - photo
     ExtendCarbonCredit:
       type: object
       properties:
@@ -4203,6 +4247,12 @@ components:
           items:
             type: string
           default: []
+    Forgot:
+      type: object
+      properties:
+        email:
+          type: string
+          default: test@lychee.tw
     GenOrderBuy:
       type: object
       properties:
@@ -4316,6 +4366,11 @@ components:
         profile:
           type: integer
           default: 1
+        groups:
+          type: array
+          items: {}
+          default:
+          - 管理員
       required:
       - refresh
       - user
@@ -5322,6 +5377,9 @@ components:
     PatchedEmployeesPatch:
       type: object
       properties:
+        old_password:
+          type: string
+          default: test123456789
         password:
           type: string
           default: test123456
@@ -5949,6 +6007,19 @@ components:
           writeOnly: true
       required:
       - token
+    TotalAmountThrCheck:
+      type: object
+      properties:
+        cart_id_list:
+          type: string
+          default: '[1, 2, 3]'
+    TotalAmountThrCheckResp:
+      type: object
+      properties:
+        status:
+          type: boolean
+      required:
+      - status
     TransactionDetail:
       type: object
       properties:
@@ -5994,6 +6065,30 @@ components:
           format: date-time
           nullable: true
           title: 付款期限
+        pay_bank_name:
+          type: string
+          nullable: true
+          title: 銀行名稱
+          maxLength: 45
+        pay_bank_code:
+          type: string
+          nullable: true
+          title: 分行代碼
+          maxLength: 45
+        pay_bank_account:
+          type: string
+          nullable: true
+          title: 銀行帳號
+          maxLength: 45
+        pay_bank_account_image:
+          type: string
+          format: uri
+          nullable: true
+        pay_bank_date:
+          type: string
+          format: date-time
+          nullable: true
+          title: 匯款日期
         twid_record:
           type: integer
           nullable: true

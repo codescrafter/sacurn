@@ -23,7 +23,6 @@ const CardRevoked = () => {
   }, []);
 
   useEffect(() => {
-    console.log(cardDetails);
     if (cardDetails?.revoke === 0) {
       setCardRenewal(CardRevokedEnum.ANNULMENT);
       setCardReIssueList([CARD_REVOKED[0]]);

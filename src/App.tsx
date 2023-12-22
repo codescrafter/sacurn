@@ -17,6 +17,7 @@ import WishList from '@/pages/Wishlist';
 
 import Modal from './components/Modal/UniversalModal';
 import ProductDetail from './components/ProductDetail';
+import NewProductDetails from './components/Products/NewProductDetails';
 import { ProtectedAuthRoute } from './components/ProtectedAuthRoute';
 import { ProtectedCompanyRegisteredRoute } from './components/ProtectedCompanyRegisteredRoute';
 import PasswordRecoveryForm from './pages/PasswordRecoveryForm';
@@ -40,38 +41,96 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Login />
   },
+  {
+    path: '/new-product-details/:id',
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <NewProductDetails />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
+  },
   // routes for v2
   {
     path: '/v2',
-    element: <MemberCenter />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <MemberCenter />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/v2/operating-instruction',
-    element: <PlatformUsage />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <PlatformUsage />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/v2/enterprise-account',
-    element: <EnterpriseAccount />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <EnterpriseAccount />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/v2/card-renewal',
-    element: <CardRenewal />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <CardRenewal />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/v2/cart',
-    element: <CartV2 />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <CartV2 />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/v2/membership-upgrade',
-    element: <MembershipUpgrade />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <MembershipUpgrade />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/v2/card-reissue',
-    element: <CardReIssue />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <CardReIssue />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/v2/card-revoked',
-    element: <CardRevoked />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <CardRevoked />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/v2/account-information',
@@ -85,11 +144,23 @@ const router = createBrowserRouter([
   },
   {
     path: '/v2/profile-update/:id',
-    element: <MemberProfile />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <MemberProfile />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/v2/account-carbon-credit',
-    element: <AccountCredit />
+    element: (
+      <ProtectedAuthRoute>
+        <ProtectedCompanyRegisteredRoute>
+          <AccountCredit />
+        </ProtectedCompanyRegisteredRoute>
+      </ProtectedAuthRoute>
+    )
   },
   {
     path: '/',

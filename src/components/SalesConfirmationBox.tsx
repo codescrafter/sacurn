@@ -29,6 +29,47 @@ const SalesConfirmationBox = (props: IProps) => {
   const [minUnit, setMinUnit] = useState<number | string>(MIN_CART_QTY);
   const [isReadMore, setIsReadMore] = useState<boolean>(false);
 
+  const productInfo = useMemo(
+    () => (
+      <div className="border-2 border-bright-blue rounded-[10px] py-5  px-5">
+        <div>
+          <h1 className="text-base lg:text-2.5xl xl:text-3xl text-black font-bold">{stockItem.name}</h1>
+        </div>
+
+        <div className="pb-15">
+          <div>
+            <div className="flex justify-between pt-10 pb-15">
+              <div className="flex flex-col gap-4 text-dark-grey">
+                <p>Vintage</p>
+                <p>平均單價</p>
+                <p>持有數量</p>
+              </div>
+              <div className="flex flex-col gap-4 text-right text-xl font-bold text-black">
+                <p>{stockItem.vintage}</p>
+                <p>$ {stockItem.price}</p>
+                <p>{stockItem.quantity} 噸</p>
+              </div>
+            </div>
+            <hr className="border-silverstone" />
+            <div className="flex justify-between pt-10 pb-15">
+              <div className="flex flex-col gap-4 text-dark-grey">
+                <p>上架數量</p>
+                <p>每噸單價</p>
+                <p>最低下單量</p>
+              </div>
+              <div className="flex flex-col gap-4 text-right text-xl font-bold text-black">
+                <p>{qty} 噸</p>
+                <p>{price} 元</p>
+                <p>{minUnit} 噸</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    [stockItem, qty, price, minUnit]
+  );
+
   return (
     <div className="flex flex-col px-3 2xl:pl-[35px] 2xl:pr-[23px] py-5 2xl:pt-[33px] 2xl:pb-[26px] border-2 border-bright-blue bg-white rounded-[10px] shadow-sales-box">
       <h5 className="font-bold text-xl xl:text-[32]px text-black">{stockItem.name}</h5>
@@ -38,12 +79,12 @@ const SalesConfirmationBox = (props: IProps) => {
         <span className="text-lg xl:text-xl text-black font-bold">{stockItem.vintage}</span>
       </div>
       <div className="flex items-center justify-between mt-6 xl:mt-[30px]">
-        <span className=" text-lg xl:text-xl font-normal text-dark-grey">單價</span>
+        <span className=" text-lg xl:text-xl font-normal text-dark-grey">平均單價</span>
         <span className="text-lg xl:text-xl text-black font-bold">${stockItem.price}</span>
       </div>
       {/* no of goods */}
       <div className="flex items-center justify-between mt-6 mb-5 xl:my-[30px]">
-        <span className=" text-lg xl:text-xl font-normal text-dark-grey">商品擁有數量</span>
+        <span className=" text-lg xl:text-xl font-normal text-dark-grey">持有數量</span>
         <span className="text-lg xl:text-xl text-black font-bold">
           {stockItem.quantity} <span className="font-normal tracking-[0.6px]">噸</span>
         </span>
@@ -161,12 +202,10 @@ const SalesConfirmationBox = (props: IProps) => {
         <Button
           className="!p-[10px] rounded-[10px] min-w-[175px] text-2xl font-bold bg-pale-yellow !text-navy-blue"
           onClick={async () => {
-            const isSuccess = await updateStockOnSale(
-              stockItem.carbon_credit,
-              Number(qty.toLocaleString()),
-              Number(price.toLocaleString()),
-              Number(minUnit.toLocaleString())
-            );
+            const _qty = Number(qty.toString().replace(/,/g, ''));
+            const _price = Number(price.toString().replace(/,/g, ''));
+            const _minUnit = Number(minUnit.toString().replace(/,/g, ''));
+            const isSuccess = await updateStockOnSale(stockItem.carbon_credit, _qty, _price, _minUnit, productInfo);
             if (isSuccess) onClose();
           }}
         >

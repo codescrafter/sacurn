@@ -16,7 +16,7 @@ type MemebershipState = {
     endDate: string | null;
   };
   setRecordFilters: (filters: Partial<MemebershipState['recordFilters']>) => void;
-  getPointRecordList?: (...args: Parameters<typeof apiClient.member.memberPointRecordList>) => void;
+  getPointRecordList: (...args: Parameters<typeof apiClient.member.memberPointRecordList>) => void;
 };
 
 export const useMembershipStore = create<MemebershipState>((set, get) => ({

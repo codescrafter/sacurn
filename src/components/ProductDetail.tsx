@@ -17,6 +17,7 @@ import { usePriceListStore } from '@/store/priceList';
 import { FilledRadio, UnFilledRadio } from '@/svg';
 import { MIN_CART_QTY } from '@/util/constants';
 import { formatNumberByComma } from '@/util/helper';
+import isValidNumber from '@/util/isValidNumber';
 
 import Navbar from '../components/Navbar';
 
@@ -81,16 +82,19 @@ const ProductDetailList = ({ isSort, sortOption, setSortOption, setIsSort }: Pro
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-white border-b-2 border-light-grey">
             <tr>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px]">
+              <th
+                scope="col"
+                className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px] first:w-[50px] first:text-right"
+              >
                 單價
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
                 會員代號
               </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px] text-right">
                 可交易數量
               </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap text-right text-lg font-normal tracking-[0.51px]">
                 交易最小單位
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
@@ -114,8 +118,7 @@ const PriceListItem = ({ item }: { item: Order }) => {
   const company = useCompanyStore((state) => state.company);
 
   const onQuantityAdjust = useCallback(
-    (value: number, item: Order) => {
-      const newQty = qty + value;
+    (newQty: number, item: Order) => {
       const minQty = item.min_order_quantity || MIN_CART_QTY;
       if (newQty >= minQty && newQty <= parseInt(item.remaining_quantity)) {
         setQty(newQty);
@@ -132,28 +135,32 @@ const PriceListItem = ({ item }: { item: Order }) => {
         ${formatNumberByComma(item.price || '')}
       </th>
       <td className="px-6 py-4 whitespace-nowrap text-center">{item.company_code}</td>
-      <td className="px-6 py-4 whitespace-nowrap text-center">
+      <td className="px-6 py-4 whitespace-nowrap text-right">
         {formatNumberByComma(item.remaining_quantity || '')} 噸
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-center">
+      <td className="px-6 py-4 whitespace-nowrap text-right">
         {formatNumberByComma(item.min_order_quantity || '')} 噸
       </td>
       <td className="px-6 py-4 items-center whitespace-nowrap">
         <div className="flex justify-center items-center gap-1.5">
           <button
-            onClick={() => onQuantityAdjust(-1, item)}
+            onClick={() => onQuantityAdjust(qty - 1, item)}
             className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
           >
             <img src="/images/products-page/ic_minus.svg" className="mx-auto" alt="arrow-down" width={13} height={2} />
           </button>
           <input
             className="w-19 h-10 rounded-lg text-2xl bg-transparent text-pale-yellow font-normal text-center border-2 border-[#CBCBCB]"
-            type="number"
+            type="text"
             value={qty}
-            readOnly
+            onChange={(e) => {
+              if (isValidNumber(e.target.value)) {
+                onQuantityAdjust(parseInt(e.target.value), item);
+              }
+            }}
           />
           <button
-            onClick={() => onQuantityAdjust(+1, item)}
+            onClick={() => onQuantityAdjust(qty + 1, item)}
             className="w-7 h-7 rounded-full hover:bg-[#ffffff53] border-2 border-white"
           >
             <img src="/images/products-page/ic_plus.svg" className="mx-auto" alt="arrow-down" width={13} height={13} />

@@ -1,4 +1,5 @@
 import dateFormat from 'dateformat';
+import dayjs from 'dayjs';
 import _ from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import * as yup from 'yup';
@@ -7,6 +8,7 @@ import { BASE_URL } from '@/constant';
 import { OperationRecord } from '@/libs/api';
 import { useHistoryStore } from '@/store/history';
 import { TableBodyItem } from '@/types';
+import calcRange from '@/util/calcRange';
 
 import CustomSelect from '../components/CustomSelect';
 import CustomTable from '../components/CustomTable';
@@ -44,10 +46,6 @@ const OperationRecordPage = () => {
     state.getOperationHistoryList
   ]);
 
-  useEffect(() => {
-    getHistoryOptions();
-  }, []);
-
   const onSubmit = async (args: yup.InferType<typeof schema>) => {
     const newData = {
       ...data,
@@ -56,19 +54,30 @@ const OperationRecordPage = () => {
     setData(newData);
     const operationRecordList = await getOperationHistoryList(
       '0',
-      newData.keyword ? newData.keyword : undefined,
+      newData.keyword,
       newData.page,
-      newData.range ? newData.range : undefined,
-      newData.status ? newData.status : undefined,
-      newData.user ? newData.user : undefined
+      newData.range,
+      newData.status,
+      newData.user
     );
     setOperationRecordList(operationRecordList);
   };
 
+  useEffect(() => {
+    getHistoryOptions();
+
+    const startDate = dayjs().subtract(14, 'day').toDate();
+    const endDate = dayjs().toDate();
+    onSubmit({
+      range: calcRange(startDate, endDate)
+    });
+    setDateRange([startDate, endDate]);
+  }, []);
+
   const tableBody: TableBodyItem[] = useMemo(() => {
     return operationRecordList.map((record) => ({
       id: record.id,
-      time: dateFormat(record.created_at, 'yyyy/mm/dd HH:MM:SS'),
+      time: dateFormat(record.created_at, 'yyyy/mm/dd HH:MM:ss'),
       prodName: record.product_name || '-',
       operator: record.username,
       unitPrice: `$${record.price}` || '-',
@@ -97,10 +106,8 @@ const OperationRecordPage = () => {
                   endDate={endDate}
                   setDateRange={(dateList) => {
                     if (dateList[0] && dateList[1]) {
-                      const startDate = dateFormat(dateList[0], 'yyyy-mm-dd');
-                      const endDate = dateFormat(dateList[1], 'yyyy-mm-dd');
                       onSubmit({
-                        range: `${startDate},${endDate}`
+                        range: calcRange(dateList[0], dateList[1])
                       });
                     }
                     setDateRange(dateList);

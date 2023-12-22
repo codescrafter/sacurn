@@ -45,7 +45,7 @@ const CustomInput = <TFormValues extends FieldValues>({
         />
         <div className="relative w-full">
           {errors && errors[id] && (
-            <p className="min-[1500px]:text-xs min-[1200px]:text-xms text-xxs text-bright-red ml-4 absolute">
+            <p className="min-[1500px]:text-xs min-[1200px]:text-xms text-xxs text-bright-red ml-4">
               {errors[id]?.message}
             </p>
           )}

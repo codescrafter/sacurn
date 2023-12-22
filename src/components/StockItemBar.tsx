@@ -1,20 +1,62 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { Order } from '@/libs/api';
 import { ModalType, useModalStore } from '@/store/modal';
-import { useStockListStore } from '@/store/stockList';
+import { StockItem, useStockListStore } from '@/store/stockList';
 import { formatNumberByComma } from '@/util/helper';
 
 import Button from './Button';
 
 interface StockItemProps {
+  stockItem: StockItem;
   order: Order;
   number: number;
 }
 
-const StockItemBar = ({ order, number }: StockItemProps) => {
+const StockItemBar = (props: StockItemProps) => {
+  const { stockItem, order, number } = props;
   const open = useModalStore((state) => state.open);
   const updateStockOffShelve = useStockListStore((state) => state.updateStockOffShelve);
+
+  const productInfo = useMemo(
+    () => (
+      <div className="border-2 border-bright-blue rounded-[10px] py-5  px-5">
+        <div>
+          <h1 className="text-base lg:text-2.5xl xl:text-3xl text-black font-bold">{order.carbon_name}</h1>
+        </div>
+
+        <div className="pb-15">
+          <div>
+            <div className="flex justify-between pt-10 pb-15">
+              <div className="flex flex-col gap-4 text-dark-grey">
+                <p>Vintage</p>
+                <p>平均單價</p>
+                <p>持有數量</p>
+              </div>
+              <div className="flex flex-col gap-4 text-right text-xl font-bold text-black">
+                <p>{stockItem.quantity} 噸</p>
+                <p>$ {order.price}</p>
+                <p>{order.quantity} 噸</p>
+              </div>
+            </div>
+            <hr className="border-silverstone" />
+            <div className="flex justify-between pt-10 pb-15">
+              <div className="flex flex-col gap-4 text-dark-grey">
+                <p>下架數量</p>
+                <p>每噸單價</p>
+              </div>
+              <div className="flex flex-col gap-4 text-right text-xl font-bold text-black">
+                <p>{order.quantity} 噸</p>
+                <p>{order.price} 元</p>
+                <p>最低下單量 {order.min_order_quantity} 噸</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    [stockItem, order]
+  );
 
   return (
     <tr className="bg-light-gray dropdown-row h-[84px]">
@@ -57,7 +99,7 @@ const StockItemBar = ({ order, number }: StockItemProps) => {
                   {
                     text: '確認停止交易',
                     onClick: () => {
-                      updateStockOffShelve(order.id);
+                      updateStockOffShelve(order.id, productInfo);
                     }
                   }
                 ]

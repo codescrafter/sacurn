@@ -8,6 +8,7 @@ import TotalPayment from '@/components/TotalPayment';
 import { CartDetailResonse } from '@/libs/api';
 import { CheckoutResult, useCartStore } from '@/store/cart';
 import { ModalType, useModalStore } from '@/store/modal';
+import { formatNumberByComma } from '@/util/helper';
 
 const PaymentInformation = () => {
   const navigate = useNavigate();
@@ -22,10 +23,46 @@ const PaymentInformation = () => {
   const isCheckout = useMemo(() => checkoutDetail !== null, [checkoutDetail]);
 
   useEffect(() => {
-    console.log(originalCartDetail);
     if (!originalCartDetail) navigate('/cart');
     else setCartDetail(cloneDeep(originalCartDetail));
   }, []);
+
+  const cartDetailComponent = useMemo(() => {
+    return (
+      <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
+        <div>
+          {cartDetail?.product_amount && (
+            <div className="flex justify-between mb-2.5">
+              <p className="border-l-[7px] border-pale-yellow pl-[20px] text-lg font-bold">商品共計</p>
+              <p className="text-lg font-bold pr-7 font-istok-web">
+                TWD {formatNumberByComma(cartDetail.product_amount.toString())}
+              </p>
+            </div>
+          )}
+          <div className="px-7">
+            <p className="text-grey text-sm font-bold mb-5 font-istok-web">3項(以下含稅金5%及手續費)</p>
+            {cartDetail?.product_list?.map((product) => (
+              <TextRow
+                key={product.name}
+                title={product.name}
+                value={`$ ${formatNumberByComma(product.amount.toString())}`}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="px-7">
+          <TextRow title="手續費" value={`$ ${formatNumberByComma(cartDetail?.cost?.toString() as string)}`} />
+          <TextRow title="稅金5%" value={`$ ${formatNumberByComma(cartDetail?.tax?.toString() as string)}`} />
+          <div className="flex gap-4 justify-between">
+            <p className="text-lg font-bold text-black">總付款金額</p>
+            <p className="text-lg font-bold text-bright-red">
+              TWD {formatNumberByComma(cartDetail?.total_amount?.toString() as string)}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }, [cartDetail]);
 
   const onCheckOut = useCallback(() => {
     open(ModalType.CheckOutConfirm, {
@@ -37,13 +74,13 @@ const PaymentInformation = () => {
         {
           text: '確認結帳',
           onClick: async () => {
-            const result = await checkOutCart();
+            const result = await checkOutCart(cartDetailComponent);
             if (result.isSuccess) setCheckoutDetail(result.checkoutDetail);
           }
         }
       ]
     });
-  }, []);
+  }, [cartDetailComponent]);
 
   return (
     <LightLayout>
@@ -51,28 +88,7 @@ const PaymentInformation = () => {
         <h2 className="text-[28px] border-l-4 pl-2 text-navy-blue">付款資訊</h2>
         <div className="grid grid-cols-3 gap-6">
           {/* First col */}
-          <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
-            <div>
-              <div className="flex justify-between mb-2.5">
-                <p className="border-l-[7px] border-pale-yellow pl-[20px] text-lg font-bold">商品共計</p>
-                <p className="text-lg font-bold pr-7 font-istok-web">NT$ {cartDetail?.total_amount}</p>
-              </div>
-              <div className="px-7">
-                <p className="text-grey text-sm font-bold mb-5 font-istok-web">3項(以下含稅金5%及手續費)</p>
-                {cartDetail?.product_list?.map((product) => (
-                  <TextRow key={product.name} title={product.name} value={`$ ${product.amount}`} />
-                ))}
-              </div>
-            </div>
-            <div className="px-7">
-              <TextRow title="手續費" value={`$ ${cartDetail?.cost}`} />
-              <TextRow title="稅金5%" value={`$ ${cartDetail?.tax}`} />
-              <div className="flex gap-4 justify-between">
-                <p className="text-lg font-bold text-black">總付款金額</p>
-                <p className="text-lg font-bold text-bright-red">NT$ {cartDetail?.total_amount}</p>
-              </div>
-            </div>
-          </div>
+          {cartDetailComponent}
           {/* Second col */}
           <div className="box-shadow bg-white rounded-[10px] mt-5 h-[900px] xl:h-[800px] 2xl:h-[735px] flex flex-col justify-between py-5">
             <h4 className="text-xl font-bold text-navy-blue text-center font-istok-web">購買須知</h4>
