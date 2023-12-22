@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 
 import { useInventoryStore } from '@/store/inventory';
+import { useStockListStore } from '@/store/stockList';
 
 import Button from './Button';
 import GraphCard from './GraphCard';
@@ -14,6 +15,7 @@ const SalesAreaGraph = () => {
   const [activeButton, setActiveButton] = useState<number>(1);
   const getCategoriesData = useInventoryStore((state) => state.getCategoriesData);
   const categoriesData = useInventoryStore((state) => state.categoriesData);
+  const stockList = useStockListStore((store) => store.stockList);
 
   const handleButtonClick = (buttonIndex: number) => {
     setActiveButton(buttonIndex);
@@ -33,8 +35,11 @@ const SalesAreaGraph = () => {
       }
     },
     labels: labels,
-    colors: ['#FFD600', '#68A362', '#1D70BD'],
-
+    colors: stockList?.map((x) => {
+      if (x.carbon_tag === '藍碳') return '#1D70BD';
+      if (x.carbon_tag === '綠碳') return '#68A362';
+      if (x.carbon_tag === '黃碳') return '#FFD600';
+    }),
     chart: {
       selection: {
         enabled: false
