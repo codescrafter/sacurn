@@ -86,7 +86,7 @@ const ProductDetailList = ({ isSort, sortOption, setSortOption, setIsSort }: Pro
                 scope="col"
                 className="px-6 py-3 whitespace-nowrap text-lg font-normal tracking-[0.51px] first:w-[50px] first:text-right"
               >
-                單價
+                每噸單價
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap text-center text-lg font-normal tracking-[0.51px]">
                 會員代號

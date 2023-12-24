@@ -119,6 +119,7 @@ const NewProductDetails = () => {
                     <img
                       src={idInWishlist > 0 ? '/images/products/favor_add.svg' : '/images/products/favor_remove.svg'}
                       alt="favourite-icon"
+                      className="cursor-pointer"
                       width={78}
                       height={69}
                       onClick={() =>
@@ -134,6 +135,7 @@ const NewProductDetails = () => {
                     <img
                       src="/images/products/dollar.svg"
                       alt="dollar-icon"
+                      className="cursor-pointer"
                       width={77}
                       height={77}
                       onClick={() => navigate(`/product-carbon/${carbonCredit?.id}`)}
